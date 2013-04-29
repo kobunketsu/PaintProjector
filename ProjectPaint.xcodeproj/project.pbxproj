@@ -1,0 +1,1572 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0802A10016731BBA00AE0F23 /* PaintRefView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A0FF16731BBA00AE0F23 /* PaintRefView.m */; };
+		0802A72916592695000F82D6 /* ShowPaint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A72816592695000F82D6 /* ShowPaint.m */; };
+		0804E2F7163D910300D86624 /* BrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0804E2F6163D910200D86624 /* BrushView.m */; };
+		08072EBC1692BDFE00E49D2B /* BrushTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeView.m */; };
+		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
+		0808D9BE1644EC6F0000DF40 /* SelectColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */; };
+		0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CD164559870000DF40 /* InfColorBarPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CF164559870000DF40 /* InfColorIndicatorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D2164559870000DF40 /* InfColorPickerController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0808D9DD164559870000DF40 /* InfColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0808D9D3164559870000DF40 /* InfColorPickerView.xib */; };
+		0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D5164559870000DF40 /* InfColorSquarePicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D7164559870000DF40 /* InfHSBSupport.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0808D9E0164559870000DF40 /* InfSourceColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D9164559870000DF40 /* InfSourceColorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0809D4A816FDE13D00E13B8C /* sandClock.png in Resources */ = {isa = PBXBuildFile; fileRef = 0809D4A716FDE13D00E13B8C /* sandClock.png */; };
+		0809D4AD16FDE62300E13B8C /* sandClock1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0809D4AB16FDE62300E13B8C /* sandClock1.png */; };
+		0809D4AE16FDE62300E13B8C /* sandClock2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0809D4AC16FDE62300E13B8C /* sandClock2.png */; };
+		0809EA45164946E00061233D /* UndoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0809EA44164946DF0061233D /* UndoButton.m */; };
+		0809EA49164970D70061233D /* Heap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0809EA48164970D70061233D /* Heap.m */; };
+		080BD0D91645FDC000B37C01 /* SelectBrushButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0D81645FDC000B37C01 /* SelectBrushButton.m */; };
+		080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0DC164601B400B37C01 /* EyeDropper.m */; };
+		0817B380163C0E5100BD52B2 /* PhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B37F163C0E5100BD52B2 /* PhotoView.m */; };
+		0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B38F163C38ED00BD52B2 /* PaintScreen.m */; };
+		0817B393163C38ED00BD52B2 /* PaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B391163C38ED00BD52B2 /* PaintView.m */; };
+		081A228A16D8555C00F39468 /* TextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A228916D8555C00F39468 /* TextureManager.m */; };
+		081A2CE6163CC08A006EC27A /* PaintHelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A2CE5163CC08A006EC27A /* PaintHelpView.m */; };
+		081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A2CE7163CD7FE006EC27A /* QuartzCore.framework */; };
+		081A2CEB163CD9F8006EC27A /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A2CEA163CD9F8006EC27A /* Brush.m */; };
+		081A7566166F44B200AB345A /* LayerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A7565166F44B100AB345A /* LayerDelegate.m */; };
+		081B83EA16722E8B002866DC /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081B83E916722E8B002866DC /* GLKit.framework */; };
+		081F2A201636E18D00819BC6 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 081F2A1F1636E18D00819BC6 /* API.m */; };
+		0823AA5D16A6E44400CF499C /* ShaderUltility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823AA5C16A6E44400CF499C /* ShaderUltility.m */; };
+		0823E15016C13DE000F9C40A /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E14F16C13DE000F9C40A /* MainScreenViewController.m */; };
+		0823E15616C140CD00F9C40A /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E15516C140CC00F9C40A /* CommonData.m */; };
+		0823E15816C1452C00F9C40A /* File.m in Resources */ = {isa = PBXBuildFile; fileRef = 0823E15716C1452C00F9C40A /* File.m */; };
+		0823E15B16C14B5B00F9C40A /* MainScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E15A16C14B5A00F9C40A /* MainScreenView.m */; };
+		082439D616CC9BC300FC12BA /* Save.plist in Resources */ = {isa = PBXBuildFile; fileRef = 082439D516CC9BC300FC12BA /* Save.plist */; };
+		08243A0216CCAE2100FC12BA /* airBrushRadius16.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439D816CCAE2100FC12BA /* airBrushRadius16.png */; };
+		08243A0316CCAE2100FC12BA /* airBrushRadius16.tif in Resources */ = {isa = PBXBuildFile; fileRef = 082439D916CCAE2100FC12BA /* airBrushRadius16.tif */; };
+		08243A0416CCAE2100FC12BA /* blackboard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439DA16CCAE2100FC12BA /* blackboard.jpg */; };
+		08243A0516CCAE2100FC12BA /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439DB16CCAE2100FC12BA /* border.png */; };
+		08243A0616CCAE2100FC12BA /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439DC16CCAE2100FC12BA /* brush.png */; };
+		08243A0716CCAE2100FC12BA /* brush_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439DD16CCAE2100FC12BA /* brush_black.png */; };
+		08243A0816CCAE2100FC12BA /* brushRadius16.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439DE16CCAE2100FC12BA /* brushRadius16.png */; };
+		08243A0916CCAE2100FC12BA /* brushRadius2.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439DF16CCAE2100FC12BA /* brushRadius2.png */; };
+		08243A0A16CCAE2100FC12BA /* brushRadius4.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E016CCAE2100FC12BA /* brushRadius4.png */; };
+		08243A0B16CCAE2100FC12BA /* brushRadius8.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E116CCAE2100FC12BA /* brushRadius8.png */; };
+		08243A0C16CCAE2100FC12BA /* brushSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E216CCAE2100FC12BA /* brushSquare.png */; };
+		08243A0D16CCAE2100FC12BA /* camera_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E316CCAE2100FC12BA /* camera_48.png */; };
+		08243A0E16CCAE2100FC12BA /* chalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E416CCAE2100FC12BA /* chalk.png */; };
+		08243A0F16CCAE2100FC12BA /* chalkStroke.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E516CCAE2100FC12BA /* chalkStroke.png */; };
+		08243A1016CCAE2100FC12BA /* chalkStroke02.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E616CCAE2100FC12BA /* chalkStroke02.png */; };
+		08243A1116CCAE2100FC12BA /* check.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439E716CCAE2100FC12BA /* check.jpg */; };
+		08243A1216CCAE2100FC12BA /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E816CCAE2100FC12BA /* close.png */; };
+		08243A1316CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439E916CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg */; };
+		08243A1416CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439EA16CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg */; };
+		08243A1516CCAE2100FC12BA /* ConcreteFloors0100_i4S.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439EB16CCAE2100FC12BA /* ConcreteFloors0100_i4S.jpg */; };
+		08243A1616CCAE2100FC12BA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439EC16CCAE2100FC12BA /* Default.png */; };
+		08243A1716CCAE2100FC12BA /* eyedropper.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439ED16CCAE2100FC12BA /* eyedropper.png */; };
+		08243A1816CCAE2100FC12BA /* eyedropperSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439EE16CCAE2100FC12BA /* eyedropperSelected.png */; };
+		08243A1916CCAE2100FC12BA /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439EF16CCAE2100FC12BA /* finger.png */; };
+		08243A1A16CCAE2100FC12BA /* floorButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439F016CCAE2100FC12BA /* floorButton.jpg */; };
+		08243A1B16CCAE2100FC12BA /* FloorHerringbone0043_1_i4S.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439F116CCAE2100FC12BA /* FloorHerringbone0043_1_i4S.jpg */; };
+		08243A1C16CCAE2100FC12BA /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F216CCAE2100FC12BA /* open.png */; };
+		08243A1D16CCAE2100FC12BA /* paintButton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 082439F316CCAE2100FC12BA /* paintButton.jpg */; };
+		08243A1E16CCAE2100FC12BA /* Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F416CCAE2100FC12BA /* Particle.png */; };
+		08243A1F16CCAE2100FC12BA /* pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F516CCAE2100FC12BA /* pen.png */; };
+		08243A2016CCAE2100FC12BA /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F616CCAE2100FC12BA /* pencil.png */; };
+		08243A2116CCAE2100FC12BA /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F716CCAE2100FC12BA /* pin.png */; };
+		08243A2216CCAE2100FC12BA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F816CCAE2100FC12BA /* placeholder.png */; };
+		08243A2316CCAE2100FC12BA /* pointer-finger-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F916CCAE2100FC12BA /* pointer-finger-md.png */; };
+		08243A2416CCAE2100FC12BA /* redo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FA16CCAE2100FC12BA /* redo_48.png */; };
+		08243A2516CCAE2100FC12BA /* rubber.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FB16CCAE2100FC12BA /* rubber.png */; };
+		08243A2616CCAE2100FC12BA /* rubberBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FC16CCAE2100FC12BA /* rubberBrush.png */; };
+		08243A2716CCAE2100FC12BA /* rubberRadius16.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FD16CCAE2100FC12BA /* rubberRadius16.png */; };
+		08243A2816CCAE2100FC12BA /* rubberRadius162.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FE16CCAE2100FC12BA /* rubberRadius162.png */; };
+		08243A2916CCAE2100FC12BA /* starBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FF16CCAE2100FC12BA /* starBrush.png */; };
+		08243A2A16CCAE2100FC12BA /* undo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08243A0016CCAE2100FC12BA /* undo_48.png */; };
+		08243A3D16CCAE3100FC12BA /* ShaderProject.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A2D16CCAE3100FC12BA /* ShaderProject.fsh */; };
+		08243A3E16CCAE3100FC12BA /* ShaderProject.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A2E16CCAE3100FC12BA /* ShaderProject.vsh */; };
+		08243A3F16CCAE3100FC12BA /* ShaderBrush.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A2F16CCAE3100FC12BA /* ShaderBrush.fsh */; };
+		08243A4016CCAE3100FC12BA /* ShaderBrush.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3016CCAE3100FC12BA /* ShaderBrush.vsh */; };
+		08243A4116CCAE3100FC12BA /* ShaderCommonObject.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3116CCAE3100FC12BA /* ShaderCommonObject.fsh */; };
+		08243A4216CCAE3100FC12BA /* ShaderCommonObject.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3216CCAE3100FC12BA /* ShaderCommonObject.vsh */; };
+		08243A4316CCAE3100FC12BA /* ShaderFinger.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3316CCAE3100FC12BA /* ShaderFinger.fsh */; };
+		08243A4416CCAE3100FC12BA /* ShaderFinger.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3416CCAE3100FC12BA /* ShaderFinger.vsh */; };
+		08243A4516CCAE3100FC12BA /* ShaderPaintFrame.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3516CCAE3100FC12BA /* ShaderPaintFrame.fsh */; };
+		08243A4616CCAE3100FC12BA /* ShaderPaintFrame.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */; };
+		08243A4716CCAE3100FC12BA /* ShaderQuad.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */; };
+		08243A4816CCAE3100FC12BA /* ShaderQuad.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */; };
+		08243A4916CCAE3100FC12BA /* ShaderRubber.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */; };
+		08243A4A16CCAE3100FC12BA /* ShaderRubber.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */; };
+		08243A4B16CCAE3100FC12BA /* ShaderScene.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */; };
+		08243A4C16CCAE3100FC12BA /* ShaderScene.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */; };
+		08243A4E16CCAE4500FC12BA /* 3dStreetPainting in Resources */ = {isa = PBXBuildFile; fileRef = 08243A4D16CCAE4500FC12BA /* 3dStreetPainting */; };
+		08243A4F16CCAE5E00FC12BA /* ShaderProject.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A2D16CCAE3100FC12BA /* ShaderProject.fsh */; };
+		08243A5016CCAE5E00FC12BA /* ShaderProject.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A2E16CCAE3100FC12BA /* ShaderProject.vsh */; };
+		08243A5116CCAE5E00FC12BA /* ShaderBrush.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A2F16CCAE3100FC12BA /* ShaderBrush.fsh */; };
+		08243A5216CCAE5E00FC12BA /* ShaderBrush.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3016CCAE3100FC12BA /* ShaderBrush.vsh */; };
+		08243A5316CCAE5E00FC12BA /* ShaderCommonObject.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3116CCAE3100FC12BA /* ShaderCommonObject.fsh */; };
+		08243A5416CCAE5E00FC12BA /* ShaderCommonObject.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3216CCAE3100FC12BA /* ShaderCommonObject.vsh */; };
+		08243A5516CCAE5E00FC12BA /* ShaderFinger.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3316CCAE3100FC12BA /* ShaderFinger.fsh */; };
+		08243A5616CCAE5E00FC12BA /* ShaderFinger.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3416CCAE3100FC12BA /* ShaderFinger.vsh */; };
+		08243A5716CCAE5E00FC12BA /* ShaderPaintFrame.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3516CCAE3100FC12BA /* ShaderPaintFrame.fsh */; };
+		08243A5816CCAE5E00FC12BA /* ShaderPaintFrame.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */; };
+		08243A5916CCAE5E00FC12BA /* ShaderQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */; };
+		08243A5A16CCAE5E00FC12BA /* ShaderQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */; };
+		08243A5B16CCAE5E00FC12BA /* ShaderRubber.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */; };
+		08243A5C16CCAE5E00FC12BA /* ShaderRubber.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */; };
+		08243A5D16CCAE5E00FC12BA /* ShaderScene.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */; };
+		08243A5E16CCAE5E00FC12BA /* ShaderScene.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */; };
+		08258A0316F40E21005260BA /* ShaderQuadDebugAlpha.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */; };
+		08258A0416F40E21005260BA /* ShaderQuadDebugColor.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08258A0216F40E21005260BA /* ShaderQuadDebugColor.fsh */; };
+		08258A0516F40F7A005260BA /* ShaderQuadDebugAlpha.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */; };
+		08258A0616F40F7A005260BA /* ShaderQuadDebugColor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08258A0216F40E21005260BA /* ShaderQuadDebugColor.fsh */; };
+		0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */; };
+		0829C01F168349F80009CD1C /* ImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ImageStack.m */; };
+		082A92091647FA97001EF659 /* UndoGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 082A92081647FA97001EF659 /* UndoGestureRecognizer.m */; };
+		082CD49E16BD45BF00F18E6F /* AdjustSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082CD49D16BD45BF00F18E6F /* AdjustSceneViewController.m */; };
+		082DF31816A166AB007656AA /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31716A166AA007656AA /* ColorPickerView.m */; };
+		082DF31B16A1A647007656AA /* Chalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* Chalk.m */; };
+		082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
+		0830455E166B454100E8E35C /* SelectLayerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0830455D166B454100E8E35C /* SelectLayerContentViewController.m */; };
+		08304561166B46EC00E8E35C /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08304560166B46EC00E8E35C /* ImageView.m */; };
+		08340A0E16F6801600D8D7DB /* ShaderLine.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08340A0C16F6801600D8D7DB /* ShaderLine.fsh */; };
+		08340A0F16F6801600D8D7DB /* ShaderLine.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08340A0D16F6801600D8D7DB /* ShaderLine.vsh */; };
+		08340A1216F6803B00D8D7DB /* ShaderLine.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08340A0C16F6801600D8D7DB /* ShaderLine.fsh */; };
+		08340A1316F6803B00D8D7DB /* ShaderLine.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08340A0D16F6801600D8D7DB /* ShaderLine.vsh */; };
+		0836DFAC16C296F500988AB0 /* PaintFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0836DFAB16C296F500988AB0 /* PaintFrame.m */; };
+		083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */; };
+		083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E0167768A400050793 /* ImageIO.framework */; };
+		083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E216776CAF00050793 /* MobileCoreServices.framework */; };
+		083DD3EF1677787000050793 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C5D5B1503722E000A19FD /* Storyboard.storyboard */; };
+		084003581706830500CB952C /* MovableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 084003571706830500CB952C /* MovableObject.m */; };
+		08402CB41701E1F000DE952A /* PaintData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08402CB31701E1F000DE952A /* PaintData.m */; };
+		0843A656171061FB004806C5 /* checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0843A655171061FA004806C5 /* checkBox.png */; };
+		0847472116D2615900772015 /* PaintFrameGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847472016D2615900772015 /* PaintFrameGroup.m */; };
+		0848D555171D94AB00B7740C /* ShaderPaintLayerBlendModeColor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B092171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh */; };
+		0848D556171D94AB00B7740C /* ShaderPaintLayerBlendModeColorBurn.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B093171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh */; };
+		0848D557171D94AB00B7740C /* ShaderPaintLayerBlendModeColorDodge.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B094171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh */; };
+		0848D558171D94AB00B7740C /* ShaderPaintLayerBlendModeDarken.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B095171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh */; };
+		0848D559171D94AB00B7740C /* ShaderPaintLayerBlendModeDifference.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B096171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh */; };
+		0848D55A171D94AB00B7740C /* ShaderPaintLayerBlendModeExclusion.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B097171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh */; };
+		0848D55B171D94AB00B7740C /* ShaderPaintLayerBlendModeHardLight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B098171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh */; };
+		0848D55C171D94AB00B7740C /* ShaderPaintLayerBlendModeHue.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B099171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh */; };
+		0848D55D171D94AB00B7740C /* ShaderPaintLayerBlendModeLighten.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09A171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh */; };
+		0848D55E171D94AB00B7740C /* ShaderPaintLayerBlendModeLuminosity.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09B171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh */; };
+		0848D55F171D94AB00B7740C /* ShaderPaintLayerBlendModeMultiply.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09C171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh */; };
+		0848D560171D94AB00B7740C /* ShaderPaintLayerBlendModeOverlay.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09D171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh */; };
+		0848D561171D94AB00B7740C /* ShaderPaintLayerBlendModeSaturation.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */; };
+		0848D562171D94AB00B7740C /* ShaderPaintLayerBlendModeScreen.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */; };
+		0848D563171D94AB00B7740C /* ShaderPaintLayerBlendModeSoftLight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */; };
+		084D5405170338A60052F510 /* PaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* PaintDoc.m */; };
+		084D540A17033C270052F510 /* PaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* PaintDocManager.m */; };
+		08524B3A16F36C22000B8020 /* ShaderQuadDebug.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */; };
+		08524B3E16F36DC6000B8020 /* ShaderQuadDebug.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */; };
+		0857779916C62DC80040B152 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* Camera.m */; };
+		085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */; };
+		085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */; };
+		0862E373167F60E300ECEAC9 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */; };
+		0868B1FC1729954700BF4688 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B1FB1729954700BF4688 /* FacebookSDK.framework */; };
+		0868B1FE1729959300BF4688 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0868B1FD1729959300BF4688 /* FacebookSDKResources.bundle */; };
+		0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B1FF172995EB00BF4688 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0868B204172995EB00BF4688 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B200172995EB00BF4688 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B201172995EB00BF4688 /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0868B206172995EB00BF4688 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B202172995EB00BF4688 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		086F8EDE1728AE2F0024289C /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ExportViewController.m */; };
+		087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */; };
+		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
+		08966ECA166082E600339901 /* CalculateRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966EC9166082E600339901 /* CalculateRunTime.m */; };
+		08966F151660CA2700339901 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F101660C9E400339901 /* libGPUImage.a */; };
+		08966F171660CA4A00339901 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F161660CA4A00339901 /* CoreMedia.framework */; };
+		08966F191660CA5800339901 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F181660CA5800339901 /* CoreVideo.framework */; };
+		08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F1A1660CA6100339901 /* OpenGLES.framework */; };
+		08966F1D1660CA6700339901 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F1C1660CA6700339901 /* AVFoundation.framework */; };
+		08966F201660CBBF00339901 /* ShowPaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966F1F1660CBBF00339901 /* ShowPaintViewController.m */; };
+		089743CF1722938C0085113C /* layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 089743CE1722938C0085113C /* layer.png */; };
+		089743D3172293F00085113C /* blendMode.png in Resources */ = {isa = PBXBuildFile; fileRef = 089743D2172293F00085113C /* blendMode.png */; };
+		089743D6172296990085113C /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 089743D5172296990085113C /* ImportViewController.m */; };
+		0899ACE416F488D100EDCBFE /* PaintProjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACE316F488D100EDCBFE /* PaintProjectView.m */; };
+		0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */; };
+		0899ACEC16F495F800EDCBFE /* ShaderPaintProject.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */; };
+		0899ACED16F495F800EDCBFE /* ShaderPaintProject.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACEB16F495F800EDCBFE /* ShaderPaintProject.vsh */; };
+		0899ACEE16F4960A00EDCBFE /* ShaderPaintProject.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */; };
+		0899ACEF16F4960A00EDCBFE /* ShaderPaintProject.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0899ACEB16F495F800EDCBFE /* ShaderPaintProject.vsh */; };
+		089CEF1016BE58B200216099 /* AdjustImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 089CEF0F16BE58B000216099 /* AdjustImageViewController.m */; };
+		089FC3FF171AD1F60018CE27 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 089FC3FE171AD1F60018CE27 /* delete.png */; };
+		089FC404171AD48E0018CE27 /* viewButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 089FC402171AD48E0018CE27 /* viewButton.png */; };
+		089FC405171AD48E0018CE27 /* viewButtonDisable.png in Resources */ = {isa = PBXBuildFile; fileRef = 089FC403171AD48E0018CE27 /* viewButtonDisable.png */; };
+		089FC408171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 089FC406171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh */; };
+		089FC40A171AF1420018CE27 /* ShaderPaintLayerBlendModeNormal.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 089FC406171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh */; };
+		08A1B0A1171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B092171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh */; };
+		08A1B0A2171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B093171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh */; };
+		08A1B0A3171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B094171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh */; };
+		08A1B0A4171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B095171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh */; };
+		08A1B0A5171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B096171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh */; };
+		08A1B0A6171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B097171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh */; };
+		08A1B0A7171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B098171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh */; };
+		08A1B0A8171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B099171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh */; };
+		08A1B0A9171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09A171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh */; };
+		08A1B0AA171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09B171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh */; };
+		08A1B0AB171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09C171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh */; };
+		08A1B0AC171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09D171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh */; };
+		08A1B0AD171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */; };
+		08A1B0AE171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */; };
+		08A1B0AF171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */; };
+		08A4C99F1689EC8400002625 /* PaintOperationStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4C99E1689EC8400002625 /* PaintOperationStack.m */; };
+		08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
+		08A932D016FEAD2600A75938 /* Export.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A932CF16FEAD2600A75938 /* Export.m */; };
+		08B24FED170EC0E7007CA9D2 /* PaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEC170EC0E7007CA9D2 /* PaintLayer.m */; };
+		08B24FF0170ECA6E007CA9D2 /* PaintLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */; };
+		08E19498167CCF9700D8ADAF /* ShowPaintOnPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */; };
+		08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F9B517164C0691001B3D3D /* BrushToolBar.m */; };
+		08FC335316359D4B007DCE83 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334116359D4B007DCE83 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335416359D4B007DCE83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334316359D4B007DCE83 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335516359D4B007DCE83 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334516359D4B007DCE83 /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335616359D4B007DCE83 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334716359D4B007DCE83 /* AFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335716359D4B007DCE83 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334916359D4B007DCE83 /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335816359D4B007DCE83 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334C16359D4B007DCE83 /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335916359D4B007DCE83 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334E16359D4B007DCE83 /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		08FC335A16359D4B007DCE83 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC335016359D4B007DCE83 /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FC335B16359D4B007DCE83 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC335216359D4B007DCE83 /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08FD1F99164DF509003738FC /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
+		08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */; };
+		08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8BC16513BB2008F35E8 /* Pencil.m */; };
+		08FDC8C1165157EB008F35E8 /* Rubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8C0165157EA008F35E8 /* Rubber.m */; };
+		08FDC8C416515829008F35E8 /* Pen.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8C316515829008F35E8 /* Pen.m */; };
+		9483A663165F3DB100EE56AD /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9483A662165F3DB100EE56AD /* CoreMotion.framework */; };
+		949066081684000A00AF072C /* Ultility.m in Sources */ = {isa = PBXBuildFile; fileRef = 949066071684000A00AF072C /* Ultility.m */; };
+		9490660B168412B700AF072C /* PNGImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9490660A168412B600AF072C /* PNGImageStack.m */; };
+		94926EBE17193375008C645A /* LayerManagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94926EBD17193374008C645A /* LayerManagerView.m */; };
+		94997B8116819D13006E3661 /* PaintingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94997B8016819D13006E3661 /* PaintingView.m */; };
+		949B368916896D3C00D3D5D2 /* PaintOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 949B368816896D3C00D3D5D2 /* PaintOperation.m */; };
+		9C21AF1714E4579F00DB003E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1614E4579F00DB003E /* UIKit.framework */; };
+		9C21AF1914E4579F00DB003E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1814E4579F00DB003E /* Foundation.framework */; };
+		9C21AF1B14E4579F00DB003E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1A14E4579F00DB003E /* CoreGraphics.framework */; };
+		9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9C21AF1F14E4579F00DB003E /* InfoPlist.strings */; };
+		9C21AF2314E4579F00DB003E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF2214E4579F00DB003E /* main.m */; };
+		9C21AF2714E4579F00DB003E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF2614E4579F00DB003E /* AppDelegate.m */; };
+		9C21AF5E14E4581900DB003E /* PhotoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF5C14E4581900DB003E /* PhotoScreen.m */; };
+		9C21AF6114E4596F00DB003E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF6014E4596F00DB003E /* CFNetwork.framework */; };
+		9C21AF6514E459CC00DB003E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF6414E459CC00DB003E /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9C21AF6B14E45AAB00DB003E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF6A14E45AAB00DB003E /* AssetsLibrary.framework */; };
+		9C21AF7D14E4625700DB003E /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF7B14E4625700DB003E /* LoginScreen.m */; };
+		9C21AF8114E4642000DB003E /* UIAlertView+error.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF8014E4642000DB003E /* UIAlertView+error.m */; };
+		9C427B0E14FA4DBA00C708B8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */; };
+		9C60DA8614E5316A00442413 /* StreamScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C60DA8414E5316A00442413 /* StreamScreen.m */; };
+		9C60DA8914E53C7100442413 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C60DA8814E53C7100442413 /* CoreImage.framework */; };
+		9C9C950814E56EA100AA9BC3 /* StreamPhotoScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9C950614E56EA100AA9BC3 /* StreamPhotoScreen.m */; };
+		9CFE0B9814E5B12B00408F86 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE0B9314E5B12B00408F86 /* UIImage+Alpha.m */; };
+		9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE0B9514E5B12B00408F86 /* UIImage+Resize.m */; };
+		9CFE0B9A14E5B12B00408F86 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE0B9714E5B12B00408F86 /* UIImage+RoundedCorner.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		08966F0F1660C9E400339901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		08966F111660C9E400339901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
+			remoteInfo = GPUImageTests;
+		};
+		08966F131660CA0200339901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0802A0FE16731BBA00AE0F23 /* PaintRefView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintRefView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0802A0FF16731BBA00AE0F23 /* PaintRefView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintRefView.m; sourceTree = "<group>"; };
+		0802A72716592695000F82D6 /* ShowPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaint.h; sourceTree = "<group>"; };
+		0802A72816592695000F82D6 /* ShowPaint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaint.m; sourceTree = "<group>"; };
+		0804E2F5163D910200D86624 /* BrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushView.h; sourceTree = "<group>"; };
+		0804E2F6163D910200D86624 /* BrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushView.m; sourceTree = "<group>"; };
+		08072EBA1692BDFD00E49D2B /* BrushTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeView.h; sourceTree = "<group>"; };
+		08072EBB1692BDFD00E49D2B /* BrushTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeView.m; sourceTree = "<group>"; };
+		08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeButton.h; sourceTree = "<group>"; };
+		08072EBE1692FD5000E49D2B /* BrushTypeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeButton.m; sourceTree = "<group>"; };
+		0808D9BC1644EC6F0000DF40 /* SelectColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectColorButton.h; sourceTree = "<group>"; };
+		0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectColorButton.m; sourceTree = "<group>"; };
+		0808D9CC164559870000DF40 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
+		0808D9CD164559870000DF40 /* InfColorBarPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorBarPicker.m; sourceTree = "<group>"; };
+		0808D9CE164559870000DF40 /* InfColorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorIndicatorView.h; sourceTree = "<group>"; };
+		0808D9CF164559870000DF40 /* InfColorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorIndicatorView.m; sourceTree = "<group>"; };
+		0808D9D0164559870000DF40 /* InfColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPicker.h; sourceTree = "<group>"; };
+		0808D9D1164559870000DF40 /* InfColorPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorPickerController.h; sourceTree = "<group>"; };
+		0808D9D2164559870000DF40 /* InfColorPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorPickerController.m; sourceTree = "<group>"; };
+		0808D9D3164559870000DF40 /* InfColorPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfColorPickerView.xib; sourceTree = "<group>"; };
+		0808D9D4164559870000DF40 /* InfColorSquarePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorSquarePicker.h; sourceTree = "<group>"; };
+		0808D9D5164559870000DF40 /* InfColorSquarePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorSquarePicker.m; sourceTree = "<group>"; };
+		0808D9D6164559870000DF40 /* InfHSBSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfHSBSupport.h; sourceTree = "<group>"; };
+		0808D9D7164559870000DF40 /* InfHSBSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfHSBSupport.m; sourceTree = "<group>"; };
+		0808D9D8164559870000DF40 /* InfSourceColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfSourceColorView.h; sourceTree = "<group>"; };
+		0808D9D9164559870000DF40 /* InfSourceColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfSourceColorView.m; sourceTree = "<group>"; };
+		0809D4A716FDE13D00E13B8C /* sandClock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sandClock.png; sourceTree = "<group>"; };
+		0809D4AB16FDE62300E13B8C /* sandClock1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sandClock1.png; sourceTree = "<group>"; };
+		0809D4AC16FDE62300E13B8C /* sandClock2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sandClock2.png; sourceTree = "<group>"; };
+		0809EA43164946DF0061233D /* UndoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UndoButton.h; sourceTree = "<group>"; };
+		0809EA44164946DF0061233D /* UndoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UndoButton.m; sourceTree = "<group>"; };
+		0809EA47164970D60061233D /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
+		0809EA48164970D70061233D /* Heap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Heap.m; sourceTree = "<group>"; };
+		080BD0D71645FDC000B37C01 /* SelectBrushButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBrushButton.h; sourceTree = "<group>"; };
+		080BD0D81645FDC000B37C01 /* SelectBrushButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectBrushButton.m; sourceTree = "<group>"; };
+		080BD0DB164601B400B37C01 /* EyeDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropper.h; sourceTree = "<group>"; };
+		080BD0DC164601B400B37C01 /* EyeDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropper.m; sourceTree = "<group>"; };
+		0817B37E163C0E5100BD52B2 /* PhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoView.h; sourceTree = "<group>"; };
+		0817B37F163C0E5100BD52B2 /* PhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoView.m; sourceTree = "<group>"; };
+		0817B38E163C38ED00BD52B2 /* PaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		0817B38F163C38ED00BD52B2 /* PaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0817B390163C38ED00BD52B2 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintView.h; sourceTree = "<group>"; };
+		0817B391163C38ED00BD52B2 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		081A228816D8555C00F39468 /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
+		081A228916D8555C00F39468 /* TextureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureManager.m; sourceTree = "<group>"; };
+		081A2CE4163CC08A006EC27A /* PaintHelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintHelpView.h; sourceTree = "<group>"; };
+		081A2CE5163CC08A006EC27A /* PaintHelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintHelpView.m; sourceTree = "<group>"; };
+		081A2CE7163CD7FE006EC27A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		081A2CE9163CD9F8006EC27A /* Brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brush.h; sourceTree = "<group>"; };
+		081A2CEA163CD9F8006EC27A /* Brush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brush.m; sourceTree = "<group>"; };
+		081A7564166F44B100AB345A /* LayerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerDelegate.h; sourceTree = "<group>"; };
+		081A7565166F44B100AB345A /* LayerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerDelegate.m; sourceTree = "<group>"; };
+		081B83E916722E8B002866DC /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		081F2A1E1636E18D00819BC6 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		081F2A1F1636E18D00819BC6 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
+		0823AA5B16A6E44400CF499C /* ShaderUltility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderUltility.h; sourceTree = "<group>"; };
+		0823AA5C16A6E44400CF499C /* ShaderUltility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderUltility.m; sourceTree = "<group>"; };
+		0823E14E16C13DE000F9C40A /* MainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
+		0823E14F16C13DE000F9C40A /* MainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenViewController.m; sourceTree = "<group>"; };
+		0823E15416C140CC00F9C40A /* CommonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonData.h; sourceTree = "<group>"; };
+		0823E15516C140CC00F9C40A /* CommonData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonData.m; sourceTree = "<group>"; };
+		0823E15716C1452C00F9C40A /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
+		0823E15916C14B5900F9C40A /* MainScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenView.h; sourceTree = "<group>"; };
+		0823E15A16C14B5A00F9C40A /* MainScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenView.m; sourceTree = "<group>"; };
+		082439D516CC9BC300FC12BA /* Save.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Save.plist; path = iReporter/Save.plist; sourceTree = "<group>"; };
+		082439D816CCAE2100FC12BA /* airBrushRadius16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airBrushRadius16.png; sourceTree = "<group>"; };
+		082439D916CCAE2100FC12BA /* airBrushRadius16.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = airBrushRadius16.tif; sourceTree = "<group>"; };
+		082439DA16CCAE2100FC12BA /* blackboard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackboard.jpg; sourceTree = "<group>"; };
+		082439DB16CCAE2100FC12BA /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
+		082439DC16CCAE2100FC12BA /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush.png; sourceTree = "<group>"; };
+		082439DD16CCAE2100FC12BA /* brush_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush_black.png; sourceTree = "<group>"; };
+		082439DE16CCAE2100FC12BA /* brushRadius16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushRadius16.png; sourceTree = "<group>"; };
+		082439DF16CCAE2100FC12BA /* brushRadius2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushRadius2.png; sourceTree = "<group>"; };
+		082439E016CCAE2100FC12BA /* brushRadius4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushRadius4.png; sourceTree = "<group>"; };
+		082439E116CCAE2100FC12BA /* brushRadius8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushRadius8.png; sourceTree = "<group>"; };
+		082439E216CCAE2100FC12BA /* brushSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushSquare.png; sourceTree = "<group>"; };
+		082439E316CCAE2100FC12BA /* camera_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_48.png; sourceTree = "<group>"; };
+		082439E416CCAE2100FC12BA /* chalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chalk.png; sourceTree = "<group>"; };
+		082439E516CCAE2100FC12BA /* chalkStroke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chalkStroke.png; sourceTree = "<group>"; };
+		082439E616CCAE2100FC12BA /* chalkStroke02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chalkStroke02.png; sourceTree = "<group>"; };
+		082439E716CCAE2100FC12BA /* check.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = check.jpg; sourceTree = "<group>"; };
+		082439E816CCAE2100FC12BA /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		082439E916CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ConcreteFloors0048_7_i4S.jpg; sourceTree = "<group>"; };
+		082439EA16CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ConcreteFloors0079_5_i4S.jpg; sourceTree = "<group>"; };
+		082439EB16CCAE2100FC12BA /* ConcreteFloors0100_i4S.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ConcreteFloors0100_i4S.jpg; sourceTree = "<group>"; };
+		082439EC16CCAE2100FC12BA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		082439ED16CCAE2100FC12BA /* eyedropper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyedropper.png; sourceTree = "<group>"; };
+		082439EE16CCAE2100FC12BA /* eyedropperSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eyedropperSelected.png; sourceTree = "<group>"; };
+		082439EF16CCAE2100FC12BA /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
+		082439F016CCAE2100FC12BA /* floorButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = floorButton.jpg; sourceTree = "<group>"; };
+		082439F116CCAE2100FC12BA /* FloorHerringbone0043_1_i4S.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = FloorHerringbone0043_1_i4S.jpg; sourceTree = "<group>"; };
+		082439F216CCAE2100FC12BA /* open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open.png; sourceTree = "<group>"; };
+		082439F316CCAE2100FC12BA /* paintButton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = paintButton.jpg; sourceTree = "<group>"; };
+		082439F416CCAE2100FC12BA /* Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Particle.png; sourceTree = "<group>"; };
+		082439F516CCAE2100FC12BA /* pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pen.png; sourceTree = "<group>"; };
+		082439F616CCAE2100FC12BA /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
+		082439F716CCAE2100FC12BA /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		082439F816CCAE2100FC12BA /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		082439F916CCAE2100FC12BA /* pointer-finger-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointer-finger-md.png"; sourceTree = "<group>"; };
+		082439FA16CCAE2100FC12BA /* redo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redo_48.png; sourceTree = "<group>"; };
+		082439FB16CCAE2100FC12BA /* rubber.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubber.png; sourceTree = "<group>"; };
+		082439FC16CCAE2100FC12BA /* rubberBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubberBrush.png; sourceTree = "<group>"; };
+		082439FD16CCAE2100FC12BA /* rubberRadius16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubberRadius16.png; sourceTree = "<group>"; };
+		082439FE16CCAE2100FC12BA /* rubberRadius162.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubberRadius162.png; sourceTree = "<group>"; };
+		082439FF16CCAE2100FC12BA /* starBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starBrush.png; sourceTree = "<group>"; };
+		08243A0016CCAE2100FC12BA /* undo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo_48.png; sourceTree = "<group>"; };
+		08243A2D16CCAE3100FC12BA /* ShaderProject.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderProject.fsh; sourceTree = "<group>"; };
+		08243A2E16CCAE3100FC12BA /* ShaderProject.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderProject.vsh; sourceTree = "<group>"; };
+		08243A2F16CCAE3100FC12BA /* ShaderBrush.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderBrush.fsh; sourceTree = "<group>"; };
+		08243A3016CCAE3100FC12BA /* ShaderBrush.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderBrush.vsh; sourceTree = "<group>"; };
+		08243A3116CCAE3100FC12BA /* ShaderCommonObject.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderCommonObject.fsh; sourceTree = "<group>"; };
+		08243A3216CCAE3100FC12BA /* ShaderCommonObject.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderCommonObject.vsh; sourceTree = "<group>"; };
+		08243A3316CCAE3100FC12BA /* ShaderFinger.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderFinger.fsh; sourceTree = "<group>"; };
+		08243A3416CCAE3100FC12BA /* ShaderFinger.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderFinger.vsh; sourceTree = "<group>"; };
+		08243A3516CCAE3100FC12BA /* ShaderPaintFrame.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintFrame.fsh; sourceTree = "<group>"; };
+		08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintFrame.vsh; sourceTree = "<group>"; };
+		08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuad.fsh; sourceTree = "<group>"; };
+		08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuad.vsh; sourceTree = "<group>"; };
+		08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderRubber.fsh; sourceTree = "<group>"; };
+		08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderRubber.vsh; sourceTree = "<group>"; };
+		08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderScene.fsh; sourceTree = "<group>"; };
+		08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderScene.vsh; sourceTree = "<group>"; };
+		08243A4D16CCAE4500FC12BA /* 3dStreetPainting */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 3dStreetPainting; path = iReporter/3dStreetPainting; sourceTree = "<group>"; };
+		08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuadDebugAlpha.fsh; sourceTree = "<group>"; };
+		08258A0216F40E21005260BA /* ShaderQuadDebugColor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuadDebugColor.fsh; sourceTree = "<group>"; };
+		0826B47A167D9001000B679B /* ShowPaintOnPlaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlaneViewController.h; sourceTree = "<group>"; };
+		0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlaneViewController.m; sourceTree = "<group>"; };
+		0829C01D168349F80009CD1C /* ImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStack.h; sourceTree = "<group>"; };
+		0829C01E168349F80009CD1C /* ImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStack.m; sourceTree = "<group>"; };
+		082A92071647FA97001EF659 /* UndoGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UndoGestureRecognizer.h; sourceTree = "<group>"; };
+		082A92081647FA97001EF659 /* UndoGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UndoGestureRecognizer.m; sourceTree = "<group>"; };
+		082CD49C16BD45BF00F18E6F /* AdjustSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustSceneViewController.h; sourceTree = "<group>"; };
+		082CD49D16BD45BF00F18E6F /* AdjustSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdjustSceneViewController.m; sourceTree = "<group>"; };
+		082DF31616A166AA007656AA /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
+		082DF31716A166AA007656AA /* ColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerView.m; sourceTree = "<group>"; };
+		082DF31916A1A646007656AA /* Chalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chalk.h; sourceTree = "<group>"; };
+		082DF31A16A1A647007656AA /* Chalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chalk.m; sourceTree = "<group>"; };
+		082DF31E16A1B89D007656AA /* InfColorPickerIndicatorMagnify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfColorPickerIndicatorMagnify.h; path = ../iReporter/InfColorPickerIndicatorMagnify.h; sourceTree = "<group>"; };
+		082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfColorPickerIndicatorMagnify.m; path = ../iReporter/InfColorPickerIndicatorMagnify.m; sourceTree = "<group>"; };
+		0830455C166B454100E8E35C /* SelectLayerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLayerContentViewController.h; sourceTree = "<group>"; };
+		0830455D166B454100E8E35C /* SelectLayerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLayerContentViewController.m; sourceTree = "<group>"; };
+		0830455F166B46EC00E8E35C /* ImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageView.h; sourceTree = "<group>"; };
+		08304560166B46EC00E8E35C /* ImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageView.m; sourceTree = "<group>"; };
+		08340A0C16F6801600D8D7DB /* ShaderLine.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderLine.fsh; sourceTree = "<group>"; };
+		08340A0D16F6801600D8D7DB /* ShaderLine.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderLine.vsh; sourceTree = "<group>"; };
+		0836DFAA16C296F500988AB0 /* PaintFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintFrame.h; sourceTree = "<group>"; };
+		0836DFAB16C296F500988AB0 /* PaintFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintFrame.m; sourceTree = "<group>"; };
+		083B425B171CCEEC0088B654 /* LayerBlendModeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewController.h; sourceTree = "<group>"; };
+		083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewController.m; sourceTree = "<group>"; };
+		083DD3E0167768A400050793 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		083DD3E216776CAF00050793 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		084003561706830500CB952C /* MovableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovableObject.h; sourceTree = "<group>"; };
+		084003571706830500CB952C /* MovableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovableObject.m; sourceTree = "<group>"; };
+		08402CB21701E1F000DE952A /* PaintData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintData.h; sourceTree = "<group>"; };
+		08402CB31701E1F000DE952A /* PaintData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintData.m; sourceTree = "<group>"; };
+		0843A655171061FA004806C5 /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBox.png; sourceTree = "<group>"; };
+		0847471F16D2615900772015 /* PaintFrameGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintFrameGroup.h; sourceTree = "<group>"; };
+		0847472016D2615900772015 /* PaintFrameGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintFrameGroup.m; sourceTree = "<group>"; };
+		084D5403170338A60052F510 /* PaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintDoc.h; sourceTree = "<group>"; };
+		084D5404170338A60052F510 /* PaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintDoc.m; sourceTree = "<group>"; };
+		084D540817033C260052F510 /* PaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintDocManager.h; sourceTree = "<group>"; };
+		084D540917033C270052F510 /* PaintDocManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintDocManager.m; sourceTree = "<group>"; };
+		08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuadDebug.vsh; sourceTree = "<group>"; };
+		0857779716C62DC80040B152 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		0857779816C62DC80040B152 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		085A7E2A16D8A8AC00834C9D /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
+		085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
+		085A7E2D16D8A96200834C9D /* CameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayViewController.h; sourceTree = "<group>"; };
+		085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayViewController.m; sourceTree = "<group>"; };
+		0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
+		0868B1FB1729954700BF4688 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		0868B1FD1729959300BF4688 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		0868B1FF172995EB00BF4688 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		0868B200172995EB00BF4688 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0868B201172995EB00BF4688 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		0868B202172995EB00BF4688 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		086F8EDC1728AE2F0024289C /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
+		086F8EDD1728AE2F0024289C /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
+		087395B716BE8A8C00E6968B /* HandleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleGestureRecognizer.h; sourceTree = "<group>"; };
+		087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleGestureRecognizer.m; sourceTree = "<group>"; };
+		087C5AB116B2CF2E005F954A /* Finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finger.h; sourceTree = "<group>"; };
+		087C5AB216B2CF2E005F954A /* Finger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finger.m; sourceTree = "<group>"; };
+		08966EC8166082E600339901 /* CalculateRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateRunTime.h; sourceTree = "<group>"; };
+		08966EC9166082E600339901 /* CalculateRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateRunTime.m; sourceTree = "<group>"; };
+		08966F061660C9E400339901 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = SubModules/GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		08966F161660CA4A00339901 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		08966F181660CA5800339901 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		08966F1A1660CA6100339901 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		08966F1C1660CA6700339901 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		08966F1E1660CBBF00339901 /* ShowPaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintViewController.h; sourceTree = "<group>"; };
+		08966F1F1660CBBF00339901 /* ShowPaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintViewController.m; sourceTree = "<group>"; };
+		089743CE1722938C0085113C /* layer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layer.png; sourceTree = "<group>"; };
+		089743D2172293F00085113C /* blendMode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blendMode.png; sourceTree = "<group>"; };
+		089743D4172296980085113C /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportViewController.h; sourceTree = "<group>"; };
+		089743D5172296990085113C /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportViewController.m; sourceTree = "<group>"; };
+		0899ACE216F488D100EDCBFE /* PaintProjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintProjectView.h; sourceTree = "<group>"; };
+		0899ACE316F488D100EDCBFE /* PaintProjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintProjectView.m; sourceTree = "<group>"; };
+		0899ACE716F4891100EDCBFE /* PaintProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintProjectViewController.h; sourceTree = "<group>"; };
+		0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintProjectViewController.m; sourceTree = "<group>"; };
+		0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintProject.fsh; sourceTree = "<group>"; };
+		0899ACEB16F495F800EDCBFE /* ShaderPaintProject.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintProject.vsh; sourceTree = "<group>"; };
+		089CEF0E16BE58B000216099 /* AdjustImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdjustImageViewController.h; sourceTree = "<group>"; };
+		089CEF0F16BE58B000216099 /* AdjustImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdjustImageViewController.m; sourceTree = "<group>"; };
+		089FC3FE171AD1F60018CE27 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		089FC402171AD48E0018CE27 /* viewButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewButton.png; sourceTree = "<group>"; };
+		089FC403171AD48E0018CE27 /* viewButtonDisable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewButtonDisable.png; sourceTree = "<group>"; };
+		089FC406171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeNormal.fsh; sourceTree = "<group>"; };
+		08A1B092171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeColor.fsh; sourceTree = "<group>"; };
+		08A1B093171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeColorBurn.fsh; sourceTree = "<group>"; };
+		08A1B094171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeColorDodge.fsh; sourceTree = "<group>"; };
+		08A1B095171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeDarken.fsh; sourceTree = "<group>"; };
+		08A1B096171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeDifference.fsh; sourceTree = "<group>"; };
+		08A1B097171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeExclusion.fsh; sourceTree = "<group>"; };
+		08A1B098171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeHardLight.fsh; sourceTree = "<group>"; };
+		08A1B099171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeHue.fsh; sourceTree = "<group>"; };
+		08A1B09A171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeLighten.fsh; sourceTree = "<group>"; };
+		08A1B09B171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeLuminosity.fsh; sourceTree = "<group>"; };
+		08A1B09C171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeMultiply.fsh; sourceTree = "<group>"; };
+		08A1B09D171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeOverlay.fsh; sourceTree = "<group>"; };
+		08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeSaturation.fsh; sourceTree = "<group>"; };
+		08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeScreen.fsh; sourceTree = "<group>"; };
+		08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintLayerBlendModeSoftLight.fsh; sourceTree = "<group>"; };
+		08A4C99D1689EC8400002625 /* PaintOperationStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintOperationStack.h; sourceTree = "<group>"; };
+		08A4C99E1689EC8400002625 /* PaintOperationStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintOperationStack.m; sourceTree = "<group>"; };
+		08A932CA16FE9EBF00A75938 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		08A932CE16FEAD2600A75938 /* Export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Export.h; sourceTree = "<group>"; };
+		08A932CF16FEAD2600A75938 /* Export.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Export.m; sourceTree = "<group>"; };
+		08B24FEB170EC0E7007CA9D2 /* PaintLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintLayer.h; sourceTree = "<group>"; };
+		08B24FEC170EC0E7007CA9D2 /* PaintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintLayer.m; sourceTree = "<group>"; };
+		08B24FEE170ECA6E007CA9D2 /* PaintLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintLayerManager.h; sourceTree = "<group>"; };
+		08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintLayerManager.m; sourceTree = "<group>"; };
+		08E19496167CCF9700D8ADAF /* ShowPaintOnPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlane.h; sourceTree = "<group>"; };
+		08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlane.m; sourceTree = "<group>"; };
+		08F9B516164C0691001B3D3D /* BrushToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushToolBar.h; sourceTree = "<group>"; };
+		08F9B517164C0691001B3D3D /* BrushToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushToolBar.m; sourceTree = "<group>"; };
+		08FC334016359D4B007DCE83 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
+		08FC334116359D4B007DCE83 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
+		08FC334216359D4B007DCE83 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		08FC334316359D4B007DCE83 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		08FC334416359D4B007DCE83 /* AFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageRequestOperation.h; sourceTree = "<group>"; };
+		08FC334516359D4B007DCE83 /* AFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageRequestOperation.m; sourceTree = "<group>"; };
+		08FC334616359D4B007DCE83 /* AFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFJSONRequestOperation.h; sourceTree = "<group>"; };
+		08FC334716359D4B007DCE83 /* AFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFJSONRequestOperation.m; sourceTree = "<group>"; };
+		08FC334816359D4B007DCE83 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
+		08FC334916359D4B007DCE83 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
+		08FC334A16359D4B007DCE83 /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		08FC334B16359D4B007DCE83 /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPropertyListRequestOperation.h; sourceTree = "<group>"; };
+		08FC334C16359D4B007DCE83 /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPropertyListRequestOperation.m; sourceTree = "<group>"; };
+		08FC334D16359D4B007DCE83 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		08FC334E16359D4B007DCE83 /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		08FC334F16359D4B007DCE83 /* AFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFXMLRequestOperation.h; sourceTree = "<group>"; };
+		08FC335016359D4B007DCE83 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
+		08FC335116359D4B007DCE83 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		08FC335216359D4B007DCE83 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		08FD1F97164DF509003738FC /* RedoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedoButton.h; sourceTree = "<group>"; };
+		08FD1F98164DF509003738FC /* RedoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedoButton.m; sourceTree = "<group>"; };
+		08FD1F9B164E13F3003738FC /* CustomTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTouchUIView.h; sourceTree = "<group>"; };
+		08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTouchUIView.m; sourceTree = "<group>"; };
+		08FDC8BB16513BB2008F35E8 /* Pencil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pencil.h; sourceTree = "<group>"; };
+		08FDC8BC16513BB2008F35E8 /* Pencil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pencil.m; sourceTree = "<group>"; };
+		08FDC8BF165157EA008F35E8 /* Rubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rubber.h; sourceTree = "<group>"; };
+		08FDC8C0165157EA008F35E8 /* Rubber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rubber.m; sourceTree = "<group>"; };
+		08FDC8C216515829008F35E8 /* Pen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pen.h; sourceTree = "<group>"; };
+		08FDC8C316515829008F35E8 /* Pen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pen.m; sourceTree = "<group>"; };
+		9483A662165F3DB100EE56AD /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		949066061684000A00AF072C /* Ultility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ultility.h; sourceTree = "<group>"; };
+		949066071684000A00AF072C /* Ultility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ultility.m; sourceTree = "<group>"; };
+		94906609168412B600AF072C /* PNGImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGImageStack.h; sourceTree = "<group>"; };
+		9490660A168412B600AF072C /* PNGImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGImageStack.m; sourceTree = "<group>"; };
+		94926EBC17193374008C645A /* LayerManagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerManagerView.h; sourceTree = "<group>"; };
+		94926EBD17193374008C645A /* LayerManagerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerManagerView.m; sourceTree = "<group>"; };
+		94997B7F16819D12006E3661 /* PaintingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintingView.h; sourceTree = "<group>"; };
+		94997B8016819D13006E3661 /* PaintingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintingView.m; sourceTree = "<group>"; };
+		949B368716896D3C00D3D5D2 /* PaintOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintOperation.h; sourceTree = "<group>"; };
+		949B368816896D3C00D3D5D2 /* PaintOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintOperation.m; sourceTree = "<group>"; };
+		9C0C5D5B1503722E000A19FD /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		9C21AF1214E4579F00DB003E /* ProjectPaint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectPaint.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C21AF1614E4579F00DB003E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9C21AF1814E4579F00DB003E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9C21AF1A14E4579F00DB003E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9C21AF1E14E4579F00DB003E /* ProjectPaint-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProjectPaint-Info.plist"; sourceTree = "<group>"; };
+		9C21AF2014E4579F00DB003E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9C21AF2214E4579F00DB003E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9C21AF2414E4579F00DB003E /* ProjectPaint-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectPaint-Prefix.pch"; sourceTree = "<group>"; };
+		9C21AF2514E4579F00DB003E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = iReporter/AppDelegate.h; sourceTree = "<group>"; };
+		9C21AF2614E4579F00DB003E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = iReporter/AppDelegate.m; sourceTree = "<group>"; };
+		9C21AF5B14E4581900DB003E /* PhotoScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScreen.h; sourceTree = "<group>"; };
+		9C21AF5C14E4581900DB003E /* PhotoScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScreen.m; sourceTree = "<group>"; };
+		9C21AF6014E4596F00DB003E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		9C21AF6414E459CC00DB003E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		9C21AF6A14E45AAB00DB003E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		9C21AF7A14E4625700DB003E /* LoginScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginScreen.h; sourceTree = "<group>"; };
+		9C21AF7B14E4625700DB003E /* LoginScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginScreen.m; sourceTree = "<group>"; };
+		9C21AF7F14E4642000DB003E /* UIAlertView+error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+error.h"; sourceTree = "<group>"; };
+		9C21AF8014E4642000DB003E /* UIAlertView+error.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+error.m"; sourceTree = "<group>"; };
+		9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9C60DA8314E5316A00442413 /* StreamScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamScreen.h; sourceTree = "<group>"; };
+		9C60DA8414E5316A00442413 /* StreamScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamScreen.m; sourceTree = "<group>"; };
+		9C60DA8814E53C7100442413 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		9C9C950514E56EA100AA9BC3 /* StreamPhotoScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamPhotoScreen.h; sourceTree = "<group>"; };
+		9C9C950614E56EA100AA9BC3 /* StreamPhotoScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamPhotoScreen.m; sourceTree = "<group>"; };
+		9CFE0B9214E5B12B00408F86 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		9CFE0B9314E5B12B00408F86 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		9CFE0B9414E5B12B00408F86 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		9CFE0B9514E5B12B00408F86 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		9CFE0B9614E5B12B00408F86 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		9CFE0B9714E5B12B00408F86 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C21AF0F14E4579F00DB003E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
+				0868B204172995EB00BF4688 /* AdSupport.framework in Frameworks */,
+				0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */,
+				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
+				9C21AF6514E459CC00DB003E /* Security.framework in Frameworks */,
+				08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */,
+				083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */,
+				083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */,
+				081B83EA16722E8B002866DC /* GLKit.framework in Frameworks */,
+				08966F1D1660CA6700339901 /* AVFoundation.framework in Frameworks */,
+				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
+				08966F191660CA5800339901 /* CoreVideo.framework in Frameworks */,
+				08966F171660CA4A00339901 /* CoreMedia.framework in Frameworks */,
+				08966F151660CA2700339901 /* libGPUImage.a in Frameworks */,
+				9483A663165F3DB100EE56AD /* CoreMotion.framework in Frameworks */,
+				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
+				9C427B0E14FA4DBA00C708B8 /* SystemConfiguration.framework in Frameworks */,
+				9C60DA8914E53C7100442413 /* CoreImage.framework in Frameworks */,
+				9C21AF6B14E45AAB00DB003E /* AssetsLibrary.framework in Frameworks */,
+				9C21AF6114E4596F00DB003E /* CFNetwork.framework in Frameworks */,
+				9C21AF1714E4579F00DB003E /* UIKit.framework in Frameworks */,
+				9C21AF1914E4579F00DB003E /* Foundation.framework in Frameworks */,
+				9C21AF1B14E4579F00DB003E /* CoreGraphics.framework in Frameworks */,
+				0868B1FC1729954700BF4688 /* FacebookSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0808D9CB164559870000DF40 /* InfColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				082DF31E16A1B89D007656AA /* InfColorPickerIndicatorMagnify.h */,
+				082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */,
+				0808D9CC164559870000DF40 /* InfColorBarPicker.h */,
+				0808D9CD164559870000DF40 /* InfColorBarPicker.m */,
+				0808D9CE164559870000DF40 /* InfColorIndicatorView.h */,
+				0808D9CF164559870000DF40 /* InfColorIndicatorView.m */,
+				0808D9D0164559870000DF40 /* InfColorPicker.h */,
+				0808D9D1164559870000DF40 /* InfColorPickerController.h */,
+				0808D9D2164559870000DF40 /* InfColorPickerController.m */,
+				0808D9D3164559870000DF40 /* InfColorPickerView.xib */,
+				0808D9D4164559870000DF40 /* InfColorSquarePicker.h */,
+				0808D9D5164559870000DF40 /* InfColorSquarePicker.m */,
+				0808D9D6164559870000DF40 /* InfHSBSupport.h */,
+				0808D9D7164559870000DF40 /* InfHSBSupport.m */,
+				0808D9D8164559870000DF40 /* InfSourceColorView.h */,
+				0808D9D9164559870000DF40 /* InfSourceColorView.m */,
+			);
+			path = InfColorPicker;
+			sourceTree = "<group>";
+		};
+		082439D716CCAE2100FC12BA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				089FC3FE171AD1F60018CE27 /* delete.png */,
+				0843A655171061FA004806C5 /* checkBox.png */,
+				0809D4AB16FDE62300E13B8C /* sandClock1.png */,
+				0809D4AC16FDE62300E13B8C /* sandClock2.png */,
+				0809D4A716FDE13D00E13B8C /* sandClock.png */,
+				082439D816CCAE2100FC12BA /* airBrushRadius16.png */,
+				082439D916CCAE2100FC12BA /* airBrushRadius16.tif */,
+				082439DA16CCAE2100FC12BA /* blackboard.jpg */,
+				082439DB16CCAE2100FC12BA /* border.png */,
+				082439DC16CCAE2100FC12BA /* brush.png */,
+				082439DD16CCAE2100FC12BA /* brush_black.png */,
+				082439DE16CCAE2100FC12BA /* brushRadius16.png */,
+				082439DF16CCAE2100FC12BA /* brushRadius2.png */,
+				082439E016CCAE2100FC12BA /* brushRadius4.png */,
+				082439E116CCAE2100FC12BA /* brushRadius8.png */,
+				082439E216CCAE2100FC12BA /* brushSquare.png */,
+				082439E316CCAE2100FC12BA /* camera_48.png */,
+				082439E416CCAE2100FC12BA /* chalk.png */,
+				082439E516CCAE2100FC12BA /* chalkStroke.png */,
+				082439E616CCAE2100FC12BA /* chalkStroke02.png */,
+				082439E716CCAE2100FC12BA /* check.jpg */,
+				082439E816CCAE2100FC12BA /* close.png */,
+				082439E916CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg */,
+				082439EA16CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg */,
+				082439EB16CCAE2100FC12BA /* ConcreteFloors0100_i4S.jpg */,
+				082439EC16CCAE2100FC12BA /* Default.png */,
+				082439ED16CCAE2100FC12BA /* eyedropper.png */,
+				082439EE16CCAE2100FC12BA /* eyedropperSelected.png */,
+				082439EF16CCAE2100FC12BA /* finger.png */,
+				082439F016CCAE2100FC12BA /* floorButton.jpg */,
+				082439F116CCAE2100FC12BA /* FloorHerringbone0043_1_i4S.jpg */,
+				089743CE1722938C0085113C /* layer.png */,
+				089743D2172293F00085113C /* blendMode.png */,
+				082439F216CCAE2100FC12BA /* open.png */,
+				082439F316CCAE2100FC12BA /* paintButton.jpg */,
+				082439F416CCAE2100FC12BA /* Particle.png */,
+				082439F516CCAE2100FC12BA /* pen.png */,
+				082439F616CCAE2100FC12BA /* pencil.png */,
+				082439F716CCAE2100FC12BA /* pin.png */,
+				082439F816CCAE2100FC12BA /* placeholder.png */,
+				082439F916CCAE2100FC12BA /* pointer-finger-md.png */,
+				082439FA16CCAE2100FC12BA /* redo_48.png */,
+				082439FB16CCAE2100FC12BA /* rubber.png */,
+				082439FC16CCAE2100FC12BA /* rubberBrush.png */,
+				082439FD16CCAE2100FC12BA /* rubberRadius16.png */,
+				082439FE16CCAE2100FC12BA /* rubberRadius162.png */,
+				082439FF16CCAE2100FC12BA /* starBrush.png */,
+				08243A0016CCAE2100FC12BA /* undo_48.png */,
+				089FC402171AD48E0018CE27 /* viewButton.png */,
+				089FC403171AD48E0018CE27 /* viewButtonDisable.png */,
+			);
+			name = UI;
+			path = iReporter/UI;
+			sourceTree = "<group>";
+		};
+		08243A2C16CCAE3100FC12BA /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				08243A2D16CCAE3100FC12BA /* ShaderProject.fsh */,
+				08243A2E16CCAE3100FC12BA /* ShaderProject.vsh */,
+				0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */,
+				0899ACEB16F495F800EDCBFE /* ShaderPaintProject.vsh */,
+				08340A0C16F6801600D8D7DB /* ShaderLine.fsh */,
+				08340A0D16F6801600D8D7DB /* ShaderLine.vsh */,
+				08243A2F16CCAE3100FC12BA /* ShaderBrush.fsh */,
+				08243A3016CCAE3100FC12BA /* ShaderBrush.vsh */,
+				08243A3116CCAE3100FC12BA /* ShaderCommonObject.fsh */,
+				08243A3216CCAE3100FC12BA /* ShaderCommonObject.vsh */,
+				08243A3316CCAE3100FC12BA /* ShaderFinger.fsh */,
+				08243A3416CCAE3100FC12BA /* ShaderFinger.vsh */,
+				08243A3516CCAE3100FC12BA /* ShaderPaintFrame.fsh */,
+				08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */,
+				08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */,
+				08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */,
+				08A1B092171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh */,
+				08A1B093171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh */,
+				08A1B094171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh */,
+				08A1B095171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh */,
+				08A1B096171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh */,
+				08A1B097171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh */,
+				08A1B098171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh */,
+				08A1B099171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh */,
+				08A1B09A171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh */,
+				08A1B09B171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh */,
+				08A1B09C171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh */,
+				089FC406171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh */,
+				08A1B09D171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh */,
+				08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */,
+				08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */,
+				08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */,
+				08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */,
+				08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */,
+				08258A0216F40E21005260BA /* ShaderQuadDebugColor.fsh */,
+				08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */,
+				08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */,
+				08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */,
+				08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */,
+			);
+			name = Shader;
+			path = iReporter/Shader;
+			sourceTree = "<group>";
+		};
+		084D540B17033C300052F510 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				08B24FEB170EC0E7007CA9D2 /* PaintLayer.h */,
+				08B24FEC170EC0E7007CA9D2 /* PaintLayer.m */,
+				08B24FEE170ECA6E007CA9D2 /* PaintLayerManager.h */,
+				08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */,
+				08402CB21701E1F000DE952A /* PaintData.h */,
+				08402CB31701E1F000DE952A /* PaintData.m */,
+				084D5403170338A60052F510 /* PaintDoc.h */,
+				084D5404170338A60052F510 /* PaintDoc.m */,
+				084D540817033C260052F510 /* PaintDocManager.h */,
+				084D540917033C270052F510 /* PaintDocManager.m */,
+			);
+			name = File;
+			sourceTree = "<group>";
+		};
+		087C5AB616B2DC91005F954A /* Brush */ = {
+			isa = PBXGroup;
+			children = (
+				081A2CE9163CD9F8006EC27A /* Brush.h */,
+				081A2CEA163CD9F8006EC27A /* Brush.m */,
+				08FDC8BB16513BB2008F35E8 /* Pencil.h */,
+				08FDC8BC16513BB2008F35E8 /* Pencil.m */,
+				08FDC8BF165157EA008F35E8 /* Rubber.h */,
+				08FDC8C0165157EA008F35E8 /* Rubber.m */,
+				08FDC8C216515829008F35E8 /* Pen.h */,
+				08FDC8C316515829008F35E8 /* Pen.m */,
+				082DF31916A1A646007656AA /* Chalk.h */,
+				082DF31A16A1A647007656AA /* Chalk.m */,
+				087C5AB116B2CF2E005F954A /* Finger.h */,
+				087C5AB216B2CF2E005F954A /* Finger.m */,
+			);
+			name = Brush;
+			sourceTree = "<group>";
+		};
+		08966F071660C9E400339901 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08966F101660C9E400339901 /* libGPUImage.a */,
+				08966F121660C9E400339901 /* GPUImageTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		08C0B42916BD349200DE6286 /* NotUsed */ = {
+			isa = PBXGroup;
+			children = (
+				94906609168412B600AF072C /* PNGImageStack.h */,
+				9490660A168412B600AF072C /* PNGImageStack.m */,
+				082A92071647FA97001EF659 /* UndoGestureRecognizer.h */,
+				082A92081647FA97001EF659 /* UndoGestureRecognizer.m */,
+				0817B390163C38ED00BD52B2 /* PaintView.h */,
+				0817B391163C38ED00BD52B2 /* PaintView.m */,
+				081A2CE4163CC08A006EC27A /* PaintHelpView.h */,
+				081A2CE5163CC08A006EC27A /* PaintHelpView.m */,
+			);
+			name = NotUsed;
+			sourceTree = "<group>";
+		};
+		08C0B42A16BD358700DE6286 /* UndoRedo */ = {
+			isa = PBXGroup;
+			children = (
+				0809EA47164970D60061233D /* Heap.h */,
+				0809EA48164970D70061233D /* Heap.m */,
+				0829C01D168349F80009CD1C /* ImageStack.h */,
+				0829C01E168349F80009CD1C /* ImageStack.m */,
+				0809EA43164946DF0061233D /* UndoButton.h */,
+				0809EA44164946DF0061233D /* UndoButton.m */,
+				08FD1F97164DF509003738FC /* RedoButton.h */,
+				08FD1F98164DF509003738FC /* RedoButton.m */,
+				949B368716896D3C00D3D5D2 /* PaintOperation.h */,
+				949B368816896D3C00D3D5D2 /* PaintOperation.m */,
+				08A4C99D1689EC8400002625 /* PaintOperationStack.h */,
+				08A4C99E1689EC8400002625 /* PaintOperationStack.m */,
+			);
+			name = UndoRedo;
+			sourceTree = "<group>";
+		};
+		08C0B42B16BD361A00DE6286 /* Ultility */ = {
+			isa = PBXGroup;
+			children = (
+				08966EC8166082E600339901 /* CalculateRunTime.h */,
+				08966EC9166082E600339901 /* CalculateRunTime.m */,
+				949066061684000A00AF072C /* Ultility.h */,
+				949066071684000A00AF072C /* Ultility.m */,
+				0823AA5B16A6E44400CF499C /* ShaderUltility.h */,
+				0823AA5C16A6E44400CF499C /* ShaderUltility.m */,
+				0823E15416C140CC00F9C40A /* CommonData.h */,
+				0823E15516C140CC00F9C40A /* CommonData.m */,
+				0823E15716C1452C00F9C40A /* File.m */,
+				081A228816D8555C00F39468 /* TextureManager.h */,
+				081A228916D8555C00F39468 /* TextureManager.m */,
+				08A932CE16FEAD2600A75938 /* Export.h */,
+				08A932CF16FEAD2600A75938 /* Export.m */,
+			);
+			name = Ultility;
+			sourceTree = "<group>";
+		};
+		08FC333F16359D4B007DCE83 /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				08FC334016359D4B007DCE83 /* AFHTTPClient.h */,
+				08FC334116359D4B007DCE83 /* AFHTTPClient.m */,
+				08FC334216359D4B007DCE83 /* AFHTTPRequestOperation.h */,
+				08FC334316359D4B007DCE83 /* AFHTTPRequestOperation.m */,
+				08FC334416359D4B007DCE83 /* AFImageRequestOperation.h */,
+				08FC334516359D4B007DCE83 /* AFImageRequestOperation.m */,
+				08FC334616359D4B007DCE83 /* AFJSONRequestOperation.h */,
+				08FC334716359D4B007DCE83 /* AFJSONRequestOperation.m */,
+				08FC334816359D4B007DCE83 /* AFNetworkActivityIndicatorManager.h */,
+				08FC334916359D4B007DCE83 /* AFNetworkActivityIndicatorManager.m */,
+				08FC334A16359D4B007DCE83 /* AFNetworking.h */,
+				08FC334B16359D4B007DCE83 /* AFPropertyListRequestOperation.h */,
+				08FC334C16359D4B007DCE83 /* AFPropertyListRequestOperation.m */,
+				08FC334D16359D4B007DCE83 /* AFURLConnectionOperation.h */,
+				08FC334E16359D4B007DCE83 /* AFURLConnectionOperation.m */,
+				08FC334F16359D4B007DCE83 /* AFXMLRequestOperation.h */,
+				08FC335016359D4B007DCE83 /* AFXMLRequestOperation.m */,
+				08FC335116359D4B007DCE83 /* UIImageView+AFNetworking.h */,
+				08FC335216359D4B007DCE83 /* UIImageView+AFNetworking.m */,
+			);
+			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		08FD1F9E164E454A003738FC /* Paint */ = {
+			isa = PBXGroup;
+			children = (
+				08C0B42B16BD361A00DE6286 /* Ultility */,
+				08C0B42A16BD358700DE6286 /* UndoRedo */,
+				08C0B42916BD349200DE6286 /* NotUsed */,
+				084D540B17033C300052F510 /* File */,
+				087C5AB616B2DC91005F954A /* Brush */,
+				084003561706830500CB952C /* MovableObject.h */,
+				084003571706830500CB952C /* MovableObject.m */,
+				0802A72716592695000F82D6 /* ShowPaint.h */,
+				0802A72816592695000F82D6 /* ShowPaint.m */,
+				08966F1E1660CBBF00339901 /* ShowPaintViewController.h */,
+				08966F1F1660CBBF00339901 /* ShowPaintViewController.m */,
+				0830455C166B454100E8E35C /* SelectLayerContentViewController.h */,
+				0830455D166B454100E8E35C /* SelectLayerContentViewController.m */,
+				08E19496167CCF9700D8ADAF /* ShowPaintOnPlane.h */,
+				08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */,
+				0826B47A167D9001000B679B /* ShowPaintOnPlaneViewController.h */,
+				0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */,
+				0899ACE216F488D100EDCBFE /* PaintProjectView.h */,
+				0899ACE316F488D100EDCBFE /* PaintProjectView.m */,
+				0899ACE716F4891100EDCBFE /* PaintProjectViewController.h */,
+				0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */,
+				089CEF0E16BE58B000216099 /* AdjustImageViewController.h */,
+				089CEF0F16BE58B000216099 /* AdjustImageViewController.m */,
+				082CD49C16BD45BF00F18E6F /* AdjustSceneViewController.h */,
+				082CD49D16BD45BF00F18E6F /* AdjustSceneViewController.m */,
+				0857779716C62DC80040B152 /* Camera.h */,
+				0857779816C62DC80040B152 /* Camera.m */,
+				085A7E2A16D8A8AC00834C9D /* CameraOverlayView.h */,
+				085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */,
+				085A7E2D16D8A96200834C9D /* CameraOverlayViewController.h */,
+				085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */,
+				0836DFAA16C296F500988AB0 /* PaintFrame.h */,
+				0836DFAB16C296F500988AB0 /* PaintFrame.m */,
+				0847471F16D2615900772015 /* PaintFrameGroup.h */,
+				0847472016D2615900772015 /* PaintFrameGroup.m */,
+				0823E15916C14B5900F9C40A /* MainScreenView.h */,
+				0823E15A16C14B5A00F9C40A /* MainScreenView.m */,
+				0823E14E16C13DE000F9C40A /* MainScreenViewController.h */,
+				0823E14F16C13DE000F9C40A /* MainScreenViewController.m */,
+				94997B7F16819D12006E3661 /* PaintingView.h */,
+				94997B8016819D13006E3661 /* PaintingView.m */,
+				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
+				0817B38F163C38ED00BD52B2 /* PaintScreen.m */,
+				0804E2F5163D910200D86624 /* BrushView.h */,
+				0804E2F6163D910200D86624 /* BrushView.m */,
+				08072EBA1692BDFD00E49D2B /* BrushTypeView.h */,
+				08072EBB1692BDFD00E49D2B /* BrushTypeView.m */,
+				0830455F166B46EC00E8E35C /* ImageView.h */,
+				08304560166B46EC00E8E35C /* ImageView.m */,
+				0802A0FE16731BBA00AE0F23 /* PaintRefView.h */,
+				0802A0FF16731BBA00AE0F23 /* PaintRefView.m */,
+				082DF31616A166AA007656AA /* ColorPickerView.h */,
+				082DF31716A166AA007656AA /* ColorPickerView.m */,
+				08FD1F9B164E13F3003738FC /* CustomTouchUIView.h */,
+				08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */,
+				080BD0D71645FDC000B37C01 /* SelectBrushButton.h */,
+				080BD0D81645FDC000B37C01 /* SelectBrushButton.m */,
+				08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */,
+				08072EBE1692FD5000E49D2B /* BrushTypeButton.m */,
+				0808D9BC1644EC6F0000DF40 /* SelectColorButton.h */,
+				0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */,
+				080BD0DB164601B400B37C01 /* EyeDropper.h */,
+				080BD0DC164601B400B37C01 /* EyeDropper.m */,
+				08F9B516164C0691001B3D3D /* BrushToolBar.h */,
+				08F9B517164C0691001B3D3D /* BrushToolBar.m */,
+				081A7564166F44B100AB345A /* LayerDelegate.h */,
+				081A7565166F44B100AB345A /* LayerDelegate.m */,
+				087395B716BE8A8C00E6968B /* HandleGestureRecognizer.h */,
+				087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */,
+				94926EBC17193374008C645A /* LayerManagerView.h */,
+				94926EBD17193374008C645A /* LayerManagerView.m */,
+				083B425B171CCEEC0088B654 /* LayerBlendModeTableViewController.h */,
+				083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */,
+				089743D4172296980085113C /* ImportViewController.h */,
+				089743D5172296990085113C /* ImportViewController.m */,
+				086F8EDC1728AE2F0024289C /* ExportViewController.h */,
+				086F8EDD1728AE2F0024289C /* ExportViewController.m */,
+			);
+			name = Paint;
+			sourceTree = "<group>";
+		};
+		9C21AF0714E4579F00DB003E = {
+			isa = PBXGroup;
+			children = (
+				08966F061660C9E400339901 /* GPUImage.xcodeproj */,
+				9C21AF2514E4579F00DB003E /* AppDelegate.h */,
+				9C21AF2614E4579F00DB003E /* AppDelegate.m */,
+				082439D516CC9BC300FC12BA /* Save.plist */,
+				08243A4D16CCAE4500FC12BA /* 3dStreetPainting */,
+				08243A2C16CCAE3100FC12BA /* Shader */,
+				082439D716CCAE2100FC12BA /* UI */,
+				9C60DA8214E5308600442413 /* Categories */,
+				9C60DA8014E5306800442413 /* Screens */,
+				9C21AF1D14E4579F00DB003E /* Supporting Files */,
+				0808D9CB164559870000DF40 /* InfColorPicker */,
+				081F2A1E1636E18D00819BC6 /* API.h */,
+				081F2A1F1636E18D00819BC6 /* API.m */,
+				08FC333F16359D4B007DCE83 /* AFNetworking */,
+				9C21AF1514E4579F00DB003E /* Frameworks */,
+				9C21AF1314E4579F00DB003E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C21AF1314E4579F00DB003E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C21AF1214E4579F00DB003E /* ProjectPaint.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9C21AF1514E4579F00DB003E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				08A932CA16FE9EBF00A75938 /* MessageUI.framework */,
+				083DD3E216776CAF00050793 /* MobileCoreServices.framework */,
+				083DD3E0167768A400050793 /* ImageIO.framework */,
+				081B83E916722E8B002866DC /* GLKit.framework */,
+				9483A662165F3DB100EE56AD /* CoreMotion.framework */,
+				081A2CE7163CD7FE006EC27A /* QuartzCore.framework */,
+				08966F1C1660CA6700339901 /* AVFoundation.framework */,
+				08966F1A1660CA6100339901 /* OpenGLES.framework */,
+				08966F181660CA5800339901 /* CoreVideo.framework */,
+				08966F161660CA4A00339901 /* CoreMedia.framework */,
+				0868B1FF172995EB00BF4688 /* Accounts.framework */,
+				0868B200172995EB00BF4688 /* AdSupport.framework */,
+				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
+				0868B202172995EB00BF4688 /* Social.framework */,
+				0868B1FD1729959300BF4688 /* FacebookSDKResources.bundle */,
+				0868B1FB1729954700BF4688 /* FacebookSDK.framework */,
+				9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */,
+				9C60DA8814E53C7100442413 /* CoreImage.framework */,
+				9C21AF6A14E45AAB00DB003E /* AssetsLibrary.framework */,
+				9C21AF6414E459CC00DB003E /* Security.framework */,
+				9C21AF6014E4596F00DB003E /* CFNetwork.framework */,
+				9C21AF1614E4579F00DB003E /* UIKit.framework */,
+				9C21AF1814E4579F00DB003E /* Foundation.framework */,
+				9C21AF1A14E4579F00DB003E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C21AF1D14E4579F00DB003E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9C21AF1E14E4579F00DB003E /* ProjectPaint-Info.plist */,
+				9C21AF1F14E4579F00DB003E /* InfoPlist.strings */,
+				9C21AF2214E4579F00DB003E /* main.m */,
+				9C21AF2414E4579F00DB003E /* ProjectPaint-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = iReporter;
+			sourceTree = "<group>";
+		};
+		9C60DA8014E5306800442413 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				08FD1F9E164E454A003738FC /* Paint */,
+				9C0C5D5B1503722E000A19FD /* Storyboard.storyboard */,
+				0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */,
+				9C21AF7A14E4625700DB003E /* LoginScreen.h */,
+				9C21AF7B14E4625700DB003E /* LoginScreen.m */,
+				9C21AF5B14E4581900DB003E /* PhotoScreen.h */,
+				9C21AF5C14E4581900DB003E /* PhotoScreen.m */,
+				9C60DA8314E5316A00442413 /* StreamScreen.h */,
+				9C60DA8414E5316A00442413 /* StreamScreen.m */,
+				9C9C950514E56EA100AA9BC3 /* StreamPhotoScreen.h */,
+				9C9C950614E56EA100AA9BC3 /* StreamPhotoScreen.m */,
+				0817B37E163C0E5100BD52B2 /* PhotoView.h */,
+				0817B37F163C0E5100BD52B2 /* PhotoView.m */,
+			);
+			name = Screens;
+			path = iReporter;
+			sourceTree = "<group>";
+		};
+		9C60DA8214E5308600442413 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9CFE0B9214E5B12B00408F86 /* UIImage+Alpha.h */,
+				9CFE0B9314E5B12B00408F86 /* UIImage+Alpha.m */,
+				9CFE0B9414E5B12B00408F86 /* UIImage+Resize.h */,
+				9CFE0B9514E5B12B00408F86 /* UIImage+Resize.m */,
+				9CFE0B9614E5B12B00408F86 /* UIImage+RoundedCorner.h */,
+				9CFE0B9714E5B12B00408F86 /* UIImage+RoundedCorner.m */,
+				9C21AF7F14E4642000DB003E /* UIAlertView+error.h */,
+				9C21AF8014E4642000DB003E /* UIAlertView+error.m */,
+			);
+			name = Categories;
+			path = iReporter;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9C21AF1114E4579F00DB003E /* ProjectPaint */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C21AF3614E457A000DB003E /* Build configuration list for PBXNativeTarget "ProjectPaint" */;
+			buildPhases = (
+				9C21AF0E14E4579F00DB003E /* Sources */,
+				9C21AF0F14E4579F00DB003E /* Frameworks */,
+				9C21AF1014E4579F00DB003E /* Resources */,
+				0804E2FA163D97D300D86624 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08966F141660CA0200339901 /* PBXTargetDependency */,
+			);
+			name = ProjectPaint;
+			productName = iReporter;
+			productReference = 9C21AF1214E4579F00DB003E /* ProjectPaint.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9C21AF0914E4579F00DB003E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = WenjiHu;
+			};
+			buildConfigurationList = 9C21AF0C14E4579F00DB003E /* Build configuration list for PBXProject "ProjectPaint" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9C21AF0714E4579F00DB003E;
+			productRefGroup = 9C21AF1314E4579F00DB003E /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 08966F071660C9E400339901 /* Products */;
+					ProjectRef = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				9C21AF1114E4579F00DB003E /* ProjectPaint */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		08966F101660C9E400339901 /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 08966F0F1660C9E400339901 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		08966F121660C9E400339901 /* GPUImageTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GPUImageTests.octest;
+			remoteRef = 08966F111660C9E400339901 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9C21AF1014E4579F00DB003E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0848D555171D94AB00B7740C /* ShaderPaintLayerBlendModeColor.fsh in Resources */,
+				0848D556171D94AB00B7740C /* ShaderPaintLayerBlendModeColorBurn.fsh in Resources */,
+				0848D557171D94AB00B7740C /* ShaderPaintLayerBlendModeColorDodge.fsh in Resources */,
+				0848D558171D94AB00B7740C /* ShaderPaintLayerBlendModeDarken.fsh in Resources */,
+				0848D559171D94AB00B7740C /* ShaderPaintLayerBlendModeDifference.fsh in Resources */,
+				0848D55A171D94AB00B7740C /* ShaderPaintLayerBlendModeExclusion.fsh in Resources */,
+				0848D55B171D94AB00B7740C /* ShaderPaintLayerBlendModeHardLight.fsh in Resources */,
+				0848D55C171D94AB00B7740C /* ShaderPaintLayerBlendModeHue.fsh in Resources */,
+				0848D55D171D94AB00B7740C /* ShaderPaintLayerBlendModeLighten.fsh in Resources */,
+				0848D55E171D94AB00B7740C /* ShaderPaintLayerBlendModeLuminosity.fsh in Resources */,
+				0848D55F171D94AB00B7740C /* ShaderPaintLayerBlendModeMultiply.fsh in Resources */,
+				0848D560171D94AB00B7740C /* ShaderPaintLayerBlendModeOverlay.fsh in Resources */,
+				0848D561171D94AB00B7740C /* ShaderPaintLayerBlendModeSaturation.fsh in Resources */,
+				0848D562171D94AB00B7740C /* ShaderPaintLayerBlendModeScreen.fsh in Resources */,
+				0848D563171D94AB00B7740C /* ShaderPaintLayerBlendModeSoftLight.fsh in Resources */,
+				089FC40A171AF1420018CE27 /* ShaderPaintLayerBlendModeNormal.fsh in Resources */,
+				08340A1216F6803B00D8D7DB /* ShaderLine.fsh in Resources */,
+				08340A1316F6803B00D8D7DB /* ShaderLine.vsh in Resources */,
+				0899ACEE16F4960A00EDCBFE /* ShaderPaintProject.fsh in Resources */,
+				0899ACEF16F4960A00EDCBFE /* ShaderPaintProject.vsh in Resources */,
+				08258A0516F40F7A005260BA /* ShaderQuadDebugAlpha.fsh in Resources */,
+				08258A0616F40F7A005260BA /* ShaderQuadDebugColor.fsh in Resources */,
+				08524B3E16F36DC6000B8020 /* ShaderQuadDebug.vsh in Resources */,
+				08243A4F16CCAE5E00FC12BA /* ShaderProject.fsh in Resources */,
+				08243A5016CCAE5E00FC12BA /* ShaderProject.vsh in Resources */,
+				08243A5116CCAE5E00FC12BA /* ShaderBrush.fsh in Resources */,
+				08243A5216CCAE5E00FC12BA /* ShaderBrush.vsh in Resources */,
+				08243A5316CCAE5E00FC12BA /* ShaderCommonObject.fsh in Resources */,
+				08243A5416CCAE5E00FC12BA /* ShaderCommonObject.vsh in Resources */,
+				08243A5516CCAE5E00FC12BA /* ShaderFinger.fsh in Resources */,
+				08243A5616CCAE5E00FC12BA /* ShaderFinger.vsh in Resources */,
+				08243A5716CCAE5E00FC12BA /* ShaderPaintFrame.fsh in Resources */,
+				08243A5816CCAE5E00FC12BA /* ShaderPaintFrame.vsh in Resources */,
+				08243A5916CCAE5E00FC12BA /* ShaderQuad.fsh in Resources */,
+				08243A5A16CCAE5E00FC12BA /* ShaderQuad.vsh in Resources */,
+				08243A5B16CCAE5E00FC12BA /* ShaderRubber.fsh in Resources */,
+				08243A5C16CCAE5E00FC12BA /* ShaderRubber.vsh in Resources */,
+				08243A5D16CCAE5E00FC12BA /* ShaderScene.fsh in Resources */,
+				08243A5E16CCAE5E00FC12BA /* ShaderScene.vsh in Resources */,
+				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
+				0808D9DD164559870000DF40 /* InfColorPickerView.xib in Resources */,
+				083DD3EF1677787000050793 /* Storyboard.storyboard in Resources */,
+				0862E373167F60E300ECEAC9 /* Storyboard_iPad.storyboard in Resources */,
+				0823E15816C1452C00F9C40A /* File.m in Resources */,
+				082439D616CC9BC300FC12BA /* Save.plist in Resources */,
+				08243A0216CCAE2100FC12BA /* airBrushRadius16.png in Resources */,
+				08243A0316CCAE2100FC12BA /* airBrushRadius16.tif in Resources */,
+				08243A0416CCAE2100FC12BA /* blackboard.jpg in Resources */,
+				08243A0516CCAE2100FC12BA /* border.png in Resources */,
+				08243A0616CCAE2100FC12BA /* brush.png in Resources */,
+				08243A0716CCAE2100FC12BA /* brush_black.png in Resources */,
+				08243A0816CCAE2100FC12BA /* brushRadius16.png in Resources */,
+				08243A0916CCAE2100FC12BA /* brushRadius2.png in Resources */,
+				08243A0A16CCAE2100FC12BA /* brushRadius4.png in Resources */,
+				08243A0B16CCAE2100FC12BA /* brushRadius8.png in Resources */,
+				08243A0C16CCAE2100FC12BA /* brushSquare.png in Resources */,
+				08243A0D16CCAE2100FC12BA /* camera_48.png in Resources */,
+				08243A0E16CCAE2100FC12BA /* chalk.png in Resources */,
+				08243A0F16CCAE2100FC12BA /* chalkStroke.png in Resources */,
+				08243A1016CCAE2100FC12BA /* chalkStroke02.png in Resources */,
+				08243A1116CCAE2100FC12BA /* check.jpg in Resources */,
+				08243A1216CCAE2100FC12BA /* close.png in Resources */,
+				08243A1316CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg in Resources */,
+				08243A1416CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg in Resources */,
+				08243A1516CCAE2100FC12BA /* ConcreteFloors0100_i4S.jpg in Resources */,
+				08243A1616CCAE2100FC12BA /* Default.png in Resources */,
+				08243A1716CCAE2100FC12BA /* eyedropper.png in Resources */,
+				08243A1816CCAE2100FC12BA /* eyedropperSelected.png in Resources */,
+				08243A1916CCAE2100FC12BA /* finger.png in Resources */,
+				08243A1A16CCAE2100FC12BA /* floorButton.jpg in Resources */,
+				08243A1B16CCAE2100FC12BA /* FloorHerringbone0043_1_i4S.jpg in Resources */,
+				08243A1C16CCAE2100FC12BA /* open.png in Resources */,
+				08243A1D16CCAE2100FC12BA /* paintButton.jpg in Resources */,
+				08243A1E16CCAE2100FC12BA /* Particle.png in Resources */,
+				08243A1F16CCAE2100FC12BA /* pen.png in Resources */,
+				08243A2016CCAE2100FC12BA /* pencil.png in Resources */,
+				08243A2116CCAE2100FC12BA /* pin.png in Resources */,
+				08243A2216CCAE2100FC12BA /* placeholder.png in Resources */,
+				08243A2316CCAE2100FC12BA /* pointer-finger-md.png in Resources */,
+				08243A2416CCAE2100FC12BA /* redo_48.png in Resources */,
+				08243A2516CCAE2100FC12BA /* rubber.png in Resources */,
+				08243A2616CCAE2100FC12BA /* rubberBrush.png in Resources */,
+				08243A2716CCAE2100FC12BA /* rubberRadius16.png in Resources */,
+				08243A2816CCAE2100FC12BA /* rubberRadius162.png in Resources */,
+				08243A2916CCAE2100FC12BA /* starBrush.png in Resources */,
+				08243A2A16CCAE2100FC12BA /* undo_48.png in Resources */,
+				08243A4E16CCAE4500FC12BA /* 3dStreetPainting in Resources */,
+				0809D4A816FDE13D00E13B8C /* sandClock.png in Resources */,
+				0809D4AD16FDE62300E13B8C /* sandClock1.png in Resources */,
+				0809D4AE16FDE62300E13B8C /* sandClock2.png in Resources */,
+				0843A656171061FB004806C5 /* checkBox.png in Resources */,
+				089FC3FF171AD1F60018CE27 /* delete.png in Resources */,
+				089FC404171AD48E0018CE27 /* viewButton.png in Resources */,
+				089FC405171AD48E0018CE27 /* viewButtonDisable.png in Resources */,
+				089743CF1722938C0085113C /* layer.png in Resources */,
+				089743D3172293F00085113C /* blendMode.png in Resources */,
+				0868B1FE1729959300BF4688 /* FacebookSDKResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0804E2FA163D97D300D86624 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9C21AF0E14E4579F00DB003E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C21AF2314E4579F00DB003E /* main.m in Sources */,
+				9C21AF2714E4579F00DB003E /* AppDelegate.m in Sources */,
+				9C21AF5E14E4581900DB003E /* PhotoScreen.m in Sources */,
+				9C21AF7D14E4625700DB003E /* LoginScreen.m in Sources */,
+				9C21AF8114E4642000DB003E /* UIAlertView+error.m in Sources */,
+				9C60DA8614E5316A00442413 /* StreamScreen.m in Sources */,
+				9C9C950814E56EA100AA9BC3 /* StreamPhotoScreen.m in Sources */,
+				9CFE0B9814E5B12B00408F86 /* UIImage+Alpha.m in Sources */,
+				9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */,
+				9CFE0B9A14E5B12B00408F86 /* UIImage+RoundedCorner.m in Sources */,
+				08FC335316359D4B007DCE83 /* AFHTTPClient.m in Sources */,
+				08FC335416359D4B007DCE83 /* AFHTTPRequestOperation.m in Sources */,
+				08FC335516359D4B007DCE83 /* AFImageRequestOperation.m in Sources */,
+				08FC335616359D4B007DCE83 /* AFJSONRequestOperation.m in Sources */,
+				08FC335716359D4B007DCE83 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				08FC335816359D4B007DCE83 /* AFPropertyListRequestOperation.m in Sources */,
+				08FC335916359D4B007DCE83 /* AFURLConnectionOperation.m in Sources */,
+				08FC335A16359D4B007DCE83 /* AFXMLRequestOperation.m in Sources */,
+				08FC335B16359D4B007DCE83 /* UIImageView+AFNetworking.m in Sources */,
+				081F2A201636E18D00819BC6 /* API.m in Sources */,
+				0817B380163C0E5100BD52B2 /* PhotoView.m in Sources */,
+				0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */,
+				0817B393163C38ED00BD52B2 /* PaintView.m in Sources */,
+				081A2CE6163CC08A006EC27A /* PaintHelpView.m in Sources */,
+				081A2CEB163CD9F8006EC27A /* Brush.m in Sources */,
+				0804E2F7163D910300D86624 /* BrushView.m in Sources */,
+				0808D9BE1644EC6F0000DF40 /* SelectColorButton.m in Sources */,
+				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
+				0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */,
+				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
+				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
+				0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */,
+				0808D9E0164559870000DF40 /* InfSourceColorView.m in Sources */,
+				080BD0D91645FDC000B37C01 /* SelectBrushButton.m in Sources */,
+				080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */,
+				082A92091647FA97001EF659 /* UndoGestureRecognizer.m in Sources */,
+				0809EA45164946E00061233D /* UndoButton.m in Sources */,
+				0809EA49164970D70061233D /* Heap.m in Sources */,
+				08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */,
+				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
+				08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */,
+				08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */,
+				08FDC8C1165157EB008F35E8 /* Rubber.m in Sources */,
+				08FDC8C416515829008F35E8 /* Pen.m in Sources */,
+				0802A72916592695000F82D6 /* ShowPaint.m in Sources */,
+				08966ECA166082E600339901 /* CalculateRunTime.m in Sources */,
+				08966F201660CBBF00339901 /* ShowPaintViewController.m in Sources */,
+				0830455E166B454100E8E35C /* SelectLayerContentViewController.m in Sources */,
+				08304561166B46EC00E8E35C /* ImageView.m in Sources */,
+				081A7566166F44B200AB345A /* LayerDelegate.m in Sources */,
+				0802A10016731BBA00AE0F23 /* PaintRefView.m in Sources */,
+				08E19498167CCF9700D8ADAF /* ShowPaintOnPlane.m in Sources */,
+				0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */,
+				94997B8116819D13006E3661 /* PaintingView.m in Sources */,
+				0829C01F168349F80009CD1C /* ImageStack.m in Sources */,
+				949066081684000A00AF072C /* Ultility.m in Sources */,
+				9490660B168412B700AF072C /* PNGImageStack.m in Sources */,
+				949B368916896D3C00D3D5D2 /* PaintOperation.m in Sources */,
+				08A4C99F1689EC8400002625 /* PaintOperationStack.m in Sources */,
+				08072EBC1692BDFE00E49D2B /* BrushTypeView.m in Sources */,
+				08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */,
+				082DF31816A166AB007656AA /* ColorPickerView.m in Sources */,
+				082DF31B16A1A647007656AA /* Chalk.m in Sources */,
+				082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */,
+				0823AA5D16A6E44400CF499C /* ShaderUltility.m in Sources */,
+				087C5AB316B2CF2E005F954A /* Finger.m in Sources */,
+				082CD49E16BD45BF00F18E6F /* AdjustSceneViewController.m in Sources */,
+				089CEF1016BE58B200216099 /* AdjustImageViewController.m in Sources */,
+				087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */,
+				0823E15016C13DE000F9C40A /* MainScreenViewController.m in Sources */,
+				0823E15616C140CD00F9C40A /* CommonData.m in Sources */,
+				0823E15B16C14B5B00F9C40A /* MainScreenView.m in Sources */,
+				0836DFAC16C296F500988AB0 /* PaintFrame.m in Sources */,
+				0857779916C62DC80040B152 /* Camera.m in Sources */,
+				08243A3D16CCAE3100FC12BA /* ShaderProject.fsh in Sources */,
+				08243A3E16CCAE3100FC12BA /* ShaderProject.vsh in Sources */,
+				08243A3F16CCAE3100FC12BA /* ShaderBrush.fsh in Sources */,
+				08243A4016CCAE3100FC12BA /* ShaderBrush.vsh in Sources */,
+				08243A4116CCAE3100FC12BA /* ShaderCommonObject.fsh in Sources */,
+				08243A4216CCAE3100FC12BA /* ShaderCommonObject.vsh in Sources */,
+				08243A4316CCAE3100FC12BA /* ShaderFinger.fsh in Sources */,
+				08243A4416CCAE3100FC12BA /* ShaderFinger.vsh in Sources */,
+				08243A4516CCAE3100FC12BA /* ShaderPaintFrame.fsh in Sources */,
+				08243A4616CCAE3100FC12BA /* ShaderPaintFrame.vsh in Sources */,
+				08243A4716CCAE3100FC12BA /* ShaderQuad.fsh in Sources */,
+				08243A4816CCAE3100FC12BA /* ShaderQuad.vsh in Sources */,
+				08243A4916CCAE3100FC12BA /* ShaderRubber.fsh in Sources */,
+				08243A4A16CCAE3100FC12BA /* ShaderRubber.vsh in Sources */,
+				08243A4B16CCAE3100FC12BA /* ShaderScene.fsh in Sources */,
+				08243A4C16CCAE3100FC12BA /* ShaderScene.vsh in Sources */,
+				0847472116D2615900772015 /* PaintFrameGroup.m in Sources */,
+				081A228A16D8555C00F39468 /* TextureManager.m in Sources */,
+				085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */,
+				085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */,
+				08524B3A16F36C22000B8020 /* ShaderQuadDebug.vsh in Sources */,
+				08258A0316F40E21005260BA /* ShaderQuadDebugAlpha.fsh in Sources */,
+				08258A0416F40E21005260BA /* ShaderQuadDebugColor.fsh in Sources */,
+				0899ACE416F488D100EDCBFE /* PaintProjectView.m in Sources */,
+				0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */,
+				0899ACEC16F495F800EDCBFE /* ShaderPaintProject.fsh in Sources */,
+				0899ACED16F495F800EDCBFE /* ShaderPaintProject.vsh in Sources */,
+				08340A0E16F6801600D8D7DB /* ShaderLine.fsh in Sources */,
+				08340A0F16F6801600D8D7DB /* ShaderLine.vsh in Sources */,
+				08A932D016FEAD2600A75938 /* Export.m in Sources */,
+				08402CB41701E1F000DE952A /* PaintData.m in Sources */,
+				084D5405170338A60052F510 /* PaintDoc.m in Sources */,
+				084D540A17033C270052F510 /* PaintDocManager.m in Sources */,
+				084003581706830500CB952C /* MovableObject.m in Sources */,
+				08B24FED170EC0E7007CA9D2 /* PaintLayer.m in Sources */,
+				08B24FF0170ECA6E007CA9D2 /* PaintLayerManager.m in Sources */,
+				94926EBE17193375008C645A /* LayerManagerView.m in Sources */,
+				089FC408171AEFBB0018CE27 /* ShaderPaintLayerBlendModeNormal.fsh in Sources */,
+				08A1B0A1171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColor.fsh in Sources */,
+				08A1B0A2171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorBurn.fsh in Sources */,
+				08A1B0A3171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeColorDodge.fsh in Sources */,
+				08A1B0A4171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDarken.fsh in Sources */,
+				08A1B0A5171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeDifference.fsh in Sources */,
+				08A1B0A6171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeExclusion.fsh in Sources */,
+				08A1B0A7171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHardLight.fsh in Sources */,
+				08A1B0A8171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeHue.fsh in Sources */,
+				08A1B0A9171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLighten.fsh in Sources */,
+				08A1B0AA171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeLuminosity.fsh in Sources */,
+				08A1B0AB171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeMultiply.fsh in Sources */,
+				08A1B0AC171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeOverlay.fsh in Sources */,
+				08A1B0AD171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh in Sources */,
+				08A1B0AE171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh in Sources */,
+				08A1B0AF171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh in Sources */,
+				083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */,
+				089743D6172296990085113C /* ImportViewController.m in Sources */,
+				086F8EDE1728AE2F0024289C /* ExportViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08966F141660CA0200339901 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImage;
+			targetProxy = 08966F131660CA0200339901 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9C21AF1F14E4579F00DB003E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9C21AF2014E4579F00DB003E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9C21AF3414E457A000DB003E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		9C21AF3514E457A000DB003E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9C21AF3714E457A000DB003E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				COMPRESS_PNG_FILES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../FacebookSDK\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iReporter/ProjectPaint-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
+				INFOPLIST_FILE = "iReporter/ProjectPaint-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = ProjectPaint;
+				PROVISIONING_PROFILE = "E5FE2707-3C3B-4E4F-914C-9126711DCE2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E5FE2707-3C3B-4E4F-914C-9126711DCE2A";
+				REZ_SEARCH_PATHS = (
+					"<Multiple",
+					"values>/**",
+				);
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9C21AF3814E457A000DB003E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				COMPRESS_PNG_FILES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../FacebookSDK\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iReporter/ProjectPaint-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
+				INFOPLIST_FILE = "iReporter/ProjectPaint-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = ProjectPaint;
+				PROVISIONING_PROFILE = "E5FE2707-3C3B-4E4F-914C-9126711DCE2A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E5FE2707-3C3B-4E4F-914C-9126711DCE2A";
+				REZ_SEARCH_PATHS = (
+					"<Multiple",
+					"values>/**",
+				);
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9C21AF0C14E4579F00DB003E /* Build configuration list for PBXProject "ProjectPaint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C21AF3414E457A000DB003E /* Debug */,
+				9C21AF3514E457A000DB003E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C21AF3614E457A000DB003E /* Build configuration list for PBXNativeTarget "ProjectPaint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C21AF3714E457A000DB003E /* Debug */,
+				9C21AF3814E457A000DB003E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9C21AF0914E4579F00DB003E /* Project object */;
+}

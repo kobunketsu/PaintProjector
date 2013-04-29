@@ -1,0 +1,55 @@
+//
+// Prefix header for all source files of the 'iReporter' target in the 'iReporter' project
+//
+
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    
+#endif
+
+#define SIMPLE_LAYER 1
+#define TEST 0
+#define UndoMaxCount 4
+#define UndoImageSize 1024
+#define ARC4RANDOM_MAX      0x100000000 
+#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
+#define RADIANS_TO_DEGREES(x) (180.0 * x / M_PI)
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define HumanEyeFOV 68.0f
+
+#define checkGL switch(glGetError()){\
+case GL_INVALID_ENUM:\
+NSLog(@"GL_INVALID_ENUM");\
+break;\
+case GL_INVALID_VALUE:\
+NSLog(@"GL_INVALID_VALUE");\
+break;\
+case GL_INVALID_OPERATION:\
+NSLog(@"GL_INVALID_OPERATION");\
+break;\
+case GL_STACK_OVERFLOW:\
+NSLog(@"GL_STACK_OVERFLOW");\
+break;\
+case GL_STACK_UNDERFLOW:\
+NSLog(@"GL_STACK_UNDERFLOW");\
+break;\
+case GL_OUT_OF_MEMORY:\
+NSLog(@"GL_OUT_OF_MEMORY");\
+break;\
+default:\
+break;\
+}
+
+//全局设置
+//使用米还是
+static NSString* version = @"version_0.1";
+static bool useFeet = false;
+#define InchScale 3.28
