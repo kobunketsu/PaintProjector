@@ -185,7 +185,6 @@
 		089743CF1722938C0085113C /* layer.png in Resources */ = {isa = PBXBuildFile; fileRef = 089743CE1722938C0085113C /* layer.png */; };
 		089743D3172293F00085113C /* blendMode.png in Resources */ = {isa = PBXBuildFile; fileRef = 089743D2172293F00085113C /* blendMode.png */; };
 		089743D6172296990085113C /* ImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 089743D5172296990085113C /* ImportViewController.m */; };
-		0899ACE416F488D100EDCBFE /* PaintProjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACE316F488D100EDCBFE /* PaintProjectView.m */; };
 		0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */; };
 		0899ACEC16F495F800EDCBFE /* ShaderPaintProject.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */; };
 		0899ACED16F495F800EDCBFE /* ShaderPaintProject.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACEB16F495F800EDCBFE /* ShaderPaintProject.vsh */; };
@@ -480,8 +479,6 @@
 		089743D2172293F00085113C /* blendMode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blendMode.png; sourceTree = "<group>"; };
 		089743D4172296980085113C /* ImportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportViewController.h; sourceTree = "<group>"; };
 		089743D5172296990085113C /* ImportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportViewController.m; sourceTree = "<group>"; };
-		0899ACE216F488D100EDCBFE /* PaintProjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintProjectView.h; sourceTree = "<group>"; };
-		0899ACE316F488D100EDCBFE /* PaintProjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintProjectView.m; sourceTree = "<group>"; };
 		0899ACE716F4891100EDCBFE /* PaintProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintProjectViewController.h; sourceTree = "<group>"; };
 		0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintProjectViewController.m; sourceTree = "<group>"; };
 		0899ACEA16F495F800EDCBFE /* ShaderPaintProject.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintProject.fsh; sourceTree = "<group>"; };
@@ -902,8 +899,6 @@
 				08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */,
 				0826B47A167D9001000B679B /* ShowPaintOnPlaneViewController.h */,
 				0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */,
-				0899ACE216F488D100EDCBFE /* PaintProjectView.h */,
-				0899ACE316F488D100EDCBFE /* PaintProjectView.m */,
 				0899ACE716F4891100EDCBFE /* PaintProjectViewController.h */,
 				0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */,
 				089CEF0E16BE58B000216099 /* AdjustImageViewController.h */,
@@ -1372,7 +1367,6 @@
 				08524B3A16F36C22000B8020 /* ShaderQuadDebug.vsh in Sources */,
 				08258A0316F40E21005260BA /* ShaderQuadDebugAlpha.fsh in Sources */,
 				08258A0416F40E21005260BA /* ShaderQuadDebugColor.fsh in Sources */,
-				0899ACE416F488D100EDCBFE /* PaintProjectView.m in Sources */,
 				0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */,
 				0899ACEC16F495F800EDCBFE /* ShaderPaintProject.fsh in Sources */,
 				0899ACED16F495F800EDCBFE /* ShaderPaintProject.vsh in Sources */,

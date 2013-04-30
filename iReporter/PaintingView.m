@@ -19,8 +19,7 @@
 @synthesize brush = _brush;
 @synthesize eyeDropper;
 @synthesize brushTypes;
-@synthesize isPinchOperating;
-@synthesize isPanOperating;
+@synthesize isTransformOperating;
 @synthesize isEyeDroppering;
 @synthesize location;
 @synthesize previousLocation;
@@ -550,7 +549,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //非绘制操作
-    if([[event touchesForView:self] count]>1 || isPinchOperating || isPanOperating)
+    if([[event touchesForView:self] count]>1 || isTransformOperating)
         return;
     
     //开始绘制，关闭所有打开的UI
@@ -576,7 +575,7 @@
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {  
-    if([[event touchesForView:self] count]>1 || isPinchOperating || isPanOperating)
+    if([[event touchesForView:self] count]>1 || isTransformOperating)
         return;
     
 	CGRect				bounds = [self bounds];
@@ -609,14 +608,10 @@
         return;
     }
     
-    if (isPinchOperating) {
-        isPinchOperating = false;
+    if (isTransformOperating) {
+        isTransformOperating = false;
         return;
     }    
-    if (isPanOperating) {
-        isPanOperating = false;
-        return;
-    }        
     
 	CGRect				bounds = [self bounds];
     UITouch*	touch = [[event touchesForView:self] anyObject];
@@ -1707,13 +1702,27 @@
     [self drawImageTransformed];
 
 }
-- (void)freeTransformImportedImage:(UIPinchGestureRecognizer*)sender{
-    NSLog(@"transformImportedImage");
+- (void)freeTransformImageTranslate:(CGPoint)translation rotate:(float) angle scale:(float)scale{
+//    NSLog(@"moveImage translation x:%.2f y:%.2f", translation.x, translation.y);    
+    GLKMatrix4 translationMatrx = GLKMatrix4MakeTranslation(translation.x / (float)(self.frame.size.width*0.5), -translation.y / (float)(self.frame.size.width*0.5), 0);
     
+    _imageTransformMatrixT = GLKMatrix4Multiply(translationMatrx, _imageToTransformMatrixT);
+    
+//    NSLog(@"rotateImage angle:%.2f", angle);
+    GLKQuaternion rotationMatrx = GLKQuaternionMakeWithAngleAndAxis(angle, 0, 0, 1);
+    
+    _imageTransformMatrixR = GLKQuaternionMultiply(rotationMatrx, _imageToTransformMatrixR);
+    
+//    NSLog(@"scaleImage scale:%.2f", scale);
+    GLKMatrix4 scaleMatrx = GLKMatrix4MakeScale(scale, scale, 1);
+    
+    _imageTransformMatrixS = GLKMatrix4Multiply(scaleMatrx, _imageToTransformMatrixS);
+    
+    [self drawImageTransformed];    
 }
 
-- (void)moveImportedImage:(CGPoint)translation{
-//    NSLog(@"moveImportedImage translation x:%.2f y:%.2f", translation.x, translation.y);
+- (void)moveImage:(CGPoint)translation{
+//    NSLog(@"moveImage translation x:%.2f y:%.2f", translation.x, translation.y);
     
     GLKMatrix4 translationMatrx = GLKMatrix4MakeTranslation(translation.x / (float)(self.frame.size.width*0.5), -translation.y / (float)(self.frame.size.width*0.5), 0);
     
@@ -1724,8 +1733,8 @@
 
 }
 
-- (void)rotateImportedImage:(float)angle{
-//    NSLog(@"rotateImportedImage angle:%.2f", angle);
+- (void)rotateImage:(float)angle{
+//    NSLog(@"rotateImage angle:%.2f", angle);
     
     GLKQuaternion rotationMatrx = GLKQuaternionMakeWithAngleAndAxis(angle, 0, 0, 1);
     
@@ -1734,8 +1743,8 @@
     [self drawImageTransformed];
 }
 
-- (void)scaleImportedImage:(float)scale{
-//    NSLog(@"scaleImportedImage scale:%.2f", scale);
+- (void)scaleImage:(float)scale{
+//    NSLog(@"scaleImage scale:%.2f", scale);
     
     GLKMatrix4 scaleMatrx = GLKMatrix4MakeScale(scale, scale, 1);
     
@@ -1744,7 +1753,7 @@
     [self drawImageTransformed];
 }
 
-- (void)transformImportedImageBegan{
+- (void)transformImageBegan{
     _imageToTransformMatrixT = _imageTransformMatrixT;
     _imageToTransformMatrixR = _imageTransformMatrixR;
     _imageToTransformMatrixS = _imageTransformMatrixS;
@@ -1757,7 +1766,7 @@
     [self uploadLayerDataAtIndex:_curLayerIndex];
 }
 
-- (CGPoint)importedImageScaleAnchor{
+- (CGPoint)imageScaleAnchor{
     GLKVector4 originCenter = GLKVector4Make(0, 0, 0, 1);
     GLKVector4 transformedAnchor = GLKMatrix4MultiplyVector4(_transformedImageMatrix, originCenter);
     float x = transformedAnchor.x * 0.5 + 0.5;

@@ -20,6 +20,7 @@
 #import "ShaderUltility.h"
 #import "PaintingView.h"
 
+#define EyeHeightMax 2.0
 #define FarDistanceMax 20
 #define FarClipDistance 100
 #define NearClipDistance 0.01
@@ -45,11 +46,13 @@ typedef struct {
     //    float Color[4];
 } LineVertex;
 
-@interface PaintProjectViewController : GLKViewController
+@interface PaintProjectViewController : UIViewController
 <
-MFMailComposeViewControllerDelegate
+MFMailComposeViewControllerDelegate,
+GLKViewControllerDelegate
 >
 {
+    GLKViewController* _glkViewController;
     //显示
     EAGLContext *_context;
     
@@ -104,9 +107,10 @@ MFMailComposeViewControllerDelegate
     float _manHeight;       //观察者身高
     GLKVector3 _eye;        //观察者位置
     GLKVector3 _eyeTop;     //顶视位置
-    GLKVector3 _eyeMagTop;  //顶视位置
+    float _eyeTopAspect;    //顶视位置长宽比
+    GLKVector3 _eyeMagTop;  //顶视放大位置
     float _eyeT;            //当前渲染观察点过渡控制值
-    float _aspect;          //投影长宽比
+    float _projAspect;          //投影长宽比
     float _projHeight;      //实际地面投影长度
     float _projWidth;       //实际地面投影宽度
     GLKVector3 _projNear;   //实际地面最近点
@@ -144,22 +148,28 @@ MFMailComposeViewControllerDelegate
     float _magnifyPaintAnimDuration;        //放大地面局部动画的持续时间
     float _curUnMagnifyPaintAnimationTime;  //返回地面动画的当前时间
     float _unMagnifyPaintAnimDuration;      //返回地面动画的持续时间
+    
+    
 }
-- (IBAction)close:(UIButton *)sender;
+
 @property (nonatomic, strong)EAGLContext *context;
 @property (nonatomic, assign) id delegate;
+@property (strong, nonatomic) IBOutlet GLKView *projectView;
 @property (strong, nonatomic) IBOutlet UISlider *projectSlider;
 @property (strong, nonatomic) IBOutlet UISlider *farDistanceSlider;
 @property (strong, nonatomic) IBOutlet UISlider *heightSlider;
 @property (strong, nonatomic) GLKBaseEffect *effect;
 @property (strong, nonatomic) IBOutlet UILabel *farDistanceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *heightLabel;
-- (IBAction)adjustEyeSliderSlide:(UISlider *)sender;
+@property (strong, nonatomic) GLKViewController *glkViewController;
+
+- (IBAction)eyeHeightSliderSlide:(UISlider *)sender;
 - (IBAction)farDistanceSliderSlide:(UISlider *)sender;
 - (IBAction)heightSliderSlide:(UISlider *)sender;
 - (IBAction)showBackgroundButtonTapped:(UIButton *)sender;
 - (IBAction)showGridButtonTapped:(UIButton *)sender;
 - (IBAction)exportButtonTapped:(UIButton *)sender;
+- (IBAction)close:(UIButton *)sender;
 - (IBAction)handleTapPaintProjectViewGesture:(UITapGestureRecognizer *)sender;
 
 - (void)initPaint:(PaintingView*)paintView viewAngle:(float)angle;

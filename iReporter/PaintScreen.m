@@ -371,100 +371,129 @@ typedef struct {
     }
 }
 #pragma mark- 手势 Gestures
-- (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        CGPoint location = [sender locationInView:sender.view];
-//        CGPoint locationInRootView = [sender.view convertPoint:location toView:_rootView];        
-        CGPoint locationInRootView = CGPointMake(sender.view.superview.frame.origin.x + location.x, sender.view.superview.frame.origin.y + location.y);
-        for (UIButton* colorButton in colorButtons) {
-//            CGRect rectInRootView = [colorButton convertRect:colorButton.frame toView:_rootView];
-            CGRect rectInRootView = CGRectMake(colorButton.superview.frame.origin.x + colorButton.frame.origin.x, colorButton.superview.frame.origin.y + colorButton.frame.origin.y, colorButton.frame.size.width, colorButton.frame.size.height);
-            if(CGRectContainsPoint(rectInRootView, locationInRootView)){
-                colorButton.backgroundColor = sender.view.backgroundColor;
-//                NSLog(@"location is x:%.1f y:%.1f", locationInRootView.x, locationInRootView.y);
-//                NSLog(@"cgrect is x:%.1f y:%.1f", rectInRootView.origin.x, rectInRootView.origin.y);                
-                break;
-            }
-        }
-    }
-}
 
-- (IBAction)handlePinchPaintRefView:(UIPinchGestureRecognizer *)sender {
-    if (_isPaintMode) {
-        [HandleGestureRecognizer handleScale:sender];    
-    }
-    else {
-    }
-}
 
-- (IBAction)handlePinchPaintView:(UIPinchGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        _paintView.isPinchOperating = true;
+
+
+
+- (IBAction)handleSingleFingerPanImage:(UIPanGestureRecognizer *)sender{
+
+    CGPoint translation = CGPointZero;
+    CGPoint location = CGPointZero;
+    float newTransformPointToAnchorLength = 0;
+    float newTransformPointToAnchorArc = 0;
+    GLKVector2 anchorToLocationVec;
+    
+    if(sender.state == UIGestureRecognizerStateBegan){
+        _transformAnchor = [_paintView imageScaleAnchor];
         
-//        if ([sender numberOfTouches]==2) {
-//            CALayer* layer = [sender.view layer];              
-//            CGPoint touch0 = [sender locationOfTouch:0 inView:paintView];
-//            CGPoint touch1 = [sender locationOfTouch:1 inView:paintView];
-//            CGPoint touchCenter = CGPointMake((touch0.x+touch1.x)*0.5, (touch0.y+touch1.y)*0.5);
-//            
-//            NSLog(@"touch0 x:%.1f y:%.1f", touch0.x, touch0.y);        
-//            
-//            _scaleAnchorPoint = CGPointMake(touchCenter.x / (sender.view.frame.size.width ), touchCenter.y / (sender.view.frame.size.height));
-////            NSLog(@"layer new anchor point x:%.1f y:%.1f", _scaleAnchorPoint.x, _scaleAnchorPoint.y);
-////            CGPoint ap = [layer anchorPoint];
-////            NSLog(@"layer old anchor point x:%.1f y:%.1f", ap.x, ap.y);
-////            [layer setAnchorPoint:_scaleAnchorPoint];               
-//        }
-       
-    }
-    else if (sender.state == UIGestureRecognizerStateEnded) {
-        
-        return;
-    }
-    if(_state == PaintScreen_TransformImage){
-        //放缩导入图片
-        NSLog(@"pinchImportedImage");
-        [_paintView freeTransformImportedImage:sender];
-    }
-    else{
-        //放缩画布
-        [HandleGestureRecognizer handleScale:sender];
-    }
-
-}
-
-- (IBAction)handlePanPaintRefView:(UIPanGestureRecognizer *)sender {
-
-        switch (sender.state ) {
-            case UIGestureRecognizerStateBegan:
-                _lastViewAngleX = _curViewAngleX;
-                _lastViewAngleY = _curViewAngleY;
-                break;
-            case UIGestureRecognizerStateEnded:
+        switch (_transformImageState) {
+            case TransformImage_Move:
                 
-                break;            
+                break;
+            case TransformImage_Rotate:
+                location = [sender locationInView:_paintView];
+                anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
+                _transformPointToAnchorArc = atan2f(anchorToLocationVec.y, anchorToLocationVec.x);
+                
+                break;
+            case TransformImage_Scale:
+                location = [sender locationInView:_paintView];
+                anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
+                _transformPointToAnchorLength = GLKVector2Length(anchorToLocationVec);
+                break;
             default:
                 break;
-        } 
-        
-    if (_isPaintMode) {
-        [HandleGestureRecognizer handleMove:sender];
-    }
-    else {
-        if (sender.numberOfTouches<2) {
-            CGPoint translation = [sender translationInView:sender.view];
-            _curViewAngleX = _lastViewAngleX + translation.x * 0.01;
-            _curViewAngleY = _lastViewAngleY + translation.y * 0.01;
         }
+        
+        [_paintView transformImageBegan];
     }
     
+    switch (_transformImageState) {
+        case TransformImage_Move:
+            translation = [sender translationInView:_paintView];
+            [_paintView moveImage:translation];
+            
+            break;
+        case TransformImage_Rotate:
+            location = [sender locationInView:_paintView];
+            anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
+            newTransformPointToAnchorArc = atan2f(anchorToLocationVec.y, anchorToLocationVec.x);
+            
+            [_paintView rotateImage:(_transformPointToAnchorArc - newTransformPointToAnchorArc)];
+            break;
+        case TransformImage_Scale:
+            
+            location = [sender locationInView:_paintView];
+            anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
+            newTransformPointToAnchorLength = GLKVector2Length(anchorToLocationVec);
+            if (_transformPointToAnchorLength > 0) {
+                [_paintView scaleImage:(newTransformPointToAnchorLength / _transformPointToAnchorLength)];
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    //中心点
+    _transformAnchor = [_paintView imageScaleAnchor];
+    _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
 }
 
-- (IBAction)handlePanPaintView:(UIPanGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan && sender.numberOfTouches == 2) {
-        _paintView.isPanOperating = true;
+- (IBAction)handleTwoFingerTransformImage:(UIGestureRecognizer *)sender{
+    if (sender.numberOfTouches != 2) {
         return;
     }
+    
+    if(sender.state == UIGestureRecognizerStateBegan){
+        //记录初始双指中点
+        CGPoint p0 = [sender locationOfTouch:0 inView:_paintView];
+        CGPoint p1 = [sender locationOfTouch:1 inView:_paintView];
+        
+        _twoFingerCenterBegan = CGPointMake((p0.x + p1.x) * 0.5, (p0.y + p1.y) * 0.5);
+        _twoFingerDistanceBegan = GLKVector2Distance(GLKVector2Make(p0.x, p0.y), GLKVector2Make(p1.x, p1.y));
+        _twoFingerVecBegan = _twoFingerVecLast = GLKVector2Make(p1.x - p0.x, p1.y - p0.y);
+        
+        [_paintView transformImageBegan];
+    }
+    
+//    NSLog(@"handleTwoFingerTransformImage");
+    CGPoint p0 = [sender locationOfTouch:0 inView:_paintView];
+    CGPoint p1 = [sender locationOfTouch:1 inView:_paintView];
+//    NSLog(@"p0 x:%.2f y:%.2f  p1 x:%.2f y:%.2f", p0.x, p0.y, p1.x, p1.y);
+    
+    CGPoint center = CGPointMake((p0.x + p1.x) * 0.5, (p0.y + p1.y) * 0.5);
+    CGPoint translation = CGPointMake(center.x - _twoFingerCenterBegan.x, center.y - _twoFingerCenterBegan.y);
+
+    float distance = GLKVector2Distance(GLKVector2Make(p0.x, p0.y), GLKVector2Make(p1.x, p1.y));
+    float scale = distance / _twoFingerDistanceBegan;
+    
+    float rotateAngle;
+    GLKVector2 _twoFingerVec = GLKVector2Make(p1.x - p0.x, p1.y - p0.y);
+    //如果前一帧和当前帧两点相反
+    if(GLKVector2DotProduct(_twoFingerVec, _twoFingerVecLast) < 0){
+        _twoFingerVec = GLKVector2Make(p0.x - p1.x, p0.y - p1.y);
+    }
+    _twoFingerVecLast = _twoFingerVec;
+    rotateAngle = atan2f(_twoFingerVecBegan.y, _twoFingerVecBegan.x) - atan2f(_twoFingerVec.y, _twoFingerVec.x);
+    
+//    NSLog(@"freeTransformImageTranslate x:%.2f y:%.2f  Rotate:%.2f scale:%.2f", translation.x, translation.y, rotateAngle, scale);
+    [_paintView freeTransformImageTranslate:translation rotate:rotateAngle scale:scale];
+    
+    //中心点
+    _transformAnchor = [_paintView imageScaleAnchor];
+    _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
+}
+- (IBAction)handlePanPaintView:(UIPanGestureRecognizer *)sender {
+//    NSLog(@"handlePanPaintView");
+    
+    
+//    if (sender.state == UIGestureRecognizerStateBegan && sender.numberOfTouches == 2) {
+//        _paintView.isPanOperating = true;
+//        return;
+//    }
 //    else if (sender.state == UIGestureRecognizerStateEnded) {
 //        if (_colorPickerViewHiddenTemp) {
 //            _colorPickerViewHiddenTemp = false;            
@@ -505,78 +534,88 @@ typedef struct {
 //    }
     
     //变换图片
-    if (sender.numberOfTouches == 1 && _state == PaintScreen_TransformImage)
-    {
-        _paintView.isPanOperating = true;
-        CGPoint translation = CGPointZero;
-        CGPoint location = CGPointZero;
-        float newTransformPointToAnchorLength = 0;
-        float newTransformPointToAnchorArc = 0;
-        GLKVector2 anchorToLocationVec;
-        
+    if (_state == PaintScreen_TransformImage) {
         if(sender.state == UIGestureRecognizerStateBegan){
-           _transformAnchor = [_paintView importedImageScaleAnchor];
-            
-            switch (_transformImageState) {
-                case TransformImage_Move:
-                    
-                    break;
-                case TransformImage_Rotate:
-                    location = [sender locationInView:_paintView];
-                    anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
-                    _transformPointToAnchorArc = atan2f(anchorToLocationVec.y, anchorToLocationVec.x);
-                    
-                    break;
-                case TransformImage_Scale:
-                    location = [sender locationInView:_paintView];
-                    anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
-                    _transformPointToAnchorLength = GLKVector2Length(anchorToLocationVec);
-                     break;
-                default:
-                     break;
-            }
-            
-            [_paintView transformImportedImageBegan];            
+            _paintView.isTransformOperating = true;
         }
         
+        //单指模式
+        if (sender.numberOfTouches == 1 &&
+            (_transformImageState == TransformImage_Move ||
+             _transformImageState == TransformImage_Rotate ||
+             _transformImageState == TransformImage_Scale ))
+        {
+            [self handleSingleFingerPanImage:sender];
+        }
+        //双指模式        
+        else if (sender.numberOfTouches == 2 &&
+                 _transformImageState == TransformImage_Free)
+        {
+            [self handleTwoFingerTransformImage:sender];
+        }
+        else{
+        }
+    }
+    //变换画布
+    else{
+        if (sender.numberOfTouches == 1) {
+            return;
+        }
+        
+        //双指模式
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            _paintView.isTransformOperating = true;
+        }
+        [HandleGestureRecognizer handleMove:sender];
+
+    }
+
+}
+
+- (IBAction)handleSwipePaintView:(UISwipeGestureRecognizer *)sender {
+}
+
+- (IBAction)handlePinchPaintView:(UIPinchGestureRecognizer *)sender {
+//    NSLog(@"handlePinchPaintView");
 
         
-        switch (_transformImageState) {
-            case TransformImage_Move:
-                translation = [sender translationInView:_paintView];
-                [_paintView moveImportedImage:translation];
+        //        if ([sender numberOfTouches]==2) {
+        //            CALayer* layer = [sender.view layer];
+        //            CGPoint touch0 = [sender locationOfTouch:0 inView:paintView];
+        //            CGPoint touch1 = [sender locationOfTouch:1 inView:paintView];
+        //            CGPoint touchCenter = CGPointMake((touch0.x+touch1.x)*0.5, (touch0.y+touch1.y)*0.5);
+        //
+        //            NSLog(@"touch0 x:%.1f y:%.1f", touch0.x, touch0.y);
+        //
+        //            _scaleAnchorPoint = CGPointMake(touchCenter.x / (sender.view.frame.size.width ), touchCenter.y / (sender.view.frame.size.height));
+        ////            NSLog(@"layer new anchor point x:%.1f y:%.1f", _scaleAnchorPoint.x, _scaleAnchorPoint.y);
+        ////            CGPoint ap = [layer anchorPoint];
+        ////            NSLog(@"layer old anchor point x:%.1f y:%.1f", ap.x, ap.y);
+        ////            [layer setAnchorPoint:_scaleAnchorPoint];
+        //        }
+        
 
-                break;
-            case TransformImage_Rotate:
-                location = [sender locationInView:_paintView];
-                anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
-                newTransformPointToAnchorArc = atan2f(anchorToLocationVec.y, anchorToLocationVec.x);
-
-                [_paintView rotateImportedImage:(_transformPointToAnchorArc - newTransformPointToAnchorArc)];
-                break;
-            case TransformImage_Scale:
-                
-                location = [sender locationInView:_paintView];
-                anchorToLocationVec = GLKVector2Make(location.x - _transformAnchor.x, location.y - _transformAnchor.y);
-                newTransformPointToAnchorLength = GLKVector2Length(anchorToLocationVec);
-                if (_transformPointToAnchorLength > 0) {
-                    [_paintView scaleImportedImage:(newTransformPointToAnchorLength / _transformPointToAnchorLength)];
-                }
-
-                break;
-                
-            default:
-                break;
+    if(_state == PaintScreen_TransformImage){
+        if(sender.state == UIGestureRecognizerStateBegan){
+            _paintView.isTransformOperating = true;
         }
-       
-        //test
-        _transformAnchor = [_paintView importedImageScaleAnchor];
-        _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
+        
+        //pinch 默认numberOfTouches == 2
+        if (sender.numberOfTouches == 2 &&
+                 _transformImageState == TransformImage_Free)
+        {
+            [self handleTwoFingerTransformImage:sender];
+        }
     }
     else{
-        [HandleGestureRecognizer handleMove:sender];
+        if(sender.state == UIGestureRecognizerStateBegan){
+            _paintView.isTransformOperating = true;
+        }
+        
+        //放缩画布
+        [HandleGestureRecognizer handleScale:sender];
     }
-
+    
 }
 
 - (IBAction)handleTapPaintView:(UITapGestureRecognizer *)sender {
@@ -717,6 +756,24 @@ typedef struct {
 //    }    
 //}
 
+- (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint location = [sender locationInView:sender.view];
+        //        CGPoint locationInRootView = [sender.view convertPoint:location toView:_rootView];
+        CGPoint locationInRootView = CGPointMake(sender.view.superview.frame.origin.x + location.x, sender.view.superview.frame.origin.y + location.y);
+        for (UIButton* colorButton in colorButtons) {
+            //            CGRect rectInRootView = [colorButton convertRect:colorButton.frame toView:_rootView];
+            CGRect rectInRootView = CGRectMake(colorButton.superview.frame.origin.x + colorButton.frame.origin.x, colorButton.superview.frame.origin.y + colorButton.frame.origin.y, colorButton.frame.size.width, colorButton.frame.size.height);
+            if(CGRectContainsPoint(rectInRootView, locationInRootView)){
+                colorButton.backgroundColor = sender.view.backgroundColor;
+                //                NSLog(@"location is x:%.1f y:%.1f", locationInRootView.x, locationInRootView.y);
+                //                NSLog(@"cgrect is x:%.1f y:%.1f", rectInRootView.origin.x, rectInRootView.origin.y);
+                break;
+            }
+        }
+    }
+}
+
 - (IBAction)handlePanLayerImageView:(UIPanGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         [self selectPaintLayer:sender.view];
@@ -771,10 +828,56 @@ typedef struct {
     }
 }
 
+
+- (IBAction)handlePinchPaintRefView:(UIPinchGestureRecognizer *)sender {
+    if (_isPaintMode) {
+        [HandleGestureRecognizer handleScale:sender];
+    }
+    else {
+    }
+}
+- (IBAction)handlePanPaintRefView:(UIPanGestureRecognizer *)sender {
+    
+    switch (sender.state ) {
+        case UIGestureRecognizerStateBegan:
+            _lastViewAngleX = _curViewAngleX;
+            _lastViewAngleY = _curViewAngleY;
+            break;
+        case UIGestureRecognizerStateEnded:
+            
+            break;
+        default:
+            break;
+    }
+    
+    if (_isPaintMode) {
+        [HandleGestureRecognizer handleMove:sender];
+    }
+    else {
+        if (sender.numberOfTouches<2) {
+            CGPoint translation = [sender translationInView:sender.view];
+            _curViewAngleX = _lastViewAngleX + translation.x * 0.01;
+            _curViewAngleY = _lastViewAngleY + translation.y * 0.01;
+        }
+    }
+    
+}
 #pragma mark- 手势代理 Gestures Delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return NO;
+    // if the gesture recognizers's view isn't one of our views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != _paintView)
+        return NO;
+    
+    // if the gesture recognizers are on different views, don't allow simultaneous recognition
+    if (gestureRecognizer.view != otherGestureRecognizer.view)
+        return NO;
+    
+    // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
+        return NO;
+    
+    return YES;
 }
 
 #pragma mark- 绘图界面 Paint UI Operation
@@ -1173,17 +1276,16 @@ typedef struct {
 #pragma mark- 变换 Transform
 - (void)transformImageStart{
     _state = PaintScreen_TransformImage;
-    _transformImageState = TransformImage_Free;
     
     //UI
     _paintToolBar.hidden = true;
     _mainToolBar.hidden = true;
     _transformToolBar.hidden = false;
     
-    [self moveButtonTapped:_moveTransformButton];
+    [self freeTransformButtonTapped:_freeTransformButton];
     
     _anchorView.hidden = false;
-    _transformAnchor = [_paintView importedImageScaleAnchor];
+    _transformAnchor = [_paintView imageScaleAnchor];
     _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
 }
 - (IBAction)transformImageDoneTapped:(UIButton *)sender {

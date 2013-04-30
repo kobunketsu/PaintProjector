@@ -181,8 +181,7 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
 @property(nonatomic, retain)Brush* brush;
 @property(nonatomic, retain)NSMutableArray *brushTypes;
 @property(nonatomic, retain) EAGLContext *context;
-@property(nonatomic, assign) BOOL isPinchOperating;
-@property(nonatomic, assign) BOOL isPanOperating;
+@property(nonatomic, assign) BOOL isTransformOperating;
 @property(nonatomic, assign) BOOL isEyeDroppering;
 @property(nonatomic, readwrite) CGPoint location;
 @property(nonatomic, readwrite) CGPoint previousLocation;
@@ -229,13 +228,13 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
 //指定位置插入UIImage
 - (void)insertUIImageAtCurLayer:(UIImage*)uiImage;
 - (void)cancelInsertUIImageAtCurLayer;
-- (void)freeTransformImportedImage:(UIPinchGestureRecognizer*)sender;
-- (void)moveImportedImage:(CGPoint)translation;
-- (void)rotateImportedImage:(float)angle;
-- (void)scaleImportedImage:(float)scale;
-- (void)transformImportedImageBegan;
+- (void)freeTransformImageTranslate:(CGPoint)translation rotate:(float) angle scale:(float)scale;
+- (void)moveImage:(CGPoint)translation;
+- (void)rotateImage:(float)angle;
+- (void)scaleImage:(float)scale;
+- (void)transformImageBegan;
 - (void)editImageDone;
-- (CGPoint)importedImageScaleAnchor;
+- (CGPoint)imageScaleAnchor;
 //指定位置删除图层
 - (void)deleteLayerAtIndex:(int)index;
 //移动图层

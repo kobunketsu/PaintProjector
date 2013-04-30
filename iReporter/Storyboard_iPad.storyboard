@@ -331,6 +331,7 @@
                                     <outletCollection property="gestureRecognizers" destination="oTk-me-Tqm" appends="YES" id="LeI-P0-dEl"/>
                                     <outletCollection property="gestureRecognizers" destination="9Qu-66-uty" appends="YES" id="LDb-kk-ows"/>
                                     <outletCollection property="gestureRecognizers" destination="UHa-tB-uQ7" appends="YES" id="jeu-nY-qVo"/>
+                                    <outletCollection property="gestureRecognizers" destination="B5I-bO-CIH" appends="YES" id="chn-HO-roM"/>
                                 </connections>
                             </view>
                             <view opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" id="DaP-yC-9nA" customClass="BrushView">
@@ -703,7 +704,7 @@
                                         </subviews>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.87556952238082886" green="0.87570708990097046" blue="0.87551957368850708" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="erO-nK-SuU" userLabel="MainToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="66"/>
@@ -785,27 +786,12 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.87556952238082886" green="0.87570708990097046" blue="0.87551957368850708" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="KXd-SK-HpQ" userLabel="TransformToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j1i-FF-Mnk" userLabel="Free">
-                                        <rect key="frame" x="50" y="0.0" width="66" height="66"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Free">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="freeTransformButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="Sks-Q6-i43"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iGz-x9-FWD" userLabel="Cancel">
                                         <rect key="frame" x="50" y="0.0" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -821,8 +807,23 @@
                                             <action selector="cancelButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="6mG-7C-5qb"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j1i-FF-Mnk" userLabel="Free">
+                                        <rect key="frame" x="170" y="0.0" width="66" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Free">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="freeTransformButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="Sks-Q6-i43"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jUE-CN-MqN" userLabel="Move">
-                                        <rect key="frame" x="200" y="0.0" width="66" height="66"/>
+                                        <rect key="frame" x="290" y="0.0" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Move">
@@ -837,7 +838,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a8e-Xf-CKu" userLabel="Rotate">
-                                        <rect key="frame" x="350" y="0.0" width="66" height="66"/>
+                                        <rect key="frame" x="410" y="0.0" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Rotate">
@@ -852,7 +853,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rbW-g9-iD4" userLabel="Scale">
-                                        <rect key="frame" x="500" y="0.0" width="66" height="66"/>
+                                        <rect key="frame" x="530" y="0.0" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Scale">
@@ -882,7 +883,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.87556952239999997" green="0.87570708990000001" blue="0.8755195737" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="w9K-wM-laf" userLabel="PreviewToolBar">
                                 <rect key="frame" x="0.0" y="958" width="1024" height="66"/>
@@ -1132,6 +1133,74 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-BW-oJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" id="9Qu-66-uty" userLabel="PanGR PaintView" customClass="UndoGestureRecognizer">
+                    <attributedString key="userComments">
+                        <fragment content="TranslateViewOrImage">
+                            <attributes>
+                                <font key="NSFont" metaFont="toolTip"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <connections>
+                        <action selector="handlePanPaintView:" destination="NUX-zI-YbL" id="Asj-UA-QKA"/>
+                        <outlet property="delegate" destination="NUX-zI-YbL" id="ap3-Jd-Y4a"/>
+                    </connections>
+                </panGestureRecognizer>
+                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="B5I-bO-CIH" userLabel="SwipeGR PaintView">
+                    <attributedString key="userComments">
+                        <fragment content="UndoRedoOperation">
+                            <attributes>
+                                <font key="NSFont" metaFont="toolTip"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <connections>
+                        <action selector="handleSwipePaintView:" destination="NUX-zI-YbL" id="dMh-Fw-Zge"/>
+                        <outlet property="delegate" destination="iQ2-mh-xrv" id="wUF-wD-GH6"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <pinchGestureRecognizer cancelsTouchesInView="NO" id="Leu-IS-UnG" userLabel="PinchGR PaintView">
+                    <attributedString key="userComments">
+                        <fragment content="ScaleViewOrImage">
+                            <attributes>
+                                <font key="NSFont" metaFont="toolTip"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <connections>
+                        <action selector="handlePinchPaintView:" destination="NUX-zI-YbL" id="AcC-ms-AQZ"/>
+                        <outlet property="delegate" destination="NUX-zI-YbL" id="oH0-ph-0zB"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <tapGestureRecognizer delaysTouchesBegan="YES" id="UHa-tB-uQ7" userLabel="TapGR PaintView">
+                    <attributedString key="userComments">
+                        <fragment content="HideUI">
+                            <attributes>
+                                <font key="NSFont" metaFont="toolTip"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <connections>
+                        <action selector="handleTapPaintView:" destination="NUX-zI-YbL" id="aV4-4T-tew"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="10" minimumPressDuration="0.5" id="oTk-me-Tqm" userLabel="LongPressGR PaintView">
+                    <attributedString key="userComments">
+                        <fragment content="EyedropColor">
+                            <attributes>
+                                <font key="NSFont" metaFont="toolTip"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <connections>
+                        <action selector="handleLongPressPaintView:" destination="NUX-zI-YbL" id="PQv-k5-JLj"/>
+                    </connections>
+                </pongPressGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="dxG-yv-OaI" userLabel="PanGR BrushView">
                     <connections>
                         <action selector="handlePanBrushView:" destination="NUX-zI-YbL" id="LEh-KZ-bsX"/>
@@ -1152,11 +1221,11 @@
                         <action selector="handlePanBrushToolBar:" destination="NUX-zI-YbL" id="acm-0X-s1C"/>
                     </connections>
                 </panGestureRecognizer>
-                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="10" minimumPressDuration="0.5" id="oTk-me-Tqm" userLabel="LongPressGR PaintView">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="mEb-l9-iaP" userLabel="PanPaintColorButton">
                     <connections>
-                        <action selector="handleLongPressPaintView:" destination="NUX-zI-YbL" id="PQv-k5-JLj"/>
+                        <action selector="handlePanPaintColorButton:" destination="NUX-zI-YbL" id="wxI-8q-pz4"/>
                     </connections>
-                </pongPressGestureRecognizer>
+                </panGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="1Mi-dX-E1F" userLabel="PanGR PaintRefView">
                     <connections>
                         <action selector="handlePanPaintRefView:" destination="NUX-zI-YbL" id="vd6-1G-euG"/>
@@ -1167,26 +1236,6 @@
                         <action selector="handlePinchPaintRefView:" destination="NUX-zI-YbL" id="ujA-z7-7sD"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" id="9Qu-66-uty" userLabel="PanGR PaintView" customClass="UndoGestureRecognizer">
-                    <connections>
-                        <action selector="handlePanPaintView:" destination="NUX-zI-YbL" id="Asj-UA-QKA"/>
-                    </connections>
-                </panGestureRecognizer>
-                <pinchGestureRecognizer cancelsTouchesInView="NO" id="Leu-IS-UnG" userLabel="PinchGR PaintView">
-                    <connections>
-                        <action selector="handlePinchPaintView:" destination="NUX-zI-YbL" id="AcC-ms-AQZ"/>
-                    </connections>
-                </pinchGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="mEb-l9-iaP" userLabel="PanPaintColorButton">
-                    <connections>
-                        <action selector="handlePanPaintColorButton:" destination="NUX-zI-YbL" id="wxI-8q-pz4"/>
-                    </connections>
-                </panGestureRecognizer>
-                <tapGestureRecognizer delaysTouchesBegan="YES" id="UHa-tB-uQ7" userLabel="TapGR PaintView">
-                    <connections>
-                        <action selector="handleTapPaintView:" destination="NUX-zI-YbL" id="aV4-4T-tew"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="701" y="-1689"/>
         </scene>
@@ -1792,10 +1841,18 @@
         <scene sceneID="S51-If-deY">
             <objects>
                 <viewController storyboardIdentifier="paintProjectViewController" id="BT0-tM-DS6" customClass="PaintProjectViewController" sceneMemberID="viewController">
-                    <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="SZs-a9-q1P" userLabel="PaintProjectView" customClass="PaintProjectView">
+                    <view key="view" contentMode="scaleToFill" id="W2X-PX-Nva" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <glkView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="SZs-a9-q1P" userLabel="PaintProjectView" customClass="PaintProjectView">
+                                <rect key="frame" x="0.0" y="66" width="768" height="812"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="rhq-cg-Qby" appends="YES" id="YKd-Zn-vqC"/>
+                                </connections>
+                            </glkView>
                             <view contentMode="scaleToFill" id="RkQ-uH-Uo8" userLabel="ProjectToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1815,27 +1872,6 @@
                                             <action selector="close:" destination="BT0-tM-DS6" eventType="touchUpInside" id="QHt-9H-LXn"/>
                                         </connections>
                                     </button>
-                                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="St7-xE-O7r" userLabel="EyeLocationSlider">
-                                        <rect key="frame" x="500" y="22" width="196" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="adjustEyeSliderSlide:" destination="BT0-tM-DS6" eventType="valueChanged" id="4v0-sA-9Mt"/>
-                                        </connections>
-                                    </slider>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="kxb-2G-gAi" userLabel="FarDistanceSlider">
-                                        <rect key="frame" x="18" y="44" width="152" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="farDistanceSliderSlide:" destination="BT0-tM-DS6" eventType="valueChanged" id="lpx-ls-eIM"/>
-                                        </connections>
-                                    </slider>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Far Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xbP-Iu-EtB" userLabel="FarDistance">
-                                        <rect key="frame" x="20" y="12" width="192" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="riP-s0-rbr" userLabel="Background">
                                         <rect key="frame" x="200" y="0.0" width="66" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1882,18 +1918,54 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="X7V-BU-hla">
+                                <rect key="frame" x="0.0" y="834" width="768" height="190"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="St7-xE-O7r" userLabel="EyeHeightSlider">
+                                        <rect key="frame" x="-50" y="84" width="190" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="heightSliderSlide:" destination="BT0-tM-DS6" eventType="valueChanged" id="zWu-vb-nT0"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="325-Lq-j95" userLabel="EyeHeightLabel">
+                                        <rect key="frame" x="50" y="85" width="100" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Far Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xbP-Iu-EtB" userLabel="FarDistanceLabel">
+                                        <rect key="frame" x="417" y="138" width="192" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="kxb-2G-gAi" userLabel="FarDistanceSlider">
+                                        <rect key="frame" x="415" y="124" width="152" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="farDistanceSliderSlide:" destination="BT0-tM-DS6" eventType="valueChanged" id="lpx-ls-eIM"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="rhq-cg-Qby" appends="YES" id="YKd-Zn-vqC"/>
-                        </connections>
-                    </glkView>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="farDistanceLabel" destination="xbP-Iu-EtB" id="n3k-2h-mr1"/>
                         <outlet property="farDistanceSlider" destination="kxb-2G-gAi" id="ATm-81-wta"/>
-                        <outlet property="projectSlider" destination="St7-xE-O7r" id="jYh-r2-08e"/>
+                        <outlet property="heightLabel" destination="325-Lq-j95" id="Z8d-5S-X6S"/>
+                        <outlet property="heightSlider" destination="St7-xE-O7r" id="79l-tC-zxx"/>
+                        <outlet property="projectView" destination="SZs-a9-q1P" id="VYD-Du-tum"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqP-yP-bod" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2111,7 +2183,7 @@
         <image name="brushRadius4.png" width="44" height="44"/>
         <image name="brushRadius8.png" width="44" height="44"/>
         <image name="camera_48.png" width="48" height="48"/>
-        <image name="close.png" width="44" height="44"/>
+        <image name="close.png" width="29" height="29"/>
         <image name="delete.png" width="64" height="64"/>
         <image name="finger.png" width="64" height="64"/>
         <image name="floorButton.jpg" width="44" height="44"/>
@@ -2123,6 +2195,307 @@
         <image name="sandClock1.png" width="64" height="64"/>
         <image name="sandClock2.png" width="64" height="64"/>
     </resources>
+    <classes>
+        <class className="AdjustImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustImageViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="adjustDoneButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="handlePanGRAdjustImageView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePinchGRAdjustImageView:"/>
+                <relationship kind="outlet" name="adjustImageDoneButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="AdjustSceneViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustSceneViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="adjustDoneButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="handlePanGRAdjustSceneView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="outlet" name="adjustDoneButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="BrushToolBar" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushToolBar.h"/>
+        </class>
+        <class className="BrushTypeView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushTypeView.h"/>
+        </class>
+        <class className="BrushView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushView.h"/>
+        </class>
+        <class className="CameraOverlayView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraOverlayView.h"/>
+        </class>
+        <class className="CameraOverlayViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraOverlayViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lblPitch" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblRoll" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblWarnig" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblYaw" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ColorPickerView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorPickerView.h"/>
+        </class>
+        <class className="InfColorBarPicker" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorBarPicker.h"/>
+            <relationships>
+                <relationship kind="outlet" name="indicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
+            </relationships>
+        </class>
+        <class className="InfColorBarView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorBarView.h"/>
+        </class>
+        <class className="InfColorPickerIndicatorMagnify" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorPickerIndicatorMagnify.h"/>
+        </class>
+        <class className="InfColorSquarePicker" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorSquarePicker.h"/>
+            <relationships>
+                <relationship kind="outlet" name="indicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
+            </relationships>
+        </class>
+        <class className="InfColorSquareView" superclassName="UIImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorSquareView.h"/>
+        </class>
+        <class className="LayerManagerView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LayerManagerView.h"/>
+        </class>
+        <class className="LoginScreen" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginScreen.h"/>
+            <relationships>
+                <relationship kind="action" name="btnLoginRegisterTapped:"/>
+                <relationship kind="action" name="testPassword2:"/>
+                <relationship kind="action" name="testPassword:"/>
+                <relationship kind="outlet" name="fldPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="fldUsername" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MainScreenView" superclassName="GLKView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainScreenView.h"/>
+        </class>
+        <class className="MainScreenViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainScreenViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="handlePanGRMainScreenView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePinchGRMainScreenView:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="openButtonTapped:" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PaintProjectViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintProjectViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="close:" candidateClass="UIButton"/>
+                <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="eyeHeightSliderSlide:" candidateClass="UISlider"/>
+                <relationship kind="action" name="farDistanceSliderSlide:" candidateClass="UISlider"/>
+                <relationship kind="action" name="handleTapPaintProjectViewGesture:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="heightSliderSlide:" candidateClass="UISlider"/>
+                <relationship kind="action" name="showBackgroundButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="showGridButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="farDistanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="farDistanceSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="heightLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heightSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="projectSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="projectView" candidateClass="GLKView"/>
+            </relationships>
+        </class>
+        <class className="PaintRefView" superclassName="GLKView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintRefView.h"/>
+        </class>
+        <class className="PaintScreen" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintScreen.h"/>
+            <relationships>
+                <relationship kind="action" name="RedoDraw:" candidateClass="UIButton"/>
+                <relationship kind="action" name="UndoDraw:" candidateClass="UndoButton"/>
+                <relationship kind="action" name="cancelButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="clearPaintButtonTapped:"/>
+                <relationship kind="action" name="colorPickerSwitchTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="colorSlotsSwitchTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="createLayerButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="debugButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="editBrush:" candidateClass="UIButton"/>
+                <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="eyeDropperButtonTapped:"/>
+                <relationship kind="action" name="fingerButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="freeTransformButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="handleLongPressColorSlot:" candidateClass="UILongPressGestureRecognizer"/>
+                <relationship kind="action" name="handleLongPressPaintView:" candidateClass="UILongPressGestureRecognizer"/>
+                <relationship kind="action" name="handlePanBrushView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePanPaintColorButton:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePanPaintRefView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePanPaintView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePinchPaintRefView:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="handlePinchPaintView:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="handleSwipePaintView:" candidateClass="UISwipeGestureRecognizer"/>
+                <relationship kind="action" name="handleTapBrushView:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="handleTapPaintView:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="importButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="layerButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="moveButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="pickImageInApp:"/>
+                <relationship kind="action" name="pickPhotoButtonTapped:"/>
+                <relationship kind="action" name="projectPaintButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="rotateButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="saveAndCloseButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="savePaintImageButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="saveToDiskButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="saveToDocButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="scaleButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="selFloorTexButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="selectBrushRadius:" candidateClass="UIButton"/>
+                <relationship kind="action" name="selectBrushType:" candidateClass="SelectBrushButton"/>
+                <relationship kind="action" name="selectColor:" candidateClass="SelectColorButton"/>
+                <relationship kind="action" name="selectColorConfirmed:" candidateClass="SelectColorButton"/>
+                <relationship kind="action" name="selectRubber:" candidateClass="UIButton"/>
+                <relationship kind="action" name="showNextImage:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="showPaint:"/>
+                <relationship kind="action" name="showRedoButton:" candidateClass="UndoButton"/>
+                <relationship kind="action" name="slideBrushOpacity:" candidateClass="UISlider"/>
+                <relationship kind="action" name="slideBrushRadius:" candidateClass="UISlider"/>
+                <relationship kind="action" name="syncBrushView:"/>
+                <relationship kind="action" name="takeBarValue:" candidateClass="InfColorBarPicker"/>
+                <relationship kind="action" name="takePhotoButtonTapped:"/>
+                <relationship kind="action" name="takeSquareValue:" candidateClass="InfColorSquarePicker"/>
+                <relationship kind="action" name="togglePaint:" candidateClass="UIButton"/>
+                <relationship kind="action" name="touchUpInsideRedoButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="touchUpInsideUndoButton:forEvent:" candidateClass="UndoButton"/>
+                <relationship kind="action" name="touchUpOutsideUndoButton:" candidateClass="UndoButton"/>
+                <relationship kind="action" name="transformImageDoneTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="airBrushToolBar" candidateClass="BrushToolBar"/>
+                <relationship kind="outlet" name="anchorView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="barPicker" candidateClass="InfColorBarPicker"/>
+                <relationship kind="outlet" name="barView" candidateClass="InfColorBarView"/>
+                <relationship kind="outlet" name="brushDetailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="brushTypeView" candidateClass="BrushTypeView"/>
+                <relationship kind="outlet" name="brushView" candidateClass="BrushView"/>
+                <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnBrush" candidateClass="SelectBrushButton"/>
+                <relationship kind="outlet" name="btnPaint" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnRedo" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnRubber" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnUndo" candidateClass="UndoButton"/>
+                <relationship kind="outlet" name="cancelTransformButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="colorPickerIndicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
+                <relationship kind="outlet" name="colorPickerView" candidateClass="ColorPickerView"/>
+                <relationship kind="outlet" name="colorSlotsScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="colorSlotsView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="createLayerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="debugView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="debugView2" candidateClass="UIView"/>
+                <relationship kind="outlet" name="exportButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="eyeDropperButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="freeTransformButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="importButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="layerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="layersScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="layersView" candidateClass="LayerManagerView"/>
+                <relationship kind="outlet" name="lblBrushOpacity" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblBrushRadius" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lpgrBrushView" candidateClass="UILongPressGestureRecognizer"/>
+                <relationship kind="outlet" name="lpgrPaintView" candidateClass="UILongPressGestureRecognizer"/>
+                <relationship kind="outlet" name="mainToolBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="moveTransformButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="paintColor" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="paintColorView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="paintRefView" candidateClass="GLKView"/>
+                <relationship kind="outlet" name="paintToolBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="paintView" candidateClass="PaintingView"/>
+                <relationship kind="outlet" name="pencilBrushToolBar" candidateClass="BrushToolBar"/>
+                <relationship kind="outlet" name="pgrBrushView" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="outlet" name="pgrPaintRefView" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="outlet" name="pgrPaintView" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="outlet" name="previewToolBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="projectButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="radiusSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="rootView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="rotateTransformButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scaleTransformButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="squarePicker" candidateClass="InfColorSquarePicker"/>
+                <relationship kind="outlet" name="squareView" candidateClass="InfColorSquareView"/>
+                <relationship kind="outlet" name="testOpenGLView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="transformDoneButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="transformToolBar" candidateClass="UIView"/>
+                <relationship kind="outletCollection" name="colorButtons" candidateClass="SelectColorButton"/>
+                <relationship kind="outletCollection" name="lpgrColorSlots" candidateClass="UILongPressGestureRecognizer"/>
+                <relationship kind="outletCollection" name="paintUIDefaultCollection" candidateClass="UIView"/>
+                <relationship kind="outletCollection" name="paintUISecCollection" candidateClass="UIView"/>
+                <relationship kind="outletCollection" name="transformToolButtons" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="PaintView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintView.h"/>
+        </class>
+        <class className="PaintingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintingView.h"/>
+        </class>
+        <class className="PhotoScreen" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoScreen.h"/>
+            <relationships>
+                <relationship kind="action" name="btnActionTapped:"/>
+                <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="fldTitle" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="RedoButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RedoButton.h"/>
+        </class>
+        <class className="SelectBrushButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectBrushButton.h"/>
+        </class>
+        <class className="SelectColorButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectColorButton.h"/>
+        </class>
+        <class className="SelectLayerContentViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectLayerContentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="testButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="imageScrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="ShowPaintOnPlane" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowPaintOnPlane.h"/>
+        </class>
+        <class className="ShowPaintOnPlaneViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowPaintOnPlaneViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="handlePinchGRShowPaintOnPlane:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="handleSceneButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="hanlePanGRShowPaintOnPlane:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="outlet" name="btnScene" candidateClass="UIView"/>
+                <relationship kind="outlet" name="lbLength" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lbWidth" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="showPaintOnPlane" candidateClass="ShowPaintOnPlane"/>
+            </relationships>
+        </class>
+        <class className="StreamPhotoScreen" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StreamPhotoScreen.h"/>
+            <relationships>
+                <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photoView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="StreamScreen" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StreamScreen.h"/>
+            <relationships>
+                <relationship kind="action" name="btnRefreshTapped"/>
+                <relationship kind="outlet" name="btnCompose" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="btnRefresh" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="listView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="UndoButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UndoButton.h"/>
+        </class>
+        <class className="UndoGestureRecognizer" superclassName="UIPanGestureRecognizer">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UndoGestureRecognizer.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

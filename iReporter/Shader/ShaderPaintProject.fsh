@@ -30,6 +30,6 @@ void main()
     
     //边界像素采样
     if(uv.x > 1.0 || uv.x < 0.0 || uv.y > 1.0 || uv.y < 0.0){
-        gl_FragColor = vec4(0,0,0,1);
+        gl_FragColor = vec4(0.5,0.6,0.7,1);
     }    
 }

@@ -28,7 +28,6 @@
 //#import "GLProgram.h"
 #import "ShowPaintOnPlane.h"
 #import "ShowPaintOnPlaneViewController.h"
-#import "PaintProjectView.h"
 #import "PaintProjectViewController.h"
 //Other ViewController
 #import "SelectLayerContentViewController.h"
@@ -131,6 +130,11 @@ LayerBlendModeTableViewControllerDelegate
     CGPoint _transformAnchor;
     float _transformPointToAnchorLength;
     float _transformPointToAnchorArc;
+    CGPoint _twoFingerCenterBegan;
+    float _twoFingerDistanceBegan;
+    GLKVector2 _twoFingerVecBegan;
+    GLKVector2 _twoFingerVecLast;
+//    float _twoFingerAngleBegan;
     
     BOOL    _redoEnable;
     BOOL    _colorSlotsViewHiddenTemp;
@@ -215,6 +219,7 @@ LayerBlendModeTableViewControllerDelegate
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePinchPaintRefView:(UIPinchGestureRecognizer *)sender;
+- (IBAction)handleSwipePaintView:(UISwipeGestureRecognizer *)sender;
 - (IBAction)handlePinchPaintView:(UIPinchGestureRecognizer *)sender;
 - (IBAction)handlePanPaintRefView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePanPaintView:(UIPanGestureRecognizer *)sender;

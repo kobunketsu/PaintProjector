@@ -28,6 +28,7 @@ float paintProjectQuadVertexData[] =
 @synthesize context = _context;
 @synthesize delegate;
 @synthesize effect = _effect;
+@synthesize glkViewController = _glkViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,16 +49,26 @@ float paintProjectQuadVertexData[] =
 {
     [super viewDidLoad];
 
+    //创建glkViewController
+    _glkViewController = [[GLKViewController alloc]init];
+    _glkViewController.view = _projectView;
+    _glkViewController.delegate = self;
+    // then add the glkview as the subview of the parent view
+//    [self.view addSubview:_myGlkViewController.view];
+    // add the glkViewController as the child of self
+    [self addChildViewController:_glkViewController];
+    [_glkViewController didMoveToParentViewController:self];
+    
+    
     [delegate createPaintProjectEAGleContext:self];
     if (!self.context) {
         NSLog(@"Failed to create ES context");
     }
     
 	// Do any additional setup after loading the view.
-    GLKView *view = (GLKView *)self.view;
-    view.context = self.context;
-    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    view.delegate = self;
+    _projectView.context = self.context;
+    _projectView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    _projectView.delegate = self;
 
     //覆盖farDistanceSlider的数值
 //    self.farDistanceSlider.minimumValue = (tanhf(DEGREES_TO_RADIANS(HumanEyeFOV* 0.5)) * _eye.y) / (float)FarDistanceMax;
@@ -68,14 +79,16 @@ float paintProjectQuadVertexData[] =
     [self setupPaintProjectParams];
     
     [self setupGL];
-
+    
+    
+    //UI
+    //旋转heigtSlider为垂直
+    CGAffineTransform trans = CGAffineTransformMakeRotation(-M_PI * 0.5);
+    _heightSlider.transform = trans;
 }
-
-
 
 - (void)initPaint:(PaintingView*)paintView viewAngle:(float)angle{
     _finalRenderbuffer = paintView.finalRenderbuffer;
-    
     _paintTexture = paintView.curPaintedLayerTexture;
     _bgTexture = paintView.backgroundTexture;
     
@@ -110,10 +123,11 @@ float paintProjectQuadVertexData[] =
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark- 工具栏
 - (IBAction)close:(UIButton *)sender {
     _state = UnProjecting;
 }
-#pragma mark- 调节参数
+
 //初始化 贴图 参数
 - (IBAction)adjustEyeSliderSlide:(UISlider *)sender {
     _eyeT = sender.value;
@@ -133,9 +147,12 @@ float paintProjectQuadVertexData[] =
 }
 
 - (IBAction)heightSliderSlide:(UISlider *)sender {
-    _manHeight = sender.value;
-    self.heightLabel.text = [NSString stringWithFormat:@"Man Height %.1f", _manHeight];
-    _eye = GLKVector3Make(0, _manHeight, 0);
+    _manHeight = sender.value * EyeHeightMax;
+    _heightLabel.text = [NSString stringWithFormat:@"Height %.1f", _manHeight];
+    float valueY = _heightSlider.frame.origin.y + (1 - _heightSlider.value) * _heightSlider.frame.size.height;
+    CGRect rect = CGRectMake(_heightLabel.frame.origin.x, valueY, _heightLabel.frame.size.width, _heightLabel.frame.size.height);
+    _heightLabel.frame = rect;
+    _eye.y = _manHeight;
     _projDirty = true;    
 }
 
@@ -150,7 +167,6 @@ float paintProjectQuadVertexData[] =
 - (IBAction)exportButtonTapped:(UIButton *)sender {
     [self ExportToEmail];
 }
-
 
 
 #pragma mark- 导出 Export
@@ -192,8 +208,8 @@ float paintProjectQuadVertexData[] =
     //从屏幕坐标转换到世界坐标
     
     //step1.转换到projection坐标 x: -1~1 y:-1~1
-    float x = (location.x - self.view.frame.size.width * 0.5) / (self.view.frame.size.width * 0.5);
-    float y = -(location.y - self.view.frame.size.height * 0.5) / (self.view.frame.size.height * 0.5);
+    float x = (location.x - _projectView.frame.size.width * 0.5) / (_projectView.frame.size.width * 0.5);
+    float y = -(location.y - _projectView.frame.size.height * 0.5) / (_projectView.frame.size.height * 0.5);
 //    NSLog(@"projection space x:%.2f, y:%.2f", x, y);
 
     //求出射线于远裁减面的焦点，求出射线于地面的交点
@@ -218,7 +234,7 @@ float paintProjectQuadVertexData[] =
         _magnifyCenter.z = ceilf(worldPos.z - _projNear.z) - 0.5 + _projNear.z ;
         
         float heightFovY = 1 * 0.5 / tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5));
-        float heightFovX = 1 * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _aspect);
+        float heightFovX = 1 * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _projAspect);
         _eyeMagTop = GLKVector3Make(_magnifyCenter.x, MAX(heightFovX, heightFovY), _magnifyCenter.z);
         
     }
@@ -235,7 +251,7 @@ float paintProjectQuadVertexData[] =
             [self unMagnifyGridView];
         }
         else if(_state == Projected){
-            [self magnifyGridView:[sender locationInView:self.view]];
+            [self magnifyGridView:[sender locationInView:_projectView]];
         }
 
     }
@@ -271,7 +287,7 @@ float paintProjectQuadVertexData[] =
 //    GLKVector3 up = GLKVector3Normalize(GLKVector3Subtract(far, near));
 //    
 //    //计算绘制矩阵
-//    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+//    float aspect = fabsf(_projectView.bounds.size.width / _projectView.bounds.size.height);
 //    GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-0.5*_realHeight*aspect, 0.5*_realHeight*aspect, 0.5*_realHeight, -0.5*_realHeight, 0.01, 100);
 //    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(20, 1, 30);
 //    GLKMatrix4 worldMatrix = scaleMatrix;
@@ -289,17 +305,26 @@ float paintProjectQuadVertexData[] =
 //    //viewport有尺寸限制，要将_kScreenToReal限制在尺寸限制内
 //    GLuint dims[2];
 //    glGetIntegerv(GL_MAX_VIEWPORT_DIMS, (GLint*)&dims[0]);
-//    if (self.view.bounds.size.height*_kHeightScale>dims[1]) {
-//        _kHeightScale = dims[1] / self.view.bounds.size.height;
+//    if (_projectView.bounds.size.height*_kHeightScale>dims[1]) {
+//        _kHeightScale = dims[1] / _projectView.bounds.size.height;
 //    }
 //    
 ////    NSLog(@"Debug: RealHeight: %.2f meters ScreenToRealScale: %.2f", realHeight, _kHeightScale);
-//    [self.view setContentScaleFactor:_kHeightScale];
+//    [_projectView setContentScaleFactor:_kHeightScale];
 //}
 //
 
 - (void)setupRealQuadParams{
-    _aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+    //投影视图视口比例    
+    _projAspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+//    _projAspect = fabsf(_projectView.bounds.size.width / _projectView.bounds.size.height);
+    NSLog(@"_aspect: %.2f", _projAspect);
+
+    
+    //顶视图视口比例
+    _eyeTopAspect = fabsf(_projectView.bounds.size.width / _projectView.bounds.size.height);
+    NSLog(@"_aspect: %.2f", _eyeTopAspect);
+    
     //计算实际地面长度
 //    if(_curViewAngleY < _minViewAngleY){
 //        _curViewAngleY = _minViewAngleY;
@@ -349,14 +374,14 @@ float paintProjectQuadVertexData[] =
     
     //实际地面绘制长宽
     _projHeight = fabsf(_farDistance - nearDistance);
-    float tanFovXHalf =tanf(fovYHalf) * _aspect;
+    float tanFovXHalf =tanf(fovYHalf) * _projAspect;
     _projWidth = _projHeight * tanFovXHalf * 2;
     
     
-//    NSLog(@"_projHeight:%.1f", _projHeight);
-//    NSLog(@"_projWith:%.1f", _projWidth);
-//    NSLog(@"_projFar x:%.1f y:%.1f z:%.1f", _projFar.x, _projFar.y, _projFar.z);
-//    NSLog(@"_projNear x:%.1f y:%.1f z:%.1f", _projNear.x, _projNear.y, _projNear.z);
+    NSLog(@"_projHeight:%.1f", _projHeight);
+    NSLog(@"_projWith:%.1f", _projWidth);
+    NSLog(@"_projFar x:%.1f y:%.1f z:%.1f", _projFar.x, _projFar.y, _projFar.z);
+    NSLog(@"_projNear x:%.1f y:%.1f z:%.1f", _projNear.x, _projNear.y, _projNear.z);
     
 }
 
@@ -366,7 +391,7 @@ float paintProjectQuadVertexData[] =
     GLKMatrix4 worldMatrix = GLKMatrix4Multiply(translateMatrix, scaleMatrix);
     GLKMatrix4 viewMatrix  = GLKMatrix4MakeLookAt(_eye.x, _eye.y, _eye.z, _projFocus.x, _projFocus.y, _projFocus.z, 0, 1, 0);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, worldMatrix);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _aspect, NearClipDistance, FarClipDistance);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _projAspect, NearClipDistance, FarClipDistance);
     _paintMVPMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 }
 
@@ -374,7 +399,7 @@ float paintProjectQuadVertexData[] =
     
     //计算视图顶部观察点
     float heightFovY = _projHeight * 0.5 / tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5));
-    float heightFovX = _projWidth * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _aspect);
+    float heightFovX = _projWidth * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _projAspect);
     
     _eyeTop = GLKVector3Make(_projCenter.x, MAX(heightFovX, heightFovY), _projCenter.z);
     GLKVector3 up;
@@ -419,7 +444,7 @@ float paintProjectQuadVertexData[] =
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, worldMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _aspect, NearClipDistance, FarClipDistance);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _projAspect, NearClipDistance, FarClipDistance);
     self.effect.transform.projectionMatrix = projectionMatrix;
 }
 
@@ -427,7 +452,7 @@ float paintProjectQuadVertexData[] =
 
     //计算视图顶部观察点
     float heightFovY = _projHeight * 0.5 / tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5));
-    float heightFovX = _projWidth * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _aspect);
+    float heightFovX = _projWidth * 0.5 / (tanf(DEGREES_TO_RADIANS(HumanEyeFOV*0.5)) * _projAspect);
     
     _eyeTop = GLKVector3Make(_projCenter.x, MAX(heightFovX, heightFovY), _projCenter.z);
     GLKVector3 up;
@@ -475,7 +500,7 @@ float paintProjectQuadVertexData[] =
     GLKMatrix4 worldMatrix = GLKMatrix4Multiply(translateMatrix, scaleMatrix);
     GLKMatrix4 viewMatrix  = GLKMatrix4MakeLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, worldMatrix);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _aspect, NearClipDistance, FarClipDistance);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _projAspect, NearClipDistance, FarClipDistance);
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     bool isInvertible = true;
     _viewProjInverseMatrix = GLKMatrix4Invert(GLKMatrix4Multiply(projectionMatrix, viewMatrix), &isInvertible);
@@ -518,7 +543,7 @@ float paintProjectQuadVertexData[] =
 }
 
 #pragma mark- 绘图
-- (void)update{
+- (void)glkViewControllerUpdate:(GLKViewController *)controller{
     //重新设置投影地面的参数
     if(_projDirty){
         [self loadRefLine];
@@ -628,8 +653,10 @@ step1.从观察角度绘制地面, 地面长宽根据视角自适应
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
     [EAGLContext setCurrentContext:_context];
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
-    glViewport(0, 0, view.frame.size.width, view.frame.size.height);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    //偏移数值公式未验证
+    float offset = -(self.view.frame.size.height - view.frame.size.height) * 0.5;
+    glViewport(0, offset, self.view.frame.size.width, self.view.frame.size.height);
+    glClearColor(0.5f, 0.6f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //使用投影Shader技术绘制地面
@@ -916,6 +943,7 @@ step1.从观察角度绘制地面, 地面长宽根据视角自适应
     [self setFarDistanceLabel:nil];
     [self setHeightSlider:nil];
     [self setHeightLabel:nil];
+    [self setProjectView:nil];
     [super viewDidUnload];
 }
 
@@ -923,7 +951,7 @@ step1.从观察角度绘制地面, 地面长宽根据视角自适应
 {
     [EAGLContext setCurrentContext:_context];
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
-    glViewport(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    glViewport(0, 0, _projectView.frame.size.width, _projectView.frame.size.height);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -932,6 +960,6 @@ step1.从观察角度绘制地面, 地面长宽根据视角自适应
     
 //    [_context presentRenderbuffer:GL_RENDERBUFFER_OES];
     
-    return [Ultility snapshot:self.view Context:_context InViewportSize:self.view.frame.size ToOutputSize:self.view.frame.size];
+    return [Ultility snapshot:_projectView Context:_context InViewportSize:_projectView.frame.size ToOutputSize:_projectView.frame.size];
 }
 @end
