@@ -74,7 +74,7 @@
 		08243A1E16CCAE2100FC12BA /* Particle.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F416CCAE2100FC12BA /* Particle.png */; };
 		08243A1F16CCAE2100FC12BA /* pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F516CCAE2100FC12BA /* pen.png */; };
 		08243A2016CCAE2100FC12BA /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F616CCAE2100FC12BA /* pencil.png */; };
-		08243A2116CCAE2100FC12BA /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F716CCAE2100FC12BA /* pin.png */; };
+		08243A2116CCAE2100FC12BA /* switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F716CCAE2100FC12BA /* switch.png */; };
 		08243A2216CCAE2100FC12BA /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F816CCAE2100FC12BA /* placeholder.png */; };
 		08243A2316CCAE2100FC12BA /* pointer-finger-md.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439F916CCAE2100FC12BA /* pointer-finger-md.png */; };
 		08243A2416CCAE2100FC12BA /* redo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439FA16CCAE2100FC12BA /* redo_48.png */; };
@@ -165,6 +165,8 @@
 		0857779916C62DC80040B152 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* Camera.m */; };
 		085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */; };
 		085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */; };
+		085EFD4B1732B2E200F0395D /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 085EFD4A1732B2E200F0395D /* pin.png */; };
+		085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* PaintColorButton.m */; };
 		0862E373167F60E300ECEAC9 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */; };
 		0868B1FC1729954700BF4688 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B1FB1729954700BF4688 /* FacebookSDK.framework */; };
 		0868B1FE1729959300BF4688 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0868B1FD1729959300BF4688 /* FacebookSDKResources.bundle */; };
@@ -174,6 +176,8 @@
 		0868B206172995EB00BF4688 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B202172995EB00BF4688 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		086F8EDE1728AE2F0024289C /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ExportViewController.m */; };
 		087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */; };
+		087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* OpacitySlider.m */; };
+		087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */ = {isa = PBXBuildFile; fileRef = 087BB3A61730ABF7006C0A33 /* opacityChecker.png */; };
 		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
 		08966ECA166082E600339901 /* CalculateRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966EC9166082E600339901 /* CalculateRunTime.m */; };
 		08966F151660CA2700339901 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F101660C9E400339901 /* libGPUImage.a */; };
@@ -380,7 +384,7 @@
 		082439F416CCAE2100FC12BA /* Particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Particle.png; sourceTree = "<group>"; };
 		082439F516CCAE2100FC12BA /* pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pen.png; sourceTree = "<group>"; };
 		082439F616CCAE2100FC12BA /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
-		082439F716CCAE2100FC12BA /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		082439F716CCAE2100FC12BA /* switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switch.png; sourceTree = "<group>"; };
 		082439F816CCAE2100FC12BA /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		082439F916CCAE2100FC12BA /* pointer-finger-md.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pointer-finger-md.png"; sourceTree = "<group>"; };
 		082439FA16CCAE2100FC12BA /* redo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redo_48.png; sourceTree = "<group>"; };
@@ -453,6 +457,9 @@
 		085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
 		085A7E2D16D8A96200834C9D /* CameraOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayViewController.h; sourceTree = "<group>"; };
 		085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayViewController.m; sourceTree = "<group>"; };
+		085EFD4A1732B2E200F0395D /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		085EFD4C1732BDD900F0395D /* PaintColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintColorButton.h; sourceTree = "<group>"; };
+		085EFD4D1732BDD900F0395D /* PaintColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintColorButton.m; sourceTree = "<group>"; };
 		0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		0868B1FB1729954700BF4688 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		0868B1FD1729959300BF4688 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
@@ -464,6 +471,9 @@
 		086F8EDD1728AE2F0024289C /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		087395B716BE8A8C00E6968B /* HandleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleGestureRecognizer.h; sourceTree = "<group>"; };
 		087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleGestureRecognizer.m; sourceTree = "<group>"; };
+		087BB3A11730AB4B006C0A33 /* OpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpacitySlider.h; sourceTree = "<group>"; };
+		087BB3A21730AB4B006C0A33 /* OpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpacitySlider.m; sourceTree = "<group>"; };
+		087BB3A61730ABF7006C0A33 /* opacityChecker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacityChecker.png; sourceTree = "<group>"; };
 		087C5AB116B2CF2E005F954A /* Finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* Finger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finger.m; sourceTree = "<group>"; };
 		08966EC8166082E600339901 /* CalculateRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateRunTime.h; sourceTree = "<group>"; };
@@ -652,6 +662,7 @@
 		082439D716CCAE2100FC12BA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				087BB3A61730ABF7006C0A33 /* opacityChecker.png */,
 				089FC3FE171AD1F60018CE27 /* delete.png */,
 				0843A655171061FA004806C5 /* checkBox.png */,
 				0809D4AB16FDE62300E13B8C /* sandClock1.png */,
@@ -690,7 +701,8 @@
 				082439F416CCAE2100FC12BA /* Particle.png */,
 				082439F516CCAE2100FC12BA /* pen.png */,
 				082439F616CCAE2100FC12BA /* pencil.png */,
-				082439F716CCAE2100FC12BA /* pin.png */,
+				082439F716CCAE2100FC12BA /* switch.png */,
+				085EFD4A1732B2E200F0395D /* pin.png */,
 				082439F816CCAE2100FC12BA /* placeholder.png */,
 				082439F916CCAE2100FC12BA /* pointer-finger-md.png */,
 				082439FA16CCAE2100FC12BA /* redo_48.png */,
@@ -941,8 +953,12 @@
 				08072EBE1692FD5000E49D2B /* BrushTypeButton.m */,
 				0808D9BC1644EC6F0000DF40 /* SelectColorButton.h */,
 				0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */,
+				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
+				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
 				080BD0DB164601B400B37C01 /* EyeDropper.h */,
 				080BD0DC164601B400B37C01 /* EyeDropper.m */,
+				087BB3A11730AB4B006C0A33 /* OpacitySlider.h */,
+				087BB3A21730AB4B006C0A33 /* OpacitySlider.m */,
 				08F9B516164C0691001B3D3D /* BrushToolBar.h */,
 				08F9B517164C0691001B3D3D /* BrushToolBar.m */,
 				081A7564166F44B100AB345A /* LayerDelegate.h */,
@@ -1223,7 +1239,7 @@
 				08243A1E16CCAE2100FC12BA /* Particle.png in Resources */,
 				08243A1F16CCAE2100FC12BA /* pen.png in Resources */,
 				08243A2016CCAE2100FC12BA /* pencil.png in Resources */,
-				08243A2116CCAE2100FC12BA /* pin.png in Resources */,
+				08243A2116CCAE2100FC12BA /* switch.png in Resources */,
 				08243A2216CCAE2100FC12BA /* placeholder.png in Resources */,
 				08243A2316CCAE2100FC12BA /* pointer-finger-md.png in Resources */,
 				08243A2416CCAE2100FC12BA /* redo_48.png in Resources */,
@@ -1244,6 +1260,8 @@
 				089743CF1722938C0085113C /* layer.png in Resources */,
 				089743D3172293F00085113C /* blendMode.png in Resources */,
 				0868B1FE1729959300BF4688 /* FacebookSDKResources.bundle in Resources */,
+				087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */,
+				085EFD4B1732B2E200F0395D /* pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1399,6 +1417,8 @@
 				083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */,
 				089743D6172296990085113C /* ImportViewController.m in Sources */,
 				086F8EDE1728AE2F0024289C /* ExportViewController.m in Sources */,
+				087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */,
+				085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

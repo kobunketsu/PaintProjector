@@ -497,8 +497,10 @@
         checkGL
     }
     
-    GLuint _importedImageTexName = _importedImageTex.name;
-    glDeleteTextures(1, &_importedImageTexName);
+//    GLuint _importedImageTexName = _toTransformImageTex.name;
+//    glDeleteTextures(1, &_importedImageTexName);
+    
+    glDeleteTextures(1, &_toTransformImageTex);
 }
 - (void)releaseUndoRedo{
     _undoStack = nil;
@@ -1642,9 +1644,40 @@
     
     [self updateRender];
 }
-#pragma mark- Import
-- (void)drawImageTransformed{
-    _transformedImageMatrix = GLKMatrix4Multiply(_imageTransformMatrixT, GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(_imageTransformMatrixR), _imageTransformMatrixS));
+#pragma mark- Transform
+//变换当前图层
+- (void)transformCurLayer{
+    _state = PaintingView_TransformLayer;
+    
+    float widthScale = 1;
+    float heightScale = widthScale * (self.frame.size.height / self.frame.size.width);
+    _imageTransformMatrixS = GLKMatrix4MakeScale(widthScale, heightScale, 1);
+    _imageTransformQuaternionR = GLKQuaternionIdentity;
+    _imageTransformMatrixT = GLKMatrix4Identity;
+    _toTransformImageTex = _curLayerTexture;
+    
+    //将当前图层作为绘制来描画
+    [self drawCurLayerTransformed];
+}
+- (void)transformImageBegan{
+    _imageToTransformMatrixT = _imageTransformMatrixT;
+    _imageToTransformQuaternionR = _imageTransformQuaternionR;
+    _imageToTransformMatrixS = _imageTransformMatrixS;
+}
+
+-(void) transformImageDone{
+    _transformedImageMatrix = GLKMatrix4Identity;
+    [self copyTempLayerToCurLayer];
+    
+    //更新UI
+    [self uploadLayerDataAtIndex:_curLayerIndex];
+    
+    _state = PaintingView_Normal;    
+}
+
+- (void)drawCurLayerTransformed{
+    
+    _transformedImageMatrix = GLKMatrix4Multiply(_imageTransformMatrixT, GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(_imageTransformQuaternionR), _imageTransformMatrixS));
     
     //project
     float aspect = (float)self.frame.size.width / (float)self.frame.size.height;
@@ -1657,7 +1690,44 @@
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    [self drawQuadTransformMatrix:_transformedImageMatrix texture2DPremultiplied:_importedImageTex.name];
+    [self drawQuadTransformMatrix:_transformedImageMatrix texture2DPremultiplied:_curLayerTexture];
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _tempLayerFramebuffer);
+    glViewport(0, 0, UndoImageSize, UndoImageSize);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+//    [self drawScreenQuadWithTexture2DPremultiplied:_curLayerTexture];
+    
+    //剪切正在编辑的Image原来的位置
+//    glBlendFuncSeparate(GL_ZERO, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);
+//    [self drawScreenQuadWithTexture2DPremultiplied:texture];
+    
+    [self drawScreenQuadWithTexture2D:_brushTexture Alpha:1];
+    
+    //    [self copyTempLayerToCurLayer];
+    //更新渲染
+    [self updateRender];
+    
+}
+
+//将图片描画到笔刷Framebuffer中，然后进行正常图层合成。
+- (void)drawImageTransformed:(GLuint)texture{
+    _transformedImageMatrix = GLKMatrix4Multiply(_imageTransformMatrixT, GLKMatrix4Multiply(GLKMatrix4MakeWithQuaternion(_imageTransformQuaternionR), _imageTransformMatrixS));
+    
+    //project
+    float aspect = (float)self.frame.size.width / (float)self.frame.size.height;
+    _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
+    
+    [EAGLContext setCurrentContext:_context];
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _brushFramebuffer);
+    glViewport(0, 0, UndoImageSize, UndoImageSize);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    [self drawQuadTransformMatrix:_transformedImageMatrix texture2DPremultiplied:texture];
+    
     
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _tempLayerFramebuffer);
     glViewport(0, 0, UndoImageSize, UndoImageSize);
@@ -1666,6 +1736,7 @@
     
     [self drawScreenQuadWithTexture2DPremultiplied:_curLayerTexture];
     
+   
     [self drawScreenQuadWithTexture2D:_brushTexture Alpha:1];
     
 //    [self copyTempLayerToCurLayer];
@@ -1689,17 +1760,22 @@
     [self updateRender];
 }
 
+//在当前图层剪切下选择范围的图层
+
+
+//指定位置插入UIImage
 - (void)insertUIImageAtCurLayer:(UIImage*)uiImage {
-    _importedImageTex = [[TextureManager sharedInstance] loadTextureInfoFromUIImage:uiImage];
+    GLKTextureInfo* texInfo = [[TextureManager sharedInstance] loadTextureInfoFromUIImage:uiImage];
+    _toTransformImageTex = texInfo.name;
     
-    float widthScale = (float)_importedImageTex.width / (float)self.frame.size.width;
-    float heightScale = widthScale * ((float)_importedImageTex.height / (float)_importedImageTex.width);
+    float widthScale = (float)texInfo.width / (float)self.frame.size.width;
+    float heightScale = widthScale * ((float)texInfo.height / (float)texInfo.width);
     _imageTransformMatrixS = GLKMatrix4MakeScale(widthScale, heightScale, 1);
-    _imageTransformMatrixR = GLKQuaternionIdentity;
+    _imageTransformQuaternionR = GLKQuaternionIdentity;
     _imageTransformMatrixT = GLKMatrix4Identity;
  
     //将导入的图片作为绘制来描画
-    [self drawImageTransformed];
+    [self drawImageTransformed:_toTransformImageTex];
 
 }
 - (void)freeTransformImageTranslate:(CGPoint)translation rotate:(float) angle scale:(float)scale{
@@ -1711,14 +1787,19 @@
 //    NSLog(@"rotateImage angle:%.2f", angle);
     GLKQuaternion rotationMatrx = GLKQuaternionMakeWithAngleAndAxis(angle, 0, 0, 1);
     
-    _imageTransformMatrixR = GLKQuaternionMultiply(rotationMatrx, _imageToTransformMatrixR);
+    _imageTransformQuaternionR = GLKQuaternionMultiply(rotationMatrx, _imageToTransformQuaternionR);
     
 //    NSLog(@"scaleImage scale:%.2f", scale);
     GLKMatrix4 scaleMatrx = GLKMatrix4MakeScale(scale, scale, 1);
     
     _imageTransformMatrixS = GLKMatrix4Multiply(scaleMatrx, _imageToTransformMatrixS);
     
-    [self drawImageTransformed];    
+    if (_state == PaintingView_TransformLayer) {
+        [self drawCurLayerTransformed];
+    }
+    else{
+        [self drawImageTransformed:_toTransformImageTex];
+    }
 }
 
 - (void)moveImage:(CGPoint)translation{
@@ -1728,9 +1809,12 @@
     
     _imageTransformMatrixT = GLKMatrix4Multiply(translationMatrx, _imageToTransformMatrixT);
     
-    [self drawImageTransformed];
-    
-
+    if (_state == PaintingView_TransformLayer) {
+        [self drawCurLayerTransformed];
+    }
+    else{
+        [self drawImageTransformed:_toTransformImageTex];        
+    }
 }
 
 - (void)rotateImage:(float)angle{
@@ -1738,9 +1822,14 @@
     
     GLKQuaternion rotationMatrx = GLKQuaternionMakeWithAngleAndAxis(angle, 0, 0, 1);
     
-    _imageTransformMatrixR = GLKQuaternionMultiply(rotationMatrx, _imageToTransformMatrixR);
+    _imageTransformQuaternionR = GLKQuaternionMultiply(rotationMatrx, _imageToTransformQuaternionR);
     
-    [self drawImageTransformed];
+    if (_state == PaintingView_TransformLayer) {
+        [self drawCurLayerTransformed];
+    }
+    else{
+        [self drawImageTransformed:_toTransformImageTex];
+    }
 }
 
 - (void)scaleImage:(float)scale{
@@ -1750,21 +1839,14 @@
     
     _imageTransformMatrixS = GLKMatrix4Multiply(scaleMatrx, _imageToTransformMatrixS);
     
-    [self drawImageTransformed];
+    if (_state == PaintingView_TransformLayer) {
+        [self drawCurLayerTransformed];
+    }
+    else{
+        [self drawImageTransformed:_toTransformImageTex];
+    }
 }
 
-- (void)transformImageBegan{
-    _imageToTransformMatrixT = _imageTransformMatrixT;
-    _imageToTransformMatrixR = _imageTransformMatrixR;
-    _imageToTransformMatrixS = _imageTransformMatrixS;
-}
-
--(void) editImageDone{
-    [self copyTempLayerToCurLayer];
-    
-    //更新UI
-    [self uploadLayerDataAtIndex:_curLayerIndex];
-}
 
 - (CGPoint)imageScaleAnchor{
     GLKVector4 originCenter = GLKVector4Make(0, 0, 0, 1);

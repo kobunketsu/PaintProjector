@@ -1,14 +1,14 @@
 //
-//  SelectBrushButton.m
+//  PaintProjectView.m
 //  iReporter
 //
-//  Created by 文杰 胡 on 12-11-4.
-//  Copyright (c) 2012年 Marin Todorov. All rights reserved.
+//  Created by 胡 文杰 on 13-3-16.
+//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
 //
 
-#import "SelectBrushButton.h"
+#import "ProjectGLKView.h"
 
-@implementation SelectBrushButton
+@implementation ProjectGLKView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,9 +19,6 @@
     return self;
 }
 
-- (void)awakeFromNib{
-//    [self setBackgroundColor:[UIColor whiteColor]];
-}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

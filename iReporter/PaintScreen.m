@@ -169,7 +169,9 @@ typedef struct {
     _isPaintMode = true;
 //    _paintViewConfirmed = true;
     //设置初始画面为paintRefView
-    _paintColor.backgroundColor = [UIColor whiteColor];
+    _paintColor.backgroundColor =  [UIColor whiteColor];
+    [_opaictySlider setColor:[UIColor whiteColor]];
+
     btnPaint.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"paintButton.jpg"]];    
 //    _floorTextureInfo = [self loadTextureInfoFromImageName:@"blackboard.jpg"];    
     [self setUIMode:_isPaintMode];
@@ -338,6 +340,8 @@ typedef struct {
     [self setScaleTransformButton:nil];
     [self setTransformDoneButton:nil];
     [self setCancelTransformButton:nil];
+    [self setTransformButton:nil];
+    [self setOpaictySlider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self tearDownGL];
@@ -437,9 +441,7 @@ typedef struct {
             break;
     }
     
-    //中心点
-    _transformAnchor = [_paintView imageScaleAnchor];
-    _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
+    [self updateAnchor];
 }
 
 - (IBAction)handleTwoFingerTransformImage:(UIGestureRecognizer *)sender{
@@ -482,9 +484,7 @@ typedef struct {
 //    NSLog(@"freeTransformImageTranslate x:%.2f y:%.2f  Rotate:%.2f scale:%.2f", translation.x, translation.y, rotateAngle, scale);
     [_paintView freeTransformImageTranslate:translation rotate:rotateAngle scale:scale];
     
-    //中心点
-    _transformAnchor = [_paintView imageScaleAnchor];
-    _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
+    [self updateAnchor];
 }
 - (IBAction)handlePanPaintView:(UIPanGestureRecognizer *)sender {
 //    NSLog(@"handlePanPaintView");
@@ -658,9 +658,12 @@ typedef struct {
                 //双色渐变选色模式
             }
             
-            [colorPickerView setHidden:false];
-            colorPickerView.sourceView = sender.view;
-            _infColorPickerController.resultColor = sender.view.backgroundColor;//覆盖当前笔刷色
+//            [colorPickerView setHidden:false];
+//            colorPickerView.sourceView = sender.view;
+//            _infColorPickerController.resultColor = sender.view.backgroundColor;//覆盖当前笔刷色
+
+            [self openColorPicker:sender.view.backgroundColor];
+
 
             break;
         case UIGestureRecognizerStateEnded:
@@ -928,7 +931,8 @@ typedef struct {
 - (IBAction)selectColorConfirmed:(SelectColorButton *)sender {
         [_paintView.brush setColor:sender.backgroundColor];
         [self setBrushPreview:false];
-        brushView.color = _infColorPickerController.resultColor = self.paintColor.backgroundColor =sender.backgroundColor;
+        brushView.color = _infColorPickerController.resultColor = _paintColor.backgroundColor = sender.backgroundColor;
+        [_opaictySlider setColor:sender.backgroundColor];
 }
 
 - (IBAction)selectBrushRadius:(UIButton *)sender {
@@ -1274,6 +1278,11 @@ typedef struct {
 }
 
 #pragma mark- 变换 Transform
+- (IBAction)transformButtonTapped:(id)sender {
+    [self transformImageStart];
+    [_paintView transformCurLayer];
+}
+
 - (void)transformImageStart{
     _state = PaintScreen_TransformImage;
     
@@ -1281,12 +1290,11 @@ typedef struct {
     _paintToolBar.hidden = true;
     _mainToolBar.hidden = true;
     _transformToolBar.hidden = false;
+    _anchorView.hidden = false;
     
     [self freeTransformButtonTapped:_freeTransformButton];
     
-    _anchorView.hidden = false;
-    _transformAnchor = [_paintView imageScaleAnchor];
-    _anchorView.frame = CGRectMake(_transformAnchor.x, _transformAnchor.y, _anchorView.frame.size.width, _anchorView.frame.size.height);
+    [self updateAnchor];
 }
 - (IBAction)transformImageDoneTapped:(UIButton *)sender {
  
@@ -1296,7 +1304,7 @@ typedef struct {
     }
     sender.backgroundColor = [UIColor greenColor];
 
-    [_paintView editImageDone];
+    [_paintView transformImageDone];
     
     _anchorView.hidden = true;
     _mainToolBar.hidden = false;
@@ -1357,6 +1365,11 @@ typedef struct {
     _transformImageState = TransformImage_Scale;
 }
 
+- (void)updateAnchor{
+    //中心点
+    _transformAnchor = [_paintView imageScaleAnchor];
+    _anchorView.frame = CGRectMake(_transformAnchor.x - _anchorView.frame.size.width * 0.5, _transformAnchor.y -  _anchorView.frame.size.height * 0.5, _anchorView.frame.size.width, _anchorView.frame.size.height);
+}
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTapped:(UIButton *)sender {
@@ -1370,6 +1383,7 @@ typedef struct {
         _state = PaintScreen_Normal;
     }
 }
+
 
 - (IBAction)createLayerButtonTapped:(UIButton *)sender {
     [self insertLayerAtIndex:[self curLayerIndex]];
@@ -1631,6 +1645,7 @@ typedef struct {
 #pragma mark- 笔刷代理 Brush Delegate (Refresh UI)
 - (void) brushColorChanged:(UIColor*)color{
     _paintColor.backgroundColor =  color;
+    [_opaictySlider setColor:color];
 }
 #pragma mark- 绘图界面代理 PaintingView Delegate (Refresh UI)
 
@@ -1639,6 +1654,7 @@ typedef struct {
 }
 -(void)paintColorChanged:(UIColor*) resultColor{
     _paintColor.backgroundColor = resultColor;
+    [_opaictySlider setColor:resultColor];
 }
 - (void) brushChanged:(Brush*) brush{
     //选中手指不更改界面当前笔刷
@@ -1737,24 +1753,44 @@ typedef struct {
     colorPickerView.locked = !colorPickerView.locked;
 }
 
+//打开颜色取色器
+- (void)openColorPicker:(UIColor*)color{
+    _infColorPickerController.delegate = self;
+    _infColorPickerController.sourceColor = color;//覆盖当前笔刷色
+    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:_infColorPickerController];
+    CGRect rect = CGRectMake(_paintColor.bounds.origin.x, _paintColor.bounds.origin.y, _paintColor.bounds.size.width, _paintColor.bounds.size.height);
+    [_sharedPopoverController presentPopoverFromRect:rect inView:_paintColor permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+}
 - (IBAction)paintColorButtonTapped:(UIButton *)sender {
-//    [_paintColorView setHidden:true];
-//    [_colorSlotsView setHidden:true];
-    if (colorPickerView.hidden) {
-        colorPickerView.hidden = false;
-        colorPickerView.sourceView = _paintColorView;
-        _state = PaintScreen_PickColor;
-    }
-    else{
-        colorPickerView.hidden = true;
-        _state = PaintScreen_Normal;
-    }
-
+//    if (colorPickerView.hidden) {
+//        colorPickerView.hidden = false;
+//        colorPickerView.sourceView = _paintColorView;
+//        _state = PaintScreen_PickColor;
+//    }
+//    else{
+//        colorPickerView.hidden = true;
+//        _state = PaintScreen_Normal;
+//    }
+    
+//    UIViewController* colorPickerViewController = [[UIViewController alloc]init];
+//    colorPickerViewController.view = self.colorPickerView;
+//    self.colorPickerView.hidden = false;
+//    self.colorPickerView.sourceView = _paintColorView;
+    
+//    _infColorPickerController.contentSizeForViewInPopover = self.colorPickerView.frame.size;
+    
+    [self openColorPicker:_paintColor.backgroundColor];
 }
 
 //------------------------------------------------------------------------------
 #pragma mark- 取色器 InfColorPicker IB actions
 //------------------------------------------------------------------------------
+- (void) colorPickerControllerDidFinish: (InfColorPickerController*) controller
+{
+    [_paintView.brush setColor:controller.resultColor];
+    [_sharedPopoverController dismissPopoverAnimated:true];        
+}
 
 - (IBAction) takeBarValue: (InfColorBarPicker*) sender
 {

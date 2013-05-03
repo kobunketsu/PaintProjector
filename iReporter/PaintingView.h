@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
     PaintingView_Normal,
     PaintingView_Erase,
     PaintingView_Open,
+    PaintingView_TransformLayer,
 };
 
 @protocol PaintingViewDelegate
@@ -93,7 +94,8 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
     GLuint _backgroundTexture;
     
     //用于存储导入的图片
-    GLKTextureInfo *_importedImageTex;
+//    GLKTextureInfo *_toTransformImageTex;
+    GLuint _toTransformImageTex;
     
     //存储当前笔刷的renderTexture
     GLuint _brushFramebuffer;
@@ -138,8 +140,8 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
     GLKMatrix4 _transformedImageMatrix;
     GLKMatrix4 _imageTransformMatrixT;
     GLKMatrix4 _imageToTransformMatrixT;
-    GLKQuaternion _imageTransformMatrixR;
-    GLKQuaternion _imageToTransformMatrixR;
+    GLKQuaternion _imageTransformQuaternionR;
+    GLKQuaternion _imageToTransformQuaternionR;
     GLKMatrix4 _imageTransformMatrixS;    
     GLKMatrix4 _imageToTransformMatrixS;
     
@@ -225,6 +227,8 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
 - (PaintLayer*)createBlankLayer;
 //指定位置插入空白图层
 - (void)insertBlankLayerAtIndex:(int)index transparent:(bool)transparent;
+//变换当前图层
+- (void)transformCurLayer;
 //指定位置插入UIImage
 - (void)insertUIImageAtCurLayer:(UIImage*)uiImage;
 - (void)cancelInsertUIImageAtCurLayer;
@@ -233,7 +237,7 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
 - (void)rotateImage:(float)angle;
 - (void)scaleImage:(float)scale;
 - (void)transformImageBegan;
-- (void)editImageDone;
+- (void)transformImageDone;
 - (CGPoint)imageScaleAnchor;
 //指定位置删除图层
 - (void)deleteLayerAtIndex:(int)index;

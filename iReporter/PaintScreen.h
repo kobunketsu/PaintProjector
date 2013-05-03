@@ -35,8 +35,10 @@
 //@class PaintView;
 #import "PaintingView.h"
 #import "BrushTypeButton.h"
+#import "PaintColorButton.h"
 #import "BrushTypeView.h"
 #import "ColorPickerView.h"
+#import "OpacitySlider.h"
 //Object
 #import "Brush.h"
 #import "Pen.h"
@@ -270,6 +272,7 @@ LayerBlendModeTableViewControllerDelegate
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender;
 - (IBAction)projectPaintButtonTapped:(UIButton *)sender;
 - (IBAction)layerButtonTapped:(UIButton *)sender;
+- (IBAction)transformButtonTapped:(id)sender;
 - (IBAction)createLayerButtonTapped:(UIButton *)sender;
 - (IBAction)transformImageDoneTapped:(UIButton *)sender;
 - (IBAction)cancelButtonTapped:(UIButton *)sender;
@@ -284,7 +287,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (nonatomic, retain) EAGLContext *context;
 @property (strong, nonatomic) IBOutlet UIView *testOpenGLView;
 @property (strong, nonatomic) IBOutlet ColorPickerView *colorPickerView;
-@property (strong, nonatomic) IBOutlet UIButton *paintColor;
+@property (strong, nonatomic) IBOutlet PaintColorButton *paintColor;
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrPaintView;
 @property (strong, nonatomic) IBOutlet PaintingView *paintView;
 @property (strong, nonatomic) IBOutlet BrushTypeView *brushTypeView;
@@ -319,6 +322,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIButton *btnRubber;
 @property (strong, nonatomic) IBOutlet UIView *colorSlotsView;
 @property (strong, nonatomic) IBOutlet UIView *paintColorView;
+@property (strong, nonatomic) IBOutlet OpacitySlider *opaictySlider;
 @property (strong, nonatomic) IBOutlet UIView *paintToolBar;
 @property (strong, nonatomic) IBOutlet UIView *brushDetailView;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
@@ -333,6 +337,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIButton *createLayerButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *layerButton;
+@property (strong, nonatomic) IBOutlet UIButton *transformButton;
 @property (strong, nonatomic) IBOutlet UIButton *projectButton;
 @property (strong, nonatomic) IBOutlet UIButton *importButton;
 @property (strong, nonatomic) IBOutlet UIButton *exportButton;
