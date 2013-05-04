@@ -44,7 +44,8 @@
 + (UIImage*)snapshot:(UIView*)eaglview Context:(EAGLContext *)context InViewportSize:(CGSize)viewportSize ToOutputSize:(CGSize)outputSize;
 + (GLubyte*)snapshotData:(UIView*)eaglview  WithContext:(EAGLContext *)context WithSize:(CGSize)outputSize;
 + (void)CGImageWriteToFile:(CGImageRef)image :(NSString *)path;
-
+//创建带遮罩图像
++ (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage;
 //BOOL memoryInfo(vm_statistics_data_t *vmStats);
 //void logMemoryInfo();
 @end

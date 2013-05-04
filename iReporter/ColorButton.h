@@ -13,8 +13,13 @@
 #import <UIKit/UIKit.h>
 #import "Brush.h"
 
-@interface SelectColorButton : UIButton
+@interface ColorButton : UIButton
 {
+    UIColor* _color;
 }
-@property (nonatomic, retain)Brush *brush;
+
+- (UIColor *)color;
+
+- (void)setColor:(UIColor *)newValue;
+
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ColorButton.h"
 #import "QuartzCore/QuartzCore.h"
 
-@interface PaintColorButton : UIButton
+@interface PaintColorButton : ColorButton
 
 @end

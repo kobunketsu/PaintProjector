@@ -276,7 +276,7 @@
                                                     <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="FVG-4I-Owq"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="2ey-2u-lpf" userLabel="ColorSlot0" customClass="SelectColorButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="2ey-2u-lpf" userLabel="ColorSlot0" customClass="ColorButton">
                                                 <rect key="frame" x="55" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -295,7 +295,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="ny8-Kb-Wy6" appends="YES" id="8sD-NB-TYE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VsY-A3-gtP" userLabel="ColorSlot1" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VsY-A3-gtP" userLabel="ColorSlot1" customClass="ColorButton">
                                                 <rect key="frame" x="98" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -314,7 +314,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="ZbL-lq-byl" appends="YES" id="pSL-bE-nJc"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="o4S-nW-DCX" userLabel="ColorSlot2" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="o4S-nW-DCX" userLabel="ColorSlot2" customClass="ColorButton">
                                                 <rect key="frame" x="141" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.68582823079999999" blue="0.18857017100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -333,7 +333,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="lSf-SY-cM0" appends="YES" id="DBL-w4-Er0"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="g8N-pP-zdP" userLabel="ColorSlot3" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="g8N-pP-zdP" userLabel="ColorSlot3" customClass="ColorButton">
                                                 <rect key="frame" x="184" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -352,7 +352,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="yqh-DQ-4Jy" appends="YES" id="ZYj-Us-J8H"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="FM6-0z-RLJ" userLabel="ColorSlot4" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="FM6-0z-RLJ" userLabel="ColorSlot4" customClass="ColorButton">
                                                 <rect key="frame" x="227" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -411,7 +411,7 @@
                                                     <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="j2k-Kh-5Dy"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="s4a-cf-WVa" userLabel="ColorSlot0" customClass="SelectColorButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="s4a-cf-WVa" userLabel="ColorSlot0" customClass="ColorButton">
                                                 <rect key="frame" x="55" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -430,7 +430,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="ny8-Kb-Wy6" appends="YES" id="ipC-vb-GQW"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1Dd-50-K4v" userLabel="ColorSlot1" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1Dd-50-K4v" userLabel="ColorSlot1" customClass="ColorButton">
                                                 <rect key="frame" x="98" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -449,7 +449,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="ZbL-lq-byl" appends="YES" id="aV4-Y7-NaK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="B10-gY-xtx" userLabel="ColorSlot2" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="B10-gY-xtx" userLabel="ColorSlot2" customClass="ColorButton">
                                                 <rect key="frame" x="141" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.68582823079999999" blue="0.18857017100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -468,7 +468,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="lSf-SY-cM0" appends="YES" id="ZJ1-iV-Hd0"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="GRI-Zo-rB3" userLabel="ColorSlot3" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="GRI-Zo-rB3" userLabel="ColorSlot3" customClass="ColorButton">
                                                 <rect key="frame" x="184" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -487,7 +487,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="yqh-DQ-4Jy" appends="YES" id="UCA-Vf-KuD"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VQl-Rf-9Ic" userLabel="ColorSlot4" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="VQl-Rf-9Ic" userLabel="ColorSlot4" customClass="ColorButton">
                                                 <rect key="frame" x="227" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -885,7 +885,7 @@
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="8LD-xJ-V2m"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="SelectColorButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="ColorButton">
                                                 <rect key="frame" x="55" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -904,7 +904,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="NT5-sc-NIk" appends="YES" id="hrC-3N-R8S"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gEy-VV-VgC" userLabel="ColorSlot1" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gEy-VV-VgC" userLabel="ColorSlot1" customClass="ColorButton">
                                                 <rect key="frame" x="98" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -923,7 +923,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="bQ2-tR-5IM" appends="YES" id="FRT-YG-YjA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="czJ-Ku-4Fr" userLabel="ColorSlot2" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="czJ-Ku-4Fr" userLabel="ColorSlot2" customClass="ColorButton">
                                                 <rect key="frame" x="141" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.68582823079999999" blue="0.18857017100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -942,7 +942,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="apW-5X-xHX" appends="YES" id="BhK-aA-BC8"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="JvW-cg-Ls2" userLabel="ColorSlot3" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="JvW-cg-Ls2" userLabel="ColorSlot3" customClass="ColorButton">
                                                 <rect key="frame" x="184" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -961,7 +961,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="B9I-LZ-BVE" appends="YES" id="CcQ-mz-fOv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="BIB-On-ubF" userLabel="ColorSlot4" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="BIB-On-ubF" userLabel="ColorSlot4" customClass="ColorButton">
                                                 <rect key="frame" x="227" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1020,7 +1020,7 @@
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="vvw-UQ-eA7"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="TzT-ap-MtS" userLabel="ColorSlot0" customClass="SelectColorButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="TzT-ap-MtS" userLabel="ColorSlot0" customClass="ColorButton">
                                                 <rect key="frame" x="55" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1039,7 +1039,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="NT5-sc-NIk" appends="YES" id="v0X-hN-Nt1"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1zU-YA-81k" userLabel="ColorSlot1" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="1zU-YA-81k" userLabel="ColorSlot1" customClass="ColorButton">
                                                 <rect key="frame" x="98" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1058,7 +1058,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="bQ2-tR-5IM" appends="YES" id="yH7-lL-j5T"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="edT-Md-EaO" userLabel="ColorSlot2" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="edT-Md-EaO" userLabel="ColorSlot2" customClass="ColorButton">
                                                 <rect key="frame" x="141" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="1" green="0.68582823079999999" blue="0.18857017100000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1077,7 +1077,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="apW-5X-xHX" appends="YES" id="G7q-hF-mzO"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="vUK-or-RyL" userLabel="ColorSlot3" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="vUK-or-RyL" userLabel="ColorSlot3" customClass="ColorButton">
                                                 <rect key="frame" x="184" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1096,7 +1096,7 @@
                                                     <outletCollection property="gestureRecognizers" destination="B9I-LZ-BVE" appends="YES" id="F2W-Nc-YbH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="QoT-9N-5sA" userLabel="ColorSlot4" customClass="SelectColorButton">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="QoT-9N-5sA" userLabel="ColorSlot4" customClass="ColorButton">
                                                 <rect key="frame" x="227" y="6" width="33" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

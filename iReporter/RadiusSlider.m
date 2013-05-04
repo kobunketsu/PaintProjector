@@ -1,15 +1,15 @@
 //
-//  OpacitySlider.m
+//  RadiusSlider.m
 //  ProjectPaint
 //
-//  Created by 胡 文杰 on 13-5-1.
+//  Created by 胡 文杰 on 13-5-4.
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "OpacitySlider.h"
-const float kPatternWidth = 16;
-const float kPatternHeight = 16;
-@implementation OpacitySlider
+#import "RadiusSlider.h"
+
+@implementation RadiusSlider
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -26,30 +26,25 @@ const float kPatternHeight = 16;
         // Initialization code
         [self setMinimumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
         [self setMaximumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
-        [self setColor: [UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+        
     }
     return self;
 }
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    // Drawing code
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* gradientColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 0.969 green: 0.016 blue: 0.095 alpha: 1];
     UIColor* shadow2Color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* shadowColor2 = [UIColor colorWithRed: 0.318 green: 0.318 blue: 0.318 alpha: 1];
-    
-    //// Gradient Declarations
-    NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)gradientColor.CGColor,
-                               (id)_color.CGColor, nil];
-    CGFloat gradientLocations[] = {0, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
+    UIColor* shadowColor2 = [UIColor colorWithRed: 0.3 green: 0.3 blue: 0.3 alpha: 1];
+    UIColor* radiusColor = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.8 green: 0.8 blue: 0.8 alpha: 1];
     
     //// Shadow Declarations
     UIColor* shadow = shadowColor2;
@@ -63,37 +58,21 @@ const float kPatternHeight = 16;
     UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 1, 248, 20) cornerRadius: 10];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
+
     //draw
     CGContextBeginTransparencyLayer(context, NULL);
     [roundedRectanglePath addClip];
+    [color setFill];
+    [roundedRectanglePath fill];
     
-    //draw background image
-    const CGRect patternBounds = CGRectMake(0, 0, kPatternWidth, kPatternHeight);
-    const CGPatternCallbacks kPatternCallbacks = {0, DrawPatternCellCallback, NULL};
-    
-    CGAffineTransform patternTransform = CGAffineTransformIdentity;
-    CGPatternRef fillPattern = CGPatternCreate(
-                                               NULL,
-                                               patternBounds,
-                                               patternTransform,
-                                               kPatternWidth, // horizontal spacing
-                                               kPatternHeight, // vertical spacing
-                                               kCGPatternTilingNoDistortion,
-                                               true,
-                                               &kPatternCallbacks);
-    CGFloat color1[] = {1.0, 1.0, 1.0, 1.0};
-    
-    CGColorSpaceRef patternSpace = CGColorSpaceCreatePattern(NULL);
-    CGContextSetFillColorSpace(context, patternSpace);
-    CGContextSetFillPattern(context, fillPattern, color1);
-    CGContextFillRect(context, self.bounds);
-    CGPatternRelease(fillPattern);
-    fillPattern = NULL;
-    CGColorSpaceRelease(patternSpace);
-    patternSpace = NULL;
-    
-    //draw linearGradient
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(1, 11), CGPointMake(249, 11), 0);
+    UIBezierPath* sizePath = [UIBezierPath bezierPath];
+    [sizePath moveToPoint:CGPointMake(0, self.bounds.size.height * 0.5)];
+    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 0)];
+    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, self.bounds.size.height)];
+    [sizePath closePath];
+    [radiusColor setFill];
+    [sizePath fill];
+
     CGContextEndTransparencyLayer(context);
     
     ////// Rounded Rectangle Inner Shadow
@@ -121,36 +100,13 @@ const float kPatternHeight = 16;
         [roundedRectangleNegativePath fill];
     }
     CGContextRestoreGState(context);
-    
     CGContextRestoreGState(context);
     
     
     
     //// Cleanup
-    CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
-    
-    
-    
-
-
-    
 }
 
-void DrawPatternCellCallback(void *info, CGContextRef cgContext)
-{
-    // Create a CGImage and use CGContextDrawImage() to draw it into the graphics context provided by the callback function.
-    UIImage *patternImage = [UIImage imageNamed:@"checkerUnit.png"];
-    CGContextDrawImage(cgContext, CGRectMake(0, 0, kPatternWidth, kPatternHeight), patternImage.CGImage);
-}
-
-- (UIColor *)color {
-    return _color;
-}
-
-- (void)setColor:(UIColor *)newValue {
-    _color = newValue;
-    [self setNeedsDisplay];
-}
 
 @end

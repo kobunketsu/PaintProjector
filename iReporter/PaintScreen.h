@@ -16,7 +16,11 @@
 #import <MessageUI/MessageUI.h>
 //UI
 #import "BrushView.h"
-#import "SelectColorButton.h"
+#import "ColorButton.h"
+#import "RadiusSlider.h"
+#import "RadiusButton.h"
+#import "RadiusIndicatorView.h"
+#import "PaintToolBar.h"
 #import "SelectBrushButton.h"
 #import "InfColorPickerController.h"
 #import "InfColorBarPicker.h"
@@ -235,10 +239,12 @@ LayerBlendModeTableViewControllerDelegate
 - (IBAction)fingerButtonTapped:(UIButton *)sender;
 - (IBAction)importButtonTapped:(UIButton *)sender;
 - (IBAction)exportButtonTapped:(UIButton *)sender;
-- (IBAction)selectColor:(SelectColorButton *)sender;
-- (IBAction)selectColorConfirmed:(SelectColorButton *)sender;
-- (IBAction)selectBrushRadius:(UIButton *)sender;
+- (IBAction)selectColor:(ColorButton *)sender;
+- (IBAction)selectColorConfirmed:(ColorButton *)sender;
+- (IBAction)selectBrushRadius:(RadiusButton *)sender;
 - (IBAction)slideBrushRadius:(UISlider *)sender;
+- (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender;
+- (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender;
 - (IBAction)slideBrushOpacity:(UISlider *)sender;
 - (IBAction)selectBrushType:(SelectBrushButton *)sender;
 - (IBAction)selectRubber:(UIButton *)sender;
@@ -302,7 +308,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrPaintView;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrBrushView;
 @property (strong, nonatomic) IBOutletCollection(UILongPressGestureRecognizer) NSArray *lpgrColorSlots;
-@property (strong, nonatomic) IBOutletCollection(SelectColorButton) NSMutableArray *colorButtons;//所有颜色槽
+@property (strong, nonatomic) IBOutletCollection(ColorButton) NSMutableArray *colorButtons;//所有颜色槽
 @property (strong, nonatomic) IBOutlet BrushToolBar *pencilBrushToolBar;
 @property (strong, nonatomic) IBOutlet BrushToolBar *airBrushToolBar;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *paintUISecCollection;
@@ -323,7 +329,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIView *colorSlotsView;
 @property (strong, nonatomic) IBOutlet UIView *paintColorView;
 @property (strong, nonatomic) IBOutlet OpacitySlider *opaictySlider;
-@property (strong, nonatomic) IBOutlet UIView *paintToolBar;
+@property (strong, nonatomic) IBOutlet PaintToolBar *paintToolBar;
 @property (strong, nonatomic) IBOutlet UIView *brushDetailView;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (strong, nonatomic) IBOutlet UIScrollView *layersScrollView;
@@ -352,6 +358,8 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIView *transformToolBar;
 @property (strong, nonatomic) IBOutlet UIView *mainToolBar;
 @property (strong, nonatomic) IBOutlet UIView *anchorView;
+@property (strong, nonatomic) IBOutlet UIScrollView *radiusScrollView;
+@property (strong, nonatomic) IBOutlet RadiusIndicatorView *radiusIndicatorView;
 
 
 - (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName;

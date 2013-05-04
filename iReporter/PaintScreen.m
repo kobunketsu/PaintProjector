@@ -169,8 +169,8 @@ typedef struct {
     _isPaintMode = true;
 //    _paintViewConfirmed = true;
     //设置初始画面为paintRefView
-    _paintColor.backgroundColor =  [UIColor whiteColor];
-    [_opaictySlider setColor:[UIColor whiteColor]];
+    [_paintColor setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+    [_opaictySlider setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
 
     btnPaint.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"paintButton.jpg"]];    
 //    _floorTextureInfo = [self loadTextureInfoFromImageName:@"blackboard.jpg"];    
@@ -212,30 +212,39 @@ typedef struct {
     [_paintView setBrush:_pencil];
     
     //将颜色槽加入颜色槽ScrollView
-
-    
     for (int i = 0; i < colorPalleteCount; ++i) {
-        SelectColorButton* colorSlotButton = [[SelectColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 44, 44)];
+        ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
         
         UIColor* colorPallete = [UIColor colorWithRed:colorPalletes[i*3]/255.0 green:colorPalletes[i*3+1]/255.0 blue:colorPalletes[i*3+2]/255.0 alpha:1.0];
         
         
-        colorSlotButton.backgroundColor = colorPallete;
+        colorButton.color = colorPallete;
         
-        [colorSlotButton addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchDown];
-        [colorSlotButton addTarget:self action:@selector(selectColorConfirmed:) forControlEvents:UIControlEventTouchUpInside];
+        [colorButton addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchDown];
+        [colorButton addTarget:self action:@selector(selectColorConfirmed:) forControlEvents:UIControlEventTouchUpInside];
         
         //创建颜色长按编辑手势
         UILongPressGestureRecognizer *longPressGRColorSlot = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressColorSlot:)];
         longPressGRColorSlot.delegate = self;
         longPressGRColorSlot.cancelsTouchesInView = false;
-        [colorSlotButton addGestureRecognizer:longPressGRColorSlot];
+        [colorButton addGestureRecognizer:longPressGRColorSlot];
         
-        [colorButtons addObject:colorSlotButton];
-        [_colorSlotsScrollView addSubview:colorSlotButton];
+        [colorButtons addObject:colorButton];
+        [_colorSlotsScrollView addSubview:colorButton];
     }
     _colorSlotsScrollView.contentSize = CGSizeMake(50*colorPalleteCount, 44);
-
+    
+    //将半径按钮加入半径ScrollView
+    int radiusViewCount = 10;
+    for (int i = 0; i < radiusViewCount; ++i) {
+        RadiusButton* radiusButton = [[RadiusButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
+        radiusButton.radius = 2 + 3 * i;
+        
+        [radiusButton addTarget:self action:@selector(selectBrushRadius:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_radiusScrollView addSubview:radiusButton];
+    }
+    _radiusScrollView.contentSize = CGSizeMake(50*radiusViewCount, 44);
     
     
     //初始化吸管
@@ -342,6 +351,8 @@ typedef struct {
     [self setCancelTransformButton:nil];
     [self setTransformButton:nil];
     [self setOpaictySlider:nil];
+    [self setRadiusScrollView:nil];
+    [self setRadiusIndicatorView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self tearDownGL];
@@ -647,6 +658,7 @@ typedef struct {
 - (IBAction)handleLongPressColorSlot:(UILongPressGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
+        {
 //            _isEditingColorSlot = true;
             if (_LongPressGRColorSlotCount<1) {
                 _LongPressGRColorSlotCount ++;
@@ -662,10 +674,10 @@ typedef struct {
 //            colorPickerView.sourceView = sender.view;
 //            _infColorPickerController.resultColor = sender.view.backgroundColor;//覆盖当前笔刷色
 
-            [self openColorPicker:sender.view.backgroundColor];
-
-
+            ColorButton* colorButton = (ColorButton*)sender.view;
+            [self openColorPicker:colorButton.color];
             break;
+        }
         case UIGestureRecognizerStateEnded:
             break;            
         default:
@@ -921,31 +933,44 @@ typedef struct {
 
 
 
-- (IBAction)selectColor:(SelectColorButton *)sender {
+- (IBAction)selectColor:(ColorButton *)sender {
     [self setBrushPreview:true];         
-    _infColorPickerController.resultColor = brushView.color = sender.backgroundColor;
+    _infColorPickerController.resultColor = brushView.color = sender.color;
 
     [brushView setNeedsDisplay];
 }
 
-- (IBAction)selectColorConfirmed:(SelectColorButton *)sender {
-        [_paintView.brush setColor:sender.backgroundColor];
+- (IBAction)selectColorConfirmed:(ColorButton *)sender {
+        [_paintView.brush setColor:sender.color];
         [self setBrushPreview:false];
-        brushView.color = _infColorPickerController.resultColor = _paintColor.backgroundColor = sender.backgroundColor;
-        [_opaictySlider setColor:sender.backgroundColor];
+        brushView.color = _infColorPickerController.resultColor = sender.color;
 }
 
-- (IBAction)selectBrushRadius:(UIButton *)sender {
-    _paintView.brush.brushState.radius = sender.tag;
-    _radiusSlider.value = (float)sender.tag;
+- (IBAction)selectBrushRadius:(RadiusButton *)sender {
+    _paintView.brush.brushState.radius = sender.radius;
+    _radiusSlider.value = (float)sender.radius;
     lblBrushRadius.text = [NSString stringWithFormat:@"Radius : %.0f", _paintView.brush.brushState.radius];
     [brushView setNeedsDisplay];
 }
 
 - (IBAction)slideBrushRadius:(UISlider *)sender {
     _paintView.brush.brushState.radius = sender.value;
+    
+    //UI
+    _radiusIndicatorView.hidden = false;
+    [_radiusIndicatorView setRadius:sender.value];
+    _radiusIndicatorView.center = CGPointMake(sender.bounds.size.width * (sender.value / 100), sender.frame.origin.y - 50 * 0.5 - 2);
+//    NSLog(@"_radiusIndicatorView center x: %.2f y: %.2f", _radiusIndicatorView.center.x, _radiusIndicatorView.center.y);
     lblBrushRadius.text = [NSString stringWithFormat:@"Radius : %.0f", _paintView.brush.brushState.radius];
     [brushView setNeedsDisplay];    
+}
+
+- (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender {
+    _radiusIndicatorView.hidden = false;
+}
+
+- (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender {
+    _radiusIndicatorView.hidden = true;
 }
 
 - (IBAction)slideBrushOpacity:(UISlider *)sender {
@@ -1639,12 +1664,12 @@ typedef struct {
 -(void)selectBrush:(id)sender{
     BrushTypeButton* button = (BrushTypeButton*)sender;
     [_paintView setBrush:button.brush];
-    [_paintView.brush setColor:_paintColor.backgroundColor];
+    [_paintView.brush setColor:_paintColor.color];
 }
     
 #pragma mark- 笔刷代理 Brush Delegate (Refresh UI)
 - (void) brushColorChanged:(UIColor*)color{
-    _paintColor.backgroundColor =  color;
+    [_paintColor setColor:color];
     [_opaictySlider setColor:color];
 }
 #pragma mark- 绘图界面代理 PaintingView Delegate (Refresh UI)
@@ -1653,7 +1678,7 @@ typedef struct {
     _redoEnable = false;
 }
 -(void)paintColorChanged:(UIColor*) resultColor{
-    _paintColor.backgroundColor = resultColor;
+    [_paintColor setColor:resultColor];
     [_opaictySlider setColor:resultColor];
 }
 - (void) brushChanged:(Brush*) brush{
@@ -1780,7 +1805,7 @@ typedef struct {
     
 //    _infColorPickerController.contentSizeForViewInPopover = self.colorPickerView.frame.size;
     
-    [self openColorPicker:_paintColor.backgroundColor];
+    [self openColorPicker:_paintColor.color];
 }
 
 //------------------------------------------------------------------------------

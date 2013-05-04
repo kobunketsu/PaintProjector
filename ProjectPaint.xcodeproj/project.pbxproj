@@ -12,7 +12,7 @@
 		0804E2F7163D910300D86624 /* BrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0804E2F6163D910200D86624 /* BrushView.m */; };
 		08072EBC1692BDFE00E49D2B /* BrushTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeView.m */; };
 		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
-		0808D9BE1644EC6F0000DF40 /* SelectColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */; };
+		0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* ColorButton.m */; };
 		0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CD164559870000DF40 /* InfColorBarPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CF164559870000DF40 /* InfColorIndicatorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D2164559870000DF40 /* InfColorPickerController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -139,6 +139,9 @@
 		083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E0167768A400050793 /* ImageIO.framework */; };
 		083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E216776CAF00050793 /* MobileCoreServices.framework */; };
 		083DD3EF1677787000050793 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C5D5B1503722E000A19FD /* Storyboard.storyboard */; };
+		083F862E1734AF7B00DDE6BC /* RadiusButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 083F862D1734AF7B00DDE6BC /* RadiusButton.m */; };
+		083F86621734FED000DDE6BC /* checkerUnit.png in Resources */ = {isa = PBXBuildFile; fileRef = 083F86611734FED000DDE6BC /* checkerUnit.png */; };
+		083F86651735083F00DDE6BC /* RadiusSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 083F86641735083F00DDE6BC /* RadiusSlider.m */; };
 		084003581706830500CB952C /* MovableObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 084003571706830500CB952C /* MovableObject.m */; };
 		08402CB41701E1F000DE952A /* PaintData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08402CB31701E1F000DE952A /* PaintData.m */; };
 		0843A656171061FB004806C5 /* checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0843A655171061FA004806C5 /* checkBox.png */; };
@@ -158,6 +161,8 @@
 		0848D561171D94AB00B7740C /* ShaderPaintLayerBlendModeSaturation.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */; };
 		0848D562171D94AB00B7740C /* ShaderPaintLayerBlendModeScreen.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */; };
 		0848D563171D94AB00B7740C /* ShaderPaintLayerBlendModeSoftLight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */; };
+		0849CEA317353ABA004B30C6 /* PaintToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA217353ABA004B30C6 /* PaintToolBar.m */; };
+		0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */; };
 		084D5405170338A60052F510 /* PaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* PaintDoc.m */; };
 		084D540A17033C270052F510 /* PaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* PaintDocManager.m */; };
 		08524B3A16F36C22000B8020 /* ShaderQuadDebug.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */; };
@@ -298,8 +303,8 @@
 		08072EBB1692BDFD00E49D2B /* BrushTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeView.m; sourceTree = "<group>"; };
 		08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeButton.h; sourceTree = "<group>"; };
 		08072EBE1692FD5000E49D2B /* BrushTypeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeButton.m; sourceTree = "<group>"; };
-		0808D9BC1644EC6F0000DF40 /* SelectColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectColorButton.h; sourceTree = "<group>"; };
-		0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectColorButton.m; sourceTree = "<group>"; };
+		0808D9BC1644EC6F0000DF40 /* ColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButton.h; sourceTree = "<group>"; };
+		0808D9BD1644EC6F0000DF40 /* ColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButton.m; sourceTree = "<group>"; };
 		0808D9CC164559870000DF40 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
 		0808D9CD164559870000DF40 /* InfColorBarPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfColorBarPicker.m; sourceTree = "<group>"; };
 		0808D9CE164559870000DF40 /* InfColorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorIndicatorView.h; sourceTree = "<group>"; };
@@ -439,6 +444,11 @@
 		083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewController.m; sourceTree = "<group>"; };
 		083DD3E0167768A400050793 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		083DD3E216776CAF00050793 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		083F862C1734AF7A00DDE6BC /* RadiusButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusButton.h; sourceTree = "<group>"; };
+		083F862D1734AF7B00DDE6BC /* RadiusButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusButton.m; sourceTree = "<group>"; };
+		083F86611734FED000DDE6BC /* checkerUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkerUnit.png; sourceTree = "<group>"; };
+		083F86631735083F00DDE6BC /* RadiusSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusSlider.h; sourceTree = "<group>"; };
+		083F86641735083F00DDE6BC /* RadiusSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusSlider.m; sourceTree = "<group>"; };
 		084003561706830500CB952C /* MovableObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovableObject.h; sourceTree = "<group>"; };
 		084003571706830500CB952C /* MovableObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovableObject.m; sourceTree = "<group>"; };
 		08402CB21701E1F000DE952A /* PaintData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintData.h; sourceTree = "<group>"; };
@@ -446,6 +456,10 @@
 		0843A655171061FA004806C5 /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBox.png; sourceTree = "<group>"; };
 		0847471F16D2615900772015 /* PaintFrameGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintFrameGroup.h; sourceTree = "<group>"; };
 		0847472016D2615900772015 /* PaintFrameGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintFrameGroup.m; sourceTree = "<group>"; };
+		0849CEA117353ABA004B30C6 /* PaintToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintToolBar.h; sourceTree = "<group>"; };
+		0849CEA217353ABA004B30C6 /* PaintToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintToolBar.m; sourceTree = "<group>"; };
+		0849CEA61735503C004B30C6 /* RadiusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusIndicatorView.h; sourceTree = "<group>"; };
+		0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusIndicatorView.m; sourceTree = "<group>"; };
 		084D5403170338A60052F510 /* PaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintDoc.h; sourceTree = "<group>"; };
 		084D5404170338A60052F510 /* PaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintDoc.m; sourceTree = "<group>"; };
 		084D540817033C260052F510 /* PaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintDocManager.h; sourceTree = "<group>"; };
@@ -684,6 +698,7 @@
 				082439E516CCAE2100FC12BA /* chalkStroke.png */,
 				082439E616CCAE2100FC12BA /* chalkStroke02.png */,
 				082439E716CCAE2100FC12BA /* check.jpg */,
+				083F86611734FED000DDE6BC /* checkerUnit.png */,
 				082439E816CCAE2100FC12BA /* close.png */,
 				082439E916CCAE2100FC12BA /* ConcreteFloors0048_7_i4S.jpg */,
 				082439EA16CCAE2100FC12BA /* ConcreteFloors0079_5_i4S.jpg */,
@@ -951,14 +966,22 @@
 				080BD0D81645FDC000B37C01 /* SelectBrushButton.m */,
 				08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */,
 				08072EBE1692FD5000E49D2B /* BrushTypeButton.m */,
-				0808D9BC1644EC6F0000DF40 /* SelectColorButton.h */,
-				0808D9BD1644EC6F0000DF40 /* SelectColorButton.m */,
+				0849CEA117353ABA004B30C6 /* PaintToolBar.h */,
+				0849CEA217353ABA004B30C6 /* PaintToolBar.m */,
+				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
+				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
 				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
 				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
+				083F862C1734AF7A00DDE6BC /* RadiusButton.h */,
+				083F862D1734AF7B00DDE6BC /* RadiusButton.m */,
+				0849CEA61735503C004B30C6 /* RadiusIndicatorView.h */,
+				0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */,
 				080BD0DB164601B400B37C01 /* EyeDropper.h */,
 				080BD0DC164601B400B37C01 /* EyeDropper.m */,
 				087BB3A11730AB4B006C0A33 /* OpacitySlider.h */,
 				087BB3A21730AB4B006C0A33 /* OpacitySlider.m */,
+				083F86631735083F00DDE6BC /* RadiusSlider.h */,
+				083F86641735083F00DDE6BC /* RadiusSlider.m */,
 				08F9B516164C0691001B3D3D /* BrushToolBar.h */,
 				08F9B517164C0691001B3D3D /* BrushToolBar.m */,
 				081A7564166F44B100AB345A /* LayerDelegate.h */,
@@ -1262,6 +1285,7 @@
 				0868B1FE1729959300BF4688 /* FacebookSDKResources.bundle in Resources */,
 				087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */,
 				085EFD4B1732B2E200F0395D /* pin.png in Resources */,
+				083F86621734FED000DDE6BC /* checkerUnit.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,7 +1338,7 @@
 				081A2CE6163CC08A006EC27A /* PaintHelpView.m in Sources */,
 				081A2CEB163CD9F8006EC27A /* Brush.m in Sources */,
 				0804E2F7163D910300D86624 /* BrushView.m in Sources */,
-				0808D9BE1644EC6F0000DF40 /* SelectColorButton.m in Sources */,
+				0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */,
 				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
 				0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */,
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
@@ -1419,6 +1443,10 @@
 				086F8EDE1728AE2F0024289C /* ExportViewController.m in Sources */,
 				087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */,
 				085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */,
+				083F862E1734AF7B00DDE6BC /* RadiusButton.m in Sources */,
+				083F86651735083F00DDE6BC /* RadiusSlider.m in Sources */,
+				0849CEA317353ABA004B30C6 /* PaintToolBar.m in Sources */,
+				0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
