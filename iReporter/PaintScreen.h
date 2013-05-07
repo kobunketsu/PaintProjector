@@ -19,8 +19,10 @@
 #import "ColorButton.h"
 #import "RadiusSlider.h"
 #import "RadiusButton.h"
+#import "TopToolBar.h"
 #import "RadiusIndicatorView.h"
 #import "PaintToolBar.h"
+#import "EyeDropperButton.h"
 #import "SelectBrushButton.h"
 #import "InfColorPickerController.h"
 #import "InfColorBarPicker.h"
@@ -99,6 +101,7 @@ UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,
+UIScrollViewDelegate,//temp
 PaintingViewDelegate, 
 BrushDelegate, 
 BrushTypeViewDelegate, 
@@ -106,6 +109,7 @@ SelectLayerContentDelegate,
 MainScreenViewControllerDelegate,
 PaintProjectViewControllerDelegate,
 LayerBlendModeTableViewControllerDelegate
+
 >
 {
     //文件File
@@ -339,7 +343,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) UIPopoverController *popoverController;
 @property (strong, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
 @property (strong, nonatomic) IBOutlet UISlider *radiusSlider;
-@property (strong, nonatomic) IBOutlet UIButton *eyeDropperButton;
+@property (strong, nonatomic) IBOutlet EyeDropperButton *eyeDropperButton;
 @property (strong, nonatomic) IBOutlet UIButton *createLayerButton;
 @property (strong, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
 @property (strong, nonatomic) IBOutlet UIButton *layerButton;
@@ -355,8 +359,8 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIButton *scaleTransformButton;
 @property (strong, nonatomic) IBOutlet UIButton *transformDoneButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *transformToolButtons;
-@property (strong, nonatomic) IBOutlet UIView *transformToolBar;
-@property (strong, nonatomic) IBOutlet UIView *mainToolBar;
+@property (strong, nonatomic) IBOutlet TopToolBar *transformToolBar;
+@property (strong, nonatomic) IBOutlet TopToolBar *mainToolBar;
 @property (strong, nonatomic) IBOutlet UIView *anchorView;
 @property (strong, nonatomic) IBOutlet UIScrollView *radiusScrollView;
 @property (strong, nonatomic) IBOutlet RadiusIndicatorView *radiusIndicatorView;

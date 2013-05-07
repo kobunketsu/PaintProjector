@@ -24,7 +24,7 @@
 #define PopoverOffset 20
 
 #pragma mark PaintRefView Assets
-int colorPalleteCount = 3*5*3;
+int colorPalleteCount = 15;
 float colorPalletes[] =
 {
     255, 255, 255,
@@ -231,8 +231,10 @@ typedef struct {
         
         [colorButtons addObject:colorButton];
         [_colorSlotsScrollView addSubview:colorButton];
+//        NSLog(@"colorButton frame x:%.2f y:%.2f", colorButton.frame.origin.x, colorButton.frame.origin.y);
     }
     _colorSlotsScrollView.contentSize = CGSizeMake(50*colorPalleteCount, 44);
+    _colorSlotsScrollView.delegate = self;
     
     //将半径按钮加入半径ScrollView
     int radiusViewCount = 10;
@@ -245,13 +247,12 @@ typedef struct {
         [_radiusScrollView addSubview:radiusButton];
     }
     _radiusScrollView.contentSize = CGSizeMake(50*radiusViewCount, 44);
+    _radiusScrollView.delegate = self;
     
     
     //初始化吸管
     _eyeDropper = [[EyeDropper alloc]initWithView:_paintView];
     _paintView.eyeDropper =  _eyeDropper;
-    [_eyeDropperButton setImage:[UIImage imageNamed:@"eyedropper.png"] forState:   UIControlStateNormal]; 
-    [_eyeDropperButton setImage:[UIImage imageNamed:@"eyedropperSelected.png"] forState:UIControlStateSelected];
 
     _state = PaintScreen_Normal;
 
@@ -895,7 +896,34 @@ typedef struct {
     return YES;
 }
 
+
 #pragma mark- 绘图界面 Paint UI Operation
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //shrink when color button's frame origin is out of contentOffset ~ (contentOffset + scrollview.width)
+//    NSLog(@"count %d", _colorSlotsScrollView.subviews.count);
+    int count = scrollView.subviews.count - 2;//bug?
+    for (int i = 0; i < count; ++i) {
+        UIButton *button = [scrollView.subviews objectAtIndex:i];
+        float newSize;
+        float fadeLeftDistance = i*50 + 25 - scrollView.contentOffset.x;
+        float fadeRightDistance = scrollView.contentOffset.x + scrollView.frame.size.width - (i*50 + 25);
+        //左端缩小
+        if(fadeLeftDistance < 25){
+            newSize = MAX(0.1, 50 * (fadeLeftDistance / 25.0));
+            button.frame = CGRectMake(i*50 + (50 - newSize) * 0.5, (50 - newSize) * 0.5, newSize, newSize);
+        }
+        //右端缩小
+        else if(fadeRightDistance < 25){
+            newSize = MAX(0.1, 50 * (fadeRightDistance / 25.0));
+            button.frame = CGRectMake(i*50, (50 - newSize) * 0.5, newSize, newSize);
+        }
+        //正常大小
+        else{
+            button.frame = CGRectMake(i*50, 0, 50, 50);
+        }
+    }
+}
+
 - (void)changeBrush{
     //初始化brush里的参数 (数组放的顺序不对)
     //    UIView *brushTooBar = [paintUISecCollection objectAtIndex:_curBrushToolBarIndex];
@@ -1325,9 +1353,9 @@ typedef struct {
  
     //UI
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
 
     [_paintView transformImageDone];
     
@@ -1341,9 +1369,9 @@ typedef struct {
 
 - (IBAction)cancelButtonTapped:(UIButton *)sender {
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     
     [_paintView cancelInsertUIImageAtCurLayer];
     
@@ -1358,35 +1386,35 @@ typedef struct {
 
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender {
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     _transformImageState = TransformImage_Free;
 }
 
 - (IBAction)moveButtonTapped:(UIButton *)sender {
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     
     _transformImageState = TransformImage_Move;
 }
 
 - (IBAction)rotateButtonTapped:(UIButton *)sender {
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     
     _transformImageState = TransformImage_Rotate;
 }
 
 - (IBAction)scaleButtonTapped:(UIButton *)sender {
     for (UIButton* button in _transformToolButtons) {
-        button.backgroundColor = [UIColor lightGrayColor];
+//        button.backgroundColor = [UIColor lightGrayColor];
     }
-    sender.backgroundColor = [UIColor greenColor];
+//    sender.backgroundColor = [UIColor greenColor];
     _transformImageState = TransformImage_Scale;
 }
 
@@ -1728,6 +1756,7 @@ typedef struct {
 - (void) eyeDropping:(CGPoint)point Color:(UIColor *)uiColor{
     _colorPickerIndicatorMagnify.center = CGPointMake(point.x, point.y - _colorPickerIndicatorMagnify.frame.size.height*0.5);
     _colorPickerIndicatorMagnify.backgroundColor = uiColor;
+    [_eyeDropperButton setColor:uiColor];
 }
 
 - (void) eyeDropEnd{

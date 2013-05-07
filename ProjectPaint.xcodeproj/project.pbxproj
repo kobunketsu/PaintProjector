@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		0802A10016731BBA00AE0F23 /* PaintRefView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A0FF16731BBA00AE0F23 /* PaintRefView.m */; };
 		0802A72916592695000F82D6 /* ShowPaint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A72816592695000F82D6 /* ShowPaint.m */; };
+		0802D10C17367ACA003259E6 /* ImportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D10B17367ACA003259E6 /* ImportButton.m */; };
+		0802D11117368411003259E6 /* ExportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D11017368411003259E6 /* ExportButton.m */; };
+		0802D11417368D8A003259E6 /* GalleryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D11317368D8A003259E6 /* GalleryButton.m */; };
+		0802D11717369821003259E6 /* EyeDropperButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D11617369821003259E6 /* EyeDropperButton.m */; };
 		0804E2F7163D910300D86624 /* BrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0804E2F6163D910200D86624 /* BrushView.m */; };
 		08072EBC1692BDFE00E49D2B /* BrushTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeView.m */; };
 		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
@@ -225,7 +229,18 @@
 		08A932D016FEAD2600A75938 /* Export.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A932CF16FEAD2600A75938 /* Export.m */; };
 		08B24FED170EC0E7007CA9D2 /* PaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEC170EC0E7007CA9D2 /* PaintLayer.m */; };
 		08B24FF0170ECA6E007CA9D2 /* PaintLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */; };
+		08D836911737E2E600B68990 /* FreeTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836901737E2E600B68990 /* FreeTransformButton.m */; };
+		08D836961737E4D200B68990 /* MoveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836951737E4D200B68990 /* MoveButton.m */; };
+		08D836991737E5A100B68990 /* RotateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836981737E5A100B68990 /* RotateButton.m */; };
+		08D8369C1737E5EF00B68990 /* ScaleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D8369B1737E5EF00B68990 /* ScaleButton.m */; };
+		08D8369F1737EB2100B68990 /* CancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D8369E1737EB2100B68990 /* CancelButton.m */; };
+		08D836A21737EDA300B68990 /* DoneButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A11737EDA200B68990 /* DoneButton.m */; };
+		08D836A51737FF5D00B68990 /* ClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A41737FF5D00B68990 /* ClearButton.m */; };
 		08E19498167CCF9700D8ADAF /* ShowPaintOnPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */; };
+		08F3A6901736089C002E063A /* TopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A68F1736089C002E063A /* TopToolBar.m */; };
+		08F3A695173613A6002E063A /* TransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A694173613A6002E063A /* TransformButton.m */; };
+		08F3A69817362A43002E063A /* LayerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69717362A43002E063A /* LayerButton.m */; };
+		08F3A69B17363261002E063A /* ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69A17363260002E063A /* ProjectButton.m */; };
 		08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F9B517164C0691001B3D3D /* BrushToolBar.m */; };
 		08FC335316359D4B007DCE83 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334116359D4B007DCE83 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		08FC335416359D4B007DCE83 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FC334316359D4B007DCE83 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -297,6 +312,14 @@
 		0802A0FF16731BBA00AE0F23 /* PaintRefView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintRefView.m; sourceTree = "<group>"; };
 		0802A72716592695000F82D6 /* ShowPaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaint.h; sourceTree = "<group>"; };
 		0802A72816592695000F82D6 /* ShowPaint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaint.m; sourceTree = "<group>"; };
+		0802D10A17367ACA003259E6 /* ImportButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportButton.h; sourceTree = "<group>"; };
+		0802D10B17367ACA003259E6 /* ImportButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportButton.m; sourceTree = "<group>"; };
+		0802D10F17368411003259E6 /* ExportButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportButton.h; sourceTree = "<group>"; };
+		0802D11017368411003259E6 /* ExportButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportButton.m; sourceTree = "<group>"; };
+		0802D11217368D8A003259E6 /* GalleryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryButton.h; sourceTree = "<group>"; };
+		0802D11317368D8A003259E6 /* GalleryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryButton.m; sourceTree = "<group>"; };
+		0802D11517369821003259E6 /* EyeDropperButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropperButton.h; sourceTree = "<group>"; };
+		0802D11617369821003259E6 /* EyeDropperButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropperButton.m; sourceTree = "<group>"; };
 		0804E2F5163D910200D86624 /* BrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushView.h; sourceTree = "<group>"; };
 		0804E2F6163D910200D86624 /* BrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushView.m; sourceTree = "<group>"; };
 		08072EBA1692BDFD00E49D2B /* BrushTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeView.h; sourceTree = "<group>"; };
@@ -537,8 +560,30 @@
 		08B24FEC170EC0E7007CA9D2 /* PaintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintLayer.m; sourceTree = "<group>"; };
 		08B24FEE170ECA6E007CA9D2 /* PaintLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintLayerManager.h; sourceTree = "<group>"; };
 		08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintLayerManager.m; sourceTree = "<group>"; };
+		08D8368F1737E2E600B68990 /* FreeTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeTransformButton.h; sourceTree = "<group>"; };
+		08D836901737E2E600B68990 /* FreeTransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreeTransformButton.m; sourceTree = "<group>"; };
+		08D836941737E4D200B68990 /* MoveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveButton.h; sourceTree = "<group>"; };
+		08D836951737E4D200B68990 /* MoveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveButton.m; sourceTree = "<group>"; };
+		08D836971737E5A100B68990 /* RotateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateButton.h; sourceTree = "<group>"; };
+		08D836981737E5A100B68990 /* RotateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateButton.m; sourceTree = "<group>"; };
+		08D8369A1737E5EF00B68990 /* ScaleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScaleButton.h; sourceTree = "<group>"; };
+		08D8369B1737E5EF00B68990 /* ScaleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScaleButton.m; sourceTree = "<group>"; };
+		08D8369D1737EB2100B68990 /* CancelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CancelButton.h; sourceTree = "<group>"; };
+		08D8369E1737EB2100B68990 /* CancelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CancelButton.m; sourceTree = "<group>"; };
+		08D836A01737EDA200B68990 /* DoneButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoneButton.h; sourceTree = "<group>"; };
+		08D836A11737EDA200B68990 /* DoneButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoneButton.m; sourceTree = "<group>"; };
+		08D836A31737FF5D00B68990 /* ClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearButton.h; sourceTree = "<group>"; };
+		08D836A41737FF5D00B68990 /* ClearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearButton.m; sourceTree = "<group>"; };
 		08E19496167CCF9700D8ADAF /* ShowPaintOnPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlane.h; sourceTree = "<group>"; };
 		08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlane.m; sourceTree = "<group>"; };
+		08F3A68E1736089C002E063A /* TopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopToolBar.h; sourceTree = "<group>"; };
+		08F3A68F1736089C002E063A /* TopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopToolBar.m; sourceTree = "<group>"; };
+		08F3A693173613A6002E063A /* TransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformButton.h; sourceTree = "<group>"; };
+		08F3A694173613A6002E063A /* TransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformButton.m; sourceTree = "<group>"; };
+		08F3A69617362A43002E063A /* LayerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerButton.h; sourceTree = "<group>"; };
+		08F3A69717362A43002E063A /* LayerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerButton.m; sourceTree = "<group>"; };
+		08F3A69917363260002E063A /* ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectButton.h; sourceTree = "<group>"; };
+		08F3A69A17363260002E063A /* ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectButton.m; sourceTree = "<group>"; };
 		08F9B516164C0691001B3D3D /* BrushToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushToolBar.h; sourceTree = "<group>"; };
 		08F9B517164C0691001B3D3D /* BrushToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushToolBar.m; sourceTree = "<group>"; };
 		08FC334016359D4B007DCE83 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -968,6 +1013,34 @@
 				08072EBE1692FD5000E49D2B /* BrushTypeButton.m */,
 				0849CEA117353ABA004B30C6 /* PaintToolBar.h */,
 				0849CEA217353ABA004B30C6 /* PaintToolBar.m */,
+				08F3A68E1736089C002E063A /* TopToolBar.h */,
+				08F3A68F1736089C002E063A /* TopToolBar.m */,
+				08F3A693173613A6002E063A /* TransformButton.h */,
+				08F3A694173613A6002E063A /* TransformButton.m */,
+				08F3A69617362A43002E063A /* LayerButton.h */,
+				08F3A69717362A43002E063A /* LayerButton.m */,
+				08F3A69917363260002E063A /* ProjectButton.h */,
+				08F3A69A17363260002E063A /* ProjectButton.m */,
+				0802D10A17367ACA003259E6 /* ImportButton.h */,
+				0802D10B17367ACA003259E6 /* ImportButton.m */,
+				0802D10F17368411003259E6 /* ExportButton.h */,
+				0802D11017368411003259E6 /* ExportButton.m */,
+				0802D11217368D8A003259E6 /* GalleryButton.h */,
+				0802D11317368D8A003259E6 /* GalleryButton.m */,
+				08D8368F1737E2E600B68990 /* FreeTransformButton.h */,
+				08D836901737E2E600B68990 /* FreeTransformButton.m */,
+				08D836941737E4D200B68990 /* MoveButton.h */,
+				08D836951737E4D200B68990 /* MoveButton.m */,
+				08D836971737E5A100B68990 /* RotateButton.h */,
+				08D836981737E5A100B68990 /* RotateButton.m */,
+				08D8369A1737E5EF00B68990 /* ScaleButton.h */,
+				08D8369B1737E5EF00B68990 /* ScaleButton.m */,
+				08D836A01737EDA200B68990 /* DoneButton.h */,
+				08D836A11737EDA200B68990 /* DoneButton.m */,
+				08D8369D1737EB2100B68990 /* CancelButton.h */,
+				08D8369E1737EB2100B68990 /* CancelButton.m */,
+				08D836A31737FF5D00B68990 /* ClearButton.h */,
+				08D836A41737FF5D00B68990 /* ClearButton.m */,
 				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
 				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
 				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
@@ -978,6 +1051,8 @@
 				0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */,
 				080BD0DB164601B400B37C01 /* EyeDropper.h */,
 				080BD0DC164601B400B37C01 /* EyeDropper.m */,
+				0802D11517369821003259E6 /* EyeDropperButton.h */,
+				0802D11617369821003259E6 /* EyeDropperButton.m */,
 				087BB3A11730AB4B006C0A33 /* OpacitySlider.h */,
 				087BB3A21730AB4B006C0A33 /* OpacitySlider.m */,
 				083F86631735083F00DDE6BC /* RadiusSlider.h */,
@@ -1447,6 +1522,21 @@
 				083F86651735083F00DDE6BC /* RadiusSlider.m in Sources */,
 				0849CEA317353ABA004B30C6 /* PaintToolBar.m in Sources */,
 				0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */,
+				08F3A6901736089C002E063A /* TopToolBar.m in Sources */,
+				08F3A695173613A6002E063A /* TransformButton.m in Sources */,
+				08F3A69817362A43002E063A /* LayerButton.m in Sources */,
+				08F3A69B17363261002E063A /* ProjectButton.m in Sources */,
+				0802D10C17367ACA003259E6 /* ImportButton.m in Sources */,
+				0802D11117368411003259E6 /* ExportButton.m in Sources */,
+				0802D11417368D8A003259E6 /* GalleryButton.m in Sources */,
+				0802D11717369821003259E6 /* EyeDropperButton.m in Sources */,
+				08D836911737E2E600B68990 /* FreeTransformButton.m in Sources */,
+				08D836961737E4D200B68990 /* MoveButton.m in Sources */,
+				08D836991737E5A100B68990 /* RotateButton.m in Sources */,
+				08D8369C1737E5EF00B68990 /* ScaleButton.m in Sources */,
+				08D8369F1737EB2100B68990 /* CancelButton.m in Sources */,
+				08D836A21737EDA300B68990 /* DoneButton.m in Sources */,
+				08D836A51737FF5D00B68990 /* ClearButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

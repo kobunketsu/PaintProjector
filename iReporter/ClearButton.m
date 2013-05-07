@@ -1,14 +1,14 @@
 //
-//  RedoButton.m
-//  iReporter
+//  ClearButton.m
+//  ProjectPaint
 //
-//  Created by 文杰 胡 on 12-11-10.
-//  Copyright (c) 2012年 Marin Todorov. All rights reserved.
+//  Created by 胡 文杰 on 13-5-6.
+//  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "RedoButton.h"
+#import "ClearButton.h"
 
-@implementation RedoButton
+@implementation ClearButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,7 +30,7 @@
     
     //// Color Declarations
     UIColor* iconHighlightColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* iconColor = [UIColor colorWithRed: 0.795 green: 0.795 blue: 0.795 alpha: 1];
+    UIColor* iconColor = [UIColor colorWithRed: 0.559 green: 0.558 blue: 0.559 alpha: 1];
     CGFloat iconColorHSBA[4];
     [iconColor getHue: &iconColorHSBA[0] saturation: &iconColorHSBA[1] brightness: &iconColorHSBA[2] alpha: &iconColorHSBA[3]];
     
@@ -49,7 +49,7 @@
     CGFloat labelHightlightBlurRadius = 0;
     
     //// Abstracted Attributes
-    NSString* textContent = @"Redo";
+    NSString* textContent = @"Clear";
     
     
     //// Text Drawing
@@ -64,22 +64,46 @@
     
     //// Main Drawing
     UIBezierPath* mainPath = [UIBezierPath bezierPath];
-    [mainPath moveToPoint: CGPointMake(35.89, 37.06)];
-    [mainPath addLineToPoint: CGPointMake(43.14, 29.67)];
-    [mainPath addLineToPoint: CGPointMake(21.88, 29.67)];
-    [mainPath addCurveToPoint: CGPointMake(11.94, 25.47) controlPoint1: CGPointMake(18.28, 29.67) controlPoint2: CGPointMake(14.68, 28.27)];
-    [mainPath addCurveToPoint: CGPointMake(11.94, 5.17) controlPoint1: CGPointMake(6.45, 19.86) controlPoint2: CGPointMake(6.45, 10.77)];
-    [mainPath addCurveToPoint: CGPointMake(21.88, 0.97) controlPoint1: CGPointMake(14.68, 2.37) controlPoint2: CGPointMake(18.28, 0.97)];
-    [mainPath addLineToPoint: CGPointMake(21.88, 6.49)];
-    [mainPath addCurveToPoint: CGPointMake(15.76, 9.07) controlPoint1: CGPointMake(19.67, 6.49) controlPoint2: CGPointMake(17.45, 7.35)];
-    [mainPath addCurveToPoint: CGPointMake(15.76, 21.56) controlPoint1: CGPointMake(12.38, 12.52) controlPoint2: CGPointMake(12.38, 18.11)];
-    [mainPath addCurveToPoint: CGPointMake(21.88, 24.15) controlPoint1: CGPointMake(17.45, 23.29) controlPoint2: CGPointMake(19.67, 24.15)];
-    [mainPath addLineToPoint: CGPointMake(43.14, 24.15)];
-    [mainPath addLineToPoint: CGPointMake(35.89, 16.76)];
-    [mainPath addLineToPoint: CGPointMake(38.44, 14.16)];
-    [mainPath addLineToPoint: CGPointMake(51.15, 26.69)];
-    [mainPath addLineToPoint: CGPointMake(38.44, 39.66)];
-    [mainPath addLineToPoint: CGPointMake(35.89, 37.06)];
+    [mainPath moveToPoint: CGPointMake(40.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(36.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(36.5, 34.5)];
+    [mainPath addCurveToPoint: CGPointMake(38.5, 36.5) controlPoint1: CGPointMake(36.5, 35.6) controlPoint2: CGPointMake(37.4, 36.5)];
+    [mainPath addCurveToPoint: CGPointMake(40.5, 34.5) controlPoint1: CGPointMake(39.6, 36.5) controlPoint2: CGPointMake(40.5, 35.6)];
+    [mainPath addLineToPoint: CGPointMake(40.5, 11.5)];
+    [mainPath closePath];
+    [mainPath moveToPoint: CGPointMake(32.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(27.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(27.5, 34)];
+    [mainPath addCurveToPoint: CGPointMake(30, 36.5) controlPoint1: CGPointMake(27.5, 35.38) controlPoint2: CGPointMake(28.62, 36.5)];
+    [mainPath addCurveToPoint: CGPointMake(32.5, 34) controlPoint1: CGPointMake(31.38, 36.5) controlPoint2: CGPointMake(32.5, 35.38)];
+    [mainPath addLineToPoint: CGPointMake(32.5, 11.5)];
+    [mainPath closePath];
+    [mainPath moveToPoint: CGPointMake(23.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(19.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(19.5, 34.5)];
+    [mainPath addCurveToPoint: CGPointMake(21.5, 36.5) controlPoint1: CGPointMake(19.5, 35.6) controlPoint2: CGPointMake(20.4, 36.5)];
+    [mainPath addCurveToPoint: CGPointMake(23.5, 34.5) controlPoint1: CGPointMake(22.6, 36.5) controlPoint2: CGPointMake(23.5, 35.6)];
+    [mainPath addLineToPoint: CGPointMake(23.5, 11.5)];
+    [mainPath closePath];
+    [mainPath moveToPoint: CGPointMake(35.5, 5)];
+    [mainPath addLineToPoint: CGPointMake(36.5, 6.5)];
+    [mainPath addLineToPoint: CGPointMake(50, 6.5)];
+    [mainPath addCurveToPoint: CGPointMake(52.5, 9) controlPoint1: CGPointMake(51.38, 6.5) controlPoint2: CGPointMake(52.5, 7.62)];
+    [mainPath addCurveToPoint: CGPointMake(50, 11.5) controlPoint1: CGPointMake(52.5, 10.38) controlPoint2: CGPointMake(51.38, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(46.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(45.5, 37.22)];
+    [mainPath addCurveToPoint: CGPointMake(41.5, 41.5) controlPoint1: CGPointMake(45.5, 39.59) controlPoint2: CGPointMake(43.71, 41.5)];
+    [mainPath addLineToPoint: CGPointMake(18.5, 41.5)];
+    [mainPath addCurveToPoint: CGPointMake(14.5, 37.22) controlPoint1: CGPointMake(16.29, 41.5) controlPoint2: CGPointMake(14.5, 39.59)];
+    [mainPath addLineToPoint: CGPointMake(13.5, 11.5)];
+    [mainPath addLineToPoint: CGPointMake(10, 11.5)];
+    [mainPath addCurveToPoint: CGPointMake(7.5, 9) controlPoint1: CGPointMake(8.62, 11.5) controlPoint2: CGPointMake(7.5, 10.38)];
+    [mainPath addCurveToPoint: CGPointMake(10, 6.5) controlPoint1: CGPointMake(7.5, 7.62) controlPoint2: CGPointMake(8.62, 6.5)];
+    [mainPath addLineToPoint: CGPointMake(21.5, 6.5)];
+    [mainPath addLineToPoint: CGPointMake(22.5, 5)];
+    [mainPath addCurveToPoint: CGPointMake(25, 3.5) controlPoint1: CGPointMake(22.5, 3.62) controlPoint2: CGPointMake(23.62, 3.5)];
+    [mainPath addLineToPoint: CGPointMake(33, 3.5)];
+    [mainPath addCurveToPoint: CGPointMake(35.5, 5) controlPoint1: CGPointMake(34.38, 3.5) controlPoint2: CGPointMake(35.5, 3.62)];
     [mainPath closePath];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
@@ -113,22 +137,8 @@
     CGContextRestoreGState(context);
     
     CGContextRestoreGState(context);
-    
-    
-    
-    
+   
 }
 
-//- (id) hitTest:(CGPoint)point withEvent:(UIEvent*)event {
-//        
-//}
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
-    if(point.x > 0 && point.x < self.frame.size.width && point.y < 0 && point.y > - self.frame.size.height){
-        return true;        
-    }
-    else {
-        return false;
 
-    }
-}
 @end

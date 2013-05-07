@@ -403,11 +403,11 @@
                                     <outletCollection property="gestureRecognizers" destination="dxG-yv-OaI" appends="YES" id="qX2-o9-zhj"/>
                                 </connections>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" customClass="UndoButton">
-                                <rect key="frame" x="679" y="84" width="66" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" customClass="UndoButton">
+                                <rect key="frame" x="670" y="100" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                <state key="normal" image="sandClock1.png">
+                                <state key="normal">
                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -418,11 +418,11 @@
                                     <action selector="touchUpInsideUndoButton:forEvent:" destination="NUX-zI-YbL" eventType="touchUpInside" id="eoU-xj-yKp"/>
                                 </connections>
                             </button>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="UndoButton">
-                                <rect key="frame" x="679" y="117" width="66" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="RedoButton">
+                                <rect key="frame" x="670" y="180" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" image="sandClock2.png">
+                                <state key="normal">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -433,11 +433,11 @@
                                     <action selector="touchUpInsideRedoButton:" destination="NUX-zI-YbL" eventType="touchUpInside" id="D1u-lV-TRD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton">
-                                <rect key="frame" x="689" y="180" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ClearButton">
+                                <rect key="frame" x="670" y="260" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                                <state key="normal" image="delete.png">
+                                <state key="normal">
                                     <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -549,12 +549,12 @@
                                             <action selector="saveToDocButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="OdO-vy-4D6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton">
-                                        <rect key="frame" x="704" y="22" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="EyeDropperButton">
+                                        <rect key="frame" x="704" y="20" width="66" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="rubber.png">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -607,7 +607,7 @@
                                         <rect key="frame" x="380" y="12" width="250" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <subviews>
-                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" id="T99-J2-dLj" userLabel="colorSlotsScrollView">
+                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" id="T99-J2-dLj" userLabel="colorSlotsScrollView">
                                                 <rect key="frame" x="0.0" y="6" width="250" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </scrollView>
@@ -622,15 +622,15 @@
                                     </view>
                                 </subviews>
                             </view>
-                            <view contentMode="scaleToFill" id="erO-nK-SuU" userLabel="MainToolBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="66"/>
+                            <view opaque="NO" contentMode="scaleToFill" id="erO-nK-SuU" userLabel="MainToolBar" customClass="TopToolBar">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="Layer">
-                                        <rect key="frame" x="50" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="Layer" customClass="LayerButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Layer">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -641,26 +641,23 @@
                                             <action selector="layerButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="HJ2-sP-xip"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="Transform">
-                                        <rect key="frame" x="170" y="0.0" width="80" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="Transform" customClass="TransformButton">
+                                        <rect key="frame" x="128" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Transform">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="transformButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="DGZ-lM-LAo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Io4-DQ-nS7" userLabel="Project">
-                                        <rect key="frame" x="290" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Io4-DQ-nS7" userLabel="Project" customClass="ProjectButton">
+                                        <rect key="frame" x="256" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Project">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -671,11 +668,11 @@
                                             <action selector="projectPaintButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="EdC-Ha-hhf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="Import">
-                                        <rect key="frame" x="410" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="Import" customClass="ImportButton">
+                                        <rect key="frame" x="384" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Import">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -686,11 +683,11 @@
                                             <action selector="importButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="UEm-g4-ete"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="Export">
-                                        <rect key="frame" x="530" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="Export" customClass="ExportButton">
+                                        <rect key="frame" x="512" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Export">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -701,11 +698,11 @@
                                             <action selector="exportButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="tgy-Ly-3mE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="Close">
-                                        <rect key="frame" x="650" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="Close" customClass="GalleryButton">
+                                        <rect key="frame" x="640" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Close">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -717,17 +714,16 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="KXd-SK-HpQ" userLabel="TransformToolBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="66"/>
+                            <view opaque="NO" contentMode="scaleToFill" id="KXd-SK-HpQ" userLabel="TransformToolBar" customClass="TopToolBar">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iGz-x9-FWD" userLabel="Cancel">
-                                        <rect key="frame" x="50" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iGz-x9-FWD" userLabel="Cancel" customClass="CancelButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Cancel">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -738,11 +734,11 @@
                                             <action selector="cancelButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="6mG-7C-5qb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j1i-FF-Mnk" userLabel="Free">
-                                        <rect key="frame" x="170" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j1i-FF-Mnk" userLabel="Free" customClass="FreeTransformButton">
+                                        <rect key="frame" x="128" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Free">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -753,11 +749,11 @@
                                             <action selector="freeTransformButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="Sks-Q6-i43"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jUE-CN-MqN" userLabel="Move">
-                                        <rect key="frame" x="290" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jUE-CN-MqN" userLabel="Move" customClass="MoveButton">
+                                        <rect key="frame" x="256" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Move">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -768,11 +764,11 @@
                                             <action selector="moveButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="91z-Gf-FDT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a8e-Xf-CKu" userLabel="Rotate">
-                                        <rect key="frame" x="410" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a8e-Xf-CKu" userLabel="Rotate" customClass="RotateButton">
+                                        <rect key="frame" x="384" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Rotate">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -783,11 +779,11 @@
                                             <action selector="rotateButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="a9i-mR-Ew6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rbW-g9-iD4" userLabel="Scale">
-                                        <rect key="frame" x="530" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rbW-g9-iD4" userLabel="Scale" customClass="ScaleButton">
+                                        <rect key="frame" x="512" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Scale">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -798,11 +794,11 @@
                                             <action selector="scaleButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="NSs-YM-GWD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ELD-wJ-aj2" userLabel="Done">
-                                        <rect key="frame" x="650" y="0.0" width="66" height="66"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ELD-wJ-aj2" userLabel="Done" customClass="DoneButton">
+                                        <rect key="frame" x="640" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Done">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -814,7 +810,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="1lJ-Bb-8Ii">
                                 <rect key="frame" x="365" y="494" width="37" height="37"/>
@@ -2074,7 +2069,6 @@
         <image name="brushRadius4.png" width="44" height="44"/>
         <image name="brushRadius8.png" width="44" height="44"/>
         <image name="close.png" width="44" height="44"/>
-        <image name="delete.png" width="64" height="64"/>
         <image name="finger.png" width="64" height="64"/>
         <image name="floorButton.jpg" width="44" height="44"/>
         <image name="open.png" width="44" height="44"/>
@@ -2082,8 +2076,6 @@
         <image name="pin.png" width="192" height="192"/>
         <image name="placeholder.png" width="300" height="300"/>
         <image name="rubber.png" width="44" height="44"/>
-        <image name="sandClock1.png" width="64" height="64"/>
-        <image name="sandClock2.png" width="64" height="64"/>
         <image name="switch.png.png" width="16" height="16"/>
     </resources>
     <classes>
@@ -2125,11 +2117,35 @@
                 <relationship kind="outlet" name="lblYaw" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="CancelButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CancelButton.h"/>
+        </class>
+        <class className="ClearButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ClearButton.h"/>
+        </class>
         <class className="ColorButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorButton.h"/>
         </class>
         <class className="ColorPickerView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorPickerView.h"/>
+        </class>
+        <class className="DoneButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DoneButton.h"/>
+        </class>
+        <class className="ExportButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExportButton.h"/>
+        </class>
+        <class className="EyeDropperButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EyeDropperButton.h"/>
+        </class>
+        <class className="FreeTransformButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FreeTransformButton.h"/>
+        </class>
+        <class className="GalleryButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GalleryButton.h"/>
+        </class>
+        <class className="ImportButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportButton.h"/>
         </class>
         <class className="InfColorBarPicker" superclassName="UIControl">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorBarPicker.h"/>
@@ -2151,6 +2167,9 @@
         </class>
         <class className="InfColorSquareView" superclassName="UIImageView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorSquareView.h"/>
+        </class>
+        <class className="LayerButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LayerButton.h"/>
         </class>
         <class className="LayerManagerView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LayerManagerView.h"/>
@@ -2175,6 +2194,9 @@
                 <relationship kind="action" name="handlePinchGRMainScreenView:" candidateClass="UIPinchGestureRecognizer"/>
                 <relationship kind="action" name="openButtonTapped:" candidateClass="UIButton"/>
             </relationships>
+        </class>
+        <class className="MoveButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoveButton.h"/>
         </class>
         <class className="OpacitySlider" superclassName="UISlider">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/OpacitySlider.h"/>
@@ -2211,13 +2233,11 @@
                 <relationship kind="action" name="UndoDraw:" candidateClass="UndoButton"/>
                 <relationship kind="action" name="cancelButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="clearPaintButtonTapped:"/>
-                <relationship kind="action" name="colorPickerLockTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="colorPickerSwitchTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="colorSlotsSwitchTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="createLayerButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="debugButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="editBrush:" candidateClass="UIButton"/>
-                <relationship kind="action" name="eraserButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="eyeDropperButtonTapped:"/>
                 <relationship kind="action" name="fingerButtonTapped:" candidateClass="UIButton"/>
@@ -2225,21 +2245,17 @@
                 <relationship kind="action" name="handleLongPressColorSlot:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="handleLongPressPaintView:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="handlePanBrushView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePanLayerImageView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintColorButton:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintRefView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePinchPaintRefView:" candidateClass="UIPinchGestureRecognizer"/>
                 <relationship kind="action" name="handlePinchPaintView:" candidateClass="UIPinchGestureRecognizer"/>
-                <relationship kind="action" name="handleSingleFingerPanImage:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handleSwipePaintView:" candidateClass="UISwipeGestureRecognizer"/>
                 <relationship kind="action" name="handleTapBrushView:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="action" name="handleTapPaintView:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="handleTwoFingerTransformImage:" candidateClass="UIGestureRecognizer"/>
                 <relationship kind="action" name="importButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="layerButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="moveButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="paintColorButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="pickImageInApp:"/>
                 <relationship kind="action" name="pickPhotoButtonTapped:"/>
                 <relationship kind="action" name="projectPaintButtonTapped:" candidateClass="UIButton"/>
@@ -2296,7 +2312,7 @@
                 <relationship kind="outlet" name="debugView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="debugView2" candidateClass="UIView"/>
                 <relationship kind="outlet" name="exportButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="eyeDropperButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="eyeDropperButton" candidateClass="EyeDropperButton"/>
                 <relationship kind="outlet" name="freeTransformButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="importButton" candidateClass="UIButton"/>
@@ -2307,7 +2323,7 @@
                 <relationship kind="outlet" name="lblBrushRadius" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lpgrBrushView" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="outlet" name="lpgrPaintView" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="outlet" name="mainToolBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="mainToolBar" candidateClass="TopToolBar"/>
                 <relationship kind="outlet" name="moveTransformButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="opaictySlider" candidateClass="OpacitySlider"/>
                 <relationship kind="outlet" name="paintColor" candidateClass="PaintColorButton"/>
@@ -2332,7 +2348,7 @@
                 <relationship kind="outlet" name="testOpenGLView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="transformButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="transformDoneButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="transformToolBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="transformToolBar" candidateClass="TopToolBar"/>
                 <relationship kind="outletCollection" name="colorButtons" candidateClass="ColorButton"/>
                 <relationship kind="outletCollection" name="lpgrColorSlots" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="outletCollection" name="paintUIDefaultCollection" candidateClass="UIView"/>
@@ -2358,6 +2374,9 @@
                 <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
             </relationships>
         </class>
+        <class className="ProjectButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectButton.h"/>
+        </class>
         <class className="RadiusButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RadiusButton.h"/>
         </class>
@@ -2369,6 +2388,12 @@
         </class>
         <class className="RedoButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RedoButton.h"/>
+        </class>
+        <class className="RotateButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotateButton.h"/>
+        </class>
+        <class className="ScaleButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScaleButton.h"/>
         </class>
         <class className="SelectBrushButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectBrushButton.h"/>
@@ -2410,6 +2435,12 @@
                 <relationship kind="outlet" name="btnRefresh" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="listView" candidateClass="UIScrollView"/>
             </relationships>
+        </class>
+        <class className="TopToolBar" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopToolBar.h"/>
+        </class>
+        <class className="TransformButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransformButton.h"/>
         </class>
         <class className="UndoButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UndoButton.h"/>

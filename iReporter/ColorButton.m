@@ -27,7 +27,7 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    
+//    NSLog(@"drawRect x:%.2f y:%.2f width:%.2f height:%.2f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     //code generated from paintCode
     
     //// General Declarations
