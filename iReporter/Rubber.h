@@ -7,7 +7,7 @@
 //
 
 #import "Brush.h"
-
+#import "EraserButton.h"
 @interface Rubber : Brush
 
 @end

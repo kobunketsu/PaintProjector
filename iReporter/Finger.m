@@ -21,6 +21,15 @@
     return self;
 }
 
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
+    FingerButton * button = [[FingerButton alloc] initWithFrame:rect];
+    button.brush = self;
+    return button;    
+    //    [button setImage:_iconImage forState:UIControlStateNormal];
+    //    [button setBackgroundColor:[UIColor whiteColor]];
+    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 - (GLuint)getDebugTexture{
     return _smudgeTexture;
 }

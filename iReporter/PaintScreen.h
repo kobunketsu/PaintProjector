@@ -66,6 +66,7 @@
 #import "LayerBlendModeTableViewController.h"
 #import "ImportViewController.h"
 #import "ExportViewController.h"
+#import "BrushTypeViewController.h"
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_Normal,
@@ -108,8 +109,8 @@ BrushTypeViewDelegate,
 SelectLayerContentDelegate,
 MainScreenViewControllerDelegate,
 PaintProjectViewControllerDelegate,
-LayerBlendModeTableViewControllerDelegate
-
+LayerBlendModeTableViewControllerDelegate,
+BrushTypeViewControllerDelegate
 >
 {
     //文件File
@@ -239,7 +240,6 @@ LayerBlendModeTableViewControllerDelegate
 - (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handleTapBrushView:(UITapGestureRecognizer *)sender;
 //- (IBAction)handlePanBrushToolBar:(UIPanGestureRecognizer *)sender;
-- (IBAction)editBrush:(UIButton *)sender;
 - (IBAction)fingerButtonTapped:(UIButton *)sender;
 - (IBAction)importButtonTapped:(UIButton *)sender;
 - (IBAction)exportButtonTapped:(UIButton *)sender;
@@ -304,7 +304,7 @@ LayerBlendModeTableViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UILabel *lblBrushRadius;
 @property (strong, nonatomic) IBOutlet UILabel *lblBrushOpacity;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *btnAction;
-@property (strong, nonatomic) IBOutlet SelectBrushButton *btnBrush;
+@property (strong, nonatomic) IBOutlet SelectBrushButton *brushButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnRedo;
 @property (strong, nonatomic) IBOutlet UndoButton *btnUndo;
 @property (strong, nonatomic) IBOutlet BrushView *brushView;

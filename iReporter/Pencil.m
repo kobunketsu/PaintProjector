@@ -19,6 +19,16 @@
     
     return self;
 }
+
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
+    PencilButton * button = [[PencilButton alloc] initWithFrame:rect];
+    button.brush = self;
+    return button;  
+//    [button setImage:_iconImage forState:UIControlStateNormal];
+//    [button setBackgroundColor:[UIColor whiteColor]];
+//    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 //- (void) draw :(CGPoint)lastPoint NewPoint:(CGPoint)newPoint{
 //
 //    CGPoint drawVec = CGPointMake(newPoint.x - self.lastDrawPoint.x, newPoint.y - self.lastDrawPoint.y);

@@ -19,6 +19,16 @@
     
     return self;
 }
+
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
+    EraserButton * button = [[EraserButton alloc] initWithFrame:rect];
+    button.brush = self;
+    return button;    
+    //    [button setImage:_iconImage forState:UIControlStateNormal];
+    //    [button setBackgroundColor:[UIColor whiteColor]];
+    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 - (void)setBlendMode{
     glEnable(GL_BLEND); 
     glBlendFuncSeparate(GL_ZERO, GL_ONE_MINUS_SRC_ALPHA, GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);

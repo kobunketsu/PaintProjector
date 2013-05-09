@@ -11,6 +11,7 @@
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 #import <GLKit/GLKit.h>
+#import "BrushTypeButton.h"
 #import "Ultility.h"
 #import "ShaderUltility.h"
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
@@ -76,6 +77,7 @@ typedef enum
     BrushType_Pen,    
     BrushType_Airbrush,
     BrushType_Rubber,
+    BrushType_Chalk,
     BrushType_Max,
 }BrushType;
 //@property (nonatomic, assign) int brushId;
@@ -109,4 +111,5 @@ typedef enum
 - (void) initializeVertexBufferObject;
 - (void) destroyVertexBufferObject;
 - (GLuint)getDebugTexture;
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect;
 @end

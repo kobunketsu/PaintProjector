@@ -19,7 +19,14 @@
     
     return self;
 }
-
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
+    ChalkButton * button = [[ChalkButton alloc] initWithFrame:rect];
+    button.brush = self;
+    return button;
+    //    [button setImage:_iconImage forState:UIControlStateNormal];
+    //    [button setBackgroundColor:[UIColor whiteColor]];
+    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+}
 -(void)drawBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(int) count
 {
     //初始化，不填入数据    

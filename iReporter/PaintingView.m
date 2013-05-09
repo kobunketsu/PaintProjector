@@ -551,14 +551,14 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //非绘制操作
-    if([[event touchesForView:self] count]>1 || isTransformOperating)
+    if([touches count]>1 || isTransformOperating)
         return;
     
     //开始绘制，关闭所有打开的UI
     [delegate paintViewTouchBegan];
 
 	CGRect				bounds = [self bounds];
-    UITouch*	touch = [[event touchesForView:self] anyObject];
+    UITouch*	touch = [touches anyObject];
 	firstTouch = YES;
 	// Convert touch point from UIView referential to OpenGL one (upside-down flip)
 	location = [touch locationInView:self];
@@ -577,11 +577,11 @@
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {  
-    if([[event touchesForView:self] count]>1 || isTransformOperating)
+    if([touches count]>1 || isTransformOperating)
         return;
     
 	CGRect				bounds = [self bounds];
-	UITouch*			touch = [[event touchesForView:self] anyObject];
+	UITouch*			touch = [touches anyObject];
 		
 	// Convert touch point from UIView referential to OpenGL one (upside-down flip)
 	if (firstTouch) {
@@ -606,7 +606,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded!");
-    if ([[event touchesForView:self] count]>1) {
+    if ([touches count]>1) {
         return;
     }
     
@@ -615,8 +615,10 @@
         return;
     }    
     
-	CGRect				bounds = [self bounds];
-    UITouch*	touch = [[event touchesForView:self] anyObject];
+	CGRect	bounds = [self bounds];
+    NSLog(@"touchesEnded count %d", [touches count]);
+    UITouch*	touch = [[touches allObjects]objectAtIndex:0];
+    
 	if (firstTouch) {
 		firstTouch = NO;
 	}

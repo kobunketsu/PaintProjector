@@ -7,7 +7,7 @@
 //
 
 #import "Brush.h"
-
+#import "FingerButton.h"
 @interface Finger : Brush
 {
     GLuint _smudgeTexture;

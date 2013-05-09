@@ -112,7 +112,7 @@ typedef struct {
 @synthesize lblBrushRadius;
 @synthesize lblBrushOpacity;
 @synthesize btnAction;
-@synthesize btnBrush;
+@synthesize brushButton;
 @synthesize paintView = _paintView;
 
 //InfColorPicker
@@ -293,7 +293,7 @@ typedef struct {
     [self setPaintView:nil];
     [self setBtnAction:nil];
     [self setLpgrPaintView:nil];
-    [self setBtnBrush:nil];
+    [self setBrushButton:nil];
     [self setBrushView:nil];
     [self setPgrPaintView:nil];
     [self setPgrBrushView:nil];
@@ -940,6 +940,17 @@ typedef struct {
 //}
 - (void)toggleBrushToolViews{
     //选定笔刷种类
+//    BrushTypeViewController* brushTypeViewController = [[BrushTypeViewController alloc]initWithStyle:UITableViewStylePlain];
+////    _brushTypeView.hidden = false;
+////    brushTypeViewController.view = _brushTypeView;
+//    brushTypeViewController.delegate = self;
+//    
+//    brushTypeViewController.contentSizeForViewInPopover = CGSizeMake(130, 320);
+//    
+//    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:brushTypeViewController];
+//    CGRect rect = CGRectMake(brushButton.bounds.origin.x, brushButton.bounds.origin.y, brushButton.bounds.size.width, brushButton.bounds.size.height);
+//    [_sharedPopoverController presentPopoverFromRect:rect inView:brushButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
     if(_state == PaintScreen_Normal){
         _state = PaintScreen_EditingBrush;
         brushView.hidden = false;
@@ -952,11 +963,9 @@ typedef struct {
     }
 }
 
-- (IBAction)editBrush:(UIButton *)sender {
-
-    
+- (IBAction)selectBrushType:(UIButton *)sender {
     [self toggleBrushToolViews];
-    [brushView setNeedsDisplay];
+//    [brushView setNeedsDisplay];
 }
 
 
@@ -1005,13 +1014,6 @@ typedef struct {
     _paintView.brush.brushState.opacity = (float)sender.value / 100.0f;
     lblBrushOpacity.text = [NSString stringWithFormat:@"Opacity : %.2f", _paintView.brush.brushState.opacity];
     [brushView setNeedsDisplay];     
-}
-
-- (IBAction)selectBrushType:(UIButton *)sender {
-//    paintView.brush.brushType ++;    
-//    if (paintView.brush.brushType > BrushType_Max-2) {
-//        paintView.brush.brushType = 0;
-//    }
 }
 
 - (IBAction)selectRubber:(UIButton *)sender {
@@ -1715,7 +1717,7 @@ typedef struct {
         return;
     }
     brushView.brush = brush;
-    [btnBrush setImage:brush.iconImage forState:UIControlStateNormal];
+    [brushButton setImage:brush.iconImage forState:UIControlStateNormal];
 
 }
 

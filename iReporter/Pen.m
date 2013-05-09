@@ -12,6 +12,7 @@
 
 #define _DEBUG_ 0
 @implementation Pen
+
 - (id)initWithContext:(EAGLContext*)context Canvas:(UIView *)canvas{
     self = [super initWithContext:context Canvas:canvas];
     if (self !=nil) {
@@ -24,6 +25,16 @@
     
     return self;
 }
+
+- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
+    PenButton * button = [[PenButton alloc] initWithFrame:rect];
+    button.brush = self;
+    return button;    
+    //    [button setImage:_iconImage forState:UIControlStateNormal];
+    //    [button setBackgroundColor:[UIColor whiteColor]];
+    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 - (void) renderLineFromPoint:(CGPoint)start toPoint:(CGPoint)end
 {
     NSUInteger count;

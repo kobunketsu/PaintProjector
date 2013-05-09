@@ -272,8 +272,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="NUX-zI-YbL" eventType="touchUpInside" id="fJ5-4D-hQr"/>
                                                     <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="FVG-4I-Owq"/>
+                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="KU2-3h-Yr8"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="2ey-2u-lpf" userLabel="ColorSlot0" customClass="ColorButton">
@@ -407,7 +407,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="NUX-zI-YbL" eventType="touchUpInside" id="QiP-d4-msM"/>
+                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="CqG-wX-IfL"/>
                                                     <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="j2k-Kh-5Dy"/>
                                                 </connections>
                                             </button>
@@ -744,10 +744,10 @@
                         <outlet property="airBrushToolBar" destination="oSc-9e-mCA" id="3zV-Jj-4h2"/>
                         <outlet property="barPicker" destination="c96-9C-IYf" id="2o0-oU-P1z"/>
                         <outlet property="barView" destination="Qb6-Rs-9pi" id="DHg-rL-CbP"/>
+                        <outlet property="brushButton" destination="6ac-sw-jok" id="RoR-uf-g2D"/>
                         <outlet property="brushShapeToolBar" destination="R49-3o-XtX" id="qB7-Gt-xK2"/>
                         <outlet property="brushView" destination="DaP-yC-9nA" id="C87-Rl-d88"/>
                         <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
-                        <outlet property="btnBrush" destination="6ac-sw-jok" id="dfN-WN-302"/>
                         <outlet property="btnPaint" destination="Sky-Ds-Vss" id="oYx-v3-ysE"/>
                         <outlet property="btnRedo" destination="vf4-qc-f2Y" id="muS-gr-8G1"/>
                         <outlet property="btnUndo" destination="1Zl-fu-rHb" id="xOM-3T-nKx"/>
@@ -881,8 +881,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="cWy-8v-glp" eventType="touchUpInside" id="6hT-zR-MqX"/>
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="8LD-xJ-V2m"/>
+                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="eh8-j6-gSd"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="ColorButton">
@@ -1016,7 +1016,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="cWy-8v-glp" eventType="touchUpInside" id="Ios-NO-9rM"/>
+                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="55p-TJ-4bz"/>
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="vvw-UQ-eA7"/>
                                                 </connections>
                                             </button>
@@ -1313,10 +1313,10 @@
                         <outlet property="airBrushToolBar" destination="sSR-kP-jkI" id="3ZB-tm-rx9"/>
                         <outlet property="barPicker" destination="muz-aV-J9u" id="fSR-d2-DuN"/>
                         <outlet property="barView" destination="zBK-aK-YPr" id="vtf-4k-eJM"/>
+                        <outlet property="brushButton" destination="NHf-Id-Qfn" id="lOM-ia-Gm7"/>
                         <outlet property="brushShapeToolBar" destination="p34-jR-XoP" id="Udv-Cd-HT3"/>
                         <outlet property="brushView" destination="gxM-AW-fP7" id="lYx-bh-IwJ"/>
                         <outlet property="btnAction" destination="Kd3-e2-ryT" id="Yc0-QF-c2g"/>
-                        <outlet property="btnBrush" destination="NHf-Id-Qfn" id="52Z-Or-vsT"/>
                         <outlet property="btnRedo" destination="bKM-GM-1dc" id="Fc3-7d-nMf"/>
                         <outlet property="btnUndo" destination="CSi-yO-WtW" id="d8F-ub-dWr"/>
                         <outlet property="lblBrushOpacity" destination="ani-ZL-Lvy" id="nYx-VR-Mtb"/>

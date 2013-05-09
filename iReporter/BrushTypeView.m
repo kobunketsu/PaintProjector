@@ -56,11 +56,13 @@
 
     float buttonWidth = self.frame.size.width;
     for (int i = 0; i < [_brushTypes count]; ++i) {
-        BrushTypeButton * button = [[BrushTypeButton alloc] initWithFrame:CGRectMake(0, buttonWidth*i, buttonWidth, buttonWidth)];
         Brush* brush = [_brushTypes objectAtIndex:i];
-        button.brush = brush;
-        [button setImage:brush.iconImage forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor whiteColor]];
+        BrushTypeButton* button = [brush initializeButtonWithFrame:CGRectMake(0, buttonWidth*i, buttonWidth, buttonWidth)];
+//        BrushTypeButton * button = [[BrushTypeButton alloc] initWithFrame:CGRectMake(0, buttonWidth*i, buttonWidth, buttonWidth)];
+
+//        button.brush = brush;
+//        [button setImage:brush.iconImage forState:UIControlStateNormal];
+//        [button setBackgroundColor:[UIColor whiteColor]];
         [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:button];        

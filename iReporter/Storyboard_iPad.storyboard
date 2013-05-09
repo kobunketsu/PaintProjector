@@ -297,7 +297,7 @@
         <scene sceneID="GTS-f8-ra6">
             <objects>
                 <viewController storyboardIdentifier="paintScreen" title="paintScreen" modalTransitionStyle="crossDissolve" id="NUX-zI-YbL" userLabel="paintScreen" customClass="PaintScreen" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C2z-vc-haW" userLabel="Root View">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="C2z-vc-haW" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -492,7 +492,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="editBrush:" destination="NUX-zI-YbL" eventType="touchUpInside" id="fJ5-4D-hQr"/>
+                                            <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="FXb-lO-EVO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="SelectBrushButton">
@@ -911,23 +911,6 @@
                             <view contentMode="scaleToFill" id="uz2-p7-2L5" userLabel="BrushTypeView" customClass="BrushTypeView">
                                 <rect key="frame" x="0.0" y="600" width="66" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rrk-fy-GmB" userLabel="RubberButton">
-                                        <rect key="frame" x="0.0" y="130" width="66" height="66"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" backgroundImage="rubber.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="selectRubber:" destination="NUX-zI-YbL" eventType="touchUpInside" id="YHH-z1-0tN"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="pin.png" id="gu9-Uz-9H9" userLabel="AnchorView">
@@ -953,12 +936,11 @@
                         <outlet property="anchorView" destination="gu9-Uz-9H9" id="LhP-v4-Z2X"/>
                         <outlet property="barPicker" destination="c96-9C-IYf" id="2o0-oU-P1z"/>
                         <outlet property="barView" destination="Qb6-Rs-9pi" id="DHg-rL-CbP"/>
+                        <outlet property="brushButton" destination="6ac-sw-jok" id="IHM-qI-RPp"/>
                         <outlet property="brushDetailView" destination="arx-c9-s41" id="cAf-eC-ugC"/>
                         <outlet property="brushTypeView" destination="uz2-p7-2L5" id="xfg-rn-Hob"/>
                         <outlet property="brushView" destination="DaP-yC-9nA" id="C87-Rl-d88"/>
                         <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
-                        <outlet property="btnBrush" destination="6ac-sw-jok" id="dfN-WN-302"/>
-                        <outlet property="btnRubber" destination="rrk-fy-GmB" id="Vpl-r0-Fun"/>
                         <outlet property="btnUndo" destination="1Zl-fu-rHb" id="xOM-3T-nKx"/>
                         <outlet property="cancelTransformButton" destination="iGz-x9-FWD" id="mBT-4T-PpJ"/>
                         <outlet property="closeButton" destination="AdD-j2-c1b" id="ECr-VZ-yX4"/>
@@ -1163,8 +1145,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="cWy-8v-glp" eventType="touchUpInside" id="6hT-zR-MqX"/>
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="8LD-xJ-V2m"/>
+                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="GGV-3r-SgT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="ColorButton">
@@ -1298,7 +1280,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="editBrush:" destination="cWy-8v-glp" eventType="touchUpInside" id="Ios-NO-9rM"/>
+                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="bef-yH-lIo"/>
                                                     <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="vvw-UQ-eA7"/>
                                                 </connections>
                                             </button>
@@ -1595,10 +1577,10 @@
                         <outlet property="airBrushToolBar" destination="sSR-kP-jkI" id="3ZB-tm-rx9"/>
                         <outlet property="barPicker" destination="muz-aV-J9u" id="fSR-d2-DuN"/>
                         <outlet property="barView" destination="zBK-aK-YPr" id="vtf-4k-eJM"/>
+                        <outlet property="brushButton" destination="NHf-Id-Qfn" id="CLn-fL-ZSZ"/>
                         <outlet property="brushShapeToolBar" destination="p34-jR-XoP" id="Udv-Cd-HT3"/>
                         <outlet property="brushView" destination="gxM-AW-fP7" id="lYx-bh-IwJ"/>
                         <outlet property="btnAction" destination="Kd3-e2-ryT" id="Yc0-QF-c2g"/>
-                        <outlet property="btnBrush" destination="NHf-Id-Qfn" id="52Z-Or-vsT"/>
                         <outlet property="btnRedo" destination="bKM-GM-1dc" id="Fc3-7d-nMf"/>
                         <outlet property="btnUndo" destination="CSi-yO-WtW" id="d8F-ub-dWr"/>
                         <outlet property="lblBrushOpacity" destination="ani-ZL-Lvy" id="nYx-VR-Mtb"/>
@@ -2068,7 +2050,7 @@
         <image name="brushRadius2.png" width="44" height="44"/>
         <image name="brushRadius4.png" width="44" height="44"/>
         <image name="brushRadius8.png" width="44" height="44"/>
-        <image name="close.png" width="44" height="44"/>
+        <image name="close.png" width="29" height="29"/>
         <image name="finger.png" width="64" height="64"/>
         <image name="floorButton.jpg" width="44" height="44"/>
         <image name="open.png" width="44" height="44"/>
@@ -2233,11 +2215,12 @@
                 <relationship kind="action" name="UndoDraw:" candidateClass="UndoButton"/>
                 <relationship kind="action" name="cancelButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="clearPaintButtonTapped:"/>
+                <relationship kind="action" name="colorPickerLockTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="colorPickerSwitchTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="colorSlotsSwitchTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="createLayerButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="debugButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="editBrush:" candidateClass="UIButton"/>
+                <relationship kind="action" name="eraserButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="eyeDropperButtonTapped:"/>
                 <relationship kind="action" name="fingerButtonTapped:" candidateClass="UIButton"/>
@@ -2245,17 +2228,21 @@
                 <relationship kind="action" name="handleLongPressColorSlot:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="handleLongPressPaintView:" candidateClass="UILongPressGestureRecognizer"/>
                 <relationship kind="action" name="handlePanBrushView:" candidateClass="UIPanGestureRecognizer"/>
+                <relationship kind="action" name="handlePanLayerImageView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintColorButton:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintRefView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePanPaintView:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handlePinchPaintRefView:" candidateClass="UIPinchGestureRecognizer"/>
                 <relationship kind="action" name="handlePinchPaintView:" candidateClass="UIPinchGestureRecognizer"/>
+                <relationship kind="action" name="handleSingleFingerPanImage:" candidateClass="UIPanGestureRecognizer"/>
                 <relationship kind="action" name="handleSwipePaintView:" candidateClass="UISwipeGestureRecognizer"/>
                 <relationship kind="action" name="handleTapBrushView:" candidateClass="UITapGestureRecognizer"/>
                 <relationship kind="action" name="handleTapPaintView:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="handleTwoFingerTransformImage:" candidateClass="UIGestureRecognizer"/>
                 <relationship kind="action" name="importButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="layerButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="moveButtonTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="paintColorButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="pickImageInApp:"/>
                 <relationship kind="action" name="pickPhotoButtonTapped:"/>
                 <relationship kind="action" name="projectPaintButtonTapped:" candidateClass="UIButton"/>
@@ -2293,11 +2280,11 @@
                 <relationship kind="outlet" name="anchorView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="barPicker" candidateClass="InfColorBarPicker"/>
                 <relationship kind="outlet" name="barView" candidateClass="InfColorBarView"/>
+                <relationship kind="outlet" name="brushButton" candidateClass="SelectBrushButton"/>
                 <relationship kind="outlet" name="brushDetailView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="brushTypeView" candidateClass="BrushTypeView"/>
                 <relationship kind="outlet" name="brushView" candidateClass="BrushView"/>
                 <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnBrush" candidateClass="SelectBrushButton"/>
                 <relationship kind="outlet" name="btnPaint" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnRedo" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="btnRubber" candidateClass="UIButton"/>
