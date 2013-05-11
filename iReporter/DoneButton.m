@@ -87,41 +87,31 @@
     CGContextRestoreGState(context);
     
     
+    //// Text Drawing
+    CGRect textRect = CGRectMake(35, 57, 61, 18);
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
+    [iconColor setFill];
+    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
+    CGContextRestoreGState(context);
+    
+    
+    
     //// Main Drawing
     UIBezierPath* mainPath = [UIBezierPath bezierPath];
-    [mainPath moveToPoint: CGPointMake(75.73, 27.17)];
-    [mainPath addLineToPoint: CGPointMake(61.59, 41.31)];
-    [mainPath addLineToPoint: CGPointMake(60.17, 42.73)];
-    [mainPath addCurveToPoint: CGPointMake(58.76, 42.73) controlPoint1: CGPointMake(59.78, 43.12) controlPoint2: CGPointMake(59.15, 43.12)];
-    [mainPath addLineToPoint: CGPointMake(50.27, 34.24)];
-    [mainPath addCurveToPoint: CGPointMake(50.27, 32.83) controlPoint1: CGPointMake(49.88, 33.85) controlPoint2: CGPointMake(49.88, 33.22)];
-    [mainPath addLineToPoint: CGPointMake(51.69, 31.41)];
-    [mainPath addCurveToPoint: CGPointMake(53.1, 31.41) controlPoint1: CGPointMake(52.08, 31.02) controlPoint2: CGPointMake(52.71, 31.02)];
-    [mainPath addLineToPoint: CGPointMake(59.46, 37.78)];
-    [mainPath addLineToPoint: CGPointMake(72.9, 24.34)];
-    [mainPath addCurveToPoint: CGPointMake(74.31, 24.34) controlPoint1: CGPointMake(73.29, 23.95) controlPoint2: CGPointMake(73.92, 23.95)];
-    [mainPath addLineToPoint: CGPointMake(75.73, 25.76)];
-    [mainPath addCurveToPoint: CGPointMake(75.73, 27.17) controlPoint1: CGPointMake(76.12, 26.15) controlPoint2: CGPointMake(76.12, 26.78)];
-    [mainPath closePath];
-    [mainPath moveToPoint: CGPointMake(48.74, 39.96)];
-    [mainPath addLineToPoint: CGPointMake(41.58, 32.79)];
-    [mainPath addLineToPoint: CGPointMake(48.74, 25.63)];
-    [mainPath addLineToPoint: CGPointMake(48.74, 39.96)];
-    [mainPath closePath];
-    [mainPath moveToPoint: CGPointMake(69.96, 18.74)];
-    [mainPath addLineToPoint: CGPointMake(55.63, 18.74)];
-    [mainPath addLineToPoint: CGPointMake(62.79, 11.58)];
-    [mainPath addLineToPoint: CGPointMake(69.96, 18.74)];
-    [mainPath closePath];
-    [mainPath moveToPoint: CGPointMake(85.42, 34.21)];
-    [mainPath addLineToPoint: CGPointMake(78.26, 41.37)];
-    [mainPath addLineToPoint: CGPointMake(78.26, 27.04)];
-    [mainPath addLineToPoint: CGPointMake(85.42, 34.21)];
-    [mainPath closePath];
-    [mainPath moveToPoint: CGPointMake(71.37, 48.26)];
-    [mainPath addLineToPoint: CGPointMake(64.21, 55.42)];
-    [mainPath addLineToPoint: CGPointMake(57.04, 48.26)];
-    [mainPath addLineToPoint: CGPointMake(71.37, 48.26)];
+    [mainPath moveToPoint: CGPointMake(87.93, 22.71)];
+    [mainPath addLineToPoint: CGPointMake(63.93, 46.98)];
+    [mainPath addLineToPoint: CGPointMake(61.53, 49.41)];
+    [mainPath addCurveToPoint: CGPointMake(59.13, 49.41) controlPoint1: CGPointMake(60.86, 50.08) controlPoint2: CGPointMake(59.79, 50.08)];
+    [mainPath addLineToPoint: CGPointMake(44.72, 34.85)];
+    [mainPath addCurveToPoint: CGPointMake(44.72, 32.42) controlPoint1: CGPointMake(44.06, 34.18) controlPoint2: CGPointMake(44.06, 33.09)];
+    [mainPath addLineToPoint: CGPointMake(47.12, 29.99)];
+    [mainPath addCurveToPoint: CGPointMake(49.52, 29.99) controlPoint1: CGPointMake(47.79, 29.32) controlPoint2: CGPointMake(48.86, 29.32)];
+    [mainPath addLineToPoint: CGPointMake(60.33, 40.91)];
+    [mainPath addLineToPoint: CGPointMake(83.13, 17.86)];
+    [mainPath addCurveToPoint: CGPointMake(85.53, 17.86) controlPoint1: CGPointMake(83.79, 17.19) controlPoint2: CGPointMake(84.87, 17.19)];
+    [mainPath addLineToPoint: CGPointMake(87.93, 20.28)];
+    [mainPath addCurveToPoint: CGPointMake(87.93, 22.71) controlPoint1: CGPointMake(88.59, 20.95) controlPoint2: CGPointMake(88.59, 22.04)];
     [mainPath closePath];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
@@ -160,54 +150,24 @@
     
     //// Reflection Drawing
     UIBezierPath* reflectionPath = [UIBezierPath bezierPath];
-    [reflectionPath moveToPoint: CGPointMake(57.8, 75.26)];
-    [reflectionPath addLineToPoint: CGPointMake(64.5, 78.63)];
-    [reflectionPath addLineToPoint: CGPointMake(71.2, 75.26)];
-    [reflectionPath addLineToPoint: CGPointMake(57.8, 75.26)];
-    [reflectionPath closePath];
-    [reflectionPath moveToPoint: CGPointMake(80.67, 63.76)];
-    [reflectionPath addLineToPoint: CGPointMake(80.67, 70.5)];
-    [reflectionPath addLineToPoint: CGPointMake(87.37, 67.13)];
-    [reflectionPath addLineToPoint: CGPointMake(80.67, 63.76)];
-    [reflectionPath closePath];
-    [reflectionPath moveToPoint: CGPointMake(64.5, 55.63)];
-    [reflectionPath addLineToPoint: CGPointMake(57.8, 59)];
-    [reflectionPath addLineToPoint: CGPointMake(71.2, 59)];
-    [reflectionPath addLineToPoint: CGPointMake(64.5, 55.63)];
-    [reflectionPath closePath];
-    [reflectionPath moveToPoint: CGPointMake(48.33, 63.76)];
-    [reflectionPath addLineToPoint: CGPointMake(41.63, 67.13)];
-    [reflectionPath addLineToPoint: CGPointMake(48.33, 70.5)];
-    [reflectionPath addLineToPoint: CGPointMake(48.33, 63.76)];
-    [reflectionPath closePath];
-    [reflectionPath moveToPoint: CGPointMake(76.73, 70.31)];
-    [reflectionPath addLineToPoint: CGPointMake(62.59, 63.2)];
-    [reflectionPath addLineToPoint: CGPointMake(61.17, 62.49)];
-    [reflectionPath addCurveToPoint: CGPointMake(59.76, 62.49) controlPoint1: CGPointMake(60.78, 62.29) controlPoint2: CGPointMake(60.15, 62.29)];
-    [reflectionPath addLineToPoint: CGPointMake(51.27, 66.76)];
-    [reflectionPath addCurveToPoint: CGPointMake(51.27, 67.47) controlPoint1: CGPointMake(50.88, 66.95) controlPoint2: CGPointMake(50.88, 67.27)];
-    [reflectionPath addLineToPoint: CGPointMake(52.69, 68.18)];
-    [reflectionPath addCurveToPoint: CGPointMake(54.1, 68.18) controlPoint1: CGPointMake(53.08, 68.38) controlPoint2: CGPointMake(53.71, 68.38)];
-    [reflectionPath addLineToPoint: CGPointMake(60.46, 64.98)];
-    [reflectionPath addLineToPoint: CGPointMake(73.9, 71.73)];
-    [reflectionPath addCurveToPoint: CGPointMake(75.31, 71.73) controlPoint1: CGPointMake(74.29, 71.93) controlPoint2: CGPointMake(74.92, 71.93)];
-    [reflectionPath addLineToPoint: CGPointMake(76.73, 71.02)];
-    [reflectionPath addCurveToPoint: CGPointMake(76.73, 70.31) controlPoint1: CGPointMake(77.12, 70.83) controlPoint2: CGPointMake(77.12, 70.51)];
+    [reflectionPath moveToPoint: CGPointMake(87.93, 63.22)];
+    [reflectionPath addLineToPoint: CGPointMake(63.93, 51.29)];
+    [reflectionPath addLineToPoint: CGPointMake(61.53, 50.1)];
+    [reflectionPath addCurveToPoint: CGPointMake(59.13, 50.1) controlPoint1: CGPointMake(60.86, 49.77) controlPoint2: CGPointMake(59.79, 49.77)];
+    [reflectionPath addLineToPoint: CGPointMake(44.72, 57.26)];
+    [reflectionPath addCurveToPoint: CGPointMake(44.72, 58.45) controlPoint1: CGPointMake(44.06, 57.59) controlPoint2: CGPointMake(44.06, 58.12)];
+    [reflectionPath addLineToPoint: CGPointMake(47.12, 59.64)];
+    [reflectionPath addCurveToPoint: CGPointMake(49.52, 59.64) controlPoint1: CGPointMake(47.79, 59.97) controlPoint2: CGPointMake(48.86, 59.97)];
+    [reflectionPath addLineToPoint: CGPointMake(60.33, 54.28)];
+    [reflectionPath addLineToPoint: CGPointMake(83.13, 65.61)];
+    [reflectionPath addCurveToPoint: CGPointMake(85.53, 65.61) controlPoint1: CGPointMake(83.79, 65.94) controlPoint2: CGPointMake(84.87, 65.94)];
+    [reflectionPath addLineToPoint: CGPointMake(87.93, 64.41)];
+    [reflectionPath addCurveToPoint: CGPointMake(87.93, 63.22) controlPoint1: CGPointMake(88.59, 64.08) controlPoint2: CGPointMake(88.59, 63.55)];
     [reflectionPath closePath];
     CGContextSaveGState(context);
     [reflectionPath addClip];
-    CGContextDrawLinearGradient(context, iconReflection, CGPointMake(64.5, 55.63), CGPointMake(64.5, 78.63), 0);
+    CGContextDrawLinearGradient(context, iconReflection, CGPointMake(66.33, 49.85), CGPointMake(66.33, 65.85), 0);
     CGContextRestoreGState(context);
-    
-    
-    //// Text Drawing
-    CGRect textRect = CGRectMake(35, 57, 61, 18);
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
-    [iconColor setFill];
-    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
-    CGContextRestoreGState(context);
-    
     
     
     //// Cleanup

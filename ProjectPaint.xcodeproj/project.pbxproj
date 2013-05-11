@@ -165,7 +165,6 @@
 		0848D561171D94AB00B7740C /* ShaderPaintLayerBlendModeSaturation.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09E171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSaturation.fsh */; };
 		0848D562171D94AB00B7740C /* ShaderPaintLayerBlendModeScreen.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B09F171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeScreen.fsh */; };
 		0848D563171D94AB00B7740C /* ShaderPaintLayerBlendModeSoftLight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08A1B0A0171C4C9600BEF6A7 /* ShaderPaintLayerBlendModeSoftLight.fsh */; };
-		0849CEA317353ABA004B30C6 /* PaintToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA217353ABA004B30C6 /* PaintToolBar.m */; };
 		0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */; };
 		084D5405170338A60052F510 /* PaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* PaintDoc.m */; };
 		084D540A17033C270052F510 /* PaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* PaintDocManager.m */; };
@@ -189,6 +188,10 @@
 		087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* OpacitySlider.m */; };
 		087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */ = {isa = PBXBuildFile; fileRef = 087BB3A61730ABF7006C0A33 /* opacityChecker.png */; };
 		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
+		087FE73C173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE73B173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m */; };
+		087FE741173DF71C009B34A2 /* PaintScreenPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE740173DF71C009B34A2 /* PaintScreenPopoverController.m */; };
+		087FE743173E0CC7009B34A2 /* popover-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 087FE742173E0CC7009B34A2 /* popover-bg.png */; };
+		087FE746173E0EED009B34A2 /* DownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* DownToolBar.m */; };
 		088B9BA6173A9264000F4BCC /* PenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BA5173A9264000F4BCC /* PenButton.m */; };
 		088B9BAB173A9271000F4BCC /* PencilButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BAA173A9271000F4BCC /* PencilButton.m */; };
 		088B9BAE173A927E000F4BCC /* FingerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BAD173A927E000F4BCC /* FingerButton.m */; };
@@ -485,8 +488,6 @@
 		0843A655171061FA004806C5 /* checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBox.png; sourceTree = "<group>"; };
 		0847471F16D2615900772015 /* PaintFrameGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintFrameGroup.h; sourceTree = "<group>"; };
 		0847472016D2615900772015 /* PaintFrameGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintFrameGroup.m; sourceTree = "<group>"; };
-		0849CEA117353ABA004B30C6 /* PaintToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintToolBar.h; sourceTree = "<group>"; };
-		0849CEA217353ABA004B30C6 /* PaintToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintToolBar.m; sourceTree = "<group>"; };
 		0849CEA61735503C004B30C6 /* RadiusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusIndicatorView.h; sourceTree = "<group>"; };
 		0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusIndicatorView.m; sourceTree = "<group>"; };
 		084D5403170338A60052F510 /* PaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintDoc.h; sourceTree = "<group>"; };
@@ -521,6 +522,13 @@
 		087BB3A61730ABF7006C0A33 /* opacityChecker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacityChecker.png; sourceTree = "<group>"; };
 		087C5AB116B2CF2E005F954A /* Finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* Finger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finger.m; sourceTree = "<group>"; };
+		087FE73A173DF590009B34A2 /* PaintScreenPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintScreenPopoverBackgroundView.h; sourceTree = "<group>"; };
+		087FE73B173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintScreenPopoverBackgroundView.m; sourceTree = "<group>"; };
+		087FE73F173DF71C009B34A2 /* PaintScreenPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintScreenPopoverController.h; sourceTree = "<group>"; };
+		087FE740173DF71C009B34A2 /* PaintScreenPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintScreenPopoverController.m; sourceTree = "<group>"; };
+		087FE742173E0CC7009B34A2 /* popover-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popover-bg.png"; sourceTree = "<group>"; };
+		087FE744173E0EED009B34A2 /* DownToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownToolBar.h; sourceTree = "<group>"; };
+		087FE745173E0EED009B34A2 /* DownToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownToolBar.m; sourceTree = "<group>"; };
 		088B9BA4173A9264000F4BCC /* PenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PenButton.h; sourceTree = "<group>"; };
 		088B9BA5173A9264000F4BCC /* PenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenButton.m; sourceTree = "<group>"; };
 		088B9BA9173A9271000F4BCC /* PencilButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PencilButton.h; sourceTree = "<group>"; };
@@ -739,6 +747,7 @@
 		082439D716CCAE2100FC12BA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				087FE742173E0CC7009B34A2 /* popover-bg.png */,
 				087BB3A61730ABF7006C0A33 /* opacityChecker.png */,
 				089FC3FE171AD1F60018CE27 /* delete.png */,
 				0843A655171061FA004806C5 /* checkBox.png */,
@@ -1061,10 +1070,10 @@
 				08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */,
 				080BD0D71645FDC000B37C01 /* SelectBrushButton.h */,
 				080BD0D81645FDC000B37C01 /* SelectBrushButton.m */,
-				0849CEA117353ABA004B30C6 /* PaintToolBar.h */,
-				0849CEA217353ABA004B30C6 /* PaintToolBar.m */,
 				08F3A68E1736089C002E063A /* TopToolBar.h */,
 				08F3A68F1736089C002E063A /* TopToolBar.m */,
+				087FE744173E0EED009B34A2 /* DownToolBar.h */,
+				087FE745173E0EED009B34A2 /* DownToolBar.m */,
 				08F3A693173613A6002E063A /* TransformButton.h */,
 				08F3A694173613A6002E063A /* TransformButton.m */,
 				08F3A69617362A43002E063A /* LayerButton.h */,
@@ -1109,6 +1118,10 @@
 				089743D5172296990085113C /* ImportViewController.m */,
 				086F8EDC1728AE2F0024289C /* ExportViewController.h */,
 				086F8EDD1728AE2F0024289C /* ExportViewController.m */,
+				087FE73A173DF590009B34A2 /* PaintScreenPopoverBackgroundView.h */,
+				087FE73B173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m */,
+				087FE73F173DF71C009B34A2 /* PaintScreenPopoverController.h */,
+				087FE740173DF71C009B34A2 /* PaintScreenPopoverController.m */,
 			);
 			name = Paint;
 			sourceTree = "<group>";
@@ -1399,6 +1412,7 @@
 				087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */,
 				085EFD4B1732B2E200F0395D /* pin.png in Resources */,
 				083F86621734FED000DDE6BC /* checkerUnit.png in Resources */,
+				087FE743173E0CC7009B34A2 /* popover-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1558,7 +1572,6 @@
 				085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */,
 				083F862E1734AF7B00DDE6BC /* RadiusButton.m in Sources */,
 				083F86651735083F00DDE6BC /* RadiusSlider.m in Sources */,
-				0849CEA317353ABA004B30C6 /* PaintToolBar.m in Sources */,
 				0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */,
 				08F3A6901736089C002E063A /* TopToolBar.m in Sources */,
 				08F3A695173613A6002E063A /* TransformButton.m in Sources */,
@@ -1581,6 +1594,9 @@
 				088B9BB1173A9299000F4BCC /* EraserButton.m in Sources */,
 				088B9BB4173A9AF0000F4BCC /* ChalkButton.m in Sources */,
 				084F8EC8173BDD9D007676C3 /* BrushTypeViewController.m in Sources */,
+				087FE73C173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m in Sources */,
+				087FE741173DF71C009B34A2 /* PaintScreenPopoverController.m in Sources */,
+				087FE746173E0EED009B34A2 /* DownToolBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

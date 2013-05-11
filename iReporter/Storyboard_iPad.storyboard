@@ -476,7 +476,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" id="4vr-ew-gM4" userLabel="PaintToolBar" customClass="PaintToolBar">
+                            <view contentMode="scaleToFill" id="nvG-od-2VM" userLabel="BrushTypeBar" customClass="DownToolBar">
+                                <rect key="frame" x="0.0" y="924" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" id="4vr-ew-gM4" userLabel="PaintToolBar" customClass="DownToolBar">
                                 <rect key="frame" x="0.0" y="924" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -731,7 +736,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="cancelButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="6mG-7C-5qb"/>
+                                            <action selector="tranformCancelButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="sy7-eu-Kfk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j1i-FF-Mnk" userLabel="Free" customClass="FreeTransformButton">
@@ -806,7 +811,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="transformImageDoneTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="sFZ-sB-vZg"/>
+                                            <action selector="transformDoneButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="yrN-Wd-Taa"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -938,6 +943,7 @@
                         <outlet property="barView" destination="Qb6-Rs-9pi" id="DHg-rL-CbP"/>
                         <outlet property="brushButton" destination="6ac-sw-jok" id="IHM-qI-RPp"/>
                         <outlet property="brushDetailView" destination="arx-c9-s41" id="cAf-eC-ugC"/>
+                        <outlet property="brushTypeBar" destination="nvG-od-2VM" id="wI3-qC-3GZ"/>
                         <outlet property="brushTypeView" destination="uz2-p7-2L5" id="xfg-rn-Hob"/>
                         <outlet property="brushView" destination="DaP-yC-9nA" id="C87-Rl-d88"/>
                         <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
@@ -2114,6 +2120,9 @@
         <class className="DoneButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DoneButton.h"/>
         </class>
+        <class className="DownToolBar" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DownToolBar.h"/>
+        </class>
         <class className="ExportButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ExportButton.h"/>
         </class>
@@ -2213,7 +2222,6 @@
             <relationships>
                 <relationship kind="action" name="RedoDraw:" candidateClass="UIButton"/>
                 <relationship kind="action" name="UndoDraw:" candidateClass="UndoButton"/>
-                <relationship kind="action" name="cancelButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="clearPaintButtonTapped:"/>
                 <relationship kind="action" name="colorPickerLockTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="colorPickerSwitchTapped:" candidateClass="UIButton"/>
@@ -2273,8 +2281,9 @@
                 <relationship kind="action" name="touchUpInsideRedoButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="touchUpInsideUndoButton:forEvent:" candidateClass="UndoButton"/>
                 <relationship kind="action" name="touchUpOutsideUndoButton:" candidateClass="UndoButton"/>
+                <relationship kind="action" name="tranformCancelButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="transformButtonTapped:"/>
-                <relationship kind="action" name="transformImageDoneTapped:" candidateClass="UIButton"/>
+                <relationship kind="action" name="transformDoneButtonTapped:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="airBrushToolBar" candidateClass="BrushToolBar"/>
                 <relationship kind="outlet" name="anchorView" candidateClass="UIView"/>
@@ -2282,6 +2291,7 @@
                 <relationship kind="outlet" name="barView" candidateClass="InfColorBarView"/>
                 <relationship kind="outlet" name="brushButton" candidateClass="SelectBrushButton"/>
                 <relationship kind="outlet" name="brushDetailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="brushTypeBar" candidateClass="DownToolBar"/>
                 <relationship kind="outlet" name="brushTypeView" candidateClass="BrushTypeView"/>
                 <relationship kind="outlet" name="brushView" candidateClass="BrushView"/>
                 <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
@@ -2316,7 +2326,7 @@
                 <relationship kind="outlet" name="paintColor" candidateClass="PaintColorButton"/>
                 <relationship kind="outlet" name="paintColorView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="paintRefView" candidateClass="GLKView"/>
-                <relationship kind="outlet" name="paintToolBar" candidateClass="PaintToolBar"/>
+                <relationship kind="outlet" name="paintToolBar" candidateClass="DownToolBar"/>
                 <relationship kind="outlet" name="paintView" candidateClass="PaintingView"/>
                 <relationship kind="outlet" name="pencilBrushToolBar" candidateClass="BrushToolBar"/>
                 <relationship kind="outlet" name="pgrBrushView" candidateClass="UIPanGestureRecognizer"/>
@@ -2342,9 +2352,6 @@
                 <relationship kind="outletCollection" name="paintUISecCollection" candidateClass="UIView"/>
                 <relationship kind="outletCollection" name="transformToolButtons" candidateClass="UIButton"/>
             </relationships>
-        </class>
-        <class className="PaintToolBar" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintToolBar.h"/>
         </class>
         <class className="PaintView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintView.h"/>

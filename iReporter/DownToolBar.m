@@ -1,14 +1,14 @@
 //
-//  PaintToolBar.m
+//  DownToolBar.m
 //  ProjectPaint
 //
-//  Created by 胡 文杰 on 13-5-4.
+//  Created by 胡 文杰 on 13-5-11.
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "PaintToolBar.h"
+#import "DownToolBar.h"
 
-@implementation PaintToolBar
+@implementation DownToolBar
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,6 +24,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    // Drawing code
     // Drawing code
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -68,9 +69,6 @@
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
-    
-    
-   
 }
 
 

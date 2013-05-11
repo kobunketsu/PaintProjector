@@ -20,8 +20,8 @@
 #import "RadiusSlider.h"
 #import "RadiusButton.h"
 #import "TopToolBar.h"
+#import "DownToolBar.h"
 #import "RadiusIndicatorView.h"
-#import "PaintToolBar.h"
 #import "EyeDropperButton.h"
 #import "SelectBrushButton.h"
 #import "InfColorPickerController.h"
@@ -67,11 +67,12 @@
 #import "ImportViewController.h"
 #import "ExportViewController.h"
 #import "BrushTypeViewController.h"
+#import "PaintScreenPopoverController.h"
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_Normal,
     PaintScreen_PreviewBrush,
-    PaintScreen_EditingBrush,
+    PaintScreen_SelectBrush,
     PaintScreen_EditingBrushSize,
     PaintScreen_EditingBrushOpacity,
     PaintScreen_PickColor,
@@ -223,7 +224,7 @@ BrushTypeViewControllerDelegate
     float _layerImageButtonHeight;  //图层按钮高度
     float _layerImageButtonWidth;  //图层按钮宽度
     int   _layerIndexOffset;     //图层拖拽偏移位
-    UIPopoverController* _sharedPopoverController;  //图层混合弹出控制器
+    PaintScreenPopoverController* _sharedPopoverController;  //图层混合弹出控制器
     
     //import
 }
@@ -284,8 +285,8 @@ BrushTypeViewControllerDelegate
 - (IBAction)layerButtonTapped:(UIButton *)sender;
 - (IBAction)transformButtonTapped:(id)sender;
 - (IBAction)createLayerButtonTapped:(UIButton *)sender;
-- (IBAction)transformImageDoneTapped:(UIButton *)sender;
-- (IBAction)cancelButtonTapped:(UIButton *)sender;
+- (IBAction)transformDoneButtonTapped:(UIButton *)sender;
+- (IBAction)tranformCancelButtonTapped:(UIButton *)sender;
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender;
 - (IBAction)moveButtonTapped:(UIButton *)sender;
 - (IBAction)rotateButtonTapped:(UIButton *)sender;
@@ -333,7 +334,8 @@ BrushTypeViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIView *colorSlotsView;
 @property (strong, nonatomic) IBOutlet UIView *paintColorView;
 @property (strong, nonatomic) IBOutlet OpacitySlider *opaictySlider;
-@property (strong, nonatomic) IBOutlet PaintToolBar *paintToolBar;
+@property (strong, nonatomic) IBOutlet DownToolBar *paintToolBar;
+@property (strong, nonatomic) IBOutlet DownToolBar *brushTypeBar;
 @property (strong, nonatomic) IBOutlet UIView *brushDetailView;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (strong, nonatomic) IBOutlet UIScrollView *layersScrollView;

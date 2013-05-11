@@ -177,11 +177,18 @@ typedef struct {
     [self setUIMode:_isPaintMode];
     
     //工具栏
-    _mainToolBar.hidden = false;
-    _paintToolBar.hidden = false;
-    _transformToolBar.hidden = true;
+    //隐藏初始化未显示的ToolBar
+//    _mainToolBar.hidden = false;
+//    _paintToolBar.hidden = false;
+//    _transformToolBar.hidden = true;
+    _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height + _paintToolBar.bounds.size.height * 0.5);    
+    _brushTypeBar.center = CGPointMake(_brushTypeBar.center.x, self.view.bounds.size.height + _brushTypeBar.bounds.size.height * 0.5);
+    _mainToolBar.center = CGPointMake( _mainToolBar.center.x, - _mainToolBar.bounds.size.height * 0.5);
+    _transformToolBar.center = CGPointMake(_transformToolBar.center.x, -_transformToolBar.bounds.size.height * 0.5);
+    [self switchTopToolBarFrom:nil to:_mainToolBar completion:nil];
+    [self switchDownToolBarFrom:nil to:_paintToolBar completion:nil];
     
-    //Main tools
+    //主要工具
     //初始化各种笔刷
     _pencil = [[Pencil alloc]initWithContext:_paintView.context Canvas:_paintView];
     _pencil.delegate = self;
@@ -354,6 +361,7 @@ typedef struct {
     [self setOpaictySlider:nil];
     [self setRadiusScrollView:nil];
     [self setRadiusIndicatorView:nil];
+    [self setBrushTypeBar:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self tearDownGL];
@@ -940,6 +948,7 @@ typedef struct {
 //}
 - (void)toggleBrushToolViews{
     //选定笔刷种类
+    //使用popoverController方式
 //    BrushTypeViewController* brushTypeViewController = [[BrushTypeViewController alloc]initWithStyle:UITableViewStylePlain];
 ////    _brushTypeView.hidden = false;
 ////    brushTypeViewController.view = _brushTypeView;
@@ -947,19 +956,34 @@ typedef struct {
 //    
 //    brushTypeViewController.contentSizeForViewInPopover = CGSizeMake(130, 320);
 //    
-//    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:brushTypeViewController];
+//    _sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:brushTypeViewController];
 //    CGRect rect = CGRectMake(brushButton.bounds.origin.x, brushButton.bounds.origin.y, brushButton.bounds.size.width, brushButton.bounds.size.height);
 //    [_sharedPopoverController presentPopoverFromRect:rect inView:brushButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
+    //使用弹出UIView方式
+//    if(_state == PaintScreen_Normal){
+//        _state = PaintScreen_EditingBrush;
+//        brushView.hidden = false;
+//        _brushTypeView.hidden = false;
+//    }
+//    else if(_state == PaintScreen_EditingBrush){
+//        _state = PaintScreen_Normal;
+//        brushView.hidden = true;
+//        _brushTypeView.hidden = true;
+//    }
+    
+    //使用切换ToolBar方式
     if(_state == PaintScreen_Normal){
-        _state = PaintScreen_EditingBrush;
-        brushView.hidden = false;
-        _brushTypeView.hidden = false;
+        [self switchDownToolBarFrom:_paintToolBar to:_brushTypeBar completion:^(BOOL finished) {
+            _state = PaintScreen_SelectBrush;
+        }];
+        [self switchTopToolBarFrom:_mainToolBar to:nil completion:nil];
     }
-    else if(_state == PaintScreen_EditingBrush){
-        _state = PaintScreen_Normal;
-        brushView.hidden = true;
-        _brushTypeView.hidden = true;
+    else if(_state == PaintScreen_SelectBrush){
+        [self switchDownToolBarFrom:_brushTypeBar to:_paintToolBar completion:^(BOOL finished) {
+            _state = PaintScreen_Normal;
+        }];
+        [self switchTopToolBarFrom:nil to:_mainToolBar completion:nil];
     }
 }
 
@@ -1139,7 +1163,7 @@ typedef struct {
     
     importViewController.contentSizeForViewInPopover = CGSizeMake(320, 200);
     
-    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:importViewController];
+    _sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:importViewController];
     CGRect rect = CGRectMake(_importButton.bounds.origin.x, _importButton.bounds.origin.y, _importButton.bounds.size.width, _importButton.bounds.size.height - PopoverOffset);
     [_sharedPopoverController presentPopoverFromRect:rect inView:_importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -1323,7 +1347,7 @@ typedef struct {
     
     exportViewController.contentSizeForViewInPopover = CGSizeMake(320, 200);
     
-    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:exportViewController];
+    _sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:exportViewController];
     CGRect rect = CGRectMake(_exportButton.bounds.origin.x, _exportButton.bounds.origin.y, _exportButton.bounds.size.width, _exportButton.bounds.size.height - PopoverOffset);
     [_sharedPopoverController presentPopoverFromRect:rect inView:_exportButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -1333,57 +1357,68 @@ typedef struct {
 }
 
 #pragma mark- 变换 Transform
+- (void)transformImageStart{
+    _state = PaintScreen_TransformImage;
+    
+    //UI
+    //隐藏MainToolBar PaintToolBar
+    [self switchTopToolBarFrom:_mainToolBar to:_transformToolBar completion:^(BOOL finished){
+        _anchorView.hidden = false;
+        
+        [self freeTransformButtonTapped:_freeTransformButton];
+        
+        [self updateAnchor];
+    }];
+    
+    [self switchDownToolBarFrom:_paintToolBar to:nil completion:nil];    
+}
+
 - (IBAction)transformButtonTapped:(id)sender {
     [self transformImageStart];
     [_paintView transformCurLayer];
 }
 
-- (void)transformImageStart{
-    _state = PaintScreen_TransformImage;
-    
-    //UI
-    _paintToolBar.hidden = true;
-    _mainToolBar.hidden = true;
-    _transformToolBar.hidden = false;
-    _anchorView.hidden = false;
-    
-    [self freeTransformButtonTapped:_freeTransformButton];
-    
-    [self updateAnchor];
-}
-- (IBAction)transformImageDoneTapped:(UIButton *)sender {
- 
-    //UI
-    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-    }
-//    sender.backgroundColor = [UIColor greenColor];
 
+- (void)transformEnded{
+    
+//    for (UIButton* button in _transformToolButtons) {
+        //        button.backgroundColor = [UIColor lightGrayColor];
+//    }
+    //    sender.backgroundColor = [UIColor greenColor];
+    
+    //    _anchorView.hidden = true;
+    //    _mainToolBar.hidden = false;
+    //    _paintToolBar.hidden = false;
+    //    _transformToolBar.hidden = true;
+    
+    //隐藏TransformBar
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _transformToolBar.center = CGPointMake(_transformToolBar.center.x, -_transformToolBar.bounds.size.height * 0.5);
+        
+        
+    }completion:^(BOOL finished){    //显示MainToolBar PaintToolBar
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _mainToolBar.center = CGPointMake(_mainToolBar.center.x, _mainToolBar.bounds.size.height * 0.5);
+            _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height - _paintToolBar.bounds.size.height * 0.5);
+        }completion:^(BOOL finished){
+            _anchorView.hidden = true;
+        }];
+    }];
+    
+    _state = PaintScreen_Normal;
+}
+- (IBAction)transformDoneButtonTapped:(UIButton *)sender {
     [_paintView transformImageDone];
     
-    _anchorView.hidden = true;
-    _mainToolBar.hidden = false;
-    _paintToolBar.hidden = false;
-    _transformToolBar.hidden = true;
-
-    _state = PaintScreen_Normal;
+    //UI
+    [self transformEnded];
 }
 
-- (IBAction)cancelButtonTapped:(UIButton *)sender {
-    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-    }
-//    sender.backgroundColor = [UIColor greenColor];
-    
+- (IBAction)tranformCancelButtonTapped:(UIButton *)sender {
     [_paintView cancelInsertUIImageAtCurLayer];
     
-    //close
-    _anchorView.hidden = true;
-    _mainToolBar.hidden = false;
-    _paintToolBar.hidden = false;
-    _transformToolBar.hidden = true;
-    
-    _state = PaintScreen_Normal;
+    //UI
+    [self transformEnded];
 }
 
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender {
@@ -1464,7 +1499,7 @@ typedef struct {
     
     tableViewController.contentSizeForViewInPopover = CGSizeMake(150, 200);
     
-    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:tableViewController];
+    _sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:tableViewController];
 
     [_sharedPopoverController presentPopoverFromRect:CGRectMake(0, 0, 1, 1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
@@ -1813,7 +1848,7 @@ typedef struct {
 - (void)openColorPicker:(UIColor*)color{
     _infColorPickerController.delegate = self;
     _infColorPickerController.sourceColor = color;//覆盖当前笔刷色
-    _sharedPopoverController = [[UIPopoverController alloc]initWithContentViewController:_infColorPickerController];
+    _sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:_infColorPickerController];
     CGRect rect = CGRectMake(_paintColor.bounds.origin.x, _paintColor.bounds.origin.y, _paintColor.bounds.size.width, _paintColor.bounds.size.height);
     [_sharedPopoverController presentPopoverFromRect:rect inView:_paintColor permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
@@ -1860,6 +1895,35 @@ typedef struct {
 }
 
 #pragma mark- 工具栏
+- (void)switchTopToolBarFrom:(TopToolBar*)fromView to:(TopToolBar*)toView completion: (void (^) (BOOL finished)) block{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (fromView != NULL) {
+            fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
+        }
+    }completion:^(BOOL finished){//显示TransformBar
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            if (toView != NULL) {
+                toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
+            }
+        }completion:block];
+
+    }];
+}
+
+- (void)switchDownToolBarFrom:(DownToolBar*)fromView to:(DownToolBar*)toView completion: (void (^) (BOOL finished)) block{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (fromView != NULL) {
+            fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
+        }
+    }completion:^(BOOL finished){//显示TransformBar
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            if (toView != NULL) {
+                toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
+            }
+        }completion:block];
+    }];
+}
+
 - (void)setUIMode:(bool)isPaintMode{
     if (isPaintMode){
         //切换视窗
