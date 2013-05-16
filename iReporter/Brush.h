@@ -26,16 +26,29 @@
 @property(nonatomic, assign)int   brushId;
 @end
 
+typedef enum
+{
+    BrushType_Pencil,
+    BrushType_Pen,
+    BrushType_Marker,
+    BrushType_Eraser,
+    BrushType_Chalk,
+    BrushType_Finger,
+    BrushType_Max,
+}BrushType;
+
 typedef struct {
     float Position[4];
-    float Color[4];
+//    float Color[4];
 } BrushVertex;
 
 @protocol BrushDelegate
 - (void) brushColorChanged:(UIColor*)color;
 @end
+
 @interface Brush : NSObject
 {
+    BrushType _type;
     NSString* _typeName;
     UIImage* _iconImage;        
     
@@ -66,27 +79,21 @@ typedef struct {
 
     
     GLuint _vertexArray;
+    GLuint _vertexArrayBack;
     BrushVertex* _vertexBuffer;
 	NSUInteger	_vertexMax;    
-    GLuint _drawingVBO;    
+    GLuint _drawingVBO;
+    GLuint _drawingVBOBack;
     
 }
-typedef enum
-{
-    BrushType_Pencil,
-    BrushType_Pen,    
-    BrushType_Airbrush,
-    BrushType_Rubber,
-    BrushType_Chalk,
-    BrushType_Max,
-}BrushType;
+
 //@property (nonatomic, assign) int brushId;
 @property (nonatomic, retain) UIImage* iconImage;
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, assign) GLuint  strokeTexture;    
 @property (nonatomic, assign) CGPoint lastDrawPoint;
 @property (nonatomic, assign) CGPoint curDrawPoint;
-@property (nonatomic, assign) BrushType brushType;
+@property (nonatomic, assign) BrushType type;
 @property (nonatomic, retain) NSString* typeName;
 @property (nonatomic, retain) BrushState* brushState;
 //@property (nonatomic, assign) CGFloat opacity;
@@ -107,9 +114,7 @@ typedef enum
 - (void)renderLineFromPoint:(CGPoint)start toPoint:(CGPoint)end;
 - (void)drawBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint)destination Count:(int) count;
 - (BOOL)loadShader;
-- (void)setupVertexBufferObjects;
-- (void) initializeVertexBufferObject;
+- (void)createVertexBufferObject;
 - (void) destroyVertexBufferObject;
 - (GLuint)getDebugTexture;
-- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect;
 @end

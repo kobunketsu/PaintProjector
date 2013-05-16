@@ -434,7 +434,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ClearButton">
-                                <rect key="frame" x="670" y="260" width="60" height="60"/>
+                                <rect key="frame" x="670" y="260" width="60" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal">
@@ -445,7 +445,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearPaintButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="EjZ-o6-17t"/>
+                                    <action selector="clearButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="W4l-Gl-3It"/>
+                                    <action selector="clearButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="d07-k6-zMd"/>
+                                    <action selector="clearButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="BBK-oI-dFe"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="sRp-D2-1BR" userLabel="LayersView" customClass="LayerManagerView">
@@ -479,14 +481,20 @@
                             <view contentMode="scaleToFill" id="nvG-od-2VM" userLabel="BrushTypeBar" customClass="DownToolBar">
                                 <rect key="frame" x="0.0" y="924" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ss0-3e-NKH" userLabel="BrushTypeView" customClass="BrushTypeView">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </scrollView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view opaque="NO" contentMode="scaleToFill" id="4vr-ew-gM4" userLabel="PaintToolBar" customClass="DownToolBar">
                                 <rect key="frame" x="0.0" y="924" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="SelectBrushButton">
-                                        <rect key="frame" x="0.0" y="22" width="66" height="66"/>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="BrushTypeSmallButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="66" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -497,14 +505,16 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="FXb-lO-EVO"/>
+                                            <action selector="brushTypeButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="qqk-Ke-UBD"/>
+                                            <action selector="brushTypeButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="d8z-Z0-2X3"/>
+                                            <action selector="brushTypeButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="kB3-9u-9pj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="SelectBrushButton">
-                                        <rect key="frame" x="66" y="22" width="66" height="66"/>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="BrushTypeSmallButton">
+                                        <rect key="frame" x="66" y="0.0" width="66" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="finger.png">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -512,7 +522,9 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="fingerButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="zbS-RB-gtR"/>
+                                            <action selector="brushTypeBackButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="Vp8-TO-btW"/>
+                                            <action selector="brushTypeBackButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="dS8-4C-NYs"/>
+                                            <action selector="brushTypeBackButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="yPX-gz-lyq"/>
                                         </connections>
                                     </button>
                                     <view opaque="NO" contentMode="scaleToFill" id="arx-c9-s41" userLabel="BrushRadiusView">
@@ -555,7 +567,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="EyeDropperButton">
-                                        <rect key="frame" x="704" y="20" width="66" height="80"/>
+                                        <rect key="frame" x="704" y="30" width="66" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                         <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -567,7 +579,9 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="eyeDropperButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="hH4-JW-gVk"/>
+                                            <action selector="eyeDropperButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="LwH-lT-PMk"/>
+                                            <action selector="eyeDropperButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="wWc-Su-DKU"/>
+                                            <action selector="eyeDropperButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="eYV-3r-IZt"/>
                                         </connections>
                                     </button>
                                     <view opaque="NO" contentMode="scaleToFill" id="IfY-J3-aSP" userLabel="PaintColorView">
@@ -913,10 +927,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="uz2-p7-2L5" userLabel="BrushTypeView" customClass="BrushTypeView">
-                                <rect key="frame" x="0.0" y="600" width="66" height="300"/>
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="EyeDropperIndicatorView">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <imageView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="pin.png" id="gu9-Uz-9H9" userLabel="AnchorView">
                                 <rect key="frame" x="354" y="482" width="60" height="60"/>
@@ -941,14 +954,16 @@
                         <outlet property="anchorView" destination="gu9-Uz-9H9" id="LhP-v4-Z2X"/>
                         <outlet property="barPicker" destination="c96-9C-IYf" id="2o0-oU-P1z"/>
                         <outlet property="barView" destination="Qb6-Rs-9pi" id="DHg-rL-CbP"/>
+                        <outlet property="brushBackButton" destination="gFo-DV-QR3" id="Hcn-rF-8jo"/>
                         <outlet property="brushButton" destination="6ac-sw-jok" id="IHM-qI-RPp"/>
                         <outlet property="brushDetailView" destination="arx-c9-s41" id="cAf-eC-ugC"/>
                         <outlet property="brushTypeBar" destination="nvG-od-2VM" id="wI3-qC-3GZ"/>
-                        <outlet property="brushTypeView" destination="uz2-p7-2L5" id="xfg-rn-Hob"/>
+                        <outlet property="brushTypeView" destination="ss0-3e-NKH" id="7Cw-yG-7Uo"/>
                         <outlet property="brushView" destination="DaP-yC-9nA" id="C87-Rl-d88"/>
                         <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
                         <outlet property="btnUndo" destination="1Zl-fu-rHb" id="xOM-3T-nKx"/>
                         <outlet property="cancelTransformButton" destination="iGz-x9-FWD" id="mBT-4T-PpJ"/>
+                        <outlet property="clearButton" destination="6dc-Q8-cDV" id="dVE-Jq-KSK"/>
                         <outlet property="closeButton" destination="AdD-j2-c1b" id="ECr-VZ-yX4"/>
                         <outlet property="colorPickerIndicatorMagnify" destination="BTR-I1-dOt" id="w8N-9i-Jy3"/>
                         <outlet property="colorPickerView" destination="t8W-76-5EB" id="YoC-5l-uB2"/>
@@ -959,6 +974,7 @@
                         <outlet property="debugView2" destination="EE5-9s-svW" id="Pyf-Cf-Jr1"/>
                         <outlet property="exportButton" destination="Vhq-Ni-nC3" id="pkf-ec-kDc"/>
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
+                        <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
                         <outlet property="freeTransformButton" destination="j1i-FF-Mnk" id="hIc-S3-B1m"/>
                         <outlet property="imageView" destination="46u-uD-9cc" id="j8a-pF-lb8"/>
                         <outlet property="importButton" destination="Rmw-ah-joO" id="CQ1-lc-GMw"/>
@@ -995,7 +1011,6 @@
                         <outlet property="transformToolBar" destination="KXd-SK-HpQ" id="GtM-Qf-tpA"/>
                         <outletCollection property="paintUIDefaultCollection" destination="4vr-ew-gM4" id="Rbq-Xv-TSm"/>
                         <outletCollection property="paintUIDefaultCollection" destination="erO-nK-SuU" id="16n-5s-aMp"/>
-                        <outletCollection property="paintUISecCollection" destination="uz2-p7-2L5" id="vGf-sh-0aS"/>
                         <outletCollection property="paintUISecCollection" destination="t8W-76-5EB" id="vdD-yf-HYi"/>
                         <outletCollection property="paintUISecCollection" destination="sRp-D2-1BR" id="eL5-Tm-HNa"/>
                         <outletCollection property="transformToolButtons" destination="j1i-FF-Mnk" id="cuG-hb-sfe"/>
@@ -1049,7 +1064,7 @@
                         <outlet property="delegate" destination="NUX-zI-YbL" id="oH0-ph-0zB"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <tapGestureRecognizer delaysTouchesBegan="YES" id="UHa-tB-uQ7" userLabel="TapGR PaintView">
+                <tapGestureRecognizer delaysTouchesEnded="NO" numberOfTouchesRequired="3" id="UHa-tB-uQ7" userLabel="TapGR PaintView">
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
@@ -1151,8 +1166,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="8LD-xJ-V2m"/>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="GGV-3r-SgT"/>
+                                                    <action selector="brushTypeButtonTouchUp:" destination="cWy-8v-glp" eventType="touchUpInside" id="31S-Eh-hge"/>
+                                                    <action selector="brushTypeButtonTouchUp:" destination="cWy-8v-glp" eventType="touchUpOutside" id="YAy-It-T9Y"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="ColorButton">
@@ -1286,8 +1301,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="bef-yH-lIo"/>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="vvw-UQ-eA7"/>
+                                                    <action selector="brushTypeButtonTouchUp:" destination="cWy-8v-glp" eventType="touchUpOutside" id="QNp-RU-foE"/>
+                                                    <action selector="brushTypeButtonTouchUp:" destination="cWy-8v-glp" eventType="touchUpInside" id="qky-r7-5ZE"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="TzT-ap-MtS" userLabel="ColorSlot0" customClass="ColorButton">
@@ -2056,8 +2071,7 @@
         <image name="brushRadius2.png" width="44" height="44"/>
         <image name="brushRadius4.png" width="44" height="44"/>
         <image name="brushRadius8.png" width="44" height="44"/>
-        <image name="close.png" width="29" height="29"/>
-        <image name="finger.png" width="64" height="64"/>
+        <image name="close.png" width="44" height="44"/>
         <image name="floorButton.jpg" width="44" height="44"/>
         <image name="open.png" width="44" height="44"/>
         <image name="pencil.png" width="44" height="44"/>
@@ -2066,383 +2080,6 @@
         <image name="rubber.png" width="44" height="44"/>
         <image name="switch.png.png" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="AdjustImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustImageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="adjustDoneButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="handlePanGRAdjustImageView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePinchGRAdjustImageView:"/>
-                <relationship kind="outlet" name="adjustImageDoneButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="AdjustSceneViewController" superclassName="GLKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AdjustSceneViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="adjustDoneButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="handlePanGRAdjustSceneView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="outlet" name="adjustDoneButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BrushToolBar" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushToolBar.h"/>
-        </class>
-        <class className="BrushTypeView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushTypeView.h"/>
-        </class>
-        <class className="BrushView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BrushView.h"/>
-        </class>
-        <class className="CameraOverlayView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraOverlayView.h"/>
-        </class>
-        <class className="CameraOverlayViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraOverlayViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="lblPitch" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblRoll" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblWarnig" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblYaw" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CancelButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CancelButton.h"/>
-        </class>
-        <class className="ClearButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ClearButton.h"/>
-        </class>
-        <class className="ColorButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorButton.h"/>
-        </class>
-        <class className="ColorPickerView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorPickerView.h"/>
-        </class>
-        <class className="DoneButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DoneButton.h"/>
-        </class>
-        <class className="DownToolBar" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DownToolBar.h"/>
-        </class>
-        <class className="ExportButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExportButton.h"/>
-        </class>
-        <class className="EyeDropperButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/EyeDropperButton.h"/>
-        </class>
-        <class className="FreeTransformButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FreeTransformButton.h"/>
-        </class>
-        <class className="GalleryButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GalleryButton.h"/>
-        </class>
-        <class className="ImportButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportButton.h"/>
-        </class>
-        <class className="InfColorBarPicker" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorBarPicker.h"/>
-            <relationships>
-                <relationship kind="outlet" name="indicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
-            </relationships>
-        </class>
-        <class className="InfColorBarView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorBarView.h"/>
-        </class>
-        <class className="InfColorPickerIndicatorMagnify" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorPickerIndicatorMagnify.h"/>
-        </class>
-        <class className="InfColorSquarePicker" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorSquarePicker.h"/>
-            <relationships>
-                <relationship kind="outlet" name="indicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
-            </relationships>
-        </class>
-        <class className="InfColorSquareView" superclassName="UIImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfColorSquareView.h"/>
-        </class>
-        <class className="LayerButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LayerButton.h"/>
-        </class>
-        <class className="LayerManagerView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LayerManagerView.h"/>
-        </class>
-        <class className="LoginScreen" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginScreen.h"/>
-            <relationships>
-                <relationship kind="action" name="btnLoginRegisterTapped:"/>
-                <relationship kind="action" name="testPassword2:"/>
-                <relationship kind="action" name="testPassword:"/>
-                <relationship kind="outlet" name="fldPassword" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="fldUsername" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="MainScreenView" superclassName="GLKView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainScreenView.h"/>
-        </class>
-        <class className="MainScreenViewController" superclassName="GLKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainScreenViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="handlePanGRMainScreenView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePinchGRMainScreenView:" candidateClass="UIPinchGestureRecognizer"/>
-                <relationship kind="action" name="openButtonTapped:" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="MoveButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MoveButton.h"/>
-        </class>
-        <class className="OpacitySlider" superclassName="UISlider">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/OpacitySlider.h"/>
-        </class>
-        <class className="PaintColorButton" superclassName="ColorButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintColorButton.h"/>
-        </class>
-        <class className="PaintProjectViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintProjectViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="close:" candidateClass="UIButton"/>
-                <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="eyeHeightSliderSlide:" candidateClass="UISlider"/>
-                <relationship kind="action" name="farDistanceSliderSlide:" candidateClass="UISlider"/>
-                <relationship kind="action" name="handleTapPaintProjectViewGesture:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="heightSliderSlide:" candidateClass="UISlider"/>
-                <relationship kind="action" name="showBackgroundButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="showGridButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="farDistanceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="farDistanceSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="heightLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="heightSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="projectSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="projectView" candidateClass="GLKView"/>
-            </relationships>
-        </class>
-        <class className="PaintRefView" superclassName="GLKView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintRefView.h"/>
-        </class>
-        <class className="PaintScreen" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintScreen.h"/>
-            <relationships>
-                <relationship kind="action" name="RedoDraw:" candidateClass="UIButton"/>
-                <relationship kind="action" name="UndoDraw:" candidateClass="UndoButton"/>
-                <relationship kind="action" name="clearPaintButtonTapped:"/>
-                <relationship kind="action" name="colorPickerLockTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="colorPickerSwitchTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="colorSlotsSwitchTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="createLayerButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="debugButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="eraserButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="exportButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="eyeDropperButtonTapped:"/>
-                <relationship kind="action" name="fingerButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="freeTransformButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="handleLongPressColorSlot:" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="action" name="handleLongPressPaintView:" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="action" name="handlePanBrushView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePanLayerImageView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePanPaintColorButton:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePanPaintRefView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePanPaintView:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handlePinchPaintRefView:" candidateClass="UIPinchGestureRecognizer"/>
-                <relationship kind="action" name="handlePinchPaintView:" candidateClass="UIPinchGestureRecognizer"/>
-                <relationship kind="action" name="handleSingleFingerPanImage:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="action" name="handleSwipePaintView:" candidateClass="UISwipeGestureRecognizer"/>
-                <relationship kind="action" name="handleTapBrushView:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="handleTapPaintView:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="action" name="handleTwoFingerTransformImage:" candidateClass="UIGestureRecognizer"/>
-                <relationship kind="action" name="importButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="layerButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="moveButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="paintColorButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="pickImageInApp:"/>
-                <relationship kind="action" name="pickPhotoButtonTapped:"/>
-                <relationship kind="action" name="projectPaintButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="radiusSliderTouchDown:" candidateClass="RadiusSlider"/>
-                <relationship kind="action" name="radiusSliderTouchUp:" candidateClass="RadiusSlider"/>
-                <relationship kind="action" name="rotateButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="saveAndCloseButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="savePaintImageButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="saveToDiskButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="saveToDocButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="scaleButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="selFloorTexButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="selectBrushRadius:" candidateClass="RadiusButton"/>
-                <relationship kind="action" name="selectBrushType:" candidateClass="SelectBrushButton"/>
-                <relationship kind="action" name="selectColor:" candidateClass="ColorButton"/>
-                <relationship kind="action" name="selectColorConfirmed:" candidateClass="ColorButton"/>
-                <relationship kind="action" name="selectRubber:" candidateClass="UIButton"/>
-                <relationship kind="action" name="showNextImage:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="showPaint:"/>
-                <relationship kind="action" name="showRedoButton:" candidateClass="UndoButton"/>
-                <relationship kind="action" name="slideBrushOpacity:" candidateClass="UISlider"/>
-                <relationship kind="action" name="slideBrushRadius:" candidateClass="UISlider"/>
-                <relationship kind="action" name="syncBrushView:"/>
-                <relationship kind="action" name="takeBarValue:" candidateClass="InfColorBarPicker"/>
-                <relationship kind="action" name="takePhotoButtonTapped:"/>
-                <relationship kind="action" name="takeSquareValue:" candidateClass="InfColorSquarePicker"/>
-                <relationship kind="action" name="togglePaint:" candidateClass="UIButton"/>
-                <relationship kind="action" name="touchUpInsideRedoButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="touchUpInsideUndoButton:forEvent:" candidateClass="UndoButton"/>
-                <relationship kind="action" name="touchUpOutsideUndoButton:" candidateClass="UndoButton"/>
-                <relationship kind="action" name="tranformCancelButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="transformButtonTapped:"/>
-                <relationship kind="action" name="transformDoneButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="airBrushToolBar" candidateClass="BrushToolBar"/>
-                <relationship kind="outlet" name="anchorView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="barPicker" candidateClass="InfColorBarPicker"/>
-                <relationship kind="outlet" name="barView" candidateClass="InfColorBarView"/>
-                <relationship kind="outlet" name="brushButton" candidateClass="SelectBrushButton"/>
-                <relationship kind="outlet" name="brushDetailView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="brushTypeBar" candidateClass="DownToolBar"/>
-                <relationship kind="outlet" name="brushTypeView" candidateClass="BrushTypeView"/>
-                <relationship kind="outlet" name="brushView" candidateClass="BrushView"/>
-                <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnPaint" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnRedo" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnRubber" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="btnUndo" candidateClass="UndoButton"/>
-                <relationship kind="outlet" name="cancelTransformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="closeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="colorPickerIndicatorMagnify" candidateClass="InfColorPickerIndicatorMagnify"/>
-                <relationship kind="outlet" name="colorPickerView" candidateClass="ColorPickerView"/>
-                <relationship kind="outlet" name="colorSlotsScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="colorSlotsView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="createLayerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="debugView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="debugView2" candidateClass="UIView"/>
-                <relationship kind="outlet" name="exportButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="eyeDropperButton" candidateClass="EyeDropperButton"/>
-                <relationship kind="outlet" name="freeTransformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="importButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="layerButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="layersScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="layersView" candidateClass="LayerManagerView"/>
-                <relationship kind="outlet" name="lblBrushOpacity" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblBrushRadius" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lpgrBrushView" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="outlet" name="lpgrPaintView" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="outlet" name="mainToolBar" candidateClass="TopToolBar"/>
-                <relationship kind="outlet" name="moveTransformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="opaictySlider" candidateClass="OpacitySlider"/>
-                <relationship kind="outlet" name="paintColor" candidateClass="PaintColorButton"/>
-                <relationship kind="outlet" name="paintColorView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="paintRefView" candidateClass="GLKView"/>
-                <relationship kind="outlet" name="paintToolBar" candidateClass="DownToolBar"/>
-                <relationship kind="outlet" name="paintView" candidateClass="PaintingView"/>
-                <relationship kind="outlet" name="pencilBrushToolBar" candidateClass="BrushToolBar"/>
-                <relationship kind="outlet" name="pgrBrushView" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="outlet" name="pgrPaintRefView" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="outlet" name="pgrPaintView" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="outlet" name="previewToolBar" candidateClass="UIView"/>
-                <relationship kind="outlet" name="projectButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="radiusIndicatorView" candidateClass="RadiusIndicatorView"/>
-                <relationship kind="outlet" name="radiusScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="radiusSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="rootView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="rotateTransformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="scaleTransformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="squarePicker" candidateClass="InfColorSquarePicker"/>
-                <relationship kind="outlet" name="squareView" candidateClass="InfColorSquareView"/>
-                <relationship kind="outlet" name="testOpenGLView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="transformButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="transformDoneButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="transformToolBar" candidateClass="TopToolBar"/>
-                <relationship kind="outletCollection" name="colorButtons" candidateClass="ColorButton"/>
-                <relationship kind="outletCollection" name="lpgrColorSlots" candidateClass="UILongPressGestureRecognizer"/>
-                <relationship kind="outletCollection" name="paintUIDefaultCollection" candidateClass="UIView"/>
-                <relationship kind="outletCollection" name="paintUISecCollection" candidateClass="UIView"/>
-                <relationship kind="outletCollection" name="transformToolButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="PaintView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintView.h"/>
-        </class>
-        <class className="PaintingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaintingView.h"/>
-        </class>
-        <class className="PhotoScreen" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoScreen.h"/>
-            <relationships>
-                <relationship kind="action" name="btnActionTapped:"/>
-                <relationship kind="outlet" name="btnAction" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="fldTitle" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProjectButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectButton.h"/>
-        </class>
-        <class className="RadiusButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RadiusButton.h"/>
-        </class>
-        <class className="RadiusIndicatorView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RadiusIndicatorView.h"/>
-        </class>
-        <class className="RadiusSlider" superclassName="UISlider">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RadiusSlider.h"/>
-        </class>
-        <class className="RedoButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RedoButton.h"/>
-        </class>
-        <class className="RotateButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotateButton.h"/>
-        </class>
-        <class className="ScaleButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ScaleButton.h"/>
-        </class>
-        <class className="SelectBrushButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectBrushButton.h"/>
-        </class>
-        <class className="SelectLayerContentViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SelectLayerContentViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="testButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="imageScrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="ShowPaintOnPlane" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowPaintOnPlane.h"/>
-        </class>
-        <class className="ShowPaintOnPlaneViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShowPaintOnPlaneViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="handlePinchGRShowPaintOnPlane:" candidateClass="UIPinchGestureRecognizer"/>
-                <relationship kind="action" name="handleSceneButtonTapped:" candidateClass="UIButton"/>
-                <relationship kind="action" name="hanlePanGRShowPaintOnPlane:" candidateClass="UIPanGestureRecognizer"/>
-                <relationship kind="outlet" name="btnScene" candidateClass="UIView"/>
-                <relationship kind="outlet" name="lbLength" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lbWidth" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="showPaintOnPlane" candidateClass="ShowPaintOnPlane"/>
-            </relationships>
-        </class>
-        <class className="StreamPhotoScreen" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StreamPhotoScreen.h"/>
-            <relationships>
-                <relationship kind="outlet" name="lblTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photoView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="StreamScreen" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StreamScreen.h"/>
-            <relationships>
-                <relationship kind="action" name="btnRefreshTapped"/>
-                <relationship kind="outlet" name="btnCompose" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="btnRefresh" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="listView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="TopToolBar" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopToolBar.h"/>
-        </class>
-        <class className="TransformButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransformButton.h"/>
-        </class>
-        <class className="UndoButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UndoButton.h"/>
-        </class>
-        <class className="UndoGestureRecognizer" superclassName="UIPanGestureRecognizer">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UndoGestureRecognizer.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

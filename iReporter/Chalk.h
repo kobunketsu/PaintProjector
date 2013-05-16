@@ -7,7 +7,7 @@
 //
 
 #import "Brush.h"
-#import "ChalkButton.h"
+
 @interface Chalk : Brush
 
 @end

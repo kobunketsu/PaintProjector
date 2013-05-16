@@ -15,19 +15,11 @@
         [self setBrushTextureWithImage:@"airBrushRadius16.png"];
         [self setupBrushTexture];
         _iconImage = [UIImage imageNamed:@"finger.png"];
+        _type = BrushType_Finger;
         _typeName = @"finger";
     }
     
     return self;
-}
-
-- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
-    FingerButton * button = [[FingerButton alloc] initWithFrame:rect];
-    button.brush = self;
-    return button;    
-    //    [button setImage:_iconImage forState:UIControlStateNormal];
-    //    [button setBackgroundColor:[UIColor whiteColor]];
-    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (GLuint)getDebugTexture{
@@ -229,7 +221,7 @@
 
 -(void)drawBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(int) count{
     //初始化，不填入数据    
-    [self setupVertexBufferObjects];
+    [self createVertexBufferObject];
     //顶点数据
     if(_vertexBuffer==NULL){
         _vertexBuffer = malloc(_vertexMax * sizeof(BrushVertex));
@@ -240,7 +232,7 @@
         }
         _vertexBuffer = realloc(_vertexBuffer, _vertexMax * sizeof(BrushVertex));
         [self destroyVertexBufferObject];
-        [self initializeVertexBufferObject];
+        [self createVertexBufferObject];
     }    
 
 
@@ -264,10 +256,10 @@
         
         // Set the brush color using premultiplied alpha values
         //rgb上不做premultiplied，在最后的合成做
-        _vertexBuffer[0].Color[0] = 1;
-        _vertexBuffer[0].Color[1] = 1;
-        _vertexBuffer[0].Color[2] = 1;    
-        _vertexBuffer[0].Color[3] = 1;            
+//        _vertexBuffer[0].Color[0] = 1;
+//        _vertexBuffer[0].Color[1] = 1;
+//        _vertexBuffer[0].Color[2] = 1;    
+//        _vertexBuffer[0].Color[3] = 1;            
         
         t += 1.0 / (count);
         //        NSLog(@"draw point:%.1f %.1f %.1f", _vertexBuffer[i].Position[0], _vertexBuffer[i].Position[1], _vertexBuffer[i].Position[2]);

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ClearButton : UIButton
-
+{
+    BOOL _touchDown;
+}
 @end

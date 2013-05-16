@@ -7,7 +7,7 @@
 //
 
 #import "Brush.h"
-#import "PencilButton.h"
+
 @interface Pencil : Brush
 {
 }

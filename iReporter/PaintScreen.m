@@ -112,7 +112,7 @@ typedef struct {
 @synthesize lblBrushRadius;
 @synthesize lblBrushOpacity;
 @synthesize btnAction;
-@synthesize brushButton;
+@synthesize brushButton = _brushButton;
 @synthesize paintView = _paintView;
 
 //InfColorPicker
@@ -125,7 +125,7 @@ typedef struct {
 @synthesize previewToolBar = _previewToolBar;
 @synthesize activityIndicator = _activityIndicator;
 @synthesize imageView = _imageView;
-@synthesize btnRubber = _btnRubber;
+@synthesize btnEraser = _btnEraser;
 @synthesize colorSlotsView = _colorSlotsView;
 @synthesize paintColorView = _paintColorView;
 @synthesize paintToolBar = _paintToolBar;
@@ -178,23 +178,20 @@ typedef struct {
     
     //工具栏
     //隐藏初始化未显示的ToolBar
-//    _mainToolBar.hidden = false;
-//    _paintToolBar.hidden = false;
-//    _transformToolBar.hidden = true;
-    _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height + _paintToolBar.bounds.size.height * 0.5);    
+    _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height + _paintToolBar.bounds.size.height * 0.5);
     _brushTypeBar.center = CGPointMake(_brushTypeBar.center.x, self.view.bounds.size.height + _brushTypeBar.bounds.size.height * 0.5);
     _mainToolBar.center = CGPointMake( _mainToolBar.center.x, - _mainToolBar.bounds.size.height * 0.5);
     _transformToolBar.center = CGPointMake(_transformToolBar.center.x, -_transformToolBar.bounds.size.height * 0.5);
-    [self switchTopToolBarFrom:nil to:_mainToolBar completion:nil];
-    [self switchDownToolBarFrom:nil to:_paintToolBar completion:nil];
+    [self switchTopToolBarFrom:nil completion:nil to:_mainToolBar completion:nil];
+    [self switchDownToolBarFrom:nil completion:nil to:_paintToolBar completion:nil];
     
     //主要工具
     //初始化各种笔刷
     _pencil = [[Pencil alloc]initWithContext:_paintView.context Canvas:_paintView];
     _pencil.delegate = self;
     
-    _rubber = [[Rubber alloc]initWithContext:_paintView.context Canvas:_paintView];
-    _rubber.delegate = self;
+    _eraser = [[Eraser alloc]initWithContext:_paintView.context Canvas:_paintView];
+    _eraser.delegate = self;
     
     _pen = [[Pen alloc]initWithContext:_paintView.context Canvas:_paintView];
     _pen.delegate = self;    
@@ -203,20 +200,30 @@ typedef struct {
     _chalk.delegate = self;        
 
     _finger = [[Finger alloc]initWithContext:_paintView.context Canvas:_paintView];
-    _finger.delegate = self;            
+    _finger.delegate = self;
+    
+    _marker = [[Marker alloc]initWithContext:_paintView.context Canvas:_paintView];
+    _marker.delegate = self;
     
     //将笔刷加入笔刷类型视图
     [_brushTypeView addBrushType:_pencil];
-    [_brushTypeView addBrushType:_rubber];
-    [_brushTypeView addBrushType:_pen];    
-    [_brushTypeView addBrushType:_chalk];        
-    [_brushTypeView addBrushType:_finger];            
+    [_brushTypeView addBrushType:_eraser];
+    [_brushTypeView addBrushType:_pen];
+    [_brushTypeView addBrushType:_marker];
+    [_brushTypeView addBrushType:_finger];
+    [_brushTypeView addBrushType:_chalk];
     [_brushTypeView setNeedsLayout];
-    _brushTypeView.hidden = true;
     
     //指定当前笔刷
     _paintView.brushTypes = _brushTypeView.brushTypes;
     [_paintView setBrush:_pencil];
+    _brushButton.brush = _pencil;
+    [_brushButton setNeedsDisplay];
+    _brushBackButton.brush = _eraser;
+    _brushBackButton.frame = CGRectMake(_brushBackButton.frame.origin.x, 40, _brushBackButton.frame.size.width, _brushBackButton.frame.size.height);
+    [_brushBackButton setNeedsDisplay];
+    
+    
     
     //将颜色槽加入颜色槽ScrollView
     for (int i = 0; i < colorPalleteCount; ++i) {
@@ -229,6 +236,7 @@ typedef struct {
         
         [colorButton addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchDown];
         [colorButton addTarget:self action:@selector(selectColorConfirmed:) forControlEvents:UIControlEventTouchUpInside];
+        [colorButton addTarget:self action:@selector(selectColorCancel:) forControlEvents:UIControlEventTouchUpOutside];
         
         //创建颜色长按编辑手势
         UILongPressGestureRecognizer *longPressGRColorSlot = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressColorSlot:)];
@@ -260,6 +268,7 @@ typedef struct {
     //初始化吸管
     _eyeDropper = [[EyeDropper alloc]initWithView:_paintView];
     _paintView.eyeDropper =  _eyeDropper;
+    _eyeDropperIndicatorView.hidden = true;
 
     _state = PaintScreen_Normal;
 
@@ -322,7 +331,7 @@ typedef struct {
     [self setTestOpenGLView:nil];
     [self setActivityIndicator:nil];
     [self setImageView:nil];
-    [self setBtnRubber:nil];
+    [self setBtnEraser:nil];
     [self setColorPickerView:nil];
     [self setPaintColor:nil];
     [self setColorSlotsView:nil];
@@ -362,6 +371,9 @@ typedef struct {
     [self setRadiusScrollView:nil];
     [self setRadiusIndicatorView:nil];
     [self setBrushTypeBar:nil];
+    [self setBrushBackButton:nil];
+    [self setEyeDropperIndicatorView:nil];
+    [self setClearButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self tearDownGL];
@@ -639,9 +651,13 @@ typedef struct {
 }
 
 - (IBAction)handleTapPaintView:(UITapGestureRecognizer *)sender {
-    if(sender.state == UIGestureRecognizerStateEnded){
-        NSLog(@"paintView tapped!");
-        [self toggleUI];
+    if(sender.state == UIGestureRecognizerStateRecognized){
+        NSLog(@"paintView tapped! count:%d", sender.numberOfTouchesRequired);
+        if(_state == PaintScreen_Normal){
+            [self togglePaintFullScreen];
+            _paintView.multiTouchEndCount = sender.numberOfTouchesRequired;
+        }
+
     }
 }
 
@@ -937,7 +953,7 @@ typedef struct {
     //    UIView *brushTooBar = [paintUISecCollection objectAtIndex:_curBrushToolBarIndex];
     //    _curBrush.brushType = brushTooBar.tag;
     
-    _pencil.brushType = _curBrushToolBarIndex;
+    _pencil.type = _curBrushToolBarIndex;
 }
 - (void)setBrushPreview:(bool)enable{
     brushView.hidden = !enable;
@@ -946,7 +962,7 @@ typedef struct {
 //- (void)toggleBrushPreview{
 //    [self setBrushPreview:!_isPreviewBrush];
 //}
-- (void)toggleBrushToolViews{
+- (void)brushTypeSelected{
     //选定笔刷种类
     //使用popoverController方式
 //    BrushTypeViewController* brushTypeViewController = [[BrushTypeViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -974,37 +990,91 @@ typedef struct {
     
     //使用切换ToolBar方式
     if(_state == PaintScreen_Normal){
-        [self switchDownToolBarFrom:_paintToolBar to:_brushTypeBar completion:^(BOOL finished) {
+        [self switchDownToolBarFrom:_paintToolBar completion:^{
+            for (BrushTypeButton* button in _brushTypeView.subviews) {
+                button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
+
+            }
+        }to:_brushTypeBar completion:^{
             _state = PaintScreen_SelectBrush;
         }];
-        [self switchTopToolBarFrom:_mainToolBar to:nil completion:nil];
-    }
-    else if(_state == PaintScreen_SelectBrush){
-        [self switchDownToolBarFrom:_brushTypeBar to:_paintToolBar completion:^(BOOL finished) {
-            _state = PaintScreen_Normal;
-        }];
-        [self switchTopToolBarFrom:nil to:_mainToolBar completion:nil];
+        
+        [self switchTopToolBarFrom:_mainToolBar completion:nil to:nil completion:nil];
     }
 }
 
-- (IBAction)selectBrushType:(UIButton *)sender {
-    [self toggleBrushToolViews];
+- (IBAction)brushTypeButtonTouchUp:(UIButton *)sender {
+    [self brushTypeSelected];
 //    [brushView setNeedsDisplay];
 }
 
+- (IBAction)brushTypeButtonTouchDown:(UIButton *)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        sender.frame = CGRectMake(sender.frame.origin.x, 20, sender.frame.size.width, sender.frame.size.height);        
+    }completion:nil];
 
+}
+
+- (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
+    }completion:nil];
+}
+
+- (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        sender.frame = CGRectMake(sender.frame.origin.x, 100, sender.frame.size.width, sender.frame.size.height);
+        _brushButton.frame = CGRectMake(_brushButton.frame.origin.x, 100, _brushButton.frame.size.width, _brushButton.frame.size.height);
+    }completion:^(BOOL finished) {
+        //交换Brush
+        Brush* tempBrush = _brushButton.brush;
+        _brushButton.brush = _brushBackButton.brush;
+        _brushBackButton.brush = tempBrush;
+        
+        [_paintView setBrush:_brushButton.brush];
+        
+        [_brushButton setNeedsDisplay];
+        [_brushBackButton setNeedsDisplay];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            sender.frame = CGRectMake(sender.frame.origin.x, 40, sender.frame.size.width, sender.frame.size.height);
+            _brushButton.frame = CGRectMake(_brushButton.frame.origin.x, 0, _brushButton.frame.size.width, _brushButton.frame.size.height);
+        }completion:^(BOOL finished) {
+        }];
+    }];
+}
+
+- (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        sender.frame = CGRectMake(sender.frame.origin.x, 40, sender.frame.size.width, sender.frame.size.height);
+        _brushButton.frame = CGRectMake(_brushButton.frame.origin.x, 0, _brushButton.frame.size.width, _brushButton.frame.size.height);
+    }completion:^(BOOL finished) {
+    }];
+}
+- (IBAction)brushTypeBackButtonTouchDown:(UIButton *)sender {
+    [UIView animateWithDuration:0.3 animations:^{
+        sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
+        _brushButton.frame = CGRectMake(_brushButton.frame.origin.x, 40, _brushButton.frame.size.width, _brushButton.frame.size.height);
+    }completion:^(BOOL finished) {
+    }];
+}
 
 - (IBAction)selectColor:(ColorButton *)sender {
     [self setBrushPreview:true];         
     _infColorPickerController.resultColor = brushView.color = sender.color;
 
     [brushView setNeedsDisplay];
+    [sender setNeedsDisplay];    
 }
 
 - (IBAction)selectColorConfirmed:(ColorButton *)sender {
-        [_paintView.brush setColor:sender.color];
-        [self setBrushPreview:false];
-        brushView.color = _infColorPickerController.resultColor = sender.color;
+    [_paintView.brush setColor:sender.color];
+    [self setBrushPreview:false];
+    brushView.color = _infColorPickerController.resultColor = sender.color;
+    [sender setNeedsDisplay];    
+}
+- (IBAction)selectColorCancel:(ColorButton *)sender {
+    [sender setNeedsDisplay];
 }
 
 - (IBAction)selectBrushRadius:(RadiusButton *)sender {
@@ -1040,8 +1110,8 @@ typedef struct {
     [brushView setNeedsDisplay];     
 }
 
-- (IBAction)selectRubber:(UIButton *)sender {
-    [self.paintView setBrush:_rubber];
+- (IBAction)selectEraser:(UIButton *)sender {
+    [self.paintView setBrush:_eraser];
 }
 - (IBAction)syncBrushView:(id)sender {
     brushView.color = _infColorPickerController.resultColor;
@@ -1362,7 +1432,7 @@ typedef struct {
     
     //UI
     //隐藏MainToolBar PaintToolBar
-    [self switchTopToolBarFrom:_mainToolBar to:_transformToolBar completion:^(BOOL finished){
+    [self switchTopToolBarFrom:_mainToolBar completion:nil to:_transformToolBar completion:^{
         _anchorView.hidden = false;
         
         [self freeTransformButtonTapped:_freeTransformButton];
@@ -1370,7 +1440,7 @@ typedef struct {
         [self updateAnchor];
     }];
     
-    [self switchDownToolBarFrom:_paintToolBar to:nil completion:nil];    
+    [self switchDownToolBarFrom:_paintToolBar completion:nil to:nil completion:nil];
 }
 
 - (IBAction)transformButtonTapped:(id)sender {
@@ -1386,26 +1456,11 @@ typedef struct {
 //    }
     //    sender.backgroundColor = [UIColor greenColor];
     
-    //    _anchorView.hidden = true;
-    //    _mainToolBar.hidden = false;
-    //    _paintToolBar.hidden = false;
-    //    _transformToolBar.hidden = true;
-    
     //隐藏TransformBar
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _transformToolBar.center = CGPointMake(_transformToolBar.center.x, -_transformToolBar.bounds.size.height * 0.5);
-        
-        
-    }completion:^(BOOL finished){    //显示MainToolBar PaintToolBar
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _mainToolBar.center = CGPointMake(_mainToolBar.center.x, _mainToolBar.bounds.size.height * 0.5);
-            _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height - _paintToolBar.bounds.size.height * 0.5);
-        }completion:^(BOOL finished){
-            _anchorView.hidden = true;
-        }];
+    [self switchTopToolBarCompletion:nil toMainToolBars:_transformToolBar completion:^(BOOL finished) {
+        _anchorView.hidden = true;
+        _state = PaintScreen_Normal;
     }];
-    
-    _state = PaintScreen_Normal;
 }
 - (IBAction)transformDoneButtonTapped:(UIButton *)sender {
     [_paintView transformImageDone];
@@ -1727,11 +1782,47 @@ typedef struct {
 }
 #pragma mark- 笔刷种类代理 BrushTypeView Delegate (Refresh UI)
 -(void)selectBrush:(id)sender{
-    BrushTypeButton* button = (BrushTypeButton*)sender;
-    [_paintView setBrush:button.brush];
-    [_paintView.brush setColor:_paintColor.color];
+
+    BrushTypeButton* selButton = (BrushTypeButton*)sender;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        for (BrushTypeButton* button in _brushTypeView.subviews) {
+            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
+        }
+
+        selButton.frame = CGRectMake(selButton.frame.origin.x, 0, selButton.frame.size.width, selButton.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
 }
-    
+
+-(void)selectBrushDone:(id)sender{
+    //UI
+    [self switchDownToolBarCompletion:^(void){
+        BrushTypeButton* button = (BrushTypeButton*)sender;
+        //Draw
+        [_paintView setBrush:button.brush];
+        [_paintView.brush setColor:_paintColor.color];
+        //UI
+        _brushButton.brush = button.brush;
+        _brushButton.frame = CGRectMake(_brushButton.frame.origin.x, 0, _brushButton.frame.size.width, _brushButton.frame.size.height);
+        [_brushButton setNeedsDisplay];
+        
+    }toMainToolBars:_brushTypeBar completion:^(BOOL finished){
+        _state = PaintScreen_Normal;
+    }];
+}
+
+-(void)selectBrushCanceled:(id)sender{
+    //UI
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        for (BrushTypeButton* button in _brushTypeView.subviews) {
+            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
+        }
+    } completion:^(BOOL finished) {
+    }];
+}
+
+
 #pragma mark- 笔刷代理 Brush Delegate (Refresh UI)
 - (void) brushColorChanged:(UIColor*)color{
     [_paintColor setColor:color];
@@ -1747,12 +1838,10 @@ typedef struct {
     [_opaictySlider setColor:resultColor];
 }
 - (void) brushChanged:(Brush*) brush{
-    //选中手指不更改界面当前笔刷
-    if (brush == _finger) {
-        return;
-    }
-    brushView.brush = brush;
-    [brushButton setImage:brush.iconImage forState:UIControlStateNormal];
+//    brushView.brush = brush;
+//    [brushButton setImage:brush.iconImage forState:UIControlStateNormal];
+    
+    
 
 }
 
@@ -1787,19 +1876,29 @@ typedef struct {
 }
 
 - (void) eyeDropStart{
-    _colorPickerIndicatorMagnify.hidden = false;
+    _eyeDropperIndicatorView.hidden = false;
+    
+    [self switchTopToolBarFrom:_mainToolBar completion:nil to:nil completion:nil];
+    [self switchDownToolBarFrom:_paintToolBar completion:nil to:nil completion:nil];
 }
 
 - (void) eyeDropping:(CGPoint)point Color:(UIColor *)uiColor{
-    _colorPickerIndicatorMagnify.center = CGPointMake(point.x, point.y - _colorPickerIndicatorMagnify.frame.size.height*0.5);
-    _colorPickerIndicatorMagnify.backgroundColor = uiColor;
+    _eyeDropperIndicatorView.center = point;
+    [_eyeDropperIndicatorView setColor:uiColor];
     [_eyeDropperButton setColor:uiColor];
 }
 
 - (void) eyeDropEnd{
-    _colorPickerIndicatorMagnify.hidden = true;
+    _eyeDropperIndicatorView.hidden = true;
     _paintView.isEyeDroppering = false;
-    _eyeDropperButton.selected = false;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        _eyeDropperButton.frame = CGRectMake(_eyeDropperButton.frame.origin.x, 30, _eyeDropperButton.frame.size.width, _eyeDropperButton.frame.size.height);
+    }completion:nil];
+    [_eyeDropperButton setColor:[UIColor clearColor]];
+    
+    [self switchTopToolBarFrom:nil completion:nil to:_mainToolBar completion:nil];
+    [self switchDownToolBarFrom:nil completion:nil to:_paintToolBar completion:nil];
 }
 
 #pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
@@ -1895,32 +1994,79 @@ typedef struct {
 }
 
 #pragma mark- 工具栏
-- (void)switchTopToolBarFrom:(TopToolBar*)fromView to:(TopToolBar*)toView completion: (void (^) (BOOL finished)) block{
+- (void)switchTopToolBarCompletion: (void (^) (void)) block1 toMainToolBars:(TopToolBar*)fromView completion: (void (^) (BOOL finished)) block2{
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (fromView != NULL) {
             fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
+        if (block1 != NULL) {
+            block1();
+        }
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            if (toView != NULL) {
-                toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
-            }
-        }completion:block];
-
+            _mainToolBar.center = CGPointMake(_mainToolBar.center.x, _mainToolBar.bounds.size.height * 0.5);
+            _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height - _paintToolBar.bounds.size.height * 0.5);
+        }completion:block2];
+        
     }];
 }
 
-- (void)switchDownToolBarFrom:(DownToolBar*)fromView to:(DownToolBar*)toView completion: (void (^) (BOOL finished)) block{
+- (void)switchDownToolBarCompletion: (void (^) (void)) block1 toMainToolBars:(DownToolBar*)fromView completion: (void (^) (BOOL finished)) block2{
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (fromView != NULL) {
             fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
+        if (block1 != NULL) {
+            block1();
+        }
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            _mainToolBar.center = CGPointMake(_mainToolBar.center.x, _mainToolBar.bounds.size.height * 0.5);
+            _paintToolBar.center = CGPointMake(_paintToolBar.center.x, self.view.bounds.size.height - _paintToolBar.bounds.size.height * 0.5);
+        }completion:block2];
+    }];
+}
+
+- (void)switchTopToolBarFrom:(TopToolBar*)fromView completion: (void (^) (void))block1 to:(TopToolBar*)toView completion: (void (^) (void)) block2{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (fromView != NULL) {
+            fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
+        }
+    }completion:^(BOOL finished){//显示TransformBar
+        if (block1 != NULL) {
+            block1();
+        }
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            if (toView != NULL) {
+                toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
+            }
+        }completion:^(BOOL finished){
+            if (block2 != NULL) {
+                block2();
+            }
+        }];
+
+    }];
+}
+
+- (void)switchDownToolBarFrom:(DownToolBar*)fromView completion: (void (^) (void))block1 to:(DownToolBar*)toView completion: (void (^) (void)) block2{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (fromView != NULL) {
+            fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
+        }
+    }completion:^(BOOL finished){//显示TransformBar
+        if (block1 != NULL) {
+            block1();
+        }
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             if (toView != NULL) {
                 toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
             }
-        }completion:block];
+        }completion:^(BOOL finished){
+            if (block2 != NULL) {
+                block2();
+            }
+        }];
     }];
 }
 
@@ -2130,44 +2276,63 @@ typedef struct {
 //    self presentModalViewController:<#(UIViewController *)#> animated:<#(BOOL)#>
 }
 
-- (IBAction)clearPaintButtonTapped:(id)sender {
+- (IBAction)clearButtonTouchUp:(UIButton *)sender {
     [_paintView clearData];
+    [_clearButton setNeedsDisplay];
 }
 
-- (IBAction)eyeDropperButtonTapped:(id)sender {
-    _paintView.isEyeDroppering = true;
-    //set on state image
-    UIButton* button = (UIButton*)sender;
-    button.selected = true;
+- (IBAction)clearButtonTouchDown:(UIButton *)sender {
+    [_clearButton setNeedsDisplay];
 }
 
-
-
-
-
-
-- (IBAction)fingerButtonTapped:(UIButton *)sender {
-    _paintView.brush = _finger;
-    //    [_paintView setBrush:_finger];
+- (IBAction)clearButtonTouchCancel:(ClearButton *)sender {
 }
 
+- (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        _eyeDropperButton.frame = CGRectMake(_eyeDropperButton.frame.origin.x, 0, _eyeDropperButton.frame.size.width, _eyeDropperButton.frame.size.height);
+    }completion:nil];
+}
 
-
-- (void)toggleUI{
-    
-    if(_state != PaintScreen_Normal){
-        for (UIView* uiView in _paintUISecCollection){
-            if(!uiView.hidden){
-                uiView.hidden = true;
-            }
-            
-        }
-        _state = PaintScreen_Normal;
-        return;
+- (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
+    if (!_paintView.isEyeDroppering) {
+        _paintView.isEyeDroppering = true;
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _eyeDropperButton.frame = CGRectMake(_eyeDropperButton.frame.origin.x, 10, _eyeDropperButton.frame.size.width, _eyeDropperButton.frame.size.height);
+        }completion:nil];
+        [_eyeDropperButton setColor:_paintColor.color];
     }
+    else{
+        _paintView.isEyeDroppering = false;
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _eyeDropperButton.frame = CGRectMake(_eyeDropperButton.frame.origin.x, 30, _eyeDropperButton.frame.size.width, _eyeDropperButton.frame.size.height);
+        }completion:nil];
+        [_eyeDropperButton setColor:[UIColor clearColor]];
+    }
+
+}
+
+- (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        _eyeDropperButton.frame = CGRectMake(_eyeDropperButton.frame.origin.x, 30, _eyeDropperButton.frame.size.width, _eyeDropperButton.frame.size.height);
+    }completion:nil];
+    [_eyeDropperButton setColor:[UIColor clearColor]];
     
-    for (UIView* uiView in _paintUIDefaultCollection){
-        uiView.hidden = !uiView.hidden;
+}
+
+
+- (void)togglePaintFullScreen{
+    if(_isPaintFullScreen){
+        [self switchDownToolBarFrom:nil completion:nil to:_paintToolBar completion:nil];
+        [self switchTopToolBarFrom:nil completion:nil to:_mainToolBar completion:nil];
+        _isPaintFullScreen = false;
+    }
+    else{
+        [self switchDownToolBarFrom:_paintToolBar completion:nil to:nil completion:nil];
+        [self switchTopToolBarFrom:_mainToolBar completion:nil to:nil completion:nil];
+        _isPaintFullScreen = true;
     }
 }
 #pragma mark- 绘图背景 PaintRefView Methods

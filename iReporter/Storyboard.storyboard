@@ -272,8 +272,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="FVG-4I-Owq"/>
-                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="KU2-3h-Yr8"/>
+                                                    <action selector="brushTypeSelected:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="2Eb-HV-i5m"/>
+                                                    <action selector="brushTypeSelected:" destination="NUX-zI-YbL" eventType="touchUpInside" id="isw-0L-NhJ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="2ey-2u-lpf" userLabel="ColorSlot0" customClass="ColorButton">
@@ -407,8 +407,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpInside" id="CqG-wX-IfL"/>
-                                                    <action selector="selectBrushType:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="j2k-Kh-5Dy"/>
+                                                    <action selector="brushTypeSelected:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="kUa-3r-oqH"/>
+                                                    <action selector="brushTypeSelected:" destination="NUX-zI-YbL" eventType="touchUpInside" id="xQe-Vs-lQI"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="s4a-cf-WVa" userLabel="ColorSlot0" customClass="ColorButton">
@@ -881,8 +881,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="8LD-xJ-V2m"/>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="eh8-j6-gSd"/>
+                                                    <action selector="brushTypeSelected:" destination="cWy-8v-glp" eventType="touchUpInside" id="c3Y-hd-UEe"/>
+                                                    <action selector="brushTypeSelected:" destination="cWy-8v-glp" eventType="touchUpOutside" id="cj2-QU-jE3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="aGb-qv-ifd" userLabel="ColorSlot0" customClass="ColorButton">
@@ -1016,8 +1016,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpInside" id="55p-TJ-4bz"/>
-                                                    <action selector="selectBrushType:" destination="cWy-8v-glp" eventType="touchUpOutside" id="vvw-UQ-eA7"/>
+                                                    <action selector="brushTypeSelected:" destination="cWy-8v-glp" eventType="touchUpOutside" id="Nu1-OU-P5g"/>
+                                                    <action selector="brushTypeSelected:" destination="cWy-8v-glp" eventType="touchUpInside" id="sdK-HZ-V75"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="TzT-ap-MtS" userLabel="ColorSlot0" customClass="ColorButton">

@@ -14,9 +14,9 @@
 #import "Brush.h"
 #import "BrushTypeButton.h"
 @protocol BrushTypeViewDelegate <NSObject>
--(void)selectBrush:(id)sender;
+-(void)selectBrushDone:(id)sender;
 @end
-@interface BrushTypeView : UIView
+@interface BrushTypeView : UIScrollView
 {
     NSMutableArray *_brushTypes;
 //    NSMutableDictionary *_brushTypes;

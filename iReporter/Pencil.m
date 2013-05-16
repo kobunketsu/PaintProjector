@@ -14,19 +14,11 @@
     if (self !=nil) {
         [self setBrushTextureWithImage:@"airBrushRadius16.png"];
         _iconImage = [UIImage imageNamed:@"pencil.png"];
+        _type = BrushType_Pencil;
         _typeName = @"pencil";
     }
     
     return self;
-}
-
-- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
-    PencilButton * button = [[PencilButton alloc] initWithFrame:rect];
-    button.brush = self;
-    return button;  
-//    [button setImage:_iconImage forState:UIControlStateNormal];
-//    [button setBackgroundColor:[UIColor whiteColor]];
-//    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 //- (void) draw :(CGPoint)lastPoint NewPoint:(CGPoint)newPoint{

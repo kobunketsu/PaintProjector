@@ -43,27 +43,29 @@
 }
 
 -(void)layoutSubviews{
-    float frameBase = 0;
-    for (UIView* view in self.superview.subviews) {
-        if(view.tag == 1){//找到brush view
-            frameBase = view.frame.origin.y;
-        }
-    }
+//    float frameBase = 0;
+//    for (UIView* view in self.superview.subviews) {
+//        if(view.tag == 1){//找到brush view
+//            frameBase = view.frame.origin.y;
+//        }
+//    }
     
     //自动使配改为固定大小
 //    float frameHeight = self.frame.size.width * [_brushTypes count];
 //    self.frame = CGRectMake(self.frame.origin.x, frameBase - frameHeight, self.frame.size.width, frameHeight);
 
-    float buttonWidth = self.frame.size.width;
+    float buttonWidth = 128;
+    float buttonHeight = 100;
     for (int i = 0; i < [_brushTypes count]; ++i) {
-        Brush* brush = [_brushTypes objectAtIndex:i];
-        BrushTypeButton* button = [brush initializeButtonWithFrame:CGRectMake(0, buttonWidth*i, buttonWidth, buttonWidth)];
-//        BrushTypeButton * button = [[BrushTypeButton alloc] initWithFrame:CGRectMake(0, buttonWidth*i, buttonWidth, buttonWidth)];
-
-//        button.brush = brush;
+        BrushTypeButton * button = [[BrushTypeButton alloc] initWithFrame:CGRectMake(buttonWidth*i, 20, buttonWidth, buttonHeight)];
+        button.brush = [_brushTypes objectAtIndex:i];
 //        [button setImage:brush.iconImage forState:UIControlStateNormal];
 //        [button setBackgroundColor:[UIColor whiteColor]];
-        [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchDown];
+        [button addTarget:delegate action:@selector(selectBrushDone:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:delegate action:@selector(selectBrushCanceled:) forControlEvents:UIControlEventTouchUpOutside];
+        [button addTarget:delegate action:@selector(selectBrushCanceled:) forControlEvents:UIControlEventTouchCancel];        
         
         [self addSubview:button];        
     }

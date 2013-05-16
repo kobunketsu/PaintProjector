@@ -15,6 +15,10 @@
     
 #endif
 
+#define LogError(a) NSLog(@"Error: %@", a)
+#define LogWarning(a) NSLog(@"Warning: %@", a)
+#define LogException(a) NSLog(@"Exception: %@", a)
+
 #define SIMPLE_LAYER 1
 #define TEST 0
 #define UndoMaxCount 4
@@ -47,6 +51,7 @@ break;\
 default:\
 break;\
 }
+
 
 //全局设置
 //使用米还是

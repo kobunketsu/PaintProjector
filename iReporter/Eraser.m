@@ -1,32 +1,24 @@
 //
-//  Rubber.m
+//  Eraser.m
 //  iReporter
 //
 //  Created by 文杰 胡 on 12-11-13.
 //  Copyright (c) 2012年 Marin Todorov. All rights reserved.
 //
 
-#import "Rubber.h"
+#import "Eraser.h"
 
-@implementation Rubber
+@implementation Eraser
 - (id)initWithContext:(EAGLContext*)context Canvas:(UIView *)canvas{
     self = [super initWithContext:context Canvas:canvas];
     if (self !=nil) {
         [self setBrushTextureWithImage:@"airBrushRadius16.png"];
         _iconImage = [UIImage imageNamed:@"rubber.png"];
+        _type = BrushType_Eraser;
         _typeName = @"rubber";        
     }
     
     return self;
-}
-
-- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
-    EraserButton * button = [[EraserButton alloc] initWithFrame:rect];
-    button.brush = self;
-    return button;    
-    //    [button setImage:_iconImage forState:UIControlStateNormal];
-    //    [button setBackgroundColor:[UIColor whiteColor]];
-    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setBlendMode{
@@ -82,14 +74,14 @@
     _programBrush = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderRubber" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderEraser" ofType:@"vsh"];
     if (![ShaderUltility compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
         NSLog(@"Failed to compile vertex shader");
         return NO;
     } 
     
     // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderRubber" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderEraser" ofType:@"fsh"];
     if (![ShaderUltility compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
         NSLog(@"Failed to compile fragment shader");
         return NO;

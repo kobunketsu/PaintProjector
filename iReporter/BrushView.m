@@ -33,7 +33,7 @@
     CGContextSaveGState(context);
     
     CGContextSetLineWidth(context, 1.0);
-    if (brush.brushType == BrushType_Rubber) {
+    if (brush.type == BrushType_Eraser) {
         CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     }
     else {

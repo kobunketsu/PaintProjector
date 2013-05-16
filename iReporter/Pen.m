@@ -18,21 +18,13 @@
     if (self !=nil) {
         [self setBrushTextureWithImage:@"airBrushRadius16.png"];
         _iconImage = [UIImage imageNamed:@"pen.png"];
+        _type = BrushType_Pen;
         _typeName = @"pen";  
         
         _lastDrawRadius = -1;
     }
     
     return self;
-}
-
-- (BrushTypeButton*)initializeButtonWithFrame:(CGRect)rect{
-    PenButton * button = [[PenButton alloc] initWithFrame:rect];
-    button.brush = self;
-    return button;    
-    //    [button setImage:_iconImage forState:UIControlStateNormal];
-    //    [button setBackgroundColor:[UIColor whiteColor]];
-    //    [button addTarget:delegate action:@selector(selectBrush:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void) renderLineFromPoint:(CGPoint)start toPoint:(CGPoint)end
@@ -52,13 +44,19 @@
 	//绘图频率
     
 	// Add points to the buffer so there are drawing points every X pixels
-    float dist = GLKVector2Distance(GLKVector2Make(_lastDrawPoint.x,_lastDrawPoint.y), GLKVector2Make(_curDrawPoint.x,_curDrawPoint.y));    
+    float dist = GLKVector2Distance(GLKVector2Make(_lastDrawPoint.x,_lastDrawPoint.y), GLKVector2Make(_curDrawPoint.x,_curDrawPoint.y));
+    
+    //零距离不描画
+    if (dist < 0.001) {
+        return;
+    }
+    
 	count = MAX(ceilf(dist*kBrushCurveIntervalScale / kBrushPixelStep), 1);
 
-    _endRadius = _brushState.radius;
-    if (dist!=0) {
-        _endRadius = _brushState.radius * (atan(-dist/15+0.5) + M_PI/2) / 2;    
-    }
+//    _endRadius = _brushState.radius;
+//    if (dist!=0) {
+        _endRadius = _brushState.radius * (atan(-dist/15+0.5) + M_PI/2) / 2;
+//    }
     
     [self drawBezierOrigin:_lastDrawPoint Control:start Destination:_curDrawPoint Count:count];
     
@@ -72,7 +70,7 @@
 -(void)drawBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(int) count
 {
     //初始化，不填入数据    
-    [self setupVertexBufferObjects];
+    [self createVertexBufferObject];
     //顶点数据
     if(_vertexBuffer==NULL){
         _vertexBuffer = malloc(_vertexMax * sizeof(BrushVertex));
@@ -83,7 +81,7 @@
         }
         _vertexBuffer = realloc(_vertexBuffer, _vertexMax * sizeof(BrushVertex));
         [self destroyVertexBufferObject];
-        [self initializeVertexBufferObject];
+        [self createVertexBufferObject];
     }
     
     
@@ -101,10 +99,10 @@
         
         // Set the brush color using premultiplied alpha values
         //rgb上不做premultiplied，在最后的合成做
-        _vertexBuffer[i].Color[0] = 1;
-        _vertexBuffer[i].Color[1] = 1;
-        _vertexBuffer[i].Color[2] = 1;    
-        _vertexBuffer[i].Color[3] = 1; 
+//        _vertexBuffer[i].Color[0] = 1;
+//        _vertexBuffer[i].Color[1] = 1;
+//        _vertexBuffer[i].Color[2] = 1;    
+//        _vertexBuffer[i].Color[3] = 1; 
         
         t += 1.0 / (count);
         

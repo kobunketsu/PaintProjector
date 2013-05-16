@@ -550,14 +550,23 @@
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"========================================");        
+    NSLog(@"paintView touchesBegan! touches count:%d", [touches count]);    
     //非绘制操作
-    if([touches count]>1 || isTransformOperating)
+    if(isTransformOperating){
         return;
+    }
+    
+    if([touches count] >= 2){
+        _doubleTouchEndCount = [touches count];
+        return;        
+    }
+
     
     //开始绘制，关闭所有打开的UI
     [delegate paintViewTouchBegan];
 
-	CGRect				bounds = [self bounds];
+	CGRect      bounds = [self bounds];
     UITouch*	touch = [touches anyObject];
 	firstTouch = YES;
 	// Convert touch point from UIView referential to OpenGL one (upside-down flip)
@@ -576,10 +585,24 @@
 
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{  
-    if([touches count]>1 || isTransformOperating)
+{
+    NSLog(@"paintView touchesMoved! touches count:%d", [touches count]);
+    //非绘制操作
+    if(isTransformOperating){
         return;
+    }
     
+    //只有单指操作才被认为是绘图
+    if([touches count] >= 2){
+        return;
+    }
+    
+    //如果在手势判断中被认为是切换全屏，或者在touchBegan中被判定为已经开始切换全屏的判断
+    NSLog(@"_doubleTouchEndCount %d", _doubleTouchEndCount);
+    if(_doubleTouchEndCount >= 2){
+        return;
+    }
+
 	CGRect				bounds = [self bounds];
 	UITouch*			touch = [touches anyObject];
 		
@@ -587,7 +610,7 @@
 	if (firstTouch) {
 		firstTouch = NO;
 	}
-    
+
     location = [touch locationInView:self];
     location.y = bounds.size.height - location.y;
 	previousLocation = [touch previousLocationInView:self];
@@ -597,6 +620,7 @@
         [self eyeDropColor];
     }
     else {
+        NSLog(@"draw!");        
         [self draw];
     }
 
@@ -605,18 +629,20 @@
 // Handles the end of a touch event when the touch is a tap.
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesEnded!");
-    if ([touches count]>1) {
-        return;
-    }
+    NSLog(@"paintView touchesEnded! touches count:%d", [touches count]);
     
     if (isTransformOperating) {
         isTransformOperating = false;
         return;
-    }    
+    }
+    
+    //双手同时释放，一个手指释放，另一个手指仍然按着
+    if (_doubleTouchEndCount > 0) {
+        _doubleTouchEndCount -= [touches count];
+        return;
+    }
     
 	CGRect	bounds = [self bounds];
-    NSLog(@"touchesEnded count %d", [touches count]);
     UITouch*	touch = [[touches allObjects]objectAtIndex:0];
     
 	if (firstTouch) {
@@ -641,6 +667,17 @@
 {
 	// If appropriate, add code necessary to save the state of the application.
 	// This application is not saving state.
+    NSLog(@"paintView touchesCancelled! touches count:%d", [touches count]);
+    
+    if (isTransformOperating) {
+        isTransformOperating = false;
+        return;
+    }
+    
+    if (_doubleTouchEndCount > 0) {
+        _doubleTouchEndCount -= [touches count];
+        return;
+    }
 }
 
 
@@ -649,7 +686,7 @@
 
 #if SIMPLE_LAYER
 - (void)updateRender{
-    NSLog(@"== UpdateRender ==");
+//    NSLog(@"== UpdateRender ==");
     [EAGLContext setCurrentContext:_context];
     
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _finalFramebuffer);
@@ -663,12 +700,12 @@
     }
 
     [_context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    NSLog(@"== UpdateRender End ==");
+//    NSLog(@"== UpdateRender End ==");
 }
 
 #else
 - (void)updateRender{
-    NSLog(@"== UpdateRender ==");
+//    NSLog(@"== UpdateRender ==");
     [EAGLContext setCurrentContext:_context];
 
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _composedLayerFramebuffer);
@@ -680,7 +717,7 @@
     for (int i = 0; i < _paintData.layers.count; ++i) {
         [self drawLayerAtIndex:i];
 
-        NSLog(@"copy _composedLayerTexture %d to _blendLayerTex %d", _composedLayerTexture, _blendLayerTexture);
+//        NSLog(@"copy _composedLayerTexture %d to _blendLayerTex %d", _composedLayerTexture, _blendLayerTexture);
         glBindFramebufferOES(GL_FRAMEBUFFER_OES, _blendLayerFramebuffer);
         glClearColor(0.0, 0.0, 0.0, 0.0);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -697,7 +734,7 @@
     [self drawScreenQuadWithTexture2DPremultiplied:_composedLayerTexture];
     
     [_context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    NSLog(@"== UpdateRender End ==");    
+//    NSLog(@"== UpdateRender End ==");    
 }
 #endif
 
@@ -951,7 +988,7 @@
         glClear(GL_COLOR_BUFFER_BIT);    
 
         [self drawScreenQuadWithTexture2DPremultiplied:_curLayerTexture];
-        NSLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d", _curLayerTexture, _tempLayerFramebuffer, _tempLayerTexture);
+//        NSLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d", _curLayerTexture, _tempLayerFramebuffer, _tempLayerTexture);
         
         [self drawScreenQuadWithTexture2D:_brushTexture Alpha:_brush.brushState.opacity];
         
@@ -1495,7 +1532,7 @@
     //如果是当前绘图层
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
-        NSLog(@"drawLayerAtIndex: %d Texture: %d Current Painted!", index, _tempLayerTexture);
+//        NSLog(@"drawLayerAtIndex: %d Texture: %d Current Painted!", index, _tempLayerTexture);
 #if SIMPLE_LAYER
         [self drawLayerWithTex:_tempLayerTexture Blend:layer.blendMode];
 #else
@@ -1505,7 +1542,7 @@
     }
     else{
         GLKTextureInfo* texInfo = [_layerTextureInfos objectAtIndex:index];
-        NSLog(@"drawLayerAtIndex: %d Texture: %d", index, texInfo.name);
+//        NSLog(@"drawLayerAtIndex: %d Texture: %d", index, texInfo.name);
 #if SIMPLE_LAYER
         [self drawLayerWithTex:texInfo.name Blend:layer.blendMode];
 #else

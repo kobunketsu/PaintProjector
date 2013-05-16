@@ -22,7 +22,7 @@
 @synthesize position;
 //@synthesize opacity = _opacity;
 @synthesize isDrawing;
-@synthesize brushType;
+@synthesize type = _type;
 @synthesize lastDrawPoint = _lastDrawPoint;
 @synthesize curDrawPoint = _curDrawPoint;
 @synthesize strokeTexture = _strokeTexture;
@@ -48,25 +48,32 @@ const float kPatternHeight = 44;
         _context = context;
         _canvas = canvas;
 
-
-
-        brushType = BrushType_Pencil;        
+        _type = BrushType_Pencil;
         _lastDrawPoint = CGPointZero;
-        _vertexMax = 64;
-        _vertexBuffer = NULL;        
+        _vertexMax = 128;
+        _vertexBuffer = NULL;
         
         [self loadShader];      
         
         glGenVertexArraysOES(1, &_vertexArray);
         glBindVertexArrayOES(_vertexArray);
-        
-        [self setupVertexBufferObjects];
-        
+        [self createVertexBufferObject];
         glEnableVertexAttribArray(GLKVertexAttribPosition);    
         glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
-        glEnableVertexAttribArray(GLKVertexAttribColor);    
-        glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), BUFFER_OFFSET(16));  
-        glBindVertexArrayOES(0);        
+//        glEnableVertexAttribArray(GLKVertexAttribColor);
+//        glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), BUFFER_OFFSET(16));  
+        glBindVertexArrayOES(0);
+        
+        
+        glGenVertexArraysOES(1, &_vertexArrayBack);
+        glBindVertexArrayOES(_vertexArrayBack);
+        [self createVertexBufferObjectBack];
+        glEnableVertexAttribArray(GLKVertexAttribPosition);
+        glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
+//        glEnableVertexAttribArray(GLKVertexAttribColor);
+//        glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), BUFFER_OFFSET(16));
+        glBindVertexArrayOES(0);
+
     }
 
     return self;
@@ -170,8 +177,8 @@ const float kPatternHeight = 44;
         
         // Use OpenGL ES to generate a name for the texture.
         glGenTextures(1, &_strokeTexture);
-        NSLog(@"load _strokeTexture: %d brushName: %@", _strokeTexture, brushName);
-        // Bind the texture name. 
+//        NSLog(@"load _strokeTexture: %d brushName: %@", _strokeTexture, brushName);
+        // Bind the texture name.
         glBindTexture(GL_TEXTURE_2D, _strokeTexture);
         // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);        
@@ -205,7 +212,6 @@ const float kPatternHeight = 44;
 
 - (void) renderLineFromPoint:(CGPoint)start toPoint:(CGPoint)end
 {
-    NSLog(@"renderLineFromPoint start x:%.2f y:%.2f  end x:%.2f y:%.2f", start.x, start.y, end.x, end.y);
 	// Convert locations from Points to Pixels
 	CGFloat scale = 1.0;    
 //	CGFloat scale = self.contentScaleFactor;
@@ -215,60 +221,76 @@ const float kPatternHeight = 44;
 	end.y *= scale;
 
 	//当前描画点
-    _curDrawPoint = CGPointMake((start.x + end.x)*0.5, (start.y + end.y)*0.5);            
+    _curDrawPoint = CGPointMake((start.x + end.x)*0.5, (start.y + end.y)*0.5);
+    NSLog(@"renderLine _lastDrawPoint x:%.0f y:%.0f | start x:%.0f y:%.0f | _curDrawPoint x:%.0f y:%.0f | end x:%.0f y:%.0f", _lastDrawPoint.x, _lastDrawPoint.y, start.x, start.y, _curDrawPoint.x, _curDrawPoint.y, end.x, end.y);
+    
 	//绘图频率
     float paintDistance = GLKVector2Length(GLKVector2Subtract(GLKVector2Make(_curDrawPoint.x, _curDrawPoint.y), GLKVector2Make(_lastDrawPoint.x, _lastDrawPoint.y)));
     NSUInteger count = MAX(ceilf(paintDistance / (_brushState.radius * 0.25)), 1);
-    NSLog(@"radius:%.1f paintDistance:%.2f count:%d", _brushState.radius, paintDistance, count);
+//    NSLog(@"radius:%.1f paintDistance:%.2f count:%d", _brushState.radius, paintDistance, count);
     [self drawBezierOrigin:_lastDrawPoint Control:start Destination:_curDrawPoint Count:count];
     
     _lastDrawPoint = _curDrawPoint;        
 }
 
-- (void)setupVertexBufferObjects {
+- (void)createVertexBufferObjectBack {
+    //生成VBO
+    if (!_drawingVBOBack) {
+        glGenBuffers(1, &_drawingVBOBack);
+    }
     
+    //将buffer数据绑定Back VBO
+    glBindBuffer(GL_ARRAY_BUFFER, _drawingVBOBack);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexMax, NULL, GL_STREAM_DRAW);
+    checkGL
+}
+
+- (void)createVertexBufferObject {
+    //生成VBO
     if (!_drawingVBO) {
         glGenBuffers(1, &_drawingVBO);
     }
 
-    [self initializeVertexBufferObject];
+    //将buffer数据绑定VBO
+    glBindBuffer(GL_ARRAY_BUFFER, _drawingVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexMax, NULL, GL_STREAM_DRAW);
+    checkGL
 }
 
 - (void) destroyVertexBufferObject
 {
     glDeleteBuffers(1, &_drawingVBO);
+//    glDeleteBuffers(1, &_drawingVBOBack);
 }
 
-- (void) initializeVertexBufferObject
-{
-    glBindBuffer(GL_ARRAY_BUFFER, _drawingVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexMax, NULL, GL_STREAM_DRAW);
-
-}
 
 -(void)drawBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(int) count
 {
-    //初始化，不填入数据    
-//    [self setupVertexBufferObjects];
     //顶点数据
     if(_vertexBuffer==NULL){
         _vertexBuffer = malloc(_vertexMax * sizeof(BrushVertex));
     }
-    if(count >= _vertexMax) {
-        while (count >= _vertexMax) {
-            _vertexMax *= 2;
-            NSLog(@"new _vertexMax:%d", _vertexMax);            
-        }
-        _vertexBuffer = realloc(_vertexBuffer, _vertexMax * sizeof(BrushVertex));
-        NSLog(@"realloc _vertexBuffer! _vertexMax:%d", _vertexMax);
-        [self destroyVertexBufferObject];
-        [self setupVertexBufferObjects];
-    }    
+    
+//    if(count >= _vertexMax) {
+//        while (count >= _vertexMax) {
+//            _vertexMax *= 2;
+//
+//        }
+//
+//        _vertexBuffer = realloc(_vertexBuffer, _vertexMax * sizeof(BrushVertex));
+//        NSLog(@"realloc _vertexBuffer! _vertexMax:%d", _vertexMax);
+//        [self destroyVertexBufferObject];
+//        [self createVertexBufferObject];
+//    }
+    
+    //destroy create CPU的操作 被GPU操作阻塞
+    count = MIN(count, _vertexMax);
 
    
     //计算vertex data
     float x, y;
     float t = 0.0;
+    
     for(int i = 0; i < count; i++)
     {
         x = pow(1 - t, 2) * origin.x + 2.0 * (1 - t) * t * control.x + t * t * destination.x;
@@ -281,21 +303,36 @@ const float kPatternHeight = 44;
         
         // Set the brush color using premultiplied alpha values
         //rgb上不做premultiplied，在最后的合成做
-        _vertexBuffer[i].Color[0] = 1;
-        _vertexBuffer[i].Color[1] = 1;
-        _vertexBuffer[i].Color[2] = 1;    
-        _vertexBuffer[i].Color[3] = 1;            
+//        _vertexBuffer[i].Color[0] = 1;
+//        _vertexBuffer[i].Color[1] = 1;
+//        _vertexBuffer[i].Color[2] = 1;    
+//        _vertexBuffer[i].Color[3] = 1;            
         
         t += 1.0 / (count);
-        NSLog(@"draw point index:%d x:%.1f y:%.1f", i, _vertexBuffer[i].Position[0], _vertexBuffer[i].Position[1]);
+//        NSLog(@"draw point index:%d x:%.1f y:%.1f", i, _vertexBuffer[i].Position[0], _vertexBuffer[i].Position[1]);
     }
     
+//    NSLog(@"glBindVertexArrayOES %d", _vertexArray);
     glBindVertexArrayOES(_vertexArray);
+//    NSLog(@"glBindBuffer %d", _drawingVBO);
     glBindBuffer(GL_ARRAY_BUFFER, _drawingVBO);
+    //Consider using multiple buffer objects to avoid stalling the rendering pipeline during data store updates. If any rendering in the pipeline makes reference to data in the buffer object being updated by glBufferSubData, especially from the specific region being updated, that rendering must drain from the pipeline before the data store can be updated.
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(BrushVertex) * count, _vertexBuffer);
+    checkGL
     
-    //速度快了是否会导致来不及绘制
+    
+    //GPU还未完成绘制时，下一个CPU使用 glBufferSubData可能导致stalling
     glDrawArrays(GL_POINTS, 0, count);
+    
+    //Double Buffering 交换VBO
+    GLuint tempVBO = _drawingVBO;
+    _drawingVBO = _drawingVBOBack;
+    _drawingVBOBack = tempVBO;
+    
+    GLuint tempVertexArray = _vertexArray;
+    _vertexArray = _vertexArrayBack;
+    _vertexArrayBack = tempVertexArray;
+    
 }
 
 - (BOOL)loadShader
@@ -329,7 +366,7 @@ const float kPatternHeight = 44;
     // Bind attribute locations.
     // This needs to be done prior to linking.
     glBindAttribLocation(_programBrush, GLKVertexAttribPosition, "Position");
-    glBindAttribLocation(_programBrush, GLKVertexAttribColor, "SourceColor");    
+//    glBindAttribLocation(_programBrush, GLKVertexAttribColor, "SourceColor");    
 
     // Link program.
     if (![ShaderUltility linkProgram:_programBrush]) {

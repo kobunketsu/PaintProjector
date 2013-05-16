@@ -7,7 +7,7 @@
 //
 
 #import "Brush.h"
-#import "PenButton.h"
+
 @interface Pen : Brush
 {
     float _startRadius;

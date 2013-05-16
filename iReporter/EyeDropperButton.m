@@ -65,104 +65,107 @@
     CGSize hightlightOffset = CGSizeMake(0.1, 2.1);
     CGFloat hightlightBlurRadius = 2;
     
-    //// Group
+    //// EyeDropper
     {
-        CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, hightlightOffset, hightlightBlurRadius, hightlight.CGColor);
-        
-        CGContextBeginTransparencyLayer(context, NULL);
-        
-        
-        //// dropper Drawing
-        UIBezierPath* dropperPath = [UIBezierPath bezierPath];
-        [dropperPath moveToPoint: CGPointMake(34.09, 6)];
-        [dropperPath addCurveToPoint: CGPointMake(35.18, 9.36) controlPoint1: CGPointMake(34.68, 6) controlPoint2: CGPointMake(35.18, 8.74)];
-        [dropperPath addLineToPoint: CGPointMake(35.18, 14.95)];
-        [dropperPath addCurveToPoint: CGPointMake(38.85, 17.75) controlPoint1: CGPointMake(35.18, 15.15) controlPoint2: CGPointMake(38.85, 17.13)];
-        [dropperPath addLineToPoint: CGPointMake(38.85, 51.31)];
-        [dropperPath addCurveToPoint: CGPointMake(37.74, 52.42) controlPoint1: CGPointMake(38.85, 51.92) controlPoint2: CGPointMake(38.35, 52.42)];
-        [dropperPath addLineToPoint: CGPointMake(29.26, 52.42)];
-        [dropperPath addCurveToPoint: CGPointMake(28.15, 51.31) controlPoint1: CGPointMake(28.65, 52.42) controlPoint2: CGPointMake(28.15, 51.92)];
-        [dropperPath addLineToPoint: CGPointMake(28.15, 17.75)];
-        [dropperPath addCurveToPoint: CGPointMake(31.82, 14.95) controlPoint1: CGPointMake(28.15, 17.13) controlPoint2: CGPointMake(31.82, 14.95)];
-        [dropperPath addLineToPoint: CGPointMake(31.82, 9.36)];
-        [dropperPath addCurveToPoint: CGPointMake(32.94, 6) controlPoint1: CGPointMake(31.82, 8.74) controlPoint2: CGPointMake(32.32, 6)];
-        [dropperPath addLineToPoint: CGPointMake(34.06, 6)];
-        [dropperPath addLineToPoint: CGPointMake(34.09, 6)];
-        [dropperPath closePath];
-        CGContextSaveGState(context);
-        [dropperPath addClip];
-        CGContextDrawLinearGradient(context, gradientDropper, CGPointMake(28.15, 29.21), CGPointMake(38.85, 29.21), 0);
-        CGContextRestoreGState(context);
-        [dropperStroke setStroke];
-        dropperPath.lineWidth = 1;
-        [dropperPath stroke];
-        
-        
-        //// handler Drawing
-        UIBezierPath* handlerPath = [UIBezierPath bezierPath];
-        [handlerPath moveToPoint: CGPointMake(43, 52.98)];
-        [handlerPath addLineToPoint: CGPointMake(41.88, 55.22)];
-        [handlerPath addCurveToPoint: CGPointMake(39.17, 57.46) controlPoint1: CGPointMake(41.88, 55.84) controlPoint2: CGPointMake(39.17, 57.46)];
-        [handlerPath addCurveToPoint: CGPointMake(38.53, 63.07) controlPoint1: CGPointMake(39.17, 57.46) controlPoint2: CGPointMake(38.53, 61.08)];
-        [handlerPath addCurveToPoint: CGPointMake(38.64, 69.38) controlPoint1: CGPointMake(38.53, 65.35) controlPoint2: CGPointMake(40.05, 67.64)];
-        [handlerPath addCurveToPoint: CGPointMake(28.36, 69.38) controlPoint1: CGPointMake(35.8, 72.87) controlPoint2: CGPointMake(31.2, 72.87)];
-        [handlerPath addCurveToPoint: CGPointMake(28.47, 63.36) controlPoint1: CGPointMake(27.01, 67.71) controlPoint2: CGPointMake(28.54, 65.55)];
-        [handlerPath addCurveToPoint: CGPointMake(27.83, 57.46) controlPoint1: CGPointMake(28.42, 61.28) controlPoint2: CGPointMake(27.83, 57.46)];
-        [handlerPath addCurveToPoint: CGPointMake(25.12, 55.22) controlPoint1: CGPointMake(27.83, 57.46) controlPoint2: CGPointMake(25.12, 55.84)];
-        [handlerPath addLineToPoint: CGPointMake(24, 52.98)];
-        [handlerPath addCurveToPoint: CGPointMake(25.12, 51.86) controlPoint1: CGPointMake(24, 52.37) controlPoint2: CGPointMake(24.5, 51.86)];
-        [handlerPath addLineToPoint: CGPointMake(41.88, 51.86)];
-        [handlerPath addCurveToPoint: CGPointMake(43, 52.98) controlPoint1: CGPointMake(42.5, 51.86) controlPoint2: CGPointMake(43, 52.37)];
-        [handlerPath closePath];
-        CGContextSaveGState(context);
-        [handlerPath addClip];
-        CGContextDrawRadialGradient(context, gradientHandler,
-                                    CGPointMake(33.78, 60.83), 2.71,
-                                    CGPointMake(33.5, 72.22), 23.21,
-                                    kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-        CGContextRestoreGState(context);
-        
-        
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
-    }
-    
-    
-    //// Group 2
-    {
-        CGContextSaveGState(context);
-        CGContextSetBlendMode(context, kCGBlendModeMultiply);
-        CGContextBeginTransparencyLayer(context, NULL);
-        
-        //// Clip dropper 2
-        UIBezierPath* dropper2Path = [UIBezierPath bezierPath];
-        [dropper2Path moveToPoint: CGPointMake(34.09, 6)];
-        [dropper2Path addCurveToPoint: CGPointMake(35.18, 9.36) controlPoint1: CGPointMake(34.68, 6) controlPoint2: CGPointMake(35.18, 8.74)];
-        [dropper2Path addLineToPoint: CGPointMake(35.18, 14.95)];
-        [dropper2Path addCurveToPoint: CGPointMake(38.86, 17.75) controlPoint1: CGPointMake(35.18, 15.15) controlPoint2: CGPointMake(38.86, 17.13)];
-        [dropper2Path addLineToPoint: CGPointMake(38.86, 51.31)];
-        [dropper2Path addCurveToPoint: CGPointMake(37.74, 52.42) controlPoint1: CGPointMake(38.86, 51.92) controlPoint2: CGPointMake(38.36, 52.42)];
-        [dropper2Path addLineToPoint: CGPointMake(29.27, 52.42)];
-        [dropper2Path addCurveToPoint: CGPointMake(28.15, 51.31) controlPoint1: CGPointMake(28.65, 52.42) controlPoint2: CGPointMake(28.15, 51.92)];
-        [dropper2Path addLineToPoint: CGPointMake(28.15, 17.75)];
-        [dropper2Path addCurveToPoint: CGPointMake(31.83, 14.95) controlPoint1: CGPointMake(28.15, 17.13) controlPoint2: CGPointMake(31.83, 14.95)];
-        [dropper2Path addLineToPoint: CGPointMake(31.83, 9.36)];
-        [dropper2Path addCurveToPoint: CGPointMake(32.94, 6) controlPoint1: CGPointMake(31.83, 8.74) controlPoint2: CGPointMake(32.33, 6)];
-        [dropper2Path addLineToPoint: CGPointMake(34.06, 6)];
-        [dropper2Path addLineToPoint: CGPointMake(34.09, 6)];
-        [dropper2Path closePath];
-        [dropper2Path addClip];
+        //// Main
+        {
+            CGContextSaveGState(context);
+            CGContextSetShadowWithColor(context, hightlightOffset, hightlightBlurRadius, hightlight.CGColor);
+            
+            CGContextBeginTransparencyLayer(context, NULL);
+            
+            
+            //// dropper Drawing
+            UIBezierPath* dropperPath = [UIBezierPath bezierPath];
+            [dropperPath moveToPoint: CGPointMake(33.34, 5)];
+            [dropperPath addCurveToPoint: CGPointMake(34.88, 9.78) controlPoint1: CGPointMake(34.17, 5) controlPoint2: CGPointMake(34.88, 8.9)];
+            [dropperPath addLineToPoint: CGPointMake(34.88, 17.75)];
+            [dropperPath addCurveToPoint: CGPointMake(40.11, 21.73) controlPoint1: CGPointMake(34.88, 18.04) controlPoint2: CGPointMake(40.11, 20.85)];
+            [dropperPath addLineToPoint: CGPointMake(40.11, 69.53)];
+            [dropperPath addCurveToPoint: CGPointMake(38.52, 71.12) controlPoint1: CGPointMake(40.11, 70.41) controlPoint2: CGPointMake(39.4, 71.12)];
+            [dropperPath addLineToPoint: CGPointMake(26.48, 71.12)];
+            [dropperPath addCurveToPoint: CGPointMake(24.89, 69.53) controlPoint1: CGPointMake(25.6, 71.12) controlPoint2: CGPointMake(24.89, 70.41)];
+            [dropperPath addLineToPoint: CGPointMake(24.89, 21.73)];
+            [dropperPath addCurveToPoint: CGPointMake(30.12, 17.75) controlPoint1: CGPointMake(24.89, 20.85) controlPoint2: CGPointMake(30.12, 17.75)];
+            [dropperPath addLineToPoint: CGPointMake(30.12, 9.78)];
+            [dropperPath addCurveToPoint: CGPointMake(31.71, 5) controlPoint1: CGPointMake(30.12, 8.9) controlPoint2: CGPointMake(30.83, 5)];
+            [dropperPath addLineToPoint: CGPointMake(33.29, 5)];
+            [dropperPath addLineToPoint: CGPointMake(33.34, 5)];
+            [dropperPath closePath];
+            CGContextSaveGState(context);
+            [dropperPath addClip];
+            CGContextDrawLinearGradient(context, gradientDropper, CGPointMake(24.89, 38.06), CGPointMake(40.11, 38.06), 0);
+            CGContextRestoreGState(context);
+            [dropperStroke setStroke];
+            dropperPath.lineWidth = 1;
+            [dropperPath stroke];
+            
+            
+            //// handler Drawing
+            UIBezierPath* handlerPath = [UIBezierPath bezierPath];
+            [handlerPath moveToPoint: CGPointMake(46, 61.92)];
+            [handlerPath addLineToPoint: CGPointMake(44.41, 65.1)];
+            [handlerPath addCurveToPoint: CGPointMake(40.56, 68.29) controlPoint1: CGPointMake(44.41, 65.98) controlPoint2: CGPointMake(40.56, 68.29)];
+            [handlerPath addCurveToPoint: CGPointMake(39.65, 76.28) controlPoint1: CGPointMake(40.56, 68.29) controlPoint2: CGPointMake(39.65, 73.45)];
+            [handlerPath addCurveToPoint: CGPointMake(39.8, 85.27) controlPoint1: CGPointMake(39.64, 79.54) controlPoint2: CGPointMake(41.81, 82.79)];
+            [handlerPath addCurveToPoint: CGPointMake(25.2, 85.27) controlPoint1: CGPointMake(35.77, 90.24) controlPoint2: CGPointMake(29.23, 90.24)];
+            [handlerPath addCurveToPoint: CGPointMake(25.36, 76.69) controlPoint1: CGPointMake(23.28, 82.89) controlPoint2: CGPointMake(25.45, 79.81)];
+            [handlerPath addCurveToPoint: CGPointMake(24.44, 68.29) controlPoint1: CGPointMake(25.28, 73.73) controlPoint2: CGPointMake(24.44, 68.29)];
+            [handlerPath addCurveToPoint: CGPointMake(20.59, 65.1) controlPoint1: CGPointMake(24.44, 68.29) controlPoint2: CGPointMake(20.59, 65.98)];
+            [handlerPath addLineToPoint: CGPointMake(19, 61.92)];
+            [handlerPath addCurveToPoint: CGPointMake(20.59, 60.32) controlPoint1: CGPointMake(19, 61.04) controlPoint2: CGPointMake(19.71, 60.32)];
+            [handlerPath addLineToPoint: CGPointMake(44.41, 60.32)];
+            [handlerPath addCurveToPoint: CGPointMake(46, 61.92) controlPoint1: CGPointMake(45.29, 60.32) controlPoint2: CGPointMake(46, 61.04)];
+            [handlerPath closePath];
+            CGContextSaveGState(context);
+            [handlerPath addClip];
+            CGContextDrawRadialGradient(context, gradientHandler,
+                                        CGPointMake(32.89, 73.11), 3.84,
+                                        CGPointMake(32.5, 89.23), 32.87,
+                                        kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+            CGContextRestoreGState(context);
+            
+            
+            CGContextEndTransparencyLayer(context);
+            CGContextRestoreGState(context);
+        }
         
         
-        //// Rectangle Drawing
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 6, 66, 33)];
-        [_color setFill];
-        [rectanglePath fill];
-        
-        
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
+        //// Clip
+        {
+            CGContextSaveGState(context);
+            CGContextSetBlendMode(context, kCGBlendModeMultiply);
+            CGContextBeginTransparencyLayer(context, NULL);
+            
+            //// Clip dropper 2
+            UIBezierPath* dropper2Path = [UIBezierPath bezierPath];
+            [dropper2Path moveToPoint: CGPointMake(33.41, 5)];
+            [dropper2Path addCurveToPoint: CGPointMake(35.1, 9.78) controlPoint1: CGPointMake(34.32, 5) controlPoint2: CGPointMake(35.1, 8.9)];
+            [dropper2Path addLineToPoint: CGPointMake(35.1, 17.76)];
+            [dropper2Path addCurveToPoint: CGPointMake(40.78, 21.74) controlPoint1: CGPointMake(35.1, 18.05) controlPoint2: CGPointMake(40.78, 20.86)];
+            [dropper2Path addLineToPoint: CGPointMake(40.78, 69.58)];
+            [dropper2Path addCurveToPoint: CGPointMake(39.05, 71.18) controlPoint1: CGPointMake(40.78, 70.46) controlPoint2: CGPointMake(40, 71.18)];
+            [dropper2Path addLineToPoint: CGPointMake(25.96, 71.18)];
+            [dropper2Path addCurveToPoint: CGPointMake(24.23, 69.58) controlPoint1: CGPointMake(25.01, 71.18) controlPoint2: CGPointMake(24.23, 70.46)];
+            [dropper2Path addLineToPoint: CGPointMake(24.23, 21.74)];
+            [dropper2Path addCurveToPoint: CGPointMake(29.91, 17.76) controlPoint1: CGPointMake(24.23, 20.86) controlPoint2: CGPointMake(29.91, 17.76)];
+            [dropper2Path addLineToPoint: CGPointMake(29.91, 9.78)];
+            [dropper2Path addCurveToPoint: CGPointMake(31.64, 5) controlPoint1: CGPointMake(29.91, 8.9) controlPoint2: CGPointMake(30.69, 5)];
+            [dropper2Path addLineToPoint: CGPointMake(33.37, 5)];
+            [dropper2Path addLineToPoint: CGPointMake(33.41, 5)];
+            [dropper2Path closePath];
+            [dropper2Path addClip];
+            
+            
+            //// Rectangle Drawing
+            UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-20, 5, 102, 47)];
+            [_color setFill];
+            [rectanglePath fill];
+            
+            
+            CGContextEndTransparencyLayer(context);
+            CGContextRestoreGState(context);
+        }
     }
     
     
@@ -171,7 +174,6 @@
     CGGradientRelease(gradientDropper);
     CGColorSpaceRelease(colorSpace);
     
-  
 
 }
 

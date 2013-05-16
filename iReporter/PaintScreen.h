@@ -28,8 +28,10 @@
 #import "InfColorBarPicker.h"
 #import "InfColorSquarePicker.h"
 #import "InfColorPickerIndicatorMagnify.h"
+#import "EyeDropperIndicatorView.h"
 #import "UndoGestureRecognizer.h"
 #import "UndoButton.h"
+#import "ClearButton.h"
 #import "BrushToolBar.h"
 //#import "GLProgram.h"
 #import "ShowPaintOnPlane.h"
@@ -41,6 +43,7 @@
 //@class PaintView;
 #import "PaintingView.h"
 #import "BrushTypeButton.h"
+#import "BrushTypeSmallButton.h"
 #import "PaintColorButton.h"
 #import "BrushTypeView.h"
 #import "ColorPickerView.h"
@@ -51,6 +54,7 @@
 #import "Pencil.h"
 #import "Chalk.h"
 #import "Finger.h"
+#import "Marker.h"
 #import "EyeDropper.h"
 //help method
 #import "Ultility.h"
@@ -70,14 +74,14 @@
 #import "PaintScreenPopoverController.h"
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
-    PaintScreen_Normal,
-    PaintScreen_PreviewBrush,
-    PaintScreen_SelectBrush,
-    PaintScreen_EditingBrushSize,
-    PaintScreen_EditingBrushOpacity,
-    PaintScreen_PickColor,
-    PaintScreen_EditingLayer,
-    PaintScreen_TransformImage,
+    PaintScreen_Normal              = 0,
+    PaintScreen_PreviewBrush        = 1 <<  0,
+    PaintScreen_SelectBrush         = 1 <<  1,
+    PaintScreen_EditingBrushSize    = 1 <<  2,
+    PaintScreen_EditingBrushOpacity = 1 <<  3,
+    PaintScreen_PickColor           = 1 <<  4,
+    PaintScreen_EditingLayer        = 1 <<  5,
+    PaintScreen_TransformImage      = 1 <<  6,
 };
 
 typedef NS_ENUM(NSInteger, TransformImageState) {
@@ -125,12 +129,13 @@ BrushTypeViewControllerDelegate
     PaintingView * _paintView;
     
     //UI    
-    Rubber* _rubber;
-    Pencil *_pencil;
-    Pen *_pen;    
-    Chalk *_chalk;
-    Finger *_finger;
-    Brush* _curBrush;
+    Eraser  *_eraser;
+    Pencil  *_pencil;
+    Pen     *_pen;    
+    Chalk   *_chalk;
+    Finger  *_finger;
+    Marker  *_marker;
+    Brush   *_curBrush;
     int    _curBrushToolBarIndex;
     EyeDropper *_eyeDropper;
     InfColorPickerController * _infColorPickerController;    
@@ -207,6 +212,7 @@ BrushTypeViewControllerDelegate
     GLuint _paintMVPMatrixUniform;    
     GLuint _programProject;
     
+    BOOL _isPaintFullScreen;
     BOOL _isPaintMode;
     BOOL _paintViewConfirmed;
 
@@ -241,7 +247,8 @@ BrushTypeViewControllerDelegate
 - (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handleTapBrushView:(UITapGestureRecognizer *)sender;
 //- (IBAction)handlePanBrushToolBar:(UIPanGestureRecognizer *)sender;
-- (IBAction)fingerButtonTapped:(UIButton *)sender;
+- (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender;
+- (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender;
 - (IBAction)importButtonTapped:(UIButton *)sender;
 - (IBAction)exportButtonTapped:(UIButton *)sender;
 - (IBAction)selectColor:(ColorButton *)sender;
@@ -251,8 +258,10 @@ BrushTypeViewControllerDelegate
 - (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender;
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender;
 - (IBAction)slideBrushOpacity:(UISlider *)sender;
-- (IBAction)selectBrushType:(SelectBrushButton *)sender;
-- (IBAction)selectRubber:(UIButton *)sender;
+- (IBAction)brushTypeButtonTouchUp:(UIButton *)sender;
+- (IBAction)brushTypeButtonTouchDown:(UIButton *)sender;
+- (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender;
+- (IBAction)selectEraser:(UIButton *)sender;
 - (IBAction)UndoDraw:(UndoButton *)sender;
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender;
 - (IBAction)touchUpOutsideUndoButton:(UndoButton *)sender;
@@ -277,8 +286,12 @@ BrushTypeViewControllerDelegate
 - (IBAction)takePhotoButtonTapped:(id)sender;
 - (IBAction)pickPhotoButtonTapped:(id)sender;
 - (IBAction)pickImageInApp:(id)sender;
-- (IBAction)clearPaintButtonTapped:(id)sender;
-- (IBAction)eyeDropperButtonTapped:(id)sender;
+- (IBAction)clearButtonTouchUp:(ClearButton *)sender;
+- (IBAction)clearButtonTouchDown:(ClearButton *)sender;
+- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
+- (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender;
+- (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender;
+- (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender;
 - (IBAction)saveToDocButtonTapped:(UIButton *)sender;
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender;
 - (IBAction)projectPaintButtonTapped:(UIButton *)sender;
@@ -305,9 +318,11 @@ BrushTypeViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UILabel *lblBrushRadius;
 @property (strong, nonatomic) IBOutlet UILabel *lblBrushOpacity;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *btnAction;
-@property (strong, nonatomic) IBOutlet SelectBrushButton *brushButton;
+@property (strong, nonatomic) IBOutlet BrushTypeSmallButton *brushButton;
+@property (strong, nonatomic) IBOutlet BrushTypeSmallButton *brushBackButton;
 @property (strong, nonatomic) IBOutlet UIButton *btnRedo;
 @property (strong, nonatomic) IBOutlet UndoButton *btnUndo;
+@property (strong, nonatomic) IBOutlet ClearButton *clearButton;
 @property (strong, nonatomic) IBOutlet BrushView *brushView;
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushView;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrPaintView;
@@ -330,7 +345,7 @@ BrushTypeViewControllerDelegate
 @property (weak, nonatomic)   IBOutlet UIView *previewToolBar;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) IBOutlet UIButton *btnRubber;
+@property (strong, nonatomic) IBOutlet UIButton *btnEraser;
 @property (strong, nonatomic) IBOutlet UIView *colorSlotsView;
 @property (strong, nonatomic) IBOutlet UIView *paintColorView;
 @property (strong, nonatomic) IBOutlet OpacitySlider *opaictySlider;
@@ -344,6 +359,7 @@ BrushTypeViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIView *debugView2;
 @property (strong, nonatomic) UIPopoverController *popoverController;
 @property (strong, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
+@property (strong, nonatomic) IBOutlet EyeDropperIndicatorView *eyeDropperIndicatorView;
 @property (strong, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (strong, nonatomic) IBOutlet EyeDropperButton *eyeDropperButton;
 @property (strong, nonatomic) IBOutlet UIButton *createLayerButton;

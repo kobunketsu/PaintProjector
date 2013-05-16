@@ -26,17 +26,13 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-//    NSLog(@"drawRect x:%.2f y:%.2f width:%.2f height:%.2f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-    //code generated from paintCode
-    
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* gradientColor = [self color];
-    UIColor* gradientColor2 = [self color];
+    UIColor* gradientColor = _color;
+    UIColor* gradientColor2 = _color;
     UIColor* shadow2Color = [UIColor colorWithRed: 0.877 green: 0.877 blue: 0.877 alpha: 1];
     UIColor* shadowColor2 = [UIColor colorWithRed: 0.434 green: 0.434 blue: 0.434 alpha: 1];
     
@@ -62,8 +58,8 @@
     CGContextBeginTransparencyLayer(context, NULL);
     [ovalPath addClip];
     CGContextDrawRadialGradient(context, gradient,
-                                CGPointMake(22, 22), 3.98,
-                                CGPointMake(22, 22), 41.08,
+                                CGPointMake(25, 25), 11.37,
+                                CGPointMake(25, 25), 41.08,
                                 kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     CGContextEndTransparencyLayer(context);
     
@@ -95,13 +91,19 @@
     
     CGContextRestoreGState(context);
     
+    if (self.tracking) {
+        [gradientColor setStroke];
+        ovalPath.lineWidth = 5;
+        [ovalPath stroke];
+    }
+
     
     
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
     
-    
+   
 }
 
 

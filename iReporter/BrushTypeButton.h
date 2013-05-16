@@ -11,7 +11,10 @@
 //功能:
 
 #import <UIKit/UIKit.h>
+#import "Brush.h"
 @class Brush;
+
 @interface BrushTypeButton : UIButton
+
 @property(nonatomic, retain)Brush* brush;
 @end

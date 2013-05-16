@@ -19,7 +19,7 @@
 
 #import "Brush.h"
 #import "EyeDropper.h"
-#import "Rubber.h"
+#import "Eraser.h"
 #import "PaintOperationStack.h"
 //#import "CalculateRunTime.h"
 #import "Ultility.h"
@@ -177,8 +177,9 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
     PaintData* _paintData;
     
     PaintingViewState _state;
+    int _doubleTouchEndCount;       //判断双指点击操作是否开始和结束的标志 一旦有TouchBegan检测出双击 doubleTouchEndCount 将被设置为2,后续可能出现的toucheMoved将被认为是双击的一部分，知道toucheEnd后doubleTouchEndCount成为0
 }
-
+@property(nonatomic, assign)int multiTouchEndCount;
 @property(nonatomic, retain)EyeDropper *eyeDropper;
 @property(nonatomic, retain)Brush* brush;
 @property(nonatomic, retain)NSMutableArray *brushTypes;

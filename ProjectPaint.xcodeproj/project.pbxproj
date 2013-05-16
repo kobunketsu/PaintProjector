@@ -100,8 +100,8 @@
 		08243A4616CCAE3100FC12BA /* ShaderPaintFrame.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */; };
 		08243A4716CCAE3100FC12BA /* ShaderQuad.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */; };
 		08243A4816CCAE3100FC12BA /* ShaderQuad.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */; };
-		08243A4916CCAE3100FC12BA /* ShaderRubber.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */; };
-		08243A4A16CCAE3100FC12BA /* ShaderRubber.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */; };
+		08243A4916CCAE3100FC12BA /* ShaderEraser.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderEraser.fsh */; };
+		08243A4A16CCAE3100FC12BA /* ShaderEraser.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderEraser.vsh */; };
 		08243A4B16CCAE3100FC12BA /* ShaderScene.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */; };
 		08243A4C16CCAE3100FC12BA /* ShaderScene.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */; };
 		08243A4E16CCAE4500FC12BA /* 3dStreetPainting in Resources */ = {isa = PBXBuildFile; fileRef = 08243A4D16CCAE4500FC12BA /* 3dStreetPainting */; };
@@ -117,8 +117,8 @@
 		08243A5816CCAE5E00FC12BA /* ShaderPaintFrame.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */; };
 		08243A5916CCAE5E00FC12BA /* ShaderQuad.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */; };
 		08243A5A16CCAE5E00FC12BA /* ShaderQuad.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */; };
-		08243A5B16CCAE5E00FC12BA /* ShaderRubber.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */; };
-		08243A5C16CCAE5E00FC12BA /* ShaderRubber.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */; };
+		08243A5B16CCAE5E00FC12BA /* ShaderEraser.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3916CCAE3100FC12BA /* ShaderEraser.fsh */; };
+		08243A5C16CCAE5E00FC12BA /* ShaderEraser.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3A16CCAE3100FC12BA /* ShaderEraser.vsh */; };
 		08243A5D16CCAE5E00FC12BA /* ShaderScene.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */; };
 		08243A5E16CCAE5E00FC12BA /* ShaderScene.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */; };
 		08258A0316F40E21005260BA /* ShaderQuadDebugAlpha.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */; };
@@ -171,6 +171,7 @@
 		084F8EC8173BDD9D007676C3 /* BrushTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F8EC7173BDD9D007676C3 /* BrushTypeViewController.m */; };
 		08524B3A16F36C22000B8020 /* ShaderQuadDebug.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */; };
 		08524B3E16F36DC6000B8020 /* ShaderQuadDebug.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */; };
+		0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */; };
 		0857779916C62DC80040B152 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* Camera.m */; };
 		085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2B16D8A8AD00834C9D /* CameraOverlayView.m */; };
 		085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */; };
@@ -192,11 +193,7 @@
 		087FE741173DF71C009B34A2 /* PaintScreenPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE740173DF71C009B34A2 /* PaintScreenPopoverController.m */; };
 		087FE743173E0CC7009B34A2 /* popover-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 087FE742173E0CC7009B34A2 /* popover-bg.png */; };
 		087FE746173E0EED009B34A2 /* DownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* DownToolBar.m */; };
-		088B9BA6173A9264000F4BCC /* PenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BA5173A9264000F4BCC /* PenButton.m */; };
-		088B9BAB173A9271000F4BCC /* PencilButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BAA173A9271000F4BCC /* PencilButton.m */; };
-		088B9BAE173A927E000F4BCC /* FingerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BAD173A927E000F4BCC /* FingerButton.m */; };
-		088B9BB1173A9299000F4BCC /* EraserButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BB0173A9299000F4BCC /* EraserButton.m */; };
-		088B9BB4173A9AF0000F4BCC /* ChalkButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B9BB3173A9AF0000F4BCC /* ChalkButton.m */; };
+		087FE74A173E2F9C009B34A2 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE749173E2F9B009B34A2 /* Marker.m */; };
 		08966ECA166082E600339901 /* CalculateRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966EC9166082E600339901 /* CalculateRunTime.m */; };
 		08966F151660CA2700339901 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F101660C9E400339901 /* libGPUImage.a */; };
 		08966F171660CA4A00339901 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F161660CA4A00339901 /* CoreMedia.framework */; };
@@ -245,6 +242,7 @@
 		08D8369F1737EB2100B68990 /* CancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D8369E1737EB2100B68990 /* CancelButton.m */; };
 		08D836A21737EDA300B68990 /* DoneButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A11737EDA200B68990 /* DoneButton.m */; };
 		08D836A51737FF5D00B68990 /* ClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A41737FF5D00B68990 /* ClearButton.m */; };
+		08E16DC917412581000B211D /* EyeDropperIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E16DC817412581000B211D /* EyeDropperIndicatorView.m */; };
 		08E19498167CCF9700D8ADAF /* ShowPaintOnPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */; };
 		08F3A6901736089C002E063A /* TopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A68F1736089C002E063A /* TopToolBar.m */; };
 		08F3A695173613A6002E063A /* TransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A694173613A6002E063A /* TransformButton.m */; };
@@ -263,7 +261,7 @@
 		08FD1F99164DF509003738FC /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
 		08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */; };
 		08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8BC16513BB2008F35E8 /* Pencil.m */; };
-		08FDC8C1165157EB008F35E8 /* Rubber.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8C0165157EA008F35E8 /* Rubber.m */; };
+		08FDC8C1165157EB008F35E8 /* Eraser.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8C0165157EA008F35E8 /* Eraser.m */; };
 		08FDC8C416515829008F35E8 /* Pen.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8C316515829008F35E8 /* Pen.m */; };
 		9483A663165F3DB100EE56AD /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9483A662165F3DB100EE56AD /* CoreMotion.framework */; };
 		949066081684000A00AF072C /* Ultility.m in Sources */ = {isa = PBXBuildFile; fileRef = 949066071684000A00AF072C /* Ultility.m */; };
@@ -443,8 +441,8 @@
 		08243A3616CCAE3100FC12BA /* ShaderPaintFrame.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderPaintFrame.vsh; sourceTree = "<group>"; };
 		08243A3716CCAE3100FC12BA /* ShaderQuad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuad.fsh; sourceTree = "<group>"; };
 		08243A3816CCAE3100FC12BA /* ShaderQuad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuad.vsh; sourceTree = "<group>"; };
-		08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderRubber.fsh; sourceTree = "<group>"; };
-		08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderRubber.vsh; sourceTree = "<group>"; };
+		08243A3916CCAE3100FC12BA /* ShaderEraser.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderEraser.fsh; sourceTree = "<group>"; };
+		08243A3A16CCAE3100FC12BA /* ShaderEraser.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderEraser.vsh; sourceTree = "<group>"; };
 		08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderScene.fsh; sourceTree = "<group>"; };
 		08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderScene.vsh; sourceTree = "<group>"; };
 		08243A4D16CCAE4500FC12BA /* 3dStreetPainting */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 3dStreetPainting; path = iReporter/3dStreetPainting; sourceTree = "<group>"; };
@@ -497,6 +495,8 @@
 		084F8EC6173BDD9D007676C3 /* BrushTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeViewController.h; sourceTree = "<group>"; };
 		084F8EC7173BDD9D007676C3 /* BrushTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeViewController.m; sourceTree = "<group>"; };
 		08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShaderQuadDebug.vsh; sourceTree = "<group>"; };
+		0853818C173E97FB00069C27 /* BrushTypeSmallButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeSmallButton.h; sourceTree = "<group>"; };
+		0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeSmallButton.m; sourceTree = "<group>"; };
 		0857779716C62DC80040B152 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		0857779816C62DC80040B152 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		085A7E2A16D8A8AC00834C9D /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
@@ -529,16 +529,8 @@
 		087FE742173E0CC7009B34A2 /* popover-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popover-bg.png"; sourceTree = "<group>"; };
 		087FE744173E0EED009B34A2 /* DownToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownToolBar.h; sourceTree = "<group>"; };
 		087FE745173E0EED009B34A2 /* DownToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownToolBar.m; sourceTree = "<group>"; };
-		088B9BA4173A9264000F4BCC /* PenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PenButton.h; sourceTree = "<group>"; };
-		088B9BA5173A9264000F4BCC /* PenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PenButton.m; sourceTree = "<group>"; };
-		088B9BA9173A9271000F4BCC /* PencilButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PencilButton.h; sourceTree = "<group>"; };
-		088B9BAA173A9271000F4BCC /* PencilButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PencilButton.m; sourceTree = "<group>"; };
-		088B9BAC173A927E000F4BCC /* FingerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerButton.h; sourceTree = "<group>"; };
-		088B9BAD173A927E000F4BCC /* FingerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerButton.m; sourceTree = "<group>"; };
-		088B9BAF173A9299000F4BCC /* EraserButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EraserButton.h; sourceTree = "<group>"; };
-		088B9BB0173A9299000F4BCC /* EraserButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EraserButton.m; sourceTree = "<group>"; };
-		088B9BB2173A9AEF000F4BCC /* ChalkButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChalkButton.h; sourceTree = "<group>"; };
-		088B9BB3173A9AF0000F4BCC /* ChalkButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChalkButton.m; sourceTree = "<group>"; };
+		087FE748173E2F9A009B34A2 /* Marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
+		087FE749173E2F9B009B34A2 /* Marker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
 		08966EC8166082E600339901 /* CalculateRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateRunTime.h; sourceTree = "<group>"; };
 		08966EC9166082E600339901 /* CalculateRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateRunTime.m; sourceTree = "<group>"; };
 		08966F061660C9E400339901 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = SubModules/GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
@@ -600,6 +592,8 @@
 		08D836A11737EDA200B68990 /* DoneButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoneButton.m; sourceTree = "<group>"; };
 		08D836A31737FF5D00B68990 /* ClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearButton.h; sourceTree = "<group>"; };
 		08D836A41737FF5D00B68990 /* ClearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearButton.m; sourceTree = "<group>"; };
+		08E16DC717412581000B211D /* EyeDropperIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropperIndicatorView.h; sourceTree = "<group>"; };
+		08E16DC817412581000B211D /* EyeDropperIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropperIndicatorView.m; sourceTree = "<group>"; };
 		08E19496167CCF9700D8ADAF /* ShowPaintOnPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlane.h; sourceTree = "<group>"; };
 		08E19497167CCF9700D8ADAF /* ShowPaintOnPlane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlane.m; sourceTree = "<group>"; };
 		08F3A68E1736089C002E063A /* TopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopToolBar.h; sourceTree = "<group>"; };
@@ -637,8 +631,8 @@
 		08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTouchUIView.m; sourceTree = "<group>"; };
 		08FDC8BB16513BB2008F35E8 /* Pencil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pencil.h; sourceTree = "<group>"; };
 		08FDC8BC16513BB2008F35E8 /* Pencil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pencil.m; sourceTree = "<group>"; };
-		08FDC8BF165157EA008F35E8 /* Rubber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rubber.h; sourceTree = "<group>"; };
-		08FDC8C0165157EA008F35E8 /* Rubber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rubber.m; sourceTree = "<group>"; };
+		08FDC8BF165157EA008F35E8 /* Eraser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eraser.h; sourceTree = "<group>"; };
+		08FDC8C0165157EA008F35E8 /* Eraser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Eraser.m; sourceTree = "<group>"; };
 		08FDC8C216515829008F35E8 /* Pen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pen.h; sourceTree = "<group>"; };
 		08FDC8C316515829008F35E8 /* Pen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pen.m; sourceTree = "<group>"; };
 		9483A662165F3DB100EE56AD /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -844,8 +838,8 @@
 				08524B3816F36C22000B8020 /* ShaderQuadDebug.vsh */,
 				08258A0116F40E21005260BA /* ShaderQuadDebugAlpha.fsh */,
 				08258A0216F40E21005260BA /* ShaderQuadDebugColor.fsh */,
-				08243A3916CCAE3100FC12BA /* ShaderRubber.fsh */,
-				08243A3A16CCAE3100FC12BA /* ShaderRubber.vsh */,
+				08243A3916CCAE3100FC12BA /* ShaderEraser.fsh */,
+				08243A3A16CCAE3100FC12BA /* ShaderEraser.vsh */,
 				08243A3B16CCAE3100FC12BA /* ShaderScene.fsh */,
 				08243A3C16CCAE3100FC12BA /* ShaderScene.vsh */,
 			);
@@ -896,28 +890,22 @@
 				081A2CEA163CD9F8006EC27A /* Brush.m */,
 				08FDC8BB16513BB2008F35E8 /* Pencil.h */,
 				08FDC8BC16513BB2008F35E8 /* Pencil.m */,
-				088B9BA9173A9271000F4BCC /* PencilButton.h */,
-				088B9BAA173A9271000F4BCC /* PencilButton.m */,
-				088B9BA4173A9264000F4BCC /* PenButton.h */,
-				088B9BA5173A9264000F4BCC /* PenButton.m */,
-				08FDC8BF165157EA008F35E8 /* Rubber.h */,
-				08FDC8C0165157EA008F35E8 /* Rubber.m */,
-				088B9BAF173A9299000F4BCC /* EraserButton.h */,
-				088B9BB0173A9299000F4BCC /* EraserButton.m */,
 				08FDC8C216515829008F35E8 /* Pen.h */,
 				08FDC8C316515829008F35E8 /* Pen.m */,
+				08FDC8BF165157EA008F35E8 /* Eraser.h */,
+				08FDC8C0165157EA008F35E8 /* Eraser.m */,
+				087FE748173E2F9A009B34A2 /* Marker.h */,
+				087FE749173E2F9B009B34A2 /* Marker.m */,
 				082DF31916A1A646007656AA /* Chalk.h */,
 				082DF31A16A1A647007656AA /* Chalk.m */,
-				088B9BB2173A9AEF000F4BCC /* ChalkButton.h */,
-				088B9BB3173A9AF0000F4BCC /* ChalkButton.m */,
 				087C5AB116B2CF2E005F954A /* Finger.h */,
 				087C5AB216B2CF2E005F954A /* Finger.m */,
-				088B9BAC173A927E000F4BCC /* FingerButton.h */,
-				088B9BAD173A927E000F4BCC /* FingerButton.m */,
 				0804E2F5163D910200D86624 /* BrushView.h */,
 				0804E2F6163D910200D86624 /* BrushView.m */,
 				08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */,
 				08072EBE1692FD5000E49D2B /* BrushTypeButton.m */,
+				0853818C173E97FB00069C27 /* BrushTypeSmallButton.h */,
+				0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */,
 				08072EBA1692BDFD00E49D2B /* BrushTypeView.h */,
 				08072EBB1692BDFD00E49D2B /* BrushTypeView.m */,
 				084F8EC6173BDD9D007676C3 /* BrushTypeViewController.h */,
@@ -1024,6 +1012,10 @@
 				084D540B17033C300052F510 /* File */,
 				084F8ECB173BDE3A007676C3 /* Transform */,
 				087C5AB616B2DC91005F954A /* Brush */,
+				94997B7F16819D12006E3661 /* PaintingView.h */,
+				94997B8016819D13006E3661 /* PaintingView.m */,
+				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
+				0817B38F163C38ED00BD52B2 /* PaintScreen.m */,
 				084003561706830500CB952C /* MovableObject.h */,
 				084003571706830500CB952C /* MovableObject.m */,
 				0802A72716592695000F82D6 /* ShowPaint.h */,
@@ -1056,10 +1048,6 @@
 				0823E15A16C14B5A00F9C40A /* MainScreenView.m */,
 				0823E14E16C13DE000F9C40A /* MainScreenViewController.h */,
 				0823E14F16C13DE000F9C40A /* MainScreenViewController.m */,
-				94997B7F16819D12006E3661 /* PaintingView.h */,
-				94997B8016819D13006E3661 /* PaintingView.m */,
-				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
-				0817B38F163C38ED00BD52B2 /* PaintScreen.m */,
 				0830455F166B46EC00E8E35C /* ImageView.h */,
 				08304560166B46EC00E8E35C /* ImageView.m */,
 				0802A0FE16731BBA00AE0F23 /* PaintRefView.h */,
@@ -1100,6 +1088,8 @@
 				080BD0DC164601B400B37C01 /* EyeDropper.m */,
 				0802D11517369821003259E6 /* EyeDropperButton.h */,
 				0802D11617369821003259E6 /* EyeDropperButton.m */,
+				08E16DC717412581000B211D /* EyeDropperIndicatorView.h */,
+				08E16DC817412581000B211D /* EyeDropperIndicatorView.m */,
 				087BB3A11730AB4B006C0A33 /* OpacitySlider.h */,
 				087BB3A21730AB4B006C0A33 /* OpacitySlider.m */,
 				083F86631735083F00DDE6BC /* RadiusSlider.h */,
@@ -1347,8 +1337,8 @@
 				08243A5816CCAE5E00FC12BA /* ShaderPaintFrame.vsh in Resources */,
 				08243A5916CCAE5E00FC12BA /* ShaderQuad.fsh in Resources */,
 				08243A5A16CCAE5E00FC12BA /* ShaderQuad.vsh in Resources */,
-				08243A5B16CCAE5E00FC12BA /* ShaderRubber.fsh in Resources */,
-				08243A5C16CCAE5E00FC12BA /* ShaderRubber.vsh in Resources */,
+				08243A5B16CCAE5E00FC12BA /* ShaderEraser.fsh in Resources */,
+				08243A5C16CCAE5E00FC12BA /* ShaderEraser.vsh in Resources */,
 				08243A5D16CCAE5E00FC12BA /* ShaderScene.fsh in Resources */,
 				08243A5E16CCAE5E00FC12BA /* ShaderScene.vsh in Resources */,
 				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
@@ -1481,7 +1471,7 @@
 				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
 				08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */,
 				08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */,
-				08FDC8C1165157EB008F35E8 /* Rubber.m in Sources */,
+				08FDC8C1165157EB008F35E8 /* Eraser.m in Sources */,
 				08FDC8C416515829008F35E8 /* Pen.m in Sources */,
 				0802A72916592695000F82D6 /* ShowPaint.m in Sources */,
 				08966ECA166082E600339901 /* CalculateRunTime.m in Sources */,
@@ -1525,8 +1515,8 @@
 				08243A4616CCAE3100FC12BA /* ShaderPaintFrame.vsh in Sources */,
 				08243A4716CCAE3100FC12BA /* ShaderQuad.fsh in Sources */,
 				08243A4816CCAE3100FC12BA /* ShaderQuad.vsh in Sources */,
-				08243A4916CCAE3100FC12BA /* ShaderRubber.fsh in Sources */,
-				08243A4A16CCAE3100FC12BA /* ShaderRubber.vsh in Sources */,
+				08243A4916CCAE3100FC12BA /* ShaderEraser.fsh in Sources */,
+				08243A4A16CCAE3100FC12BA /* ShaderEraser.vsh in Sources */,
 				08243A4B16CCAE3100FC12BA /* ShaderScene.fsh in Sources */,
 				08243A4C16CCAE3100FC12BA /* ShaderScene.vsh in Sources */,
 				0847472116D2615900772015 /* PaintFrameGroup.m in Sources */,
@@ -1588,15 +1578,13 @@
 				08D8369F1737EB2100B68990 /* CancelButton.m in Sources */,
 				08D836A21737EDA300B68990 /* DoneButton.m in Sources */,
 				08D836A51737FF5D00B68990 /* ClearButton.m in Sources */,
-				088B9BA6173A9264000F4BCC /* PenButton.m in Sources */,
-				088B9BAB173A9271000F4BCC /* PencilButton.m in Sources */,
-				088B9BAE173A927E000F4BCC /* FingerButton.m in Sources */,
-				088B9BB1173A9299000F4BCC /* EraserButton.m in Sources */,
-				088B9BB4173A9AF0000F4BCC /* ChalkButton.m in Sources */,
 				084F8EC8173BDD9D007676C3 /* BrushTypeViewController.m in Sources */,
 				087FE73C173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m in Sources */,
 				087FE741173DF71C009B34A2 /* PaintScreenPopoverController.m in Sources */,
 				087FE746173E0EED009B34A2 /* DownToolBar.m in Sources */,
+				087FE74A173E2F9C009B34A2 /* Marker.m in Sources */,
+				0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */,
+				08E16DC917412581000B211D /* EyeDropperIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

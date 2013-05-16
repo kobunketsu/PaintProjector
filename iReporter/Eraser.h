@@ -1,5 +1,5 @@
 //
-//  Rubber.h
+//  Eraser.h
 //  iReporter
 //
 //  Created by 文杰 胡 on 12-11-13.
@@ -7,7 +7,6 @@
 //
 
 #import "Brush.h"
-#import "EraserButton.h"
-@interface Rubber : Brush
+@interface Eraser : Brush
 
 @end
