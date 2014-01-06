@@ -15,15 +15,7 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 @end
 
 @implementation ShowPaintViewController
-@synthesize videoDataOutput = _videoDataOutput;
-@synthesize videoDataOutputQueue = _videoDataOutputQueue;
-@synthesize previewView = _previewView;
-@synthesize previewLayer = _previewLayer;
-@synthesize faceDetector = _faceDetector;
-@synthesize isUsingFrontFacingCamera = _isUsingFrontFacingCamera;
-@synthesize isCameraScreenHidden;
-@synthesize borderImage;
-@synthesize eyeImage;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,7 +27,7 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 }
 
 - (void)awakeFromNib{
-    isCameraScreenHidden = true;        
+    self.isCameraScreenHidden = true;
 
 }
 // find where the video box is positioned within the preview layer based on the video size and gravity
@@ -157,7 +149,7 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         
         CGPoint vec = CGPointMake(rightEye.origin.x - leftEye.origin.x, rightEye.origin.y - leftEye.origin.y);
         float distSqr = vec.x*vec.x + vec.y*vec.y;
-        NSLog(@"distance %.2f", distSqr);
+        DebugLog(@"distance %.2f", distSqr);
         
 
         
@@ -208,7 +200,7 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         //描画眼睛
         if(ff.hasLeftEyePosition)
         {
-           NSLog(@"Left Eye: X:%.2f Y:%.2f", leftEye.origin.x, leftEye.origin.y);
+           DebugLog(@"Left Eye: X:%.2f Y:%.2f", leftEye.origin.x, leftEye.origin.y);
             
             leftEyeLayer = nil;
             
@@ -234,7 +226,7 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 
         if(ff.hasRightEyePosition)
         {
-            NSLog(@"Right Eye: X:%.2f Y:%.2f", rightEye.origin.x, rightEye.origin.y);
+            DebugLog(@"Right Eye: X:%.2f Y:%.2f", rightEye.origin.x, rightEye.origin.y);
 
             rightEyeLayer = nil;
             
@@ -474,7 +466,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         CALayer *layer3D = self.previewView.layer3D;
         [layer3D setMasksToBounds:YES];
         [self.previewLayer setFrame:[layer3D bounds]];
-        if (!isCameraScreenHidden) {
+        if (!self.isCameraScreenHidden) {
             [layer3D addSublayer:self.previewLayer];
         }
         [session startRunning];
@@ -497,7 +489,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
 	self.videoDataOutput = nil;
 	if (self.videoDataOutputQueue) {
-		dispatch_release(self.videoDataOutputQueue);
+//		dispatch_release(self.videoDataOutputQueue);
     }
 	[self.previewLayer removeFromSuperlayer];
 	self.previewLayer = nil;

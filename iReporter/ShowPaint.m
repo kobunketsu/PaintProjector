@@ -10,10 +10,7 @@
 #import "CalculateRunTime.h"
 
 @implementation ShowPaint
-@synthesize sourceImage;
-@synthesize lastPitch = _lastPitch;
-@synthesize deviceToEye;
-@synthesize layer3D;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -34,7 +31,7 @@
     NSOperationQueue *aQueue=[[NSOperationQueue alloc]init];
     if (!_motionManager.deviceMotionAvailable) {
         //pop message box
-        NSLog(@"motion manager not available!");
+        DebugLog(@"motion manager not available!");
     }
     
     _motionManager.deviceMotionUpdateInterval = 0.01;
@@ -43,11 +40,11 @@
         ^(CMDeviceMotion *motion, NSError *error){
             if (motion) {
                 _attitude = motion.attitude;
-//                NSLog(@"attitude yaw: %.1f  pitch: %.1f  roll: %.1f", _attitude.yaw, _attitude.pitch, _attitude.roll);                
+//                DebugLog(@"attitude yaw: %.1f  pitch: %.1f  roll: %.1f", _attitude.yaw, _attitude.pitch, _attitude.roll);                
                     _lastPitch = _attitude.pitch;
       
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [layer3D setNeedsDisplay];                               
+                        [self.layer3D setNeedsDisplay];
                     });                    
             }  
         }];
@@ -55,41 +52,41 @@
     }
 }
 
-- (void)setSourcePaintView:(PaintView*)paintView{
-//    self.sourceImage = [paintView getCacheImage];
-//    [self create3DImage];
-    
-    [_layerDelegate copyLayerInfo:[paintView layer] ToLayer:[self layer]];
-    //根据paintView的层创建出结果相同的层
-    for (CALayer* layer in [[paintView layer] sublayers]) {
-        
-        UIGraphicsBeginImageContext(self.bounds.size);
-        [layer renderInContext:UIGraphicsGetCurrentContext()];
-        UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();    
-        
-        CALayer* subLayer = [_layerDelegate addLayerWithName:layer.name Contents:(id)viewImage.CGImage InRect:layer.bounds];
-        
-        if ([subLayer.name rangeOfString:@"_3D"].location != NSNotFound) {
-            _srcLayer3D = layer;
-            layer3D = subLayer;
-        }
-        [subLayer setNeedsDisplay];
-    }
-}
+//- (void)setSourcePaintView:(PaintView*)paintView{
+////    self.sourceImage = [paintView getCacheImage];
+////    [self create3DImage];
+//    
+//    [_layerDelegate copyLayerInfo:[paintView layer] ToLayer:[self layer]];
+//    //根据paintView的层创建出结果相同的层
+//    for (CALayer* layer in [[paintView layer] sublayers]) {
+//        
+//        UIGraphicsBeginImageContext(self.bounds.size);
+//        [layer renderInContext:UIGraphicsGetCurrentContext()];
+//        UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();    
+//        
+//        CALayer* subLayer = [_layerDelegate addLayerWithName:layer.name Contents:(id)viewImage.CGImage InRect:layer.bounds];
+//        
+//        if ([subLayer.name rangeOfString:@"_3D"].location != NSNotFound) {
+//            _srcLayer3D = layer;
+//            layer3D = subLayer;
+//        }
+//        [subLayer setNeedsDisplay];
+//    }
+//}
 
 - (UIImage*)filterImage:(UIImage*)image{
     GPUImage3DViewFilter *selectedFilter;
     selectedFilter = [[GPUImage3DViewFilter alloc] init];
     [selectedFilter setAngle:-_lastPitch];
-    [selectedFilter setEyeRelativeX:deviceToEye.x Y:deviceToEye.y Z:deviceToEye.z];
+    [selectedFilter setEyeRelativeX:self.deviceToEye.x Y:self.deviceToEye.y Z:self.deviceToEye.z];
     return [selectedFilter imageByFilteringImage:image];    
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
-//    NSLog(@"%@", layer.name);
+//    DebugLog(@"%@", layer.name);
     if ([layer.name rangeOfString:@"_3D"].location == NSNotFound) {
-        if (layer.name == @"rootLayer") {
+        if ([layer.name  isEqual: @"rootLayer"]) {
             return;
         }
         [layer renderInContext:ctx];

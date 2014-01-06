@@ -15,7 +15,7 @@
 @interface EyeDropper : NSObject
 {
 }
-@property (nonatomic, retain) UIView *targetView;
+@property (nonatomic, weak) UIView *targetView;
 @property (nonatomic, assign) CGColorRef resultColor;
 @property (nonatomic, assign) BOOL isDrawing;
 @property (nonatomic, assign) CGPoint position;//touch position

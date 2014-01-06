@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LayerButton : UIButton
+#import "AutoRotateButton.h"
+@interface LayerButton : AutoRotateButton
 
 @end

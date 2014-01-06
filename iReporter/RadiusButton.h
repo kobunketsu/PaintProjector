@@ -15,7 +15,6 @@
 @interface RadiusButton : UIButton
 {
     float _radius;
-    UILabel* _label;
 }
 @property(nonatomic, retain)UILabel* label;
 - (float)radius;

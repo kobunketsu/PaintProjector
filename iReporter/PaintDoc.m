@@ -10,29 +10,28 @@
 #import "PaintData.h"
 #import "PaintDocManager.h"
 #import "Ultility.h"
+#import "PaintLayer.h"
 
 #define kDataKey        @"Data"
 #define kDataFile       @"data.plist"
 #define kThumbImageFile @"thumbImage.png"
 
 @implementation PaintDoc
-@synthesize data = _data;
-@synthesize thumbImagePath = _thumbImagePath;
-@synthesize thumbImage = _thumbImage;
-@synthesize docPath = _docPath;
 
 - (id)init {
     if ((self = [super init])) {
+        //TODO: define defaultSize
+        _defaultSize = CGSizeMake(768, 1024);
     }
     return self;
 }
 
 - (id)initWithDocPath:(NSString *)docPath{
     if ((self = [super init])) {
-//        _data = [[PaintData alloc]init];        
-        _docPath = [docPath copy];
-        _thumbImagePath = [[_docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"];
-
+//        _data = [[PaintData alloc]init];
+        _docPath = docPath;
+        _thumbImagePath = [[self.docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"];
+        _defaultSize = CGSizeMake(768, 1024);
     }
     return self;
 }
@@ -40,49 +39,72 @@
 //创建数据目录
 - (BOOL)createDataPath {
     
-    if (_docPath == nil) {
+    if (self.docPath == nil) {
 //        self.docPath = [PaintDocManager nextPaintDocPath];
     }
     
     NSError *error;
-    BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:_docPath withIntermediateDirectories:YES attributes:nil error:&error];
+    BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:self.docPath withIntermediateDirectories:YES attributes:nil error:&error];
     if (!success) {
-        NSLog(@"Error creating data path: %@", [error localizedDescription]);
+        DebugLog(@"Error creating data path: %@", [error localizedDescription]);
     }
     return success;
     
 }
 
 //unarchiver 磁盘文件得到data
-- (PaintData *)loadData {
+- (PaintData *)open {
     
-    if (_data != nil) return _data;
-    NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:_docPath];
+    if (self.data != nil) return self.data;
+    NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
-    if (codedData == nil) return nil;
+    //创建默认paintData
+    if (codedData == nil){
+        PaintLayer* paintLayer = [PaintLayer createBlankLayerWithSize:self.defaultSize transparent:true];
+        NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
+        BackgroundLayer *backgroundLayer = [[BackgroundLayer alloc]init];
+        self.data = [[PaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
+    }
+    //打开磁盘上的paintData
+    else{
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
+        self.data = [unarchiver decodeObjectForKey:kDataKey];//data should be released somewhere
+        [unarchiver finishDecoding];
+    }
     
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
-    _data = [unarchiver decodeObjectForKey:kDataKey];
-    [unarchiver finishDecoding];
-    codedData = nil;//测试
-    
-    return _data;
+    return self.data;
 }
+
+
+- (id)cloneWithDocPath:(NSString *)docPath{
+    PaintDoc *doc = [[PaintDoc alloc]initWithDocPath:docPath];
+    doc.data = [self.data copy];
+    doc.defaultSize = self.defaultSize;
+    
+    return doc;
+}
+
+
+//释放Data
+-(void)close{
+    [self setData:nil];
+}
+
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中
-- (void)saveData {
+- (void)save {
     
-    if (_data == nil) return;
+    if (self.data == nil) return;
     
-    NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:_docPath];
+    NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:_data forKey:kDataKey];
+    [archiver encodeObject:self.data forKey:kDataKey];
     [archiver finishEncoding];
     if ([data writeToFile:dataPath atomically:YES]) {
-        NSLog(@"PaintDoc saved to %@", dataPath);
+        DebugLog(@"saved to %@", dataPath);
     }
     else{
-        NSLog(@"PaintDoc save to %@ failed!", dataPath);
+        DebugLog(@"save to %@ failed!", dataPath);
     }
 
     
@@ -92,33 +114,37 @@
 //    
 //    if (_thumbImage != nil) return _thumbImage;
 //    
-//    NSString *thumbImagePath = [_docPath stringByAppendingPathComponent:kThumbImageFile];
+//    NSString *thumbImagePath = [self.docPath stringByAppendingPathComponent:kThumbImageFile];
 //    return [UIImage imageWithContentsOfFile:thumbImagePath];
 //
     return nil;
 }
 
 - (void)saveThumbImage:(UIImage*)image{
-    
-    NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:
-                                [[_docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"]];
+    NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
     NSData *thumbImageData = UIImagePNGRepresentation(image);
-    [thumbImageData writeToFile:thumbImagePath atomically:YES];
+//    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);
+    if([thumbImageData writeToFile:thumbImagePath atomically:YES]){
+        DebugLog(@"thumbImage saved to %@", thumbImagePath);
+    }
+    else{
+        DebugLog(@"thumbImage save to %@ failed!", thumbImagePath);
+    }
 }
 
-- (void)deleteDoc {
+- (void)delete {
     
     NSError *error;
-    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:_docPath error:&error];
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:self.docPath error:&error];
     if (!success) {
-        NSLog(@"Error removing document path: %@", error.localizedDescription);
+        DebugLog(@"Error removing document path: %@", error.localizedDescription);
     }
     
 }
 
 #pragma mark- 导出
 - (NSString *)getExportFileName {
-    NSString *fileName = _data.title;
+    NSString *fileName = self.data.title;
     NSString *zippedName = [fileName stringByAppendingString:@".psf"];
     return zippedName;
 }
@@ -126,10 +152,10 @@
 
 - (NSData *)exportToNSData {
 //    NSError *error;
-//    NSURL *url = [NSURL fileURLWithPath:_docPath];
+//    NSURL *url = [NSURL fileURLWithPath:self.docPath];
 //    NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithURL:url options:0 error:&error];
 //    if (dirWrapper == nil) {
-//        NSLog(@"Error creating directory wrapper: %@", error.localizedDescription);
+//        DebugLog(@"Error creating directory wrapper: %@", error.localizedDescription);
 //        return nil;
 //    }
 //    
@@ -172,7 +198,7 @@
 //    NSData *unzippedData = [zippedData gzipInflate];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:unzippedData];
     if (dirWrapper == nil) {
-        NSLog(@"Error creating dir wrapper from unzipped data");
+        DebugLog(@"Error creating dir wrapper from unzipped data");
         return FALSE;
     }
     
@@ -182,7 +208,7 @@
     NSError *error;
     BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
     if (!success) {
-        NSLog(@"Error importing file: %@", error.localizedDescription);
+        DebugLog(@"Error importing file: %@", error.localizedDescription);
         return FALSE;
     }
     

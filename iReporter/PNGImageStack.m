@@ -18,9 +18,9 @@
 }
 
 - (NSString*)lastUndoImage{
-    NSUInteger count = [_contents count];
+    NSUInteger count = [self.contents count];
     if (count > 0) {
-        NSString* returnObject = (NSString*)[_contents objectAtIndex:count - 1];
+        NSString* returnObject = (NSString*)[self.contents objectAtIndex:count - 1];
         return returnObject;
     }
     return nil;

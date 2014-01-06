@@ -9,92 +9,47 @@
 #import "Pencil.h"
 
 @implementation Pencil
-- (id)initWithContext:(EAGLContext*)context Canvas:(UIView *)canvas{
-    self = [super initWithContext:context Canvas:canvas];
-    if (self !=nil) {
-        [self setBrushTextureWithImage:@"airBrushRadius16.png"];
-        _iconImage = [UIImage imageNamed:@"pencil.png"];
-        _type = BrushType_Pencil;
-        _typeName = @"pencil";
-    }
-    
-    return self;
+//- (id)initWithPaintView:(PaintingView *)paintView{
+//    self = [super initWithPaintView:paintView];
+//    if (self !=nil) {
+//        [self resetDefaultBrushState];
+//    }
+//    
+//    return self;
+//}
+
+- (BOOL)isEditable{
+    return true;
 }
 
-//- (void) draw :(CGPoint)lastPoint NewPoint:(CGPoint)newPoint{
-//
-//    CGPoint drawVec = CGPointMake(newPoint.x - self.lastDrawPoint.x, newPoint.y - self.lastDrawPoint.y);
-//    float distSqrt = drawVec.x * drawVec.x + drawVec.y * drawVec.y;
-//    if (distSqrt>0 && distSqrt < (self.radius * self.radius * 0.009)) {
-//        return;
-//    }
-//
-//    int repeatCount = MAX(1, sqrtf(distSqrt) / (self.radius)) * 4;
-//    for (int i=0; i<repeatCount; ++i) {
-//        CGPoint drawPoint = CGPointMake(self.lastDrawPoint.x + drawVec.x * (float)i / (float)repeatCount, self.lastDrawPoint.y + drawVec.y * (float)i / (float)repeatCount);
-//
-//        CGRect rect = CGRectMake(drawPoint.x - self.radius, drawPoint.y - self.radius, self.radius*2, self.radius*2);
-//        
-//        CGContextSetBlendMode(_context, kCGBlendModeNormal);
-//        CGContextDrawImage(_context, rect, _patternImage.CGImage); 
-//
-//        CGContextSetBlendMode(_context, kCGBlendModeSourceIn);
-//        CGContextSetFillColorWithColor(_context, self.color.CGColor);
-//        CGContextFillRect(_context, rect);
-//        
-//    }
-//    
-//    self.lastDrawPoint = newPoint;
-//}
-@end
-//
+- (void)setRadiusSliderValue{
+    self.radiusSliderMinValue = 3;
+    self.radiusSliderMaxValue = 4;
+}
 
-//void DrawPatternCellCallback(void *info, CGContextRef cgContext) 
-//{
-//    // Create a CGImage and use CGContextDrawImage() to draw it into the graphics context provided by the callback function.
-//    UIImage* patternImage = [UIImage imageNamed:@"airBrushRadius16.png"];    
-//    CGContextDrawImage(cgContext, CGRectMake(0, 0, kPatternWidth, kPatternHeight), patternImage.CGImage);
-//}
-//    CGContextBeginPath(_context);
-//    const CGRect patternBounds = CGRectMake(0, 0, kPatternWidth, kPatternHeight);
-//    const CGPatternCallbacks kPatternCallbacks = {0, DrawPatternCellCallback, NULL};
-//    
-//    CGAffineTransform patternTransform = CGAffineTransformMakeScale(self.radius * 2 / kPatternWidth, self.radius * 2 / kPatternWidth);  
-//    float angle = 0;
-//    if (newPoint.x != lastPoint.x) {
-//        angle = atan((newPoint.y - lastPoint.y)/(newPoint.x - lastPoint.x));    
-//    }
-//    CGPoint srcCenter = CGPointMake(self.radius, self.radius);
-//    CGPoint center;
-//    center.x = srcCenter.x * cosf(angle) - srcCenter.y * sinf(angle);
-//    center.y = srcCenter.y * cosf(angle) + srcCenter.x * sinf(angle);
-//    
-//    patternTransform = CGAffineTransformRotate(patternTransform, angle);        
-//
-//    patternTransform.tx = lastPoint.x - center.x;
-//    patternTransform.ty = lastPoint.y - center.y;
-//    
-//    CGPatternRef strokePattern = CGPatternCreate(
-//                                                 NULL,
-//                                                 patternBounds,
-//                                                 patternTransform,
-//                                                 kPatternWidth/1.0, // horizontal spacing
-//                                                 kPatternHeight/1.0, // vertical spacing
-//                                                 kCGPatternTilingConstantSpacing,
-//                                                 true,
-//                                                 &kPatternCallbacks);
-//    CGFloat color1[] = {1.0, 0.0, 0.0, 1.0};
-//    
-//    CGColorSpaceRef patternSpace = CGColorSpaceCreatePattern(NULL);
-//    CGContextSetStrokeColorSpace(_context, patternSpace);
-//    CGContextSetStrokePattern(_context, strokePattern, color1);
-//    CGContextSetLineWidth(_context, self.radius*2);
-//    CGContextSetLineCap(_context, kCGLineCapRound);
-//    CGContextMoveToPoint(_context, lastPoint.x, lastPoint.y);
-//    CGContextAddLineToPoint(_context, newPoint.x, newPoint.y);
-//    CGContextStrokePath(_context);
-// If you aren't using ARC:
-//    CGPatternRelease(strokePattern);
-//    strokePattern = NULL;
-//    CGColorSpaceRelease(patternSpace);
-//    patternSpace = NULL;
+- (void)resetDefaultBrushState{
+    self.brushState.radius = 3;
+    self.brushState.radiusFade = 0;
+    self.brushState.radiusJitter = 0.5;
+    self.brushState.opacity = 1.0;
+    self.brushState.flow = 0.5;
+    self.brushState.flowFade = 0;
+    self.brushState.flowJitter = 0;
+    self.brushState.angle = 0;
+    self.brushState.angleFade = 0;
+    self.brushState.angleJitter = 0;
+    self.brushState.roundness = 1.0;
+    self.brushState.hardness = 1.0;
+    self.brushState.spacing = 0.25;
+    self.brushState.scattering = 0.5;
+    self.brushState.isDissolve = true;
+    self.brushState.isAirbrush = false;
+    self.brushState.isVelocitySensor = false;
+    self.brushState.isRadiusMagnifySensor = false;    
+    self.brushState.wet = 0;
+    
+    [self setBrushCommonTextures];
+    [self setBrushShapeTexture:nil];
+}
+
+@end

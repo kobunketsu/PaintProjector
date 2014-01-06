@@ -9,7 +9,7 @@
 #import "CameraOverlayView.h"
 
 @implementation CameraOverlayView
-@synthesize shotPitch;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

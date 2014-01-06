@@ -13,11 +13,7 @@
 @end
 
 @implementation ShowPaintOnPlaneViewController
-@synthesize btnScene;
-@synthesize lbLength;
-@synthesize lbWidth;
-@synthesize showPaintOnPlane;
-@synthesize paintImage;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,9 +27,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    btnScene.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"viewButton.jpg"]];        
-    if(paintImage!=nil){
-        [self.showPaintOnPlane layer].contents = (__bridge id)paintImage.CGImage;
+    self.btnScene.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"viewButton.jpg"]];
+    if(self.paintImage!=nil){
+        [self.showPaintOnPlane layer].contents = (__bridge id)self.paintImage.CGImage;
     }
 }
 

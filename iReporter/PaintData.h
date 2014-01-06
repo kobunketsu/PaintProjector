@@ -11,15 +11,17 @@
 //功能:
 
 #import <Foundation/Foundation.h>
+#import "BackgroundLayer.h"
+#import "PaintLayer.h"
+
 #define kTitleKey   @"Title"
 @interface PaintData : NSObject <NSCoding>{
-    NSMutableArray* _layers;    //图层
-    
 }
 @property (copy) NSString *title;
 @property (copy) NSString *version;
 @property (nonatomic, retain) NSMutableArray *layers;
+@property (nonatomic, retain) BackgroundLayer *backgroundLayer;
 
 - (id)initWithTitle:(NSString*)title;
-- (id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers Version:(NSString*)version;
+-(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(BackgroundLayer*)backgroundLayer version:(NSString*)version;
 @end

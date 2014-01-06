@@ -25,6 +25,8 @@
 - (NSMutableArray *)loadPaintDocsInDirectoryIndex:(int)dirIndex;
 
 - (PaintDoc*)createPaintDocInDirectory:(NSString*)dirName;
+- (PaintDoc*)clonePaintDoc:(PaintDoc*)paintDoc;
+- (void)deletePaintDoc:(PaintDoc*)paintDoc;
 - (NSString *)nextPaintDocPathInDirectory:(NSString*)dirName;
 
 

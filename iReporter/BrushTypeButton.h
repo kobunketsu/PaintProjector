@@ -16,5 +16,5 @@
 
 @interface BrushTypeButton : UIButton
 
-@property(nonatomic, retain)Brush* brush;
+@property(nonatomic, weak)Brush* brush;
 @end

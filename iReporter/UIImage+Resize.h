@@ -15,4 +15,6 @@
 - (UIImage *)resizedImageWithContentMode:(UIViewContentMode)contentMode
                                   bounds:(CGSize)bounds
                     interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)resizeImage:(CGSize)newSize;
+- (UIImage *)flipVertically;
 @end

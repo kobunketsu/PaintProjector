@@ -7,11 +7,11 @@
 //
 
 #import "Heap.h"
-#import "PaintOperation.h"
+#import "PaintCommand.h"
 @interface PaintOperationStack : Heap
-- (void)push:(PaintOperation*)image;
-- (PaintOperation*)pop;
-- (PaintOperation*)firstUndoPaintOperation;
-- (PaintOperation*)lastUndoPaintOperation;
+- (void)push:(PaintCommand*)image;
+- (PaintCommand*)pop;
+- (PaintCommand*)firstUndoPaintOperation;
+- (PaintCommand*)lastUndoPaintOperation;
 - (NSMutableArray *)allPaintOperations;
 @end

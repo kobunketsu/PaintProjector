@@ -9,16 +9,48 @@
 #import "Marker.h"
 
 @implementation Marker
-- (id)initWithContext:(EAGLContext*)context Canvas:(UIView *)canvas{
-    self = [super initWithContext:context Canvas:canvas];
-    if (self !=nil) {
-//        [self setBrushTextureWithImage:@"airBrushRadius16.png"];
-//        _iconImage = [UIImage imageNamed:@"eraser.png"];
-        _type = BrushType_Marker;
-        _typeName = @"marker";
-    }
-    
-    return self;
+//- (id)initWithPaintView:(PaintingView *)paintView{
+//    self = [super initWithPaintView:paintView];
+//    if (self !=nil) {
+//
+//        
+//        [self resetDefaultBrushState];
+//    }
+//    
+//    return self;
+//}
+
+- (BOOL)isEditable{
+    return true;
 }
 
+- (void)setRadiusSliderValue{
+    self.radiusSliderMinValue = 5;
+    self.radiusSliderMaxValue = 10;
+}
+
+- (void)resetDefaultBrushState{
+    self.brushState.opacity = 1;
+    self.brushState.flow = 1.0;
+    self.brushState.flowJitter = 0.0;
+    self.brushState.flowFade = 0.0;
+    self.brushState.radius = 10;
+    self.brushState.radiusJitter = 0.0;
+    self.brushState.radiusFade = 0.0;
+    self.brushState.hardness = 0.5;
+    self.brushState.roundness = 1.0;
+    self.brushState.angle = 0;
+    self.brushState.angleJitter = 0.0;
+    self.brushState.angleFade = 0.0;
+    self.brushState.spacing = 0.2;
+    self.brushState.scattering = 0.0;
+    self.brushState.isAirbrush = false;
+    self.brushState.isDissolve = false;
+    self.brushState.isVelocitySensor = false;
+    self.brushState.isRadiusMagnifySensor = false;    
+    self.brushState.wet = 0;
+    
+    [self setBrushCommonTextures];
+    [self setBrushShapeTexture:nil];
+}
 @end

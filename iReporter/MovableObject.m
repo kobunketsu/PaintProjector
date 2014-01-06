@@ -9,9 +9,6 @@
 #import "MovableObject.h"
 
 @implementation MovableObject
-@synthesize translateBeforePanGR = _translateBeforePanGR;
-@synthesize translateAfterPanGR = _translateAfterPanGR;
-@synthesize worldMatrix;
 
 - (GLKVector3)rotate {
     return _rotate;

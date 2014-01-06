@@ -20,7 +20,8 @@
 @interface InfColorSquareView : UIImageView
 
 @property( nonatomic ) float hue;
-
+@property(nonatomic, assign) BOOL colorized;
+- (void) updateContent;
 @end
 
 //------------------------------------------------------------------------------
@@ -32,6 +33,7 @@
 @property( nonatomic ) float hue;
 @property( nonatomic ) CGPoint value;
 @property(retain, nonatomic)IBOutlet  InfColorPickerIndicatorMagnify * indicatorMagnify;
+
 @end
 
 //------------------------------------------------------------------------------

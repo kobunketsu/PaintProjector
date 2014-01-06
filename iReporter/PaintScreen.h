@@ -14,9 +14,12 @@
 #import <GLKit/GLKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MessageUI/MessageUI.h>
+
 //UI
+#import "AnchorView.h"
 #import "BrushView.h"
 #import "ColorButton.h"
+#import "ColorSaveToSlotView.h"
 #import "RadiusSlider.h"
 #import "RadiusButton.h"
 #import "TopToolBar.h"
@@ -31,6 +34,7 @@
 #import "EyeDropperIndicatorView.h"
 #import "UndoGestureRecognizer.h"
 #import "UndoButton.h"
+#import "RedoButton.h"
 #import "ClearButton.h"
 #import "BrushToolBar.h"
 //#import "GLProgram.h"
@@ -40,38 +44,53 @@
 //Other ViewController
 #import "SelectLayerContentViewController.h"
 #import "PaintProjectViewController.h"
+#import "CylinderProjectViewController.h"
 //@class PaintView;
 #import "PaintingView.h"
 #import "BrushTypeButton.h"
-#import "BrushTypeSmallButton.h"
+#import "BrushPropertyViewController.h"
 #import "PaintColorButton.h"
-#import "BrushTypeView.h"
+#import "BrushTypeScrollView.h"
 #import "ColorPickerView.h"
 #import "OpacitySlider.h"
 //Object
 #import "Brush.h"
-#import "Pen.h"
 #import "Pencil.h"
-#import "Chalk.h"
-#import "Finger.h"
+#import "Eraser.h"
+#import "Pen.h"
 #import "Marker.h"
+#import "Finger.h"
+#import "ChineseBrush.h"
+#import "Crayons.h"
+#import "Bucket.h"
+#import "InkPen.h"
+#import "MarkerSquare.h"
+#import "OilBrush.h"
+#import "AirBrush.h"
+#import "Chalk.h"
 #import "EyeDropper.h"
 //help method
 #import "Ultility.h"
-#import "ShaderUltility.h"
+#import "ShaderManager.h"
 #import "HandleGestureRecognizer.h"
 @class CustomTouchUIView;
-#import "MainScreenViewController.h"
+#import "FirstScreenViewController.h"
 #import "CameraOverlayView.h"
 #import "CameraOverlayViewController.h"
 //File
 @class PaintDoc;
-@class LayerManagerView;
+@class LayerManagerView;//to delete
+#import "LayerTableViewController.h"
 #import "LayerBlendModeTableViewController.h"
-#import "ImportViewController.h"
-#import "ExportViewController.h"
+#import "ImportTableViewController.h"
+#import "ExportTableViewController.h"
 #import "BrushTypeViewController.h"
 #import "PaintScreenPopoverController.h"
+#import "AutoRotateButton.h"
+#import "ClearGestureRecognizer.h"
+@class TransformContentView;
+@class TransformAnchorView;
+
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_Normal              = 0,
@@ -81,7 +100,7 @@ typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_EditingBrushOpacity = 1 <<  3,
     PaintScreen_PickColor           = 1 <<  4,
     PaintScreen_EditingLayer        = 1 <<  5,
-    PaintScreen_TransformImage      = 1 <<  6,
+    PaintScreen_Transform           = 1 <<  6,
 };
 
 typedef NS_ENUM(NSInteger, TransformImageState) {
@@ -91,55 +110,48 @@ typedef NS_ENUM(NSInteger, TransformImageState) {
     TransformImage_Scale,
 };
 
+typedef NS_ENUM(NSInteger, ScaleMode) {
+    ScaleMode_None,
+    ScaleMode_X,
+    ScaleMode_Y,
+    ScaleMode_XX,
+    ScaleMode_XY,
+};
+
 @protocol PaintScreenDelegate
-- (void) createPaintScreenEAGleContext:(PaintScreen*)paintScreen;
+- (EAGLContext*) createEAGleContextWithShareGroup;
 - (void) closePaintDoc:(PaintDoc*)paintDoc;
-- (void) paintBGChanged:(NSString*)bgImageName;
-- (void) stopDetectCameraMotion;
+//- (void) paintBGChanged:(NSString*)bgImageName;
+//- (void) stopDetectCameraMotion;
 
 @end
 
+const float TwoFingerPanGestureTime = 0.016;//检测手势的误差时间
+
 @interface PaintScreen : UIViewController
 <UIGestureRecognizerDelegate, 
-GLKViewDelegate, 
-GLKViewControllerDelegate,
+//GLKViewDelegate, 
+//GLKViewControllerDelegate,
+UIPopoverControllerDelegate,
 UIImagePickerControllerDelegate, 
 UINavigationControllerDelegate,
 MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,
 UIScrollViewDelegate,//temp
-PaintingViewDelegate, 
-BrushDelegate, 
-BrushTypeViewDelegate, 
+PaintingViewDelegate,
+BrushTypeScrollViewDelegate, 
 SelectLayerContentDelegate,
-MainScreenViewControllerDelegate,
+FirstScreenViewControllerDelegate,
 PaintProjectViewControllerDelegate,
-LayerBlendModeTableViewControllerDelegate,
-BrushTypeViewControllerDelegate
+CylinderProjectViewControllerDelegate,
+LayerTableViewControllerDelegate,
+BrushPropertyViewControllerDelegate,
+//BrushTypeViewControllerDelegate,
+InfColorPickerControllerDelegate,
+FuzzyTransparentViewDelegate
 >
 {
-    //文件File
-    PaintDoc *_paintDoc;    //当前打开的Doc文件
-    
-    //painting transfer
-    float _camShotPitch;
-    
-    //controller
-    MainScreenViewController* _mainScreenViewController;
-    PaintingView * _paintView;
-    
-    //UI    
-    Eraser  *_eraser;
-    Pencil  *_pencil;
-    Pen     *_pen;    
-    Chalk   *_chalk;
-    Finger  *_finger;
-    Marker  *_marker;
-    Brush   *_curBrush;
-    int    _curBrushToolBarIndex;
-    EyeDropper *_eyeDropper;
-    InfColorPickerController * _infColorPickerController;    
-
+    //UI
     PaintScreenViewState _state;
     
     //变换
@@ -151,101 +163,128 @@ BrushTypeViewControllerDelegate
     float _twoFingerDistanceBegan;
     GLKVector2 _twoFingerVecBegan;
     GLKVector2 _twoFingerVecLast;
-//    float _twoFingerAngleBegan;
+    float _twoFingerAngleBegan;
     
-    BOOL    _redoEnable;
-    BOOL    _colorSlotsViewHiddenTemp;
     BOOL    _colorSlotsViewHidden;    
-    BOOL    _paintColorViewHiddenTemp;
-    BOOL    _brushButtonHiddenTemp;    
-    BOOL    _colorPickerViewHiddenTemp;
     
     //手势
     int _LongPressGRColorSlotCount;     //记录双指长按
-    NSMutableArray* _LongPressGRColorSlots;
     
-    //测试3d效果用
-    NSArray*    _imageArray;
-    int _currentImageIndex;
-    GLKTextureInfo* _paintTextureInfo;
-    
-    //paintView
-    CGFloat currentTranslateX;
-    CGFloat currentTranslateY;    
-    CGFloat currentScale;  
-    CGPoint _scaleAnchorPoint;
-    
-    //paintViewRef
-    GLKViewController *_glkViewController;
-    EAGLContext * _context;    
-    GLuint _vertexBuffer;
-    GLuint _indexBuffer;
-    GLuint _vertexArray;
-    
-    float _rotation;
-    float _curViewAngleX;
-    float _curViewAngleY;
-    float _lastViewAngleX;    
-    float _lastViewAngleY;
-    float _maxViewAngleX;
-    float _minViewAngleY;
-    float _paintViewAngleX;
-    float _paintViewAngleY;    
-    GLKVector3 _eye;
-    float realHeight;
-    float realWidth;
-    float _kHeightScale;
-    float _kWidthScale;
-    float _eyeToViewCenterDistanceZ;
-    float _eyeToPaintViewCenterDistanceZ; 
-    GLKMatrix4 _modelViewProjectionMatrix;
-    GLKMatrix4 _saveTextureMVPMatrix;//用来记录拉伸texture的    
-    GLKMatrix4 _paintMVPMatrix;//用来记录拉伸texture的
-    
-    GLKTextureInfo * _floorTextureInfo;
-//    GLKTextureInfo * _photoTextureInfo;    
-    GLuint _modelViewProjMatrixUniform;
-    GLuint _baseTextureUniform;    
-    GLuint _baseTexScaleUniform;        
-    GLuint _paintTextureUniform;
-    GLuint _paintTexScaleUniform;    
-    GLuint _paintMVPMatrixUniform;    
-    GLuint _programProject;
-    
-    BOOL _isPaintFullScreen;
-    BOOL _isPaintMode;
-    BOOL _paintViewConfirmed;
-
-    //save texture render buffer
-    GLuint _storeFramebuffer;
-    GLuint _storeRenderbuffer;
-    UIImage* _paintImageOnPlane;
-    
-    //layer
-//    int _curLayerIndex;             //当前图层索引号
-    bool _islayerImageViewMoving;   //手势移动图层
-    NSMutableArray* _layerImageViews;//图层集
-    float _layerImageViewOriginY;   //图层底中心点Y
-    float _layerImageViewHeight;    //图层底高度
-    float _layerImageButtonHeight;  //图层按钮高度
-    float _layerImageButtonWidth;  //图层按钮宽度
-    int   _layerIndexOffset;     //图层拖拽偏移位
-    PaintScreenPopoverController* _sharedPopoverController;  //图层混合弹出控制器
-    
-    //import
+    //图层
+    dispatch_queue_t _uploadDataQueque;//在打开图层时更新显示的线程
 }
 
+@property (nonatomic, assign) id delegate;
+
+//Interface Builder
+@property (weak, nonatomic) IBOutlet UIView *testOpenGLView;
+@property (weak, nonatomic) IBOutlet ColorPickerView *colorPickerView;
+@property (weak, nonatomic) IBOutlet PaintColorButton *paintColorButton;
+//@property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchGRPaintView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrPaintView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgr2TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR3Touches1TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches1TapsPaintView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches2TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR2Touches2TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet PaintingView *paintView;
+@property (weak, nonatomic) IBOutlet UIView *brushTypeView;
+@property (weak, nonatomic) IBOutlet BrushTypeScrollView *brushTypeScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *lblBrushRadius;
+@property (weak, nonatomic) IBOutlet UILabel *lblBrushOpacity;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnAction;
+@property (weak, nonatomic) IBOutlet BrushTypeButton *brushButton;
+@property (weak, nonatomic) IBOutlet BrushTypeButton *brushBackButton;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushButton;
+@property (weak, nonatomic) BrushPropertyViewController *brushPropertyViewController;
+@property (weak, nonatomic) IBOutlet ClearButton *clearButton;
+@property (weak, nonatomic) IBOutlet UIView *clearEffectView;
+@property (weak, nonatomic) IBOutlet BrushView *brushView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgrRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr1TouchesPaintView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr2TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr3TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgrBrushView;
+@property (weak, nonatomic) IBOutletCollection(UILongPressGestureRecognizer) NSArray *lpgrColorSlots;
+@property (weak, nonatomic) IBOutlet BrushToolBar *pencilBrushToolBar;
+@property (weak, nonatomic) IBOutlet BrushToolBar *airBrushToolBar;
+@property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUISecCollection;
+@property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUIDefaultCollection;
+
+//InfColorPickerController 
+@property( weak, nonatomic ) IBOutlet InfColorBarView* barView;
+@property( weak, nonatomic ) IBOutlet InfColorSquareView* squareView;
+@property( weak, nonatomic ) IBOutlet InfColorBarPicker* barPicker;
+@property( weak, nonatomic ) IBOutlet InfColorSquarePicker* squarePicker;
+//paintViewRef
+@property (weak, nonatomic) IBOutlet UIButton *btnPaint;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet ColorSaveToSlotView *colorSaveToSlotView;
+@property (weak, nonatomic) IBOutlet UIView *brushOpacityView;
+@property (weak, nonatomic) IBOutlet UIView *paintColorView;
+@property (weak, nonatomic) IBOutlet OpacitySlider *opacitySlider;
+@property (weak, nonatomic) IBOutlet DownToolBar *paintToolBar;
+@property (weak, nonatomic) IBOutlet UIView *paintToolView;
+//@property (weak, nonatomic) IBOutlet DownToolBar *brushTypeBar;
+@property (weak, nonatomic) IBOutlet UIPageControl *brushTypePageControl;
+@property (weak, nonatomic) IBOutlet UIView *brushDetailView;
+@property (weak, nonatomic) IBOutlet UIView *rootView;
+@property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
+@property (weak, nonatomic) IBOutlet UIView *debugView;
+@property (weak, nonatomic) IBOutlet UIView *debugView2;
+@property (weak, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
+@property (weak, nonatomic) IBOutlet EyeDropperIndicatorView *eyeDropperIndicatorView;
+@property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
+@property (weak, nonatomic) IBOutlet EyeDropperButton *eyeDropperButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
+@property (weak, nonatomic) IBOutlet UIButton *layerButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *fullScreenReverseButton;
+@property (weak, nonatomic) IBOutlet UIButton *transformButton;
+@property (weak, nonatomic) IBOutlet UIButton *projectButton;
+@property (weak, nonatomic) IBOutlet UIButton *importButton;
+@property (weak, nonatomic) IBOutlet UIButton *exportButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelTransformButton;
+@property (weak, nonatomic) IBOutlet UIButton *freeTransformButton;
+@property (weak, nonatomic) IBOutlet UIButton *moveTransformButton;
+@property (weak, nonatomic) IBOutlet UIButton *rotateTransformButton;
+@property (weak, nonatomic) IBOutlet UIButton *scaleTransformButton;
+@property (weak, nonatomic) IBOutlet UIButton *transformDoneButton;
+@property (weak, nonatomic) IBOutletCollection(UIButton) NSArray *transformToolButtons;
+@property (weak, nonatomic) IBOutlet UIView *lockCanvasRotationView;
+@property (weak, nonatomic) IBOutlet UIView *zoomCanvasView;
+@property (weak, nonatomic) IBOutlet UILabel *zoomCanvasLabel;
+@property (weak, nonatomic) IBOutlet UIView *rotateCanvasView;
+@property (weak, nonatomic) IBOutlet UILabel *rotateCanvasLabel;
+@property (weak, nonatomic) IBOutlet TopToolBar *transformToolBar;
+@property (weak, nonatomic) IBOutlet TopToolBar *mainToolBar;
+@property (weak, nonatomic) IBOutlet AnchorView *anchorView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *radiusScrollView;
+@property (weak, nonatomic) IBOutlet RadiusIndicatorView *radiusIndicatorView;
+@property (weak, nonatomic) IBOutlet RedoButton *redoButton;
+@property (weak, nonatomic) IBOutlet UndoButton *undoButton;
+@property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
+@property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *topToolBarButtons;
+
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
-- (IBAction)handlePinchPaintRefView:(UIPinchGestureRecognizer *)sender;
-- (IBAction)handleSwipePaintView:(UISwipeGestureRecognizer *)sender;
-- (IBAction)handlePinchPaintView:(UIPinchGestureRecognizer *)sender;
-- (IBAction)handlePanPaintRefView:(UIPanGestureRecognizer *)sender;
-- (IBAction)handlePanPaintView:(UIPanGestureRecognizer *)sender;
-- (IBAction)handleTapPaintView:(UITapGestureRecognizer *)sender;
+- (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;
+- (IBAction)handlePanRootView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handleLongPressPaintView:(UILongPressGestureRecognizer *)sender;
+- (IBAction)handleLongPress2TouchesRootCanvasView:(UILongPressGestureRecognizer *)sender;
+//- (IBAction)handleSwipeGRRootView:(UISwipeGestureRecognizer *)sender;
 - (IBAction)handleLongPressColorSlot:(UILongPressGestureRecognizer *)sender;
 - (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handleTapBrushView:(UITapGestureRecognizer *)sender;
+- (IBAction)handleTap1Touches1TapsPaintView:(UITapGestureRecognizer *)sender;
+- (IBAction)handleTap1Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender;
+- (IBAction)handleTap2Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender;
+- (IBAction)handleTap3Touches1TapsRootCanvasView:(UITapGestureRecognizer *)sender;
+- (IBAction)handleLongPressPaintColorButton:(UILongPressGestureRecognizer *)sender;
+- (IBAction)handlePanTopDownToolBar:(UIPanGestureRecognizer *)sender;
+
 //- (IBAction)handlePanBrushToolBar:(UIPanGestureRecognizer *)sender;
 - (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender;
 - (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender;
@@ -255,22 +294,18 @@ BrushTypeViewControllerDelegate
 - (IBAction)selectColorConfirmed:(ColorButton *)sender;
 - (IBAction)selectBrushRadius:(RadiusButton *)sender;
 - (IBAction)slideBrushRadius:(UISlider *)sender;
+- (IBAction)radiusSliderTouchUpOutside:(RadiusSlider *)sender;
 - (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender;
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender;
 - (IBAction)slideBrushOpacity:(UISlider *)sender;
 - (IBAction)brushTypeButtonTouchUp:(UIButton *)sender;
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender;
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender;
-- (IBAction)selectEraser:(UIButton *)sender;
-- (IBAction)UndoDraw:(UndoButton *)sender;
+- (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender;
+- (IBAction)touchUpInsideUndoButton:(UndoButton *)sender;
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender;
-- (IBAction)touchUpOutsideUndoButton:(UndoButton *)sender;
-- (IBAction)touchUpInsideUndoButton:(UndoButton *)sender forEvent:(UIEvent *)event;
-- (IBAction)RedoDraw:(UIButton *)sender;
-- (IBAction)showRedoButton:(UndoButton *)sender;
 - (IBAction)syncBrushView:(id)sender;
 - (IBAction)showPaint:(id)sender;
-- (IBAction)showNextImage:(UIBarButtonItem *)sender;
 - (IBAction)colorSlotsSwitchTapped:(UIButton *)sender;
 - (IBAction)colorPickerSwitchTapped:(UIButton *)sender;
 
@@ -288,109 +323,22 @@ BrushTypeViewControllerDelegate
 - (IBAction)pickImageInApp:(id)sender;
 - (IBAction)clearButtonTouchUp:(ClearButton *)sender;
 - (IBAction)clearButtonTouchDown:(ClearButton *)sender;
-- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
+//- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender;
 - (IBAction)saveToDocButtonTapped:(UIButton *)sender;
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender;
 - (IBAction)projectPaintButtonTapped:(UIButton *)sender;
+- (IBAction)fullScreenButtonTouchUp:(UIButton *)sender;
 - (IBAction)layerButtonTapped:(UIButton *)sender;
 - (IBAction)transformButtonTapped:(id)sender;
-- (IBAction)createLayerButtonTapped:(UIButton *)sender;
 - (IBAction)transformDoneButtonTapped:(UIButton *)sender;
 - (IBAction)tranformCancelButtonTapped:(UIButton *)sender;
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender;
 - (IBAction)moveButtonTapped:(UIButton *)sender;
 - (IBAction)rotateButtonTapped:(UIButton *)sender;
 - (IBAction)scaleButtonTapped:(UIButton *)sender;
-
-
-@property (nonatomic, assign) id delegate;
-@property (retain, nonatomic) MainScreenViewController *mainScreenViewController;
-@property (nonatomic, retain) EAGLContext *context;
-@property (strong, nonatomic) IBOutlet UIView *testOpenGLView;
-@property (strong, nonatomic) IBOutlet ColorPickerView *colorPickerView;
-@property (strong, nonatomic) IBOutlet PaintColorButton *paintColor;
-@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrPaintView;
-@property (strong, nonatomic) IBOutlet PaintingView *paintView;
-@property (strong, nonatomic) IBOutlet BrushTypeView *brushTypeView;
-@property (strong, nonatomic) IBOutlet UILabel *lblBrushRadius;
-@property (strong, nonatomic) IBOutlet UILabel *lblBrushOpacity;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *btnAction;
-@property (strong, nonatomic) IBOutlet BrushTypeSmallButton *brushButton;
-@property (strong, nonatomic) IBOutlet BrushTypeSmallButton *brushBackButton;
-@property (strong, nonatomic) IBOutlet UIButton *btnRedo;
-@property (strong, nonatomic) IBOutlet UndoButton *btnUndo;
-@property (strong, nonatomic) IBOutlet ClearButton *clearButton;
-@property (strong, nonatomic) IBOutlet BrushView *brushView;
-@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushView;
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrPaintView;
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrBrushView;
-@property (strong, nonatomic) IBOutletCollection(UILongPressGestureRecognizer) NSArray *lpgrColorSlots;
-@property (strong, nonatomic) IBOutletCollection(ColorButton) NSMutableArray *colorButtons;//所有颜色槽
-@property (strong, nonatomic) IBOutlet BrushToolBar *pencilBrushToolBar;
-@property (strong, nonatomic) IBOutlet BrushToolBar *airBrushToolBar;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *paintUISecCollection;
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *paintUIDefaultCollection;
-@property (strong, nonatomic) IBOutlet GLKView *paintRefView;
-//InfColorPickerController 
-@property( retain, nonatomic ) IBOutlet InfColorBarView* barView;
-@property( retain, nonatomic ) IBOutlet InfColorSquareView* squareView;
-@property( retain, nonatomic ) IBOutlet InfColorBarPicker* barPicker;
-@property( retain, nonatomic ) IBOutlet InfColorSquarePicker* squarePicker;
-//paintViewRef
-@property (strong, nonatomic) IBOutlet UIButton *btnPaint;
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *pgrPaintRefView;
-@property (weak, nonatomic)   IBOutlet UIView *previewToolBar;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) IBOutlet UIButton *btnEraser;
-@property (strong, nonatomic) IBOutlet UIView *colorSlotsView;
-@property (strong, nonatomic) IBOutlet UIView *paintColorView;
-@property (strong, nonatomic) IBOutlet OpacitySlider *opaictySlider;
-@property (strong, nonatomic) IBOutlet DownToolBar *paintToolBar;
-@property (strong, nonatomic) IBOutlet DownToolBar *brushTypeBar;
-@property (strong, nonatomic) IBOutlet UIView *brushDetailView;
-@property (strong, nonatomic) IBOutlet UIView *rootView;
-@property (strong, nonatomic) IBOutlet UIScrollView *layersScrollView;
-@property (strong, nonatomic) IBOutlet LayerManagerView *layersView;
-@property (strong, nonatomic) IBOutlet UIView *debugView;
-@property (strong, nonatomic) IBOutlet UIView *debugView2;
-@property (strong, nonatomic) UIPopoverController *popoverController;
-@property (strong, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
-@property (strong, nonatomic) IBOutlet EyeDropperIndicatorView *eyeDropperIndicatorView;
-@property (strong, nonatomic) IBOutlet UISlider *radiusSlider;
-@property (strong, nonatomic) IBOutlet EyeDropperButton *eyeDropperButton;
-@property (strong, nonatomic) IBOutlet UIButton *createLayerButton;
-@property (strong, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
-@property (strong, nonatomic) IBOutlet UIButton *layerButton;
-@property (strong, nonatomic) IBOutlet UIButton *transformButton;
-@property (strong, nonatomic) IBOutlet UIButton *projectButton;
-@property (strong, nonatomic) IBOutlet UIButton *importButton;
-@property (strong, nonatomic) IBOutlet UIButton *exportButton;
-@property (strong, nonatomic) IBOutlet UIButton *closeButton;
-@property (strong, nonatomic) IBOutlet UIButton *cancelTransformButton;
-@property (strong, nonatomic) IBOutlet UIButton *freeTransformButton;
-@property (strong, nonatomic) IBOutlet UIButton *moveTransformButton;
-@property (strong, nonatomic) IBOutlet UIButton *rotateTransformButton;
-@property (strong, nonatomic) IBOutlet UIButton *scaleTransformButton;
-@property (strong, nonatomic) IBOutlet UIButton *transformDoneButton;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *transformToolButtons;
-@property (strong, nonatomic) IBOutlet TopToolBar *transformToolBar;
-@property (strong, nonatomic) IBOutlet TopToolBar *mainToolBar;
-@property (strong, nonatomic) IBOutlet UIView *anchorView;
-@property (strong, nonatomic) IBOutlet UIScrollView *radiusScrollView;
-@property (strong, nonatomic) IBOutlet RadiusIndicatorView *radiusIndicatorView;
-
-
-- (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName;
-- (GLKTextureInfo *)loadTextureInfoFromCGImageRef:(CGImageRef)cgImage;
-
-- (void)setupSaveTextureMatrix;
-//- (void)selectLayerContent:(NSString*)imageName;
-- (int)curLayerIndex;
-
-- (void)setCurLayerIndex:(int)newValue;
+- (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender;
 
 @end

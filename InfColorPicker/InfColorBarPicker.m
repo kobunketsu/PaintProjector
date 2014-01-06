@@ -75,6 +75,8 @@ static CGImageRef createContentImage()
 
 - (void) layoutSubviews
 {
+    [super layoutSubviews];
+    
 	if( indicator == nil ) {
 		CGFloat kIndicatorSize = 24.0f;
 		indicator = [ [ InfColorIndicatorView alloc ] initWithFrame: CGRectMake( 0, 0, kIndicatorSize, kIndicatorSize ) ];

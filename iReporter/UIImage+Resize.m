@@ -185,4 +185,29 @@
     return transform;
 }
 
+- (UIImage *)resizeImage:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [self drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (UIImage*)flipVertically{
+    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:self];
+    UIGraphicsBeginImageContext(tempImageView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGAffineTransform flipVertical = CGAffineTransformMake(
+                                                           1, 0, 0, -1, 0, tempImageView.frame.size.height
+                                                           );
+    CGContextConcatCTM(context, flipVertical);
+    
+    [tempImageView.layer renderInContext:context];
+    
+    UIImage *flippedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return flippedImage;
+}
 @end

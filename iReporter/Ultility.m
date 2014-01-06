@@ -50,17 +50,17 @@ static Ultility* sharedInstance = nil;
         }
         isDir = NO;
     }
-//    NSLog(@"All folders:%@",dirArray);
+//    DebugLog(@"All folders:%@",dirArray);
     return dirArray;
 }
 
 + (NSString*)getPathInApp:(NSString*)relativeFilePath{
     NSString* filePath = [Ultility getPathInDocuments:relativeFilePath];
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:false]) {
-        //        NSLog(@"_bgImageName not in Documents!");
+        //        DebugLog(@"_bgImageName not in Documents!");
         filePath = [Ultility getPathInBundle:relativeFilePath];
         if (![[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:false]) {
-            //        NSLog(@"_bgImageName not in Bundle!");
+            //        DebugLog(@"_bgImageName not in Bundle!");
             filePath = nil;
         }
     }
@@ -87,7 +87,7 @@ static Ultility* sharedInstance = nil;
     NSString* path = [[self applicationDocumentDirectory] stringByAppendingPathComponent:filePathInDoc];
     BOOL ok = [[NSFileManager defaultManager]removeItemAtPath:path error:nil];
     if (!ok) {
-        NSLog(@"Error deleting file %@", path);    
+        DebugLog(@"Error deleting file %@", path);    
     }
 }
 
@@ -99,12 +99,12 @@ static Ultility* sharedInstance = nil;
                                                       contents:nil attributes:nil];
     
     if (!ok) {
-        NSLog(@"Error creating file %@", path);
+        DebugLog(@"Error creating file %@", path);
     } else {
         NSFileHandle* myFileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
         [myFileHandle writeData:UIImagePNGRepresentation(uiImage)];
         [myFileHandle closeFile];
-        NSLog(@"Saved to image:%@", path);            
+        DebugLog(@"Saved to image:%@", path);            
     }    
 }
 + (void)saveUIImage:(UIImage*)uiImage ToJPGInDocument:(NSString*) filePathInDoc{
@@ -115,12 +115,12 @@ static Ultility* sharedInstance = nil;
                                                       contents:nil attributes:nil];
     
     if (!ok) {
-        NSLog(@"Error creating file %@", path);
+        DebugLog(@"Error creating file %@", path);
     } else {
         NSFileHandle* myFileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
         [myFileHandle writeData:UIImageJPEGRepresentation(uiImage, 1.0)];
         [myFileHandle closeFile];
-        NSLog(@"Saved to image:%@", path);            
+        DebugLog(@"Saved to image:%@", path);            
     }    
 }
 + (UIImage*)loadUIImageFromPNGInDocument:(NSString*) filePathInDoc{
@@ -128,10 +128,10 @@ static Ultility* sharedInstance = nil;
     NSFileHandle* myFileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
     
     if(myFileHandle == nil){
-        NSLog(@"Error loading file %@", path);        
+        DebugLog(@"Error loading file %@", path);        
         return nil;
     }
-    NSLog(@"Load image:%@", path);
+    DebugLog(@"Load image:%@", path);
     return [UIImage imageWithData:[myFileHandle readDataToEndOfFile]];    
 }
 
@@ -151,7 +151,7 @@ static Ultility* sharedInstance = nil;
 //    glBindTexture(GL_TEXTURE_2D,0);     
 //	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 //	{
-//		NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+//		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
 //	}       
 //}
 
@@ -175,7 +175,7 @@ static Ultility* sharedInstance = nil;
     }
     
     if(width!=destSize || height != destSize){
-        uiImage = [self resizeImage:uiImage toSize:CGSizeMake(destSize, destSize)];
+        uiImage = [uiImage resizeImage:CGSizeMake(destSize, destSize)];
     }
     
     // Make sure the image exists
@@ -189,7 +189,7 @@ static Ultility* sharedInstance = nil;
     // Make sure the image exists
     if (!image)
     {
-        NSLog(@"Failed to load CGImage");
+        DebugLog(@"Failed to load CGImage");
         exit(1);
     }
     
@@ -222,81 +222,12 @@ static Ultility* sharedInstance = nil;
     CGImageDestinationAddImage(destination, image, nil);
     
     if (!CGImageDestinationFinalize(destination)) {
-        NSLog(@"Failed to write image to %@", path);
+        DebugLog(@"Failed to write image to %@", path);
     }
     
     CFRelease(destination);
 }
 #pragma mark UIImage Tools
-+ (UIImage *)resizeImage:(UIImage *)image toSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();    
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-+ (UIImage *) flipImageVertically:(UIImage *)originalImage {
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:originalImage];
-    UIGraphicsBeginImageContext(tempImageView.frame.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGAffineTransform flipVertical = CGAffineTransformMake(
-                                                           1, 0, 0, -1, 0, tempImageView.frame.size.height
-                                                           );
-    CGContextConcatCTM(context, flipVertical);
-    
-    [tempImageView.layer renderInContext:context];
-    
-    UIImage *flippedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return flippedImage;
-}
-
-// IMPORTANT: Call this method after you draw and before -presentRenderbuffer:.
-+ (GLubyte *)snapshotData:(UIView*)eaglview  WithContext:(EAGLContext *)context WithSize:(CGSize)outputSize {
-	[EAGLContext setCurrentContext:context];//之前有丢失context的现象出现
-    
-	GLint _backingWidth;GLint _backingHeight;    
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &_backingHeight);
-    
-    NSInteger width = _backingWidth;NSInteger height = _backingHeight;
-    NSInteger x = 0, y = 0;
-    NSInteger dataLength = width * height * 4;
-    GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
-    // Read pixel data from the framebuffer
-    glPixelStorei(GL_PACK_ALIGNMENT, 4);
-    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    
-    //    // Create a CGImage with the pixel data
-    //    CGDataProviderRef dataProviderRef = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
-    //    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    //    CGImageRef imageRef = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast,
-    //                                    dataProviderRef, NULL, true, kCGRenderingIntentDefault);
-    //    
-    //    //redraw to 2^n size for opengl texture
-    //    UIGraphicsBeginImageContext(CGSizeMake(outputSize.width, outputSize.height));    
-    //    CGContextRef cgcontext = UIGraphicsGetCurrentContext();
-    //    CGContextSetBlendMode(cgcontext, kCGBlendModeCopy);
-    //    CGContextDrawImage(cgcontext, CGRectMake(0.0, 0.0, outputSize.width, outputSize.height), imageRef);
-    //    
-    //    // Retrieve the UIImage from the current context
-    //    UIImage *uiImage = UIGraphicsGetImageFromCurrentImageContext();
-    //    UIGraphicsEndImageContext();
-    //    //    CGContextRelease(cgcontext);
-    //    
-    //    CFDataRef dataRef = CGDataProviderCopyData(CGImageGetDataProvider(uiImage.CGImage));
-    //    GLubyte * textureData = (GLubyte *)CFDataGetBytePtr(dataRef);
-    //    CFRelease(dataRef);  
-    //    
-    //    CGImageRelease(imageRef);        
-    //    CFRelease(dataProviderRef);
-    //    CFRelease(colorspace); 
-    
-    return data;
-}
 
 + (UIImage*)snapshot:(UIView*)eaglview Context:(EAGLContext *)context InViewportSize:(CGSize)viewportSize ToOutputSize:(CGSize)outputSize{
 	[EAGLContext setCurrentContext:context];//之前有丢失context的现象出现
@@ -376,8 +307,32 @@ static Ultility* sharedInstance = nil;
                                         CGImageGetDataProvider(maskRef), NULL, false);
     
     CGImageRef masked = CGImageCreateWithMask([image CGImage], mask);
-    return [UIImage imageWithCGImage:masked];
+    UIImage* newImage = [UIImage imageWithCGImage:masked];
+    CGImageRelease(masked);
+    CGImageRelease(mask);
+    return newImage;
     
+}
+#pragma mark - Math
++ (GLKMatrix4)MatrixLerpFrom:(GLKMatrix4)fromMatrix to:(GLKMatrix4)toMatrix blend:(float)blend
+{
+    return GLKMatrix4Make(
+                          fromMatrix.m00 * (1.0 - blend) + toMatrix.m00 * blend,
+                          fromMatrix.m01 * (1.0 - blend) + toMatrix.m01 * blend,
+                          fromMatrix.m02 * (1.0 - blend) + toMatrix.m02 * blend,
+                          fromMatrix.m03 * (1.0 - blend) + toMatrix.m03 * blend,
+                          fromMatrix.m10 * (1.0 - blend) + toMatrix.m10 * blend,
+                          fromMatrix.m11 * (1.0 - blend) + toMatrix.m11 * blend,
+                          fromMatrix.m12 * (1.0 - blend) + toMatrix.m12 * blend,
+                          fromMatrix.m13 * (1.0 - blend) + toMatrix.m13 * blend,
+                          fromMatrix.m20 * (1.0 - blend) + toMatrix.m20 * blend,
+                          fromMatrix.m21 * (1.0 - blend) + toMatrix.m21 * blend,
+                          fromMatrix.m22 * (1.0 - blend) + toMatrix.m22 * blend,
+                          fromMatrix.m23 * (1.0 - blend) + toMatrix.m23 * blend,
+                          fromMatrix.m30 * (1.0 - blend) + toMatrix.m30 * blend,
+                          fromMatrix.m31 * (1.0 - blend) + toMatrix.m31 * blend,
+                          fromMatrix.m32 * (1.0 - blend) + toMatrix.m32 * blend,
+                          fromMatrix.m33 * (1.0 - blend) + toMatrix.m33 * blend);
 }
 
 #pragma mark - Convert GL image to UIImage`
@@ -388,7 +343,7 @@ static Ultility* sharedInstance = nil;
     size_t width = view.bounds.size.width;
     size_t height = view.bounds.size.height;          
     
-    //    NSLog(@"width:%d height%d", width, height);
+    //    DebugLog(@"width:%d height%d", width, height);
     
     NSInteger myDataLength = width * height * 4;
     
@@ -451,7 +406,7 @@ static Ultility* sharedInstance = nil;
 //    vm_statistics_data_t vmStats;
 //    
 //    if (memoryInfo(&vmStats)) {
-//        NSLog(@"free: %u\nactive: %u\ninactive: %u\nwire: %u\nzero fill: %u\nreactivations: %u\npageins: %u\npageouts: %u\nfaults: %u\ncow_faults: %u\nlookups: %u\nhits: %u",
+//        DebugLog(@"free: %u\nactive: %u\ninactive: %u\nwire: %u\nzero fill: %u\nreactivations: %u\npageins: %u\npageouts: %u\nfaults: %u\ncow_faults: %u\nlookups: %u\nhits: %u",
 //              vmStats.free_count * vm_page_size,
 //              vmStats.active_count * vm_page_size,
 //              vmStats.inactive_count * vm_page_size,

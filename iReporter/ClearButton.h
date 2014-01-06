@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ClearButton : UIButton
+#import "AutoRotateButton.h"
+@interface ClearButton : AutoRotateButton
 {
     BOOL _touchDown;
 }

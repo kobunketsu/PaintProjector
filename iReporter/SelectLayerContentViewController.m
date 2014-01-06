@@ -13,8 +13,7 @@
 @end
 
 @implementation SelectLayerContentViewController
-@synthesize delegate;
-@synthesize imageScrollView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,12 +57,12 @@
 
 
 - (IBAction)testButtonTapped:(UIButton *)sender {
-    [self dismissViewControllerAnimated:true completion:^{NSLog(@"Dismiss SelectLayerContent");}];    
+    [self dismissViewControllerAnimated:true completion:^{DebugLog(@"Dismiss SelectLayerContent");}];    
 }
 
 -(void)showStream:(NSArray*)stream {
     // 1 remove old photos
-    for (UIView* view in imageScrollView.subviews) {
+    for (UIView* view in self.imageScrollView.subviews) {
         [view removeFromSuperview];
     }
     // 2 add new photo views
@@ -71,12 +70,12 @@
         NSDictionary* image = [stream objectAtIndex:i];
         ImageView* imageView = [[ImageView alloc] initWithIndex:i andData:image];
         imageView.delegate = self;
-        [imageScrollView addSubview: imageView];
+        [self.imageScrollView addSubview: imageView];
     }
     // 3 update scroll list's height
     int listHeight = ([stream count]/4 + 1)*(kThumbSide+kPadding);
-    [imageScrollView setContentSize:CGSizeMake(640, listHeight)];
-    [imageScrollView scrollRectToVisible:CGRectMake(0, 0, 10, 10) animated:YES];
+    [self.imageScrollView setContentSize:CGSizeMake(640, listHeight)];
+    [self.imageScrollView scrollRectToVisible:CGRectMake(0, 0, 10, 10) animated:YES];
 }
 
 -(void)didSelectImage:(id)sender{
@@ -100,13 +99,13 @@
 }
 #pragma mark AdjustSceneDelegate
 - (void) adjustSceneDone:(UIImage*)image{
-    [delegate selectLayerContent:image];
+    [self.delegate selectLayerContent:image];
 }
 - (void) adjustSceneViewControllerDismissed{
     [self dismissViewControllerAnimated:true completion:nil];        
 }
 - (void) adjustImageDone:(UIImage*)image{
-    [delegate selectLayerContent:image];
+    [self.delegate selectLayerContent:image];
 }
 - (void) adjustImageViewControllerDismissed{
     [self dismissViewControllerAnimated:true completion:nil];        

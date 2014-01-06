@@ -15,9 +15,6 @@
 @end
 
 @interface Heap : NSObject {
-    NSMutableArray *_contents;
-    size_t _size;
-    size_t _capacity;
 }
 @property(nonatomic, retain) NSMutableArray *contents;//use with attention
 @property(nonatomic, assign) id delegate;

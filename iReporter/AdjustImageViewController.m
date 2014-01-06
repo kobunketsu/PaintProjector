@@ -13,8 +13,7 @@
 @end
 
 @implementation AdjustImageViewController
-@synthesize adjustImageDoneButton;
-@synthesize delegate;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,19 +44,22 @@
 }
 
 - (IBAction)adjustDoneButtonTapped:(UIButton *)sender {
-    adjustImageDoneButton.hidden = true;
+    self.adjustImageDoneButton.hidden = true;
     CALayer* layer = [self.view layer];
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext(); 
     //crop image
-    NSLog(@"translate x:%.1f y:%.1f", _adjustedTranslate.x, _adjustedTranslate.y);
+    DebugLog(@"translate x:%.1f y:%.1f", _adjustedTranslate.x, _adjustedTranslate.y);
     CGRect cropRect = CGRectMake(_adjustedTranslate.x, _adjustedTranslate.y, self.view.frame.size.width / _adjustedScale, self.view.frame.size.height / _adjustedScale);
-    adjustImageDoneButton.hidden = false;
+    self.adjustImageDoneButton.hidden = false;
     
-    [delegate adjustImageDone:[UIImage imageWithCGImage:CGImageCreateWithImageInRect(viewImage.CGImage, cropRect)]];    
-    [self dismissViewControllerAnimated:true completion:^{[delegate adjustImageViewControllerDismissed];}];    
+    CGImageRef imageRef = CGImageCreateWithImageInRect(viewImage.CGImage, cropRect);
+    [self.delegate adjustImageDone:[UIImage imageWithCGImage:imageRef]];
+    CGImageRelease(imageRef);
+    
+    [self dismissViewControllerAnimated:true completion:^{[self.delegate adjustImageViewControllerDismissed];}];    
 }
 - (IBAction)handlePinchGRAdjustImageView:(id)sender {
     [HandleGestureRecognizer handleScale:sender];    

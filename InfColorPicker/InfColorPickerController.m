@@ -15,7 +15,9 @@
 #import "InfColorBarPicker.h"
 #import "InfColorSquarePicker.h"
 #import "InfHSBSupport.h"
+#import "ColorPickModeButton.h"
 
+#import "FuzzyTransparentView.h"
 //------------------------------------------------------------------------------
 
 static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
@@ -121,6 +123,9 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 - (void) initAfterViewDidLoad{
 	self.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     
+//    FuzzyTransparentView *rootView = self.view;
+//    rootView addFuzzyTransparentFromView:<#(id)#>
+//    
 	barPicker.value = hue;
 	squareView.hue = hue;
 	squarePicker.hue = hue;
@@ -135,7 +140,7 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 - (void) viewDidLoad
 {
 	[ super viewDidLoad ];
-
+    
     [self initAfterViewDidLoad];
 }
 
@@ -172,8 +177,9 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	nav.navigationBar.barStyle = UIBarStyleBlackOpaque;
 	
 	self.navigationItem.rightBarButtonItem = [ [ [ UIBarButtonItem alloc ] initWithBarButtonSystemItem: UIBarButtonSystemItemDone target: self action: @selector( done: ) ] autorelease ];
-				
-	[ controller presentModalViewController: nav animated: YES ];
+
+    [controller presentViewController:controller animated:true completion:nil];
+//	[ controller presentModalViewController: nav animated: YES ];
 }
 
 //------------------------------------------------------------------------------
@@ -197,6 +203,11 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	saturation = sender.value.x;
 	brightness = sender.value.y;
 
+    if(squareView.colorized){
+        saturation = floorf(saturation / 0.2) * 0.2;
+        brightness = (floorf(brightness / 0.2)+1) * 0.2;
+    }
+    
 	[ self updateResultColor ];
 }
 
@@ -211,9 +222,14 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 
 - (IBAction) done: (id) sender
 {
-	[ self.delegate colorPickerControllerDidFinish: self ];	
+	[ self.delegate colorPickerControllerDidFinish: self ];
 }
-
+//------------------------------------------------------------------------------
+- (IBAction) changePickMode: (id) sender
+{
+    squareView.colorized = !squareView.colorized;
+	[squareView updateContent];
+}
 //------------------------------------------------------------------------------
 #pragma mark	Properties
 //------------------------------------------------------------------------------
@@ -243,6 +259,10 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	
 	resultColorView.backgroundColor = resultColor;
 	
+    self.colorPickModeButton.color = [ UIColor colorWithHue: self.barPicker.value saturation: 1.0f
+                                                 brightness: 1.0f alpha: 1.0f ];
+    [self.colorPickModeButton setNeedsDisplay];
+    
 	[ self informDelegateDidChangeColor ];
 }
 
@@ -291,7 +311,7 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 #pragma mark	UIViewController( UIPopoverController ) methods
 //------------------------------------------------------------------------------
 
-- (CGSize) contentSizeForViewInPopover
+- (CGSize) preferredContentSize
 {
 	return [ [ self class ] idealSizeForViewInPopover ];
 }

@@ -9,7 +9,7 @@
 #import "RadiusIndicatorView.h"
 
 @implementation RadiusIndicatorView
-@synthesize label = _label;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

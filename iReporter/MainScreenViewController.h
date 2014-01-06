@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-#import "ShaderUltility.h"
+#import "ShaderManager.h"
 #import "Ultility.h"
 #import "PaintFrame.h"
 #import "PaintFrameGroup.h"
@@ -97,12 +97,13 @@
     float _curOpenPaintFrameAnimationTime;
     float _curClosePaintFrameAnimationTime;       
     
-    PaintScreen* _paintScreenViewController;
+    
     //图片集
     NSString* _plistPath;
 
     NSMutableArray* _paintDocs;
 }
+@property (nonatomic, weak)PaintScreen* paintScreenViewController;
 @property (nonatomic, strong)EAGLContext *context;
 @property(nonatomic, assign) id delegate;
 - (IBAction)handlePanGRMainScreenView:(UIPanGestureRecognizer *)sender;

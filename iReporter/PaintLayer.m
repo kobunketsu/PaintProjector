@@ -9,46 +9,58 @@
 #import "PaintLayer.h"
 
 @implementation PaintLayer
-@synthesize data = _data;
-@synthesize blendMode = _blendMode;
-@synthesize visible = _visible;
-@synthesize dirty = _dirty;
 
-- (id)initWithData:(NSData*)data blendMode:(LayerBlendMode)blendMode visible:(bool)visible{
-    if([self init]!=nil){
-        _data = data;
-        _blendMode = blendMode;
-        _visible = visible;
-        _dirty = true;
-        
-//        NSLog(@"initWithData data:%d blendMode:%d visible %i", (id)data, (int)blendMode, visible);
-        return self;
+- (id)initWithData:(NSData*)data blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity{
+    self = [super init];
+    if(self!=NULL){
+        self.data = data;
+        self.blendMode = blendMode;
+        self.visible = visible;
+        self.dirty = true;
+        self.opacity = 1.0;
+
     }
-    return nil;
+    
+    return self;
 }
 
 
 #define kBlendModeKey     @"BlendMode"
 #define kDataKey          @"Data"
 #define kVisibleKey       @"Visible"
+#define kOpacityKey       @"Opacity"
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:_data forKey:kDataKey];
-    [encoder encodeInteger:(NSInteger)_blendMode forKey:kBlendModeKey];
-    [encoder encodeBool:_visible forKey:kVisibleKey];
-    NSLog(@"endcodeWithCoder data:%d blendMode:%d visible:%i", (id)_data, (int)_blendMode, _visible);
+    [encoder encodeObject:self.data forKey:kDataKey];
+    [encoder encodeInteger:(NSInteger)self.blendMode forKey:kBlendModeKey];
+    [encoder encodeBool:self.visible forKey:kVisibleKey];
+    [encoder encodeFloat:self.opacity forKey:kOpacityKey];
+//    DebugLog(@"endcodeWithCoder data:%d blendMode:%d visible:%i opacity:%.2f", (id)self.data, (int)self.blendMode, self.visible, self.opacity);
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
     NSData *data = [decoder decodeObjectForKey:kDataKey];
-    LayerBlendMode blendMode = (LayerBlendMode)[decoder decodeObjectForKey:kBlendModeKey];
+    LayerBlendMode blendMode = (LayerBlendMode)[decoder decodeIntegerForKey:kBlendModeKey];
     bool visible = [decoder decodeBoolForKey:kVisibleKey];
-    NSLog(@"initWithCoder data:%d blendMode:%d visible:%i", (id)data, (int)blendMode, visible);    
-    return [self initWithData:data blendMode:blendMode visible:visible];
+    float opacity = [decoder decodeFloatForKey:kOpacityKey];
+//    DebugLog(@"initWithCoder data:%d blendMode:%d visible:%i opacity:%.2f", (id)data, (int)blendMode, visible, opacity);
+    return [self initWithData:data blendMode:blendMode visible:visible opacity:opacity];
+}
+
+- (id)copyWithZone:(NSZone *)zone{
+    PaintLayer *layer = [[PaintLayer alloc] init];
+    layer.blendMode = self.blendMode;
+    layer.visible = self.visible;
+    layer.opacity = self.opacity;
+    layer.dirty = self.dirty;
+    layer.data = [self.data copyWithZone:zone];
+    
+    return layer;
 }
 
 + (PaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent{
-    NSInteger width = UndoImageSize;NSInteger height = UndoImageSize;
+//    NSInteger width = UndoImageSize;NSInteger height = UndoImageSize;
+    NSInteger width = size.width;NSInteger height = size.height;
     NSInteger dataLength = width * height * 4;
     GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
     //初始化颜色
@@ -84,8 +96,29 @@
     CFRelease(colorspace);
     CGImageRelease(image);
 
-    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData blendMode:kLayerBlendModeNormal visible:true];
+    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData blendMode:kLayerBlendModeNormal visible:true opacity:1.0];
     
     return layer;
 }
+- (void)setOpacity:(float)opacity{
+    if (_opacity != opacity) {
+        _opacity = opacity;
+        _dirty = true;
+    }
+}
+
+- (void)setBlendMode:(LayerBlendMode)blendMode{
+    if (_blendMode != blendMode) {
+        _blendMode = blendMode;
+        _dirty = true;
+    }
+}
+
+- (void)setVisible:(bool)visible{
+    if (_visible != visible) {
+        _visible = visible;
+        _dirty = true;
+    }
+}
+
 @end

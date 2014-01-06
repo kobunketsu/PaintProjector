@@ -11,14 +11,12 @@
 //功能: 动态调节角度
 
 #import <GLKit/GLKit.h>
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
 #import <MessageUI/MessageUI.h>
 
 #import "Ultility.h"
-#import "ShaderUltility.h"
+#import "ShaderManager.h"
 #import "PaintingView.h"
+#import "ProjectViewRange.h"
 
 #define EyeHeightMax 2.0
 #define FarDistanceMax 20
@@ -26,10 +24,10 @@
 #define NearClipDistance 0.01
 
 typedef NS_ENUM(NSInteger, PaintProjectViewState) {
-    Normal,
-    Magnifying,
-    Magnified,
-    UnMagnifying,
+    Paint,
+    ZoomIn,
+    Zoomed,
+    ZoomOut,
     Projecting,
     Projected,
     UnProjecting,
@@ -41,10 +39,7 @@ typedef NS_ENUM(NSInteger, PaintProjectViewState) {
 - (void) createPaintProjectEAGleContext:(PaintProjectViewController*)viewController;
 @end
 
-typedef struct {
-    float Position[3];
-    //    float Color[4];
-} LineVertex;
+
 
 @interface PaintProjectViewController : UIViewController
 <
@@ -60,35 +55,22 @@ GLKViewControllerDelegate
     GLuint _vertexBuffer;
     GLuint _vertexArray;
 
-    //参考线
-    GLuint _vertexLineArray;
-    GLuint  _vertexLineBuffer;    
-    LineVertex*  _vertexLineData;
-    int _widthCount;
-    int _heightCount;
-    int _count;
-    
+  
     //存储最后输出的frame buffer 和depth buffer
-    GLuint _finalFramebuffer;
 	GLuint _finalRenderbuffer;
-//	GLuint _depthRenderbuffer;
     
     //贴图
     GLuint _paintTexture;
     GLuint _bgTexture;
     
     //Shader相关
-    GLuint _programLine;
     GLuint _programProject;
-    GLuint _modelViewProjMatrixUniform;
     GLuint _baseTextureUniform;
     GLuint _baseTexScaleUniform;
     GLuint _paintTextureUniform;
     GLuint _paintTexScaleUniform;
     GLuint _paintMVPMatrixUniform;
-    
-    //地板长宽(根据视角变化)
-    float _farDistance;
+    GLuint _modelViewProjMatrixUniform;
     
     //视角
 //    float _curViewAngleX;       //当前视角弧度
@@ -108,9 +90,9 @@ GLKViewControllerDelegate
     GLKVector3 _eye;        //观察者位置
     GLKVector3 _eyeTop;     //顶视位置
     float _eyeTopAspect;    //顶视位置长宽比
-    GLKVector3 _eyeMagTop;  //顶视放大位置
+    GLKVector3 _eyeZoomInTop;  //顶视放大位置
     float _eyeT;            //当前渲染观察点过渡控制值
-    float _projAspect;          //投影长宽比
+    float _projSrcAspect;          //投影长宽比
     float _projHeight;      //实际地面投影长度
     float _projWidth;       //实际地面投影宽度
     GLKVector3 _projNear;   //实际地面最近点
@@ -125,7 +107,6 @@ GLKViewControllerDelegate
     GLKMatrix4 _modelViewProjectionMatrix;  //绘制quad时的矩阵
     GLKMatrix4 _paintMVPMatrix;//用来记录拉伸texture的
     GLKMatrix4 _viewProjInverseMatrix;  //投影触摸点到世界坐标的逆矩阵
-//    GLKMatrix4 _lineMVPMatrix;  //绘制line时的矩阵
     
     //投影动画
     float _lastMediaTime;                   //上个时间点
@@ -138,39 +119,75 @@ GLKViewControllerDelegate
     
     //放大动画
     PaintProjectViewState _state;      //状态
-//    bool _isMagnified;                      //放大状态
-//    bool _toMagnifyPaint;                   //开始放大地面局部
-//    bool _toUnMagnifyPaint;                 //开始返回地面全局
-    GLKVector3 _magnifyCenter;              //放大地面局部中心
-    float _magnifyT;                        //当前放大地面局部控制值
-    float _unMagnifyT;                      //返回地面控制值
-    float _curMagnifyPaintAnimationTime;    //放大地面局部动画的当前时间
-    float _magnifyPaintAnimDuration;        //放大地面局部动画的持续时间
-    float _curUnMagnifyPaintAnimationTime;  //返回地面动画的当前时间
-    float _unMagnifyPaintAnimDuration;      //返回地面动画的持续时间
-    
-    
+    GLKVector3 _zoomInCenter;              //放大地面局部中心
+    float _zoomInT;                        //当前放大地面局部控制值
+    float _zoomOutT;                      //返回地面控制值
+    float _curZoomInPaintAnimationTime;    //放大地面局部动画的当前时间
+    float _zoomInPaintAnimDuration;        //放大地面局部动画的持续时间
+    float _curZoomOutPaintAnimationTime;  //返回地面动画的当前时间
+    float _zoomOutPaintAnimDuration;      //返回地面动画的持续时间
+   
 }
-
+@property(nonatomic, retain) TextureManager* texMgr;
+@property(nonatomic, assign) bool showGrid;         //是否显示网格
+@property(nonatomic, assign) float nearDistance;
+@property(nonatomic, assign) float farDistance;
+@property(nonatomic, assign) float fovY;
+@property (weak, nonatomic) IBOutlet UILabel *projWidthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *projHeightLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *testRowStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *testColStepper;
+@property (weak, nonatomic) IBOutlet UILabel *testColLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fovYLabel;
 @property (nonatomic, strong)EAGLContext *context;
 @property (nonatomic, assign) id delegate;
-@property (strong, nonatomic) IBOutlet GLKView *projectView;
-@property (strong, nonatomic) IBOutlet UISlider *projectSlider;
-@property (strong, nonatomic) IBOutlet UISlider *farDistanceSlider;
-@property (strong, nonatomic) IBOutlet UISlider *heightSlider;
-@property (strong, nonatomic) GLKBaseEffect *effect;
-@property (strong, nonatomic) IBOutlet UILabel *farDistanceLabel;
-@property (strong, nonatomic) IBOutlet UILabel *heightLabel;
+@property (weak, nonatomic) IBOutlet GLKView *projectView;
+@property (weak, nonatomic) IBOutlet UISlider *projectSlider;
+@property (weak, nonatomic) IBOutlet UISlider *farDistanceSlider;
+@property (weak, nonatomic) IBOutlet UISlider *nearDistanceSlider;
+@property (weak, nonatomic) IBOutlet UIView *heightPanel;
+@property (weak, nonatomic) IBOutlet UISlider *heightSlider;
+
+@property (weak, nonatomic) IBOutlet UILabel *farDistanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nearDistanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *heightLabel;
+@property (weak, nonatomic) IBOutlet ProjectViewRange *projectViewRange;
 @property (strong, nonatomic) GLKViewController *glkViewController;
+
+@property(nonatomic, assign) float measureScale;
+@property (nonatomic, assign) float gridRealSize;
+@property (nonatomic, assign) float gridPointSize;        //网格像素大小
+@property (nonatomic, assign) int gridWidthCount;    //网格宽上的数量
+@property (nonatomic, assign) int gridHeightCount;   //网格高上的数量
+@property (weak, nonatomic) IBOutlet UIStepper *farDistanceStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *nearDistanceStepper;
+@property (weak, nonatomic) IBOutlet UIStepper *heightStepper;
+@property (weak, nonatomic) IBOutlet UIImageView *testUIImage;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
+@property (weak, nonatomic) IBOutlet UIButton *zoomOutButton;
+@property (nonatomic, assign) int curProgressIndex;
+@property (nonatomic, assign) int gridImageIndex;
+@property (nonatomic, retain) NSMutableArray *gridImageIndices;
 
 - (IBAction)eyeHeightSliderSlide:(UISlider *)sender;
 - (IBAction)farDistanceSliderSlide:(UISlider *)sender;
+- (IBAction)nearDistanceSliderSlide:(UISlider *)sender;
 - (IBAction)heightSliderSlide:(UISlider *)sender;
 - (IBAction)showBackgroundButtonTapped:(UIButton *)sender;
 - (IBAction)showGridButtonTapped:(UIButton *)sender;
 - (IBAction)exportButtonTapped:(UIButton *)sender;
 - (IBAction)close:(UIButton *)sender;
 - (IBAction)handleTapPaintProjectViewGesture:(UITapGestureRecognizer *)sender;
+- (IBAction)farDistanceTextFieldEdited:(UITextField *)sender;
+- (IBAction)farDistanceStepperValueChanged:(UIStepper *)sender;
+- (IBAction)nearDistanceStepperValueChanged:(UIStepper *)sender;
+- (IBAction)viewHeightStepperValueChanged:(UIStepper *)sender;
+- (IBAction)zoomOutButtonTouchUp:(UIButton *)sender;
+
+- (IBAction)testButtonTouchUp:(UIButton *)sender;
+- (IBAction)testRowStepperValueChanged:(id)sender;
+- (IBAction)testColStepperValueChanged:(id)sender;
 
 - (void)initPaint:(PaintingView*)paintView viewAngle:(float)angle;
 @end

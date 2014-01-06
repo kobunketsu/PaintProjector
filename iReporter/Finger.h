@@ -10,11 +10,11 @@
 
 @interface Finger : Brush
 {
-    GLuint _smudgeTexture;
-    GLuint _dstTexture;     //当前位置画布上的截取纹理
-    GLuint _smudgeTextureUniform;
-    GLuint _dstTextureUniform;
-    GLuint _smudgePressureUniform;            
-    CGPoint _lastSmudgePoint;
+//    GLuint _smudgeTexture;
+////    GLuint _dstTexture;     //当前位置画布上的截取纹理
+//    GLuint _smudgeTextureUniform;
+////    GLuint _dstTextureUniform;
+//    GLuint _smudgePressureUniform;
+//    CGPoint _lastSmudgePoint;
 }
 @end

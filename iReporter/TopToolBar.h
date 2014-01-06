@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TopToolBar : UIView
+#import "FuzzyTransparentView.h"
+@interface TopToolBar : FuzzyTransparentView
 
 @end

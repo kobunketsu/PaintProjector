@@ -8,10 +8,10 @@
 
 #import "PaintScreenPopoverBackgroundView.h"
 
-#define CONTENT_INSET 10.0
+#define CONTENT_INSET 0
 #define CAP_INSET 25.0
-#define ARROW_BASE 25.0
-#define ARROW_HEIGHT 25.0
+#define ARROW_BASE 10.0
+#define ARROW_HEIGHT 10.0
 
 @implementation PaintScreenPopoverBackgroundView
 
@@ -22,10 +22,13 @@
         // Initialization code
         _borderImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"popover-bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(CAP_INSET,CAP_INSET,CAP_INSET,CAP_INSET)]];
         
-        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
+        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popover-arrow.png"]];
         
         [self addSubview:_borderImageView];
         [self addSubview:_arrowView];
+        
+        self.opaque = false;
+        self.alpha = 0.8;
     }
     return self;
 }

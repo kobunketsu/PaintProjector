@@ -33,7 +33,7 @@ void RGBToHSV( float r, float g, float b, float* h, float* s, float* v,
 
 //------------------------------------------------------------------------------
 
-CGImageRef createSaturationBrightnessSquareContentImageWithHue( float hue );
+CGImageRef createSaturationBrightnessSquareContentImageWithHue( float hue , BOOL colorized);
 	// Generates a 256x256 image with the specified constant hue where the
 	// Saturation and value vary in the X and Y axes respectively.
 

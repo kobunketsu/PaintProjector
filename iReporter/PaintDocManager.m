@@ -1,4 +1,4 @@
-//
+
 //  PaintSaveDocManager.m
 //  iReporter
 //
@@ -23,7 +23,9 @@ static PaintDocManager* sharedInstance = nil;
     });
     return sharedInstance;
 }
-
+- (void)memoryWarning:(NSNotification*)note {
+    DebugLog(@"memoryWarning");
+}
 - (id)initialize{
     if ([self init]!=NULL) {
 
@@ -39,7 +41,7 @@ static PaintDocManager* sharedInstance = nil;
 
 - (NSMutableArray *)loadPaintDocsInDirectory:(NSString*)directory{
     //从App/Documents/下读取文件
-    
+    return nil;
 }
 
 - (NSMutableArray *)loadPaintDocsInDirectoryIndex:(int)dirIndex{
@@ -47,7 +49,7 @@ static PaintDocManager* sharedInstance = nil;
     
 
     if(dirIndex < 0 || dirIndex > [Ultility applicationDocumentSubDirectories].count - 1){
-        NSLog(@"subDir at index %d not exist!", dirIndex);
+        DebugLog(@"subDir at index %d not exist!", dirIndex);
         return nil;
     }
 
@@ -99,6 +101,7 @@ static PaintDocManager* sharedInstance = nil;
 - (PaintDoc*)createPaintDocInDirectory:(NSString*)dirName{
     NSString* docPath = [self nextPaintDocPathInDirectory:dirName];    //得到新的路径
     PaintDoc* paintDoc =[[PaintDoc alloc]initWithDocPath:docPath];
+
     return paintDoc;
 }
 
@@ -111,7 +114,7 @@ static PaintDocManager* sharedInstance = nil;
     NSError *error;
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:docPath error:&error];
     if (files == nil) {
-        NSLog(@"Error reading contents of documents directory: %@", [error localizedDescription]);
+        DebugLog(@"Error reading contents of documents directory: %@", [error localizedDescription]);
         return nil;
     }
     
@@ -130,6 +133,46 @@ static PaintDocManager* sharedInstance = nil;
     
 }
 
+- (void)deletePaintDoc:(PaintDoc*)paintDoc{
+    //TODO:从磁盘删除文件
+    NSString* srcFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.docPath];
+    NSError *error;
+    if (![[NSFileManager defaultManager]removeItemAtPath:srcFullPath error:&error]) {
+        DebugLog(@"Error deletePaintDoc: %@", [error localizedDescription]);
+    }
+    
+    NSString* srcThumbFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
+    if (![[NSFileManager defaultManager]removeItemAtPath:srcThumbFullPath error:&error]) {
+        DebugLog(@"Error deletePaintDoc Thumb: %@", [error localizedDescription]);
+    }
+}
+
+- (PaintDoc*)clonePaintDoc:(PaintDoc*)paintDoc{
+    NSString* docPath = [[paintDoc.docPath stringByDeletingPathExtension]stringByAppendingString:@"_copy.psf"];    //得到新的路径
+    NSString* docThumbPath = [[paintDoc.thumbImagePath stringByDeletingPathExtension]stringByAppendingString:@"_copy.png"];    //得到新的路径
+    
+    //TODO:从磁盘拷贝文件
+    NSString* srcFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.docPath];
+    NSString* copyFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:docPath];
+    
+    NSError *error;
+    if (![[NSFileManager defaultManager]copyItemAtPath:srcFullPath toPath:copyFullPath error:&error]) {
+        DebugLog(@"Error clonePaintDoc: %@", [error localizedDescription]);
+        return nil;
+    }
+    
+    NSString* srcThumbFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
+    NSString* copyThumbFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:docThumbPath];
+
+    if (![[NSFileManager defaultManager]copyItemAtPath:srcThumbFullPath toPath:copyThumbFullPath error:&error]) {
+        DebugLog(@"Error clonePaintDoc Thumb: %@", [error localizedDescription]);
+        return nil;
+    }
+    
+    PaintDoc* clonePaintDoc = [[PaintDoc alloc]initWithDocPath:docPath];
+    return clonePaintDoc;
+}
+
 //创建数据目录
 - (BOOL)createDirectory:(NSString*)dirName {
     NSString* rootPath = [Ultility applicationDocumentDirectory];
@@ -137,7 +180,7 @@ static PaintDocManager* sharedInstance = nil;
     NSError *error;
     BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:&error];
     if (!success) {
-        NSLog(@"Error creating data path: %@", [error localizedDescription]);
+        DebugLog(@"Error creating data path: %@", [error localizedDescription]);
     }
     return success;
     

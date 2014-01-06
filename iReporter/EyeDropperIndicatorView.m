@@ -61,8 +61,28 @@
     bezierPath.lineWidth = 2;
     [bezierPath stroke];
     
-    
-    
+    //// cross Drawing
+    UIBezierPath* crossPath = [UIBezierPath bezierPath];
+    [crossPath moveToPoint: CGPointMake(75, 74)];
+    [crossPath addLineToPoint: CGPointMake(94, 74)];
+    [crossPath addLineToPoint: CGPointMake(94, 76)];
+    [crossPath addLineToPoint: CGPointMake(75, 76)];
+    [crossPath addLineToPoint: CGPointMake(75, 95)];
+    [crossPath addLineToPoint: CGPointMake(73, 95)];
+    [crossPath addLineToPoint: CGPointMake(73, 76)];
+    [crossPath addLineToPoint: CGPointMake(54, 76)];
+    [crossPath addLineToPoint: CGPointMake(54, 74)];
+    [crossPath addLineToPoint: CGPointMake(73, 74)];
+    [crossPath addLineToPoint: CGPointMake(73, 55)];
+    [crossPath addLineToPoint: CGPointMake(75, 55)];
+    [crossPath addLineToPoint: CGPointMake(75, 74)];
+    [crossPath closePath];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
+    [[UIColor whiteColor] setFill];
+    [crossPath fill];
+    CGContextRestoreGState(context);
+
 }
 
 

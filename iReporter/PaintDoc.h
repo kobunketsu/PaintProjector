@@ -10,26 +10,25 @@
 #import "PaintData.h"
 
 @interface PaintDoc : NSObject{
-    NSString *_docPath;
-    NSString *_thumbImagePath;
-    
-    PaintData *_data;
-    UIImage *_thumbImage;
-
 }
 
 @property (nonatomic, retain) PaintData *data;
+
+//!copy属性保证只从initWithDocPath付值
 @property (nonatomic, copy) NSString *docPath;
 @property (nonatomic, copy) NSString *thumbImagePath;
-@property (nonatomic, retain) UIImage *thumbImage;
 
+@property (nonatomic, retain) UIImage *thumbImage;
+@property (nonatomic, assign) CGSize defaultSize;
 
 - (id)init;
 - (id)initWithDocPath:(NSString *)docPath;
-- (PaintData *)loadData;
-- (void)saveData;
+- (id)cloneWithDocPath:(NSString *)docPath;
+- (PaintData *)open;
+- (void)close;
+- (void)save;
 - (void)saveThumbImage:(UIImage*)image;
-- (void)deleteDoc;
+- (void)delete;
 - (NSString *)getExportFileName;
 - (NSData *)exportToNSData;
 - (BOOL)exportToDiskWithForce:(BOOL)force;

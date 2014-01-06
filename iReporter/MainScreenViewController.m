@@ -31,8 +31,6 @@ PaintingViewDelegate
 
 @implementation MainScreenViewController
 
-@synthesize context = _context;
-@synthesize delegate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,7 +46,7 @@ PaintingViewDelegate
        
         self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         if (!self.context) {
-            NSLog(@"Failed to create ES context");
+            DebugLog(@"Failed to create ES context");
         }
         //初始化绘图环境
         [self setupGL];    
@@ -139,14 +137,9 @@ PaintingViewDelegate
 }
 - (void)tearDownGL {
     [EAGLContext setCurrentContext:_context];
-    
-    glDeleteBuffers(1, &_vertexBuffer);
-    glDeleteVertexArraysOES(1, &_vertexArray);
-    
-    if (_program) {
-        glDeleteProgram(_program);
-        _program = 0;
-    }  
+    RELEASE_BUFFER(_vertexBuffer)
+    RELEASE_VERTEXARRAY(_vertexArray)
+    RELEASE_PROGRAM(_program)
 }
 - (BOOL)loadShaders
 {
@@ -158,15 +151,15 @@ PaintingViewDelegate
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderPaintFrame" ofType:@"vsh"];
-    if (![ShaderUltility compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
+    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+        DebugLog(@"Failed to compile vertex shader");
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderPaintFrame" ofType:@"fsh"];
-    if (![ShaderUltility compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
+    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+        DebugLog(@"Failed to compile fragment shader");
         return NO;
     }
     
@@ -182,8 +175,8 @@ PaintingViewDelegate
     glBindAttribLocation(_program, GLKVertexAttribTexCoord0, "texcoord");
     
     // Link program.
-    if (![ShaderUltility linkProgram:_program]) {
-        NSLog(@"Failed to link program: %d", _program);
+    if (![[ShaderManager sharedInstance] linkProgram:_program]) {
+        DebugLog(@"Failed to link program: %d", _program);
         
         if (vertShader) {
             glDeleteShader(vertShader);
@@ -214,7 +207,9 @@ PaintingViewDelegate
         glDetachShader(_program, fragShader);
         glDeleteShader(fragShader);
     }
-    
+#if DEBUG
+    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, _program, 0, [@"program" UTF8String]);
+#endif
     return YES;
 }
 #pragma mark- UI
@@ -274,7 +269,7 @@ PaintingViewDelegate
         }        
         _curSnapPaintFrameAnimationTime = 0;
         
-//        NSLog(@"PanGREnd _offsetAccumInWorld x:%.2f z:%.2f Add _panOffsetInWorld x:%.2f z:%.2f", _offsetAccumInWorld.x, _offsetAccumInWorld.z, _panOffsetInWorld.x, _panOffsetInWorld.z);                                    
+//        DebugLog(@"PanGREnd _offsetAccumInWorld x:%.2f z:%.2f Add _panOffsetInWorld x:%.2f z:%.2f", _offsetAccumInWorld.x, _offsetAccumInWorld.z, _panOffsetInWorld.x, _panOffsetInWorld.z);                                    
         _offsetAccumInWorld = GLKVector3Add(_offsetAccumInWorld, _panOffsetInWorld);
         //x:左右张 z:前后张
         if (_isPanHorizonal) {
@@ -301,8 +296,8 @@ PaintingViewDelegate
             }
         }
         
-//        NSLog(@"PanGREnd cal _snapAnimOffsetInWorld x:%.2f z:%.2f", _snapAnimOffsetInWorld.x, _snapAnimOffsetInWorld.z);                
-        //        NSLog(@"_panOffsetInWorld:%.2f", _panOffsetInWorld.z);                
+//        DebugLog(@"PanGREnd cal _snapAnimOffsetInWorld x:%.2f z:%.2f", _snapAnimOffsetInWorld.x, _snapAnimOffsetInWorld.z);                
+        //        DebugLog(@"_panOffsetInWorld:%.2f", _panOffsetInWorld.z);                
     }
 }
 
@@ -316,13 +311,13 @@ PaintingViewDelegate
             //确定是否需要进行动画补偿
             _openPaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime * (1-_openPaintCamAnimPinchedPer);  
             _closePaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime - _openPaintFrameAnimationTimeLeft;            
-            //            NSLog(@"PinchGREnd Set _openPaintFrameAnimationTimeLeft:%.2f", _openPaintFrameAnimationTimeLeft);                
+            //            DebugLog(@"PinchGREnd Set _openPaintFrameAnimationTimeLeft:%.2f", _openPaintFrameAnimationTimeLeft);                
             _toUpdateOpenPaintFrameAnim = true;
         }
         else {
             _closePaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime * _openPaintCamAnimPinchedPer;  
             _openPaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime - _closePaintFrameAnimationTimeLeft;
-            //            NSLog(@"PinchGREnd Set _closePaintFrameAnimationTimeLeft:%.2f", _closePaintFrameAnimationTimeLeft);                            
+            //            DebugLog(@"PinchGREnd Set _closePaintFrameAnimationTimeLeft:%.2f", _closePaintFrameAnimationTimeLeft);                            
             _toUpdateClosePaintFrameAnim = true;
         }        
         
@@ -330,7 +325,7 @@ PaintingViewDelegate
     
     _pinchGROpenOrClose =  sender.scale >1;    
     _pinchGRScaleAccum = _pinchGRScaleAccumBase + (sender.scale - 1);
-    //    NSLog(@"_pinchGRScaleAccum:%.1f", _pinchGRScaleAccum);    
+    //    DebugLog(@"_pinchGRScaleAccum:%.1f", _pinchGRScaleAccum);    
     _openPaintCamAnimPinchedPer = MIN(_pinchGRScaleAccum/PinchGRMaxScaleForCameraAnim , 1.0);
     _openPaintCamAnimPinchedPer = MAX(0, _openPaintCamAnimPinchedPer);
     [self setCameraAnimState:_openPaintCamAnimPinchedPer];
@@ -339,7 +334,7 @@ PaintingViewDelegate
 
 #pragma mark- 手势后的动画补足
 -(bool)updateOpenPaintFrameAnimation:(float)timeDelta{
-//    NSLog(@"_openPaintFrameAnimationTimeLeft:%.2f", _openPaintFrameAnimationTimeLeft);    
+//    DebugLog(@"_openPaintFrameAnimationTimeLeft:%.2f", _openPaintFrameAnimationTimeLeft);    
         
     if(_openPaintFrameAnimationTimeLeft - (_curOpenPaintFrameAnimationTime + timeDelta) <= 0.0f){        
         timeDelta = _openPaintFrameAnimationTimeLeft - _curOpenPaintFrameAnimationTime;
@@ -357,8 +352,8 @@ PaintingViewDelegate
         percentage = _openPaintCamAnimPinchedPer + (1-_openPaintCamAnimPinchedPer) * (_curOpenPaintFrameAnimationTime / _openPaintFrameAnimationTimeLeft);
     }
 
-//    NSLog(@"_openPaintCamAnimPinchedPer:%.2f", _openPaintCamAnimPinchedPer);    
-//    NSLog(@"percentage:%.2f", percentage);
+//    DebugLog(@"_openPaintCamAnimPinchedPer:%.2f", _openPaintCamAnimPinchedPer);    
+//    DebugLog(@"percentage:%.2f", percentage);
     [self setCameraAnimState:percentage];
     
     if(1.0 - percentage < 0.001){
@@ -375,7 +370,7 @@ PaintingViewDelegate
 }
 
 -(bool)updateClosePaintFrameAnimation:(float)timeDelta{
-//    NSLog(@"_closePaintFrameAnimationTimeLeft:%.2f", _closePaintFrameAnimationTimeLeft);    
+//    DebugLog(@"_closePaintFrameAnimationTimeLeft:%.2f", _closePaintFrameAnimationTimeLeft);    
     
     if(_closePaintFrameAnimationTimeLeft - (_curClosePaintFrameAnimationTime + timeDelta) <= 0.0f){        
         timeDelta = _closePaintFrameAnimationTimeLeft - _curClosePaintFrameAnimationTime;
@@ -402,31 +397,31 @@ PaintingViewDelegate
 }
 
 -(bool)updateOpenPaintFramAnimFinished:(float)timeDelta{
-//    NSLog(@"Trying to Open!=======================================");        
+//    DebugLog(@"Trying to Open!=======================================");        
     if(_openPaintCamAnimPinchedPer <= 1.0){//open full
-//        NSLog(@"Continue to Open!=======================================");                    
+//        DebugLog(@"Continue to Open!=======================================");                    
         if([self updateOpenPaintFrameAnimation:timeDelta]){
-//            NSLog(@"OpenCurPaintFrameAnim Finished!=======================================");
+//            DebugLog(@"OpenCurPaintFrameAnim Finished!=======================================");
             //解决presentViewController的卡的问题
             [self performSelector:@selector(openPaintFrame) withObject:nil afterDelay:0.1];
             return true;
         }
     }
     else{//close 
-//        NSLog(@"Back to Close!=======================================");                                
+//        DebugLog(@"Back to Close!=======================================");                                
         return [self updateClosePaintFrameAnimation:timeDelta];
     }    
     return false;
 }
 
 -(bool)updateClosePaintFrameAnimFinished:(float)timeDelta{
-//    NSLog(@"Trying to Close!=======================================");        
+//    DebugLog(@"Trying to Close!=======================================");        
 //    if(_openPaintCamAnimPinchedPer < 0.9 && _openPaintCamAnimPinchedPer > 0.0){//open full
-//        NSLog(@"Continue to Close!=======================================");                                
+//        DebugLog(@"Continue to Close!=======================================");                                
         return [self updateClosePaintFrameAnimation:timeDelta];                
 //    }
 //    else{//close 
-//        NSLog(@"Back to Open!=======================================");                                            
+//        DebugLog(@"Back to Open!=======================================");                                            
 //        return [self updateOpenPaintFrameAnimation:timeDelta];
 //    }    
 }
@@ -446,7 +441,7 @@ PaintingViewDelegate
     }
 
     float animPercentage = (_curSnapPaintFrameAnimationTime / _snapPaintFrameAnimationTime);            
-//    NSLog(@"UpdatePanGR animPercentage:%.2f ", animPercentage);
+//    DebugLog(@"UpdatePanGR animPercentage:%.2f ", animPercentage);
     GLKVector3 animOffsetDelta = GLKVector3MultiplyScalar(_snapAnimOffsetInWorld, timeDelta / _snapPaintFrameAnimationTime);    
     if(_isPanVertical){
         for (PaintFrame* paintFrame in _curPaintFrameGroup.paintFrameHeap.contents) {   
@@ -460,7 +455,7 @@ PaintingViewDelegate
     }
 
 
-//    NSLog(@"UpdatePanGR _offsetAccumInWorld:%.2f add animOffsetDelta:%.2f", _offsetAccumInWorld.z, animOffsetDelta.z);    
+//    DebugLog(@"UpdatePanGR _offsetAccumInWorld:%.2f add animOffsetDelta:%.2f", _offsetAccumInWorld.z, animOffsetDelta.z);    
     _offsetAccumInWorld = GLKVector3Add(_offsetAccumInWorld, animOffsetDelta);//纪录前一次pan自动补正的偏移
     
     if(fabsf(1.0 - animPercentage < 0.0001)){
@@ -507,19 +502,19 @@ PaintingViewDelegate
             
             _toSnapPaintFrame = false;                                                    
 //            _offsetAccumInWorld = GLKVector3Make(0, 0, 0);
-//            NSLog(@"setCurPaintFrame Finished!=========================================");
+//            DebugLog(@"setCurPaintFrame Finished!=========================================");
         }
     }
     
     if (_toUpdateOpenPaintFrameAnim) {
-//        NSLog(@"After PinchPaintFrame Updating Started!=======================================");
+//        DebugLog(@"After PinchPaintFrame Updating Started!=======================================");
         if([self updateOpenPaintFramAnimFinished:timeDelta]){//animation finished
             _toUpdateOpenPaintFrameAnim = false;            
         }    
     }
     
     if (_toUpdateClosePaintFrameAnim) {
-//        NSLog(@"After PinchPaintFrame Updating Started!=======================================");
+//        DebugLog(@"After PinchPaintFrame Updating Started!=======================================");
         if([self updateClosePaintFrameAnimFinished:timeDelta]){//animation finished
             _toUpdateClosePaintFrameAnim = false;            
         }    
@@ -529,14 +524,14 @@ PaintingViewDelegate
 }
 
 - (void)setCameraAnimState:(float)percentage{
-    //    NSLog(@"percentage:%.2f", percentage);        
+    //    DebugLog(@"percentage:%.2f", percentage);        
     GLKVector3 cameraTargetAnimVector = GLKVector3Subtract(_cameraTargetAnimDest, _cameraTargetAnimSrc);
     [_camera setTarget:GLKVector3Add(GLKVector3MultiplyScalar(cameraTargetAnimVector, percentage), _cameraTargetAnimSrc)];
-    //    NSLog(@"camera target x:%.2f y:%.2f z:%.2f", _camera.target.x, _camera.target.y, _camera.target.z);
+    //    DebugLog(@"camera target x:%.2f y:%.2f z:%.2f", _camera.target.x, _camera.target.y, _camera.target.z);
     
     GLKVector3 cameraPositionAnimVector = GLKVector3Subtract(_cameraPositionAnimDest, _cameraPositionAnimSrc);
     [_camera setPosition:GLKVector3Add(GLKVector3MultiplyScalar(cameraPositionAnimVector, percentage), _cameraPositionAnimSrc)];    
-    //    NSLog(@"camera position x:%.2f y:%.2f z:%.2f", _camera.position.x, _camera.position.y, _camera.position.z);    
+    //    DebugLog(@"camera position x:%.2f y:%.2f z:%.2f", _camera.position.x, _camera.position.y, _camera.position.z);    
 }
 
 #pragma mark- 绘图
@@ -554,7 +549,7 @@ PaintingViewDelegate
     glUniformMatrix4fv(_viewProjMatrixUniform, 1, 0, _camera.viewProjMatrix.m);
     for (PaintFrame* paintFrame in _allPaintFrames) {
         glUniformMatrix4fv(_worldMatrixUniform, 1, 0, paintFrame.worldMatrix.m);
-        //        NSLog(@"paintFrame translate x:%.2f y:%.2f z:%.2f", paintFrame.translate.x, paintFrame.translate.y, paintFrame.translate.z);
+        //        DebugLog(@"paintFrame translate x:%.2f y:%.2f z:%.2f", paintFrame.translate.x, paintFrame.translate.y, paintFrame.translate.z);
         //texture
         if(paintFrame.paintTexture!=0){
             glActiveTexture(GL_TEXTURE0);
@@ -564,7 +559,7 @@ PaintingViewDelegate
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
 //        if([paintFrame.name isEqualToString:_curPaintFrameGroup.curPaintFrame.name]){
-//            NSLog(@"Drawing PaintFrame %@ paintTexture:%d", paintFrame.name, paintFrame.paintTexture);
+//            DebugLog(@"Drawing PaintFrame %@ paintTexture:%d", paintFrame.name, paintFrame.paintTexture);
 //        }
     }
 }
@@ -580,7 +575,7 @@ PaintingViewDelegate
     }
     
     _lastPaintGroupIndex = _curPaintGroupIndex;
-    NSLog(@"_curPaintFrameIndex:%d", _curPaintGroupIndex);
+    DebugLog(@"_curPaintFrameIndex:%d", _curPaintGroupIndex);
 
 }
 
@@ -670,13 +665,13 @@ PaintingViewDelegate
     }
 
 
-    NSLog(@"AddLastPaintFrameGroup PaintGroupIndex:%d", index);
+    DebugLog(@"AddLastPaintFrameGroup PaintGroupIndex:%d", index);
     
     PaintFrameGroup* firstPaintFrameGroup = [_paintFrameGroupHeap.contents objectAtIndex:0];
     for (PaintFrame* pf in firstPaintFrameGroup.paintFrameHeap.contents) {
         [_allPaintFrames removeObject:pf];
     }
-    NSLog(@"_allPaintFrames remove paintFrameGroup %@", firstPaintFrameGroup.name);
+    DebugLog(@"_allPaintFrames remove paintFrameGroup %@", firstPaintFrameGroup.name);
     
     PaintFrameGroup* lastPaintFrameGroup = [self AddPaintFrameGroupAtIndex:_paintFrameGroupHeap.capacity-1 fromDirectoryIndex:index];
     
@@ -694,7 +689,7 @@ PaintingViewDelegate
     PaintFrameGroup* lastPaintFrameGroup = [_paintFrameGroupHeap.contents lastObject];
     for (PaintFrame* pf in lastPaintFrameGroup.paintFrameHeap.contents) {
         [_allPaintFrames removeObject:pf];
-//        NSLog(@"_allPaintFrames removeObject:%@", lastPaintFrameGroup);
+//        DebugLog(@"_allPaintFrames removeObject:%@", lastPaintFrameGroup);
     }
     
     PaintFrameGroup* firstPaintFrameGroup = [self AddPaintFrameGroupAtIndex:0 fromDirectoryIndex:index];
@@ -736,7 +731,7 @@ PaintingViewDelegate
         float x = _paintQuadWidth*(float)(frameGroupIndex - (floorf)(_paintFrameGroupHeap.capacity*0.5)) ;
         float y = -_paintQuadHeight*(j-1) -1;
         [pf setTranslate:GLKVector3Make(x, 0, y)];
-        //        NSLog(@"set paintFrame %@ pos x:%.2f y:%.2f", pf.name, x, y);
+        //        DebugLog(@"set paintFrame %@ pos x:%.2f y:%.2f", pf.name, x, y);
         
         //注册到画框列及所有画框集中
         [paintFrameGroup.paintFrameHeap push:pf];
@@ -758,8 +753,8 @@ PaintingViewDelegate
     float height = _paintQuadHeight*0.5 / tanf(GLKMathDegreesToRadians(HumanEyeFOV*0.5));
     _cameraPositionAnimDest = GLKVector3Make(paintFrame.translate.x, height, paintFrame.translate.z);
     
-    //    NSLog(@"_cameraPositionAnimDest x:%.2f y:%.2f z:%.2f", _cameraPositionAnimDest.x, _cameraPositionAnimDest.y, _cameraPositionAnimDest.z);
-    //    NSLog(@"_cameraTargetAnimDest x:%.2f y:%.2f z:%.2f", _cameraTargetAnimDest.x, _cameraTargetAnimDest.y, _cameraTargetAnimDest.z);
+    //    DebugLog(@"_cameraPositionAnimDest x:%.2f y:%.2f z:%.2f", _cameraPositionAnimDest.x, _cameraPositionAnimDest.y, _cameraPositionAnimDest.z);
+    //    DebugLog(@"_cameraTargetAnimDest x:%.2f y:%.2f z:%.2f", _cameraTargetAnimDest.x, _cameraTargetAnimDest.y, _cameraTargetAnimDest.z);
 }
 
 #pragma mark- 打开关闭
@@ -773,21 +768,21 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
 //    //从save.plist读取保存文件列表
 //    _plistPath = [[NSBundle mainBundle] pathForResource:@"Save" ofType:@"plist"];  
 //    _paintFolders = [[NSMutableArray alloc]initWithContentsOfFile:_plistPath];
-//    NSLog(@"Loaded Save.plist:%@ content:%@", _plistPath, _paintFolders);
+//    DebugLog(@"Loaded Save.plist:%@ content:%@", _plistPath, _paintFolders);
 //
 //    
 //}
 //
 //-(void)savePaintsToPlist{
 //    if([_paintFolders writeToFile:_plistPath atomically:false]){
-////        NSLog(@"Saved to Save.plist %@", _paintFolders);
+////        DebugLog(@"Saved to Save.plist %@", _paintFolders);
 //        
 //        NSString* path = [[NSBundle mainBundle] pathForResource:@"Save" ofType:@"plist"];          
 //        NSMutableArray* testArray = [[NSMutableArray alloc]initWithContentsOfFile:path];
-//        NSLog(@"Saved Save.plist:%@", testArray);
+//        DebugLog(@"Saved Save.plist:%@", testArray);
 //    }
 //    else {
-//        NSLog(@"Failed to Save to Save.plist");
+//        DebugLog(@"Failed to Save to Save.plist");
 //    }
 //    
 //}
@@ -822,9 +817,9 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
 
 //打开当前画框
 -(void)openPaintFrame {
-    _paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];        
-    self.delegate = _paintScreenViewController;
-    _paintScreenViewController.delegate = self;
+    self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];        
+    self.delegate = self.paintScreenViewController;
+    self.paintScreenViewController.delegate = self;
 
     //如果paintDoc为空，则新建一个paintDoc
     if(_curPaintFrameGroup.curPaintFrame.paintDoc == NULL){
@@ -832,15 +827,15 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
     }
     
     //打开绘图面板
-    [self presentViewController:_paintScreenViewController animated:false completion:^{
-        [delegate openDoc:_curPaintFrameGroup.curPaintFrame.paintDoc];
-        NSLog(@"Open PaintFrame:%@ thumbImagePath:%@", _curPaintFrameGroup.curPaintFrame.name, _curPaintFrameGroup.curPaintFrame.paintDoc.thumbImagePath);
+    [self presentViewController:self.paintScreenViewController animated:false completion:^{
+        [self.delegate openDoc:_curPaintFrameGroup.curPaintFrame.paintDoc];
+        DebugLog(@"Open PaintFrame:%@ thumbImagePath:%@", _curPaintFrameGroup.curPaintFrame.name, _curPaintFrameGroup.curPaintFrame.paintDoc.thumbImagePath);
     }];
 }
 
 #pragma mark- 绘画代理PaintScreenDelegate
-- (void) createPaintScreenEAGleContext:(PaintScreen*)paintScreen{
-    paintScreen.context = [[EAGLContext alloc]initWithAPI:[_context API] sharegroup:[_context sharegroup]];
+- (EAGLContext*) createEAGleContextWithShareGroup{
+    return [[EAGLContext alloc]initWithAPI:[_context API] sharegroup:[_context sharegroup]];
 }
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc{
@@ -849,8 +844,8 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
     //刷新当前PaintFrame中的Paint内容
     [_curPaintFrameGroup.curPaintFrame loadForDisplay:true];
     
-    [_paintScreenViewController dismissViewControllerAnimated:true completion:^{
-//        [_paintScreenViewController.paintView destroyBuffers];
+    [self.paintScreenViewController dismissViewControllerAnimated:true completion:^{
+//        [self.paintScreenViewController.paintView destroyBuffers];
         _toUpdateClosePaintFrameAnim = true;//?
         _openPaintCamAnimPinchedPer = 1.0;
         _closePaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime;

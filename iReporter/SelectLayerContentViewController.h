@@ -30,7 +30,7 @@ typedef enum {
     AdjustImageViewController * _imageViewController;    
 }
 @property (nonatomic, assign) id delegate;
-@property (strong, nonatomic) IBOutlet UIScrollView *imageScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 - (IBAction)testButtonTapped:(UIButton *)sender;
 
 

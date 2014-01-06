@@ -13,7 +13,6 @@
 @end
 
 @implementation BrushTypeViewController
-@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -145,15 +144,15 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    [delegate didFinishSelectBrushType:(BrushType)indexPath.row];
+    [self.delegate didFinishSelectBrushType:(BrushType)indexPath.row];
 //    switch(indexPath.row) { // assuming there is only one section
 //        case 0:
 //            break;
 //        case 1:
-//            //            [delegate didSelectImportCamera];
+//            //            [self.delegate didSelectImportCamera];
 //            break;
 //        case 2:
-//            //            [delegate didSelectImportDropbox];
+//            //            [self.delegate didSelectImportDropbox];
 //            break;
 //        default:
 //            break;

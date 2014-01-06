@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "CustomTouchUIView.h"
-//@interface UndoButton : CustomTouchUIView
-@interface UndoButton : UIButton
+#import "AutoRotateButton.h"
+
+@interface UndoButton : AutoRotateButton
 {
 }
 @property (nonatomic, assign)CGPoint touchPoint;

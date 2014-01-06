@@ -12,7 +12,6 @@
 @interface RadiusIndicatorView : UIView
 {
     float _radius;
-    UILabel* _label;
 }
 @property(nonatomic, retain)UILabel* label;
 - (float)radius;

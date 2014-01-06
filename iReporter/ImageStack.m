@@ -18,9 +18,9 @@
 }
 
 - (CGImageRef)lastUndoImage{
-    NSUInteger count = [_contents count];
+    NSUInteger count = [self.contents count];
     if (count > 0) {
-        CGImageRef returnObject = (__bridge CGImageRef)[_contents objectAtIndex:count - 1];
+        CGImageRef returnObject = (__bridge CGImageRef)[self.contents objectAtIndex:count - 1];
         return returnObject;
     }
     return nil;

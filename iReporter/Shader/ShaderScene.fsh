@@ -9,8 +9,8 @@ varying highp vec2 textureCoordinate;
 //varying highp vec4 screenProj;
 uniform sampler2D inputImageTexture;
 //uniform sampler2D inputPaintTexture;
-uniform lowp float fBaseTexScale;
-//uniform lowp float fPaintTexScale;
+uniform highp float fBaseTexScale;
+//uniform highp float fPaintTexScale;
 void main()
 {
 //    //sample paint texture

@@ -8,13 +8,10 @@
 
 #import "PaintView.h"
 
-#define UndoMaxCount 4
-
 @implementation PaintView
 //@synthesize brush = _brush;
 @synthesize eyeDropper = _eyeDropper;
 @synthesize touchPoint;
-@synthesize curTouch;
 @synthesize isUndoDrawing;
 @synthesize isRedoDrawing;
 @synthesize isPanGestureRecognized;
@@ -60,7 +57,7 @@
         
         //禁止redo功能
         if ([_redoStack size]==0) {
-            [delegate redoDisabled];
+//            [delegate redoShouldDisabled];
         }
         
     }
@@ -238,7 +235,7 @@ BNRTimeBlock (^{//测试运行速度
     CGContextClearRect(brushContext, self.bounds);
     self.isUndoDrawing = true;
     self.isRedoDrawing = false;    
-    _brush.isDrawing = false;    
+//    _brush.isDrawing = false;    
     [self setNeedsDisplay];
 }
 - (void)endUndoDraw{
@@ -249,7 +246,7 @@ BNRTimeBlock (^{//测试运行速度
     }    
     self.isRedoDrawing = true;
     self.isUndoDrawing = false;    
-    _brush.isDrawing = false;    
+//    _brush.isDrawing = false;    
     [self setNeedsDisplay];
 }
 - (void)startDraw{
@@ -261,17 +258,17 @@ BNRTimeBlock (^{//测试运行速度
     self.isUndoDrawing = false;
     self.isRedoDrawing = false;
     [_redoStack clear];
-    [delegate redoDisabled];
-    //启动绘画，如果有长按，会在长按识别发生时关闭    
-    _brush.isDrawing = true;    
-    [_brush prepare];
+//    [delegate redoShouldDisabled];
+    //启动绘画，如果有长按，会在长按识别发生时关闭
+//    _brush.isDrawing = true;    
+    [_brush prepareWithBrushState:_brush.brushState];
     [_curOperateLayer setNeedsDisplay];
 }
 - (void)endDraw{
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    curTouch = [touches anyObject];
+    UITouch *curTouch = [touches anyObject];
     _eyeDropper.position = _brush.position = _brush.lastDrawPoint = touchPoint = [curTouch locationInView:self];
     
     if (cacheContext!=NULL) {
@@ -286,28 +283,28 @@ BNRTimeBlock (^{//测试运行速度
         return;
     }
     
-    curTouch = [touches anyObject];
+    UITouch *curTouch = [touches anyObject];
     
     if (_eyeDropper.isDrawing) {
         [self updateEyeDropper:curTouch];
     }
     else {
-        _brush.isDrawing = true;        
+//        _brush.isDrawing = true;        
         [self drawToCache:curTouch];
     }
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    curTouch = [touches anyObject];
+    UITouch *curTouch = [touches anyObject];
     CGPoint newPoint = [curTouch locationInView:self];
     CGPoint lastPoint = [curTouch previousLocationInView:self];
     
     //单点绘画的延迟响应 只有在为移动的情况下
-    if(_brush.isDrawing && CGPointEqualToPoint(newPoint, lastPoint))
+//    if(_brush.isDrawing && CGPointEqualToPoint(newPoint, lastPoint))
         [self drawToCache:curTouch];
     
     _touchEnded = true;
-    _brush.isDrawing = false;
+//    _brush.isDrawing = false;
     _eyeDropper.isDrawing = false;
     
     //get paintTexture
@@ -325,7 +322,7 @@ BNRTimeBlock (^{//测试运行速度
 - (void)updateEyeDropper:(UITouch*)touch{
     CGPoint newPoint = [touch locationInView:self];
     _eyeDropper.position = newPoint;    
-    [delegate paintColorChanged:[_eyeDropper colorOfPoint:newPoint]];
+    [delegate willChangePaintColorUI:[_eyeDropper colorOfPoint:newPoint]];
     [self setNeedsDisplay];    
 }
 

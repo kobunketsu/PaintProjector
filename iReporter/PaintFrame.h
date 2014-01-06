@@ -18,14 +18,9 @@
 
 @interface PaintFrame : MovableObject
 {
-    NSString* _name;        //画框名字
-    PaintDoc *_paintDoc;    //文件内容
-    
-    //绘图
-    EAGLContext* _context;    //绘制context
-    GLuint _paintTexture;   //绘制时缩略图纹理
 }
-@property(nonatomic, retain)PaintDoc* paintDoc;
+@property(nonatomic, weak)EAGLContext* context;    //绘制context
+@property(nonatomic, weak)PaintDoc* paintDoc;
 @property(nonatomic, retain)NSString* name;
 @property(nonatomic, assign)GLuint paintTexture;
 

@@ -69,12 +69,12 @@ static CGPoint _scaleAnchorPoint;
             CGPoint touch1 = [sender locationOfTouch:1 inView:sender.view];
             _scaleAnchorPoint = CGPointMake((touch0.x+touch1.x)*0.5, (touch0.y+touch1.y)*0.5);
             
-//            NSLog(@"touch0 x:%.1f y:%.1f", touch0.x, touch0.y);        
+//            DebugLog(@"touch0 %@", NSStringFromCGPoint(touch0));
             
             //            _scaleAnchorPoint = CGPointMake(touchCenter.x / (sender.view.frame.size.width *scale), touchCenter.y / (sender.view.frame.size.height*scale));
-            //            NSLog(@"layer new anchor point x:%.1f y:%.1f", _scaleAnchorPoint.x, _scaleAnchorPoint.y);
+            //            DebugLog(@"layer new anchor point %@", NSStringFromCGPoint(_scaleAnchorPoint));
             //            CGPoint ap = [layer anchorPoint];
-            //            NSLog(@"layer old anchor point x:%.1f y:%.1f", ap.x, ap.y);
+            //            DebugLog(@"layer old anchor point %@", NSStringFromCGPoint(ap));
             //                        [layer setAnchorPoint:_scaleAnchorPoint];               
         }        
     }
@@ -93,9 +93,9 @@ static CGPoint _scaleAnchorPoint;
     //设置anchor
 //    CGPoint orignalAnchorPoint = CGPointMake(sender.view.bounds.size.width*0.5, sender.view.bounds.size.height*0.5);
 //    CGPoint anchorVector = CGPointMake(orignalAnchorPoint.x - _scaleAnchorPoint.x, orignalAnchorPoint.y - _scaleAnchorPoint.y);
-//    NSLog(@"orignalAnchorPoint x:%.1f y:%.1f", orignalAnchorPoint.x, orignalAnchorPoint.y);        
-//    NSLog(@"_scaleAnchorPoint x:%.1f y:%.1f", _scaleAnchorPoint.x, _scaleAnchorPoint.y);    
-//    NSLog(@"anchorVector x:%.1f y:%.1f", anchorVector.x, anchorVector.y);
+//    DebugLog(@"orignalAnchorPoint %@", NSStringFromCGPoint(orignalAnchorPoint));
+//    DebugLog(@"_scaleAnchorPoint %@", NSStringFromCGPoint(_scaleAnchorPoint));
+//    DebugLog(@"anchorVector %@", NSStringFromCGPoint(anchorVector));
     
     newTranslateX = startTranslateX * k;
     newTranslateY = startTranslateY * k;

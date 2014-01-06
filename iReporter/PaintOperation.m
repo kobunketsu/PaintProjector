@@ -17,11 +17,7 @@
 - (PaintOperation*)initWithBrush:(Brush*)theBrush{
     self = [super init];
     if (self!=nil) {
-        brushState = [[BrushState alloc]init];
-        brushState.brushId = theBrush.brushState.brushId;
-        brushState.color = theBrush.brushState.color;
-        brushState.radius = theBrush.brushState.radius;
-        brushState.opacity = theBrush.brushState.opacity;
+        brushState = [theBrush.brushState copy];
         _paintPaths = [[NSMutableArray alloc]init];
     }
 

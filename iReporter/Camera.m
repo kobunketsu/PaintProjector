@@ -10,7 +10,6 @@
 
 @implementation Camera
 
-@synthesize viewMatrix = _viewMatrix;
 -(void)updateViewMatrix{
     _dir = GLKVector3Subtract(_target, _position);
     _right = GLKVector3Make(-1, 0, 0);

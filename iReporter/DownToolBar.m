@@ -19,13 +19,25 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 0);
+        self.layer.shadowOpacity = 0.3;
+        self.layer.shadowRadius = 8.0;
+    }
+    return self;
+}
+
+
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-    // Drawing code
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -33,7 +45,7 @@
     //// Color Declarations
     UIColor* gradientColor = [UIColor colorWithRed: 0.788 green: 0.788 blue: 0.788 alpha: 1];
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.05];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 0.724 green: 0.724 blue: 0.724 alpha: 1];
+    UIColor* gradientColor2 = [UIColor colorWithRed: 0.667 green: 0.667 blue: 0.667 alpha: 1];
     UIColor* gradientColor3 = [UIColor colorWithRed: 0.914 green: 0.914 blue: 0.914 alpha: 1];
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
@@ -51,24 +63,38 @@
     CGSize shadowOffset = CGSizeMake(0.1, -6.1);
     CGFloat shadowBlurRadius = 6;
     
-    //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 12, 768, 88) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(8, 8)];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
-    CGContextBeginTransparencyLayer(context, NULL);
-    [roundedRectanglePath addClip];
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(384, 100), CGPointMake(384, 12), 0);
-    CGContextEndTransparencyLayer(context);
-    CGContextRestoreGState(context);
-    
-    [color setStroke];
-    roundedRectanglePath.lineWidth = 1;
-    [roundedRectanglePath stroke];
+    //// Group
+    {
+        CGContextSaveGState(context);
+        CGContextSetAlpha(context, FuzzyTransparentAlpha);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+        //// Rounded Rectangle Drawing
+        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, 768, 88) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(8, 8)];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
+        CGContextBeginTransparencyLayer(context, NULL);
+        [roundedRectanglePath addClip];
+        CGContextDrawLinearGradient(context, gradient, CGPointMake(384, 88), CGPointMake(384, -0), 0);
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+        
+        [color setStroke];
+        roundedRectanglePath.lineWidth = 1;
+        [roundedRectanglePath stroke];
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
     
     
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
+    
+
 }
 
 

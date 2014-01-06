@@ -17,9 +17,10 @@
 {
     UIColor* _color;
 }
-
+@property(nonatomic, assign)bool isEmpty;
 - (UIColor *)color;
 
 - (void)setColor:(UIColor *)newValue;
 
+-(void)enableHighlighted:(BOOL)highlighted;
 @end

@@ -1,6 +1,7 @@
+#extension GL_EXT_shader_framebuffer_fetch : require
 uniform sampler2D maskTexture;
 uniform sampler2D smudgeTexture;
-uniform sampler2D dstTexture;
+//uniform sampler2D dstTexture;
 uniform lowp float smudgePressure;
 void main ( )
 {
@@ -8,7 +9,8 @@ void main ( )
     
     mediump vec2 texcoord = vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y);
     lowp vec4 smudgeColor = texture2D(smudgeTexture, texcoord);
-    lowp vec4 dstColor = texture2D(dstTexture, texcoord);    
+//    lowp vec4 dstColor = texture2D(dstTexture, texcoord);
+    lowp vec4 dstColor = gl_LastFragData[0];
     lowp float pressure = smudgePressure * maskColor.w;
 
     lowp float blendAlpha = smudgeColor.w * pressure + (1.0 - pressure) * dstColor.w;

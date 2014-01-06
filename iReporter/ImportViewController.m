@@ -7,6 +7,7 @@
 //
 
 #import "ImportViewController.h"
+#import "SharedTableViewCell.h"
 
 @interface ImportViewController ()
 
@@ -20,7 +21,7 @@
     if (self) {
         // Custom initialization
         UITableView *tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 20, 1024)
-                                                       style:UITableViewStyleGrouped];
+                                                       style:UITableViewStylePlain];
         
         // assuming that your controller adopts the UITableViewDelegate and
         // UITableViewDataSource protocols, add the following 2 lines:
@@ -77,10 +78,23 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    
+//    SharedTableViewCell *cell = (SharedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil)
+//    {
+//        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SharedTableViewCell" owner:self options:nil];
+//        cell = [nib objectAtIndex:0];
+//    }
+
+    
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
+//            cell.nameLabel.text = @"Photo:";
+//            cell.thumbnailImageView.image = [UIImage imageNamed:@"layer.png"];
+            
             cell.textLabel.text = @"Photo:";
+            cell.imageView.image = [UIImage imageNamed:@"layer.png"];
             break;
         case 1:
             cell.textLabel.text = @"Camera:";
@@ -158,6 +172,11 @@
             break;
     }
 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 66;
 }
 
 @end

@@ -10,14 +10,6 @@
 
 @implementation PaintFrameGroup
 
-@synthesize name = _name;
-@synthesize dirPath = _dirPath;
-@synthesize paintDocs = _paintDocs;
-@synthesize paintFrameHeap = _paintFrameHeap;
-@synthesize lastPaintIndex = _lastPaintIndex;
-@synthesize curPaintIndex = _curPaintIndex;
-@synthesize curPaintFrame = _curPaintFrame;
-
 -(id) initWithCapacity:(int)capacity{
     self = [super init];
     if(self!=NULL){
@@ -37,7 +29,7 @@
     }
     
     _lastPaintIndex = _curPaintIndex;
-    NSLog(@"_curPaintFrameIndex:%d", _curPaintIndex);    
+    DebugLog(@"_curPaintFrameIndex:%d", _curPaintIndex);    
     
 
 }

@@ -19,9 +19,9 @@
 #define LogWarning(a) NSLog(@"Warning: %@", a)
 #define LogException(a) NSLog(@"Exception: %@", a)
 
-#define SIMPLE_LAYER 1
+#define SIMPLE_LAYER 0
 #define TEST 0
-#define UndoMaxCount 4
+#define UndoMaxCount 10
 #define UndoImageSize 1024
 #define ARC4RANDOM_MAX      0x100000000 
 #define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
@@ -57,4 +57,6 @@ break;\
 //使用米还是
 static NSString* version = @"version_0.1";
 static bool useFeet = false;
+static bool IsQuickEyeDropper = true;
+static bool IsOffsetEyeDropper = true;
 #define InchScale 3.28

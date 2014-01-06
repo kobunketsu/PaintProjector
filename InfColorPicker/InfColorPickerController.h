@@ -16,6 +16,7 @@
 @class InfColorSquareView;
 @class InfColorBarPicker;
 @class InfColorSquarePicker;
+@class ColorPickModeButton;
 
 @protocol InfColorPickerControllerDelegate;
 
@@ -47,6 +48,7 @@
 @property( retain, nonatomic ) IBOutlet UIView* sourceColorView;
 @property( retain, nonatomic ) IBOutlet UIView* resultColorView;
 @property( retain, nonatomic ) IBOutlet UINavigationController* navController;
+@property (retain, nonatomic) IBOutlet ColorPickModeButton *colorPickModeButton;
 
 - (IBAction) takeBarValue: (InfColorBarPicker*) sender;
 - (IBAction) takeSquareValue: (InfColorSquarePicker*) sender;

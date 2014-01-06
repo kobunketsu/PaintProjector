@@ -10,9 +10,7 @@
 #import "PaintDoc.h"
 
 @implementation PaintFrame
-@synthesize paintTexture = _paintTexture;
-@synthesize paintDoc = _paintDoc;
-@synthesize name = _name;
+
 //不能在paintFrame内release paintDoc
 -(id)initWithContext:(EAGLContext*)context paintDoc:(PaintDoc*)paintDoc{
     self = [super init];
@@ -35,7 +33,7 @@
 //    self = [super init];
 //    if (self !=nil) {
 //        _context = context;
-//        _paintDoc = [[PaintDoc alloc]initWithDocPath:docPath];
+//        self.paintDoc = [[PaintDoc alloc]initWithDocPath:docPath];
 //    }
 //    return self;
 //}
@@ -43,27 +41,29 @@
 
 //显示缩略图
 -(void)loadForDisplay:(BOOL)reload{
-    [EAGLContext setCurrentContext:_context];
-    GLKTextureInfo* paintTexInfo;
-    NSString* imageName;
-    if (_paintDoc == NULL)
-    {
-        imageName = @"blackboard.jpg";
-    }
-    else
-    {
-        imageName = _paintDoc.thumbImagePath;
-    }
-    
-    paintTexInfo = [[TextureManager sharedInstance] loadTextureInfoFromImageName:imageName reload:reload];
-    if(paintTexInfo != NULL){
-        _paintTexture = paintTexInfo.name;
-        NSLog(@"PaintFrame:%@ loadForDisplay _paintTexture %d image:%@ success", _name, paintTexInfo.name, imageName);
-    }
-    else{
-        _paintTexture = 0;
-        NSLog(@"PaintFrame:%@ loadForDisplay _paintTexture %@ failed", _name, imageName);
-    }
+//texMgr not set
+//
+//    [EAGLContext setCurrentContext:self.context];
+//    GLKTextureInfo* paintTexInfo;
+//    NSString* imageName;
+//    if (self.paintDoc == NULL)
+//    {
+//        imageName = @"blackboard.jpg";
+//    }
+//    else
+//    {
+//        imageName = self.paintDoc.thumbImagePath;
+//    }
+//    
+//    paintTexInfo = [[TextureManager sharedInstance] loadTextureInfoFromImageName:imageName reload:reload];
+//    if(paintTexInfo != NULL){
+//        _paintTexture = paintTexInfo.name;
+//        DebugLog(@"%@ loadForDisplay _paintTexture %d image:%@ success", _name, paintTexInfo.name, imageName);
+//    }
+//    else{
+//        _paintTexture = 0;
+//        DebugLog(@"%@ loadForDisplay _paintTexture %@ failed", _name, imageName);
+//    }
 }
 
 

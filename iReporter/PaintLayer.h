@@ -7,14 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Layer.h"
 
 enum LayerBlendMode {
-#if SIMPLE_LAYER    
-    kLayerBlendModeNormal,
-    kLayerBlendModeMultiply,
-    kLayerBlendModeAdd,
-    kLayerBlendModeScreen
-#else
     kLayerBlendModeNormal,
     kLayerBlendModeMultiply,
     kLayerBlendModeScreen,
@@ -30,24 +25,24 @@ enum LayerBlendMode {
     kLayerBlendModeHue,
     kLayerBlendModeSaturation,
     kLayerBlendModeColor,
-    kLayerBlendModeLuminosity
-#endif
+    kLayerBlendModeLuminosity,
+    kLayerBlendModeMaxCount
 };
 typedef enum LayerBlendMode LayerBlendMode;
 
 
+const int LayerBlendModeCount = 16;
 
-@interface PaintLayer : NSObject
+
+
+@interface PaintLayer : Layer
 {
-    NSData* _data;
-    LayerBlendMode _blendMode;
-    bool _visible;
-    bool _dirty;
 }
 @property (nonatomic, retain) NSData* data;
 @property (nonatomic, assign) LayerBlendMode blendMode;
-@property (nonatomic, assign) bool visible;
 @property (nonatomic, assign) bool dirty;
-- (id)initWithData:(NSData*)data blendMode:(LayerBlendMode)blendMode visible:(bool)visible;
+@property (nonatomic, assign) float opacity;
+@property (nonatomic, assign) bool visible;
+- (id)initWithData:(NSData*)data blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity;
 + (PaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent;
 @end

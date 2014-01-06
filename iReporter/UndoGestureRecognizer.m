@@ -30,11 +30,11 @@
     CGPoint velocity = [self velocityInView:self.view];
     float velLength = sqrtf(velocity.x * velocity.x + velocity.y * velocity.y);
     if (velLength > UndoTouchVelocityLength && velocity.x < 0 && fabsf(velocity.x) > fabsf(velocity.y) ) {
-        NSLog(@"Undo: radius:%.0f velLength:%.0f vel_X:%.0f vel_Y:%.0f", radius, velLength, velocity.x, velocity.y);
+        DebugLog(@"Undo: radius:%.0f velLength:%.0f vel_X:%.0f vel_Y:%.0f", radius, velLength, velocity.x, velocity.y);
         return true;
     }
     else {
-        NSLog(@"notUndo: radius:%.0f velLength:%.0f vel_X:%.0f vel_Y:%.0f", radius, velLength, velocity.x, velocity.y);        
+        DebugLog(@"notUndo: radius:%.0f velLength:%.0f vel_X:%.0f vel_Y:%.0f", radius, velLength, velocity.x, velocity.y);        
         return false;
     }
 }

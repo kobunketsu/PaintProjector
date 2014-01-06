@@ -9,9 +9,7 @@
 #import "ImageView.h"
 
 @implementation ImageView
-@synthesize delegate;
-@synthesize image;
-@synthesize imageName;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -54,7 +52,7 @@
         [self addSubview: caption];
         
         NSString* bgType = [data objectForKey:@"bgType"];
-        if(bgType == @"scene"){
+        if([bgType  isEqual: @"scene"]){
             self.tag = 1;
         }
         else {
@@ -63,11 +61,11 @@
         
 		//step 2
         //add touch event
-        [self addTarget:delegate action:@selector(didSelectImage:) forControlEvents:UIControlEventTouchUpInside];
+        [self addTarget:self.delegate action:@selector(didSelectImage:) forControlEvents:UIControlEventTouchUpInside];
         
         //load the image
-        imageName = [data objectForKey:@"imageName"];
-        self.image = [UIImage imageNamed:imageName];
+        self.imageName = [data objectForKey:@"imageName"];
+        self.image = [UIImage imageNamed:self.imageName];
         //create an image view, add it to the view
         UIImageView* thumbView = [[UIImageView alloc] initWithImage: self.image];
         thumbView.frame = CGRectMake(0,0,180,180);

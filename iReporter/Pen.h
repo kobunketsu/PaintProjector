@@ -10,12 +10,6 @@
 
 @interface Pen : Brush
 {
-    float _startRadius;
-    float _endRadius;
-    float _lastDist;
-    
-    float _lastDrawRadius;
-    
 }
 
 @end

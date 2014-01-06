@@ -11,18 +11,17 @@
 @implementation CustomTouchUIView
 
 #pragma mark - Synthesize
-@synthesize delegate;
 
 #pragma mark - Touches
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
     if( point.x > 0 && point.x < self.frame.size.width && point.y > 0 && point.y < self.frame.size.height )
     {
-        [delegate uiViewTouched:YES ];
+        [self.delegate uiViewTouched:YES ];
         return YES;
     }
     
-    [delegate uiViewTouched:NO ];
+    [self.delegate uiViewTouched:NO ];
     return NO;
 }
 @end

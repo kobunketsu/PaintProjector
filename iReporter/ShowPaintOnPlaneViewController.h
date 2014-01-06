@@ -20,10 +20,10 @@
     CGFloat currentScale;    
 }
 
-@property (strong, nonatomic) IBOutlet UIView *btnScene;
-@property (strong, nonatomic) IBOutlet UILabel *lbLength;
-@property (strong, nonatomic) IBOutlet UILabel *lbWidth;
-@property (strong, nonatomic) IBOutlet ShowPaintOnPlane *showPaintOnPlane;
+@property (weak, nonatomic) IBOutlet UIView *btnScene;
+@property (weak, nonatomic) IBOutlet UILabel *lbLength;
+@property (weak, nonatomic) IBOutlet UILabel *lbWidth;
+@property (weak, nonatomic) IBOutlet ShowPaintOnPlane *showPaintOnPlane;
 @property (retain, nonatomic) UIImage* paintImage;
 - (IBAction)hanlePanGRShowPaintOnPlane:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePinchGRShowPaintOnPlane:(UIPinchGestureRecognizer *)sender;

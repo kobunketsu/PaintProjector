@@ -9,7 +9,6 @@
 #import "RadiusButton.h"
 
 @implementation RadiusButton
-@synthesize label = _label;
 
 - (id)initWithFrame:(CGRect)frame
 {

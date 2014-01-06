@@ -9,8 +9,7 @@
 #import "BrushView.h"
 
 @implementation BrushView
-@synthesize brush;
-@synthesize color;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -22,7 +21,7 @@
 - (void)awakeFromNib{
     [self setUserInteractionEnabled:false];
     [self setHidden:true];
-    color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];    
+    self.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
 }
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -33,12 +32,12 @@
     CGContextSaveGState(context);
     
     CGContextSetLineWidth(context, 1.0);
-    if (brush.type == BrushType_Eraser) {
-        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-    }
-    else {
-        CGContextSetFillColorWithColor(context, color.CGColor);
-    }
+//    if (self.brush.type == BrushType_Eraser) {
+//        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+//    }
+//    else {
+//        CGContextSetFillColorWithColor(context, self.color.CGColor);
+//    }
 //    CGContextSetAlpha(context, brush.opacity);
 //    CGRect rectangle = CGRectMake(self.bounds.size.width * 0.5 - brush.radius, self.bounds.size.height * 0.5 - brush.radius, brush.radius*2, brush.radius*2);
 //    CGContextAddEllipseInRect(context, rectangle);
@@ -46,7 +45,7 @@
     
     CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     CGContextSetAlpha(context, 1);    
-    CGRect rectangle1 = CGRectMake(self.bounds.size.width * 0.5 - brush.brushState.radius, self.bounds.size.height * 0.5 - brush.brushState.radius, brush.brushState.radius*2, brush.brushState.radius*2);
+    CGRect rectangle1 = CGRectMake(self.bounds.size.width * 0.5 - self.brush.brushState.radius, self.bounds.size.height * 0.5 - self.brush.brushState.radius, self.brush.brushState.radius*2, self.brush.brushState.radius*2);
 //    CGContextAddEllipseInRect(context, rectangle1);    
     CGContextAddRect(context, rectangle1);
     CGContextStrokePath(context);

@@ -10,9 +10,7 @@
 #import <GLKit/GLKit.h>
 
 @interface ShaderUltility : NSObject
-+ (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
++ (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSArray*)preDefines;
 + (BOOL)linkProgram:(GLuint)prog;
 + (BOOL)validateProgram:(GLuint)prog;
-+ (GLuint)setupTexture:(NSString *)fileName;
-+ (BOOL)createTexturebuffer:(GLuint*)texture Width:(int)width Height:(int)height;
 @end

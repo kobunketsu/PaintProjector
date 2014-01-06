@@ -19,7 +19,7 @@
 
 @protocol PaintViewDelegate
 - (void) redoDisabled;
-- (void) paintColorChanged:(UIColor*) resultColor;
+- (void) willChangePaintColorUI:(UIColor*) resultColor;
 @end
 
 @interface PaintView : UIView 
@@ -49,7 +49,6 @@
 @property(atomic, assign) BOOL isPanGestureRecognized;//触发手势后避免在走touch begin和touch end
 @property(atomic, assign) BOOL isUndoDrawing;
 @property(atomic, assign) BOOL isRedoDrawing;
-@property(atomic, retain) UITouch *curTouch;//用于手势判断undo
 @property(atomic, assign) CGPoint touchPoint;//用于处理长按识别的位置
 @property(atomic, retain) EyeDropper *eyeDropper;
 //@property(atomic, retain) Brush *brush;

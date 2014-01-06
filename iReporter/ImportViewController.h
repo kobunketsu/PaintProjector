@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol ImportTableViewControllerDelegate
 - (void) didSelectImportPhoto;
 - (void) didSelectImportCamera;
 - (void) didSelectImportDropbox;
 @end
 @interface ImportViewController : UITableViewController
+{
+    float tableViewHeight;
+}
 @property (nonatomic, assign) id delegate;
 @end

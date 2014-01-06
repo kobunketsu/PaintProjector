@@ -9,12 +9,23 @@
 #import "ShaderUltility.h"
 
 @implementation ShaderUltility
-+ (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
++ (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSArray*)preDefines
 {
     GLint status;
     const GLchar *source;
+
+    //add preprocessor define
+    NSString *fileStr = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil];
+    NSString* sourceStr = [[NSString alloc]init];
+    if(preDefines !=NULL ){
+        for (NSString* define in preDefines) {
+            sourceStr = [sourceStr stringByAppendingFormat:[NSString stringWithFormat:@"#define %@ 1\n", define], nil];
+        }
+    }
+
+    sourceStr = [sourceStr stringByAppendingString:fileStr];
+    source = (GLchar *)[sourceStr UTF8String];
     
-    source = (GLchar *)[[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil] UTF8String];
     if (!source) {
         NSLog(@"Failed to load vertex shader");
         return NO;
@@ -89,61 +100,7 @@
     return YES;
 }
 
-+ (GLuint)setupTexture:(NSString *)fileName {
-    
-    // 1
-    CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
-    if (!spriteImage) {
-        NSLog(@"Failed to load image %@", fileName);
-        exit(1);
-    }
-    
-    // 2
-    size_t width = CGImageGetWidth(spriteImage);
-    size_t height = CGImageGetHeight(spriteImage);
-    
-    GLubyte * spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
-    
-    CGContextRef spriteContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(spriteImage), kCGImageAlphaPremultipliedLast);    
-    
-    // 3
-    CGContextDrawImage(spriteContext, CGRectMake(0, 0, width, height), spriteImage);
-    
-    CGContextRelease(spriteContext);
-    
-    // 4
-    GLuint texName;
-    glGenTextures(1, &texName);
-    glBindTexture(GL_TEXTURE_2D, texName);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); 
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
-    
-    free(spriteData);        
-    return texName;
-    
-}
-+ (BOOL)createTexturebuffer:(GLuint*)texture Width:(int)width Height:(int)height{
-    //创建Texture buffer
-//    GLubyte	*data = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));    
-//    if (!glIsTexture(*texture)) {
-        glGenTextures(1, texture);
-//    }
-    glBindTexture(GL_TEXTURE_2D, *texture);    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0); 
-    glBindTexture(GL_TEXTURE_2D,0);     
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}   
-    
-//    free(data);
-    
-	return YES;      
-}
+
 
 
 @end

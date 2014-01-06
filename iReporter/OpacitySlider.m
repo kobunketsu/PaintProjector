@@ -26,7 +26,7 @@ const float kPatternHeight = 16;
         // Initialization code
         [self setMinimumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
         [self setMaximumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
-        [self setColor: [UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+//        [self setColor: [UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
     }
     return self;
 }

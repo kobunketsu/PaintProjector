@@ -10,16 +10,13 @@
 #import <QuartzCore/QuartzCore.h>
 #define indicatorLength 40
 @implementation EyeDropper
-@synthesize position;
-@synthesize isDrawing;
-@synthesize targetView;
-@synthesize resultColor;
+
 - (id)initWithView:(UIView*)view
 {
     self = [super init];
     if (self !=nil) {
-        targetView = view;
-        isDrawing = false;
+        _targetView = view;
+        _isDrawing = false;
     }
     
     return self;
@@ -33,7 +30,7 @@
 
     CGContextTranslateCTM(tempContext, -point.x, -point.y);
     
-    [targetView.layer renderInContext:tempContext];
+    [self.targetView.layer renderInContext:tempContext];
     //error color blend grayColor[127,127,127] with alpha 0.37 related to CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     float r = (pixel[0] - 0.63 * 127)/0.37;
     float g = (pixel[1] - 0.63 * 127)/0.37;
@@ -57,7 +54,7 @@
         CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
     }
 
-    CGPoint pointForHand = CGPointMake(position.x, position.y -20.0f);
+    CGPoint pointForHand = CGPointMake(self.position.x, self.position.y -20.0f);
     CGContextMoveToPoint(context, pointForHand.x - indicatorLength/2.0, pointForHand.y);
     CGContextAddLineToPoint(context, pointForHand.x + indicatorLength/2.0, pointForHand.y);
     CGContextMoveToPoint(context, pointForHand.x, pointForHand.y - indicatorLength/2.0);    

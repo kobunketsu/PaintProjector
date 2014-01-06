@@ -19,22 +19,33 @@
     return self;
 }
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        self.layer.delegate = self;
+    }
+    return self;
+}
+
+-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+    UIGraphicsPushContext(ctx);
+    
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = ctx;
     
     //// Color Declarations
     UIColor* iconHighlightColor = [UIColor colorWithRed: 0.92 green: 0.92 blue: 0.92 alpha: 1];
-    UIColor* iconColor = [UIColor colorWithRed: 0.511 green: 0.352 blue: 0.707 alpha: 1];
-    CGFloat iconColorHSBA[4];
-    [iconColor getHue: &iconColorHSBA[0] saturation: &iconColorHSBA[1] brightness: &iconColorHSBA[2] alpha: &iconColorHSBA[3]];
+    CGFloat r = ((CustomLayer*)layer).baseColorR;
+    CGFloat g = ((CustomLayer*)layer).baseColorG;
+    CGFloat b = ((CustomLayer*)layer).baseColorB;
+    UIColor* iconColor = self.isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    CGFloat iconColorRGBA[4];
+    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
     
-    UIColor* iconShadowColorColor = [UIColor colorWithHue: iconColorHSBA[0] saturation: 0.325 brightness: iconColorHSBA[2] alpha: iconColorHSBA[3]];
+    UIColor* iconShadowColorColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.675) green: (iconColorRGBA[1] * 0.675) blue: (iconColorRGBA[2] * 0.675) alpha: (iconColorRGBA[3] * 0.675 + 0.325)];
     UIColor* iconGlowGradientColor = [iconColor colorWithAlphaComponent: 0.23];
     UIColor* iconColorA50 = [iconColor colorWithAlphaComponent: 0.5];
     UIColor* iconGlowGradientColor2 = [iconColor colorWithAlphaComponent: 0];
@@ -256,12 +267,12 @@
     
     
     //// Text Drawing
-    CGRect textRect = CGRectMake(33, 57, 61, 18);
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
-    [iconColor setFill];
-    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
-    CGContextRestoreGState(context);
+//    CGRect textRect = CGRectMake(33, 57, 61, 18);
+//    CGContextSaveGState(context);
+//    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
+//    [iconColor setFill];
+//    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
+//    CGContextRestoreGState(context);
     
     
     
@@ -320,9 +331,17 @@
     CGGradientRelease(iconGlowGradient);
     CGColorSpaceRelease(colorSpace);
     
- 
     
+    UIGraphicsPopContext();
 }
 
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    
+}
+*/
 
 @end

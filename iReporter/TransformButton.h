@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface TransformButton : UIButton
+#import "AutoRotateButton.h"
+@interface TransformButton : AutoRotateButton
 
 @end

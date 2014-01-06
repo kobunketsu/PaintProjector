@@ -30,10 +30,10 @@
     GLKVector3 _camDirVector;
     float _minViewAngleY;
 }
-@property (strong, nonatomic) IBOutlet UILabel *lblWarnig;
-@property (strong, nonatomic) IBOutlet UILabel *lblYaw;
-@property (strong, nonatomic) IBOutlet UILabel *lblRoll;
+@property (weak, nonatomic) IBOutlet UILabel *lblWarnig;
+@property (weak, nonatomic) IBOutlet UILabel *lblYaw;
+@property (weak, nonatomic) IBOutlet UILabel *lblRoll;
 //@property (nonatomic, strong)EAGLContext *context;
-@property (strong, nonatomic) IBOutlet UILabel *lblPitch;
+@property (weak, nonatomic) IBOutlet UILabel *lblPitch;
 @property (nonatomic, assign) GLKVector3 camDirVector;
 @end

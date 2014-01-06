@@ -15,27 +15,43 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+
     }
     return self;
 }
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    //// General Declarations
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        self.layer.delegate = self;
+    }
+    return self;
+}
+
+-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+//    DebugLog(@"LayerButton drawLayer inContext");
+    
+    UIGraphicsPushContext(ctx);
+
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = ctx;
     
     //// Color Declarations
     UIColor* iconHighlightColor = [UIColor colorWithRed: 0.92 green: 0.92 blue: 0.92 alpha: 1];
-    UIColor* iconColor = [UIColor colorWithRed: 0.333 green: 0.432 blue: 0.706 alpha: 1];
+    CGFloat r = ((CustomLayer*)layer).baseColorR;
+    CGFloat g = ((CustomLayer*)layer).baseColorG;
+    CGFloat b = ((CustomLayer*)layer).baseColorB;
+    UIColor* iconColor = self.isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    CGFloat iconColorRGBA[4];
+    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
+    
+    UIColor* iconShadowColorColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.675) green: (iconColorRGBA[1] * 0.675) blue: (iconColorRGBA[2] * 0.675) alpha: (iconColorRGBA[3] * 0.675 + 0.325)];
     UIColor* iconGlowGradientColor = [iconColor colorWithAlphaComponent: 0.23];
     UIColor* iconColorA50 = [iconColor colorWithAlphaComponent: 0.5];
     UIColor* iconColorA75 = [iconColor colorWithAlphaComponent: 0.75];
     UIColor* iconGlowGradientColor2 = [iconColor colorWithAlphaComponent: 0];
-    UIColor* iconShadowColorColor = [UIColor colorWithRed: 0.389 green: 0.518 blue: 0.371 alpha: 0.87];
     UIColor* labelHightlightColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     UIColor* iconReflectionColor = [UIColor colorWithRed: 0.849 green: 0.849 blue: 0.849 alpha: 0];
     
@@ -86,12 +102,12 @@
     
     
     //// Text Drawing
-    CGRect textRect = CGRectMake(33, 57, 61, 18);
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
-    [iconColor setFill];
-    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
-    CGContextRestoreGState(context);
+//    CGRect textRect = CGRectMake(33, 57, 61, 18);
+//    CGContextSaveGState(context);
+//    CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
+//    [iconColor setFill];
+//    [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
+//    CGContextRestoreGState(context);
     
     
     
@@ -100,9 +116,9 @@
         //// Rounded Rectangle Drawing
         UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPath];
         [roundedRectanglePath moveToPoint: CGPointMake(44, 18.83)];
-        [roundedRectanglePath addCurveToPoint: CGPointMake(45.73, 20.77) controlPoint1: CGPointMake(44, 19.9) controlPoint2: CGPointMake(44.78, 20.77)];
-        [roundedRectanglePath addLineToPoint: CGPointMake(76.93, 20.77)];
-        [roundedRectanglePath addCurveToPoint: CGPointMake(78.67, 18.83) controlPoint1: CGPointMake(77.89, 20.77) controlPoint2: CGPointMake(78.67, 19.9)];
+        [roundedRectanglePath addCurveToPoint: CGPointMake(45.73, 20.78) controlPoint1: CGPointMake(44, 19.9) controlPoint2: CGPointMake(44.78, 20.78)];
+        [roundedRectanglePath addLineToPoint: CGPointMake(76.93, 20.78)];
+        [roundedRectanglePath addCurveToPoint: CGPointMake(78.67, 18.83) controlPoint1: CGPointMake(77.89, 20.78) controlPoint2: CGPointMake(78.67, 19.9)];
         [roundedRectanglePath addLineToPoint: CGPointMake(83, 13.95)];
         [roundedRectanglePath addCurveToPoint: CGPointMake(81.27, 12) controlPoint1: CGPointMake(83, 12.87) controlPoint2: CGPointMake(82.22, 12)];
         [roundedRectanglePath addLineToPoint: CGPointMake(50.07, 12)];
@@ -281,9 +297,16 @@
     CGGradientRelease(iconReflection);
     CGGradientRelease(iconGlowGradient);
     CGColorSpaceRelease(colorSpace);
-    
 
+    UIGraphicsPopContext();
 }
 
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+/*
+- (void)drawRect:(CGRect)rect
+{
+}
+*/
 
 @end

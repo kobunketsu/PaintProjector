@@ -14,7 +14,7 @@
 #import <GLKit/GLKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import "GPUImage.h"
-#import "PaintView.h"
+//#import "PaintView.h"
 #import "LayerDelegate.h"
 @interface ShowPaint : UIView
 {
@@ -35,5 +35,5 @@
 - (void)create3DImage;
 - (CGPoint)projectPointOnRealPlane:(CGPoint)pointInFakeView;
 - (CGPoint)projectPointOnFakePlane:(CGPoint)pointInRealView;
-- (void)setSourcePaintView:(PaintView*)paintView;
+//- (void)setSourcePaintView:(PaintView*)paintView;
 @end

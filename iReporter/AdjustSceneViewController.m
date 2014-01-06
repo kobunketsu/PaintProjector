@@ -7,6 +7,7 @@
 //
 
 #import "AdjustSceneViewController.h"
+#import "GLWrapper.h"
 //#import "CommonData.h"
 float vertexData[] = 
 {
@@ -22,9 +23,7 @@ float vertexData[] =
 @end
 
 @implementation AdjustSceneViewController
-@synthesize adjustDoneButton = _adjustDoneButton;
-@synthesize context = _context;
-@synthesize delegate;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,7 +31,7 @@ float vertexData[] =
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
     
     if (!self.context) {
-        NSLog(@"Failed to create ES context");
+        DebugLog(@"Failed to create ES context");
     }
     
     GLKView *view = (GLKView *)self.view;
@@ -48,8 +47,10 @@ float vertexData[] =
     _minViewAngleY = DEGREES_TO_RADIANS(HumanEyeFOV * 0.5 * 1.1);
     _kHeightScale = _kWidthScale = 1.0;
     
-//    _isPaintMode = true;      
-    _floorTextureInfo = [[TextureManager sharedInstance] loadTextureInfoFromImageName:@"check.jpg" reload:false];
+//    _isPaintMode = true;
+    //texMgr not retained
+    TextureManager* texMgr = [[TextureManager alloc]init];
+    _floorTextureInfo = [texMgr loadTextureInfoFromImageName:@"check.jpg" reload:false];
 //    _paintTextureInfo = _floorTextureInfo;            //test
     
 }
@@ -133,9 +134,8 @@ float vertexData[] =
 }
 - (void)tearDownGL {
     [EAGLContext setCurrentContext:_context];
-    
-    glDeleteBuffers(1, &_vertexBuffer);
-    glDeleteVertexArraysOES(1, &_vertexArray);
+    RELEASE_BUFFER(_vertexBuffer)
+    RELEASE_VERTEXARRAY(_vertexArray)
     
     if (_program) {
         glDeleteProgram(_program);
@@ -152,15 +152,15 @@ float vertexData[] =
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderScene" ofType:@"vsh"];
-    if (![ShaderUltility compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
+    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+        DebugLog(@"Failed to compile vertex shader");
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderScene" ofType:@"fsh"];
-    if (![ShaderUltility compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
+    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+        DebugLog(@"Failed to compile fragment shader");
         return NO;
     }
     
@@ -176,8 +176,8 @@ float vertexData[] =
     glBindAttribLocation(_program, GLKVertexAttribTexCoord0, "texcoord");
     
     // Link program.
-    if (![ShaderUltility linkProgram:_program]) {
-        NSLog(@"Failed to link program: %d", _program);
+    if (![[ShaderManager sharedInstance] linkProgram:_program]) {
+        DebugLog(@"Failed to link program: %d", _program);
         
         if (vertShader) {
             glDeleteShader(vertShader);
@@ -262,7 +262,7 @@ float vertexData[] =
 - (IBAction)adjustDoneButtonTapped:(UIButton *)sender {
     UIImage* uiImage = [Ultility snapshot:self.view Context:_context InViewportSize:self.view.frame.size ToOutputSize:self.view.frame.size];
     
-    [delegate adjustSceneDone:uiImage];    
-    [self dismissViewControllerAnimated:true completion:^{[delegate adjustSceneViewControllerDismissed];}];    
+    [self.delegate adjustSceneDone:uiImage];
+    [self dismissViewControllerAnimated:true completion:^{[self.delegate adjustSceneViewControllerDismissed];}];    
 }
 @end

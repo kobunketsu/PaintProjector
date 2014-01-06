@@ -169,7 +169,7 @@ static CGContextRef createBGRxImageContext( int w, int h, void* data )
 
 //------------------------------------------------------------------------------
 
-CGImageRef createSaturationBrightnessSquareContentImageWithHue( float hue )
+CGImageRef createSaturationBrightnessSquareContentImageWithHue( float hue , BOOL colorized)
 {
 	void* data = malloc( 256 * 256 * 4 );
 	if( data == nil )
@@ -194,15 +194,20 @@ CGImageRef createSaturationBrightnessSquareContentImageWithHue( float hue )
 	
 	for( int s = 0 ; s < 256 ; ++s ) {
 		register UInt8* ptr = dataPtr;
-		
-		register unsigned int r_hs = 255 - blend( s, r_s );
-		register unsigned int g_hs = 255 - blend( s, g_s );
-		register unsigned int b_hs = 255 - blend( s, b_s );
+        
+		register int s0 = colorized ? MIN(255,(int)(floorf(s / 51) * 51)) : s;
+        
+		register unsigned int r_hs = 255 - blend( s0, r_s );
+		register unsigned int g_hs = 255 - blend( s0, g_s );
+		register unsigned int b_hs = 255 - blend( s0, b_s );
 		
 		for( register int v = 255 ; v >= 0 ; --v ) {
-			ptr[ 0 ] = (UInt8) ( v * b_hs >> 8 );
-			ptr[ 1 ] = (UInt8) ( v * g_hs >> 8 );
-			ptr[ 2 ] = (UInt8) ( v * r_hs >> 8 );
+            //TODO:color pick mode normal/web
+            register int v0 = colorized ? MIN(255, (int)((floorf(v / 51)+1) * 51)) : v;
+
+            ptr[ 0 ] = (UInt8) ( v0 * b_hs >> 8 );
+            ptr[ 1 ] = (UInt8) ( v0 * g_hs >> 8 );
+            ptr[ 2 ] = (UInt8) ( v0 * r_hs >> 8 );
 			
 			// Really, these should all be of the form used in blend(),
 			// which does a divide by 255. However, integer divide is

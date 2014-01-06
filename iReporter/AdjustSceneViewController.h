@@ -12,7 +12,7 @@
 
 #import <GLKit/GLKit.h>
 #import "Ultility.h"
-#import "ShaderUltility.h"
+#import "ShaderManager.h"
 #import "TextureManager.h"
 @protocol AdjustSceneDelegate
 - (void) adjustSceneDone:(UIImage*)image;
@@ -65,6 +65,6 @@
 @property (nonatomic, strong)EAGLContext *context;
 - (IBAction)handlePanGRAdjustSceneView:(UIPanGestureRecognizer *)sender;
 - (IBAction)adjustDoneButtonTapped:(UIButton *)sender;
-@property (strong, nonatomic) IBOutlet UIButton *adjustDoneButton;
+@property (weak, nonatomic) IBOutlet UIButton *adjustDoneButton;
 @property (nonatomic, assign) id delegate;
 @end

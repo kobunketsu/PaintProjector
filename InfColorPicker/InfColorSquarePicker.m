@@ -29,12 +29,12 @@
 //------------------------------------------------------------------------------
 
 @synthesize hue;
-
+@synthesize colorized;
 //------------------------------------------------------------------------------
 
 - (void) updateContent
 {
-	CGImageRef imageRef = createSaturationBrightnessSquareContentImageWithHue( hue * 360 );
+	CGImageRef imageRef = createSaturationBrightnessSquareContentImageWithHue( hue * 360, self.colorized);
 	self.image = [ UIImage imageWithCGImage: imageRef ];
 	CGImageRelease( imageRef );
 }
@@ -65,6 +65,7 @@
 @synthesize hue;
 @synthesize value;
 @synthesize indicatorMagnify;
+
 //------------------------------------------------------------------------------
 #pragma mark	Lifetime
 //------------------------------------------------------------------------------
@@ -92,6 +93,7 @@
 
 - (void) layoutSubviews
 {
+    [super layoutSubviews];
     
 	if( indicator == nil ) {
 		CGRect indicatorRect = { CGPointZero, { kIndicatorSize, kIndicatorSize } };

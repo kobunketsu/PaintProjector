@@ -9,8 +9,7 @@
 #import "ColorPickerView.h"
 
 @implementation ColorPickerView
-@synthesize locked;
-@synthesize sourceView;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

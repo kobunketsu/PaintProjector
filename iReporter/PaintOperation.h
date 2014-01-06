@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Brush.h"
+#import "Command.h"
 
 @class PaintOperation;
 
@@ -16,7 +17,7 @@
 - (void) drawFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId;
 - (void) endDrawPaintOperation;
 @end
-@interface PaintOperation : NSObject
+@interface PaintOperation : Command
 {
 //    Brush* _brush;    
     NSMutableArray* _paintPaths;    
