@@ -18,10 +18,10 @@
 @end
 @interface BrushTypeView : UIScrollView
 {
-    NSMutableArray *_brushTypes;
-//    NSMutableDictionary *_brushTypes;
 }
-@property (assign, nonatomic) id<BrushTypeViewDelegate> delegate;
+@property (nonatomic, assign) id delegate;
 @property(nonatomic, retain)NSMutableArray *brushTypes;
+-(void)initSubviews;
 -(void)addBrushType:(Brush*)brush;
+-(void)destroy;
 @end
