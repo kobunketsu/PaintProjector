@@ -210,8 +210,9 @@ typedef struct {
 - (void)prepareDrawEnv;
 - (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw;
 - (void)draw:(BOOL)isTapDraw;
-
+- (void)endDraw;
 - (void)clearData;//清空所有图层，留下一个底层空白
+- (void)eraseAllLayers;
 //绘制
 - (void)updateRender;
 

@@ -75,33 +75,6 @@
 
 - (void)createFramebufferTextures;
 
-
-
-- (void)eraseAllLayers;
-- (void)setBrush:(Brush *)brush;
-//- (GLuint)createBrushWithImage: (NSString*)brushName;
-
-
-- (void)endDraw;
-
-
-
-
-
-
-
-//创建空图层
-- (PaintLayer*)createBlankLayer;
-
-
-
-
-
-
-
-
-
-
 //文件
 - (void)close;
 
@@ -109,7 +82,6 @@
 
 //工具
 - (UIImage*)snapshotPaintToUIImage;
-- (void)BlendFunc:(BlendFuncType)blendFuncType;
 @end
 
 @implementation PaintingView
@@ -645,11 +617,10 @@
     if (_programQuad == 0) {
         [self loadShaderQuad];
         
-        glUseProgram(_programQuad);
-        self.glWrapper.lastProgram = _programQuad;
-        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        _lastProgramQuadTransformIdentity = true;
-
+        [self.glWrapper useProgram:_programQuad uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+            _lastProgramQuadTransformIdentity = true;
+        }];
     }
     
 //    if (_programBackgroundLayer == 0) {
@@ -659,10 +630,10 @@
     if (_programPaintLayerBlendModeNormal == 0) {
         _programPaintLayerBlendModeNormal = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeNormal"];
         
-        glUseProgram(_programPaintLayerBlendModeNormal);
-        self.glWrapper.lastProgram = _programPaintLayerBlendModeNormal;
-        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        _lastProgramLayerNormalTransformIdentity = true;
+        [self.glWrapper useProgram:_programPaintLayerBlendModeNormal uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+            _lastProgramLayerNormalTransformIdentity = true;
+        }];
     }
     
     if (_programPaintLayerBlendModeMultiply == 0) {
@@ -3076,14 +3047,14 @@
 //    program = glCreateProgram();
 //    
 //    // Create and compile vertex shader.
-//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuad" ofType:@"vsh"];
+//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
 //    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
 //        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
 //        return NO;
 //    }
 //    
 //    // Create and compile fragment shader.
-//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderBackgroundLayer" ofType:@"fsh"];
+//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBackgroundLayer" ofType:@"fsh"];
 //    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
 //        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
 //        return NO;
@@ -3148,7 +3119,7 @@
     program = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuad" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
     if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
@@ -3222,14 +3193,14 @@
     _programQuad = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuad" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
     if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuad" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"fsh"];
     if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
@@ -3295,14 +3266,14 @@
     _programQuadDebugAlpha = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuadDebug" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebug" ofType:@"vsh"];
     if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuadDebugAlpha" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebugAlpha" ofType:@"fsh"];
     if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
@@ -3364,14 +3335,14 @@
     _programQuadDebugColor = glCreateProgram();
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuadDebug" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebug" ofType:@"vsh"];
     if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderQuadDebugColor" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebugColor" ofType:@"fsh"];
     if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;

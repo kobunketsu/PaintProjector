@@ -230,7 +230,7 @@ const float kPatternHeight = 44;
 
 - (void)prepareNewWithBrushState:(BrushState*)brushState lastBrushState:(BrushState*)lastBrushState{
     glBindProgramPipelineEXT(_ppo);
-    self.glWrapper.lastProgram = 0;//next program reset
+    [self.glWrapper useProgram:0 uniformBlock:nil];
     
     UIColor* color = brushState.color;
     [color getRed:&_red green:&_green blue:&_blue alpha:&_alpha];
@@ -656,7 +656,7 @@ const float kPatternHeight = 44;
     NSString *fileStr;
     
     //vertex shader
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderBrush" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
     fileStr = [NSString stringWithContentsOfFile:vertShaderPathname encoding:NSUTF8StringEncoding error:nil];
     source = (GLchar *)[fileStr UTF8String];
     _vertexProgram = glCreateShaderProgramvEXT(GL_VERTEX_SHADER, 1, &source);
@@ -667,7 +667,7 @@ const float kPatternHeight = 44;
     _paramsUniform = glGetUniformLocation(_vertexProgram, "Params");
     
     //fragment shader
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderBrush" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
     fileStr = [NSString stringWithContentsOfFile:fragShaderPathname encoding:NSUTF8StringEncoding error:nil];
     source = (GLchar *)[fileStr UTF8String];
     _fragmentProgram =  glCreateShaderProgramvEXT(GL_FRAGMENT_SHADER, 1, &source);
@@ -709,14 +709,14 @@ const float kPatternHeight = 44;
 //    }
     
     // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderBrush" ofType:@"vsh"];
+    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
     if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:self.shaderPreDefines]) {
         DebugLog(@"Failed to compile vertex shader");
         return NO;
     } 
     
     // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"ShaderBrush" ofType:@"fsh"];
+    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
     if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:self.shaderPreDefines]) {
         DebugLog(@"Failed to compile fragment shader");
         return NO;
