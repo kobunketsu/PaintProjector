@@ -3126,6 +3126,7 @@
     }
     
     // Create and compile fragment shader.
+    fragShaderName = [@"Shaders/" stringByAppendingString:fragShaderName];
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:fragShaderName ofType:@"fsh"];
     if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
