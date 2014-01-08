@@ -819,7 +819,6 @@
 		08F3A69717362A43002E063A /* LayerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerButton.m; sourceTree = "<group>"; };
 		08F3A69917363260002E063A /* ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectButton.h; sourceTree = "<group>"; };
 		08F3A69A17363260002E063A /* ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectButton.m; sourceTree = "<group>"; };
-		08F7DF00185968CA00BFA2D5 /* PaintProjector copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PaintProjector copy-Info.plist"; path = "/Users/kobunketsu/Documents/PaintProjector/PaintProjector copy-Info.plist"; sourceTree = "<absolute>"; };
 		08F7DF0318596DD100BFA2D5 /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		08F9B516164C0691001B3D3D /* BrushToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushToolBar.h; sourceTree = "<group>"; };
 		08F9B517164C0691001B3D3D /* BrushToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushToolBar.m; sourceTree = "<group>"; };
@@ -1548,7 +1547,6 @@
 				9C21AF1514E4579F00DB003E /* Frameworks */,
 				9C21AF1314E4579F00DB003E /* Products */,
 				08966F061660C9E400339901 /* GPUImage.xcodeproj */,
-				08F7DF00185968CA00BFA2D5 /* PaintProjector copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
