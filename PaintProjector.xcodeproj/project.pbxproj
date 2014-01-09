@@ -202,6 +202,10 @@
 		088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B741E17F4787A0039ABC4 /* InfColorPickerRootView.m */; };
 		088BC19617EBDCD0007CC49A /* BrushPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BC19517EBDCD0007CC49A /* BrushPreview.m */; };
 		088CC7D4177B3DDF006C8DA8 /* LayerBlendModeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088CC7D3177B3DDF006C8DA8 /* LayerBlendModeTableView.m */; };
+		088DAE14187DB03F001B3855 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE0E187DB03F001B3855 /* libTestFlight.a */; };
+		088DAE15187DB03F001B3855 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE0F187DB03F001B3855 /* README.md */; };
+		088DAE16187DB03F001B3855 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE10187DB03F001B3855 /* release_notes.md */; };
+		088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE17187DB0BC001B3855 /* libz.dylib */; };
 		088E57B61790D7C900464F61 /* ProjectViewRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E57B51790D7C900464F61 /* ProjectViewRange.m */; };
 		088FD61E18569CEA00B64ABF /* TransformContentViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088FD61D18569CEA00B64ABF /* TransformContentViewLayer.m */; };
 		08930E1D1787F2B9001525B1 /* AutoRotateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08930E1C1787F2B9001525B1 /* AutoRotateButton.m */; };
@@ -684,6 +688,13 @@
 		088BC19517EBDCD0007CC49A /* BrushPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushPreview.m; sourceTree = "<group>"; };
 		088CC7D2177B3DDF006C8DA8 /* LayerBlendModeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableView.h; sourceTree = "<group>"; };
 		088CC7D3177B3DDF006C8DA8 /* LayerBlendModeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableView.m; sourceTree = "<group>"; };
+		088DAE0E187DB03F001B3855 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		088DAE0F187DB03F001B3855 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		088DAE10187DB03F001B3855 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		088DAE11187DB03F001B3855 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		088DAE12187DB03F001B3855 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		088DAE13187DB03F001B3855 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		088DAE17187DB0BC001B3855 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		088E57B41790D7C900464F61 /* ProjectViewRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectViewRange.h; sourceTree = "<group>"; };
 		088E57B51790D7C900464F61 /* ProjectViewRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectViewRange.m; sourceTree = "<group>"; };
 		088FD61C18569CEA00B64ABF /* TransformContentViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformContentViewLayer.h; sourceTree = "<group>"; };
@@ -891,6 +902,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
+				088DAE14187DB03F001B3855 /* libTestFlight.a in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
 				0868B204172995EB00BF4688 /* AdSupport.framework in Frameworks */,
@@ -1296,6 +1309,19 @@
 			name = Import;
 			sourceTree = "<group>";
 		};
+		088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */ = {
+			isa = PBXGroup;
+			children = (
+				088DAE0E187DB03F001B3855 /* libTestFlight.a */,
+				088DAE0F187DB03F001B3855 /* README.md */,
+				088DAE10187DB03F001B3855 /* release_notes.md */,
+				088DAE11187DB03F001B3855 /* TestFlight+AsyncLogging.h */,
+				088DAE12187DB03F001B3855 /* TestFlight+ManualSessions.h */,
+				088DAE13187DB03F001B3855 /* TestFlight.h */,
+			);
+			path = "TestFlight-SDK-master";
+			sourceTree = "<group>";
+		};
 		08966F071660C9E400339901 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1534,6 +1560,7 @@
 				9C21AF2514E4579F00DB003E /* AppDelegate.h */,
 				9C21AF2614E4579F00DB003E /* AppDelegate.m */,
 				0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */,
+				088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */,
 				9C60DA8014E5306800442413 /* FirstScreen */,
 				085539811751B4C000DECF41 /* Project */,
 				08FD1F9E164E454A003738FC /* Paint */,
@@ -1562,6 +1589,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				088DAE17187DB0BC001B3855 /* libz.dylib */,
 				08F7DF0318596DD100BFA2D5 /* calabash.framework */,
 				088B40181792FB7F002750EA /* DBChooser.framework */,
 				08A932CA16FE9EBF00A75938 /* MessageUI.framework */,
@@ -1811,6 +1839,7 @@
 				08243A2116CCAE2100FC12BA /* switch.png in Resources */,
 				08243A2216CCAE2100FC12BA /* placeholder.png in Resources */,
 				08243A2316CCAE2100FC12BA /* pointer-finger-md.png in Resources */,
+				088DAE15187DB03F001B3855 /* README.md in Resources */,
 				08E7B09817EAB55900A121B5 /* brushSoftFallOff.png in Resources */,
 				08243A2416CCAE2100FC12BA /* redo_48.png in Resources */,
 				08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */,
@@ -1832,6 +1861,7 @@
 				089743D3172293F00085113C /* blendMode.png in Resources */,
 				087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */,
 				085EFD4B1732B2E200F0395D /* pin.png in Resources */,
+				088DAE16187DB03F001B3855 /* release_notes.md in Resources */,
 				083F86621734FED000DDE6BC /* checkerUnit.png in Resources */,
 				087FE743173E0CC7009B34A2 /* popover-bg.png in Resources */,
 				0897D7D9187C43CF00A7ECD2 /* Shaders in Resources */,
@@ -2269,7 +2299,7 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
 				PRODUCT_NAME = PaintProjector;
 				PROVISIONING_PROFILE = "7283054F-F67C-4CAF-B99D-1B890480BF78";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7283054F-F67C-4CAF-B99D-1B890480BF78";
@@ -2301,7 +2331,7 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
 				PRODUCT_NAME = PaintProjector;
 				PROVISIONING_PROFILE = "7283054F-F67C-4CAF-B99D-1B890480BF78";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7283054F-F67C-4CAF-B99D-1B890480BF78";

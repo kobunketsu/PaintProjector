@@ -10,8 +10,8 @@
 
 #import "StreamScreen.h"
 
-//#import <Dropbox/Dropbox.h>
 #import <DBChooser/DBChooser.h>
+#import "TestFlight.h"
 
 @implementation AppDelegate
 
@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [TestFlight takeOff:@"0532108b-0c25-49ec-b2d8-e19b45687adf"];
+    
 //    DBAccountManager* accountMgr =
 //    [[DBAccountManager alloc] initWithAppKey:@"08yvvqxgb9k6jbl" secret:@"8sdk2e91z8nv2vy"];
 //    [DBAccountManager setSharedManager:accountMgr];
@@ -27,7 +29,7 @@
 
     //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
     [self copyCollectionFromMainBundleToUserDocument];
-    
+ 
     return YES;
 }
 
