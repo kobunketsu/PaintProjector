@@ -7,8 +7,8 @@
 //
 
 #import "OpacitySlider.h"
-const float kPatternWidth = 16;
-const float kPatternHeight = 16;
+#define kPatternWidth 16
+#define kPatternHeight 16
 @implementation OpacitySlider
 - (id)initWithFrame:(CGRect)frame
 {

@@ -31,10 +31,6 @@ enum LayerBlendMode {
 typedef enum LayerBlendMode LayerBlendMode;
 
 
-const int LayerBlendModeCount = 16;
-
-
-
 @interface PaintLayer : Layer
 {
 }

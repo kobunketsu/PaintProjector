@@ -11,6 +11,9 @@
 #import "LayerBlendModeTableView.h"
 #import "LayerBlendModeTableViewCell.h"
 #import "LayerOpacitySlider.h"
+
+#define LayerBlendModeCellHeight 39
+#define LayerBlendModeCount 16
 @interface LayerBlendModeTableViewController ()
 
 @end

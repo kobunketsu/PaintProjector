@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "PaintLayer.h"
-const int LayerBlendModeCellHeight = 39;
 
 @protocol LayerBlendModeTableViewControllerDelegate
 - (LayerBlendMode) willGetLayerBlendMode;

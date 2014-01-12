@@ -10,6 +10,9 @@
 #import "PaintingView.h"
 #import "GLWrapper.h"
 
+#define kPatternWidth 44
+#define kPatternHeight 44
+
 @class BrushState;
 @implementation BrushState
 
@@ -48,8 +51,7 @@
 @class Brush;
 @implementation Brush
 // first define the pattern width and height
-const float kPatternWidth = 44;
-const float kPatternHeight = 44;
+
 
 //绘制笔刷
 

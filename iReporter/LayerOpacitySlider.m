@@ -9,8 +9,8 @@
 #import "LayerOpacitySlider.h"
 #import "QuartzCore/QuartzCore.h"
 
-const float kPatternWidth = 16;
-const float kPatternHeight = 16;
+#define kPatternWidth 16
+#define kPatternHeight 16
 @implementation LayerOpacitySlider
 
 - (id)initWithFrame:(CGRect)frame

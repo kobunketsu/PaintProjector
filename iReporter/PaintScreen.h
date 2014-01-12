@@ -126,8 +126,6 @@ typedef NS_ENUM(NSInteger, ScaleMode) {
 
 @end
 
-const float TwoFingerPanGestureTime = 0.016;//检测手势的误差时间
-
 @interface PaintScreen : UIViewController
 <UIGestureRecognizerDelegate, 
 //GLKViewDelegate, 

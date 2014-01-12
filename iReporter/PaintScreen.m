@@ -32,6 +32,7 @@
 #define ChangeToolBarConfirmPixels 10
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
+#define TwoFingerPanGestureTime 0.016
 
 #pragma mark PaintRefView Assets
 int colorPalleteCount = 20;
