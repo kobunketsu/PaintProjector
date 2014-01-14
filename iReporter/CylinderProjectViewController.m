@@ -1654,6 +1654,9 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [paintFrameView setPaintDoc:paintDoc];
     [paintFrameView loadForDisplay];
     
+    //acc
+    paintFrameView.accessibilityLabel = paintDoc.docPath;
+    
     return cell;
 }
 
@@ -1691,9 +1694,10 @@ GLushort cylinderProjectQuadVertexIndices[] =
     DebugLog(@"didSelectRowAtIndexPath %d", index);
 
     UITableViewCell *cell = [self tableView:self.paintFrameTableView cellForRowAtIndexPath:indexPath];
+
     self.curPaintFrameView = (PaintFrameView*)[cell.contentView.subviews objectAtIndex:0];
     self.curPaintFrameGroup.curPaintIndex = index;
-    
+
     //生成anamorphic image or video
     [self anamorphicCurPaintFrameView];
 

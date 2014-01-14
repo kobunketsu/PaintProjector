@@ -3,6 +3,7 @@ Feature: Running a test
   I want to have a sample feature file
   So I can begin testing quickly
 
+
 Scenario: First Screen apperance
   Given I am on the Welcome Screen
   Then I should see a "Anamorphic World" button
@@ -32,14 +33,16 @@ Scenario: First Screen forward to ArtworkTools and back
   And I should see a "My Artwork" button
   And I should see a "Setup" button
 
-Scenario: First Screen create an new file to paint
+Scenario: First Screen create and paint a new artwork
   Given I see ArtworkTools
   And I should see a "New" button
   Then I touch the "New" button
   And I wait for "PaintScreen" to appear
 
-Scenario: First Screen pick an artwork to paint
-  Given I see at least one artworks
+
+Scenario: First Screen delete an artwork
   Given I see ArtworkTools
+  Given I see at least one artworks
+  Then I delete paint number 1
 
 
