@@ -148,8 +148,13 @@ static PaintDocManager* sharedInstance = nil;
 }
 
 - (PaintDoc*)clonePaintDoc:(PaintDoc*)paintDoc{
-    NSString* docPath = [[paintDoc.docPath stringByDeletingPathExtension]stringByAppendingString:@"_copy.psf"];    //得到新的路径
-    NSString* docThumbPath = [[paintDoc.thumbImagePath stringByDeletingPathExtension]stringByAppendingString:@"_copy.png"];    //得到新的路径
+    NSString *dirPath = [paintDoc.docPath stringByDeletingLastPathComponent];
+    NSString* docPath = [self nextPaintDocPathInDirectory:dirPath];
+    NSString* docThumbPath = [[docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"];
+
+    //TODO:如果已经有xx_copy文件存在，会报错
+//    NSString* docPath = [[paintDoc.docPath stringByDeletingPathExtension]stringByAppendingString:@"_copy.psf"];    //得到新的路径
+//    NSString* docThumbPath = [[paintDoc.thumbImagePath stringByDeletingPathExtension]stringByAppendingString:@"_copy.png"];    //得到新的路径
     
     //TODO:从磁盘拷贝文件
     NSString* srcFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.docPath];

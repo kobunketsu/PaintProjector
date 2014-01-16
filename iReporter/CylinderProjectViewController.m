@@ -284,7 +284,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [self tableView:self.paintFrameTableView didSelectRowAtIndexPath:indexPath];
     
     //放大画框开始绘制
-    [self openPaintFrame:self.curPaintFrameView];
+//    [self openPaintFrame:self.curPaintFrameView];
 }
 
 - (IBAction)deleteButtonTouchUp:(UIButton *)sender {
@@ -1626,10 +1626,13 @@ GLushort cylinderProjectQuadVertexIndices[] =
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DebugLog(@"cellForRowAtIndexPath row:%d", indexPath.row);
     
+    PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:indexPath.row];
+    
 //    static NSString *CellIdentifier = @"PaintFrameViewCell";
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
 //    DebugLog(@"PaintFrameTableView Cell %@", cell);
     if (cell == nil) {
 //        DebugLog(@"PaintFrameTableView Cell nil");
@@ -1643,6 +1646,13 @@ GLushort cylinderProjectQuadVertexIndices[] =
         int offsetX = (int)((self.paintFrameTableView.frame.size.width / 3.0 - PaintFrameViewWidth) * 0.5);
         int offsetY = (int)((self.paintFrameTableView.frame.size.height - PaintFrameViewHeight) * 0.5);
         PaintFrameView *paintFrameView = [[PaintFrameView alloc]initWithFrame:CGRectMake(offsetX, offsetY, PaintFrameViewWidth, PaintFrameViewHeight)];
+        //acc
+        paintFrameView.isAccessibilityElement = true;
+        NSUInteger length = [paintDoc.docPath length];
+        NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
+//        accLabel = [accLabel stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        paintFrameView.accessibilityLabel = accLabel;
+        
         [cell.contentView addSubview:paintFrameView];
     }
     else{
@@ -1650,13 +1660,9 @@ GLushort cylinderProjectQuadVertexIndices[] =
     
     //重载
     PaintFrameView *paintFrameView = [cell.contentView.subviews objectAtIndex:0];
-    PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:indexPath.row];
     [paintFrameView setPaintDoc:paintDoc];
     [paintFrameView loadForDisplay];
-    
-    //acc
-    paintFrameView.accessibilityLabel = paintDoc.docPath;
-    
+
     return cell;
 }
 

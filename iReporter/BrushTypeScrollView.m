@@ -75,6 +75,9 @@
         [button addTarget:self.delegate action:@selector(willSelectBrushCanceled:) forControlEvents:UIControlEventTouchUpOutside];
         [button addTarget:self.delegate action:@selector(willSelectBrushCanceled:) forControlEvents:UIControlEventTouchCancel];
         
+        button.isAccessibilityElement = true;
+        NSString *brushName = NSStringFromClass([button.brush class]);
+        button.accessibilityLabel = brushName;
         [self addSubview:button];
     }
     
