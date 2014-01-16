@@ -80,24 +80,37 @@ Scenario: First Screen select first artwork to paint
   Then I touch the "Draw" button
   Then I wait to see "PaintScreen"
 
-Scenario: Painting select pencil brush
+
+Scenario Outline: Painting select brush
   Given I see ArtworkTools
-  And I should see a "New" button
+  Then I should see a "New" button
   Then I touch the "New" button
   Then I wait to see "PaintScreen"
+  
   Then I am on the Paint Screen
   Then I wait for the "Using Brush" button to appear
   Then I touch the "Using Brush" button
   Then I wait to see "Brushs"
-  And I should see a "Pencil" button
-  Then I touch the "Pencil" button
+  Then I try scroll right to see <brush>
+  Then I touch the <brush> button
   Then I wait to not see "Brushs"
-  And I am on the Paint Screen
-
   
+  Then I am on the Paint Screen
+  Then I see property "radius" on slider "RadiusSlider"
+    
+  Examples:
+  | brush|
+  |"Pencil"|
+  |"Eraser"|
+  |"Pen"|
+  |"Marker"|
+  |"Finger"|
+  |"ChineseBrush"|
+  |"Crayons"|
+  |"Bucket"|
+  |"InkPen"|
+  |"MarkerSquare"|
+  |"OilBrush"|
+  |"AirBrush"|
   
-  
-  
-  
- 
-  
+Scenario: Painting select backup brush

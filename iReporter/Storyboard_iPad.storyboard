@@ -1134,7 +1134,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="ss0-3e-NKH" userLabel="BrushTypeScrollView" customClass="BrushTypeScrollView">
+                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="ss0-3e-NKH" userLabel="BrushTypeScrollView" customClass="BrushTypeScrollView">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <connections>

@@ -93,3 +93,21 @@ Given /^I am on the Paint Screen$/ do
 	element_exists("button marked:'Close'")
 end
 
+Then /^I try scroll (left|right|up|down) to see "([^\"]*)"$/ do |dir,name|
+  res = element_exists( "view marked:'#{name}'" )
+
+  if not res  
+    scroll("scrollView index:0", dir)
+    sleep(STEP_PAUSE)
+    wait_for_elements_exist([ "view marked:'#{name}'" ], :timeout => WAIT_TIMEOUT)
+    #element_exists( "view marked:'#{name}'" )
+  end
+end
+
+Then /^I see property "([^\"]*)" on slider "([^\"]*)"$/ do |property, name|
+  brushRadius = query("view:'BrushTypeButton'", "brush", "brushState", "#{property}")[0]
+  uiRadius = query("slider marked:'#{name}'", "value")[0]
+  if (brushRadius < uiRadius) or (brushRadius > uiRadius)
+    raise "brush property #{property} error on slider #{name}"
+  end
+end

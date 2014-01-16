@@ -2021,25 +2021,27 @@ typedef struct {
     //shrink when color button's frame origin is out of contentOffset ~ (contentOffset + scrollview.width)
 //    DebugLog(@"count %d", _colorSlotsScrollView.subviews.count);
     
-    int count = scrollView.subviews.count - 1;//bug?
-    for (int i = 0; i < count; ++i) {
-        UIButton *button = [scrollView.subviews objectAtIndex:i];
-        float newSize;
-        float fadeLeftDistance = i*50 + 25 - scrollView.contentOffset.x;
-        float fadeRightDistance = scrollView.contentOffset.x + scrollView.frame.size.width - (i*50 + 25);
-        //左端缩小
-        if(fadeLeftDistance < 25){
-            newSize = MAX(0.1, 50 * (fadeLeftDistance / 25.0));
-            button.frame = CGRectMake(i*50 + (50 - newSize) * 0.5, (50 - newSize) * 0.5, newSize, newSize);
-        }
-        //右端缩小
-        else if(fadeRightDistance < 25){
-            newSize = MAX(0.1, 50 * (fadeRightDistance / 25.0));
-            button.frame = CGRectMake(i*50, (50 - newSize) * 0.5, newSize, newSize);
-        }
-        //正常大小
-        else{
-            button.frame = CGRectMake(i*50, 0, 50, 50);
+    if ([scrollView isEqual:self.colorSlotsScrollView]) {
+        int count = scrollView.subviews.count - 1;//bug?
+        for (int i = 0; i < count; ++i) {
+            UIButton *button = [scrollView.subviews objectAtIndex:i];
+            float newSize;
+            float fadeLeftDistance = i*50 + 25 - scrollView.contentOffset.x;
+            float fadeRightDistance = scrollView.contentOffset.x + scrollView.frame.size.width - (i*50 + 25);
+            //左端缩小
+            if(fadeLeftDistance < 25){
+                newSize = MAX(0.1, 50 * (fadeLeftDistance / 25.0));
+                button.frame = CGRectMake(i*50 + (50 - newSize) * 0.5, (50 - newSize) * 0.5, newSize, newSize);
+            }
+            //右端缩小
+            else if(fadeRightDistance < 25){
+                newSize = MAX(0.1, 50 * (fadeRightDistance / 25.0));
+                button.frame = CGRectMake(i*50, (50 - newSize) * 0.5, newSize, newSize);
+            }
+            //正常大小
+            else{
+                button.frame = CGRectMake(i*50, 0, 50, 50);
+            }
         }
     }
 }
