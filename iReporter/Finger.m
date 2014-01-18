@@ -20,6 +20,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"Finger";
+}
+
 - (BOOL)isEditable{
     return true;
 }

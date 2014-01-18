@@ -17,6 +17,9 @@
 //    
 //    return self;
 //}
+- (NSString*)name{
+    return @"Crayons";
+}
 
 - (BOOL)isEditable{
     return true;

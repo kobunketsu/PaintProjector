@@ -20,6 +20,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"ChineseBrush";
+}
+
 - (BOOL)isEditable{
     return true;
 }

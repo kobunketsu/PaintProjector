@@ -86,6 +86,10 @@
     return self;
 }
 
+- (NSString*)name{
+    return @"nil";
+}
+
 - (BOOL)isEditable{
     return true;
 }

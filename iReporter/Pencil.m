@@ -18,6 +18,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"Pencil";
+}
+
 - (BOOL)isEditable{
     return true;
 }

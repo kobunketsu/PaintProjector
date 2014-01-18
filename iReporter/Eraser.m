@@ -20,6 +20,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"Eraser";
+}
+
 - (BOOL)isEditable{
     return true;
 }

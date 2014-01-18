@@ -22,7 +22,7 @@
 @interface BrushState : NSObject
 {
 }
-@property(nonatomic, assign)int   classId;
+@property(nonatomic, assign)int classId;
 @property(nonatomic, assign)int seed;
 @property(nonatomic, retain)UIColor* color; //TODO:changed to CGColor
 @property(nonatomic, assign)float radius;
@@ -114,7 +114,7 @@ typedef struct {
     GLfloat _projectionMat[16];
 }
 
-//@property (nonatomic, assign) int brushId;
+@property (nonatomic, retain) NSString *name;
 @property (nonatomic, assign) CGSize canvasSize;
 @property (nonatomic, weak) TextureManager* texMgr;
 @property (nonatomic, assign)BrushVertex* vertexBuffer;

@@ -1649,9 +1649,9 @@ GLushort cylinderProjectQuadVertexIndices[] =
         //acc
         paintFrameView.isAccessibilityElement = true;
         NSUInteger length = [paintDoc.docPath length];
-        NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
+        NSString *accId = [paintDoc.docPath substringToIndex:(length - 4)];
 //        accLabel = [accLabel stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        paintFrameView.accessibilityLabel = accLabel;
+        paintFrameView.accessibilityIdentifier = accId;
         
         [cell.contentView addSubview:paintFrameView];
     }

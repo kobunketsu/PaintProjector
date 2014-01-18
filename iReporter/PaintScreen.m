@@ -317,7 +317,7 @@ typedef struct {
     self.brushBackButton.brush = eraser;
     self.brushBackButton.frame = CGRectMake(self.brushBackButton.frame.origin.x, 40, self.brushBackButton.frame.size.width, self.brushBackButton.frame.size.height);
     [self.brushBackButton setNeedsDisplay];
-    
+
     //将颜色槽加入颜色槽ScrollView
     self.colorButtons = [[NSMutableArray alloc]init];
     
@@ -2165,6 +2165,11 @@ typedef struct {
         
         self.brushButton.userInteractionEnabled = true;
         self.brushBackButton.userInteractionEnabled = true;
+        
+//        self.brushButton.isAccessibilityElement = true;
+//        self.brushButton.accessibilityIdentifier = @"Using Brush";
+//        self.brushBackButton.isAccessibilityElement = true;
+//        self.brushBackButton.accessibilityIdentifier = @"Backup Brush";
         
         //更新颜色
         [self willChangeUIPaintColor:self.brushButton.brush.brushState.color];

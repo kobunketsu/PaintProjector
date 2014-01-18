@@ -20,6 +20,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"OilBrush";
+}
+
 - (BOOL)isEditable{
     return true;
 }

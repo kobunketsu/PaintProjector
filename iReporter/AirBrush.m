@@ -19,6 +19,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"AirBrush";
+}
+
 - (BOOL)isEditable{
     return true;
 }

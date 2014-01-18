@@ -10,6 +10,10 @@
 
 @implementation EraserSoft
 
+- (NSString*)name{
+    return @"EraserSoft";
+}
+
 - (void)resetDefaultBrushState{
     self.brushState.opacity = 1;
     self.brushState.flow = 1.0;

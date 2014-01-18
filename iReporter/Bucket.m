@@ -21,6 +21,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"Bucket";
+}
+
 - (BOOL)isEditable{
     return false;
 }

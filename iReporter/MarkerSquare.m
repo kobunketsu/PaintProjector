@@ -20,6 +20,10 @@
 //    return self;
 //}
 
+- (NSString*)name{
+    return @"MarkerSquare";
+}
+
 - (BOOL)isEditable{
     return true;
 }
