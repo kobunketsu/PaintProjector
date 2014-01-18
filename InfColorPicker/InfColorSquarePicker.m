@@ -99,7 +99,7 @@
 		CGRect indicatorRect = { CGPointZero, { kIndicatorSize, kIndicatorSize } };
 		indicator = [ [ InfColorIndicatorView alloc ] initWithFrame: indicatorRect ];
         indicator.isAccessibilityElement = true;
-        indicator.accessibilityIdentifier = @"Pallete SV Picker";
+        indicator.accessibilityLabel = @"Pallete SV Picker";
 		[ self addSubview: indicator ];
 	}
 	

@@ -34,7 +34,7 @@
                                     <rect key="frame" x="1" y="1" width="256" height="256"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" label="Pallete HSV SV">
+                                    <accessibility key="accessibilityConfiguration" label="ColorPicker SV View">
                                         <bool key="isElement" value="YES"/>
                                     </accessibility>
                                 </view>
@@ -61,7 +61,7 @@
                                     <rect key="frame" x="1" y="1" width="256" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    <accessibility key="accessibilityConfiguration" label="Pallete HSV Hue">
+                                    <accessibility key="accessibilityConfiguration" label="ColorPicker Hue View">
                                         <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
                                         <bool key="isElement" value="YES"/>
                                     </accessibility>
@@ -95,7 +95,7 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="Pallete UsingColor">
+                            <accessibility key="accessibilityConfiguration" label="ColorPicker UsingColor">
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                         </view>
@@ -133,7 +133,7 @@
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="Pallete PickedColor">
+                            <accessibility key="accessibilityConfiguration" label="ColorPicker PickedColor">
                                 <bool key="isElement" value="YES"/>
                             </accessibility>
                         </view>
@@ -145,6 +145,7 @@
                                     <rect key="frame" x="2" y="2" width="39" height="39"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" label="ColorPicker PickMode"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <connections>
                                         <action selector="changePickMode:" destination="-1" eventType="touchUpInside" id="flK-mf-16d"/>
@@ -152,15 +153,15 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="Pallete Type">
-                                <bool key="isElement" value="YES"/>
+                            <accessibility key="accessibilityConfiguration" label="">
+                                <bool key="isElement" value="NO"/>
                             </accessibility>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <accessibility key="accessibilityConfiguration" label="Pallete">
+            <accessibility key="accessibilityConfiguration" label="ColorPicker">
                 <bool key="isElement" value="YES"/>
             </accessibility>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

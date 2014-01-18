@@ -318,6 +318,9 @@ typedef struct {
     self.brushBackButton.frame = CGRectMake(self.brushBackButton.frame.origin.x, 40, self.brushBackButton.frame.size.width, self.brushBackButton.frame.size.height);
     [self.brushBackButton setNeedsDisplay];
 
+    //颜色槽
+    self.colorSlotsScrollView.isAccessibilityElement = true;
+    self.colorSlotsScrollView.accessibilityLabel = @"Pallete";
     //将颜色槽加入颜色槽ScrollView
     self.colorButtons = [[NSMutableArray alloc]init];
     
@@ -327,6 +330,9 @@ typedef struct {
 
     for (int i = 0; i < colorPalleteArray.count + emptyPalleteCount; ++i) {
         ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
+        colorButton.isAccessibilityElement = true;
+        colorButton.accessibilityLabel = [NSString stringWithFormat:@"PalleteColor%d",i];
+        
         UIColor *colorPallete;
         if (i < colorPalleteArray.count) {
             NSData *colorPalleteData = [colorPalleteArray objectAtIndex:i];            

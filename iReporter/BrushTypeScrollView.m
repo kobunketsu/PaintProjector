@@ -77,7 +77,7 @@
         
         button.isAccessibilityElement = true;
         NSString *brushName = NSStringFromClass([button.brush class]);
-        button.accessibilityIdentifier = brushName;
+        button.accessibilityLabel = brushName;
         [self addSubview:button];
     }
     

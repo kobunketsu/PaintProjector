@@ -40,7 +40,6 @@ When /^I try to find "([^\"]*)"$/ do |brush|
     scroll("scrollView index:0", :right)
     sleep(STEP_PAUSE)
     wait_for_elements_exist([ "view marked:'#{brush}'" ], :timeout => WAIT_TIMEOUT)
-    #element_exists( "view marked:'#{name}'" )
   end
 end
 

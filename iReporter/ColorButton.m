@@ -9,6 +9,7 @@
 #import "ColorButton.h"
 
 @implementation ColorButton
+@synthesize color = _color;
 
 - (id)initWithFrame:(CGRect)frame
 {
