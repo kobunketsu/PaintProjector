@@ -9,6 +9,7 @@
 #import "EyeDropperIndicatorView.h"
 
 @implementation EyeDropperIndicatorView
+@synthesize color = _color;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -85,13 +86,8 @@
 
 }
 
-
-- (UIColor *)color {
-    return _color;
-}
-
-- (void)setColor:(UIColor *)newValue {
-    _color = newValue;
+- (void)setColor:(UIColor *)color {
+    _color = color;
     [self setNeedsDisplay];
 }
 

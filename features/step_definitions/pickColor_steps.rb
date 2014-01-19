@@ -1,12 +1,12 @@
 Then /^I wait to see ColorPicker$/ do
   wait_for_elements_exist([ "view marked:'ColorPicker'"], :timeout => WAIT_TIMEOUT)
-  element_exists("view marked:'ColorPicker UsingColor'")
-  element_exists("view marked:'ColorPicker PickedColor'")
-  element_exists("view marked:'ColorPicker SV View'")
-  element_exists("view marked:'ColorPicker SV Picker'")
-  element_exists("view marked:'ColorPicker Hue View'")
-  element_exists("view marked:'ColorPicker Hue Picker'")
-  element_exists("view marked:'ColorPicker ChildMode'")            
+  wait_for_elements_exist(["view marked:'ColorPicker UsingColor'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker PickedColor'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker SV View'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker SV Picker'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker Hue View'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker Hue Picker'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker ChildMode'"], :timeout => WAIT_TIMEOUT)
   
 end
 
@@ -46,7 +46,7 @@ When /^I touch color slot number (\d+) on pallete$/ do |index|
   
   index = index.to_i
   strIndex = (index-1).to_s
-  label = 'PalleteColor'+strIndex
+  label = 'PalleteColor_'+strIndex
   res = element_exists( "view:'ColorButton' marked:'#{label}'" )
   
   if not res
@@ -67,15 +67,27 @@ Then /^I am using number (\d+) color from pallete$/ do |index|
   
   index = index.to_i
   strIndex = (index-1).to_s
-  label = 'PalleteColor'+strIndex
+  label = 'PalleteColor_'+strIndex
     
   strColor = query("view:'ColorButton' marked:'#{label}'", "color")[0]
-  
   strUsingColor = query("view:'PaintColorButton'", "color")[0]
- 
   res = strColor == strUsingColor
   if not res
-    raise "I am not using color from pallete. Using #{res}"
+    raise "I am not using color from pallete. Using '#{strUsingColor}'"
   end  
- 
 end
+
+Then /^I am using color from Magnifier$/ do
+  res = element_exists("all view marked:'Magnifier'")
+  if not res
+    raise "I can't see magnifier"
+  end
+  
+  strColor = query("all view marked:'Magnifier'", "color")[0]
+  strUsingColor = query("view:'PaintColorButton'", "color")[0]
+  res = strColor == strUsingColor
+  if not res
+    raise "I am not using color from Magnifier. Using '#{strUsingColor}'"
+  end    
+end
+

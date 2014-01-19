@@ -49,6 +49,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VBy-iT-Q2P" userLabel="AddButton" customClass="LayerAddButton">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="AddLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,6 +65,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kt2-vx-Hrw" userLabel="CopyButton" customClass="LayerCopyButton">
                                         <rect key="frame" x="65" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="CopyLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,6 +81,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3kp-Bf-Pp2" userLabel="MergeButton" customClass="LayerMergeButton">
                                         <rect key="frame" x="130" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="MergeLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -94,6 +97,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gYK-6m-KN5" userLabel="ClearButton" customClass="LayerClearButton">
                                         <rect key="frame" x="195" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="ClearLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,6 +113,9 @@
                                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BlendMode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NlS-j1-gPt">
                                         <rect key="frame" x="10" y="0.0" width="159" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <accessibility key="accessibilityConfiguration" label="">
+                                            <bool key="isElement" value="NO"/>
+                                        </accessibility>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.11636086618257262" green="0.47999870331950206" blue="0.83026452282157681" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -260,6 +267,9 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <accessibility key="accessibilityConfiguration" label="LayerManager">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                     </view>
                     <connections>
                         <outlet property="blendModeLabel" destination="NlS-j1-gPt" id="FYV-2A-V5L"/>
@@ -1040,9 +1050,9 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <accessibility key="accessibilityConfiguration" hint="" label="">
+                                        <accessibility key="accessibilityConfiguration" hint="" label="Canvas">
                                             <accessibilityTraits key="traits" none="YES" updatesFrequently="YES"/>
-                                            <bool key="isElement" value="NO"/>
+                                            <bool key="isElement" value="YES"/>
                                         </accessibility>
                                         <gestureRecognizers/>
                                         <connections>
@@ -1095,6 +1105,9 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49019607840000001" green="0.50980392159999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="DrawingPad">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="9Qu-66-uty" appends="YES" id="0VT-eW-cDH"/>
@@ -1290,8 +1303,14 @@
                                                 </subviews>
                                             </view>
                                         </subviews>
+                                        <accessibility key="accessibilityConfiguration" label="PaintToolBar">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                     </view>
                                 </subviews>
+                                <accessibility key="accessibilityConfiguration" label="PaintToolBar">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <gestureRecognizers/>
                             </view>
                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="KXd-SK-HpQ" userLabel="TransformToolBar" customClass="TopToolBar">
@@ -1419,9 +1438,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="LayerButton" customClass="LayerButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Layer"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1440,9 +1457,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="TransformButton">
                                                 <rect key="frame" x="96" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Transform"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1497,9 +1512,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="ImportButton" customClass="ImportButton">
                                                 <rect key="frame" x="480" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Import"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1518,9 +1531,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ExportButton">
                                                 <rect key="frame" x="576" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Export"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1539,9 +1550,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="AnamorphicButton">
                                                 <rect key="frame" x="672" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Close"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1560,9 +1569,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" userLabel="UndoButton" customClass="UndoButton">
                                                 <rect key="frame" x="288" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Undo"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
@@ -1578,9 +1585,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="RedoButton">
                                                 <rect key="frame" x="384" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <bool key="isElement" value="NO"/>
-                                                </accessibility>
+                                                <accessibility key="accessibilityConfiguration" label="Redo"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1607,6 +1612,9 @@
                                         </subviews>
                                     </view>
                                 </subviews>
+                                <accessibility key="accessibilityConfiguration" label="MainToolBar">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <gestureRecognizers/>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="1lJ-Bb-8Ii">
@@ -1711,10 +1719,16 @@
                                 <rect key="frame" x="352" y="464" width="64" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" label="">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                             </view>
                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="EyeDropperIndicatorView">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" label="Magnifier">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                             </view>
                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="5VV-Rf-eND" userLabel="AnchorView" customClass="AnchorView">
                                 <rect key="frame" x="354" y="482" width="70" height="70"/>

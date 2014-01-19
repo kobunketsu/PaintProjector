@@ -21,6 +21,7 @@
 #import "Bucket.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define EmptyAlpha 0.01
 
 // A class extension to declare private methods
 @interface PaintingView ()
@@ -2462,7 +2463,7 @@
             CGFloat alpha;
             alpha = (float)data[(y * w + x) * 4 + 3] / 255.0f;
             //has pixel
-            if(alpha > 0){
+            if(alpha > EmptyAlpha){
                 minX = MIN(minX, x);
                 maxX = MAX(maxX, x);
                 minY = MIN(minY, y);
@@ -2473,8 +2474,20 @@
     free(data);
     
     //convert to Quatz Core
-    CGRect rect = CGRectMake(minX, h - maxY, maxX - minX, maxY - minY);
+    w = maxX - minX;
+    if (maxX < minX) {
+        w = 0;
+    }
+
+    h = maxY - minY;
+    if (maxY < minY) {
+        h = 0;
+    }
+    
+    CGRect rect = CGRectMake(minX, h - maxY, w, h);
 //    DebugLog(@"calculateLayerContentRect %@", NSStringFromCGRect(rect));
+    
+
     
     return  rect;
 }

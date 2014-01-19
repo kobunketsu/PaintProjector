@@ -12,9 +12,6 @@
 {
     UIColor *_color;
 }
-
-- (UIColor *)color;
-
-- (void)setColor:(UIColor *)newValue;
+@property(retain, nonatomic) UIColor *color;
 
 @end

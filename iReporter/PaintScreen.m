@@ -105,6 +105,7 @@ typedef struct {
 #pragma mark Paint Screen
 @interface PaintScreen ()
 //绘图工具
+@property (nonatomic, assign) PaintScreenViewState state;
 @property (nonatomic, assign) BOOL isInterfacePortraitUpsideDown;//用于调整横向时按钮label的方向
 @property (nonatomic, assign) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
 @property (nonatomic, retain) LayerTableViewController *layerTableViewController;
@@ -331,7 +332,7 @@ typedef struct {
     for (int i = 0; i < colorPalleteArray.count + emptyPalleteCount; ++i) {
         ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
         colorButton.isAccessibilityElement = true;
-        colorButton.accessibilityLabel = [NSString stringWithFormat:@"PalleteColor%d",i];
+        colorButton.accessibilityLabel = [NSString stringWithFormat:@"PalleteColor_%d",i];
         
         UIColor *colorPallete;
         if (i < colorPalleteArray.count) {
@@ -2560,7 +2561,12 @@ typedef struct {
                  [self.paintView insertUIImageAtCurLayer:image];
                  
                  //添加编辑Done按钮在导入图片的中心
-                 [self enterTransformImageState];
+                 CGRect rect = [self.paintView calculateLayerContentRect];
+                 
+                 if(CGRectEqualToRect(rect, CGRectZero)){
+                     return;
+                 }
+                 [self enterTransformImageState:rect];
                  
                  self.transformButton.tag = 1;
                  [self.transformButton.layer setNeedsDisplay];
@@ -2694,7 +2700,12 @@ typedef struct {
         [self.paintView insertUIImageAtCurLayer:finalImage];
         
         //添加编辑Done按钮在导入图片的中心
-        [self enterTransformImageState];
+        CGRect rect = [self.paintView calculateLayerContentRect];
+        
+        if(CGRectEqualToRect(rect, CGRectZero)){
+            return;
+        }
+        [self enterTransformImageState:rect];
         
         self.transformButton.tag = 1;
         [self.transformButton.layer setNeedsDisplay];
@@ -2922,10 +2933,8 @@ typedef struct {
     self.transformAnchorViews = nil;
 }
 
-- (void)createTransformHelperViews{
-    //计算当前层的bounding box,并根据bounding box大小创建transform外框
-    CGRect rect = [self.paintView calculateLayerContentRect];
-    
+- (void)createTransformHelperViews:(CGRect)rect{
+   
     [self createTransformContentViewWithRect:rect];
 
     //创建九个锚点用于变换
@@ -3148,11 +3157,11 @@ typedef struct {
     [CATransaction commit];
 }
 
-- (void)enterTransformLayerState{
+- (void)enterTransformLayerState:(CGRect)rect{
     _state = PaintScreen_Transform;
     
     //UI
-    [self createTransformHelperViews];
+    [self createTransformHelperViews:rect];
     
     //UI
     //    //隐藏MainToolBar PaintToolBar
@@ -3180,11 +3189,11 @@ typedef struct {
 }
 
 //TODO: not confirmed function
-- (void)enterTransformImageState{
+- (void)enterTransformImageState:(CGRect)rect{
     _state = PaintScreen_Transform;
 
     //UI
-    [self createTransformHelperViews];
+    [self createTransformHelperViews:rect];
     
     //隐藏MainToolBar PaintToolBar
     [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
@@ -3230,11 +3239,18 @@ typedef struct {
 - (IBAction)transformButtonTapped:(id)sender {
 
     if (_state == PaintScreen_Normal) {
+        //计算当前层的bounding box,并根据bounding box大小创建transform外框
+        CGRect rect = [self.paintView calculateLayerContentRect];
+
+        if(CGSizeEqualToSize(rect.size, CGSizeZero)){
+            return;
+        }
+        
         [self.paintView beforeTransformLayer];
 
         //UI
         //TODO:禁止除TransformButton以外的按钮的交互
-        [self enterTransformLayerState];
+        [self enterTransformLayerState:rect];
         
         UIView* view = (UIView*)sender;
         view.tag = 1;
@@ -4234,6 +4250,7 @@ typedef struct {
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
     if (self.paintView.state != PaintingView_TouchEyeDrop) {
         self.paintView.state = PaintingView_TouchEyeDrop;
+        _state = PaintScreen_PickColor;
         
         [UIView animateWithDuration:0.2 animations:^{
             self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 10, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);

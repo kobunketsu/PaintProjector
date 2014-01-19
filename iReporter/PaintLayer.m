@@ -10,10 +10,12 @@
 
 @implementation PaintLayer
 
-- (id)initWithData:(NSData*)data blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity{
+- (id)initWithData:(NSData*)data name:(NSString *)name identifier:(NSString*)identifier blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity{
     self = [super init];
     if(self!=NULL){
         self.data = data;
+        self.name = name;
+        self.identifier = identifier;
         self.blendMode = blendMode;
         self.visible = visible;
         self.dirty = true;
@@ -24,7 +26,8 @@
     return self;
 }
 
-
+#define kName             @"Name"
+#define kIdentifier       @"Identifier"
 #define kBlendModeKey     @"BlendMode"
 #define kDataKey          @"Data"
 #define kVisibleKey       @"Visible"
@@ -32,6 +35,8 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.data forKey:kDataKey];
+    [encoder encodeObject:self.name forKey:kName];
+    [encoder encodeObject:self.identifier forKey:kIdentifier];
     [encoder encodeInteger:(NSInteger)self.blendMode forKey:kBlendModeKey];
     [encoder encodeBool:self.visible forKey:kVisibleKey];
     [encoder encodeFloat:self.opacity forKey:kOpacityKey];
@@ -40,15 +45,19 @@
 
 - (id) initWithCoder:(NSCoder *)decoder {
     NSData *data = [decoder decodeObjectForKey:kDataKey];
+    NSString *name = [decoder decodeObjectForKey:kName];
+    NSString *identifier = [decoder decodeObjectForKey:kIdentifier];
     LayerBlendMode blendMode = (LayerBlendMode)[decoder decodeIntegerForKey:kBlendModeKey];
     bool visible = [decoder decodeBoolForKey:kVisibleKey];
     float opacity = [decoder decodeFloatForKey:kOpacityKey];
 //    DebugLog(@"initWithCoder data:%d blendMode:%d visible:%i opacity:%.2f", (id)data, (int)blendMode, visible, opacity);
-    return [self initWithData:data blendMode:blendMode visible:visible opacity:opacity];
+    return [self initWithData:data name:name identifier:identifier blendMode:blendMode visible:visible opacity:opacity];
 }
 
 - (id)copyWithZone:(NSZone *)zone{
     PaintLayer *layer = [[PaintLayer alloc] init];
+    layer.name = self.name;
+    layer.identifier = self.identifier;
     layer.blendMode = self.blendMode;
     layer.visible = self.visible;
     layer.opacity = self.opacity;
@@ -77,8 +86,6 @@
             data[i*4+2] = 255;
             data[i*4+3] = 255;
         }
-
-        
     }
     // Create a CGImage with the pixel data
     // If your OpenGL ES content is opaque, use kCGImageAlphaNoneSkipLast to ignore the alpha channel
@@ -96,8 +103,12 @@
     CFRelease(colorspace);
     CGImageRelease(image);
 
-    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData blendMode:kLayerBlendModeNormal visible:true opacity:1.0];
+    CFUUIDRef   uuidObj = CFUUIDCreate(nil);
+    NSString    *uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(nil, uuidObj);
+    CFRelease(uuidObj);
     
+    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData name:@"NewLayer" identifier:uuidString blendMode:kLayerBlendModeNormal visible:true opacity:1.0];
+
     return layer;
 }
 - (void)setOpacity:(float)opacity{

@@ -98,6 +98,9 @@ const float BackgroundLayerTableViewCellHeight = 75;
         BackgroundLayer *backgroundLayer = self.backgroundLayer;
         cell.visibleButton.isVisible = backgroundLayer.visible;
         cell.visibleButton.tag = -1;
+        
+        cell.isAccessibilityElement = true;
+        cell.accessibilityLabel = @"Background";
         return cell;
     }
     else{
@@ -106,11 +109,11 @@ const float BackgroundLayerTableViewCellHeight = 75;
         cell.visibleButton.isVisible = layer.visible;
         cell.layerOpacitySlider.value = layer.opacity;
         cell.visibleButton.tag = cell.layerBlendModeButton.tag = cell.layerOpacitySlider.tag = [self layerIndexForRow:indexPath.row];
+        
+        cell.isAccessibilityElement = true;
+        cell.accessibilityIdentifier = layer.identifier;
         return cell;
     }
-
-
-
 }
 
 

@@ -32,9 +32,9 @@ Then /^I delete paint number (\d+)$/ do |index|
     touch("button marked:'Delete'")
     
     wait_for_elements_exist([ "view marked:'DeleteArtworkAlert'" ], :timeout => WAIT_TIMEOUT)
-    element_exists( "button marked:'#{DeleteArtwork}'")
-    element_exists( "button marked:'#{CancelArtwork}'")
-    element_exists( "label marked:'#{Are you sure you want to delete?}'")
+    wait_for_elements_exist([ "button marked:'#{DeleteArtwork}'"], :timeout => WAIT_TIMEOUT)
+    wait_for_elements_exist([ "button marked:'#{CancelArtwork}'"], :timeout => WAIT_TIMEOUT)
+    wait_for_elements_exist([ "label marked:'#{Are you sure you want to delete?}'"], :timeout => WAIT_TIMEOUT)
     
     touch("button marked:(DeleteArtwork)")
 

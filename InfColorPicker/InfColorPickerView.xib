@@ -112,7 +112,7 @@
                                     </connections>
                                 </view>
                                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="72" customClass="InfSourceColorView">
-                                    <rect key="frame" x="42.000000023841864" y="1" width="40" height="40"/>
+                                    <rect key="frame" x="42" y="1" width="40.000000023841864" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <connections>

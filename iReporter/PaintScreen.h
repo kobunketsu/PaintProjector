@@ -149,9 +149,6 @@ InfColorPickerControllerDelegate,
 FuzzyTransparentViewDelegate
 >
 {
-    //UI
-    PaintScreenViewState _state;
-    
     //变换
     TransformImageState _transformImageState;
     CGPoint _transformAnchor;

@@ -1,26 +1,27 @@
 #Paint screen steps
-Given /^I am on the Paint Screen$/ do
+Then /^I am on the Paint Screen$/ do
 	#draw tools
-	element_exists("view marked:'Drawing pad'")
-	element_exists("view marked:'Canvas'")
-	element_exists("button marked:'UsingBrush'")
-	element_exists("button marked:'BackupBrush'")	
-	element_exists("button marked:'UsingColor'")
-	element_exists("slider marked:'RadiusSlider'")
-	element_exists("slider marked:'OpacitySlider'")	
-	element_exists("button marked:'Eyedropper'")
-	element_exists("tableView marked:'Pallete'")
+	wait_for_elements_exist(["view marked:'DrawingPad'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["view marked:'Canvas'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'UsingBrush'"], :timeout => WAIT_TIMEOUT)
+  #BackupBrush not visible?
+	wait_for_elements_exist(["all view marked:'BackupBrush'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'UsingColor'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["slider marked:'RadiusSlider'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["slider marked:'OpacitySlider'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'EyeDropper'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["scrollView marked:'Pallete'"], :timeout => WAIT_TIMEOUT)
 	
 	#other tools
-	element_exists("view marked:'MainToolBar'")
-	element_exists("view marked:'PaintToolBar'")
-	element_exists("button marked:'Layer'")
-	element_exists("button marked:'Transform'")
-	element_exists("button marked:'Undo'")
-	element_exists("button marked:'Redo'")
-	element_exists("button marked:'Import'")
-	element_exists("button marked:'Export'")
-	element_exists("button marked:'Close'")
+	wait_for_elements_exist(["view marked:'MainToolBar'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["view marked:'PaintToolBar'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Layer'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Transform'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Undo'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Redo'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Import'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Export'"], :timeout => WAIT_TIMEOUT)
+	wait_for_elements_exist(["button marked:'Close'"], :timeout => WAIT_TIMEOUT)
 end
 
 Given /^I start to edit a new file in the Paint Screen$/ do
@@ -70,6 +71,7 @@ Then /^I am using the "([^\"]*)"$/ do |brushName|
 end
 
 Then /^I am backuping the "([^\"]*)"$/ do |brushName|
+  #BackupBrush not visible?
   res = query("all view marked:'BackupBrush'", "brush", "name")[0]
   res == '#{brushName}'
 end

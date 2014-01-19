@@ -11,6 +11,7 @@
 #import "LayerBlendModeButton.h"
 #import "LayerImageView.h"
 @interface LayerTableViewCell : UITableViewCell
+//@property (nonatomic, copy) NSString *layerIdentifier;
 @property (nonatomic, weak) IBOutlet LayerVisibleButton *visibleButton;
 @property (nonatomic, weak) IBOutlet LayerImageView *layerImageView;
 @property (weak, nonatomic) IBOutlet UIView *layerImageViewFrame;
