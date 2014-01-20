@@ -107,55 +107,55 @@
     }
     
     // configure cell...
-
+    cell.isAccessibilityElement = true;
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = @"Normal:";
+            cell.textLabel.text = cell.accessibilityLabel = @"Normal";
             break;
         case 1:
-            cell.textLabel.text = @"Multiply:";
+            cell.textLabel.text = cell.accessibilityLabel = @"Multiply";
             break;
         case 2:
-            cell.textLabel.text = @"Screen";
+            cell.textLabel.text = cell.accessibilityLabel = @"Screen";
             break;
         case 3:
-            cell.textLabel.text = @"Overlay";
+            cell.textLabel.text = cell.accessibilityLabel = @"Overlay";
             break;
         case 4:
-            cell.textLabel.text = @"Darken";
+            cell.textLabel.text = cell.accessibilityLabel = @"Darken";
             break;
         case 5:
-            cell.textLabel.text = @"Lighten";
+            cell.textLabel.text = cell.accessibilityLabel = @"Lighten";
             break;
         case 6:
-            cell.textLabel.text = @"ColorDodge";
+            cell.textLabel.text = cell.accessibilityLabel = @"ColorDodge";
             break;
         case 7:
-            cell.textLabel.text = @"ColorBurn";
+            cell.textLabel.text = cell.accessibilityLabel = @"ColorBurn";
             break;
         case 8:
-            cell.textLabel.text = @"SoftLight";
+            cell.textLabel.text = cell.accessibilityLabel = @"SoftLight";
             break;
         case 9:
-            cell.textLabel.text = @"HardLight";
+            cell.textLabel.text = cell.accessibilityLabel = @"HardLight";
             break;
         case 10:
-            cell.textLabel.text = @"Difference";
+            cell.textLabel.text = cell.accessibilityLabel = @"Difference";
             break;
         case 11:
-            cell.textLabel.text = @"Exclusion";
+            cell.textLabel.text = cell.accessibilityLabel = @"Exclusion";
             break;
         case 12:
-            cell.textLabel.text = @"Hue";
+            cell.textLabel.text = cell.accessibilityLabel = @"Hue";
             break;
         case 13:
-            cell.textLabel.text = @"Saturation";
+            cell.textLabel.text = cell.accessibilityLabel = @"Saturation";
             break;
         case 14:
-            cell.textLabel.text = @"Color";
+            cell.textLabel.text = cell.accessibilityLabel = @"Color";
             break;
         case 15:
-            cell.textLabel.text = @"Luminosity";
+            cell.textLabel.text = cell.accessibilityLabel = @"Luminosity";
             break;
         default:
             break;

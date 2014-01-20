@@ -21,7 +21,6 @@ Given /^I see at least one artworks$/ do
 end
 
 Then /^I delete paint number (\d+)$/ do |index|
-    index = index.to_i
     screenshot_and_raise "Index should be positive (was: #{index})" if (index<=0)
     
     wait_for_elements_exist([ "tableViewCell index:#{index-1}" ], :timeout => WAIT_TIMEOUT)
@@ -44,7 +43,6 @@ Then /^I delete paint number (\d+)$/ do |index|
 end
 
 Then /^I copy paint number (\d+)$/ do |index|
-    index = index.to_i
     screenshot_and_raise "Index should be positive (was: #{index})" if (index<=0)
 	
     wait_for_elements_exist([ "tableViewCell index:#{index-1}" ], :timeout => WAIT_TIMEOUT)

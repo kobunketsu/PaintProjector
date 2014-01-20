@@ -1,21 +1,23 @@
 Then /^I wait to see ColorPicker$/ do
-  wait_for_elements_exist([ "view marked:'ColorPicker'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker UsingColor'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker PickedColor'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker SV View'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker SV Picker'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker Hue View'"], :timeout => WAIT_TIMEOUT)
   wait_for_elements_exist(["view marked:'ColorPicker Hue Picker'"], :timeout => WAIT_TIMEOUT)
-  wait_for_elements_exist(["view marked:'ColorPicker ChildMode'"], :timeout => WAIT_TIMEOUT)
+  wait_for_elements_exist(["view marked:'ColorPicker PickMode'"], :timeout => WAIT_TIMEOUT)
   
 end
 
 When /^I pick red in the ColorPicker$/ do
   touch("view marked:'ColorPicker Hue View'", :offset => {:x => -128, :y => 0})
   sleep(STEP_PAUSE)
+  
   touch("view marked:'ColorPicker SV View'", :offset => {:x => 128, :y => -128})
   sleep(STEP_PAUSE)
   
+  @pickedColor = query("view marked:'ColorPicker PickedColor'", "backgroundColor")[0]
 end
 
 Then /^I confirm the pick$/ do
@@ -24,17 +26,12 @@ Then /^I confirm the pick$/ do
   wait_for_elements_do_not_exist( [ "view marked:'ColorPicker'" ], :timeout => WAIT_TIMEOUT)
 end
 
-Then /^I am using red color$/ do
-  element_exists("view marked:'UsingColor'")
-  strColor = query("view marked:'UsingColor'", "color")[0].split(" ")
-  r = strColor[1].to_f
-  g = strColor[2].to_f
-  b = strColor[3].to_f
-  a = strColor[4].to_f
-  
-  res = float_equal(r,1) and float_equal(g,1) and float_equal(b,1)
-  if not res
-    raise "I am not using red color. Using r #{r} g #{g} b#{b}"
+Then /^I am using color from ColorPicker$/ do
+  #element_exists("view marked:'UsingColor'")
+  strColor = query("view marked:'UsingColor'", "color")[0]
+
+  if not strColor == @pickedColor
+    raise "I am not using red color. Using color #{strColor}"
   end
 end
 
@@ -44,7 +41,6 @@ When /^I touch color slot number (\d+) on pallete$/ do |index|
     screenshot_and_raise "No element found with mark Pallete'"
   end
   
-  index = index.to_i
   strIndex = (index-1).to_s
   label = 'PalleteColor_'+strIndex
   res = element_exists( "view:'ColorButton' marked:'#{label}'" )
@@ -65,7 +61,6 @@ Then /^I am using number (\d+) color from pallete$/ do |index|
     screenshot_and_raise "No element found with mark Pallete'"
   end
   
-  index = index.to_i
   strIndex = (index-1).to_s
   label = 'PalleteColor_'+strIndex
     

@@ -100,7 +100,7 @@ const float BackgroundLayerTableViewCellHeight = 75;
         cell.visibleButton.tag = -1;
         
         cell.isAccessibilityElement = true;
-        cell.accessibilityLabel = @"Background";
+        cell.accessibilityLabel = @"BackgroundCell";
         return cell;
     }
     else{

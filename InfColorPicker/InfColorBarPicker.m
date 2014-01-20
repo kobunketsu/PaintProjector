@@ -81,7 +81,7 @@ static CGImageRef createContentImage()
 		CGFloat kIndicatorSize = 24.0f;
 		indicator = [ [ InfColorIndicatorView alloc ] initWithFrame: CGRectMake( 0, 0, kIndicatorSize, kIndicatorSize ) ];
         indicator.isAccessibilityElement = true;
-        indicator.accessibilityLabel = @"Pallete Hue Picker";
+        indicator.accessibilityLabel = @"ColorPicker Hue Picker";
 		[ self addSubview: indicator ];
 	}
 	

@@ -89,14 +89,17 @@
                                     <rect key="frame" x="1" y="1" width="80" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" label="ColorPicker UsingColor">
+                                        <bool key="isElement" value="YES"/>
+                                    </accessibility>
                                     <connections>
                                         <action selector="takeBackgroundColor:" destination="-1" eventType="touchUpInside" id="78"/>
                                     </connections>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="ColorPicker UsingColor">
-                                <bool key="isElement" value="YES"/>
+                            <accessibility key="accessibilityConfiguration" label="">
+                                <bool key="isElement" value="NO"/>
                             </accessibility>
                         </view>
                         <view hidden="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="69">
@@ -112,7 +115,7 @@
                                     </connections>
                                 </view>
                                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="72" customClass="InfSourceColorView">
-                                    <rect key="frame" x="42" y="1" width="40.000000023841864" height="40"/>
+                                    <rect key="frame" x="42.000000023841864" y="1" width="40" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <connections>
@@ -130,18 +133,21 @@
                                     <rect key="frame" x="1" y="1" width="80" height="40"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <accessibility key="accessibilityConfiguration" label="ColorPicker PickedColor">
+                                        <bool key="isElement" value="YES"/>
+                                    </accessibility>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <accessibility key="accessibilityConfiguration" label="ColorPicker PickedColor">
-                                <bool key="isElement" value="YES"/>
+                            <accessibility key="accessibilityConfiguration" label="">
+                                <bool key="isElement" value="NO"/>
                             </accessibility>
                         </view>
                         <view contentMode="scaleToFill" id="Puc-WX-NvV">
                             <rect key="frame" x="196" y="0.0" width="42" height="42"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="91" userLabel="DoneButton" customClass="ColorPickModeButton">
+                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="91" userLabel="ChildModeButton" customClass="ColorPickModeButton">
                                     <rect key="frame" x="2" y="2" width="39" height="39"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
