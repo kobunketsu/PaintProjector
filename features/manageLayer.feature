@@ -9,22 +9,33 @@ Feature: Running manage layer functions
     When I touch the "Layer" button
     Then I wait to see "LayerManager"
     
-  Scenario: Painting create new layer above selected layer
-    Given I touch layer number 1
+  Scenario Outline: Painting create new layer above selected layer
+    Given I should see layer number <num>
+    And I touch layer number <num>
     And I should see a "AddLayer" button
     When I touch the "AddLayer" button
     Then I should create a new layer above
+    Examples:
+    | num |
+    | 1   |
+        
   @focus    
   Scenario Outline: Painting delete selected layer
     Given I should see layer number <num>
-    When I touch Delete for layer number <num>
+    When I touch Delete button for layer number <num>
     Then I should delete layer number <num>
     Examples:
     | num |
     | 2   |
     
   Scenario: Painting copy selected layer
-    Given this is pending
+    Given I should see layer number <num>
+    And I touch layer number <num>
+    When I touch Copy button for layer number <num>
+    Then I should copy layer number <num> above
+    Examples:
+    | num |
+    | 1   |    
 
   Scenario: Painting move layer up
     Given this is pending
