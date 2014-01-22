@@ -248,6 +248,11 @@
 		08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
 		08A932D016FEAD2600A75938 /* Export.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A932CF16FEAD2600A75938 /* Export.m */; };
 		08AB1DB91794362C00D6FF84 /* email_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08AB1DB81794362C00D6FF84 /* email_48.png */; };
+		08AB75C5188F5A5A007DA20B /* PaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */; };
+		08AB75C7188F5A5A007DA20B /* PaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */; };
+		08AB75CA188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */; };
+		08AB75CB188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */; };
+		08AB75CC188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */; };
 		08AFD4CE17F33DA600B9492B /* FuzzyTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD4CD17F33DA600B9492B /* FuzzyTransparentView.m */; };
 		08B080E91781BDCA000B7E60 /* LayerClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B080E81781BDCA000B7E60 /* LayerClearButton.m */; };
 		08B131B117D24F01004FDF1D /* PrintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B131B017D24F01004FDF1D /* PrintButton.m */; };
@@ -1060,6 +1065,10 @@
 		08A932CE16FEAD2600A75938 /* Export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Export.h; sourceTree = "<group>"; };
 		08A932CF16FEAD2600A75938 /* Export.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Export.m; sourceTree = "<group>"; };
 		08AB1DB81794362C00D6FF84 /* email_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email_48.png; sourceTree = "<group>"; };
+		08AB75C3188F5A5A007DA20B /* PaintCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintCollectionView.h; sourceTree = "<group>"; };
+		08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintCollectionView.m; sourceTree = "<group>"; };
+		08AB75C8188F5ABA007DA20B /* PaintCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintCollectionViewCell.h; sourceTree = "<group>"; };
+		08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintCollectionViewCell.m; sourceTree = "<group>"; };
 		08AFD4CC17F33DA600B9492B /* FuzzyTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuzzyTransparentView.h; sourceTree = "<group>"; };
 		08AFD4CD17F33DA600B9492B /* FuzzyTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuzzyTransparentView.m; sourceTree = "<group>"; };
 		08B080E71781BDCA000B7E60 /* LayerClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerClearButton.h; sourceTree = "<group>"; };
@@ -1700,6 +1709,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		08AB75C0188F5980007DA20B /* CollectionScreen */ = {
+			isa = PBXGroup;
+			children = (
+				08AB75C3188F5A5A007DA20B /* PaintCollectionView.h */,
+				08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */,
+				08AB75C8188F5ABA007DA20B /* PaintCollectionViewCell.h */,
+				08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */,
+			);
+			name = CollectionScreen;
+			sourceTree = "<group>";
+		};
 		08B444B0175AEC9F00787C18 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1912,6 +1932,7 @@
 				0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */,
 				088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */,
 				9C60DA8014E5306800442413 /* FirstScreen */,
+				08AB75C0188F5980007DA20B /* CollectionScreen */,
 				085539811751B4C000DECF41 /* Project */,
 				08FD1F9E164E454A003738FC /* Paint */,
 				08B444B0175AEC9F00787C18 /* Misc */,
@@ -2416,6 +2437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0897D7EA187C46BA00A7ECD2 /* PaintProjector_Tests.m in Sources */,
+				08AB75CB188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2554,6 +2576,7 @@
 				a819809116ba726ba068c0f2 /* LayerTableViewController.m in Sources */,
 				33c3e02f55644e233c7e50c0 /* LayerTableViewCell.m in Sources */,
 				08fa420721319a2c16a6af4c /* BrushPropertyView.m in Sources */,
+				08AB75CC188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */,
 				19ba8cb15b35fd1261697aef /* LayerImageView.m in Sources */,
 				a8ccf61af24ca4caa5d33924 /* LockCanvasRotationView.m in Sources */,
 				0cf76288bbdc25a1349b5c70 /* LayerToolView.m in Sources */,
@@ -2603,6 +2626,7 @@
 				3c513cefb046c03c1ef07cbf /* PrintButton.m in Sources */,
 				3a04b0025429b1da2e36033e /* NewButton.m in Sources */,
 				b898b9c52313a579a9749bdb /* ZoomCanvasView.m in Sources */,
+				08AB75C7188F5A5A007DA20B /* PaintCollectionView.m in Sources */,
 				e21b4e595f0fb5cfb4d67bfc /* Crayons.m in Sources */,
 				b9c7be3996399a503583fba3 /* DeleteButton.m in Sources */,
 				1963f0d7ee62b31500050c89 /* CopyButton.m in Sources */,
@@ -2747,6 +2771,7 @@
 				0860059A17467848004BF021 /* LayerTableViewController.m in Sources */,
 				084691031747C80300E50554 /* LayerTableViewCell.m in Sources */,
 				089C629E17EC836C00E2AB48 /* BrushPropertyView.m in Sources */,
+				08AB75CA188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */,
 				084691061748917000E50554 /* LayerImageView.m in Sources */,
 				088505BA17F718DF00E460CA /* LockCanvasRotationView.m in Sources */,
 				084691411748C4CA00E50554 /* LayerToolView.m in Sources */,
@@ -2796,6 +2821,7 @@
 				08B131B117D24F01004FDF1D /* PrintButton.m in Sources */,
 				0860668B17D2D8FB002EE42A /* NewButton.m in Sources */,
 				088505BF17F720FF00E460CA /* ZoomCanvasView.m in Sources */,
+				08AB75C5188F5A5A007DA20B /* PaintCollectionView.m in Sources */,
 				0871D02A1812A27400A0D037 /* Crayons.m in Sources */,
 				0860669017D2DB60002EE42A /* DeleteButton.m in Sources */,
 				0860669317D2DE40002EE42A /* CopyButton.m in Sources */,
