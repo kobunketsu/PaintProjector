@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PaintFrameView.h"
 
 @interface PaintCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet PaintFrameView *paintFrameView;
 
 @end

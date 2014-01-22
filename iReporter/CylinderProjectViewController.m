@@ -353,6 +353,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [self exportToAirPrint];
 }
 
+
 //设置当前用于显示的组(Document下的子目录)
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex{
     PaintFrameViewGroup* paintFrameGroup = [[PaintFrameViewGroup alloc]initWithCapacity:1];

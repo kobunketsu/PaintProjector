@@ -3615,7 +3615,7 @@ typedef struct {
 - (void)projectCylinder
 {
     //显示新的view controller
-    CylinderProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"cylinderProjectViewController"];
+    CylinderProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
     viewController.delegate = self;
 //    [viewController initWithPaintView:self.paintView];
     viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

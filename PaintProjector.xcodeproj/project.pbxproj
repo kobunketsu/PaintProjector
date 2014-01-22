@@ -317,6 +317,12 @@
 		08FE79F017C8EBA000D1EEBD /* MediaFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79EF17C8EB9F00D1EEBD /* MediaFrameView.m */; };
 		08FE79F517C8ECAD00D1EEBD /* VideoFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79F417C8ECAD00D1EEBD /* VideoFrameView.m */; };
 		08FE79FA17C8FF9900D1EEBD /* PaintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79F917C8FF9900D1EEBD /* PaintButton.m */; };
+		08FF70C21890011E00A7A09B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C11890011E00A7A09B /* RootViewController.m */; };
+		08FF70C31890011E00A7A09B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C11890011E00A7A09B /* RootViewController.m */; };
+		08FF70C8189003AC00A7A09B /* PaintCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */; };
+		08FF70C9189003AC00A7A09B /* PaintCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */; };
+		08FF70CC189019A400A7A09B /* PaintUIKitAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */; };
+		08FF70CD189019A400A7A09B /* PaintUIKitAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */; };
 		08fa420721319a2c16a6af4c /* BrushPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C629D17EC836C00E2AB48 /* BrushPropertyView.m */; };
 		097a24bfe38a93ccf92d0a2b /* EyeDropperIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E16DC817412581000B211D /* EyeDropperIndicatorView.m */; };
 		0cf76288bbdc25a1349b5c70 /* LayerToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691401748C4C800E50554 /* LayerToolView.m */; };
@@ -1175,6 +1181,12 @@
 		08FE79F417C8ECAD00D1EEBD /* VideoFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoFrameView.m; sourceTree = "<group>"; };
 		08FE79F817C8FF9900D1EEBD /* PaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintButton.h; sourceTree = "<group>"; };
 		08FE79F917C8FF9900D1EEBD /* PaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintButton.m; sourceTree = "<group>"; };
+		08FF70C01890011E00A7A09B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		08FF70C11890011E00A7A09B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		08FF70C6189003AC00A7A09B /* PaintCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintCollectionViewController.h; sourceTree = "<group>"; };
+		08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintCollectionViewController.m; sourceTree = "<group>"; };
+		08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintUIKitAnimation.h; sourceTree = "<group>"; };
+		08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintUIKitAnimation.m; sourceTree = "<group>"; };
 		9483A662165F3DB100EE56AD /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		949066061684000A00AF072C /* Ultility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ultility.h; sourceTree = "<group>"; };
 		949066071684000A00AF072C /* Ultility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ultility.m; sourceTree = "<group>"; };
@@ -1716,6 +1728,8 @@
 				08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */,
 				08AB75C8188F5ABA007DA20B /* PaintCollectionViewCell.h */,
 				08AB75C9188F5ABA007DA20B /* PaintCollectionViewCell.m */,
+				08FF70C6189003AC00A7A09B /* PaintCollectionViewController.h */,
+				08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */,
 			);
 			name = CollectionScreen;
 			sourceTree = "<group>";
@@ -1799,6 +1813,8 @@
 				081A228916D8555C00F39468 /* TextureManager.m */,
 				08A932CE16FEAD2600A75938 /* Export.h */,
 				08A932CF16FEAD2600A75938 /* Export.m */,
+				08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */,
+				08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */,
 			);
 			name = Ultility;
 			sourceTree = "<group>";
@@ -1930,6 +1946,8 @@
 				9C21AF2514E4579F00DB003E /* AppDelegate.h */,
 				9C21AF2614E4579F00DB003E /* AppDelegate.m */,
 				0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */,
+				08FF70C01890011E00A7A09B /* RootViewController.h */,
+				08FF70C11890011E00A7A09B /* RootViewController.m */,
 				088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */,
 				9C60DA8014E5306800442413 /* FirstScreen */,
 				08AB75C0188F5980007DA20B /* CollectionScreen */,
@@ -2558,6 +2576,7 @@
 				de364d98f5b55fe16cf2ed5f /* EyeDropperButton.m in Sources */,
 				e8f80b053040869f414dd734 /* FreeTransformButton.m in Sources */,
 				8f2589fd699ba0752fa1e205 /* MoveButton.m in Sources */,
+				08FF70C31890011E00A7A09B /* RootViewController.m in Sources */,
 				5ff703344d637f5dacebee0d /* RotateButton.m in Sources */,
 				6d174a419e4ae648971ae2c9 /* ScaleButton.m in Sources */,
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
@@ -2571,8 +2590,10 @@
 				c28bba63ed86880967c99b8d /* CustomLayer.m in Sources */,
 				84e38cf39290be67242a948a /* Marker.m in Sources */,
 				c4c4076e6f190f58cf0e49f3 /* BrushTypeSmallButton.m in Sources */,
+				08FF70C9189003AC00A7A09B /* PaintCollectionViewController.m in Sources */,
 				097a24bfe38a93ccf92d0a2b /* EyeDropperIndicatorView.m in Sources */,
 				3c475975e807db0d73ebe205 /* SharedTableViewCell.m in Sources */,
+				08FF70CD189019A400A7A09B /* PaintUIKitAnimation.m in Sources */,
 				a819809116ba726ba068c0f2 /* LayerTableViewController.m in Sources */,
 				33c3e02f55644e233c7e50c0 /* LayerTableViewCell.m in Sources */,
 				08fa420721319a2c16a6af4c /* BrushPropertyView.m in Sources */,
@@ -2753,6 +2774,7 @@
 				0802D11717369821003259E6 /* EyeDropperButton.m in Sources */,
 				08D836911737E2E600B68990 /* FreeTransformButton.m in Sources */,
 				08D836961737E4D200B68990 /* MoveButton.m in Sources */,
+				08FF70C21890011E00A7A09B /* RootViewController.m in Sources */,
 				08D836991737E5A100B68990 /* RotateButton.m in Sources */,
 				08D8369C1737E5EF00B68990 /* ScaleButton.m in Sources */,
 				08D8369F1737EB2100B68990 /* CancelButton.m in Sources */,
@@ -2766,8 +2788,10 @@
 				087751BB180450B20034FEA7 /* CustomLayer.m in Sources */,
 				087FE74A173E2F9C009B34A2 /* Marker.m in Sources */,
 				0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */,
+				08FF70C8189003AC00A7A09B /* PaintCollectionViewController.m in Sources */,
 				08E16DC917412581000B211D /* EyeDropperIndicatorView.m in Sources */,
 				0860059717466DEC004BF021 /* SharedTableViewCell.m in Sources */,
+				08FF70CC189019A400A7A09B /* PaintUIKitAnimation.m in Sources */,
 				0860059A17467848004BF021 /* LayerTableViewController.m in Sources */,
 				084691031747C80300E50554 /* LayerTableViewCell.m in Sources */,
 				089C629E17EC836C00E2AB48 /* BrushPropertyView.m in Sources */,
