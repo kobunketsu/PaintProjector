@@ -20,6 +20,14 @@ Given /^I see at least one artworks$/ do
     sleep(STEP_PAUSE)
 end
 
+Then /^I enter Setup mode$/ do
+  steps %Q{
+    Then I should see a "Copy" button
+    And I should see a "Delete" button
+    And I should see a "Print" button
+  }
+end
+    
 Then /^I delete paint number (\d+)$/ do |index|
     index = index.to_i
     screenshot_and_raise "Index should be positive (was: #{index})" if (index<=0)

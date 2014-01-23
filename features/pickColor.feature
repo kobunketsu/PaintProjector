@@ -12,7 +12,7 @@ Feature: Running pick color functions
     Then I wait to see ColorPicker
     When I pick red in the ColorPicker
     And I confirm the pick
-    Then I am using color from ColorPicker
+    Then I am using red color
   
   Scenario: Painting pick a color in simple mode from pallete
     Given this is pending

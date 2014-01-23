@@ -10,11 +10,14 @@
 #import "PaintCollectionViewCell.h"
 #import "PaintFrameViewGroup.h"
 #import "PaintDocManager.h"
+#import "PaintFrameManager.h"
 #import "PaintUIKitAnimation.h"
+#import "PaintScreen.h"
 
 @interface PaintCollectionViewController ()
-@property (nonatomic, retain) PaintFrameViewGroup* curPaintFrameGroup;
-@property (nonatomic, retain) PaintFrameView *curPaintFrameView;
+
+@property (nonatomic, retain) PaintFrameManager *paintFrameManager;
+@property (nonatomic, assign) BOOL isEditing;
 @end
 
 @implementation PaintCollectionViewController
@@ -36,10 +39,14 @@
     UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
     
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.toolBar completion:nil toView:self.categoryBar completion:nil];
-    
+    self.isEditing = false;
+    for (UIButton *button in self.editButtons) {
+        button.hidden = true;
+    }
+
     //设置当前PaintFrameGroup PaintFrame
-    [self setCurPaintFrameGroupByIndex:1];
+    self.paintFrameManager = [[PaintFrameManager alloc]init];
+    [self.paintFrameManager setCurPaintFrameGroupByIndex:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,66 +57,41 @@
 
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.curPaintFrameGroup.paintDocs.count;
+    return self.paintFrameManager.curPaintFrameGroup.paintDocs.count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     //
-    PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:indexPath.row];
-    
     PaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor clearColor];
-    
-    PaintFrameView *paintFrameView = cell.paintFrameView;
-    paintFrameView.isAccessibilityElement = true;
-    NSUInteger length = [paintDoc.docPath length];
-    NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
-    paintFrameView.accessibilityLabel = accLabel;
-    [paintFrameView setPaintDoc:paintDoc];
-    [paintFrameView loadForDisplay];
-    
+
+    [self.paintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
+
     return cell;
 }
 
-#pragma mark- 从磁盘载入文件
-//设置当前用于显示的组(Document下的子目录)
-- (void)setCurPaintFrameGroupByIndex:(int)groupIndex{
-    PaintFrameViewGroup* paintFrameGroup = [[PaintFrameViewGroup alloc]initWithCapacity:1];
-    paintFrameGroup.name = [NSString stringWithFormat:@"PaintFrameGroup_%d", groupIndex];
-    paintFrameGroup.dirPath = [[PaintDocManager sharedInstance]directoryPath:groupIndex];
-    //加载指定子目录下的PaintDoc
-    paintFrameGroup.paintDocs = [[PaintDocManager sharedInstance]loadPaintDocsInDirectoryIndex:groupIndex];
-    //设置当前画框源
-    //如果paintFrameGroup下的数据源paintDocs为空，
-    if (paintFrameGroup.paintDocs.count == 0) {
-        paintFrameGroup.curPaintIndex = paintFrameGroup.lastPaintIndex = -1;
-    }
-    else{
-        //        paintFrameGroup.curPaintFrame = self.curPaintFrameView;
-        paintFrameGroup.curPaintIndex = paintFrameGroup.lastPaintIndex = 0;
-    }
-    self.curPaintFrameGroup = paintFrameGroup;
-}
+-(void)openPaintFrame:(PaintFrameView*)paintFrameView {
 
-#pragma mark- Category Bar
+    PaintScreen *paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
+        self.delegate = paintScreenViewController;
+        paintScreenViewController.delegate = self;
 
-- (IBAction)myArtworkButtonTouchUp:(id)sender {
-    [self setCurPaintFrameGroupByIndex:1];
     
-    [self openPaintFrameViewsWithAnimation];
-    
-//    self.paintButton.hidden = true;
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.categoryBar completion:nil toView:self.toolBar completion:nil];
+    //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
+    DebugLog(@"presentViewController start");
+    [self presentViewController:paintScreenViewController animated:true completion:^{
+        DebugLog(@"presentViewController completed");
+        [self.delegate openDoc:paintFrameView.paintDoc];
+    }];
 }
 
 #pragma mark- Tool Bar
-
-- (IBAction)backButtonTouchUp:(id)sender {
-}
-
-- (IBAction)newButtonTouchUp:(id)sender {
+- (IBAction)fileButtonTouchUp:(id)sender{
+    self.isEditing = !self.isEditing;
+    for (UIButton *button in self.editButtons) {
+        button.hidden = !self.isEditing;
+    }
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {
@@ -121,33 +103,30 @@
 - (IBAction)printButtonTouchUp:(id)sender {
 }
 
-- (IBAction)paintButtonTouchUp:(id)sender {
-}
-
-
-- (void)openPaintFrameViewsWithAnimation{
-    /*
-    self.paintFrameTableView.hidden = false;
-    [self.paintFrameTableView reloadData];
-    
-    //    DebugLog(@"openPaintFrameViewsWithAnimation visibleCells count %d", self.paintFrameTableView.visibleCells.count);
-    for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-        //        DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell %@", cell);
-        UIView *view = [cell.contentView.subviews objectAtIndex:0];
-        view.bounds = CGRectMake(0, 0, 0, PaintFrameViewHeight);
-    }
-    
-    [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.paintFrameTableView.alpha = 1;
-        for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-            //            DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell After Anim %@", cell);
-            UIView *view = [cell.contentView.subviews objectAtIndex:0];
-            view.bounds = CGRectMake(0, 0, PaintFrameViewWidth, PaintFrameViewHeight);
+- (IBAction)newButtonTouchUp:(id)sender {
+    if (!self.isEditing) {
+        //非编辑状态下从最后一个PaintFrameView之后添加
+        if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
+            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = self.paintFrameManager.curPaintFrameGroup.paintDocs.count - 1;
         }
-        
-    }completion:^(BOOL finished){
-        
-    }];
-     */
+        else{
+            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = 0;
+        }
+    }
+
+    //插入新paintDoc到paintDocs中，
+    [self.paintFrameManager insertNewPaintDocAtCurIndex];
+    
+    //插入新表单到表格
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
+    self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
+    
+    //放大画框开始绘制
+    [self openPaintFrame:self.paintFrameManager.curPaintFrameView];
 }
+
 @end

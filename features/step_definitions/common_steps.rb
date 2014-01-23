@@ -6,6 +6,11 @@ def float_equal(a, b)
   end
 end
 
+Then /^I transition from "([^\"]*)" to "([^\"]*)"$/ do |fromView, toView|
+  wait_for_elements_do_not_exist( [ "view marked:'#{fromView}'" ], :timeout => WAIT_TIMEOUT)  
+  wait_for_elements_exist( [ "view marked:'#{toView}'" ], :timeout => WAIT_TIMEOUT)    
+end
+
 When /^I touch hidden "([^\"]*)"$/ do |name|
   touch("all view marked:'#{name}'")
   sleep(STEP_PAUSE)  
@@ -20,3 +25,4 @@ Then /^I long (?:press|touch) on screen (\d+) from the left and (\d+) from the t
   pending
   #playback("long_press")
 end
+

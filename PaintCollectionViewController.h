@@ -7,21 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PaintScreen;
+@protocol PaintScreenDelegate;
 
 @interface PaintCollectionViewController : UIViewController
-<UICollectionViewDataSource, UICollectionViewDelegate>
+<UICollectionViewDataSource,
+UICollectionViewDelegate,
+PaintScreenDelegate>
+
+@property (nonatomic, assign) id delegate;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIView *categoryBar;
-@property (weak, nonatomic) IBOutlet UIView *toolBar;
 
-#pragma mark- Category Bar
-- (IBAction)myArtworkButtonTouchUp:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *toolBar;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
 
 #pragma mark- Tool Bar
-- (IBAction)backButtonTouchUp:(id)sender;
-
-- (IBAction)newButtonTouchUp:(id)sender;
+- (IBAction)fileButtonTouchUp:(id)sender;
 
 - (IBAction)copyButtonTouchUp:(id)sender;
 
@@ -29,6 +31,5 @@
 
 - (IBAction)printButtonTouchUp:(id)sender;
 
-- (IBAction)paintButtonTouchUp:(id)sender;
-
+- (IBAction)newButtonTouchUp:(id)sender;
 @end

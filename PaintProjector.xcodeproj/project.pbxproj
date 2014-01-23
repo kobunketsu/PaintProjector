@@ -57,6 +57,9 @@
 		081EFC0217CA253000D4FE46 /* AnamorphicSideViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC0117CA253000D4FE46 /* AnamorphicSideViewButton.m */; };
 		081EFC0517CA28EA00D4FE46 /* AnamorphicTopViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC0417CA28EA00D4FE46 /* AnamorphicTopViewButton.m */; };
 		081FC2B117EC97DE00097AD0 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 081FC2B017EC97DE00097AD0 /* noise.png */; };
+		08234EBD18915541008B4189 /* PaintFrameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 087AEBA61890ABE100D5B393 /* PaintFrameManager.m */; };
+		08234EC218915A45008B4189 /* FileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* FileButton.m */; };
+		08234EC318915F32008B4189 /* FileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* FileButton.m */; };
 		0823AA5D16A6E44400CF499C /* ShaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823AA5C16A6E44400CF499C /* ShaderManager.m */; };
 		0823E15016C13DE000F9C40A /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E14F16C13DE000F9C40A /* MainScreenViewController.m */; };
 		0823E15616C140CD00F9C40A /* CommonData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E15516C140CC00F9C40A /* CommonData.m */; };
@@ -186,6 +189,7 @@
 		087542501814A73400810509 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875424F1814A73400810509 /* brush_dryTip_64.png */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
 		087751BB180450B20034FEA7 /* CustomLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087751BA180450B20034FEA7 /* CustomLayer.m */; };
+		087AEBA71890ABE100D5B393 /* PaintFrameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 087AEBA61890ABE100D5B393 /* PaintFrameManager.m */; };
 		087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* OpacitySlider.m */; };
 		087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */ = {isa = PBXBuildFile; fileRef = 087BB3A61730ABF7006C0A33 /* opacityChecker.png */; };
 		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
@@ -771,6 +775,8 @@
 		081EFC0317CA28EA00D4FE46 /* AnamorphicTopViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnamorphicTopViewButton.h; sourceTree = "<group>"; };
 		081EFC0417CA28EA00D4FE46 /* AnamorphicTopViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnamorphicTopViewButton.m; sourceTree = "<group>"; };
 		081FC2B017EC97DE00097AD0 /* noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noise.png; sourceTree = "<group>"; };
+		08234EC018915A45008B4189 /* FileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileButton.h; sourceTree = "<group>"; };
+		08234EC118915A45008B4189 /* FileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileButton.m; sourceTree = "<group>"; };
 		0823AA5B16A6E44400CF499C /* ShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderManager.h; sourceTree = "<group>"; };
 		0823AA5C16A6E44400CF499C /* ShaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderManager.m; sourceTree = "<group>"; };
 		0823E14E16C13DE000F9C40A /* MainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
@@ -970,6 +976,8 @@
 		0875605B17676CD8002B806D /* ClearCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCommand.m; sourceTree = "<group>"; };
 		087751B9180450B20034FEA7 /* CustomLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomLayer.h; sourceTree = "<group>"; };
 		087751BA180450B20034FEA7 /* CustomLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomLayer.m; sourceTree = "<group>"; };
+		087AEBA51890ABE100D5B393 /* PaintFrameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintFrameManager.h; sourceTree = "<group>"; };
+		087AEBA61890ABE100D5B393 /* PaintFrameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintFrameManager.m; sourceTree = "<group>"; };
 		087BB3A11730AB4B006C0A33 /* OpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpacitySlider.h; sourceTree = "<group>"; };
 		087BB3A21730AB4B006C0A33 /* OpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpacitySlider.m; sourceTree = "<group>"; };
 		087BB3A61730ABF7006C0A33 /* opacityChecker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacityChecker.png; sourceTree = "<group>"; };
@@ -1588,6 +1596,8 @@
 				0860669217D2DE40002EE42A /* CopyButton.m */,
 				0860669417D2E235002EE42A /* BackButton.h */,
 				0860669517D2E235002EE42A /* BackButton.m */,
+				08234EC018915A45008B4189 /* FileButton.h */,
+				08234EC118915A45008B4189 /* FileButton.m */,
 			);
 			name = Project;
 			path = iReporter;
@@ -1938,6 +1948,8 @@
 			isa = PBXGroup;
 			children = (
 				08BDEA0017E54C3700803D6F /* Images.xcassets */,
+				087AEBA51890ABE100D5B393 /* PaintFrameManager.h */,
+				087AEBA61890ABE100D5B393 /* PaintFrameManager.m */,
 				080679A617DB72D000FED08D /* QuietAssertMacros.c */,
 				080679A117DB72A600FED08D /* fishhook.c */,
 				080679A217DB72A600FED08D /* fishhook.h */,
@@ -2543,6 +2555,7 @@
 				307587aae300fd31921da168 /* TextureManager.m in Sources */,
 				f30ec79c12c68986bb797ce0 /* CameraOverlayView.m in Sources */,
 				c7d2a72bf6af8a376e6e214b /* CameraOverlayViewController.m in Sources */,
+				08234EBD18915541008B4189 /* PaintFrameManager.m in Sources */,
 				60a57c2da640e71310c3ec3d /* PaintProjectViewController.m in Sources */,
 				911394886ac356cacff50a95 /* FullScreenReverseButton.m in Sources */,
 				7291c41b50ad6a349cda8480 /* Export.m in Sources */,
@@ -2634,6 +2647,7 @@
 				5a5db63ef5b4e6fc338c0164 /* LayerTableView.m in Sources */,
 				7ec1e1ff5349cc3574f7f141 /* Cylinder.m in Sources */,
 				5870b9c890bac2d4959be73c /* PlayerView.m in Sources */,
+				08234EC318915F32008B4189 /* FileButton.m in Sources */,
 				8d64d8874378c84411e6a59e /* CylinderProjectView.m in Sources */,
 				50d5f2ae5019950e2af27b0b /* fishhook.c in Sources */,
 				908eb62bd1bbda2ebb3316a5 /* PlayButton.m in Sources */,
@@ -2741,6 +2755,7 @@
 				081A228A16D8555C00F39468 /* TextureManager.m in Sources */,
 				085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */,
 				085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */,
+				087AEBA71890ABE100D5B393 /* PaintFrameManager.m in Sources */,
 				0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */,
 				08BD5CB61801094200F0FF67 /* FullScreenReverseButton.m in Sources */,
 				08A932D016FEAD2600A75938 /* Export.m in Sources */,
@@ -2832,6 +2847,7 @@
 				088B741A17F466000039ABC4 /* LayerTableView.m in Sources */,
 				081DF39317A53C6D003FD66E /* Cylinder.m in Sources */,
 				0832967E17ACD22600F8DCF2 /* PlayerView.m in Sources */,
+				08234EC218915A45008B4189 /* FileButton.m in Sources */,
 				08E1DD9B17AE32D0002D9BC2 /* CylinderProjectView.m in Sources */,
 				080679A317DB72A600FED08D /* fishhook.c in Sources */,
 				08DE436017B3D37300E9C72B /* PlayButton.m in Sources */,

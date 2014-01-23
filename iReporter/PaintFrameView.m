@@ -97,6 +97,14 @@
 //    
 //}
 
+-(void)setPaintDoc:(PaintDoc *)paintDoc{
+    _paintDoc = paintDoc;
+
+    NSUInteger length = [paintDoc.docPath length];
+    NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
+    self.isAccessibilityElement = true;
+    self.accessibilityLabel = accLabel;
+}
 
 -(void)loadForDisplay{
     //清楚前一张画面
