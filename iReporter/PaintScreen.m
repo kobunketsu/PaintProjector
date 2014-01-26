@@ -3598,35 +3598,35 @@ typedef struct {
 
 #pragma mark- 投影 Project
 //平面投影
-- (void)projectPlane
-{
-    //显示新的view controller
-    PaintProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintProjectViewController"];
-    viewController.delegate = self;
-    float curViewAngleY = 1;
-    [viewController initPaint:self.paintView viewAngle:curViewAngleY];
-    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:viewController animated:true completion:^{
-        
-    }];
-}
+//- (void)projectPlane
+//{
+//    //显示新的view controller
+//    PaintProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintProjectViewController"];
+//    viewController.delegate = self;
+//    float curViewAngleY = 1;
+//    [viewController initPaint:self.paintView viewAngle:curViewAngleY];
+//    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self presentViewController:viewController animated:true completion:^{
+//        
+//    }];
+//}
 
 //平面投影
-- (void)projectCylinder
-{
-    //显示新的view controller
-    CylinderProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
-    viewController.delegate = self;
-//    [viewController initWithPaintView:self.paintView];
-    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:viewController animated:true completion:^{
-        
-    }];
-}
+//- (void)projectCylinder
+//{
+//    //显示新的view controller
+//    CylinderProjectViewController* viewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
+//    viewController.delegate = self;
+////    [viewController initWithPaintView:self.paintView];
+//    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self presentViewController:viewController animated:true completion:^{
+//        
+//    }];
+//}
 
-- (IBAction)projectPaintButtonTapped:(UIButton *)sender {
-    [self projectCylinder];
-}
+//- (IBAction)projectPaintButtonTapped:(UIButton *)sender {
+//    [self projectCylinder];
+//}
 
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
     [(AutoRotateButton*)sender setHighlighted:false];
@@ -4014,14 +4014,11 @@ typedef struct {
     [self updateFuzzyTransparentViews];
 }
 
-#pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
-- (void) createPaintProjectEAGleContext:(PaintProjectViewController*)viewController{
-    viewController.context = [[EAGLContext alloc]initWithAPI:[self.paintView.context API] sharegroup:[self.paintView.context sharegroup]];
-}
-#pragma mark- 圆柱投影代理CylinderProjectViewControllerDelegate
-- (void) createCylinderProjectEAGleContext:(CylinderProjectViewController*)viewController{
-    viewController.context = [[EAGLContext alloc]initWithAPI:[self.paintView.context API] sharegroup:[self.paintView.context sharegroup]];
-}
+//#pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
+//- (void) createPaintProjectEAGleContext:(PaintProjectViewController*)viewController{
+//    viewController.context = [[EAGLContext alloc]initWithAPI:[self.paintView.context API] sharegroup:[self.paintView.context sharegroup]];
+//}
+
 #pragma mark- 选取背景色 SelectLayerContent Delegate
 
 - (void) selectLayerContent:(UIImage*)image{

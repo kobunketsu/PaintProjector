@@ -19,6 +19,8 @@
 
 -(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc;
 
+-(void)deletePaintDocAtCurIndex;
+
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex;
 
 - (void)loadPaintFrameView:(PaintFrameView*)paintFrameView byIndex:(int)index;

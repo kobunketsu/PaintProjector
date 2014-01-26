@@ -40,11 +40,10 @@
 //#import "GLProgram.h"
 #import "ShowPaintOnPlane.h"
 #import "ShowPaintOnPlaneViewController.h"
-#import "PaintProjectViewController.h"
 //Other ViewController
 #import "SelectLayerContentViewController.h"
-#import "PaintProjectViewController.h"
-#import "CylinderProjectViewController.h"
+//#import "PaintProjectViewController.h"
+//#import "CylinderProjectViewController.h"
 //@class PaintView;
 #import "PaintingView.h"
 #import "BrushTypeButton.h"
@@ -140,8 +139,7 @@ PaintingViewDelegate,
 BrushTypeScrollViewDelegate, 
 SelectLayerContentDelegate,
 FirstScreenViewControllerDelegate,
-PaintProjectViewControllerDelegate,
-CylinderProjectViewControllerDelegate,
+//PaintProjectViewControllerDelegate,
 LayerTableViewControllerDelegate,
 BrushPropertyViewControllerDelegate,
 //BrushTypeViewControllerDelegate,

@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Ae6-vA-JLu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZXj-eQ-u2Q">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
+        <!--Test View Controller-->
+        <scene sceneID="6OA-gP-eQy">
+            <objects>
+                <viewController storyboardIdentifier="TestViewController" id="Fwe-P3-AHa" customClass="TestViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9K9-7p-W2e">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ydq-Ki-ecu">
+                                <rect key="frame" x="374" y="527" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testButton:" destination="Fwe-P3-AHa" eventType="touchUpInside" id="Y56-SU-UlR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ty-Hg-RTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2796" y="-2794"/>
+        </scene>
         <!--Layer Blend Mode Table View Controller-->
         <scene sceneID="Pb2-bz-3Df">
             <objects>
@@ -370,6 +396,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="paintFrameViewTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="ae1-Pd-hzj"/>
+                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -485,20 +514,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TG9-fd-chK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1972" y="-1658"/>
-        </scene>
-        <!--Root View Controller-->
-        <scene sceneID="u7z-cN-uUd">
-            <objects>
-                <viewController id="Ae6-vA-JLu" customClass="RootViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nWw-po-wGz">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yJV-Yv-tM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2908" y="-1658"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="hwx-S5-bGC">
@@ -2247,173 +2262,10 @@
                                 </subviews>
                                 <gestureRecognizers/>
                             </glkView>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="hdP-2x-6uJ" userLabel="ProjectToolBar" customClass="TopToolBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ThZ-cd-NGQ" userLabel="Close">
-                                        <rect key="frame" x="650" y="0.0" width="66" height="66"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Close">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="close:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="XWn-vm-okd"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="YIO-4A-j1b" userLabel="print">
-                                        <rect key="frame" x="200" y="0.0" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Print">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oMI-mU-8s9" userLabel="play">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Play">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="playbackButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="HZU-MU-QlY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZWY-Pn-HCT" userLabel="Grid" customClass="GridButton">
-                                        <rect key="frame" x="384" y="0.0" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TKp-eH-VCZ" userLabel="Export">
-                                        <rect key="frame" x="512" y="0.0" width="66" height="66"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Export">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                            </view>
                             <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="jlQ-I2-QJ2" userLabel="ToolBar" customClass="DownToolBar">
                                 <rect key="frame" x="0.0" y="936" width="768" height="88"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hav-Kq-O8j" userLabel="ScanButton">
-                                        <rect key="frame" x="100" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Scan"/>
-                                        <state key="normal" title="Scan">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="scan:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="ID9-aR-yY3"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8e6-MX-Nbl" userLabel="NewButton" customClass="NewButton" colorLabel="IBBuiltInLabel-Red">
-                                        <rect key="frame" x="128" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="New"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="foL-dr-wMI"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ybw-z7-bh5" userLabel="CopyButton" customClass="CopyButton" colorLabel="IBBuiltInLabel-Red">
-                                        <rect key="frame" x="256" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Copy"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="copyButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="FeN-kX-pni"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2nh-rK-E79" userLabel="DeleteButton" customClass="DeleteButton" colorLabel="IBBuiltInLabel-Red">
-                                        <rect key="frame" x="384" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Delete"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="eCo-tp-fKP"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="s8p-je-kQ7" userLabel="PrintButton" customClass="PrintButton" colorLabel="IBBuiltInLabel-Red">
-                                        <rect key="frame" x="512" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Printer"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="printButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="fN7-Nd-T5a"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="U54-hp-ier" userLabel="PlayButton" customClass="PlayButton">
-                                        <rect key="frame" x="640" y="8" width="128" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Play"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="playButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="QnE-Ud-OUr"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w1V-2I-Uqb" userLabel="PaintButton" customClass="PaintButton">
                                         <rect key="frame" x="640" y="8" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2430,10 +2282,10 @@
                                             <action selector="paintButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="MwK-O6-PNi"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="BackButton" customClass="BackButton">
-                                        <rect key="frame" x="0.0" y="8" width="128" height="80"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K8x-Wh-Rm8" userLabel="PrintButton" customClass="PrintButton">
+                                        <rect key="frame" x="320" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Back"/>
+                                        <accessibility key="accessibilityConfiguration" label="Print"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2443,28 +2295,15 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="categoryButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="h20-ck-wnj"/>
+                                            <action selector="printButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="Xfx-yR-6MP"/>
                                         </connections>
                                     </button>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A0M-6N-szu">
-                                        <rect key="frame" x="500" y="7" width="100" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="GalleryButton" customClass="BackButton">
+                                        <rect key="frame" x="0.0" y="8" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </view>
-                            <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="9Lu-e8-GUD" userLabel="MainBar" customClass="DownToolBar">
-                                <rect key="frame" x="0.0" y="936" width="768" height="88"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CI2-AS-XrM" userLabel="WorldCollection">
-                                        <rect key="frame" x="512" y="8" width="256" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Setup"/>
+                                        <accessibility key="accessibilityConfiguration" label="Gallery"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="setup.png">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2472,67 +2311,11 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="worldCollectionButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="3GH-UV-fwB"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bOx-bE-IaD" userLabel="AppCollectionButton">
-                                        <rect key="frame" x="0.0" y="8" width="256" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="Anamorphic World"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="anamorphicWorld.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="appCollectionButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="enT-tN-8k3"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ntc-qQ-mw0" userLabel="MyArtworkButton">
-                                        <rect key="frame" x="256" y="8" width="256" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <accessibility key="accessibilityConfiguration" label="My Artwork"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" image="myArtworks.png">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="highlighted">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="myArtworkButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="hFG-VY-kRi"/>
+                                            <action selector="galleryButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="pkh-aD-FTM"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <accessibility key="accessibilityConfiguration" label="MainBar">
-                                    <bool key="isElement" value="YES"/>
-                                </accessibility>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="256" sectionHeaderHeight="22" sectionFooterHeight="22" id="SGU-Kn-Sxy">
-                                <rect key="frame" x="0.0" y="610" width="768" height="325"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PaintFrameViewCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="PaintFrameViewCell" id="ANa-z5-Vw0">
-                                        <rect key="frame" x="0.0" y="22" width="768" height="256"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ANa-z5-Vw0" id="2Ty-55-OWY">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="256"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Ykg-qI-0AR" id="K2O-yg-jhp"/>
-                                    <outlet property="delegate" destination="Ykg-qI-0AR" id="5M1-NR-mU2"/>
-                                </connections>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" label="CylinderRootView">
@@ -2540,29 +2323,19 @@
                         </accessibility>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="8e6-MX-Nbl" id="qxd-wx-sIC"/>
-                        <outlet property="categoryBar" destination="9Lu-e8-GUD" id="L5w-PT-26o"/>
-                        <outlet property="deleteButton" destination="2nh-rK-E79" id="yPn-rR-nj5"/>
-                        <outlet property="label" destination="A0M-6N-szu" id="TAU-6H-5Zf"/>
-                        <outlet property="mainBar" destination="9Lu-e8-GUD" id="1G4-V8-cN0"/>
                         <outlet property="paintButton" destination="w1V-2I-Uqb" id="5zA-05-3mE"/>
-                        <outlet property="paintFrameTableView" destination="SGU-Kn-Sxy" id="5Xg-rY-tCc"/>
-                        <outlet property="playButton" destination="U54-hp-ier" id="3OS-8M-NdC"/>
-                        <outlet property="printButton" destination="s8p-je-kQ7" id="Noa-p8-YUQ"/>
                         <outlet property="projectView" destination="nbv-5J-Y5R" id="14a-YC-o5O"/>
                         <outlet property="screenMask" destination="z8k-EG-lvj" id="TfL-rT-74Y"/>
                         <outlet property="sideViewButton" destination="Fi8-vV-aKy" id="fDW-og-2kv"/>
                         <outlet property="toolBar" destination="jlQ-I2-QJ2" id="G5d-37-Jjj"/>
                         <outlet property="topViewButton" destination="hQb-7A-ETY" id="cn0-hp-a68"/>
-                        <outletCollection property="allViews" destination="9Lu-e8-GUD" id="v4b-Lw-9V6"/>
-                        <outletCollection property="allViews" destination="SGU-Kn-Sxy" id="gJb-th-J7g"/>
                         <outletCollection property="allViews" destination="jlQ-I2-QJ2" id="hiq-s8-E4B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeZ-Fy-Wf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="0aO-ag-tTT"/>
             </objects>
-            <point key="canvasLocation" x="1640" y="-3982"/>
+            <point key="canvasLocation" x="-2802" y="-1658"/>
         </scene>
         <!--GLKit View Controller - testGLKError-->
         <scene sceneID="N4J-0g-crc">
@@ -2935,11 +2708,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="anamorphicWorld.png" width="128" height="80"/>
         <image name="close.png" width="44" height="44"/>
-        <image name="myArtworks.png" width="128" height="80"/>
         <image name="screenMask.png" width="768" height="1024"/>
-        <image name="setup.png" width="128" height="80"/>
         <image name="studioBackground.png" width="768" height="1024"/>
         <image name="studioHuaJiaCropped.png" width="154" height="377"/>
         <image name="studioHuaJiaJiaZiCropped.png" width="55" height="22"/>

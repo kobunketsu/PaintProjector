@@ -321,8 +321,6 @@
 		08FE79F017C8EBA000D1EEBD /* MediaFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79EF17C8EB9F00D1EEBD /* MediaFrameView.m */; };
 		08FE79F517C8ECAD00D1EEBD /* VideoFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79F417C8ECAD00D1EEBD /* VideoFrameView.m */; };
 		08FE79FA17C8FF9900D1EEBD /* PaintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FE79F917C8FF9900D1EEBD /* PaintButton.m */; };
-		08FF70C21890011E00A7A09B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C11890011E00A7A09B /* RootViewController.m */; };
-		08FF70C31890011E00A7A09B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C11890011E00A7A09B /* RootViewController.m */; };
 		08FF70C8189003AC00A7A09B /* PaintCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */; };
 		08FF70C9189003AC00A7A09B /* PaintCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */; };
 		08FF70CC189019A400A7A09B /* PaintUIKitAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */; };
@@ -1189,8 +1187,6 @@
 		08FE79F417C8ECAD00D1EEBD /* VideoFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoFrameView.m; sourceTree = "<group>"; };
 		08FE79F817C8FF9900D1EEBD /* PaintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintButton.h; sourceTree = "<group>"; };
 		08FE79F917C8FF9900D1EEBD /* PaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintButton.m; sourceTree = "<group>"; };
-		08FF70C01890011E00A7A09B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		08FF70C11890011E00A7A09B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		08FF70C6189003AC00A7A09B /* PaintCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintCollectionViewController.h; sourceTree = "<group>"; };
 		08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintCollectionViewController.m; sourceTree = "<group>"; };
 		08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintUIKitAnimation.h; sourceTree = "<group>"; };
@@ -1958,8 +1954,6 @@
 				9C21AF2514E4579F00DB003E /* AppDelegate.h */,
 				9C21AF2614E4579F00DB003E /* AppDelegate.m */,
 				0862E372167F60E300ECEAC9 /* Storyboard_iPad.storyboard */,
-				08FF70C01890011E00A7A09B /* RootViewController.h */,
-				08FF70C11890011E00A7A09B /* RootViewController.m */,
 				088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */,
 				9C60DA8014E5306800442413 /* FirstScreen */,
 				08AB75C0188F5980007DA20B /* CollectionScreen */,
@@ -2589,7 +2583,6 @@
 				de364d98f5b55fe16cf2ed5f /* EyeDropperButton.m in Sources */,
 				e8f80b053040869f414dd734 /* FreeTransformButton.m in Sources */,
 				8f2589fd699ba0752fa1e205 /* MoveButton.m in Sources */,
-				08FF70C31890011E00A7A09B /* RootViewController.m in Sources */,
 				5ff703344d637f5dacebee0d /* RotateButton.m in Sources */,
 				6d174a419e4ae648971ae2c9 /* ScaleButton.m in Sources */,
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
@@ -2789,7 +2782,6 @@
 				0802D11717369821003259E6 /* EyeDropperButton.m in Sources */,
 				08D836911737E2E600B68990 /* FreeTransformButton.m in Sources */,
 				08D836961737E4D200B68990 /* MoveButton.m in Sources */,
-				08FF70C21890011E00A7A09B /* RootViewController.m in Sources */,
 				08D836991737E5A100B68990 /* RotateButton.m in Sources */,
 				08D8369C1737E5EF00B68990 /* ScaleButton.m in Sources */,
 				08D8369F1737EB2100B68990 /* CancelButton.m in Sources */,

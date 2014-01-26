@@ -7,18 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CylinderProjectViewController.h"
+
 @class PaintScreen;
 @protocol PaintScreenDelegate;
+
+@class PaintDoc;
+@protocol PaintCollectionViewControllerDelegate
+- (void) willTransitionPaintDocToPreview:(PaintDoc*)paintDoc;
+@end
 
 @interface PaintCollectionViewController : UIViewController
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
-PaintScreenDelegate>
+UIViewControllerTransitioningDelegate,
+CylinderProjectViewControllerDelegate
+>
 
 @property (nonatomic, assign) id delegate;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @property (weak, nonatomic) IBOutlet UIView *toolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
 
@@ -32,4 +40,6 @@ PaintScreenDelegate>
 - (IBAction)printButtonTouchUp:(id)sender;
 
 - (IBAction)newButtonTouchUp:(id)sender;
+
+- (IBAction)paintFrameViewTouchUp:(id)sender;
 @end

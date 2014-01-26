@@ -91,15 +91,17 @@ GLushort cylinderProjectQuadVertexIndices[] =
     //用于解决启动闪黑屏的问题
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage.png"]];
     
-    [EAGLContext setCurrentContext:self.context];
+    [self setupGL];
+    
+    [self loadLogoWithAnimation:false];
+    
+    //    [self flushAllUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     DebugLog(@"[ viewDidAppear ]");
     //screenmask遮罩问题
     self.screenMask.hidden = false;
-    
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -108,6 +110,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
 
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLog(@"[ viewDidDisappear ]");
+    [self tearDownGL];
 }
 
 - (void)viewDidLoad
@@ -137,7 +140,6 @@ GLushort cylinderProjectQuadVertexIndices[] =
     
 
     //创建context
-//    [self.delegate createCylinderProjectEAGleContext:self];
     self.context = [self createBestEAGLContext];
     [self.context setDebugLabel:@"CylinderProjectView Context"];
     
@@ -167,29 +169,8 @@ GLushort cylinderProjectQuadVertexIndices[] =
     
     [self updateRenderViewParams];
     
-    [self setupGL];
-
-    [self loadLogoWithAnimation:false];
-    
-//    [self anamorphicCurPaintFrameView];
-//    [self anamorphVideo];
-    
-    //界面
-    [self switchDownToolBarFrom:self.toolBar completion:nil to:self.categoryBar completion:nil];
-    
-//    [self flushAllUI];
-
-    //交换长宽
-    float width = self.paintFrameTableView.bounds.size.height;
-    float height = self.paintFrameTableView.bounds.size.width;
-    self.paintFrameTableView.bounds = CGRectMake(0, 0, width, height);
-    self.paintFrameTableView.transform = CGAffineTransformMakeRotation(-M_PI / 2);
-    
-    //设置当前PaintFrameGroup PaintFrame
-    [self setCurPaintFrameGroupByIndex:0];
-    
     //关闭水平监测，查内存持续增长问题
-    [self initMotionDetect];
+//    [self initMotionDetect];
 }
 
 - (void)viewDidUnload{
@@ -204,6 +185,8 @@ GLushort cylinderProjectQuadVertexIndices[] =
 -(void)dealloc{
     DebugLog(@"[ dealloc ]");
 }
+
+
 #pragma mark- 主程序
 - (BOOL)prefersStatusBarHidden
 {
@@ -217,233 +200,21 @@ GLushort cylinderProjectQuadVertexIndices[] =
     DebugLog(@"didEnterBackgroundNotification");
 }
 #pragma mark- 工具栏
--(void)insertNewPaintDocAtCurIndex{
-    PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:self.curPaintFrameGroup.dirPath];
-    [self insertPaintDocAtCurIndex:paintDoc];
+
+- (IBAction)galleryButtonTouchUp:(id)sender {
+    //do some work
+    [self.delegate willTransitionToGallery];
 }
 
--(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc{
-    PaintDoc *newPaintDoc = [[PaintDocManager sharedInstance] clonePaintDoc:paintDoc];
-    [self insertPaintDocAtCurIndex:newPaintDoc];
-}
-
--(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
-    self.curPaintFrameGroup.curPaintIndex ++;
-    [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:self.curPaintFrameGroup.curPaintIndex];
-    return paintDoc;
-}
-
--(void)openPaintFrame:(PaintFrameView*)paintFrameView {
-    if (self.paintScreenViewController == NULL) {
-        self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
-        self.delegate = self.paintScreenViewController;
-        self.paintScreenViewController.delegate = self;
-    }
-    
-    //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
-    DebugLog(@"presentViewController start");
-    [self presentViewController:self.paintScreenViewController animated:true completion:^{
-        DebugLog(@"presentViewController completed");
-        [_delegate openDoc:paintFrameView.paintDoc];
-    }];
-}
-
-- (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    [self openPaintFrame:self.curPaintFrameView];    
-}
-
-- (IBAction)addButtonTouchUp:(UIButton *)sender {
-    //完成操作前不可交互
-//    sender.userInteractionEnabled = false;
-    
-    //从内存添加，插入新paintDoc到paintDocs中，
-    [self insertNewPaintDocAtCurIndex];
-    
-    //插入新表单到表格
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.paintFrameTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    [self tableView:self.paintFrameTableView didSelectRowAtIndexPath:indexPath];
-    
-    //放大画框开始绘制
-    [self openPaintFrame:self.curPaintFrameView];
-}
-
-- (IBAction)copyButtonTouchUp:(UIButton *)sender {
-    //插入拷贝paintDoc到paintDocs中，
-    if (self.curPaintFrameView.paintDoc == nil) {
-        DebugLog(@"No PaintDoc to copy!");
-        return;
-    }
-    
-    //从磁盘拷贝
-    [self insertCopyPaintDocAtCurIndex:self.curPaintFrameView.paintDoc];
-    
-    //插入新表单到表格
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.paintFrameTableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    [self tableView:self.paintFrameTableView didSelectRowAtIndexPath:indexPath];
-    
-    //放大画框开始绘制
-//    [self openPaintFrame:self.curPaintFrameView];
-}
-
-- (IBAction)deleteButtonTouchUp:(UIButton *)sender {
-    //TODO:从磁盘删除
-    [[PaintDocManager sharedInstance] deletePaintDoc:self.curPaintFrameView.paintDoc];
-    
-    //从内存删除
-    [self.curPaintFrameGroup.paintDocs removeObjectAtIndex:self.curPaintFrameGroup.curPaintIndex];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.paintFrameTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    if (self.curPaintFrameGroup.curPaintIndex == self.curPaintFrameGroup.paintDocs.count) {
-        self.curPaintFrameGroup.curPaintIndex--;
-    }
-    
-    [self.paintFrameTableView reloadData];
-    
-//    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.curPaintFrameGroup.curPaintIndex inSection:0];
-//    [self tableView:self.paintFrameTableView didSelectRowAtIndexPath:newIndexPath];
-}
-
-- (IBAction)categoryButtonTouchUp:(UIButton *)sender {
-    [self reloadLogo];
-    
-    [self closePaintFrameViewsWithAnimation];
-
-    [self switchDownToolBarFrom:self.toolBar completion:nil to:self.categoryBar completion:^{
-    }];
-}
-
-- (void)exportToAirPrint{
-    //TODO:转换到顶视图，在放圆柱体的位置画上圈，并打印
-    
-    UIImage *image = [Ultility snapshot:self.projectView Context:self.context InViewportSize:self.projectView.bounds.size ToOutputSize:self.projectView.bounds.size];
-    
-    //convert UIImage to NSData to add it as attachment
-    NSData *data = UIImagePNGRepresentation(image);
-    
-    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
-    
-    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
-        
-        pic.delegate = self;
-        
-        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-        printInfo.outputType = UIPrintInfoOutputGeneral;
-        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
-        printInfo.duplex = UIPrintInfoDuplexLongEdge;
-        pic.printInfo = printInfo;
-        pic.showsPageRange = YES;
-        pic.printingItem = data;
-        
-        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
-            
-            if (!completed && error)
-                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
-        };
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            //            [pic presentFromBarButtonItem:self.printButton animated:YES completionHandler:completionHandler];
-            [pic presentFromRect:self.printButton.frame inView:self.toolBar animated:true completionHandler:completionHandler];
-        } else {
-            [pic presentAnimated:YES completionHandler:completionHandler];
-        }
-    }
-}
 - (IBAction)printButtonTouchUp:(UIButton *)sender {
     [self exportToAirPrint];
 }
 
-
-//设置当前用于显示的组(Document下的子目录)
-- (void)setCurPaintFrameGroupByIndex:(int)groupIndex{
-    PaintFrameViewGroup* paintFrameGroup = [[PaintFrameViewGroup alloc]initWithCapacity:1];
-    paintFrameGroup.name = [NSString stringWithFormat:@"PaintFrameGroup_%d", groupIndex];
-    paintFrameGroup.dirPath = [[PaintDocManager sharedInstance]directoryPath:groupIndex];
-    //加载指定子目录下的PaintDoc
-    paintFrameGroup.paintDocs = [[PaintDocManager sharedInstance]loadPaintDocsInDirectoryIndex:groupIndex];
-    //设置当前画框源
-    //如果paintFrameGroup下的数据源paintDocs为空，
-    if (paintFrameGroup.paintDocs.count == 0) {
-        paintFrameGroup.curPaintIndex = paintFrameGroup.lastPaintIndex = -1;
-    }
-    else{
-        //        paintFrameGroup.curPaintFrame = self.curPaintFrameView;
-        paintFrameGroup.curPaintIndex = paintFrameGroup.lastPaintIndex = 0;
-    }
-    self.curPaintFrameGroup = paintFrameGroup;
+- (IBAction)paintButtonTouchUp:(UIButton *)sender {
+    [self openPaintDoc:self.paintDoc];
 }
 
-//打开画框显示
-- (void)closePaintFrameViewsWithAnimation{
-    DebugLog(@"closePaintFrameViewsWithAnimation visibleCells count %d", self.paintFrameTableView.visibleCells.count);
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.paintFrameTableView.alpha = 0;
-        for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-            UIView *view = [cell.contentView.subviews objectAtIndex:0];
-            view.frame = CGRectMake(view.frame.origin.x + view.frame.size.width * 0.5, view.frame.origin.y, 0, view.frame.size.height);
-        }
-        
-    }completion:^(BOOL finished){
-        self.paintFrameTableView.hidden = true;
-    }];
-}
-
-- (void)openPaintFrameViewsWithAnimation{
-    self.paintFrameTableView.hidden = false;
-    [self.paintFrameTableView reloadData];
-
-//    DebugLog(@"openPaintFrameViewsWithAnimation visibleCells count %d", self.paintFrameTableView.visibleCells.count);
-    for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-//        DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell %@", cell);
-        UIView *view = [cell.contentView.subviews objectAtIndex:0];
-        view.bounds = CGRectMake(0, 0, 0, PaintFrameViewHeight);
-    }
-
-    [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.paintFrameTableView.alpha = 1;
-        for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-//            DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell After Anim %@", cell);
-            UIView *view = [cell.contentView.subviews objectAtIndex:0];
-            view.bounds = CGRectMake(0, 0, PaintFrameViewWidth, PaintFrameViewHeight);
-        }
-        
-    }completion:^(BOOL finished){
-        
-    }];
-}
-
-- (IBAction)appCollectionButtonTouchUp:(UIButton *)sender {
-    [self setCurPaintFrameGroupByIndex:0];
-    
-    [self openPaintFrameViewsWithAnimation];
-    
-    self.paintButton.hidden = true;
-    [self switchDownToolBarFrom:self.categoryBar completion:nil to:self.toolBar completion:^{
-
-    }];
-}
-
-- (IBAction)myArtworkButtonTouchUp:(UIButton *)sender {
-    [self setCurPaintFrameGroupByIndex:1];
-    
-    [self openPaintFrameViewsWithAnimation];
-    
-    self.paintButton.hidden = true;
-    [self switchDownToolBarFrom:self.categoryBar completion:nil to:self.toolBar completion:^{
-
-    }];
-    
-}
-
-- (IBAction)worldCollectionButtonTouchUp:(UIButton *)sender {
-}
-
-- (IBAction)close:(UIButton *)sender {
-    [self dismissViewControllerAnimated:true completion:^{
-    }];
-}
-
+#pragma mark- 操作主屏幕CylinderProject View
 - (void)rotateViewInAxisX:(float)percent{
     self.eyeBottomTopBlend = MIN(1, MAX(0, self.toEyeBottomTopBlend + percent));
 }
@@ -776,9 +547,6 @@ GLushort cylinderProjectQuadVertexIndices[] =
     }
     
     self.lastMediaTime = curMediaTime;
-    
-//    DebugLog(@"self.curPaintFrameView.frame %@", self.curPaintFrameView);
-
 }
 #pragma mark- 绘图
 - (void)drawReflectionView:(GLKView *)view{
@@ -962,6 +730,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
 }
 
 - (void)tearDownGL {
+    DebugLog(@"tearDownGL");
     
     [EAGLContext setCurrentContext:self.context];
     
@@ -1233,6 +1002,11 @@ GLushort cylinderProjectQuadVertexIndices[] =
 
 
 #pragma mark- 核心变换
+-(void)viewPaintDoc:(PaintDoc*)paintDoc{
+    self.paintDoc = paintDoc;
+    //TODO:导致CylinderProject dismiss后不能被release
+    [self anamorphImage:paintDoc.thumbImagePath];
+}
 //主题Logo
 - (void)loadLogoWithAnimation:(BOOL)anim{
     self.paintTexture = [self.texMgr loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
@@ -1247,10 +1021,11 @@ GLushort cylinderProjectQuadVertexIndices[] =
 
 }
 - (void)reloadLogo{
+    __weak typeof(self) weakSelf = self;
     _unprojectCompletionBlock = ^(void){
-        _paintTexture = [self.texMgr loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
+        weakSelf.paintTexture = [weakSelf.texMgr loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
         
-        [self startImageProjectAnim];
+        [weakSelf startImageProjectAnim];
     };
     
     [self startImageUnProjectAnim];
@@ -1259,10 +1034,11 @@ GLushort cylinderProjectQuadVertexIndices[] =
 
 //在project plane上生成图片
 -(void)anamorphImage:(NSString*)imagePathInDoc{
+    __weak typeof(self) weakSelf = self;
     _unprojectCompletionBlock = ^(void){
-        _paintTexture = [self.texMgr loadTextureInfoFromFileInDocument:imagePathInDoc reload:true].name;
+        weakSelf.paintTexture = [weakSelf.texMgr loadTextureInfoFromFileInDocument:imagePathInDoc reload:true].name;
         
-        [self startImageProjectAnim];
+        [weakSelf startImageProjectAnim];
     };
     
     [self startImageUnProjectAnim];
@@ -1537,16 +1313,12 @@ GLushort cylinderProjectQuadVertexIndices[] =
 - (IBAction)playButtonTouchUp:(UIButton *)sender {
     if (self.playState == PS_Stopped) {
         [self playVideo];
-        //隐藏界面
-        self.paintFrameTableView.hidden = true;
     }
     else if (self.playState == PS_Playing) {
         [self pauseVideo];
-        self.paintFrameTableView.hidden = false;
     }
     else if (self.playState == PS_Pause) {
         [self playVideo];
-        self.paintFrameTableView.hidden = true;        
     }
 }
 
@@ -1589,167 +1361,9 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [self.player seekToTime:kCMTimeZero];
 }
 
-#pragma mark- ZBar
-//- (IBAction)scan:(id)sender {
-//    ZBarReaderViewController * reader = [ZBarReaderViewController new];
-//    reader.readerDelegate = self;
-//    ZBarImageScanner * scanner = reader.scanner;
-//    [scanner setSymbology:ZBAR_I25 config:ZBAR_CFG_ENABLE to:0];
-//    reader.showsZBarControls = YES;
-//    reader.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-//    reader.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
-//    [self presentViewController:reader animated:YES completion:nil];
-//}
-//
-//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-//{
-//    id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
-//    ZBarSymbol * symbol;
-//    for(symbol in results)
-//        break;
-//    _imageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//    _label.text = symbol.data;
-//}
-
-#pragma mark - Table View Data Source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-//    DebugLog(@"numberOfSectionsInTableView");
-    // Return the number of sections.
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-//    DebugLog(@"numberOfRowsInSection: %d",self.curPaintFrameGroup.paintDocs.count);
-    return self.curPaintFrameGroup.paintDocs.count;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DebugLog(@"cellForRowAtIndexPath row:%d", indexPath.row);
-    
-    PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:indexPath.row];
-    
-//    static NSString *CellIdentifier = @"PaintFrameViewCell";
-    static NSString *CellIdentifier = @"Cell";
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-//    DebugLog(@"PaintFrameTableView Cell %@", cell);
-    if (cell == nil) {
-//        DebugLog(@"PaintFrameTableView Cell nil");
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //显式设置成clear color
-        cell.backgroundColor = [UIColor clearColor];
-        cell.contentView.transform = CGAffineTransformMakeRotation(M_PI / 2);
-//
-        //创建PaintFrameView
-        int offsetX = (int)((self.paintFrameTableView.frame.size.width / 3.0 - PaintFrameViewWidth) * 0.5);
-        int offsetY = (int)((self.paintFrameTableView.frame.size.height - PaintFrameViewHeight) * 0.5);
-        PaintFrameView *paintFrameView = [[PaintFrameView alloc]initWithFrame:CGRectMake(offsetX, offsetY, PaintFrameViewWidth, PaintFrameViewHeight)];
-        //acc
-        paintFrameView.isAccessibilityElement = true;
-        NSUInteger length = [paintDoc.docPath length];
-        NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
-//        accLabel = [accLabel stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        paintFrameView.accessibilityLabel = accLabel;
-        
-        [cell.contentView addSubview:paintFrameView];
-    }
-    else{
-    }
-    
-    //重载
-    PaintFrameView *paintFrameView = [cell.contentView.subviews objectAtIndex:0];
-    [paintFrameView setPaintDoc:paintDoc];
-    [paintFrameView loadForDisplay];
-
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return self.view.frame.size.width / 3.0;
-}
-
--(void)anamorphicCurPaintFrameView{
-    [self anamorphImage:self.curPaintFrameView.paintDoc.thumbImagePath];
-    
-//    if ([self.curPaintFrameView isKindOfClass:[PaintFrameView class]]) {
-//        [self anamorphImage:self.curPaintFrameView.paintDoc.thumbImagePath];
-//        self.paintButton.hidden = false;
-//        self.playButton.hidden = true;
-//    }
-//    else{
-//        self.paintButton.hidden = true;
-//        self.playButton.hidden = false;
-//    }
-
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
-    int index = indexPath.row;
-    DebugLog(@"didSelectRowAtIndexPath %d", index);
-
-    UITableViewCell *cell = [self tableView:self.paintFrameTableView cellForRowAtIndexPath:indexPath];
-
-    self.curPaintFrameView = (PaintFrameView*)[cell.contentView.subviews objectAtIndex:0];
-    self.curPaintFrameGroup.curPaintIndex = index;
-
-    //生成anamorphic image or video
-    [self anamorphicCurPaintFrameView];
-
-
-    //选择后横向缩起来
-//    int offsetX = (int)((self.paintFrameTableView.frame.size.width / 3.0 - PaintFrameViewWidth) * 0.5);
-//    int offsetY = (int)((self.paintFrameTableView.frame.size.height - PaintFrameViewHeight) * 0.5);
-    
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.curPaintFrameView.bounds = CGRectMake(0, 0, 0, PaintFrameViewHeight);
-        self.curPaintFrameView.alpha = 0;
-        
-//        CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
-//        rotationAndPerspectiveTransform.m34 = 1.0 / -500;
-//        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, 15.0f * M_PI / 180.0f, 1.0f, 0.0f, 0.0f);
-//        view.layer.transform = rotationAndPerspectiveTransform;
-//        [view setNeedsLayout];
-        
-    } completion:^(BOOL finished) {
-        self.paintButton.hidden = false;
-//        DebugLog(@"didSelectRow animation completed");
-    }];
-
-}
-
-#pragma mark- PaintFrame
-//- (void)reloadPaintFrameViews{
-//    if (self.curPaintFrameGroup.paintDocs != nil) {
-//        //将paintDoc逐个加载到画框集中
-//        for (int viewIndex=0; viewIndex < self.paintFrameViews.count; ++viewIndex) {
-//            PaintFrameView *paintFrameView =[self.paintFrameViews objectAtIndex:viewIndex];
-//            int docIndex = self.curPaintFrameGroup.curPaintIndex + viewIndex;
-//            if (docIndex < self.curPaintFrameGroup.paintDocs.count) {
-//                PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:docIndex];
-//                [paintFrameView setPaintDoc:paintDoc];
-//                [paintFrameView loadForDisplay];
-//            }
-//        }
-//    }
-//}
-
 #pragma mark- 绘画代理PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup{
     return [self createBestEAGLContext];
-//    return [[EAGLContext alloc]initWithAPI:[_context API] sharegroup:[_context sharegroup]];
 }
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc{
@@ -1758,23 +1372,8 @@ GLushort cylinderProjectQuadVertexIndices[] =
 //        [self.rootView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
 //        DebugLog(@"closePaintDoc rootView Scale: %.1f", scale);
 
-        self.curPaintFrameView.paintDoc = paintDoc;
-        
         //刷新当前画架内容
-        [self anamorphicCurPaintFrameView];
-        
-        //更新画框内容
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.curPaintFrameGroup.curPaintIndex inSection:0];
-        UITableViewCell *cell = [self.paintFrameTableView cellForRowAtIndexPath:indexPath];
-        PaintFrameView *paintFrameView = [cell.contentView.subviews objectAtIndex:0];
-        if (paintFrameView == NULL) {
-            [self.paintFrameTableView reloadData];
-        }
-        else{
-            [paintFrameView  loadForDisplay];
-        }
-        
-        [self tableView:self.paintFrameTableView didSelectRowAtIndexPath:indexPath];
+        [self viewPaintDoc:self.paintDoc];
         
 //        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 //            [self.rootView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
@@ -1782,6 +1381,18 @@ GLushort cylinderProjectQuadVertexIndices[] =
 //            
 //        }];
         
+    }];
+}
+
+#pragma mark-
+-(void)openPaintDoc:(PaintDoc*)paintDoc {
+    self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
+    self.paintScreenViewController.delegate = self;
+    self.paintScreenViewController.transitioningDelegate = self;
+    
+    //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
+    [self presentViewController:self.paintScreenViewController animated:true completion:^{
+        [self.paintScreenViewController openDoc:self.paintDoc];
     }];
 }
 
@@ -1797,6 +1408,42 @@ GLushort cylinderProjectQuadVertexIndices[] =
     self.state = CP_PitchingToTopView;
 }
 
+#pragma mark- 打印Print
+- (void)exportToAirPrint{
+    //TODO:转换到顶视图，在放圆柱体的位置画上圈，并打印
+    
+    UIImage *image = [Ultility snapshot:self.projectView Context:self.context InViewportSize:self.projectView.bounds.size ToOutputSize:self.projectView.bounds.size];
+    
+    //convert UIImage to NSData to add it as attachment
+    NSData *data = UIImagePNGRepresentation(image);
+    
+    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
+    
+    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
+        
+        pic.delegate = self;
+        
+        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+        printInfo.outputType = UIPrintInfoOutputGeneral;
+        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
+        printInfo.duplex = UIPrintInfoDuplexLongEdge;
+        pic.printInfo = printInfo;
+        pic.showsPageRange = YES;
+        pic.printingItem = data;
+        
+        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
+            
+            if (!completed && error)
+                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
+        };
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            //            [pic presentFromBarButtonItem:self.printButton animated:YES completionHandler:completionHandler];
+            [pic presentFromRect:self.printButton.frame inView:self.toolBar animated:true completionHandler:completionHandler];
+        } else {
+            [pic presentAnimated:YES completionHandler:completionHandler];
+        }
+    }
+}
 #pragma mark- 陀螺仪代理MotionDelegate
 - (void)initMotionDetect{
     self.motionManager = [[CMMotionManager alloc]init];

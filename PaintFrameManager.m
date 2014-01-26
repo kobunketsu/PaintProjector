@@ -31,6 +31,17 @@
     return paintDoc;
 }
 
+-(void)deletePaintDocAtCurIndex{
+    //从数组删除
+    [self.curPaintFrameGroup.paintDocs removeObjectAtIndex:self.curPaintFrameGroup.curPaintIndex];
+    
+    if (self.curPaintFrameGroup.curPaintIndex == self.curPaintFrameGroup.paintDocs.count) {
+        self.curPaintFrameGroup.curPaintIndex--;
+    }
+    
+    //从磁盘删除
+    [[PaintDocManager sharedInstance] deletePaintDoc:self.curPaintFrameView.paintDoc];
+}
 //设置当前用于显示的组(Document下的子目录)
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex{
     PaintFrameViewGroup* paintFrameGroup = [[PaintFrameViewGroup alloc]initWithCapacity:1];

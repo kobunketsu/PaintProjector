@@ -12,7 +12,8 @@
 #import <CoreVideo/CoreVideo.h>
 #import <CoreMotion/CoreMotion.h>
 
-#import "PaintingView.h"
+#import "PaintScreen.h"
+
 #import "Ultility.h"
 #import "ShaderManager.h"
 #import "Grid.h"
@@ -60,12 +61,9 @@ typedef NS_ENUM(NSInteger, PlayState) {
 
 typedef void(^MyCompletionBlock)(void);
 
-@class PaintScreen;
-@protocol PaintScreenDelegate;
-
 @class CylinderProjectViewController;
 @protocol CylinderProjectViewControllerDelegate
-- (void) createCylinderProjectEAGleContext:(CylinderProjectViewController*)viewController;
+- (void) willTransitionToGallery;
 @end
 
 @interface CylinderProjectViewController : UIViewController
@@ -73,18 +71,16 @@ typedef void(^MyCompletionBlock)(void);
 GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 //ZBarReaderDelegate,
-UITableViewDelegate,
-UITableViewDataSource,
-PaintScreenDelegate,
-UIViewControllerTransitioningDelegate>
+UIViewControllerTransitioningDelegate,
+PaintScreenDelegate>
 {
     void * _baseAddress;
     size_t _width;
     size_t _height;
 }
+@property (nonatomic, weak) PaintScreen* paintScreenViewController;
 @property(nonatomic, retain) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
-@property (nonatomic, weak) PaintScreen* paintScreenViewController;
 @property (nonatomic, assign) id delegate;
 
 @property(nonatomic, retain) GLWrapper *glWrapper;
@@ -168,33 +164,36 @@ UIViewControllerTransitioningDelegate>
 @property(nonatomic, assign)float toRotateImageAxisY;//圆柱体中图片绕局部轴Y转向
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;
 @property (weak, nonatomic) IBOutlet PaintButton *paintButton;
-@property (weak, nonatomic) IBOutlet UIButton *addButton;
-@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 #pragma mark- main category
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
 @property (weak, nonatomic) IBOutlet UIImageView *screenMask;
-@property (weak, nonatomic) IBOutlet DownToolBar *categoryBar;
 @property (weak, nonatomic) IBOutlet DownToolBar *toolBar;
-@property (weak, nonatomic) IBOutlet DownToolBar *mainBar;
-- (IBAction)appCollectionButtonTouchUp:(UIButton *)sender;
-- (IBAction)myArtworkButtonTouchUp:(UIButton *)sender;
-- (IBAction)worldCollectionButtonTouchUp:(UIButton *)sender;
-- (IBAction)close:(UIButton *)sender;
 
 
 #pragma mark- viewMode
-- (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender;
 @property (assign, nonatomic) BOOL isTopViewMode;
-- (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
-- (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *sideViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *topViewButton;
 
+- (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender;
+- (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
+- (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- FirstScreenViewController
-@property (nonatomic, retain) PaintFrameViewGroup* curPaintFrameGroup;
-@property (nonatomic, retain) PaintFrameView *curPaintFrameView;
+@property (nonatomic, weak) PaintDoc *paintDoc;
+-(void)viewPaintDoc:(PaintDoc*)paintDoc;
+
+
+#pragma mark- file
+- (IBAction)galleryButtonTouchUp:(id)sender;
+- (IBAction)paintButtonTouchUp:(UIButton *)sender;
+- (IBAction)printButtonTouchUp:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *printButton;
+
+#pragma mark-  CoreMotion
+@property (retain, nonatomic)CMMotionManager *motionManager;
+@property (assign, nonatomic)float lastPitch;
 
 #pragma mark- video
 @property(nonatomic, retain)AVAsset *asset;
@@ -206,27 +205,4 @@ UIViewControllerTransitioningDelegate>
 - (void)syncPlayUI;
 - (IBAction)playButtonTouchUp:(UIButton *)sender;
 - (IBAction)playbackButtonTouchUp:(UIButton *)sender;
-
-#pragma mark- file
-- (IBAction)paintButtonTouchUp:(UIButton *)sender;
-- (IBAction)addButtonTouchUp:(UIButton *)sender;
-- (IBAction)copyButtonTouchUp:(UIButton *)sender;
-- (IBAction)deleteButtonTouchUp:(UIButton *)sender;
-- (IBAction)categoryButtonTouchUp:(UIButton *)sender;
-- (IBAction)printButtonTouchUp:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *printButton;
-
-
-#pragma mark- ZBar
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *label;
-- (IBAction)scan:(id)sender;
-
-#pragma mark - Table View Data Source
-@property (weak, nonatomic) IBOutlet UITableView *paintFrameTableView;
-
-#pragma mark-  CoreMotion
-@property (retain, nonatomic)CMMotionManager *motionManager;
-@property (assign, nonatomic)float lastPitch;
-
 @end
