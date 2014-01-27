@@ -16,6 +16,6 @@
 @interface BrushView : UIView
 {
 }
-@property (nonatomic, weak) Brush *brush;
-@property (nonatomic, retain) UIColor *color;
+@property (weak, nonatomic) Brush *brush;
+@property (retain, nonatomic) UIColor *color;
 @end

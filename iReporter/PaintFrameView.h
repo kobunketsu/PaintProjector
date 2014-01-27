@@ -11,7 +11,7 @@
 #import "MediaFrameView.h"
 
 @interface PaintFrameView : UIButton
-@property(nonatomic, weak)PaintDoc* paintDoc;
+@property (weak, nonatomic)PaintDoc* paintDoc;
 - (id)initWithFrame:(CGRect)frame paintDoc:(PaintDoc*)paintDoc;
 -(void)loadForDisplay;
 @end

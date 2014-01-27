@@ -13,6 +13,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ColorPickerView : UIView
-@property(nonatomic, assign)bool locked;
-@property(nonatomic, retain)UIView* sourceView;
+@property (assign, nonatomic)bool locked;
+@property (retain, nonatomic)UIView* sourceView;
 @end

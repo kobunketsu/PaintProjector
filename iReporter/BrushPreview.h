@@ -24,16 +24,16 @@
 @interface BrushPreview : UIView <PaintCommandDelegate>
 {
 }
-@property(nonatomic, assign) id delegate;
-@property(nonatomic, weak) GLWrapper *glWrapper;
-@property(nonatomic, weak) EAGLContext *context;
-@property(nonatomic, assign) GLuint renderbuffer;
-@property(nonatomic, assign) GLuint framebuffer;
-@property(nonatomic, assign) GLuint brushFramebuffer;
-@property(nonatomic, assign) GLuint brushTexture;
-@property(nonatomic, weak) Brush* brush;
-@property(nonatomic, retain) PaintCommand *paintCommand;
-@property(nonatomic, assign) GLuint lastProgram;
+@property (assign, nonatomic) id delegate;
+@property (weak, nonatomic) GLWrapper *glWrapper;
+@property (weak, nonatomic) EAGLContext *context;
+@property (assign, nonatomic) GLuint renderbuffer;
+@property (assign, nonatomic) GLuint framebuffer;
+@property (assign, nonatomic) GLuint brushFramebuffer;
+@property (assign, nonatomic) GLuint brushTexture;
+@property (weak, nonatomic) Brush* brush;
+@property (retain, nonatomic) PaintCommand *paintCommand;
+@property (assign, nonatomic) GLuint lastProgram;
 
 - (void)setupGL;
 - (void)tearDownGL;

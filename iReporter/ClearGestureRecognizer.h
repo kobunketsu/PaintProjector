@@ -13,12 +13,12 @@
 {
     
 }
-@property(nonatomic, assign) UITouch *touch;
-@property(nonatomic, assign) NSInteger reverseCount;    //转折点次数
-@property(nonatomic, assign) CGPoint prevDirection;     //上个移动方向
-@property(nonatomic, assign) NSInteger toucheCount;
-@property(nonatomic, assign) bool firstCheck;
-@property(nonatomic, assign) float timeInterval;//自定义时间间隔
-@property(nonatomic, assign) float prevTimeStamp;//自定义上个时间点
-@property(nonatomic, assign) CGPoint prevPoint; //自定义时间间隔的上一次监测位置
+@property (assign, nonatomic) UITouch *touch;
+@property (assign, nonatomic) NSInteger reverseCount;    //转折点次数
+@property (assign, nonatomic) CGPoint prevDirection;     //上个移动方向
+@property (assign, nonatomic) NSInteger toucheCount;
+@property (assign, nonatomic) bool firstCheck;
+@property (assign, nonatomic) float timeInterval;//自定义时间间隔
+@property (assign, nonatomic) float prevTimeStamp;//自定义上个时间点
+@property (assign, nonatomic) CGPoint prevPoint; //自定义时间间隔的上一次监测位置
 @end

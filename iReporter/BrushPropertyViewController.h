@@ -23,11 +23,11 @@ UICollectionViewDataSource,
 UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout>
 
-@property(nonatomic, assign) id delegate;
-@property(nonatomic, assign) id brushPreviewDelegate;
-@property(nonatomic, weak) EAGLContext *context;
-@property(nonatomic, weak) Brush *brush;
-@property(nonatomic, retain) BrushState *brushStateBeforeChange;
+@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) id brushPreviewDelegate;
+@property (weak, nonatomic) EAGLContext *context;
+@property (weak, nonatomic) Brush *brush;
+@property (retain, nonatomic) BrushState *brushStateBeforeChange;
 //@property (retain, nonatomic) NSMutableArray *patterImages;
 @property (retain, nonatomic) NSArray *patternImageArray;
 

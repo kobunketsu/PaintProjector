@@ -12,8 +12,8 @@
 //@end
 
 @interface Command : NSObject
-//@property(nonatomic, assign) id delegate;
-@property (nonatomic, assign) BOOL isUndoBaseWrapped;//被打包到undobase的texture中的命令
+//@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) BOOL isUndoBaseWrapped;//被打包到undobase的texture中的命令
 
 -(void)execute;
 -(void)endExecute;

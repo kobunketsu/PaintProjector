@@ -22,29 +22,29 @@
 @interface BrushState : NSObject
 {
 }
-@property(nonatomic, assign)int classId;
-@property(nonatomic, assign)int seed;
-@property(nonatomic, retain)UIColor* color; //TODO:changed to CGColor
-@property(nonatomic, assign)float radius;
-@property(nonatomic, assign)float radiusJitter;
-@property(nonatomic, assign)float radiusFade;
-@property(nonatomic, assign)float hardness;
-@property(nonatomic, assign)float roundness;
-@property(nonatomic, assign)float angle;
-@property(nonatomic, assign)float angleJitter;
-@property(nonatomic, assign)float angleFade;
-@property(nonatomic, assign)float opacity;
-@property(nonatomic, assign)float flow;
-@property(nonatomic, assign)float flowJitter;
-@property(nonatomic, assign)float flowFade;
-@property(nonatomic, assign)float spacing;
-@property(nonatomic, assign)float scattering;
-@property(nonatomic, assign)float wet;
-@property(nonatomic, assign)bool isShapeTexture;
-@property(nonatomic, assign)bool isDissolve;
-@property(nonatomic, assign)bool isAirbrush;
-@property(nonatomic, assign)bool isVelocitySensor;
-@property(nonatomic, assign)bool isRadiusMagnifySensor;
+@property (assign, nonatomic)int classId;
+@property (assign, nonatomic)int seed;
+@property (retain, nonatomic)UIColor* color; //TODO:changed to CGColor
+@property (assign, nonatomic)float radius;
+@property (assign, nonatomic)float radiusJitter;
+@property (assign, nonatomic)float radiusFade;
+@property (assign, nonatomic)float hardness;
+@property (assign, nonatomic)float roundness;
+@property (assign, nonatomic)float angle;
+@property (assign, nonatomic)float angleJitter;
+@property (assign, nonatomic)float angleFade;
+@property (assign, nonatomic)float opacity;
+@property (assign, nonatomic)float flow;
+@property (assign, nonatomic)float flowJitter;
+@property (assign, nonatomic)float flowFade;
+@property (assign, nonatomic)float spacing;
+@property (assign, nonatomic)float scattering;
+@property (assign, nonatomic)float wet;
+@property (assign, nonatomic)bool isShapeTexture;
+@property (assign, nonatomic)bool isDissolve;
+@property (assign, nonatomic)bool isAirbrush;
+@property (assign, nonatomic)bool isVelocitySensor;
+@property (assign, nonatomic)bool isRadiusMagnifySensor;
 
 
 @end
@@ -114,37 +114,37 @@ typedef struct {
     GLfloat _projectionMat[16];
 }
 
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, assign) CGSize canvasSize;
-@property (nonatomic, weak) TextureManager* texMgr;
-@property (nonatomic, assign)BrushVertex* vertexBuffer;
-@property (nonatomic, weak) PaintingView* paintView;
-@property (nonatomic, weak) GLWrapper* glWrapper;
-@property (nonatomic, retain) UIImage* iconImage;
-@property (nonatomic, assign) id delegate;
-@property (nonatomic, assign) GLuint  shapeTexture;
-@property (nonatomic, assign) GLuint smudgeTexture;
-@property (nonatomic, assign) GLuint smudgeBackTexture;
-@property (nonatomic, assign) GLuint smudgeFramebuffer;
-@property (nonatomic, assign) GLuint smudgeBackFramebuffer;
-@property (nonatomic, assign) NSUInteger lastSmudgeTextureSize;
-@property (nonatomic, assign) CGPoint lastDrawPoint;
-@property (nonatomic, assign) CGPoint curDrawPoint;
-@property (nonatomic, retain) BrushState* brushState;
-@property (nonatomic, assign) CGPoint position;
-@property (nonatomic, weak) EAGLContext* context;
-@property (nonatomic, assign) float radiusSliderMaxValue;
-@property (nonatomic, assign) float radiusSliderMinValue;
-@property (nonatomic, assign) float curDrawAccumDeltaLength;//当前绘制的长度
-@property (nonatomic, assign) float curDrawLength;//当前绘制的总长度
-@property (nonatomic, assign) float curDrawFade;//当前绘制结束防缩
-@property (nonatomic, assign) float lastDrawFade;//当前绘制结束防缩
-@property (nonatomic, assign) size_t allDrawSpriteCount;//当前一次绘制的数量
-@property (nonatomic, assign) CGPoint lastDrawSubPoint;
-@property (nonatomic, assign, readonly) BOOL isEditable;
-@property (nonatomic, retain) NSString *shaderPreDefines;
-@property (nonatomic, retain) NSDictionary *vertShaderCaches;
-@property (nonatomic, retain) NSDictionary *fragShaderCaches;
+@property (retain, nonatomic) NSString *name;
+@property (assign, nonatomic) CGSize canvasSize;
+@property (weak, nonatomic) TextureManager* texMgr;
+@property (assign, nonatomic)BrushVertex* vertexBuffer;
+@property (weak, nonatomic) PaintingView* paintView;
+@property (weak, nonatomic) GLWrapper* glWrapper;
+@property (retain, nonatomic) UIImage* iconImage;
+@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) GLuint  shapeTexture;
+@property (assign, nonatomic) GLuint smudgeTexture;
+@property (assign, nonatomic) GLuint smudgeBackTexture;
+@property (assign, nonatomic) GLuint smudgeFramebuffer;
+@property (assign, nonatomic) GLuint smudgeBackFramebuffer;
+@property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
+@property (assign, nonatomic) CGPoint lastDrawPoint;
+@property (assign, nonatomic) CGPoint curDrawPoint;
+@property (retain, nonatomic) BrushState* brushState;
+@property (assign, nonatomic) CGPoint position;
+@property (weak, nonatomic) EAGLContext* context;
+@property (assign, nonatomic) float radiusSliderMaxValue;
+@property (assign, nonatomic) float radiusSliderMinValue;
+@property (assign, nonatomic) float curDrawAccumDeltaLength;//当前绘制的长度
+@property (assign, nonatomic) float curDrawLength;//当前绘制的总长度
+@property (assign, nonatomic) float curDrawFade;//当前绘制结束防缩
+@property (assign, nonatomic) float lastDrawFade;//当前绘制结束防缩
+@property (assign, nonatomic) size_t allDrawSpriteCount;//当前一次绘制的数量
+@property (assign, nonatomic) CGPoint lastDrawSubPoint;
+@property (assign, nonatomic, readonly) BOOL isEditable;
+@property (retain, nonatomic) NSString *shaderPreDefines;
+@property (retain, nonatomic) NSDictionary *vertShaderCaches;
+@property (retain, nonatomic) NSDictionary *fragShaderCaches;
 
 
 - (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper texMgr:(TextureManager*)texMgr canvasSize:(CGSize)canvasSize;

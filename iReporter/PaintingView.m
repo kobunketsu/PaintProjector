@@ -25,53 +25,53 @@
 
 // A class extension to declare private methods
 @interface PaintingView ()
-@property(nonatomic, weak) IBOutlet UIView *rootCanvasView;
-@property(nonatomic, assign)NSInteger viewGLSize;  //用于创建framebufferTextuer的尺寸
-@property(nonatomic, retain) NSMutableArray *drawPath;  //记录路径
+@property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
+@property (assign, nonatomic)NSInteger viewGLSize;  //用于创建framebufferTextuer的尺寸
+@property (retain, nonatomic) NSMutableArray *drawPath;  //记录路径
 //图层
 //用于存储图层的各个texture(用于替换backgroundTexturebuffer)
-@property(nonatomic, retain)NSMutableArray *layerFramebuffers;
-@property(nonatomic, retain)NSMutableArray *layerTextures;
+@property (retain, nonatomic)NSMutableArray *layerFramebuffers;
+@property (retain, nonatomic)NSMutableArray *layerTextures;
 
-@property(nonatomic, assign)int multiTouchEndCount;
-@property(nonatomic, retain) BrushState* lastBrushState; //记录上一次绘制使用的brushState
+@property (assign, nonatomic)int multiTouchEndCount;
+@property (retain, nonatomic) BrushState* lastBrushState; //记录上一次绘制使用的brushState
 @property(nonatomic, readwrite) CGPoint location;
 @property(nonatomic, readwrite) CGPoint previousLocation;
-@property(nonatomic, retain) GLKTextureInfo *paintTextureInfo;
-@property(nonatomic, assign) GLuint curPaintedLayerTexture;
-@property(nonatomic, assign) GLuint curLayerTexture;
-@property(nonatomic, assign) GLuint finalFramebuffer;
-@property(nonatomic, retain)PaintCommand *curPaintCommand;
-@property (nonatomic, assign) BrushVertex* vertexBufferBrush;//每只笔预先分配的用于绘制的顶点数据
-@property (nonatomic, assign) BrushVertex* vertexBufferBrushUndo;//每只笔临时分配的用于undo的大内存空间
+@property (retain, nonatomic) GLKTextureInfo *paintTextureInfo;
+@property (assign, nonatomic) GLuint curPaintedLayerTexture;
+@property (assign, nonatomic) GLuint curLayerTexture;
+@property (assign, nonatomic) GLuint finalFramebuffer;
+@property (retain, nonatomic)PaintCommand *curPaintCommand;
+@property (assign, nonatomic) BrushVertex* vertexBufferBrush;//每只笔预先分配的用于绘制的顶点数据
+@property (assign, nonatomic) BrushVertex* vertexBufferBrushUndo;//每只笔临时分配的用于undo的大内存空间
 
-@property(nonatomic, assign) BOOL lastProgramQuadTransformIdentity;//
-@property(nonatomic, assign) GLfloat lastProgramQuadAlpha;
-@property(nonatomic, assign) GLint lastProgramQuadTex;
-@property(nonatomic, assign) GLfloat lastProgramLayerAlpha;
-@property(nonatomic, assign) GLint lastProgramLayerTex;
-@property(nonatomic, retain) CADisplayLink *displayLink;
+@property (assign, nonatomic) BOOL lastProgramQuadTransformIdentity;//
+@property (assign, nonatomic) GLfloat lastProgramQuadAlpha;
+@property (assign, nonatomic) GLint lastProgramQuadTex;
+@property (assign, nonatomic) GLfloat lastProgramLayerAlpha;
+@property (assign, nonatomic) GLint lastProgramLayerTex;
+@property (retain, nonatomic) CADisplayLink *displayLink;
 
-@property(nonatomic, assign) CGPoint anchorTranslate;
-@property(nonatomic, assign) CGPoint anchorInverseTranslate;
-@property(nonatomic, assign) CGPoint imageTranslate;
-@property(nonatomic, assign) CGPoint imageSrcTranslate;
-@property(nonatomic, assign) CGFloat imageRotate;
-@property(nonatomic, assign) CGFloat imageSrcRotate;
-@property(nonatomic, assign) CGPoint imageScale;
-@property(nonatomic, assign) CGPoint imageSrcScale;
-@property(nonatomic, assign) CGPoint canvasTranslate;
-@property(nonatomic, assign) CGPoint canvasSrcTranslate;
-@property(nonatomic, assign) CGFloat canvasRotate;
-@property(nonatomic, assign) CGFloat canvasSrcRotate;
-@property(nonatomic, assign) CGFloat canvasScale;
-@property(nonatomic, assign) CGFloat canvasSrcScale;
-@property(nonatomic, assign) BOOL isRotateSnapFit;
-@property(nonatomic, assign) BOOL isTranslateSnapFit;
+@property (assign, nonatomic) CGPoint anchorTranslate;
+@property (assign, nonatomic) CGPoint anchorInverseTranslate;
+@property (assign, nonatomic) CGPoint imageTranslate;
+@property (assign, nonatomic) CGPoint imageSrcTranslate;
+@property (assign, nonatomic) CGFloat imageRotate;
+@property (assign, nonatomic) CGFloat imageSrcRotate;
+@property (assign, nonatomic) CGPoint imageScale;
+@property (assign, nonatomic) CGPoint imageSrcScale;
+@property (assign, nonatomic) CGPoint canvasTranslate;
+@property (assign, nonatomic) CGPoint canvasSrcTranslate;
+@property (assign, nonatomic) CGFloat canvasRotate;
+@property (assign, nonatomic) CGFloat canvasSrcRotate;
+@property (assign, nonatomic) CGFloat canvasScale;
+@property (assign, nonatomic) CGFloat canvasSrcScale;
+@property (assign, nonatomic) BOOL isRotateSnapFit;
+@property (assign, nonatomic) BOOL isTranslateSnapFit;
 
 #if DEBUG_VIEW_COLORALPHA
-@property(nonatomic, retain) UIImageView* imageView;
-@property(nonatomic, retain) UIImageView* debugAlphaView;
+@property (retain, nonatomic) UIImageView* imageView;
+@property (retain, nonatomic) UIImageView* debugAlphaView;
 #endif
 
 - (void)createFramebufferTextures;

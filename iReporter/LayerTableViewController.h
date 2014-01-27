@@ -52,20 +52,20 @@ UIAlertViewDelegate
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet FuzzyTransparentView *rootView;
 @property (weak, nonatomic) LayerBlendModeTableViewController *blendModeTableViewController;
-@property(nonatomic, assign)float tableViewWidth;
-@property(nonatomic, assign)float tableViewHeightMax;
-@property(nonatomic, weak)NSArray *layers;//retain?
-@property(nonatomic, weak)BackgroundLayer *backgroundLayer;
-@property(nonatomic, retain)NSIndexPath *curLayerIndexPath;
-@property(nonatomic, retain)NSIndexPath *curSetupIndexPath;
-@property(nonatomic, assign)int inBlendModeRow;
-@property(nonatomic, assign) id delegate;
+@property (assign, nonatomic)float tableViewWidth;
+@property (assign, nonatomic)float tableViewHeightMax;
+@property (weak, nonatomic)NSArray *layers;//retain?
+@property (weak, nonatomic)BackgroundLayer *backgroundLayer;
+@property (retain, nonatomic)NSIndexPath *curLayerIndexPath;
+@property (retain, nonatomic)NSIndexPath *curSetupIndexPath;
+@property (assign, nonatomic)int inBlendModeRow;
+@property (assign, nonatomic) id delegate;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *layerToolButtons;
 @property (weak, nonatomic) IBOutlet UIButton *layerDeleteButton;
 @property (weak, nonatomic) IBOutlet UILabel *blendModeLabel;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
-@property(nonatomic, weak) UIButton* backgroundLayerButton;
-@property(nonatomic, assign)NSInteger moveTargetSection;
+@property (weak, nonatomic) UIButton* backgroundLayerButton;
+@property (assign, nonatomic)NSInteger moveTargetSection;
 - (float)tableViewHeight;
 - (int)layerIndexForRow:(int)row;
 - (int)rowForLayerIndex:(int)layerIndex;

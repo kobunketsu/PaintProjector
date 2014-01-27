@@ -22,8 +22,8 @@
 @interface BrushTypeScrollView : UIScrollView <UIScrollViewDelegate>
 {
 }
-@property (nonatomic, assign) id delegate;
-@property(nonatomic, retain)NSMutableArray *brushTypes;
+@property (assign, nonatomic) id delegate;
+@property (retain, nonatomic)NSMutableArray *brushTypes;
 @property (weak, nonatomic) IBOutlet UIPageControl *brushTypePageControl;
 
 -(void)initSubviewsWithNumOfBrushPerPage:(NSInteger)numOfBrush;

@@ -12,8 +12,8 @@
 @class PaintDoc;
 
 @interface PaintFrameManager : NSObject
-@property (nonatomic, retain) PaintFrameViewGroup* curPaintFrameGroup;
-@property (nonatomic, retain) PaintFrameView *curPaintFrameView;
+@property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
+@property (retain, nonatomic) PaintFrameView *curPaintFrameView;
 
 -(void)insertNewPaintDocAtCurIndex;
 

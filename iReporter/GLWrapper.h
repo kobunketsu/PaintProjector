@@ -32,16 +32,16 @@ typedef NS_ENUM(NSInteger, InterpolationType) {
 #define RELEASE_TEXTURE(tex) if(tex){glDeleteTextures(1, &tex);tex = 0;}
 
 @interface GLWrapper : NSObject
-@property(nonatomic, assign) GLuint lastProgram;//记录上一次绘制使用的program
-@property(nonatomic, assign) GLuint lastVBO;//记录上一次绘制使用的vertexbuffer object
-@property(nonatomic, assign) GLuint lastVEBO;//记录上一次绘制使用的vertex element buffer object
-@property(nonatomic, assign) GLuint lastVAO;//记录上一次绘制使用的vertexArrayObject
-@property(nonatomic, assign) GLuint lastFramebuffer;//记录上一次绘制使用的framebuffer
-@property(nonatomic, assign) GLuint lastTexture;//记录上一次绘制使用的framebuffer
-@property(nonatomic, assign) GLuint lastActiveTexSlot;
-@property(nonatomic, assign) BlendFuncType lastBlendFuncType;
-//@property(nonatomic, assign) InterpolationType lastInterpolationType;
-@property(nonatomic, retain) NSMutableDictionary *activeSlotTex;
+@property (assign, nonatomic) GLuint lastProgram;//记录上一次绘制使用的program
+@property (assign, nonatomic) GLuint lastVBO;//记录上一次绘制使用的vertexbuffer object
+@property (assign, nonatomic) GLuint lastVEBO;//记录上一次绘制使用的vertex element buffer object
+@property (assign, nonatomic) GLuint lastVAO;//记录上一次绘制使用的vertexArrayObject
+@property (assign, nonatomic) GLuint lastFramebuffer;//记录上一次绘制使用的framebuffer
+@property (assign, nonatomic) GLuint lastTexture;//记录上一次绘制使用的framebuffer
+@property (assign, nonatomic) GLuint lastActiveTexSlot;
+@property (assign, nonatomic) BlendFuncType lastBlendFuncType;
+//@property (assign, nonatomic) InterpolationType lastInterpolationType;
+@property (retain, nonatomic) NSMutableDictionary *activeSlotTex;
 -(void)blendFunc:(BlendFuncType)blendFuncType;
 
 -(void)bindFramebufferOES:(GLuint)FBO discardHint:(BOOL)discardHint clear:(BOOL)clear;

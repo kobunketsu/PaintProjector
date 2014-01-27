@@ -34,13 +34,13 @@ typedef enum LayerBlendMode LayerBlendMode;
 @interface PaintLayer : Layer
 {
 }
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *identifier;
-@property (nonatomic, retain) NSData *data;
-@property (nonatomic, assign) LayerBlendMode blendMode;
-@property (nonatomic, assign) bool dirty;
-@property (nonatomic, assign) float opacity;
-@property (nonatomic, assign) bool visible;
+@property (retain, nonatomic) NSString *name;
+@property (retain, nonatomic) NSString *identifier;
+@property (retain, nonatomic) NSData *data;
+@property (assign, nonatomic) LayerBlendMode blendMode;
+@property (assign, nonatomic) bool dirty;
+@property (assign, nonatomic) float opacity;
+@property (assign, nonatomic) bool visible;
 - (id)initWithData:(NSData*)data name:(NSString *)name blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity;
 + (PaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent;
 @end

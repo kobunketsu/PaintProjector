@@ -9,8 +9,8 @@
 #import "Command.h"
 
 @interface UndoBaseCommand : Command
-@property(nonatomic, assign)GLuint texture;
-@property(nonatomic, assign) id delegate;
+@property (assign, nonatomic)GLuint texture;
+@property (assign, nonatomic) id delegate;
 - (UndoBaseCommand*)initWithTexture:(GLuint)texture;
 @end
 

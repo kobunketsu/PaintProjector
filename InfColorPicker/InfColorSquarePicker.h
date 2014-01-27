@@ -20,7 +20,7 @@
 @interface InfColorSquareView : UIImageView
 
 @property( nonatomic ) float hue;
-@property(nonatomic, assign) BOOL colorized;
+@property (assign, nonatomic) BOOL colorized;
 - (void) updateContent;
 @end
 

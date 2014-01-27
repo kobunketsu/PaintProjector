@@ -27,10 +27,10 @@
     
     LayerDelegate *_layerDelegate;//作为处理层的代理    
 }
-@property (nonatomic, assign) CGImageRef sourceImage;
-@property (nonatomic, assign) float lastPitch;
-@property (nonatomic, assign) GLKVector3 deviceToEye;
-@property (nonatomic, retain) CALayer* layer3D;
+@property (assign, nonatomic) CGImageRef sourceImage;
+@property (assign, nonatomic) float lastPitch;
+@property (assign, nonatomic) GLKVector3 deviceToEye;
+@property (retain, nonatomic) CALayer* layer3D;
 - (void)filterImage;
 - (void)create3DImage;
 - (CGPoint)projectPointOnRealPlane:(CGPoint)pointInFakeView;

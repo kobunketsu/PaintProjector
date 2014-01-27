@@ -19,8 +19,8 @@
 }
 @property (copy) NSString *title;
 @property (copy) NSString *version;
-@property (nonatomic, retain) NSMutableArray *layers;
-@property (nonatomic, retain) BackgroundLayer *backgroundLayer;
+@property (retain, nonatomic) NSMutableArray *layers;
+@property (retain, nonatomic) BackgroundLayer *backgroundLayer;
 
 - (id)initWithTitle:(NSString*)title;
 -(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(BackgroundLayer*)backgroundLayer version:(NSString*)version;

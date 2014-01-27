@@ -15,10 +15,10 @@
 @interface EyeDropper : NSObject
 {
 }
-@property (nonatomic, weak) UIView *targetView;
-@property (nonatomic, assign) CGColorRef resultColor;
-@property (nonatomic, assign) BOOL isDrawing;
-@property (nonatomic, assign) CGPoint position;//touch position
+@property (weak, nonatomic) UIView *targetView;
+@property (assign, nonatomic) CGColorRef resultColor;
+@property (assign, nonatomic) BOOL isDrawing;
+@property (assign, nonatomic) CGPoint position;//touch position
 - (void) draw;
 - (id) initWithView:(UIView*)view;
 - (UIColor *) colorOfPoint:(CGPoint)point;

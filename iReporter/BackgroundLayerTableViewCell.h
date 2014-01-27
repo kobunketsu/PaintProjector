@@ -10,8 +10,8 @@
 #import "LayerVisibleButton.h"
 #import "LayerImageView.h"
 @interface BackgroundLayerTableViewCell : UITableViewCell
-@property (nonatomic, weak) IBOutlet LayerVisibleButton *visibleButton;
-@property (nonatomic, weak) IBOutlet LayerImageView *layerImageView;
+@property (weak, nonatomic) IBOutlet LayerVisibleButton *visibleButton;
+@property (weak, nonatomic) IBOutlet LayerImageView *layerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *layerImageButton;
 @property (weak, nonatomic) IBOutlet UIView *layerImageViewFrame;
 

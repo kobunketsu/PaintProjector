@@ -18,9 +18,9 @@
     GLKVector3 _rotate;
 }
 
-@property(nonatomic, assign)GLKVector3 translateBeforePanGR;
-@property(nonatomic, assign)GLKVector3 translateAfterPanGR;
-@property(nonatomic, assign)GLKMatrix4 worldMatrix;
+@property (assign, nonatomic)GLKVector3 translateBeforePanGR;
+@property (assign, nonatomic)GLKVector3 translateAfterPanGR;
+@property (assign, nonatomic)GLKMatrix4 worldMatrix;
 
 -(void)updateWorldMatrix;
 

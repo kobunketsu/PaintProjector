@@ -13,5 +13,5 @@
 {
     NSInteger _selectedRow;
 }
-@property (nonatomic, weak) LayerBlendModeTableViewController* controller;
+@property (weak, nonatomic) LayerBlendModeTableViewController* controller;
 @end

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ColorSaveToSlotView : UIView
-@property(nonatomic, weak)UIColor* color;
+@property (weak, nonatomic)UIColor* color;
 @end

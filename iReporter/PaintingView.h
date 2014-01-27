@@ -178,28 +178,28 @@ typedef struct {
 #endif
     
 }
-@property(nonatomic, retain) EAGLContext *context;
-@property(nonatomic, retain) GLWrapper* glWrapper;
-@property(nonatomic, assign) id delegate;
-@property(nonatomic, assign) size_t	vertexBrushMaxCount;
-@property(nonatomic, assign) GLuint VAOBrush;
-@property(nonatomic, assign) GLuint VAOBrushBack;
-@property(nonatomic, assign) GLuint VBOBrush;
-@property(nonatomic, assign) GLuint VBOBrushBack;
-@property(nonatomic, retain) TextureManager* texMgr;
-@property(nonatomic, retain)CommandManager *commandManager;
-@property(nonatomic, weak)NSMutableArray *brushTypes;
-@property(nonatomic, weak)EyeDropper *eyeDropper;
-@property(nonatomic, assign)PaintingViewState state;
-@property (nonatomic, weak) UITouch *paintTouch;     //记录当前绘图Touch
-@property (nonatomic, weak) UITouch *firstTouch;     //记录当前取色Touch
-@property(nonatomic, assign) GLuint finalRenderbuffer;
-@property(nonatomic, assign) GLuint backgroundTexture;//背景内容
-@property(nonatomic, weak) PaintData *paintData;
-@property(nonatomic, weak)Brush *brush;
-@property(nonatomic, retain) UIImage *paintingImage;//纪录当前的绘图内容
-@property(nonatomic, retain) UIImage *brushingImage;//纪录当前的绘图内容
-@property(nonatomic, retain) UIImage *paintRefImage;//纪录当前的绘图内容
+@property (retain, nonatomic) EAGLContext *context;
+@property (retain, nonatomic) GLWrapper* glWrapper;
+@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) size_t	vertexBrushMaxCount;
+@property (assign, nonatomic) GLuint VAOBrush;
+@property (assign, nonatomic) GLuint VAOBrushBack;
+@property (assign, nonatomic) GLuint VBOBrush;
+@property (assign, nonatomic) GLuint VBOBrushBack;
+@property (retain, nonatomic) TextureManager* texMgr;
+@property (retain, nonatomic)CommandManager *commandManager;
+@property (weak, nonatomic)NSMutableArray *brushTypes;
+@property (weak, nonatomic)EyeDropper *eyeDropper;
+@property (assign, nonatomic)PaintingViewState state;
+@property (weak, nonatomic) UITouch *paintTouch;     //记录当前绘图Touch
+@property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
+@property (assign, nonatomic) GLuint finalRenderbuffer;
+@property (assign, nonatomic) GLuint backgroundTexture;//背景内容
+@property (weak, nonatomic) PaintData *paintData;
+@property (weak, nonatomic)Brush *brush;
+@property (retain, nonatomic) UIImage *paintingImage;//纪录当前的绘图内容
+@property (retain, nonatomic) UIImage *brushingImage;//纪录当前的绘图内容
+@property (retain, nonatomic) UIImage *paintRefImage;//纪录当前的绘图内容
 
 - (void)swapVBO;
 - (void)initGLObjects;

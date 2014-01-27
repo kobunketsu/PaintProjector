@@ -9,6 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface TransformContentViewLayer : CALayer
-@property(nonatomic, assign) float phase;
+@property (assign, nonatomic) float phase;
 
 @end

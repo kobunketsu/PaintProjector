@@ -21,6 +21,6 @@
 @interface CustomTouchUIView : UIView 
 
 // Properties
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 
 @end

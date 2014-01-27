@@ -11,13 +11,13 @@
 #import "LayerBlendModeButton.h"
 #import "LayerImageView.h"
 @interface LayerTableViewCell : UITableViewCell
-//@property (nonatomic, copy) NSString *layerIdentifier;
-@property (nonatomic, weak) IBOutlet LayerVisibleButton *visibleButton;
-@property (nonatomic, weak) IBOutlet LayerImageView *layerImageView;
+//@property (copy, nonatomic) NSString *layerIdentifier;
+@property (weak, nonatomic) IBOutlet LayerVisibleButton *visibleButton;
+@property (weak, nonatomic) IBOutlet LayerImageView *layerImageView;
 @property (weak, nonatomic) IBOutlet UIView *layerImageViewFrame;
 @property (weak, nonatomic) IBOutlet UIButton *layerDeleteDoneButton;
-@property (nonatomic, weak) IBOutlet LayerBlendModeButton *layerBlendModeButton;
+@property (weak, nonatomic) IBOutlet LayerBlendModeButton *layerBlendModeButton;
 @property (weak, nonatomic) IBOutlet UIView *layerBlendModeButtonUp;
-@property (nonatomic, weak) IBOutlet UISlider *layerOpacitySlider;
+@property (weak, nonatomic) IBOutlet UISlider *layerOpacitySlider;
 - (void)setSelectedState:(BOOL)selected;
 @end

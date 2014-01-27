@@ -16,6 +16,6 @@
 - (void) didSelectExportToPhotoLibrary;
 @end
 @interface ExportTableViewController : UITableViewController
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 - (float)tableViewHeight;
 @end

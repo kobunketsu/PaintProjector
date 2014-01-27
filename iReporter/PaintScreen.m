@@ -105,38 +105,38 @@ typedef struct {
 #pragma mark Paint Screen
 @interface PaintScreen ()
 //绘图工具
-@property (nonatomic, assign) PaintScreenViewState state;
-@property (nonatomic, assign) BOOL isInterfacePortraitUpsideDown;//用于调整横向时按钮label的方向
-@property (nonatomic, assign) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
-@property (nonatomic, retain) LayerTableViewController *layerTableViewController;
-@property (nonatomic, retain) NSDictionary *workspace;
-@property (nonatomic, retain) PaintDoc *paintDoc;
-@property (nonatomic, retain) Brush   *curBrush;
-@property (nonatomic, retain) EyeDropper *eyeDropper;
-@property (nonatomic, retain) InfColorPickerController *infColorPickerController;
-@property (nonatomic, weak) ColorButton *colorPickerSrcButton;//记录打开取色器的源按钮
-@property (nonatomic, retain) UIPopoverController *blendModePopoverController;  //图层混合弹出控制器
+@property (assign, nonatomic) PaintScreenViewState state;
+@property (assign, nonatomic) BOOL isInterfacePortraitUpsideDown;//用于调整横向时按钮label的方向
+@property (assign, nonatomic) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
+@property (retain, nonatomic) LayerTableViewController *layerTableViewController;
+@property (retain, nonatomic) NSDictionary *workspace;
+@property (retain, nonatomic) PaintDoc *paintDoc;
+@property (retain, nonatomic) Brush   *curBrush;
+@property (retain, nonatomic) EyeDropper *eyeDropper;
+@property (retain, nonatomic) InfColorPickerController *infColorPickerController;
+@property (weak, nonatomic) ColorButton *colorPickerSrcButton;//记录打开取色器的源按钮
+@property (retain, nonatomic) UIPopoverController *blendModePopoverController;  //图层混合弹出控制器
 
-@property (nonatomic, assign) BOOL isPaintFullScreen;
+@property (assign, nonatomic) BOOL isPaintFullScreen;
 @property (strong, nonatomic) PaintScreenPopoverController *subPopoverController;
-@property (nonatomic, retain) PaintScreenPopoverController *sharedPopoverController;
-@property (nonatomic, retain) NSDate *twoFingerPanGestureStartTime;   //检测手势的开始时间
-@property (nonatomic, assign) float twoFingerPanGestureCurTimeInterval;   //检测手势的当前误差时间
+@property (retain, nonatomic) PaintScreenPopoverController *sharedPopoverController;
+@property (retain, nonatomic) NSDate *twoFingerPanGestureStartTime;   //检测手势的开始时间
+@property (assign, nonatomic) float twoFingerPanGestureCurTimeInterval;   //检测手势的当前误差时间
 @property (retain, nonatomic) NSMutableArray *colorButtons;//所有颜色槽
 @property (weak, nonatomic) ColorButton *colorSaveTargetButton;//吸颜色的目标槽位
-@property (nonatomic, retain) ClearGestureRecognizer *clearGestureRecognizer;
-@property (nonatomic, assign) CGRect downToolBarFrame;//为移动工具栏记录原始位置
-@property (nonatomic, assign) CGRect topToolBarFrame;//为移动工具栏记录原始位置
-@property (nonatomic, assign) BOOL hideTopDownUITemp;
-@property (nonatomic, assign) CGRect brushButtonTempRect;
-@property (nonatomic, retain) UIView *transformContentView;//变换画布时显示的选择外框
-@property (nonatomic, assign) CGPoint transformContentViewSrcCenter;//当前变换框的中心
-@property (nonatomic, assign) CGFloat transformContentViewSrcRotate;//当前变换框的中心
-@property (nonatomic, assign) CGRect transformContentViewSrcBounds;//当前变换框的大小
+@property (retain, nonatomic) ClearGestureRecognizer *clearGestureRecognizer;
+@property (assign, nonatomic) CGRect downToolBarFrame;//为移动工具栏记录原始位置
+@property (assign, nonatomic) CGRect topToolBarFrame;//为移动工具栏记录原始位置
+@property (assign, nonatomic) BOOL hideTopDownUITemp;
+@property (assign, nonatomic) CGRect brushButtonTempRect;
+@property (retain, nonatomic) UIView *transformContentView;//变换画布时显示的选择外框
+@property (assign, nonatomic) CGPoint transformContentViewSrcCenter;//当前变换框的中心
+@property (assign, nonatomic) CGFloat transformContentViewSrcRotate;//当前变换框的中心
+@property (assign, nonatomic) CGRect transformContentViewSrcBounds;//当前变换框的大小
 @property (retain, nonatomic) NSMutableArray *transformAnchorViews;
-@property (nonatomic, assign) CGFloat transformAnchorViewSize;
-@property (nonatomic, assign) CGPoint curTransformAnchorViewSrcCenter;//当前变换点的中心
-@property (nonatomic, assign) CGFloat curTransformDirection;//当前变换点的移动方向
+@property (assign, nonatomic) CGFloat transformAnchorViewSize;
+@property (assign, nonatomic) CGPoint curTransformAnchorViewSrcCenter;//当前变换点的中心
+@property (assign, nonatomic) CGFloat curTransformDirection;//当前变换点的移动方向
 @end
 
 

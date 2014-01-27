@@ -9,8 +9,8 @@
 #import "Command.h"
 
 @interface OpenCommand : Command
-@property(nonatomic, assign)GLuint texture;
-@property(nonatomic, assign) id delegate;
+@property (assign, nonatomic)GLuint texture;
+@property (assign, nonatomic) id delegate;
 - (OpenCommand*)initWithTexture:(GLuint)texture;
 @end
 

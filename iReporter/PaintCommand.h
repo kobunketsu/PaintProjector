@@ -32,12 +32,12 @@
 @interface PaintCommand : Command
 {
 }
-//@property (nonatomic, retain) Brush* brush;
-@property (nonatomic, retain) NSMutableArray* paintPaths;//记录了一次完整绘制的路径
-@property (nonatomic, retain) BrushState* brushState;
-@property (nonatomic, assign) int curSegmentOffset;//当前笔触操作的第index段
-@property (nonatomic, assign) id delegate;
-@property (nonatomic, assign) BOOL isTapDraw;
+//@property (retain, nonatomic) Brush* brush;
+@property (retain, nonatomic) NSMutableArray* paintPaths;//记录了一次完整绘制的路径
+@property (retain, nonatomic) BrushState* brushState;
+@property (assign, nonatomic) int curSegmentOffset;//当前笔触操作的第index段
+@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) BOOL isTapDraw;
 
 - (PaintCommand*)initWithBrushState:(BrushState*)brushState;
 

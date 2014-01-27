@@ -13,7 +13,7 @@
 {
     float _radius;
 }
-@property(nonatomic, retain)UILabel* label;
+@property (retain, nonatomic)UILabel* label;
 - (float)radius;
 
 - (void)setRadius:(float)newValue;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CustomLayer.h"
 @interface AutoRotateButton : UIButton
-@property(nonatomic, assign)UIDeviceOrientation orientation;
-@property(nonatomic, assign)BOOL isInterfacePortraitUpsideDown;
-//@property(nonatomic, assign)CGColorRef baseColor;
+@property (assign, nonatomic)UIDeviceOrientation orientation;
+@property (assign, nonatomic)BOOL isInterfacePortraitUpsideDown;
+//@property (assign, nonatomic)CGColorRef baseColor;
 @end

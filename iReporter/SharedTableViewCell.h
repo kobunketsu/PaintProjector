@@ -10,6 +10,6 @@
 
 @interface SharedTableViewCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *thumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailImageView;
 @end

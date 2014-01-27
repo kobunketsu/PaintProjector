@@ -31,14 +31,14 @@ typedef struct {
 }
 
 @property (strong, nonatomic) GLKBaseEffect *effect;
-@property(nonatomic, assign) int rowCount;//网格横向数量
-@property(nonatomic, assign) int columnCount;//网格纵向数量
-@property(nonatomic, assign) float width;//网格宽度
-@property(nonatomic, assign) float height;//网格深度
-@property(nonatomic, assign) float offsetY;
-@property(nonatomic, assign) float measureScale;
-@property(nonatomic, assign) GLKMatrix4 viewMatrix;
-@property(nonatomic, assign) GLKMatrix4 projectionMatrix;
+@property (assign, nonatomic) int rowCount;//网格横向数量
+@property (assign, nonatomic) int columnCount;//网格纵向数量
+@property (assign, nonatomic) float width;//网格宽度
+@property (assign, nonatomic) float height;//网格深度
+@property (assign, nonatomic) float offsetY;
+@property (assign, nonatomic) float measureScale;
+@property (assign, nonatomic) GLKMatrix4 viewMatrix;
+@property (assign, nonatomic) GLKMatrix4 projectionMatrix;
 
 - (id)initWithRow:(int)row column:(int)column;
 - (void)setupGL;

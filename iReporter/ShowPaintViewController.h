@@ -24,13 +24,13 @@
 }
 @property (nonatomic) BOOL isUsingFrontFacingCamera;
 @property (nonatomic) BOOL isCameraScreenHidden;
-@property (nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
+@property (strong, nonatomic) AVCaptureVideoDataOutput *videoDataOutput;
 @property (nonatomic) dispatch_queue_t videoDataOutputQueue;
-@property (nonatomic, weak) IBOutlet ShowPaint *previewView;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
-@property (nonatomic, strong) UIImage *borderImage;
-@property (nonatomic, strong) UIImage *eyeImage;
-@property (nonatomic, strong) CIDetector *faceDetector;
+@property (weak, nonatomic) IBOutlet ShowPaint *previewView;
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
+@property (strong, nonatomic) UIImage *borderImage;
+@property (strong, nonatomic) UIImage *eyeImage;
+@property (strong, nonatomic) CIDetector *faceDetector;
 
 - (void)setupAVCapture;
 - (void)teardownAVCapture;

@@ -62,9 +62,9 @@
     
 
 }
-@property (nonatomic, strong)EAGLContext *context;
+@property (strong, nonatomic)EAGLContext *context;
 - (IBAction)handlePanGRAdjustSceneView:(UIPanGestureRecognizer *)sender;
 - (IBAction)adjustDoneButtonTapped:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *adjustDoneButton;
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 @end

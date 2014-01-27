@@ -167,7 +167,7 @@ FuzzyTransparentViewDelegate
     dispatch_queue_t _uploadDataQueque;//在打开图层时更新显示的线程
 }
 
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 
 //Interface Builder
 @property (weak, nonatomic) IBOutlet UIView *testOpenGLView;

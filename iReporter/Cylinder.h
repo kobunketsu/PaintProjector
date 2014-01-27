@@ -31,30 +31,30 @@ typedef struct {
 //    GLuint _program;
 //    GLuint _wvpMatrixUniform;
 }
-@property (nonatomic, weak) GLWrapper* glWrapper;
-@property (nonatomic, retain) GLKTextureInfo *texInfoCylinderCap;//贴图
-@property (nonatomic, retain) GLKTextureInfo *texInfoCylinderMain;//贴图
-@property (nonatomic, retain) GLKTextureInfo *texInfoCylinderShadow;//贴图
-@property (nonatomic, assign) GLuint reflectionTex;//render to target
-@property (nonatomic, assign) float radius;//半径
-@property (nonatomic, assign) int sides;//段数
-@property (nonatomic, assign) float height;//高度
+@property (weak, nonatomic) GLWrapper* glWrapper;
+@property (retain, nonatomic) GLKTextureInfo *texInfoCylinderCap;//贴图
+@property (retain, nonatomic) GLKTextureInfo *texInfoCylinderMain;//贴图
+@property (retain, nonatomic) GLKTextureInfo *texInfoCylinderShadow;//贴图
+@property (assign, nonatomic) GLuint reflectionTex;//render to target
+@property (assign, nonatomic) float radius;//半径
+@property (assign, nonatomic) int sides;//段数
+@property (assign, nonatomic) float height;//高度
 @property (strong, nonatomic) GLKBaseEffect *effect;
-@property(nonatomic, assign) GLKVector3 eye;
-@property(nonatomic, assign) GLKVector4 reflectionTexUVSpace;
-@property(nonatomic, assign) GLKMatrix4 viewMatrix;
-@property(nonatomic, assign) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
-@property(nonatomic, assign) GLKMatrix4 projectionMatrix;
-@property(nonatomic, assign) GLKMatrix4 projectionOrthoMatrix;
-@property(nonatomic, assign) float perspectiveToOrthoBlend;
-@property(nonatomic, assign) GLuint programCylinder;
-@property(nonatomic, assign) GLuint worldMatrixUniform;
-@property(nonatomic, assign) GLuint modelViewMatrixUniform;
-@property(nonatomic, assign) GLuint projMatrixUniform;
-@property(nonatomic, assign) GLuint eyeUniform;
-@property(nonatomic, assign) GLuint texture0Unifrom;
-@property(nonatomic, assign) GLuint reflectionTextureUniform;
-@property(nonatomic, assign) GLuint reflectionTexUVSpaceUniform;
+@property (assign, nonatomic) GLKVector3 eye;
+@property (assign, nonatomic) GLKVector4 reflectionTexUVSpace;
+@property (assign, nonatomic) GLKMatrix4 viewMatrix;
+@property (assign, nonatomic) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
+@property (assign, nonatomic) GLKMatrix4 projectionMatrix;
+@property (assign, nonatomic) GLKMatrix4 projectionOrthoMatrix;
+@property (assign, nonatomic) float perspectiveToOrthoBlend;
+@property (assign, nonatomic) GLuint programCylinder;
+@property (assign, nonatomic) GLuint worldMatrixUniform;
+@property (assign, nonatomic) GLuint modelViewMatrixUniform;
+@property (assign, nonatomic) GLuint projMatrixUniform;
+@property (assign, nonatomic) GLuint eyeUniform;
+@property (assign, nonatomic) GLuint texture0Unifrom;
+@property (assign, nonatomic) GLuint reflectionTextureUniform;
+@property (assign, nonatomic) GLuint reflectionTexUVSpaceUniform;
 
 - (void)setupGLWrapper:(GLWrapper*)wrapper texMgr:(TextureManager*)texMgr reflectionTex:(GLuint)reflectionTex;
 - (void)tearDownGL;

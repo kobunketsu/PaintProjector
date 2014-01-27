@@ -13,5 +13,5 @@
 - (void) didFinishSelectBrushType:(BrushType)brushType;
 @end
 @interface BrushTypeViewController : UITableViewController
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 @end

@@ -24,7 +24,7 @@ UIViewControllerTransitioningDelegate,
 CylinderProjectViewControllerDelegate
 >
 
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *toolBar;

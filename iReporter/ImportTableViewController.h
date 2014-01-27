@@ -16,7 +16,7 @@
 @interface ImportTableViewController : UITableViewController
 {
 }
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 - (float)tableViewHeight;
 
 

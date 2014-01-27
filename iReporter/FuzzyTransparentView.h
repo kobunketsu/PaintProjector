@@ -13,8 +13,8 @@
 @end
 
 @interface FuzzyTransparentView : UIView
-@property(nonatomic, weak)UIView*  sourceView;
-@property(nonatomic, assign)id delegate;
+@property (weak, nonatomic)UIView*  sourceView;
+@property (assign, nonatomic)id delegate;
 - (void)updateFuzzyTransparentFromView:(UIView*)view;
 - (void)removeFuzzyTransparent;
 - (void)setFuzzyTransparentSourceView:(UIView*)view;

@@ -21,8 +21,8 @@
 {
 }
 //@property (weak, nonatomic) IBOutlet LayerBlendModeTableView *tableView;
-@property(nonatomic, assign) float tableViewHeight;
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) float tableViewHeight;
+@property (assign, nonatomic) id delegate;
 - (void)willSelectRowAtIndexPath:(NSIndexPath*)indexPath;
 - (float)tableViewHeight;
 @end

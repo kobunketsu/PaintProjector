@@ -22,9 +22,9 @@
 {
     
 }
-@property(nonatomic, assign) id delegate;
-@property(nonatomic, retain) CommandStack *undoStack;
-@property(nonatomic, retain) CommandStack *redoStack;
+@property (assign, nonatomic) id delegate;
+@property (retain, nonatomic) CommandStack *undoStack;
+@property (retain, nonatomic) CommandStack *redoStack;
 
 - (void)addCommand:(Command *)cmd;
 

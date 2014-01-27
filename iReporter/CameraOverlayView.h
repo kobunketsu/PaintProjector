@@ -16,6 +16,6 @@
 @interface CameraOverlayView : UIView{
     float _shotPitch;
 }
-@property(nonatomic, assign) float shotPitch;
+@property (assign, nonatomic) float shotPitch;
 @end
 

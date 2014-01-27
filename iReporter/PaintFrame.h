@@ -19,10 +19,10 @@
 @interface PaintFrame : MovableObject
 {
 }
-@property(nonatomic, weak)EAGLContext* context;    //绘制context
-@property(nonatomic, weak)PaintDoc* paintDoc;
-@property(nonatomic, retain)NSString* name;
-@property(nonatomic, assign)GLuint paintTexture;
+@property (weak, nonatomic)EAGLContext* context;    //绘制context
+@property (weak, nonatomic)PaintDoc* paintDoc;
+@property (retain, nonatomic)NSString* name;
+@property (assign, nonatomic)GLuint paintTexture;
 
 //New:用文件路径初始化PaintDoc(内容不载入)
 -(id)initWithContext:(EAGLContext*)context paintDoc:(PaintDoc*)paintDoc;

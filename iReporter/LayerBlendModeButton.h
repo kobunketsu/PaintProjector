@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface LayerBlendModeButton : UIButton
-@property(nonatomic, assign)BOOL isSetupBlendMode;
+@property (assign, nonatomic)BOOL isSetupBlendMode;
 @end

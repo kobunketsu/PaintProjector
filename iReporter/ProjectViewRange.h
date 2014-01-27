@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ProjectViewRange : UIView
-@property (nonatomic, assign) CGPoint viewHeightPoint;
-@property (nonatomic, assign) CGPoint projectNearPoint;
-@property (nonatomic, assign) CGPoint projectFarPoint;
-@property (nonatomic, assign) CGPoint virtualTopPoint;
+@property (assign, nonatomic) CGPoint viewHeightPoint;
+@property (assign, nonatomic) CGPoint projectNearPoint;
+@property (assign, nonatomic) CGPoint projectFarPoint;
+@property (assign, nonatomic) CGPoint virtualTopPoint;
 @end

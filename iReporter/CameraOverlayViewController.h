@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblWarnig;
 @property (weak, nonatomic) IBOutlet UILabel *lblYaw;
 @property (weak, nonatomic) IBOutlet UILabel *lblRoll;
-//@property (nonatomic, strong)EAGLContext *context;
+//@property (strong, nonatomic)EAGLContext *context;
 @property (weak, nonatomic) IBOutlet UILabel *lblPitch;
-@property (nonatomic, assign) GLKVector3 camDirVector;
+@property (assign, nonatomic) GLKVector3 camDirVector;
 @end

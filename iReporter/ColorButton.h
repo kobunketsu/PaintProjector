@@ -17,8 +17,8 @@
 {
     UIColor* _color;
 }
-@property(nonatomic, assign)bool isEmpty;
-@property(nonatomic, retain)UIColor *color;
+@property (assign, nonatomic)bool isEmpty;
+@property (retain, nonatomic)UIColor *color;
 - (UIColor *)color;
 
 - (void)setColor:(UIColor *)newValue;

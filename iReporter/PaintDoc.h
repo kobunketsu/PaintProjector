@@ -12,14 +12,14 @@
 @interface PaintDoc : NSObject{
 }
 
-@property (nonatomic, retain) PaintData *data;
+@property (retain, nonatomic) PaintData *data;
 
 //!copy属性保证只从initWithDocPath付值
-@property (nonatomic, copy) NSString *docPath;
-@property (nonatomic, copy) NSString *thumbImagePath;
+@property (copy, nonatomic) NSString *docPath;
+@property (copy, nonatomic) NSString *thumbImagePath;
 
-@property (nonatomic, retain) UIImage *thumbImage;
-@property (nonatomic, assign) CGSize defaultSize;
+@property (retain, nonatomic) UIImage *thumbImage;
+@property (assign, nonatomic) CGSize defaultSize;
 
 - (id)init;
 - (id)initWithDocPath:(NSString *)docPath;

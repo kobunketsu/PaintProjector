@@ -26,7 +26,7 @@
     GLKMatrix4 _projMatrix;    
     GLKMatrix4 _viewProjMatrix;        
 }
-@property(nonatomic, assign)GLKMatrix4 viewMatrix;
+@property (assign, nonatomic)GLKMatrix4 viewMatrix;
 -(void)updateViewMatrix;
 - (GLKVector3)target;
 

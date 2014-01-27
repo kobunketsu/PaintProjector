@@ -12,5 +12,5 @@
 @interface UndoButton : AutoRotateButton
 {
 }
-@property (nonatomic, assign)CGPoint touchPoint;
+@property (assign, nonatomic)CGPoint touchPoint;
 @end

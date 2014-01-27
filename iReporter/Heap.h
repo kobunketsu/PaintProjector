@@ -16,9 +16,9 @@
 
 @interface Heap : NSObject {
 }
-@property(nonatomic, retain) NSMutableArray *contents;//use with attention
-@property(nonatomic, assign) id delegate;
-@property(nonatomic, assign) size_t capacity;
+@property (retain, nonatomic) NSMutableArray *contents;//use with attention
+@property (assign, nonatomic) id delegate;
+@property (assign, nonatomic) size_t capacity;
 - (id)initWithCapacity:(size_t) capacity;
 - (void)push:(id)object;
 - (void)push_reverse:(id)object;

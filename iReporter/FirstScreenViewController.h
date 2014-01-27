@@ -26,11 +26,11 @@
 UITableViewDataSource,
 PaintScreenDelegate>
 
-@property (nonatomic, strong)EAGLContext *context;
-@property (nonatomic, assign) id delegate;
-@property (nonatomic, weak) PaintScreen* paintScreenViewController;
-@property (nonatomic, weak) IBOutlet PaintFrameView *curPaintFrameView;
-@property (nonatomic, retain) PaintFrameViewGroup* curPaintFrameGroup;
+@property (strong, nonatomic)EAGLContext *context;
+@property (assign, nonatomic) id delegate;
+@property (weak, nonatomic) PaintScreen* paintScreenViewController;
+@property (weak, nonatomic) IBOutlet PaintFrameView *curPaintFrameView;
+@property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
 @property (weak, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UIImageView *studioHuaJiaJiaZi;
 @property (assign, nonatomic) CGPoint paintFrameRootViewPos;

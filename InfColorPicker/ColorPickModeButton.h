@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ColorPickModeButton : UIButton
-@property(nonatomic, retain)UIColor* color;
+@property (retain, nonatomic)UIColor* color;
 @end

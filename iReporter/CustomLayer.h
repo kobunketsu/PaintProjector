@@ -10,7 +10,7 @@
 
 @interface CustomLayer : CALayer
 //CGColor baseColor的方式会导致Bad Access,暂时改成R,G,B分量
-@property(nonatomic, assign)CGFloat baseColorR;
-@property(nonatomic, assign)CGFloat baseColorG;
-@property(nonatomic, assign)CGFloat baseColorB;
+@property (assign, nonatomic)CGFloat baseColorR;
+@property (assign, nonatomic)CGFloat baseColorG;
+@property (assign, nonatomic)CGFloat baseColorB;
 @end

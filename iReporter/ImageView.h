@@ -21,8 +21,8 @@
 @interface ImageView : UIButton<ImageViewDelegate>
 {
 }
-@property (nonatomic, retain) UIImage* image;
-@property (nonatomic, assign) NSString *imageName;
+@property (retain, nonatomic) UIImage* image;
+@property (assign, nonatomic) NSString *imageName;
 @property (assign, nonatomic) id<ImageViewDelegate> delegate;
 -(id)initWithIndex:(int)i andData:(NSDictionary*)data;
 @end

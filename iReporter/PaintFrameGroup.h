@@ -25,13 +25,13 @@
     NSString* _dirPath;         //记录磁盘上对应的目录名
     NSMutableArray* _paintDocs; //记录该目录下所有的文件数据
 }
-@property(nonatomic, copy) NSString* dirPath;
-@property(nonatomic, copy) NSString* name;
-@property(nonatomic, retain) NSMutableArray* paintDocs;
-@property(nonatomic, retain) Heap* paintFrameHeap;
-@property(nonatomic, retain) PaintFrame* curPaintFrame;
-@property(nonatomic, assign) int lastPaintIndex;
-@property(nonatomic, assign) int curPaintIndex;
+@property (copy, nonatomic) NSString* dirPath;
+@property (copy, nonatomic) NSString* name;
+@property (retain, nonatomic) NSMutableArray* paintDocs;
+@property (retain, nonatomic) Heap* paintFrameHeap;
+@property (retain, nonatomic) PaintFrame* curPaintFrame;
+@property (assign, nonatomic) int lastPaintIndex;
+@property (assign, nonatomic) int curPaintIndex;
 - (id) initWithCapacity:(int)capacity;
 - (void)moveToPaintIndex:(float)movedCount;
 -(void)push:(PaintFrame*)pf;

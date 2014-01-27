@@ -25,6 +25,6 @@
 - (IBAction)adjustDoneButtonTapped:(UIButton *)sender;
 - (IBAction)handlePinchGRAdjustImageView:(id)sender;
 - (IBAction)handlePanGRAdjustImageView:(UIPanGestureRecognizer *)sender;
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIButton *adjustImageDoneButton;
 @end

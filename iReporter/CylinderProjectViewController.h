@@ -78,90 +78,90 @@ PaintScreenDelegate>
     size_t _width;
     size_t _height;
 }
-@property (nonatomic, weak) PaintScreen* paintScreenViewController;
-@property(nonatomic, retain) GLKViewController* glkViewController;
+@property (weak, nonatomic) PaintScreen* paintScreenViewController;
+@property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 
-@property(nonatomic, retain) GLWrapper *glWrapper;
-@property(nonatomic, retain) TextureManager* texMgr;
-@property(nonatomic, retain) EAGLContext *context;
-@property(nonatomic, assign) GLuint reflectionFramebuffer;
-@property(nonatomic, assign) GLuint reflectionTex;//renderToTex, 用于反射采样的贴图
+@property (retain, nonatomic) GLWrapper *glWrapper;
+@property (retain, nonatomic) TextureManager* texMgr;
+@property (retain, nonatomic) EAGLContext *context;
+@property (assign, nonatomic) GLuint reflectionFramebuffer;
+@property (assign, nonatomic) GLuint reflectionTex;//renderToTex, 用于反射采样的贴图
 
-@property(nonatomic, assign) GLuint programProject;
-@property(nonatomic, assign) GLuint vertexBuffer;
-@property(nonatomic, assign) GLuint vertexArray;
-@property(nonatomic, assign) GLuint indexBuffer;
-@property(nonatomic, assign) GLuint paintTexture;
+@property (assign, nonatomic) GLuint programProject;
+@property (assign, nonatomic) GLuint vertexBuffer;
+@property (assign, nonatomic) GLuint vertexArray;
+@property (assign, nonatomic) GLuint indexBuffer;
+@property (assign, nonatomic) GLuint paintTexture;
 
 //shader uniforms
-@property(nonatomic, assign) GLuint wvpMatrixUniform;
-@property(nonatomic, assign) GLuint viewProjMatrixUniform;
-@property(nonatomic, assign) GLuint worldMatrixUniform;
-@property(nonatomic, assign) GLuint paintTextureUniform;
-@property(nonatomic, assign) GLuint radiusUniform;
-@property(nonatomic, assign) GLuint eyeUniform;
-@property(nonatomic, assign) GLuint morphBlendUniform;
-@property(nonatomic, assign) GLuint alphaBlendUniform;
+@property (assign, nonatomic) GLuint wvpMatrixUniform;
+@property (assign, nonatomic) GLuint viewProjMatrixUniform;
+@property (assign, nonatomic) GLuint worldMatrixUniform;
+@property (assign, nonatomic) GLuint paintTextureUniform;
+@property (assign, nonatomic) GLuint radiusUniform;
+@property (assign, nonatomic) GLuint eyeUniform;
+@property (assign, nonatomic) GLuint morphBlendUniform;
+@property (assign, nonatomic) GLuint alphaBlendUniform;
 //uniform values
-@property(nonatomic, assign) GLKMatrix4 wvpMatrix;  //绘制quad时的矩阵
-@property(nonatomic, assign) GLKMatrix4 viewProjMatrix;  //绘制quad时的矩阵
-@property(nonatomic, assign) GLKMatrix4 viewProjOrthoMatrix;  //绘制quad时的矩阵(正交，用于顶视图)
-@property(nonatomic, assign) float perspectiveToOrthoBlend;    //正交和透视的混合
-@property(nonatomic, assign) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
-@property(nonatomic, assign) GLKMatrix4 reflViewProjMatrix;  //绘制反射texture时的矩阵
+@property (assign, nonatomic) GLKMatrix4 wvpMatrix;  //绘制quad时的矩阵
+@property (assign, nonatomic) GLKMatrix4 viewProjMatrix;  //绘制quad时的矩阵
+@property (assign, nonatomic) GLKMatrix4 viewProjOrthoMatrix;  //绘制quad时的矩阵(正交，用于顶视图)
+@property (assign, nonatomic) float perspectiveToOrthoBlend;    //正交和透视的混合
+@property (assign, nonatomic) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
+@property (assign, nonatomic) GLKMatrix4 reflViewProjMatrix;  //绘制反射texture时的矩阵
 
-@property(nonatomic, assign) GLKVector3 eye;
-@property(nonatomic, assign) GLKVector3 eyeTop;//视角顶部
-@property(nonatomic, assign) GLKVector3 eyeBottom;//视角底部
-@property(nonatomic, assign) GLKVector3 eyeZoomInTop;
-@property(nonatomic, assign) float eyeBottomTopBlend;
-@property(nonatomic, assign) float toEyeBottomTopBlend;
+@property (assign, nonatomic) GLKVector3 eye;
+@property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部
+@property (assign, nonatomic) GLKVector3 eyeBottom;//视角底部
+@property (assign, nonatomic) GLKVector3 eyeZoomInTop;
+@property (assign, nonatomic) float eyeBottomTopBlend;
+@property (assign, nonatomic) float toEyeBottomTopBlend;
 //投影动画
-@property(nonatomic, assign) float morphBlend;
-@property(nonatomic, assign) float alphaBlend;
-@property(nonatomic, assign) float lastMediaTime;//上个时间点
-@property(nonatomic, assign) float curProjectAnimationTime;    //投影到地面动画的当前时间
-@property(nonatomic, assign) float curUnprojectAnimationTime;  //恢复绘画视角动画的当前时间
-@property(nonatomic, assign) float projectAnimDuration;        //投影到地面动画的持续时间
-@property(nonatomic, assign) float unprojectAnimDuration;      //恢复绘画视角动画的持续时间
-@property (nonatomic, copy) MyCompletionBlock unprojectCompletionBlock;
+@property (assign, nonatomic) float morphBlend;
+@property (assign, nonatomic) float alphaBlend;
+@property (assign, nonatomic) float lastMediaTime;//上个时间点
+@property (assign, nonatomic) float curProjectAnimationTime;    //投影到地面动画的当前时间
+@property (assign, nonatomic) float curUnprojectAnimationTime;  //恢复绘画视角动画的当前时间
+@property (assign, nonatomic) float projectAnimDuration;        //投影到地面动画的持续时间
+@property (assign, nonatomic) float unprojectAnimDuration;      //恢复绘画视角动画的持续时间
+@property (copy, nonatomic) MyCompletionBlock unprojectCompletionBlock;
 //视角动画
-@property(nonatomic, assign) float curViewTopAnimationTime;
-@property(nonatomic, assign) float curViewBottomAnimationTime;  
-@property(nonatomic, assign) float viewTopAnimDuration;
-@property(nonatomic, assign) float viewBottomAnimDuration;      
+@property (assign, nonatomic) float curViewTopAnimationTime;
+@property (assign, nonatomic) float curViewBottomAnimationTime;  
+@property (assign, nonatomic) float viewTopAnimDuration;
+@property (assign, nonatomic) float viewBottomAnimDuration;      
 
-@property(nonatomic, assign) float projSrcAspect;//投影长宽比
-//@property(nonatomic, assign) float viewAspect;//投影长宽比
-@property(nonatomic, assign) float eyeTopAspect;//顶视图长宽比
-@property(nonatomic, assign) float projHeight;//实际地面投影长度
-@property(nonatomic, assign) float projWidth;//实际地面投影宽度
-@property(nonatomic, assign) GLKVector3 projFar;//实际地面远点
-@property(nonatomic, assign) GLKVector3 projNear;//实际地面远点
-@property(nonatomic, assign) GLKVector3 projCenter;//实际地面中心位置
+@property (assign, nonatomic) float projSrcAspect;//投影长宽比
+//@property (assign, nonatomic) float viewAspect;//投影长宽比
+@property (assign, nonatomic) float eyeTopAspect;//顶视图长宽比
+@property (assign, nonatomic) float projHeight;//实际地面投影长度
+@property (assign, nonatomic) float projWidth;//实际地面投影宽度
+@property (assign, nonatomic) GLKVector3 projFar;//实际地面远点
+@property (assign, nonatomic) GLKVector3 projNear;//实际地面远点
+@property (assign, nonatomic) GLKVector3 projCenter;//实际地面中心位置
 //圆柱体中Image的参数
-@property(nonatomic, assign) float radius;
-@property(nonatomic, assign) float imageWidth;//圆柱体中图片的宽 < 圆柱半径*2
-@property(nonatomic, assign) float imageHeight;//圆柱体中图片的高
-@property(nonatomic, assign) float imageRatio;//圆柱体中图片的宽高比率
-@property(nonatomic, assign) GLKVector3 imageCenterOnSurf;//圆柱体中图片中心位置
-@property(nonatomic, assign) float imageCenterOnSurfHeight;//圆柱体中图片中心高度
-@property(nonatomic, assign) int meshRow;//投影模型网格参数
-@property(nonatomic, assign) int meshColumn;//投影模型网格参数
+@property (assign, nonatomic) float radius;
+@property (assign, nonatomic) float imageWidth;//圆柱体中图片的宽 < 圆柱半径*2
+@property (assign, nonatomic) float imageHeight;//圆柱体中图片的高
+@property (assign, nonatomic) float imageRatio;//圆柱体中图片的宽高比率
+@property (assign, nonatomic) GLKVector3 imageCenterOnSurf;//圆柱体中图片中心位置
+@property (assign, nonatomic) float imageCenterOnSurfHeight;//圆柱体中图片中心高度
+@property (assign, nonatomic) int meshRow;//投影模型网格参数
+@property (assign, nonatomic) int meshColumn;//投影模型网格参数
 //helper
-@property(nonatomic, assign) BOOL showGrid;//是否显示网格
-@property(nonatomic, retain) Grid *grid;//网格
-@property(nonatomic, retain) Cylinder *cylinder;//圆柱体
+@property (assign, nonatomic) BOOL showGrid;//是否显示网格
+@property (retain, nonatomic) Grid *grid;//网格
+@property (retain, nonatomic) Cylinder *cylinder;//圆柱体
 
-@property(nonatomic, assign) CylinderProjectViewState state;      //状态
-@property(nonatomic, assign) PlayState playState;//播放状态
-@property(nonatomic, assign) BOOL dirty;//是否重新计算
+@property (assign, nonatomic) CylinderProjectViewState state;      //状态
+@property (assign, nonatomic) PlayState playState;//播放状态
+@property (assign, nonatomic) BOOL dirty;//是否重新计算
 
 //gesture
-@property(nonatomic, assign)float rotationImageAxisY;//圆柱体中图片绕局部轴Y转向
-@property(nonatomic, assign)float toRotateImageAxisY;//圆柱体中图片绕局部轴Y转向
+@property (assign, nonatomic)float rotationImageAxisY;//圆柱体中图片绕局部轴Y转向
+@property (assign, nonatomic)float toRotateImageAxisY;//圆柱体中图片绕局部轴Y转向
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;
 @property (weak, nonatomic) IBOutlet PaintButton *paintButton;
 
@@ -181,7 +181,7 @@ PaintScreenDelegate>
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- FirstScreenViewController
-@property (nonatomic, weak) PaintDoc *paintDoc;
+@property (weak, nonatomic) PaintDoc *paintDoc;
 -(void)viewPaintDoc:(PaintDoc*)paintDoc;
 
 
@@ -196,11 +196,11 @@ PaintScreenDelegate>
 @property (assign, nonatomic)float lastPitch;
 
 #pragma mark- video
-@property(nonatomic, retain)AVAsset *asset;
-@property(nonatomic, retain)AVAssetReader *assetReader;
-@property (nonatomic, retain) AVPlayer *player;
-@property (nonatomic, retain) AVPlayerItem *playerItem;
-@property (nonatomic, assign) CMTime playTime;//播放到的时刻
+@property (retain, nonatomic)AVAsset *asset;
+@property (retain, nonatomic)AVAssetReader *assetReader;
+@property (retain, nonatomic) AVPlayer *player;
+@property (retain, nonatomic) AVPlayerItem *playerItem;
+@property (assign, nonatomic) CMTime playTime;//播放到的时刻
 
 - (void)syncPlayUI;
 - (IBAction)playButtonTouchUp:(UIButton *)sender;

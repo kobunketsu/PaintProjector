@@ -9,8 +9,8 @@
 #import "Layer.h"
 
 @interface BackgroundLayer : Layer
-@property (nonatomic, assign) bool dirty;
-@property (nonatomic, assign) bool visible;
-@property(nonatomic, retain)UIColor* clearColor;
+@property (assign, nonatomic) bool dirty;
+@property (assign, nonatomic) bool visible;
+@property (retain, nonatomic)UIColor* clearColor;
 
 @end

@@ -128,19 +128,19 @@ GLKViewControllerDelegate
     float _zoomOutPaintAnimDuration;      //返回地面动画的持续时间
    
 }
-@property(nonatomic, retain) TextureManager* texMgr;
-@property(nonatomic, assign) bool showGrid;         //是否显示网格
-@property(nonatomic, assign) float nearDistance;
-@property(nonatomic, assign) float farDistance;
-@property(nonatomic, assign) float fovY;
+@property (retain, nonatomic) TextureManager* texMgr;
+@property (assign, nonatomic) bool showGrid;         //是否显示网格
+@property (assign, nonatomic) float nearDistance;
+@property (assign, nonatomic) float farDistance;
+@property (assign, nonatomic) float fovY;
 @property (weak, nonatomic) IBOutlet UILabel *projWidthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projHeightLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *testRowStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *testColStepper;
 @property (weak, nonatomic) IBOutlet UILabel *testColLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fovYLabel;
-@property (nonatomic, strong)EAGLContext *context;
-@property (nonatomic, assign) id delegate;
+@property (strong, nonatomic)EAGLContext *context;
+@property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (weak, nonatomic) IBOutlet UISlider *projectSlider;
 @property (weak, nonatomic) IBOutlet UISlider *farDistanceSlider;
@@ -154,11 +154,11 @@ GLKViewControllerDelegate
 @property (weak, nonatomic) IBOutlet ProjectViewRange *projectViewRange;
 @property (strong, nonatomic) GLKViewController *glkViewController;
 
-@property(nonatomic, assign) float measureScale;
-@property (nonatomic, assign) float gridRealSize;
-@property (nonatomic, assign) float gridPointSize;        //网格像素大小
-@property (nonatomic, assign) int gridWidthCount;    //网格宽上的数量
-@property (nonatomic, assign) int gridHeightCount;   //网格高上的数量
+@property (assign, nonatomic) float measureScale;
+@property (assign, nonatomic) float gridRealSize;
+@property (assign, nonatomic) float gridPointSize;        //网格像素大小
+@property (assign, nonatomic) int gridWidthCount;    //网格宽上的数量
+@property (assign, nonatomic) int gridHeightCount;   //网格高上的数量
 @property (weak, nonatomic) IBOutlet UIStepper *farDistanceStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *nearDistanceStepper;
 @property (weak, nonatomic) IBOutlet UIStepper *heightStepper;
@@ -166,9 +166,9 @@ GLKViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *zoomOutButton;
-@property (nonatomic, assign) int curProgressIndex;
-@property (nonatomic, assign) int gridImageIndex;
-@property (nonatomic, retain) NSMutableArray *gridImageIndices;
+@property (assign, nonatomic) int curProgressIndex;
+@property (assign, nonatomic) int gridImageIndex;
+@property (retain, nonatomic) NSMutableArray *gridImageIndices;
 
 - (IBAction)eyeHeightSliderSlide:(UISlider *)sender;
 - (IBAction)farDistanceSliderSlide:(UISlider *)sender;

@@ -29,7 +29,7 @@ typedef enum {
     AdjustSceneViewController * _sceneViewController;
     AdjustImageViewController * _imageViewController;    
 }
-@property (nonatomic, assign) id delegate;
+@property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 - (IBAction)testButtonTapped:(UIButton *)sender;
 

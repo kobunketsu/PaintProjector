@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayButton : UIButton
-@property(nonatomic, assign) BOOL isPlaying;//播放状态
+@property (assign, nonatomic) BOOL isPlaying;//播放状态
 @end

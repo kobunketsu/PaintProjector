@@ -19,10 +19,10 @@
 //#import "TestViewController.h"
 
 @interface PaintCollectionViewController ()
-@property (nonatomic, weak) CylinderProjectViewController *cylinderProjectVC;
-//@property (nonatomic, weak) TestViewController *testVC;
-@property (nonatomic, retain) PaintFrameManager *paintFrameManager;
-@property (nonatomic, assign) BOOL isEditing;
+@property (weak, nonatomic) CylinderProjectViewController *cylinderProjectVC;
+//@property (weak, nonatomic) TestViewController *testVC;
+@property (retain, nonatomic) PaintFrameManager *paintFrameManager;
+@property (assign, nonatomic) BOOL isEditing;
 @end
 
 @implementation PaintCollectionViewController
