@@ -817,9 +817,9 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
 
 //打开当前画框
 -(void)openPaintFrame {
-    self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];        
-    self.delegate = self.paintScreenViewController;
-    self.paintScreenViewController.delegate = self;
+    self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];        
+    self.delegate = self.paintScreenVC;
+    self.paintScreenVC.delegate = self;
 
     //如果paintDoc为空，则新建一个paintDoc
     if(_curPaintFrameGroup.curPaintFrame.paintDoc == NULL){
@@ -827,7 +827,7 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
     }
     
     //打开绘图面板
-    [self presentViewController:self.paintScreenViewController animated:false completion:^{
+    [self presentViewController:self.paintScreenVC animated:false completion:^{
         [self.delegate openDoc:_curPaintFrameGroup.curPaintFrame.paintDoc];
         DebugLog(@"Open PaintFrame:%@ thumbImagePath:%@", _curPaintFrameGroup.curPaintFrame.name, _curPaintFrameGroup.curPaintFrame.paintDoc.thumbImagePath);
     }];
@@ -844,8 +844,8 @@ NSInteger Sort_Comparer(id id1, id id2, void *context)
     //刷新当前PaintFrame中的Paint内容
     [_curPaintFrameGroup.curPaintFrame loadForDisplay:true];
     
-    [self.paintScreenViewController dismissViewControllerAnimated:true completion:^{
-//        [self.paintScreenViewController.paintView destroyBuffers];
+    [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
+//        [self.paintScreenVC.paintView destroyBuffers];
         _toUpdateClosePaintFrameAnim = true;//?
         _openPaintCamAnimPinchedPer = 1.0;
         _closePaintFrameAnimationTimeLeft = _openPaintFrameAnimationTime;

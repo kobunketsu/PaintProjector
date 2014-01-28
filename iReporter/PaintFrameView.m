@@ -15,18 +15,8 @@
 //    DebugLog(@"[initWithCoder]");
     self = [super initWithCoder:aDecoder];
     if (self) {
-//        self.clipsToBounds = YES;
-//        self.opaque = NO;
-//        self.alpha = 0.9;
-//        self.backgroundColor = [UIColor darkGrayColor];
-//        
-//        self.layer.cornerRadius = 10;
-//        self.layer.shadowRadius = 3.0;
-//        self.layer.shadowOpacity = 0.8;
-//        self.layer.shadowOffset = CGSizeMake(0, 5);
-//        self.layer.shadowColor = [UIColor blackColor].CGColor;
-//        UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
-//        self.layer.shadowPath = path.CGPath;
+        [self initApperance];
+     
     }
     return self;
 }
@@ -36,19 +26,25 @@
 //    DebugLog(@"[initWithFrame]");
     self = [super initWithFrame:frame];
     if (self) {
-        self.userInteractionEnabled = false;
-        self.clipsToBounds = YES;
-        self.layer.cornerRadius = 10;
-        //        self.opaque = NO;
-        //        self.alpha = 0.9;
+        [self initApperance];
     }
     return self;
 }
 
-//-(void)awakeFromNib{
-//
-//}
+-(void)initApperance{
+    self.clipsToBounds = NO;
+    self.backgroundColor = [UIColor clearColor];
 
+    //设置边框阴影
+    //clipsToBounds will clip layer.shadow, should set shadow via drawLayer method
+    CGPathRef path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+    [self.layer setShadowPath:path];
+    self.layer.shadowOpacity = 0.5;
+    self.layer.shadowRadius = 5;
+    self.layer.shadowOffset = CGSizeMake(0, 5);
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.cornerRadius = 5;
+}
 
 - (id)initWithFrame:(CGRect)frame paintDoc:(PaintDoc*)paintDoc{
     self = [super initWithFrame:frame];
@@ -66,7 +62,7 @@
 //    // Drawing code
 //    //// General Declarations
 //    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
+//
 //    //// Shadow Declarations
 //    UIColor* shadow = [UIColor blackColor];
 //    CGSize shadowOffset = CGSizeMake(2.1, -2.1);
@@ -128,7 +124,7 @@
         NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintDoc.thumbImagePath];
 
         [self setImage:[UIImage imageWithContentsOfFile:thumbImagePath] forState:UIControlStateNormal];
-//    DebugLog(@"DocThumbImage: %@", paintFrameView.paintDoc.thumbImagePath);        
+//    DebugLog(@"DocThumbImage: %@", paintFrameView.paintDoc.thumbImagePath);
     }
 
 }

@@ -7,6 +7,7 @@
 //
 
 #import "PaintCollectionViewCell.h"
+#import "PaintHighlightedFrameView.h"
 
 @implementation PaintCollectionViewCell
 
@@ -19,6 +20,15 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        // Initialization code
+        self.selectedBackgroundView = [[PaintHighlightedFrameView alloc]initWithFrame:self.bounds];
+        
+    }
+    return self;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

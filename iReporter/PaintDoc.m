@@ -52,24 +52,80 @@
     
 }
 
-//unarchiver 磁盘文件得到data
-- (PaintData *)open {
+- (void)newAndSaveThumbImage{
+    size_t width = self.defaultSize.width;
+    size_t height = self.defaultSize.height;
     
-    if (self.data != nil) return self.data;
+    NSInteger myDataLength = width * height * 4;
+    
+    // allocate array and fill pixels into it.
+    GLubyte *buffer = (GLubyte *) malloc(myDataLength);
+    
+    for(int y = 0; y < height; y++)
+    {
+        for(int x = 0; x < width; x++)
+        {
+            buffer[y * width * 4 + x * 4] = 255;
+            buffer[y * width * 4 + x * 4 + 1] = 255;
+            buffer[y * width * 4 + x * 4 + 2] = 255;
+            buffer[y * width * 4 + x * 4 + 3] = 255;
+        }
+    }
+    
+    // make data provider with data.
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, buffer, myDataLength, NULL);
+    
+    // prep the ingredients
+    int bitsPerComponent = 8;
+    int bitsPerPixel = 32;
+    int bytesPerRow = 4 * width;
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault;
+    //    CGBitmapInfo bitmapInfo = kCGBitmapAlphaInfoMask;
+    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+    
+    // make the cgimage
+    CGImageRef imageRef = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    
+    //save to disk
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    NSData *data = UIImagePNGRepresentation(image);
+    NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
+    [data writeToFile:dataPath atomically:YES];
+    
+    // Clean up
+    free(buffer);
+    CGDataProviderRelease(provider);
+    CGColorSpaceRelease(colorSpaceRef);
+    CGImageRelease(imageRef);
+    
+}
+
+- (PaintData *)newData {
+    PaintLayer* paintLayer = [PaintLayer createBlankLayerWithSize:self.defaultSize transparent:true];
+    NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
+    BackgroundLayer *backgroundLayer = [[BackgroundLayer alloc]init];
+    self.data = [[PaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
+    
+    return self.data;
+}
+
+- (PaintData *)open {
+    //打开已经进入内存的paintData
+    if (self.data != nil) {
+        return self.data;
+    }
     NSString *dataPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
-    //创建默认paintData
-    if (codedData == nil){
-        PaintLayer* paintLayer = [PaintLayer createBlankLayerWithSize:self.defaultSize transparent:true];
-        NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
-        BackgroundLayer *backgroundLayer = [[BackgroundLayer alloc]init];
-        self.data = [[PaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
-    }
-    //打开磁盘上的paintData
-    else{
+    //解压磁盘上的paintData
+    if (codedData != nil){
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
         self.data = [unarchiver decodeObjectForKey:kDataKey];//data should be released somewhere
         [unarchiver finishDecoding];
+    }
+    //创建默认paintData
+    else{
+        [self newData];
     }
     
     return self.data;
@@ -107,7 +163,6 @@
         DebugLog(@"save to %@ failed!", dataPath);
     }
 
-    
 }
 //从磁盘或者内存得到缩略图
 - (UIImage *)thumbImage {

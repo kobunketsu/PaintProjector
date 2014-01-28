@@ -28,7 +28,7 @@ PaintScreenDelegate>
 
 @property (strong, nonatomic)EAGLContext *context;
 @property (assign, nonatomic) id delegate;
-@property (weak, nonatomic) PaintScreen* paintScreenViewController;
+@property (weak, nonatomic) PaintScreen* paintScreenVC;
 @property (weak, nonatomic) IBOutlet PaintFrameView *curPaintFrameView;
 @property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
 @property (weak, nonatomic) IBOutlet UIView *rootView;

@@ -24,9 +24,11 @@
 - (id)init;
 - (id)initWithDocPath:(NSString *)docPath;
 - (id)cloneWithDocPath:(NSString *)docPath;
+- (PaintData *)newData;
 - (PaintData *)open;
 - (void)close;
 - (void)save;
+- (void)newAndSaveThumbImage;
 - (void)saveThumbImage:(UIImage*)image;
 - (void)delete;
 - (NSString *)getExportFileName;

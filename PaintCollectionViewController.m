@@ -20,7 +20,7 @@
 
 @interface PaintCollectionViewController ()
 @property (weak, nonatomic) CylinderProjectViewController *cylinderProjectVC;
-//@property (weak, nonatomic) TestViewController *testVC;
+@property (weak, nonatomic) PaintScreen *paintScreenVC;
 @property (retain, nonatomic) PaintFrameManager *paintFrameManager;
 @property (assign, nonatomic) BOOL isEditing;
 @end
@@ -84,8 +84,30 @@
 }
 
 #pragma mark- UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"didSelectItemAtIndexPath");
     
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    //设定当前选择的paintDoc
+    self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
+    self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
+    
+    //非编辑状态，打开
+    if (!self.isEditing) {
+        self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
+        self.cylinderProjectVC.delegate = self;
+        self.cylinderProjectVC.transitioningDelegate = self;
+
+        PaintFrameView* view = cell.paintFrameView;
+        [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
+            [self.cylinderProjectVC viewPaintDoc:view.paintDoc];
+        }];
+    }
+    //编辑状态
+    else{
+
+    }
 }
 
 
@@ -104,10 +126,14 @@
 }
 
 #pragma mark- Tool Bar
+
 - (IBAction)fileButtonTouchUp:(id)sender{
     self.isEditing = !self.isEditing;
-    for (UIButton *button in self.editButtons) {
-        button.hidden = !self.isEditing;
+    if (self.isEditing) {
+        [self startEditFile];
+    }
+    else{
+        [self endEditFile];
     }
 }
 
@@ -128,11 +154,13 @@
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
-    
     [self.paintFrameManager deletePaintDocAtCurIndex];
     
+    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+
     [self.collectionView reloadData];
+    
+    [self endEditFile];
 }
 
 - (IBAction)printButtonTouchUp:(id)sender {
@@ -146,7 +174,8 @@
             self.paintFrameManager.curPaintFrameGroup.curPaintIndex = self.paintFrameManager.curPaintFrameGroup.paintDocs.count - 1;
         }
         else{
-            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = 0;
+            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = -1;
+            self.paintFrameManager.curPaintFrameView = nil;
         }
     }
 
@@ -163,47 +192,50 @@
     self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
     
     //放大画框开始绘制
-    [self openPaintFrame:self.paintFrameManager.curPaintFrameView];
+    [self openPaintFrame:self.paintFrameManager.curPaintFrameView paintDirectly:true];
 }
 
-//-(void)test{
-//    self.testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TestViewController"];
-//    self.testVC.delegate = self;
-//    self.testVC.transitioningDelegate = self;
-//    [self presentViewController:self.testVC animated:YES completion:^{
-//    }];
-//}
-//-(void)willTest{
-//    [self.testVC dismissViewControllerAnimated:YES completion:nil];
-//}
 - (IBAction)paintFrameViewTouchUp:(id)sender {
-//    if (self.cylinderProjectVC == nil) {
-        self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
-        self.cylinderProjectVC.delegate = self;
-        self.cylinderProjectVC.transitioningDelegate = self;
-//    }
+    //非编辑状态，打开
+    if (!self.isEditing) {
+        [self openPaintFrame:(PaintFrameView*)sender paintDirectly:false];
+    }
+    //编辑状态
+    else{
+
+    }
     
-    PaintFrameView* view = (PaintFrameView*)sender;
-    [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
-        [self.cylinderProjectVC viewPaintDoc:view.paintDoc];
-    }];
 }
 
 #pragma mark-
--(void)openPaintFrame:(PaintFrameView*)paintFrameView {
-    
-    PaintScreen *paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
-    self.delegate = paintScreenViewController;
-    paintScreenViewController.delegate = self;
-    
-    
-    //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
-    DebugLog(@"presentViewController start");
-    [self presentViewController:paintScreenViewController animated:true completion:^{
-        DebugLog(@"presentViewController completed");
-        [self.delegate openDoc:paintFrameView.paintDoc];
-    }];
+- (void)startEditFile{
+    self.isEditing = true;
+    for (UIButton *button in self.editButtons) {
+        button.hidden = false;
+    }
 }
 
+- (void)endEditFile{
+    self.isEditing = false;
+    for (UIButton *button in self.editButtons) {
+        button.hidden = true;
+    }
+}
+
+-(void)openPaintFrame:(PaintFrameView*)paintFrameView paintDirectly:(BOOL)paintDirectly{
+    self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
+    self.cylinderProjectVC.delegate = self;
+    self.cylinderProjectVC.transitioningDelegate = self;
+    
+    [self presentViewController:self.cylinderProjectVC animated:true completion:^{
+        if (paintDirectly) {
+            [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
+        }
+        else{
+            [self.cylinderProjectVC viewPaintDoc:paintFrameView.paintDoc];
+        }
+        
+    }];
+}
 
 @end

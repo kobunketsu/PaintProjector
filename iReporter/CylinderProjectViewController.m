@@ -1005,6 +1005,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
 -(void)viewPaintDoc:(PaintDoc*)paintDoc{
     self.paintDoc = paintDoc;
     //TODO:导致CylinderProject dismiss后不能被release
+    //TODO:当新建图片时thumbImage为nil,而thumbImagePath有数值
     [self anamorphImage:paintDoc.thumbImagePath];
 }
 //主题Logo
@@ -1367,32 +1368,22 @@ GLushort cylinderProjectQuadVertexIndices[] =
 }
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc{
-    [self.paintScreenViewController dismissViewControllerAnimated:false completion:^{
-//        float scale = self.view.bounds.size.width / self.curPaintFrameView.bounds.size.width;
-//        [self.rootView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-//        DebugLog(@"closePaintDoc rootView Scale: %.1f", scale);
-
+    [self.paintScreenVC dismissViewControllerAnimated:false completion:^{
         //刷新当前画架内容
         [self viewPaintDoc:self.paintDoc];
-        
-//        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//            [self.rootView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
-//        } completion:^(BOOL finished) {
-//            
-//        }];
-        
     }];
 }
 
 #pragma mark-
 -(void)openPaintDoc:(PaintDoc*)paintDoc {
-    self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
-    self.paintScreenViewController.delegate = self;
-    self.paintScreenViewController.transitioningDelegate = self;
+    self.paintDoc = paintDoc;
+    self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
+    self.paintScreenVC.delegate = self;
+    self.paintScreenVC.transitioningDelegate = self;
     
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
-    [self presentViewController:self.paintScreenViewController animated:true completion:^{
-        [self.paintScreenViewController openDoc:self.paintDoc];
+    [self presentViewController:self.paintScreenVC animated:true completion:^{
+        [self.paintScreenVC openDoc:self.paintDoc];
     }];
 }
 

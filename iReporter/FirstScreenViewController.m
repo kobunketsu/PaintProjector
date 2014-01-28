@@ -86,7 +86,7 @@
 }
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc{
-    [self.paintScreenViewController dismissViewControllerAnimated:false completion:^{
+    [self.paintScreenVC dismissViewControllerAnimated:false completion:^{
         float scale = self.view.bounds.size.width / self.curPaintFrameView.bounds.size.width;        
         [self.rootView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
         DebugLog(@"closePaintDoc rootView Scale: %.1f", scale);
@@ -133,10 +133,10 @@
 
 //打开当前画框
 -(void)openPaintFrame {
-    if (self.paintScreenViewController == NULL) {
-        self.paintScreenViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
-        self.delegate = self.paintScreenViewController;
-        self.paintScreenViewController.delegate = self;
+    if (self.paintScreenVC == NULL) {
+        self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
+        self.delegate = self.paintScreenVC;
+        self.paintScreenVC.delegate = self;
     }
     
     //如果paintDoc为空，则新建一个paintDoc
@@ -148,7 +148,7 @@
     }
     
     //打开绘图面板
-    [self presentViewController:self.paintScreenViewController animated:false completion:^{
+    [self presentViewController:self.paintScreenVC animated:false completion:^{
         [self.delegate openDoc:self.curPaintFrameGroup.curPaintFrame.paintDoc];
     }];
 }

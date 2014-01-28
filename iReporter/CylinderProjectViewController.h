@@ -78,7 +78,7 @@ PaintScreenDelegate>
     size_t _width;
     size_t _height;
 }
-@property (weak, nonatomic) PaintScreen* paintScreenViewController;
+@property (weak, nonatomic) PaintScreen* paintScreenVC;
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (assign, nonatomic) id delegate;
@@ -180,16 +180,16 @@ PaintScreenDelegate>
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
-#pragma mark- FirstScreenViewController
+#pragma mark- paintDoc
 @property (weak, nonatomic) PaintDoc *paintDoc;
 -(void)viewPaintDoc:(PaintDoc*)paintDoc;
+- (void)openPaintDoc:(PaintDoc*)paintDoc;
 
-
-#pragma mark- file
+#pragma mark- file action
+@property (weak, nonatomic) IBOutlet UIButton *printButton;
 - (IBAction)galleryButtonTouchUp:(id)sender;
 - (IBAction)paintButtonTouchUp:(UIButton *)sender;
 - (IBAction)printButtonTouchUp:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *printButton;
 
 #pragma mark-  CoreMotion
 @property (retain, nonatomic)CMMotionManager *motionManager;

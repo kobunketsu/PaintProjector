@@ -13,7 +13,7 @@
 
 @interface PaintFrameManager : NSObject
 @property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
-@property (retain, nonatomic) PaintFrameView *curPaintFrameView;
+@property (weak, nonatomic) PaintFrameView *curPaintFrameView;
 
 -(void)insertNewPaintDocAtCurIndex;
 

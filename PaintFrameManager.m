@@ -27,20 +27,44 @@
 
 -(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
     self.curPaintFrameGroup.curPaintIndex ++;
+    if (self.curPaintFrameGroup.curPaintIndex < 0) {
+        DebugLog(@"Can't insert paintDoc at negative index");
+        return nil;
+    }
+    if (self.curPaintFrameGroup.curPaintIndex > self.curPaintFrameGroup.paintDocs.count) {
+        DebugLog(@"curPaintIndex over count");
+        return nil;
+    }
+    
     [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:self.curPaintFrameGroup.curPaintIndex];
+
     return paintDoc;
 }
 
 -(void)deletePaintDocAtCurIndex{
-    //从数组删除
-    [self.curPaintFrameGroup.paintDocs removeObjectAtIndex:self.curPaintFrameGroup.curPaintIndex];
-    
-    if (self.curPaintFrameGroup.curPaintIndex == self.curPaintFrameGroup.paintDocs.count) {
-        self.curPaintFrameGroup.curPaintIndex--;
+    if (self.curPaintFrameGroup.curPaintIndex < 0) {
+        DebugLog(@"Nothing to delete");
+        return;
+    }
+    if (self.curPaintFrameGroup.curPaintIndex >= self.curPaintFrameGroup.paintDocs.count) {
+        DebugLog(@"curPaintIndex over count");
+        return;
     }
     
-    //从磁盘删除
-    [[PaintDocManager sharedInstance] deletePaintDoc:self.curPaintFrameView.paintDoc];
+    //从内存和磁盘删除
+    PaintDoc *paintDoc = [self.curPaintFrameGroup.paintDocs objectAtIndex:self.curPaintFrameGroup.curPaintIndex];
+    [[PaintDocManager sharedInstance] deletePaintDoc:paintDoc];
+    [self.curPaintFrameGroup.paintDocs removeObjectAtIndex:self.curPaintFrameGroup.curPaintIndex];
+    
+    //更改当前索引号
+    if (self.curPaintFrameGroup.paintDocs.count > 0) {
+        if (self.curPaintFrameGroup.curPaintIndex == self.curPaintFrameGroup.paintDocs.count) {
+            self.curPaintFrameGroup.curPaintIndex--;
+        }
+    }
+    else{
+        self.curPaintFrameGroup.curPaintIndex = -1;
+    }
 }
 //设置当前用于显示的组(Document下的子目录)
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex{

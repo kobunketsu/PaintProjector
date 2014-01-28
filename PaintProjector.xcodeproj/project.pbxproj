@@ -276,6 +276,8 @@
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
 		08BF030717E45AB0005B7B3D /* launchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BF030617E45AB0005B7B3D /* launchImage.png */; };
 		08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */ = {isa = PBXBuildFile; fileRef = 08CAFECA17C9B5BD0097B2A4 /* Collection */; };
+		08CE1A6718968A350019A1AB /* PaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */; };
+		08CE1A6818968A350019A1AB /* PaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */; };
 		08D49982175A530B00ED100A /* studio.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D49981175A530B00ED100A /* studio.png */; };
 		08D4BECA17ED6E4200D2448B /* BrushPatternTexture in Resources */ = {isa = PBXBuildFile; fileRef = 08D4BEC917ED6E4200D2448B /* BrushPatternTexture */; };
 		08D4BECC17ED70D900D2448B /* patternNone.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D4BECB17ED70D900D2448B /* patternNone.png */; };
@@ -1111,6 +1113,8 @@
 		08BDEA0017E54C3700803D6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PaintProjector/Images.xcassets; sourceTree = "<group>"; };
 		08BF030617E45AB0005B7B3D /* launchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchImage.png; sourceTree = "<group>"; };
 		08CAFECA17C9B5BD0097B2A4 /* Collection */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Collection; path = iReporter/Collection; sourceTree = "<group>"; };
+		08CE1A6518968A350019A1AB /* PaintHighlightedFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintHighlightedFrameView.h; path = iReporter/PaintHighlightedFrameView.h; sourceTree = "<group>"; };
+		08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintHighlightedFrameView.m; path = iReporter/PaintHighlightedFrameView.m; sourceTree = "<group>"; };
 		08D49981175A530B00ED100A /* studio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studio.png; sourceTree = "<group>"; };
 		08D4BEC917ED6E4200D2448B /* BrushPatternTexture */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BrushPatternTexture; path = ../BrushPatternTexture; sourceTree = "<group>"; };
 		08D4BECB17ED70D900D2448B /* patternNone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patternNone.png; sourceTree = "<group>"; };
@@ -1730,6 +1734,8 @@
 		08AB75C0188F5980007DA20B /* CollectionScreen */ = {
 			isa = PBXGroup;
 			children = (
+				08CE1A6518968A350019A1AB /* PaintHighlightedFrameView.h */,
+				08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */,
 				08AB75C3188F5A5A007DA20B /* PaintCollectionView.h */,
 				08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */,
 				08AB75C8188F5ABA007DA20B /* PaintCollectionViewCell.h */,
@@ -2532,6 +2538,7 @@
 				d2cf4772c6c937e5a2e42dc7 /* AdjustImageViewController.m in Sources */,
 				7e19e46dd3a490b0a1c46a83 /* HandleGestureRecognizer.m in Sources */,
 				70957b36ddde3b5ee10e0a08 /* ColorPickModeButton.m in Sources */,
+				08CE1A6818968A350019A1AB /* PaintHighlightedFrameView.m in Sources */,
 				934161e24dc9f3e27f6f5020 /* MainScreenViewController.m in Sources */,
 				b52c6ed43e6687527a075c57 /* CommonData.m in Sources */,
 				fb334efe4b1088de80153092 /* MainScreenView.m in Sources */,
@@ -2731,6 +2738,7 @@
 				089CEF1016BE58B200216099 /* AdjustImageViewController.m in Sources */,
 				087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */,
 				08EF8E6C18478E230027F305 /* ColorPickModeButton.m in Sources */,
+				08CE1A6718968A350019A1AB /* PaintHighlightedFrameView.m in Sources */,
 				0823E15016C13DE000F9C40A /* MainScreenViewController.m in Sources */,
 				0823E15616C140CD00F9C40A /* CommonData.m in Sources */,
 				0823E15B16C14B5B00F9C40A /* MainScreenView.m in Sources */,

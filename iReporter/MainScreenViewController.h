@@ -103,7 +103,7 @@
 
     NSMutableArray* _paintDocs;
 }
-@property (weak, nonatomic)PaintScreen* paintScreenViewController;
+@property (weak, nonatomic)PaintScreen* paintScreenVC;
 @property (strong, nonatomic)EAGLContext *context;
 @property(assign, nonatomic) id delegate;
 - (IBAction)handlePanGRMainScreenView:(UIPanGestureRecognizer *)sender;

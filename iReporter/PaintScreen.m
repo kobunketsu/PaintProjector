@@ -2366,7 +2366,7 @@ typedef struct {
     //DebugLog(@"Open Paint Doc");    
     self.paintDoc = paintDoc;
 
-    [self.paintView setOpenData:[self.paintDoc open]];
+    [self.paintView setOpenData:self.paintDoc.data];
    
 }
 

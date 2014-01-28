@@ -101,7 +101,15 @@ static PaintDocManager* sharedInstance = nil;
 - (PaintDoc*)createPaintDocInDirectory:(NSString*)dirName{
     NSString* docPath = [self nextPaintDocPathInDirectory:dirName];    //得到新的路径
     PaintDoc* paintDoc =[[PaintDoc alloc]initWithDocPath:docPath];
+    //创建数据
+    [paintDoc newData];
 
+    //保存到磁盘
+    [paintDoc save];
+    
+    //创建图标
+    [paintDoc newAndSaveThumbImage];
+    
     return paintDoc;
 }
 
@@ -130,17 +138,15 @@ static PaintDocManager* sharedInstance = nil;
     // Get available name
     NSString *availableName = [NSString stringWithFormat:@"%d.psf", maxNumber+1];
     return [dirName stringByAppendingPathComponent:availableName];
-    
 }
 
 - (void)deletePaintDoc:(PaintDoc*)paintDoc{
-    //TODO:从磁盘删除文件
     NSString* srcFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.docPath];
     NSError *error;
     if (![[NSFileManager defaultManager]removeItemAtPath:srcFullPath error:&error]) {
         DebugLog(@"Error deletePaintDoc: %@", [error localizedDescription]);
     }
-    
+    //删除图标
     NSString* srcThumbFullPath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     if (![[NSFileManager defaultManager]removeItemAtPath:srcThumbFullPath error:&error]) {
         DebugLog(@"Error deletePaintDoc Thumb: %@", [error localizedDescription]);
