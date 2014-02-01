@@ -29,17 +29,17 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.92 green: 0.92 blue: 0.92 alpha: 1];
-    UIColor* iconColor = [UIColor colorWithRed: 0.341 green: 0.341 blue: 0.341 alpha: 1];
+    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.9 green: 0.9 blue: 0.9 alpha: 0.75];
+    UIColor* iconColor = [UIColor colorWithRed: 0.238 green: 0.238 blue: 0.238 alpha: 1];
     CGFloat iconColorHSBA[4];
     [iconColor getHue: &iconColorHSBA[0] saturation: &iconColorHSBA[1] brightness: &iconColorHSBA[2] alpha: &iconColorHSBA[3]];
     
-    UIColor* iconShadowColorColor = [UIColor colorWithHue: iconColorHSBA[0] saturation: 0.2 brightness: iconColorHSBA[2] alpha: iconColorHSBA[3]];
+    UIColor* iconShadowColorColor = [UIColor colorWithHue: iconColorHSBA[0] saturation: 0.325 brightness: iconColorHSBA[2] alpha: iconColorHSBA[3]];
     UIColor* iconGlowGradientColor = [iconColor colorWithAlphaComponent: 0.23];
     UIColor* iconColorA50 = [iconColor colorWithAlphaComponent: 0.5];
     UIColor* iconGlowGradientColor2 = [iconColor colorWithAlphaComponent: 0];
     UIColor* labelHightlightColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* iconReflectionColor = [UIColor colorWithRed: 0.849 green: 0.849 blue: 0.849 alpha: 0];
+    UIColor* iconReflectionColor = [UIColor colorWithRed: 0.814 green: 0.814 blue: 0.814 alpha: 0];
     
     //// Gradient Declarations
     NSArray* iconReflectionColors = [NSArray arrayWithObjects:
@@ -65,11 +65,10 @@
     CGFloat labelHightlightBlurRadius = 0;
     
     //// Abstracted Attributes
-    NSString* textContent = @"Back";
+    NSString* textContent = @"Gallery";
     
     
     //// Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 128, 80)];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
     CGContextRestoreGState(context);
@@ -77,91 +76,193 @@
     
     
     //// Oval Drawing
-    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(-2, -43, 131, 112)];
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(0, -41, 131, 112)];
     CGContextSaveGState(context);
     [ovalPath addClip];
     CGContextDrawRadialGradient(context, iconGlowGradient,
-                                CGPointMake(62.05, 23.12), 4.84,
-                                CGPointMake(61.76, 55.6), 47.32,
+                                CGPointMake(64.05, 25.12), 4.84,
+                                CGPointMake(63.76, 57.6), 47.32,
                                 kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     CGContextRestoreGState(context);
     
     
-    //// Bezier 2 Drawing
-    UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
-    [bezier2Path moveToPoint: CGPointMake(69.61, 73.02)];
-    [bezier2Path addCurveToPoint: CGPointMake(69.61, 71.62) controlPoint1: CGPointMake(70.39, 72.63) controlPoint2: CGPointMake(70.39, 72)];
-    [bezier2Path addLineToPoint: CGPointMake(52.83, 63.31)];
-    [bezier2Path addLineToPoint: CGPointMake(69.61, 55)];
-    [bezier2Path addCurveToPoint: CGPointMake(69.61, 53.6) controlPoint1: CGPointMake(70.39, 54.61) controlPoint2: CGPointMake(70.39, 53.98)];
-    [bezier2Path addCurveToPoint: CGPointMake(66.78, 53.6) controlPoint1: CGPointMake(68.83, 53.21) controlPoint2: CGPointMake(67.56, 53.21)];
-    [bezier2Path addLineToPoint: CGPointMake(49.3, 62.25)];
-    [bezier2Path addCurveToPoint: CGPointMake(47.82, 63.31) controlPoint1: CGPointMake(48.97, 62.3) controlPoint2: CGPointMake(47.76, 63.02)];
-    [bezier2Path addCurveToPoint: CGPointMake(49.3, 64.36) controlPoint1: CGPointMake(47.76, 63.59) controlPoint2: CGPointMake(48.97, 64.32)];
-    [bezier2Path addLineToPoint: CGPointMake(66.78, 73.02)];
-    [bezier2Path addCurveToPoint: CGPointMake(69.61, 73.02) controlPoint1: CGPointMake(67.56, 73.4) controlPoint2: CGPointMake(68.83, 73.4)];
-    [bezier2Path closePath];
-    CGContextSaveGState(context);
-    [bezier2Path addClip];
-    CGContextDrawLinearGradient(context, iconReflection, CGPointMake(59, 53.31), CGPointMake(59, 73.31), 0);
-    CGContextRestoreGState(context);
+    //// frameIcon
+    {
+        //// frame Drawing
+        UIBezierPath* framePath = [UIBezierPath bezierPathWithRect: CGRectMake(43.5, 21.5, 16, 27)];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        [iconColorA50 setFill];
+        [framePath fill];
+        
+        ////// frame Inner Shadow
+        CGRect frameBorderRect = CGRectInset([framePath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
+        frameBorderRect = CGRectOffset(frameBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
+        frameBorderRect = CGRectInset(CGRectUnion(frameBorderRect, [framePath bounds]), -1, -1);
+        
+        UIBezierPath* frameNegativePath = [UIBezierPath bezierPathWithRect: frameBorderRect];
+        [frameNegativePath appendPath: framePath];
+        frameNegativePath.usesEvenOddFillRule = YES;
+        
+        CGContextSaveGState(context);
+        {
+            CGFloat xOffset = iconShadowOffset.width + round(frameBorderRect.size.width);
+            CGFloat yOffset = iconShadowOffset.height;
+            CGContextSetShadowWithColor(context,
+                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                        iconShadowBlurRadius,
+                                        iconShadow.CGColor);
+            
+            [framePath addClip];
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(frameBorderRect.size.width), 0);
+            [frameNegativePath applyTransform: transform];
+            [[UIColor grayColor] setFill];
+            [frameNegativePath fill];
+        }
+        CGContextRestoreGState(context);
+        
+        CGContextRestoreGState(context);
+        
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        [iconColor setStroke];
+        framePath.lineWidth = 3;
+        [framePath stroke];
+        CGContextRestoreGState(context);
+        
+        
+        //// frame 2 Drawing
+        UIBezierPath* frame2Path = [UIBezierPath bezierPathWithRect: CGRectMake(65.5, 35.5, 22, 16)];
+        [iconColorA50 setFill];
+        [frame2Path fill];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        [iconColor setStroke];
+        frame2Path.lineWidth = 3;
+        [frame2Path stroke];
+        CGContextRestoreGState(context);
+        
+        
+        //// Bezier Drawing
+        UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+        [bezierPath moveToPoint: CGPointMake(46.5, 21.5)];
+        [bezierPath addLineToPoint: CGPointMake(51.5, 13.5)];
+        [bezierPath addLineToPoint: CGPointMake(56.5, 21.5)];
+        [iconColor setStroke];
+        bezierPath.lineWidth = 1;
+        [bezierPath stroke];
+        
+        
+        //// Bezier 2 Drawing
+        UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
+        [bezier2Path moveToPoint: CGPointMake(69.5, 34.5)];
+        [bezier2Path addLineToPoint: CGPointMake(76.5, 29.5)];
+        [bezier2Path addLineToPoint: CGPointMake(83.5, 34.5)];
+        [iconColor setStroke];
+        bezier2Path.lineWidth = 1;
+        [bezier2Path stroke];
+    }
+    
+    
+    //// frameIcon 2
+    {
+        CGContextSaveGState(context);
+        CGContextSetAlpha(context, 0.5);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+        //// frame 3 Drawing
+        UIBezierPath* frame3Path = [UIBezierPath bezierPathWithRect: CGRectMake(43.5, 57.5, 16, 14)];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        CGContextBeginTransparencyLayer(context, NULL);
+        [frame3Path addClip];
+        CGContextDrawLinearGradient(context, iconReflection, CGPointMake(51.5, 71.5), CGPointMake(51.5, 57.5), 0);
+        CGContextEndTransparencyLayer(context);
+        
+        ////// frame 3 Inner Shadow
+        CGRect frame3BorderRect = CGRectInset([frame3Path bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
+        frame3BorderRect = CGRectOffset(frame3BorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
+        frame3BorderRect = CGRectInset(CGRectUnion(frame3BorderRect, [frame3Path bounds]), -1, -1);
+        
+        UIBezierPath* frame3NegativePath = [UIBezierPath bezierPathWithRect: frame3BorderRect];
+        [frame3NegativePath appendPath: frame3Path];
+        frame3NegativePath.usesEvenOddFillRule = YES;
+        
+        CGContextSaveGState(context);
+        {
+            CGFloat xOffset = iconShadowOffset.width + round(frame3BorderRect.size.width);
+            CGFloat yOffset = iconShadowOffset.height;
+            CGContextSetShadowWithColor(context,
+                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                        iconShadowBlurRadius,
+                                        iconShadow.CGColor);
+            
+            [frame3Path addClip];
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(frame3BorderRect.size.width), 0);
+            [frame3NegativePath applyTransform: transform];
+            [[UIColor grayColor] setFill];
+            [frame3NegativePath fill];
+        }
+        CGContextRestoreGState(context);
+        
+        CGContextRestoreGState(context);
+        
+        [iconColorA50 setStroke];
+        frame3Path.lineWidth = 3;
+        [frame3Path stroke];
+        
+        
+        //// frame 4 Drawing
+        UIBezierPath* frame4Path = [UIBezierPath bezierPathWithRect: CGRectMake(65.5, 56.5, 22, 8)];
+        CGContextSaveGState(context);
+        [frame4Path addClip];
+        CGContextDrawLinearGradient(context, iconReflection, CGPointMake(76.5, 64.5), CGPointMake(76.5, 56.5), 0);
+        CGContextRestoreGState(context);
+        [iconColorA50 setStroke];
+        frame4Path.lineWidth = 3;
+        [frame4Path stroke];
+        
+        
+        //// Bezier 3 Drawing
+        UIBezierPath* bezier3Path = [UIBezierPath bezierPath];
+        [bezier3Path moveToPoint: CGPointMake(46.5, 71.64)];
+        [bezier3Path addLineToPoint: CGPointMake(51.5, 75.74)];
+        [bezier3Path addLineToPoint: CGPointMake(56.5, 71.64)];
+        CGContextSaveGState(context);
+        [bezier3Path addClip];
+        CGContextDrawLinearGradient(context, iconReflection, CGPointMake(51.5, 71.64), CGPointMake(51.5, 75.74), 0);
+        CGContextRestoreGState(context);
+        [iconColorA50 setStroke];
+        bezier3Path.lineWidth = 1;
+        [bezier3Path stroke];
+        
+        
+        //// Bezier 5 Drawing
+        UIBezierPath* bezier5Path = [UIBezierPath bezierPath];
+        [bezier5Path moveToPoint: CGPointMake(69.5, 64.97)];
+        [bezier5Path addLineToPoint: CGPointMake(76.5, 67.54)];
+        [bezier5Path addLineToPoint: CGPointMake(83.5, 64.97)];
+        CGContextSaveGState(context);
+        [bezier5Path addClip];
+        CGContextDrawLinearGradient(context, iconReflection, CGPointMake(76.5, 64.97), CGPointMake(76.5, 67.54), 0);
+        CGContextRestoreGState(context);
+        [iconColorA50 setStroke];
+        bezier5Path.lineWidth = 1;
+        [bezier5Path stroke];
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
     
     
     //// Text Drawing
-    CGRect textRect = CGRectMake(33, 56, 61, 18);
+    CGRect textRect = CGRectMake(35, 57, 61, 18);
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, labelHightlightOffset, labelHightlightBlurRadius, labelHightlight.CGColor);
     [iconColor setFill];
     [textContent drawInRect: textRect withFont: [UIFont fontWithName: @"Helvetica-Bold" size: 12] lineBreakMode: UILineBreakModeWordWrap alignment: UITextAlignmentCenter];
-    CGContextRestoreGState(context);
-    
-    
-    
-    //// Bezier Drawing
-    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint: CGPointMake(69.61, 13.39)];
-    [bezierPath addCurveToPoint: CGPointMake(69.61, 16.22) controlPoint1: CGPointMake(70.39, 14.17) controlPoint2: CGPointMake(70.39, 15.44)];
-    [bezierPath addLineToPoint: CGPointMake(52.83, 33)];
-    [bezierPath addLineToPoint: CGPointMake(69.61, 49.78)];
-    [bezierPath addCurveToPoint: CGPointMake(69.61, 52.61) controlPoint1: CGPointMake(70.39, 50.56) controlPoint2: CGPointMake(70.39, 51.83)];
-    [bezierPath addCurveToPoint: CGPointMake(66.78, 52.61) controlPoint1: CGPointMake(68.83, 53.39) controlPoint2: CGPointMake(67.56, 53.39)];
-    [bezierPath addLineToPoint: CGPointMake(49.3, 35.13)];
-    [bezierPath addCurveToPoint: CGPointMake(47.82, 33) controlPoint1: CGPointMake(48.97, 35.04) controlPoint2: CGPointMake(47.76, 33.57)];
-    [bezierPath addCurveToPoint: CGPointMake(49.3, 30.87) controlPoint1: CGPointMake(47.76, 32.43) controlPoint2: CGPointMake(48.97, 30.96)];
-    [bezierPath addLineToPoint: CGPointMake(66.78, 13.39)];
-    [bezierPath addCurveToPoint: CGPointMake(69.61, 13.39) controlPoint1: CGPointMake(67.56, 12.61) controlPoint2: CGPointMake(68.83, 12.61)];
-    [bezierPath closePath];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
-    [iconColor setFill];
-    [bezierPath fill];
-    
-    ////// Bezier Inner Shadow
-    CGRect bezierBorderRect = CGRectInset([bezierPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
-    bezierBorderRect = CGRectOffset(bezierBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
-    bezierBorderRect = CGRectInset(CGRectUnion(bezierBorderRect, [bezierPath bounds]), -1, -1);
-    
-    UIBezierPath* bezierNegativePath = [UIBezierPath bezierPathWithRect: bezierBorderRect];
-    [bezierNegativePath appendPath: bezierPath];
-    bezierNegativePath.usesEvenOddFillRule = YES;
-    
-    CGContextSaveGState(context);
-    {
-        CGFloat xOffset = iconShadowOffset.width + round(bezierBorderRect.size.width);
-        CGFloat yOffset = iconShadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    iconShadowBlurRadius,
-                                    iconShadow.CGColor);
-        
-        [bezierPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(bezierBorderRect.size.width), 0);
-        [bezierNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [bezierNegativePath fill];
-    }
-    CGContextRestoreGState(context);
-    
     CGContextRestoreGState(context);
     
     
@@ -171,6 +272,7 @@
     CGGradientRelease(iconGlowGradient);
     CGColorSpaceRelease(colorSpace);
     
+ 
 
 }
 

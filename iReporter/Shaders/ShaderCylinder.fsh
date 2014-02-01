@@ -12,7 +12,7 @@ varying highp vec3 normal;
 uniform sampler2D texture0;
 uniform sampler2D reflectionTex;
 uniform highp vec4 reflectionTexUVSpace;//x: left y:bottom z:width w:height
-uniform highp vec3 eye;
+uniform highp vec4 eye;
 
 
 void main()

@@ -25,14 +25,18 @@
    
 }
 
-- (void)updateMatrixView:(GLKMatrix4)viewMatrix projection:(GLKMatrix4)projectionMatrix projectionOrtho:(GLKMatrix4)projectionOrthoMatrix perspectiveOrthoBlend:(float)perspectiveOrthoBlend eye:(GLKVector3)eye reflectionTexUVSpace:(GLKVector4)reflectionTexUVSpace{
+- (void)updateMatrixView:(GLKMatrix4)viewMatrix
+              projection:(GLKMatrix4)projectionMatrix
+         projectionOrtho:(GLKMatrix4)projectionOrthoMatrix
+   perspectiveOrthoBlend:(float)perspectiveOrthoBlend
+                     eye:(GLKVector3)eye
+    reflectionTexUVSpace:(GLKVector4)reflectionTexUVSpace
+{
+    self.eye = eye;
     self.viewMatrix = viewMatrix;
     self.projectionMatrix = projectionMatrix;
-    self.eye = eye;
+    self.projectionMatrix = [Ultility MatrixLerpFrom:self.projectionMatrix to:projectionOrthoMatrix blend:perspectiveOrthoBlend];
     self.reflectionTexUVSpace = reflectionTexUVSpace;
-    self.projectionOrthoMatrix = projectionOrthoMatrix;
-    self.perspectiveToOrthoBlend = perspectiveOrthoBlend;
-    self.projectionMatrix = [Ultility MatrixLerpFrom:self.projectionMatrix to:self.projectionOrthoMatrix blend:self.perspectiveToOrthoBlend];
     //计算网格参数
     [self updateEffectParams];
 }
@@ -54,13 +58,14 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "Cylinder Main");
 #endif
+
     glUseProgram(_programCylinder);
     
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(self.viewMatrix, self.worldMatrix);
     glUniformMatrix4fv(_modelViewMatrixUniform, 1, 0, modelViewMatrix.m);    
     glUniformMatrix4fv(_worldMatrixUniform, 1, 0, self.worldMatrix.m);
     glUniformMatrix4fv(_projMatrixUniform, 1, 0, self.projectionMatrix.m);
-    glUniform3f(_eyeUniform, self.eye.x, self.eye.y, self.eye.z);
+    glUniform4f(_eyeUniform, self.eye.x, self.eye.y, self.eye.z, 0);
     
     glUniform4f(_reflectionTexUVSpaceUniform, self.reflectionTexUVSpace.x, self.reflectionTexUVSpace.y, self.reflectionTexUVSpace.z, self.reflectionTexUVSpace.w);
     glUniform1i(_texture0Unifrom, 0);

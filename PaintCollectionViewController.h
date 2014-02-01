@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CylinderProjectViewController.h"
-
-@class PaintScreen;
+#import "PaintFrameManager.h"
 @protocol PaintScreenDelegate;
 
 @class PaintDoc;
@@ -20,8 +19,9 @@
 @interface PaintCollectionViewController : UIViewController
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
+CylinderProjectViewControllerDelegate,
 UIViewControllerTransitioningDelegate,
-CylinderProjectViewControllerDelegate
+UIViewControllerAnimatedTransitioning
 >
 
 @property (assign, nonatomic) id delegate;
@@ -29,7 +29,8 @@ CylinderProjectViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *toolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
-
+//显示作品管理器
+@property (retain, nonatomic) PaintFrameManager *paintFrameManager;
 #pragma mark- Tool Bar
 - (IBAction)fileButtonTouchUp:(id)sender;
 
@@ -41,5 +42,4 @@ CylinderProjectViewControllerDelegate
 
 - (IBAction)newButtonTouchUp:(id)sender;
 
-- (IBAction)paintFrameViewTouchUp:(id)sender;
 @end

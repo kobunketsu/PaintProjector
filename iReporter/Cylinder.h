@@ -45,8 +45,6 @@ typedef struct {
 @property (assign, nonatomic) GLKMatrix4 viewMatrix;
 @property (assign, nonatomic) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
 @property (assign, nonatomic) GLKMatrix4 projectionMatrix;
-@property (assign, nonatomic) GLKMatrix4 projectionOrthoMatrix;
-@property (assign, nonatomic) float perspectiveToOrthoBlend;
 @property (assign, nonatomic) GLuint programCylinder;
 @property (assign, nonatomic) GLuint worldMatrixUniform;
 @property (assign, nonatomic) GLuint modelViewMatrixUniform;

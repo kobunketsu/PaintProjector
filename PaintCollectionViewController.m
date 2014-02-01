@@ -14,14 +14,17 @@
 #import "PaintFrameManager.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
-
+#import "PaintFrameTransitionManager.h"
 
 //#import "TestViewController.h"
 
 @interface PaintCollectionViewController ()
+//圆柱体投影VC
 @property (weak, nonatomic) CylinderProjectViewController *cylinderProjectVC;
-@property (weak, nonatomic) PaintScreen *paintScreenVC;
-@property (retain, nonatomic) PaintFrameManager *paintFrameManager;
+//VC切换动画效果管理器
+@property (nonatomic) PaintFrameTransitionManager *transitionManager;
+
+//是否编辑状态
 @property (assign, nonatomic) BOOL isEditing;
 @end
 
@@ -41,8 +44,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
-    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+    UIImage *uiImage = [UIImage imageNamed:@"launchImage2.png"];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     
     self.isEditing = false;
     for (UIButton *button in self.editButtons) {
@@ -52,6 +56,8 @@
     //设置当前PaintFrameGroup PaintFrame
     self.paintFrameManager = [[PaintFrameManager alloc]init];
     [self.paintFrameManager setCurPaintFrameGroupByIndex:1];
+    
+    self.transitionManager = [[PaintFrameTransitionManager alloc]init];
 }
 
 - (void)viewDidUnload{
@@ -93,6 +99,9 @@
     self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
     self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
     
+//    CGRect rect = [self.paintFrameManager.curPaintFrameView convertRect:self.paintFrameManager.curPaintFrameView.frame toView:self.view];
+//    DebugLog(@"rect %@", NSStringFromCGRect(rect));
+    
     //非编辑状态，打开
     if (!self.isEditing) {
         self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
@@ -100,29 +109,32 @@
         self.cylinderProjectVC.transitioningDelegate = self;
 
         PaintFrameView* view = cell.paintFrameView;
+        [self.cylinderProjectVC setPaintDoc:view.paintDoc];
         [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
-            [self.cylinderProjectVC viewPaintDoc:view.paintDoc];
         }];
     }
     //编辑状态
     else{
-
     }
 }
 
 
 #pragma mark- UIViewControllerTransitioningDelegate
-//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
-//    
-//}
-//
-//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-//    
-//}
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
+    self.transitionManager.isPresenting = YES;
+    return self.transitionManager;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
+    self.transitionManager.isPresenting = NO;
+    return self.transitionManager;
+}
 
 #pragma mark- CylinderProjectViewControllerDelegate
 -(void)willTransitionToGallery{
-    [self.cylinderProjectVC dismissViewControllerAnimated:YES completion:nil];
+    [self.cylinderProjectVC dismissViewControllerAnimated:YES completion:^{
+        [self.collectionView reloadData];
+    }];
 }
 
 #pragma mark- Tool Bar
@@ -195,23 +207,19 @@
     [self openPaintFrame:self.paintFrameManager.curPaintFrameView paintDirectly:true];
 }
 
-- (IBAction)paintFrameViewTouchUp:(id)sender {
-    //非编辑状态，打开
-    if (!self.isEditing) {
-        [self openPaintFrame:(PaintFrameView*)sender paintDirectly:false];
-    }
-    //编辑状态
-    else{
-
-    }
-    
-}
-
 #pragma mark-
 - (void)startEditFile{
     self.isEditing = true;
     for (UIButton *button in self.editButtons) {
         button.hidden = false;
+    }
+
+    for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        if (cell.selectedBackgroundView) {
+            cell.selectedBackgroundView.hidden = NO;
+        }
     }
 }
 
@@ -220,6 +228,14 @@
     for (UIButton *button in self.editButtons) {
         button.hidden = true;
     }
+    
+    for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        if (cell.selectedBackgroundView) {
+            cell.selectedBackgroundView.hidden = YES;
+        }
+    }
 }
 
 -(void)openPaintFrame:(PaintFrameView*)paintFrameView paintDirectly:(BOOL)paintDirectly{
@@ -227,12 +243,16 @@
     self.cylinderProjectVC.delegate = self;
     self.cylinderProjectVC.transitioningDelegate = self;
     
+    if (paintDirectly) {
+    }
+    else{
+       [self.cylinderProjectVC setPaintDoc:paintFrameView.paintDoc];
+    }
     [self presentViewController:self.cylinderProjectVC animated:true completion:^{
         if (paintDirectly) {
             [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
         }
         else{
-            [self.cylinderProjectVC viewPaintDoc:paintFrameView.paintDoc];
         }
         
     }];

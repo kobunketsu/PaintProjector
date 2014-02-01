@@ -10,12 +10,11 @@ attribute vec4 position;
 attribute vec4 texcoord;
 attribute vec4 color;
 
-//uniform mat4 wvpMatrix;
 uniform mat4 viewProjMatrix;
 uniform mat4 viewProjOrthoMatrix;
 uniform highp float perspectiveToOrthoBlend;
 uniform mat4 worldMatrix;
-uniform vec3 eye;
+uniform vec4 eye;
 uniform highp float radius;
 uniform highp float morphBlend;
 uniform highp float alphaBlend;
@@ -24,8 +23,11 @@ varying lowp vec4 color0;
 
 void main()
 {
-    
     highp vec4 worldPos = worldMatrix * position;
+
+    //clip world position out of the cylinder space on x, make projected circle edge smooth
+    float radiusBiased = radius - 0.001;
+    worldPos.x = clamp(worldPos.x, -radiusBiased, radiusBiased);
 
     // Position in screen space
 //    highp vec3 pointOnImage = worldPos.xyz;
@@ -38,10 +40,10 @@ void main()
     pointOnImage.x = worldPos.x * morphBlend;
     
     //5.find pixel point projected on the surface
-    highp vec3 vEyeToPointOnImage = pointOnImage - eye;
+    highp vec3 vEyeToPointOnImage = pointOnImage - eye.xyz;
     vEyeToPointOnImage = normalize(vEyeToPointOnImage);
     
-    highp vec3 e = eye;
+    highp vec3 e = eye.xyz;
     highp vec3 v = vEyeToPointOnImage;
     highp float a = v.x * v.x + v.z * v.z;
     highp float b = 2.0 * (e.x * v.x + e.z * v.z);
@@ -51,7 +53,7 @@ void main()
     highp float t1 = (sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     highp float t2 = (-sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     
-    highp vec3 pointOnSurface = eye + vEyeToPointOnImage * t2;
+    highp vec3 pointOnSurface = eye.xyz + vEyeToPointOnImage * t2;
     
     //6. find reflected point on the ground
     highp vec3 normOnSurface = vec3(pointOnSurface.x, 0, pointOnSurface.z);
@@ -65,6 +67,7 @@ void main()
     
 //    highp vec3 finalWorlPos = worldPos.xyz * (1.0 - morphBlend) + pointOnFloor.xyz * morphBlend;
     highp vec3 finalWorlPos = pointOnFloor.xyz;
+//    highp vec3 finalWorlPos = worldPos.xyz;
     
     gl_Position = viewProjMatrix * vec4(finalWorlPos.xyz, 1);
     
