@@ -116,7 +116,6 @@ typedef struct {
 
 @property (retain, nonatomic) NSString *name;
 @property (assign, nonatomic) CGSize canvasSize;
-@property (weak, nonatomic) TextureManager* texMgr;
 @property (assign, nonatomic)BrushVertex* vertexBuffer;
 @property (weak, nonatomic) PaintingView* paintView;
 @property (weak, nonatomic) GLWrapper* glWrapper;
@@ -147,7 +146,7 @@ typedef struct {
 @property (retain, nonatomic) NSDictionary *fragShaderCaches;
 
 
-- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper texMgr:(TextureManager*)texMgr canvasSize:(CGSize)canvasSize;
+- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper canvasSize:(CGSize)canvasSize;
 - (BOOL)loadShader;
 - (void)resetDefaultBrushState;
 - (BOOL)createSmudgeFramebuffers;

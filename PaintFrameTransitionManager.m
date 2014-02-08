@@ -22,7 +22,7 @@
 }
 
 -(CGRect)getCylinderMirrorFrame{
-    return CGRectMake(315, 333, 140, 186);
+    return CGRectMake(311, 300, 145, 145 / 3.0 * 4.0);
 }
 
 - (void)presentingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{

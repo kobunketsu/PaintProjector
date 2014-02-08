@@ -14,14 +14,30 @@
 
 #import "PaintScreen.h"
 
+#import "GLWrapper.h"
 #import "Ultility.h"
+#import "TextureManager.h"
 #import "ShaderManager.h"
+#import "Display.h"
+#import "Camera.h"
 #import "Grid.h"
 #import "Cylinder.h"
+#import "CylinderProject.h"
+#import "ShaderCylinderProject.h"
+#import "ShaderCylinder.h"
+#import "ShaderNoLitTexture.h"
+
+#import "Scene.h"
+#import "PlaneMesh.h"
+#import "CylinderMesh.h"
+#import "MeshFilter.h"
+#import "MeshRenderer.h"
+
 #import "PlayerView.h"
 //#import "ZBarSDK.h"
 #import "PlayButton.h"
 #import "PaintButton.h"
+#import "DownToolBar.h"
 
 //FirstScreenViewController
 #import "PaintFrameView.h"
@@ -29,14 +45,9 @@
 #import "PaintDoc.h"
 #import "PaintDocManager.h"
 
-#import "DownToolBar.h"
-#import "GLWrapper.h"
-
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
 #define DeviceWidth 0.154
-
-
 
 static const NSString *ItemStatusContext;
 
@@ -70,93 +81,47 @@ typedef void(^MyCompletionBlock)(void);
 <GLKViewControllerDelegate,
 GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
-//ZBarReaderDelegate,
 UIViewControllerTransitioningDelegate,
-PaintScreenDelegate>
+PaintScreenDelegate
+//ZBarReaderDelegate
+>
 {
     void * _baseAddress;
-    size_t _width;
-    size_t _height;
 }
 @property (weak, nonatomic) PaintScreen* paintScreenVC;
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (assign, nonatomic) id delegate;
+#pragma mark- User Input
+@property (assign, nonatomic) CGFloat inputCylinderRadius;
+@property (assign, nonatomic) CGFloat inputCylinderImageWidth;
+@property (assign, nonatomic) CGFloat inputCylinderImageCenterOnSurfHeight;
 #pragma mark- GL
-@property (retain, nonatomic) GLWrapper *glWrapper;
-@property (retain, nonatomic) TextureManager* texMgr;
 @property (retain, nonatomic) EAGLContext *context;
-@property (assign, nonatomic) GLuint reflectionFramebuffer;
-@property (assign, nonatomic) GLuint reflectionTex;//renderToTex, 用于反射采样的贴图
-@property (assign, nonatomic) GLuint reflectionTexSize;
-
-@property (assign, nonatomic) GLuint programProject;
-@property (assign, nonatomic) GLuint vertexBuffer;
-@property (assign, nonatomic) GLuint vertexArray;
-@property (assign, nonatomic) GLuint indexBuffer;
-@property (assign, nonatomic) GLuint paintTexture;
-
-@property (assign, nonatomic) GLuint wvpMatrixUniform;
-@property (assign, nonatomic) GLuint viewProjMatrixUniform;
-@property (assign, nonatomic) GLuint worldMatrixUniform;
-@property (assign, nonatomic) GLuint paintTextureUniform;
-@property (assign, nonatomic) GLuint radiusUniform;
-@property (assign, nonatomic) GLuint eyeUniform;
-@property (assign, nonatomic) GLuint morphBlendUniform;
-@property (assign, nonatomic) GLuint alphaBlendUniform;
-
-#pragma mark- project internal param
-@property (assign, nonatomic) GLKMatrix4 worldMatrix;  //绘制quad时的矩阵
-@property (assign, nonatomic) GLKMatrix4 viewProjMatrix;  //绘制quad时的矩阵
-@property (assign, nonatomic) GLKMatrix4 viewProjOrthoMatrix;  //绘制quad时的矩阵(正交，用于顶视图)
-@property (assign, nonatomic) GLKMatrix4 reflViewProjMatrix;  //绘制反射texture时的矩阵
+#pragma mark- Scene
+@property (retain, nonatomic) Texture *paintTexture;
+@property (retain, nonatomic) Scene *curScene;
+@property (retain, nonatomic) CylinderProject *cylinderProject;
+@property (retain, nonatomic) Cylinder *cylinder;//圆柱体
 
 #pragma mark- 投影动画
-@property (assign, nonatomic) float morphBlend;
-@property (assign, nonatomic) float alphaBlend;
 @property (assign, nonatomic) float lastMediaTime;//上个时间点
-@property (assign, nonatomic) float curProjectAnimationTime;    //投影到地面动画的当前时间
-@property (assign, nonatomic) float curUnprojectAnimationTime;  //恢复绘画视角动画的当前时间
-@property (assign, nonatomic) float projectAnimDuration;        //投影到地面动画的持续时间
-@property (assign, nonatomic) float unprojectAnimDuration;      //恢复绘画视角动画的持续时间
 @property (copy, nonatomic) MyCompletionBlock unprojectCompletionBlock;
 
 #pragma mark- 视角变换
-@property (assign, nonatomic) GLKVector3 eye;
 @property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部
 @property (assign, nonatomic) GLKVector3 eyeBottom;//视角底部
 @property (assign, nonatomic) float eyeTopAspect;//顶视图长宽比
 @property (assign, nonatomic) float eyeBottomTopBlend;
 @property (assign, nonatomic) float toEyeBottomTopBlend;
-@property (assign, nonatomic) float perspectiveToOrthoBlend;    //正交和透视的混合
+
 #pragma mark- 视角变换动画
 @property (assign, nonatomic) float curViewTopAnimationTime;
 @property (assign, nonatomic) float curViewBottomAnimationTime;  
 @property (assign, nonatomic) float viewTopAnimDuration;
-@property (assign, nonatomic) float viewBottomAnimDuration;      
-
-//@property (assign, nonatomic) float projSrcAspect;//投影长宽比
-//@property (assign, nonatomic) float viewAspect;//投影长宽比
-//@property (assign, nonatomic) float projHeight;//实际地面投影长度
-//@property (assign, nonatomic) float projWidth;//实际地面投影宽度
-//@property (assign, nonatomic) GLKVector3 projFar;//实际地面远点
-//@property (assign, nonatomic) GLKVector3 projNear;//实际地面远点
-//@property (assign, nonatomic) GLKVector3 projCenter;//实际地面中心位置
-//@property (assign, nonatomic) GLKVector3 eyeZoomInTop;
-
-#pragma mark- project param
-//圆柱体中Image的参数
-@property (assign, nonatomic) float radius;//圆柱体半径
-@property (assign, nonatomic) float imageWidth;//圆柱体中图片的宽 < 圆柱半径*2
-@property (assign, nonatomic) float imageHeight;//圆柱体中图片的高
-@property (assign, nonatomic) float imageRatio;//圆柱体中图片的宽高比率
-@property (assign, nonatomic) GLKVector3 imageCenterOnSurf;//圆柱体中图片中心位置
-@property (assign, nonatomic) float imageCenterOnSurfHeight;//圆柱体中图片中心高度
+@property (assign, nonatomic) float viewBottomAnimDuration;
 
 #pragma mark- project display helper
-@property (retain, nonatomic) Cylinder *cylinder;//圆柱体
-@property (assign, nonatomic) int meshRow;//投影模型网格参数
-@property (assign, nonatomic) int meshColumn;//投影模型网格参数
 @property (assign, nonatomic) BOOL showGrid;//是否显示网格
 @property (retain, nonatomic) Grid *grid;//网格
 
@@ -168,7 +133,6 @@ PaintScreenDelegate>
 #pragma mark- interaction
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender;
 
-
 #pragma mark- main category
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
 @property (weak, nonatomic) IBOutlet UIImageView *screenMask;
@@ -176,11 +140,12 @@ PaintScreenDelegate>
 
 
 #pragma mark- viewMode
+@property (retain, nonatomic) Camera *topCamera;
+@property (assign, nonatomic) GLKMatrix4 bottomCameraProjMatrix;
 @property (assign, nonatomic) BOOL isTopViewMode;
 @property (weak, nonatomic) IBOutlet UIButton *sideViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *topViewButton;
 
-//- (void)transitionIn;
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 

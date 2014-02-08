@@ -252,40 +252,40 @@ typedef struct {
     //主要工具
 
     //初始化各种笔刷
-    Pencil *pencil = [[Pencil alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Pencil *pencil = [[Pencil alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     pencil.delegate = self.paintView;
     
-    Eraser *eraser = [[Eraser alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Eraser *eraser = [[Eraser alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     eraser.delegate = self.paintView;
     
-    Pen *pen = [[Pen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Pen *pen = [[Pen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     pen.delegate = self.paintView;
     
-    Marker *marker = [[Marker alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Marker *marker = [[Marker alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     marker.delegate = self.paintView;
     
-    Finger *finger = [[Finger alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Finger *finger = [[Finger alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     finger.delegate = self.paintView;
     
-    ChineseBrush *chineseBrush = [[ChineseBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    ChineseBrush *chineseBrush = [[ChineseBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     chineseBrush.delegate = self.paintView;
     
-    Crayons *crayons = [[Crayons alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Crayons *crayons = [[Crayons alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     crayons.delegate = self.paintView;
     
-    Bucket *bucket = [[Bucket alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    Bucket *bucket = [[Bucket alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     bucket.delegate = self.paintView;
     
-    InkPen *inkPen = [[InkPen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    InkPen *inkPen = [[InkPen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     inkPen.delegate = self.paintView;
     
-    MarkerSquare *markerSquare = [[MarkerSquare alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    MarkerSquare *markerSquare = [[MarkerSquare alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     markerSquare.delegate = self.paintView;
     
-    OilBrush *oilBrush = [[OilBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    OilBrush *oilBrush = [[OilBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     oilBrush.delegate = self.paintView;
     
-    AirBrush *airBrush = [[AirBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper texMgr:self.paintView.texMgr canvasSize:self.paintView.bounds.size];
+    AirBrush *airBrush = [[AirBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
     airBrush.delegate = self.paintView;
     
     //将笔刷加入笔刷类型视图

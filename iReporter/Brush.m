@@ -55,11 +55,10 @@
 
 //绘制笔刷
 
-- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper texMgr:(TextureManager*)texMgr canvasSize:(CGSize)canvasSize{
+- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper canvasSize:(CGSize)canvasSize{
     self = [super init];
     if (self !=nil) {
         _paintView = paintView;
-        _texMgr = texMgr;
         _glWrapper = glWrapper;
         _context = paintView.context;
         
@@ -384,7 +383,7 @@
         return;
     }
     
-    _shapeTexture = [self.texMgr loadTextureInfoFromImageName:textureName reload:false].name;
+    _shapeTexture = [TextureManager loadTextureInfoFromImageName:textureName reload:false].name;
     if (_shapeTexture == 0) {
         self.brushState.isShapeTexture = false;
         DebugLog(@"setBrushShapeTexture loadTextureInfo failed");
@@ -396,9 +395,9 @@
 
 -(void) setBrushCommonTextures
 {
-    _maskTexture = [self.texMgr loadTextureInfoFromImageName:@"brushSoftFallOff.png" reload:false].name;
+    _maskTexture = [TextureManager loadTextureInfoFromImageName:@"brushSoftFallOff.png" reload:false].name;
     
-    _noiseTexture = [self.texMgr loadTextureInfoFromImageName:@"noise.png" reload:false].name;
+    _noiseTexture = [TextureManager loadTextureInfoFromImageName:@"noise.png" reload:false].name;
 }
 - (void)setPatternTextureWithImage: (NSString*)patterName{
     
@@ -409,8 +408,8 @@
     EAGLContext* context = [EAGLContext currentContext];
     [EAGLContext setCurrentContext:self.context];
     
-    [self.texMgr deleteTexture:_maskTexture];
-    [self.texMgr deleteTexture:_shapeTexture];
+    [TextureManager deleteTexture:_maskTexture];
+    [TextureManager deleteTexture:_shapeTexture];
     [self deleteSmudgeFramebuffers];
     
     RELEASE_PROGRAM(_programBrush);

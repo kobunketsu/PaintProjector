@@ -86,7 +86,7 @@ PaintingViewDelegate
     
     //display
     [_camera setPosition:GLKVector3Make(0, 1.75, 0)];
-    [_camera setTarget:GLKVector3Make(0, 0, -2)];
+    [_camera setFocus:GLKVector3Make(0, 0, -2)];
     [_camera setUp:GLKVector3Make(0, 1, 0)];
     [_camera setAspect:fabsf(self.view.bounds.size.width / self.view.bounds.size.height)];
     [_camera setFov:GLKMathDegreesToRadians(HumanEyeFOV)]; 
@@ -94,7 +94,7 @@ PaintingViewDelegate
     [_camera setFarClip:6.0f];
     
     _cameraPositionAnimSrc = _camera.position;
-    _cameraTargetAnimSrc = _camera.target;
+    _cameraTargetAnimSrc = _camera.focus;
 }
 
 - (void)viewDidUnload
@@ -526,7 +526,7 @@ PaintingViewDelegate
 - (void)setCameraAnimState:(float)percentage{
     //    DebugLog(@"percentage:%.2f", percentage);        
     GLKVector3 cameraTargetAnimVector = GLKVector3Subtract(_cameraTargetAnimDest, _cameraTargetAnimSrc);
-    [_camera setTarget:GLKVector3Add(GLKVector3MultiplyScalar(cameraTargetAnimVector, percentage), _cameraTargetAnimSrc)];
+    [_camera setFocus:GLKVector3Add(GLKVector3MultiplyScalar(cameraTargetAnimVector, percentage), _cameraTargetAnimSrc)];
     //    DebugLog(@"camera target x:%.2f y:%.2f z:%.2f", _camera.target.x, _camera.target.y, _camera.target.z);
     
     GLKVector3 cameraPositionAnimVector = GLKVector3Subtract(_cameraPositionAnimDest, _cameraPositionAnimSrc);

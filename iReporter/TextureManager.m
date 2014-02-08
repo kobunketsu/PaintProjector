@@ -21,19 +21,24 @@
 //    });
 //    return sharedInstance;
 //}
-- (void)memoryWarning:(NSNotification*)note {
-    DebugLog(@"removeTextureCache");
-    [_textureCache removeAllObjects];
-    DebugLog(@"removeTextureUIImageCache");
-    [_textureUIImageCache removeAllObjects];
-//    [_textureDataCache removeAllObjects];
+
++ (void)initialize{
+    [super initialize];
+    if(!texMgr){
+        texMgr = [[TextureManager alloc]init];
+    }
+}
+
++ (void)destroy{
+    if (texMgr) {
+        texMgr = nil;
+    }
 }
 
 - (id)init{
     if ([super init]!=NULL) {
         _textureCache = [[NSMutableDictionary alloc]init];
         _textureUIImageCache = [[NSMutableDictionary alloc]init];
-//        _textureDataCache = [[NSMutableDictionary alloc]init];
         //在接受到内存警告的通知时clear掉本身
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(memoryWarning:)   name:UIApplicationDidReceiveMemoryWarningNotification object:nil];        
     }
@@ -44,19 +49,27 @@
     return self;    
 }
 
-- (void)destroyTextures{
+-(void)memoryWarning:(NSNotification*)note {
+    DebugLog(@"removeTextureCache");
+    [_textureCache removeAllObjects];
+    DebugLog(@"removeTextureUIImageCache");
+    [_textureUIImageCache removeAllObjects];
+    //    [_textureDataCache removeAllObjects];
+}
+
++ (void)destroyTextures{
     DebugLog(@"[ destroyTextures ]");
-    for (GLKTextureInfo *texInfo in [_textureCache allValues]) {
+    for (GLKTextureInfo *texInfo in [texMgr.textureCache allValues]) {
         GLuint tex = texInfo.name;
         glDeleteTextures(1, &tex);
     }
-    [_textureCache removeAllObjects];
+    [texMgr.textureCache removeAllObjects];
 }
 
-- (void)deleteTexture:(GLuint)texture{
++ (void)deleteTexture:(GLuint)texture{
     id deleteTexKey = 0;
-    for (id key in _textureCache) {
-        GLKTextureInfo* texInfo = [_textureCache objectForKey:key];
+    for (id key in texMgr.textureCache) {
+        GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:key];
         if (texInfo.name == texture) {
             deleteTexKey = key;
             break;
@@ -64,25 +77,26 @@
     }
     
     if (deleteTexKey != 0) {
-        [_textureCache removeObjectForKey:deleteTexKey];
+        [texMgr.textureCache removeObjectForKey:deleteTexKey];
         glDeleteTextures(1, &texture);
         texture = 0;
     }
 
 }
-- (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
+
++ (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft, 
                               nil];    
 
     if(reload){
-        if ([_textureCache objectForKey:imagePath] != NULL) {
-            [_textureCache removeObjectForKey:imagePath];
+        if ([texMgr.textureCache objectForKey:imagePath] != NULL) {
+            [texMgr.textureCache removeObjectForKey:imagePath];
         }
     }
     
-    GLKTextureInfo* texInfo = [_textureCache objectForKey:imagePath];
+    GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:imagePath];
     if (texInfo != NULL) {
         return texInfo;
     } 
@@ -93,7 +107,7 @@
             DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
-            [_textureCache setObject:texInfo forKey:imagePath];
+            [texMgr.textureCache setObject:texInfo forKey:imagePath];
             DebugLog(@"load texInfo: %d forKey %@", texInfo.name, imagePath);
         }
         return texInfo;
@@ -107,12 +121,12 @@
 //    return texInfo;
 }
 
-- (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload{
++ (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload{
     NSString* path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:filePathInDoc];            
     return [self loadTextureInfoFromImagePath:path reload:reload];
 }
 
-- (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload{
++ (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload{
     NSString *path = [Ultility getPathInApp:imageName];
     if (path!=nil) {    
         return [self loadTextureInfoFromImagePath:path reload:reload];
@@ -122,7 +136,7 @@
     }
 }
 
-- (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image{
++ (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft,
@@ -146,13 +160,13 @@
 //    return texInfo;
 }
 
-- (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage{
++ (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft, 
                               nil];    
     
-    GLKTextureInfo* texInfo = [_textureUIImageCache objectForKey:uiImage];
+    GLKTextureInfo* texInfo = [texMgr.textureUIImageCache objectForKey:uiImage];
     if (texInfo != NULL) {
         return texInfo;
     } 
@@ -163,7 +177,7 @@
             DebugLog(@"Error loading file: %@", [error localizedDescription]);
         }
         else {
-            [_textureUIImageCache setObject:texInfo forKey:[uiImage copy]];
+            [texMgr.textureUIImageCache setObject:texInfo forKey:[uiImage copy]];
         }
         return texInfo;
     }
@@ -176,7 +190,7 @@
 }
 
 
-- (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data{
++ (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft,

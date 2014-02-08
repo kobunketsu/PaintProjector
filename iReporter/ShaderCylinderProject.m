@@ -70,27 +70,13 @@
         }
         
         // Get uniform locations.
-        GLuint uniform;
-        uniform = glGetUniformLocation(self.program, "viewProjMatrix");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"viewProjMatrix"];
-        
-        uniform = glGetUniformLocation(self.program, "worldMatrix");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"worldMatrix"];
-        
-        uniform = glGetUniformLocation(self.program, "radius");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"radius"];
-        
-        uniform = glGetUniformLocation(self.program, "eye");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"eye"];
-        
-        uniform = glGetUniformLocation(self.program, "morphBlend");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"morphBlend"];
-        
-        uniform = glGetUniformLocation(self.program, "alphaBlend");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"alphaBlend"];
-        
-        uniform = glGetUniformLocation(self.program, "paintTex");
-        [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:@"paintTex"];
+        [self setUniformForKey:@"viewProjMatrix"];
+        [self setUniformForKey:@"worldMatrix"];
+        [self setUniformForKey:@"radius"];
+        [self setUniformForKey:@"eye"];
+        [self setUniformForKey:@"morphBlend"];
+        [self setUniformForKey:@"alphaBlend"];
+        [self setUniformForKey:@"paintTex"];
         
         // Release vertex and fragment shaders.
         if (vertShader) {
@@ -102,7 +88,7 @@
             glDeleteShader(fragShader);
         }
 #if DEBUG
-        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programProject" UTF8String]);
+        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programCylinderProject" UTF8String]);
 #endif
     }
     

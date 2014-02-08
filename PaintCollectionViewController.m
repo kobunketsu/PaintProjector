@@ -73,6 +73,7 @@
 -(void)dealloc{
     DebugLog(@"[ dealloc ]");
 }
+
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.paintFrameManager.curPaintFrameGroup.paintDocs.count;

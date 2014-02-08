@@ -11,9 +11,10 @@
 #import "PaintFrameViewGroup.h"
 #import "PaintFrameView.h"
 
+#define PaintFrameViewWidth 210
+#define PaintFrameViewHeight 280
+
 @implementation PaintFrameManager
-
-
 #pragma mark- 从磁盘载入文件
 -(void)insertNewPaintDocAtCurIndex{
     PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:self.curPaintFrameGroup.dirPath];

@@ -12,6 +12,7 @@
 @interface ShaderManager : NSObject{
     NSMutableDictionary *_shaderCaches;
 }
+
 @property (retain, nonatomic)NSMutableDictionary *shaderCaches;
 + (id)sharedInstance;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSString*)preDefines;

@@ -10,21 +10,28 @@
 #import <GLKit/GLKit.h>
 #import "Ultility.h"
 
+@class TextureManager;
+
+static TextureManager *texMgr;
 //一个texMgr管理一个context下创建的资源
 @interface TextureManager : NSObject{
-    NSMutableDictionary* _textureCache;
-    NSMutableDictionary* _textureUIImageCache;
+//    NSMutableDictionary* _textureCache;
+//    NSMutableDictionary* _textureUIImageCache;
 //    NSMutableDictionary* _textureDataCache;
 }
 //+(id)sharedInstance;
 
-- (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload;
-- (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
-- (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload;
-- (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage;
-- (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image;
-- (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data;
+@property(retain, nonatomic) NSMutableDictionary* textureCache;
+@property(retain, nonatomic) NSMutableDictionary* textureUIImageCache;
 
-- (void)destroyTextures;
-- (void)deleteTexture:(GLuint)texture;
++ (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload;
++ (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
++ (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload;
++ (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage;
++ (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image;
++ (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data;
+
++ (void)destroy;
++ (void)destroyTextures;
++ (void)deleteTexture:(GLuint)texture;
 @end

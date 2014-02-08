@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Object.h"
 #import "ShaderManager.h"
 
-@interface Shader : NSObject
+@interface Shader : Object
 @property (assign, nonatomic) GLuint program;
 @property (retain, nonatomic) NSMutableDictionary* uniformPropertyDic;
+
+- (void)setUniformForKey:(NSString*)key;
 @end

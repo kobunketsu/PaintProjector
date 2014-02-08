@@ -7,17 +7,35 @@
 //
 
 #import "Material.h"
+#import "Resources.h"
+
 
 @implementation Material
+- (id)init{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
 
 -(id)initWithShader:(Shader *)shader{
     self = [super init];
-    if (self != nil) {
+    if (self) {
         _shader = shader;
+//        [Resources addObject:self];
     }
     return  self;
 }
-    
+
+-(id)initWithEffect:(BaseEffect *)effect{
+    self = [super init];
+    if (self) {
+        _effect = effect;
+//        [Resources addObject:self];
+    }
+    return  self;
+}
+
 - (void)setFloat:(GLfloat)value forPropertyName:(NSString*)propertyName{
     NSNumber *num = [self.shader.uniformPropertyDic objectForKey:propertyName];
     if (num != nil) {
@@ -46,10 +64,12 @@
     }
 }
     
-- (void)setTexture:(GLint)textureSlot forPropertyName:(NSString*)propertyName{
+- (void)setTexture:(Texture*)texture atIndex:(GLint)index forPropertyName:(NSString*)propertyName{
     NSNumber *num = [self.shader.uniformPropertyDic objectForKey:propertyName];
     if (num != nil) {
-        glUniform1i(num.intValue, textureSlot);
+        glUniform1i((GLint)num.intValue, index);
+        GLuint textureSlot = GL_TEXTURE0 + index;
+        [GLWrapper.current activeTexSlot:textureSlot bindTexture:texture.texID];
     }
 }
 @end

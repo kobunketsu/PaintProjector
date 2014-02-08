@@ -128,7 +128,6 @@ GLKViewControllerDelegate
     float _zoomOutPaintAnimDuration;      //返回地面动画的持续时间
    
 }
-@property (retain, nonatomic) TextureManager* texMgr;
 @property (assign, nonatomic) bool showGrid;         //是否显示网格
 @property (assign, nonatomic) float nearDistance;
 @property (assign, nonatomic) float farDistance;

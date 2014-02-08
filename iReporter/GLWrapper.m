@@ -11,6 +11,30 @@
 
 
 @implementation GLWrapper
++(GLWrapper*)current{
+    if (!glWrapper) {
+        glWrapper = [[GLWrapper alloc]init];
+    }
+    return glWrapper;
+}
+
++(void)initialize{
+    [super initialize];
+    
+    if (!glWrapper) {
+        glWrapper = [[GLWrapper alloc]init];
+    }
+}
+
++(void)destroy{
+    if (glWrapper) {
+        glWrapper = nil;
+    }
+}
+
++(void)setCurrent:(GLWrapper*)current{
+    glWrapper = current;
+}
 
 - (id)init{
     if ((self = [super init])) {

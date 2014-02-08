@@ -31,6 +31,9 @@ typedef NS_ENUM(NSInteger, InterpolationType) {
 #define RELEASE_VERTEXARRAY(va) if(va){glDeleteVertexArraysOES(1, &va);va = 0;}
 #define RELEASE_TEXTURE(tex) if(tex){glDeleteTextures(1, &tex);tex = 0;}
 
+@class GLWrapper;
+static GLWrapper* glWrapper;
+
 @interface GLWrapper : NSObject
 @property (assign, nonatomic) GLuint lastProgram;//记录上一次绘制使用的program
 @property (assign, nonatomic) GLuint lastVBO;//记录上一次绘制使用的vertexbuffer object
@@ -42,6 +45,14 @@ typedef NS_ENUM(NSInteger, InterpolationType) {
 @property (assign, nonatomic) BlendFuncType lastBlendFuncType;
 //@property (assign, nonatomic) InterpolationType lastInterpolationType;
 @property (retain, nonatomic) NSMutableDictionary *activeSlotTex;
+
++(GLWrapper*)current;
++(void)setCurrent:(GLWrapper*)current;
+
++(void)initialize;
+
++(void)destroy;
+
 -(void)blendFunc:(BlendFuncType)blendFuncType;
 
 -(void)bindFramebufferOES:(GLuint)FBO discardHint:(BOOL)discardHint clear:(BOOL)clear;

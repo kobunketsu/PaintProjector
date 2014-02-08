@@ -7,31 +7,15 @@
 //
 
 #import "CylinderProjectViewController.h"
-#import "PaintScreen.h"
-#import "Ultility.h"
+#import "Resources.h"
+#import "PaintScreenTransitionManager.h"
 
-#define PaintFrameViewWidth 210
-#define PaintFrameViewHeight 280
-
-float cylinderProjectQuadVertexData[] =
-{
-    0.5f, 0, -0.5f,          1.0f, 0.0f,    //0
-    -0.5f,0, -0.5f,          0.0f, 0.0f,    //1
-//    0.5f, 0, 0.5f,         1.0f, 0.0f,      //2
-    0.5f, 0, 0.5f,        1.0f, 1.0f,       //2
-//    -0.5f,0, -0.5f,         0.0f, 1.0f,     //1
-    -0.5f,0, 0.5f,        0.0f, 1.0f,       //3
-};
-
-GLushort cylinderProjectQuadVertexIndices[] =
-{
-    0, 1, 2, 2, 1, 3,
-};
 @interface CylinderProjectViewController ()
+
 @property (assign, nonatomic)float toTranslateImageX;//圆柱体中图片横向移动
 @property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
-@property (assign, nonatomic)float rotationImageAxisY;//圆柱体中图片绕局部轴Y转向
-@property (assign, nonatomic)float toRotateImageAxisY;//圆柱体中图片绕局部轴Y转向
+//VC切换动画效果管理器
+@property (nonatomic) PaintScreenTransitionManager *transitionManager;
 @end
 
 @implementation CylinderProjectViewController
@@ -53,53 +37,165 @@ GLushort cylinderProjectQuadVertexIndices[] =
     self = [super initWithCoder:aDecoder];
     if (self) {
         
-
-        
     }
     return self;
 }
 
-- (void)initInputParams{
+- (void)setupInputParams{
     //根据ipad2的尺寸进行设定
-    self.radius = 0.019;
-    self.eye = GLKVector3Make(0, 0.4, -0.35);//default (0, 0.4, -0.35)
-    
+    self.inputCylinderRadius = 0.019;
     //设定虚拟平面
-    self.imageWidth = 0.037;
-    self.imageCenterOnSurfHeight = 0.035; //default 0.035
+    self.inputCylinderImageWidth = 0.037;
+    self.inputCylinderImageCenterOnSurfHeight = 0.035; //default 0.035
+
+}
+
+-(void)initSceneCameras{
+    float eyeTopZ = -0.065;
+    self.eyeBottom = GLKVector3Make(0, 0.4, -0.35);//GLKVector3Make(0, 0.4, -0.35)
+    //顶视图视口比例
+    self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / (self.projectView.bounds.size.height + ToSeeCylinderTopPixelOffset));
+    
+    Camera.mainCamera.name = @"mainCamera";
+    Camera.mainCamera.position = self.eyeBottom;
+    Camera.mainCamera.focus = GLKVector3Make(0, 0, eyeTopZ);
+       
+    //如果中心点反向，则up向量反向
+    if (Camera.mainCamera.focus.z >= 0) {
+        Camera.mainCamera.up = GLKVector3Make(0, 0, -1);
+    }
+    else{
+        Camera.mainCamera.up = GLKVector3Make(0, 0, 1);
+    }
+    Camera.mainCamera.nearClip = NearClipDistance;
+    Camera.mainCamera.farClip = FarClipDistance;
+    Camera.mainCamera.aspect = self.eyeTopAspect;
+    Camera.mainCamera.fov = GLKMathDegreesToRadians(29);
+    Camera.mainCamera.backgroundColor = GLKVector4Make(90.0/255.0, 230.0/255.0, 71.0 / 255.0, 1);
+    Camera.mainCamera.cullingMask = Culling_Everything;
+    self.bottomCameraProjMatrix = Camera.mainCamera.projMatrix;
+    
+    self.eyeTop = GLKVector3Make(0, -self.eyeBottom.z, eyeTopZ);
+    float orthoWidth = DeviceWidth;
+    float orthoHeight = DeviceWidth / self.eyeTopAspect;
+    
+    self.topCamera = [[Camera alloc]initOrthorWithPosition:self.eyeTop
+                                                        focus:GLKVector3Make(0, 0, eyeTopZ)
+                                                           up:GLKVector3Make(0, 0, 1)
+                                                   orthoWidth:orthoWidth
+                                                  orthoHeight:orthoHeight
+                                                     nearClip:NearClipDistance
+                                                      farClip:FarClipDistance];
+    
+    self.topCamera.name = @"topCamera";
+    RenderTexture *renderTex = [[RenderTexture alloc]initWithWidth:1024 height:1024];
+    [renderTex create];
+    self.topCamera.targetTexture = renderTex;
+    self.topCamera.cullingMask = Culling_Reflection;
+
+    //add camera by rendering sequence
+    [self.curScene addCamera:self.topCamera];
+    [self.curScene addCamera:Camera.mainCamera];
+    
+    self.eyeBottomTopBlend = 0.0;
+}
+
+- (void)createCylinder{
+    //create cylinder
+    ShaderCylinder *shaderCylinder = [[ShaderCylinder alloc]init];
+    Material *matMain = [[Material alloc]initWithShader:shaderCylinder];
+    Texture *texMain = [[Texture alloc]init];
+    texMain.texID = [TextureManager loadTextureInfoFromImageName:@"cylinderMain.png" reload:false].name;
+    matMain.mainTexture = texMain;
+    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:self.inputCylinderRadius sides:60 height:0.068];
+    [mesh create];
+    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
+    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
+    meshRenderer.material = matMain;
+    
+    //cap
+//    BaseEffect *effect = [[BaseEffect alloc]init];
+    ShaderNoLitTexture *shaderNoLitTex = [[ShaderNoLitTexture alloc]init];
+    Material *matCap = [[Material alloc]initWithShader:shaderNoLitTex];
+    Texture *texCap = [[Texture alloc]init];
+    texCap.texID = [TextureManager loadTextureInfoFromImageName:@"cylinderCap.png" reload:false].name;
+    matCap.mainTexture = texCap;
+    [meshRenderer.materials addObject:matCap];
+    
+    Cylinder *cylinder = [[Cylinder alloc]init];
+    cylinder.name = @"cylinder";
+    cylinder.renderer = meshRenderer;
+    cylinder.layerMask = Layer_Default;
+    cylinder.eye = Camera.mainCamera.position;
+    cylinder.reflectionTex = self.topCamera.targetTexture;
+    cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
+                                                   self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+                                                   self.topCamera.orthoWidth,
+                                                   self.topCamera.orthoHeight);
+    meshRenderer.delegate = cylinder;
+    self.cylinder = cylinder;
+    [self.curScene addEntity:cylinder];
+    
+}
+
+- (void)createCylinderProject{
+    ShaderCylinderProject *shaderCylinderProject = [[ShaderCylinderProject alloc]init];
+    Material *matCylinderProject = [[Material alloc]initWithShader:shaderCylinderProject];
+    matCylinderProject.mainTexture = self.paintTexture;
+    PlaneMesh *planeMesh = [[PlaneMesh alloc]initWithRow:100 column:100];
+    [planeMesh create];
+    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:planeMesh];
+    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
+    meshRenderer.material = matCylinderProject;
+    
+    CylinderProject *cylinderProject = [[CylinderProject alloc]init];
+    cylinderProject.name = @"cylinderProject";
+    cylinderProject.renderer = meshRenderer;
+    cylinderProject.radius = self.inputCylinderRadius;
+    cylinderProject.eye = Camera.mainCamera.position;
+    cylinderProject.imageWidth = self.inputCylinderImageWidth;
+    cylinderProject.imageCenterOnSurfHeight = self.inputCylinderImageCenterOnSurfHeight;
+    cylinderProject.imageRatio = self.view.bounds.size.height / self.view.bounds.size.width;
+    cylinderProject.layerMask = Layer_Reflection;
+    meshRenderer.delegate = cylinderProject;
+    self.cylinderProject = cylinderProject;
+    [self.curScene addEntity:cylinderProject];
+    
+}
+
+- (void)setupScene {
+    
+    DebugLog(@"init Scene");
+    Scene *scene = [[Scene alloc]init];
+    self.curScene = scene;
+    
+    DebugLog(@"init Scene Cameras");
+    [self initSceneCameras];
+    
+    //设定输入图片参数
+    if (self.paintDoc != nil) {
+        self.paintTexture = [[Texture alloc]init];
+        self.paintTexture.texID = [TextureManager loadTextureInfoFromFileInDocument:self.paintDoc.thumbImagePath reload:true].name;
+    }
+    
+    DebugLog(@"init Scene Entities ");
+    [self createCylinderProject];
+    
+    [self createCylinder];
+    
+    [self initOtherParams];
+    
+    [self.curScene flushAll];
+    DebugLog(@"init Scene finished");
+    
+    DebugLog(@"updateRenderViewParams");
+    [self updateRenderViewParams];
 }
 
 -(void)initOtherParams{
-    self.imageRatio = self.view.bounds.size.height / self.view.bounds.size.width;
-    
-    //创建辅助网格
-    self.showGrid = false;
-    if (self.showGrid) {
-        self.grid = [[Grid alloc]init];
-        self.grid.rowCount = 10;
-        self.grid.columnCount = 10;
-    }
-
-    //创建圆柱体
-    self.cylinder = [[Cylinder alloc]init];
-    self.cylinder.sides = 60;
-    self.cylinder.radius = self.radius;
-    self.cylinder.height = 0.068;
-    
-    self.toRotateImageAxisY = 0;
-    self.rotationImageAxisY = 0;
-    
-    //设置显示
-    self.eyeBottomTopBlend = 0.0;
-    
     //设置动画
     self.state = CP_Projected;
-    self.morphBlend = 1;
-    self.alphaBlend = 1;
-    self.projectAnimDuration = 1.0;
-    self.curProjectAnimationTime = 0;
-    self.unprojectAnimDuration = 0.3;
-    self.curUnprojectAnimationTime = 0;
+    
     self.viewBottomAnimDuration = 1.0;
     self.viewTopAnimDuration = 1.0;
     self.curViewTopAnimationTime = 0;
@@ -112,12 +208,12 @@ GLushort cylinderProjectQuadVertexIndices[] =
     //用于解决启动闪黑屏的问题
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
     
+    DebugLog(@"setupInputParams");
+    [self setupInputParams];
+    
     [self setupGL];
     
-    if (self.paintDoc != nil) {
-        self.paintTexture = [self.texMgr loadTextureInfoFromFileInDocument:self.paintDoc.thumbImagePath reload:true].name;
-    }
-//    [self loadLogoWithAnimation:false];
+    [self setupScene];
     
     //run completion block
     [self allViewUserInteractionEnable:true];
@@ -171,20 +267,8 @@ GLushort cylinderProjectQuadVertexIndices[] =
     self.projectView.context = self.context;
     self.projectView.delegate = self;
     
-    self.texMgr = [[TextureManager alloc]init];
+    [TextureManager initialize];
 
-    //初始化输入参数
-    [self initInputParams];
-    
-    [self initOtherParams];
-    
-    //设置描画相关参数
-    [self updateImageInCylinder];
-    
-    [self updateProjectedQuadParams];
-    
-    [self updateRenderViewParams];
-    
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
 }
@@ -233,24 +317,14 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [self openPaintDoc:self.paintDoc];
 }
 
-#pragma mark- 转换控制器 Transition ViewController
-//- (void)transitionIn{
-//    DebugLog(@"transitionIn");
-//}
-
 #pragma mark- 操作主屏幕CylinderProject View
 - (void)rotateViewInAxisX:(float)percent{
     self.eyeBottomTopBlend = MIN(1, MAX(0, self.toEyeBottomTopBlend + percent));
 }
 
-- (void)rotateImageInCylinder:(float)angle{
-    self.rotationImageAxisY = self.toRotateImageAxisY + angle;
-}
-
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
-//            self.toRotateImageAxisY = self.rotationImageAxisY;
 //            self.toEyeBottomTopBlend = self.eyeBottomTopBlend;
             self.toTranslateImageX = self.translateImageX;
             break;
@@ -289,253 +363,16 @@ GLushort cylinderProjectQuadVertexIndices[] =
 }
 
 #pragma mark- 绘图设置
-- (void)updateImageInCylinder{
-    
-    //限制眼睛取值范围
-    float eyeZ = MIN(self.eye.z, -self.radius);
-    self.eye = GLKVector3Make(self.eye.x, self.eye.y, eyeZ);
-    
-    float dist = sqrtf( self.eye.x * self.eye.x + self.eye.z * self.eye.z);
-    float cosEyeXZ =  self.eye.x / dist;
-    
-    //setup image width and image height
-    self.imageWidth = MAX(0, MIN(self.imageWidth, self.radius * 2));
-    self.imageHeight = self.imageWidth * self.imageRatio;
-    
-    //cylinder  x*x + z*z = r*r; --> x*x + pow((x*tan), 2)
-    float rayOnSurfX = cosEyeXZ * self.radius;
-    float rayOnSurfZ = - sinf(acosf(cosEyeXZ)) * self.radius;
-    
-    //1.find image center on the cylinder surface
-    self.imageCenterOnSurf = GLKVector3Make(rayOnSurfX, self.imageCenterOnSurfHeight, rayOnSurfZ);
-    
-    //2.find image center on the flow in the cylinder y axis
-    GLKVector3 vEyeToImageCenter = GLKVector3Subtract(self.imageCenterOnSurf, self.eye);
-    GLKVector3 vEyeToImageCenterNormalized = GLKVector3Normalize(vEyeToImageCenter);
-    float imageCenterY = (self.radius * self.eye.y + self.eye.z * self.imageCenterOnSurf.y) / (self.eye.z + self.radius);
-    GLKVector3 imageCenter = GLKVector3Make(0, imageCenterY, 0);
-    
-    //3.find four corners for image
-    GLKVector3 vRight = GLKVector3Make(vEyeToImageCenterNormalized.z, 0, -vEyeToImageCenterNormalized.x);
-    vRight = GLKVector3Normalize(vRight);
-    GLKVector3 vUp = GLKVector3CrossProduct(vEyeToImageCenterNormalized, vRight);
-    
-    //adjust
-    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.imageWidth, 0, self.imageHeight);
-
-    float radian =  acosf(GLKVector3DotProduct(GLKVector3Make(0, 1, 0), GLKVector3MultiplyScalar( vEyeToImageCenterNormalized, -1.0f)));
-    GLKMatrix4 rotateMatrix = GLKMatrix4MakeRotation(radian, 1, 0, 0);
-    GLKMatrix4 rotateAxisYMatrix = GLKMatrix4MakeRotation(-M_PI, vUp.x, vUp.y, vUp.z);
-
-    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(imageCenter.x, imageCenter.y, imageCenter.z);
-
-    //test
-    //    rotateMatrix = GLKMatrix4RotateWithVector3(rotateMatrix, self.rotationImageAxisY, vUp);
-    translateMatrix = GLKMatrix4Translate(translateMatrix, self.translateImageX, 0, 0);
-    
-    self.worldMatrix = GLKMatrix4Multiply(translateMatrix, GLKMatrix4Multiply(rotateMatrix, GLKMatrix4Multiply(rotateAxisYMatrix, scaleMatrix)));
-
-}
 
 
-- (void)updateProjectedQuadParams{
-    //投影视图视口比例
-//    self.projSrcAspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
-//    DebugLog(@"_aspect: %.2f", _projSrcAspect);
-    
-    //顶视图视口比例
-    self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / self.projectView.bounds.size.height);
-//    DebugLog(@"_eyeTopAspect: %.2f", _eyeTopAspect);
-    
-    
-//    //使用最远距离,最近距离作为输入参数
-//    float angleFar = atan2f(_eye.y, self.farDistance);
-//    float angleNear = atan2f(_eye.y, self.nearDistance);
-//    self.fovY = (angleNear - angleFar);
-//    float fovYHalf = self.fovY * 0.5;
-   
-//    self.projNear = GLKVector3Make(0, 0, 1);
-//    self.projFar = GLKVector3Make(0, 0, -6);
-//    self.projCenter = GLKVector3Lerp(self.projNear, self.projFar, 0.5);
-    
-//    float angleFocus = angleNear - fovYHalf;
-//    float focusDistance = _eye.y / tanf(angleFocus);
-//    _projFocus = GLKVector3Make(sinf(_paintViewAngleX) * focusDistance, 0, -cosf(_paintViewAngleX) * focusDistance);
-    
-    //实际地面绘制长宽
-//    self.projHeight = self.projNear.z - self.projFar.z;
-//    self.projWidth = 10;
- 
-    //    DebugLog(@"_projHeight:%.1f", _projHeight);
-    //    DebugLog(@"_projWith:%.1f", _projWidth);
-    //    DebugLog(@"_projFar x:%.1f y:%.1f z:%.1f", _projFar.x, _projFar.y, _projFar.z);
-    //    DebugLog(@"_projNear x:%.1f y:%.1f z:%.1f", _projNear.x, _projNear.y, _projNear.z);
-    
-    //update UI
-//    self.fovYLabel.text = [NSString stringWithFormat:@"FOV: %.1f D", RADIANS_TO_DEGREES(self.fovY)];
-//    self.projWidthLabel.text = [NSString stringWithFormat:@"Width: %.1f M", _projWidth];
-//    self.projHeightLabel.text = [NSString stringWithFormat:@"Depth: %.1f M", _projHeight];
-}
 
 - (void)updateRenderViewParams{
-//    DebugLog(@"[   setupTopViewParams  ]");
-    
-    //计算视图顶部观察点
-//    float fovY = DEGREES_TO_RADIANS(45);
-//    float heightFovY = self.projHeight * 0.5 / tanf(fovY * 0.5);
-//    float heightFovX = self.projWidth * 0.5 / (tanf(fovY * 0.5) * self.projSrcAspect);
-
-    //TODO: bias 解决采样到边上后clamp的问题
-    self.eyeTop = GLKVector3Make(0.0, -self.eye.z, -0.065);
-//    self.eyeTop = GLKVector3Make(self.projCenter.x, MAX(heightFovX, heightFovY), self.projCenter.z);
-
-    self.eyeBottom = self.eye;
-    
-    GLKVector3 up;
-    if (self.eyeBottomTopBlend >= 1.0) {
-//        up = GLKVector3Normalize(GLKVector3Subtract(self.projFar, self.projNear));
-        //设备在宽屏模式下效果更佳
-        up = GLKVector3Make(0, 0, 1);
-        
-    }
-    else{
-        up = GLKVector3Make(0, 0, 1);
-    }
-    
-    //    DebugLog(@"up x:%.1f y:%.1f z:%.1f", up.x, up.y, up.z);
-    
-    GLKVector3 eye, focus;
-    float orthorWidth, orthorHeight;
-    
-//    float orthorWidth = self.projWidth;
-//    float orthorHeight = self.projHeight;
-//    if(_state == ZoomIn)
-//    {
-//        //        DebugLog(@"Magnifying _magnifyT %.2f", _magnifyT);
-//        eye = GLKVector3Lerp(_eyeTop, _eyeZoomInTop, _zoomInT);
-//        center = GLKVector3Lerp(_projCenter, _zoomInCenter, _zoomInT);
-//        orthorWidth = _projWidth * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
-//        orthorHeight = _projHeight * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
-//    }
-//    else if (_state == Zoomed)
-//    {
-//        //        DebugLog(@"Zoomed _magnifyT %.2f", _magnifyT);
-//        eye = _eyeZoomInTop;
-//        center = _zoomInCenter;
-//        orthorWidth = self.gridRealSize;
-//        orthorHeight = self.gridRealSize;
-//        
-//    }
-//    else if(_state == ZoomOut)
-//    {
-//        //        DebugLog(@"ZoomOut _unMagnifyT %.2f", _unMagnifyT);
-//        eye = GLKVector3Lerp(_eyeZoomInTop, _eyeTop, _zoomOutT);
-//        center = GLKVector3Lerp(_zoomInCenter, _projCenter, _zoomOutT);
-//        orthorWidth =  self.gridRealSize * (1 - _zoomOutT) + _projWidth * _zoomOutT;
-//        orthorHeight =  self.gridRealSize * (1 - _zoomOutT) + _projHeight * _zoomOutT;
-//    }
-//    else if(_state == Projecting || _state == UnProjecting)
-//    {
-//        //当前观察点(在最佳观察点与顶部观察点之间lerp)
-//        eye = GLKVector3Lerp(_eye, _eyeTop, _eyeT);
-//        center = GLKVector3Lerp(_projFocus, _projCenter, _eyeT);
-//    }
-//    if(_state == CP_Projected)
-//    {
-//        eye = self.eyeTop;
-//        center = self.projCenter;
-//        orthorWidth = self.projWidth;
-//        orthorHeight = self.projHeight;
-//        
-//    }
-
-
-    
-    //计算绘制图片的矩阵
-//    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.projWidth, 1, self.projHeight);
-//    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(self.projCenter.x, self.projCenter.y, self.projCenter.z);
-//    GLKMatrix4 worldMatrix = GLKMatrix4Multiply(translateMatrix, scaleMatrix);
-
-    //test
-    eye = GLKVector3Lerp(self.eyeBottom, self.eyeTop, self.eyeBottomTopBlend);
-    focus = GLKVector3Make(0.0, 0, self.eyeTop.z);
-    
-    //如果中心点反向，则up向量反向
-    if (focus.z >= 0) {
-        up.z *= -1;
-    }
-    //    DebugLog(@"eye x:%.1f y:%.1f z:%.1f", eye.x, eye.y, eye.z);
-    //    DebugLog(@"center x:%.1f y:%.1f z:%.1f", center.x, center.y, center.z);
-    
-    GLKMatrix4 viewMatrix  = GLKMatrix4MakeLookAt(eye.x, eye.y, eye.z, focus.x, focus.y, focus.z, up.x, up.y, up.z);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(29), self.eyeTopAspect, NearClipDistance, FarClipDistance);
-    
-    orthorWidth = DeviceWidth;
-    orthorHeight = orthorWidth / self.eyeTopAspect;
-
-    //改为正交矩阵
-    GLKMatrix4 projectionOrthoMatrix = GLKMatrix4MakeOrtho(-orthorWidth * 0.5, orthorWidth * 0.5, -orthorHeight * 0.5, orthorHeight * 0.5,  NearClipDistance, FarClipDistance);
-
-    
-//    self.worldMatrix = worldMatrix;    
-    self.viewProjMatrix = GLKMatrix4Multiply(projectionMatrix, viewMatrix);
-    self.viewProjOrthoMatrix = GLKMatrix4Multiply(projectionOrthoMatrix, viewMatrix);
-    self.perspectiveToOrthoBlend = self.eyeBottomTopBlend;
-    self.viewProjMatrix = [Ultility MatrixLerpFrom:self.viewProjMatrix to:self.viewProjOrthoMatrix blend:self.eyeBottomTopBlend];
-//    DebugLog(@"eyeTopBottomBlend %.1f", self.eyeTopBottomBlend);
-    
-
-//    bool isInvertible = true;
-//    _viewProjInverseMatrix = GLKMatrix4Invert(GLKMatrix4Multiply(projectionMatrix, viewMatrix), &isInvertible);
-    //通过modelViewProjection 将单位1的向量转换到projection space(-1, 1),在通过屏幕viewport，得到实际1米 * measureScale在屏幕上的Size大小
-//    if (_state == Projected) {
-//        GLKVector4 unitVec = GLKVector4Make(1.0 * self.measureScale, 0, 0, 1);//worldMatrix Identity
-//        GLKVector4 unitHVec = GLKMatrix4MultiplyVector4(projectionMatrix, GLKMatrix4MultiplyVector4(viewMatrix, unitVec));
-//        GLKVector4 unitScreenVec = GLKVector4Make(unitHVec.x / unitHVec.w, unitHVec.y / unitHVec.w, unitHVec.z / unitHVec.w, unitHVec.w / unitHVec.w);
-//        //        DebugLog(@"unitScreenVec x:%.2f y:%.2f z:%.2f w:%.2f", unitScreenVec.x, unitScreenVec.y, unitScreenVec.z, unitScreenVec.w);
-//        self.gridPointSize = (unitScreenVec.x * 0.5) * self.view.bounds.size.width;
-//        if (useFeet) {
-//            self.gridPointSize = self.gridPointSize * self.measureScale;
-//        }
-//        //        DebugLog(@"gridPointSize %.2f", self.gridPointSize);
-//    }
-    
-
-    //绘制cylinder上的反射图片的来源，实际为反射图片在底面上的bounds
-    //reflection source的projectionMatrix 必须和 reflectionTexUVSpace 覆盖的范围一致, camera focus中心点和reflectionTexUVSpace center一致
-    
-    GLKVector4 reflectionTexUVSpace = GLKVector4Make(focus.x - orthorWidth * 0.5,
-                                                     focus.y - orthorHeight * 0.5 + self.eyeTop.z,
-                                                     orthorWidth,
-                                                     orthorHeight);
-    GLKMatrix4 reflViewMatrix  = GLKMatrix4MakeLookAt(self.eyeTop.x, self.eyeTop.y, self.eyeTop.z, focus.x, focus.y, focus.z, up.x, up.y, up.z);
-    GLKMatrix4 reflProjMatrix = GLKMatrix4MakeOrtho(-orthorWidth * 0.5, orthorWidth * 0.5, -orthorHeight * 0.5, orthorHeight * 0.5,  NearClipDistance, FarClipDistance);
-    self.reflViewProjMatrix = GLKMatrix4Multiply(reflProjMatrix, reflViewMatrix);
-
-
-    //更新cylinder的绘制参数
-    [self.cylinder updateMatrixView:viewMatrix
-                         projection:projectionMatrix
-                    projectionOrtho:projectionOrthoMatrix
-              perspectiveOrthoBlend:self.perspectiveToOrthoBlend
-                                eye:eye
-               reflectionTexUVSpace:reflectionTexUVSpace];
-    
-//    [self.grid updateMatrixView:viewMatrix projection:projectionMatrix];
+    Camera.mainCamera.position = GLKVector3Lerp(self.eyeBottom, self.eyeTop, self.eyeBottomTopBlend);
+    GLKMatrix4 matrix = [Ultility MatrixLerpFrom:self.bottomCameraProjMatrix to:self.topCamera.projMatrix blend:self.eyeBottomTopBlend];
+    Camera.mainCamera.projMatrix = matrix;
 }
 
 #pragma mark- 更新
--(void) updateParamsForDraw{
-    //计算在圆柱体内图像的参数
-    [self updateImageInCylinder];
-    
-    //计算投影长宽等参数
-    [self updateProjectedQuadParams];
-    
-    //计算渲染矩阵
-    [self updateRenderViewParams];
-}
-
 - (void)glkViewControllerUpdate:(GLKViewController *)controller{
 //    DebugLog(@"glkViewControllerUpdate");
     
@@ -544,170 +381,53 @@ GLushort cylinderProjectQuadVertexIndices[] =
     float timeDelta = curMediaTime - self.lastMediaTime;
     
     //重新设置投影地面的参数
-    [self updateParamsForDraw];
+    [self updateRenderViewParams];
+    
+    [self.curScene update];
 
     //动画中禁止所有交互操作
     if(self.state == CP_Projecting){
         //start to project
-        if ([self updateProjectFinished:timeDelta]) {
-            self.curProjectAnimationTime = 0;
+        [self.cylinderProject updateProjectFinished:timeDelta completion:^{
             self.state = CP_Projected;
             
             //run completion block
             [self allViewUserInteractionEnable:true];
-        }
-
+        }];
     }
     else if(self.state == CP_UnProjecting){
-        if ([self updateUnprojectFinished:timeDelta]) {
-            self.curUnprojectAnimationTime = 0;
+        [self.cylinderProject updateUnprojectFinished:timeDelta completion:^{
             self.state = CP_Paint;
             
             //run completion block
             if (_unprojectCompletionBlock) {
                 _unprojectCompletionBlock();
             }
-
-        }
-
+        }];
     }
     else if(self.state == CP_PitchingToTopView){
-        if ([self updateViewTopFinished:timeDelta]) {
-            self.curViewTopAnimationTime = 0;
+        [self updateViewTopFinished:timeDelta completion:^{
             self.state = CP_Projected;
+            
             //run completion block
 //            [self allViewUserInteractionEnable:true];
-        }
-
+        }];
     }
     else if(self.state == CP_PitchingToBottomView){
-        if ([self updateViewBottomFinished:timeDelta]) {
-            self.curViewBottomAnimationTime = 0;
+        [self updateViewBottomFinished:timeDelta completion:^{
             self.state = CP_Projected;
+            
             //run completion block
 //            [self allViewUserInteractionEnable:true];
-        }
-    }
-    else {
+        }];
     }
     
     self.lastMediaTime = curMediaTime;
 }
-#pragma mark- 绘图
-- (void)drawReflectionView:(GLKView *)view{
-    //使用投影Shader技术绘制地面
-#if DEBUG
-    glPushGroupMarkerEXT(0, "drawReflection");
-#endif
-    glClearColor(0.0, 0.0, 0.0, 1.0f);
-    [self.glWrapper bindFramebufferOES:_reflectionFramebuffer discardHint:true clear:true];
-    //viewport 比例和render target 长宽比例一致，保证撑满屏幕
-    glViewport(0, 0, self.reflectionTexSize, self.reflectionTexSize);
-    
-    glUseProgram(_programProject);
-    glUniform1i(_paintTextureUniform, 0);
-    glUniformMatrix4fv(_viewProjMatrixUniform, 1, 0, self.reflViewProjMatrix.m);
-    glUniformMatrix4fv(_worldMatrixUniform, 1, 0, self.worldMatrix.m);
-    glUniform4f(_eyeUniform, self.eye.x, self.eye.y, self.eye.z, 0);
-    glUniform1f(_radiusUniform, self.radius);
-    glUniform1f(_morphBlendUniform, self.morphBlend);
-    glUniform1f(_alphaBlendUniform, self.alphaBlend);
-    
-    //绘制投影地面
-    [self.glWrapper bindVertexArrayOES:_vertexArray];
-    
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:_paintTexture];
-    
-    glDrawElements(GL_TRIANGLES, self.meshRow * self.meshColumn * 2 * 3, GL_UNSIGNED_SHORT, 0);
 
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
-}
-
-- (void)drawCylinderAndImage:(GLKView *)view{
-    [self prepareDraw:view];
-  
-    //绘制anamorphic图片
-    [self drawAnamorphicImage];
-    
-    //绘制模拟圆柱体
-    [self.cylinder draw];
-    
-    //绘制参考线
-//    if (self.showGrid) {
-//        [self.grid draw];
-//    }
-    
-    [self endDraw];
-}
-- (void)prepareDraw:(GLKView *)view{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "prepareDraw");
-#endif
-    [self.projectView bindDrawable];
-    //将画面主体移动到中心
-    GLfloat offsetToCenter = -150;
-    glViewport(0, offsetToCenter, view.bounds.size.width, view.bounds.size.height);
-    
-    self.glWrapper.lastFramebuffer = 2;//? what is screen renderbuffer
-    glClearColor(90.0/255.0, 230.0 / 255.0, 71.0 / 255.0, 0.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_DEPTH_BUFFER_BIT);
-
-    const GLenum discards[] = {GL_COLOR_ATTACHMENT0};
-    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
-    
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
-}
-
--(void)endDraw{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "endDraw");
-#endif
-    glDisable(GL_DEPTH_TEST);
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
-}
-    
-- (void)drawAnamorphicImage{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "Draw Anamorphic Image");
-#endif
-    glDisable(GL_DEPTH_TEST);
-    
-    glUseProgram(_programProject);
-    glUniform1i(_paintTextureUniform, 0);
-    glUniformMatrix4fv(_viewProjMatrixUniform, 1, 0, self.viewProjMatrix.m);
-    glUniformMatrix4fv(_worldMatrixUniform, 1, 0, self.worldMatrix.m);
-    glUniform4f(_eyeUniform, self.eye.x, self.eye.y, self.eye.z, 0);
-    glUniform1f(_radiusUniform, self.radius);
-    glUniform1f(_morphBlendUniform, self.morphBlend);
-    glUniform1f(_alphaBlendUniform, self.alphaBlend);
-    
-    //绘制投影地面
-    [self.glWrapper bindVertexArrayOES:_vertexArray];
-    
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:_paintTexture];
-    
-    glDrawElements(GL_TRIANGLES, self.meshRow * self.meshColumn * 2 * 3, GL_UNSIGNED_SHORT, 0);
-    
-    glEnable(GL_DEPTH_TEST);
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
-}
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
-    //将反射绘制到render target中，用于采样
-    [self drawReflectionView:view];
-    
-    [self drawCylinderAndImage:view];
+    [self.curScene render];
 }
 
 #pragma mark- Opengles Shader相关
@@ -723,287 +443,44 @@ GLushort cylinderProjectQuadVertexIndices[] =
     return context;
 }
 
--(void)deleteReflectionFramebuffer{
-    RELEASE_FRAMEBUFFER(_reflectionFramebuffer)
-
-    RELEASE_TEXTURE(_reflectionTex)
-}
-
-- (BOOL)createRefelctionFramebuffer{
-    //创建frame buffer
-    self.reflectionTexSize = 1024;
-    glGenFramebuffersOES(1, &_reflectionFramebuffer);
-    [self.glWrapper bindFramebufferOES:_reflectionFramebuffer discardHint:false clear:false];
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _reflectionFramebuffer, 0, [@"reflectionFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    glGenTextures(1, &_reflectionTex);
-    [self.glWrapper bindTexture:_reflectionTex];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _reflectionTex, 0, [@"reflectionTex" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.reflectionTexSize, self.reflectionTexSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _reflectionTex, 0);
-    
-    
-    const GLenum discards[] = {GL_COLOR_ATTACHMENT0};
-    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    
-    [self.glWrapper bindTexture:0];
-
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
-    
-	return YES;
-}
-
 - (void)initGLState{
     glViewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     
     glEnable(GL_BLEND);
-    [self.glWrapper blendFunc:BlendFuncAlphaBlend];
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    
+    [GLWrapper.current blendFunc:BlendFuncAlphaBlend];
     
 }
 
 - (void)setupGL {
-    _glWrapper = [[GLWrapper alloc]init];
+    DebugLog(@"setupGL");
+    
+    [GLWrapper initialize];
     
     [EAGLContext setCurrentContext:self.context];
-    
-    [self createRefelctionFramebuffer];
-    
-    [self loadShaderProjectQuad];
-    
-    [self createModelProjectQuad];
-
-    [self.cylinder setupGLWrapper:self.glWrapper texMgr:self.texMgr reflectionTex:_reflectionTex];
-    
-//    [self.grid setupGL];
-    
     [self initGLState];
-}
+    
+    [Resources initialize];
 
-- (void)projectImageTearDownGL {
-    RELEASE_BUFFER(_vertexBuffer);
-
-    RELEASE_BUFFER(_indexBuffer);
-
-    RELEASE_VERTEXARRAY(_vertexArray);
-
-    RELEASE_PROGRAM(self.programProject);
+    Display.main = [[Display alloc]initWithGLKView:self.projectView];
 }
 
 - (void)tearDownGL {
     DebugLog(@"tearDownGL");
     
+    [GLWrapper destroy];
+    
     [EAGLContext setCurrentContext:self.context];
     
-//    [self.projectView deleteDrawable];
+    [Resources unloadAllAsset];
     
-    [self deleteReflectionFramebuffer];
+    [TextureManager destroy];
     
-    [self projectImageTearDownGL];
+    Display.main = nil;
     
-    [self.cylinder tearDownGL];
-    
-//    [self.grid tearDownGL];
-    
-    [self.texMgr destroyTextures];
-}
-
-//加载投影在地面上的面的模型
-- (BOOL)createModelProjectQuad{
-    self.meshRow = 100;
-    self.meshColumn = 100;
-    
-    //绑定gpu
-    glGenVertexArraysOES(1, &_vertexArray);
-    [self.glWrapper bindVertexArrayOES:_vertexArray];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexArray, 0, "projectQuad");
-#endif
-    //根据row column创建mesh数据
-    int vertRow = self.meshRow + 1;
-    int vertColumn = self.meshColumn + 1;
-    int vertLength = vertRow * vertColumn * 9;
-    int indicesLength = self.meshRow * self.meshColumn * 3 * 2;
-    float *meshVertices = (float*)malloc(vertLength * sizeof(float));
-    short *meshIndices = (short*)malloc(indicesLength * sizeof(short));
-    int fadeRow = 5;
-    int fadeColumn = 2;
-    
-    for (int i=0; i < vertRow; i++) {
-        for (int j=0; j < vertColumn; j++) {
-            int index = i * vertColumn + j;
-            //position
-            meshVertices[index*9] = (float)j / (float)self.meshColumn - 0.5f;
-            meshVertices[index*9 + 1] = 0;
-            meshVertices[index*9 + 2] = (float)i / (float)self.meshRow - 0.5f;
-            //uv
-            meshVertices[index*9 + 3] = (float)j / (float)self.meshColumn;
-            meshVertices[index*9 + 4] = 1.0f - (float)i / (float)self.meshRow;
-            //color
-            meshVertices[index*9 + 5] = 1.0f;
-            meshVertices[index*9 + 6] = 1.0f;
-            meshVertices[index*9 + 7] = 1.0f;
-            meshVertices[index*9 + 8] = 1.0f;
-            
-            //外围的点是半透明
-//            if(i < fadeRow){
-//                meshVertices[index*9 + 8] *= (float)i / (float)fadeRow;
-//            }
-//            else if(i > vertRow - fadeRow){
-//                meshVertices[index*9 + 8] *= (float)(vertRow - i - 1) / (float)fadeRow;
-//            }
-//            
-//            if(j < fadeColumn){
-//                meshVertices[index*9 + 8] *= (float)j / (float)fadeColumn;
-//            }
-//            else if(j > vertColumn - fadeColumn){
-//                meshVertices[index*9 + 8] *= (float)(vertColumn - j - 1) / (float)fadeColumn;
-//            }
-        }
-    }
-    
-    for(int i = 0; i < self.meshRow; ++i)
-    {
-        for(int j = 0; j < self.meshColumn; ++j)
-        {
-            int index = i * self.meshColumn + j;
-            int vertIndex = i * vertColumn + j;
-            meshIndices[index*6] = vertIndex;
-            meshIndices[index*6 + 1] = vertIndex+1;
-            meshIndices[index*6 + 2] = vertIndex + vertColumn;
-            
-            meshIndices[index*6 + 3] = vertIndex + 1;
-            meshIndices[index*6 + 4] = vertIndex + vertColumn + 1;
-            meshIndices[index*6 + 5] = vertIndex + vertColumn;
-        }
-    }
-    
-    glGenBuffers(1, &_indexBuffer);
-    [self.glWrapper bindElementBuffer:_indexBuffer];
-
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _indexBuffer, 0, "indexBufferProjectQuad");
-#endif
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(short) * indicesLength, meshIndices, GL_STATIC_DRAW);
-    
-    glGenBuffers(1, &_vertexBuffer);
-    [self.glWrapper bindBuffer:_vertexBuffer];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _vertexBuffer, 0, "vertexBufferProjectQuad");
-#endif
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertLength, meshVertices, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribColor);
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(20));
-    [self.glWrapper bindVertexArrayOES:0];
-    
-    free(meshVertices);
-    free(meshIndices);
-    
-    return YES;
-}
-
-//加载投影在地面上的面的Shader
-- (BOOL)loadShaderProjectQuad
-{
-    GLuint vertShader, fragShader;
-    NSString *vertShaderPathname, *fragShaderPathname;
-    
-    // Create shader program.
-    _programProject = glCreateProgram();
-    
-    // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderCylinderProject" ofType:@"vsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile vertex shader");
-        return NO;
-    }
-    
-    // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderCylinderProject" ofType:@"fsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile fragment shader");
-        return NO;
-    }
-    
-    // Attach vertex shader to program.
-    glAttachShader(_programProject, vertShader);
-    
-    // Attach fragment shader to program.
-    glAttachShader(_programProject, fragShader);
-    
-    // Bind attribute locations.
-    // This needs to be done prior to linking.
-    glBindAttribLocation(_programProject, GLKVertexAttribPosition, "position");
-
-    glBindAttribLocation(_programProject, GLKVertexAttribTexCoord0, "texcoord");
-    
-    glBindAttribLocation(_programProject, GLKVertexAttribColor, "color");
-    
-    // Link program.
-    if (![[ShaderManager sharedInstance] linkProgram:_programProject]) {
-        DebugLog(@"Failed to link program: %d", _programProject);
-        
-        if (vertShader) {
-            glDeleteShader(vertShader);
-            vertShader = 0;
-        }
-        if (fragShader) {
-            glDeleteShader(fragShader);
-            fragShader = 0;
-        }
-        if (_programProject) {
-            glDeleteProgram(_programProject);
-            _programProject = 0;
-        }
-        
-        return NO;
-    }
-    
-    // Get uniform locations.
-    
-    self.viewProjMatrixUniform = glGetUniformLocation(_programProject, "viewProjMatrix");
-
-    self.worldMatrixUniform = glGetUniformLocation(_programProject, "worldMatrix");
-    
-    self.radiusUniform = glGetUniformLocation(_programProject, "radius");
-
-    self.eyeUniform = glGetUniformLocation(_programProject, "eye");
-
-    self.morphBlendUniform = glGetUniformLocation(_programProject, "morphBlend");
-    
-    self.alphaBlendUniform = glGetUniformLocation(_programProject, "alphaBlend");
-    
-    self.paintTextureUniform = glGetUniformLocation(_programProject, "paintTex");
-    
-    // Release vertex and fragment shaders.
-    if (vertShader) {
-        glDetachShader(_programProject, vertShader);
-        glDeleteShader(vertShader);
-    }
-    if (fragShader) {
-        glDetachShader(_programProject, fragShader);
-        glDeleteShader(fragShader);
-    }
-#if DEBUG
-    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, _programProject, 0, [@"programProject" UTF8String]);
-#endif
-    return YES;
+    Camera.mainCamera = nil;
 }
 
 #pragma mark- UI动画
@@ -1034,47 +511,28 @@ GLushort cylinderProjectQuadVertexIndices[] =
     }];
 }
 
-- (BOOL) updateProjectFinished:(float)timeDelta{
-    self.curProjectAnimationTime += timeDelta;
-//    self.morphBlend = self.curProjectAnimationTime / self.projectAnimDuration;
-//    self.morphBlend = MIN(1, self.morphBlend);
-//    self.morphBlend = sinf(self.morphBlend * M_PI_2);//ease in out
 
-    self.alphaBlend = self.curProjectAnimationTime / self.projectAnimDuration;
-    self.alphaBlend = MIN(1, self.alphaBlend);
-    self.alphaBlend = sinf(self.alphaBlend * M_PI_2);//ease in out
-    
-    self.morphBlend = 1;
-//    self.alphaBlend = 1.0;
-    return self.alphaBlend >= 1.0;
-}
-
-- (BOOL) updateUnprojectFinished:(float)timeDelta{
-    self.curUnprojectAnimationTime += timeDelta;
-//    self.alphaBlend = 1.0 - self.curUnprojectAnimationTime / self.unprojectAnimDuration;
-//    self.alphaBlend = MAX(0, self.alphaBlend);
-//    self.alphaBlend = sinf(self.alphaBlend * M_PI_2);//ease in out
-    
-    self.alphaBlend = 0;
-    self.morphBlend = 1.0;
-    return self.alphaBlend <= 0.0;
-}
-
-- (BOOL) updateViewTopFinished:(float)timeDelta{
+- (void) updateViewTopFinished:(float)timeDelta completion: (void (^)(void))completion{
     self.curViewTopAnimationTime += timeDelta;
     self.eyeBottomTopBlend = self.curViewTopAnimationTime / self.viewTopAnimDuration;
     self.eyeBottomTopBlend = MIN(1, self.eyeBottomTopBlend);
     self.eyeBottomTopBlend = sinf(self.eyeBottomTopBlend * M_PI_2);//ease in out
     
-    return self.eyeBottomTopBlend >= 1.0;
+    if(self.eyeBottomTopBlend >= 1.0){
+        self.curViewTopAnimationTime = 0;
+        completion();
+    }
 }
 
-- (BOOL) updateViewBottomFinished:(float)timeDelta{
+- (void) updateViewBottomFinished:(float)timeDelta completion: (void (^)(void))completion{
     self.curViewBottomAnimationTime += timeDelta;
     self.eyeBottomTopBlend = 1.0 - self.curViewBottomAnimationTime / self.viewBottomAnimDuration;
     self.eyeBottomTopBlend = MAX(0, self.eyeBottomTopBlend);
     self.eyeBottomTopBlend = sinf(self.eyeBottomTopBlend * M_PI_2);//ease in out
-    return self.eyeBottomTopBlend <= 0.0;
+    if(self.eyeBottomTopBlend <= 0.0){
+        self.curViewBottomAnimationTime = 0;
+        completion();
+    }
 }
 
 #pragma mark- 核心变换
@@ -1086,22 +544,22 @@ GLushort cylinderProjectQuadVertexIndices[] =
 }
 
 //主题Logo
-- (void)loadLogoWithAnimation:(BOOL)anim{
-    self.paintTexture = [self.texMgr loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
-    
-    if (anim) {
-        [self startImageProjectAnim];
-    }
-    else{
-        self.alphaBlend = 1.0;
-        self.morphBlend = 1.0;
-    }
-}
+//- (void)loadLogoWithAnimation:(BOOL)anim{
+//    self.paintTexture = [TextureManager loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
+//    
+//    if (anim) {
+//        [self startImageProjectAnim];
+//    }
+//    else{
+//        self.alphaBlend = 1.0;
+//        self.morphBlend = 1.0;
+//    }
+//}
 
 - (void)reloadLogo{
     __weak typeof(self) weakSelf = self;
     _unprojectCompletionBlock = ^(void){
-        weakSelf.paintTexture = [weakSelf.texMgr loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
+        weakSelf.paintTexture.texID = [TextureManager loadTextureInfoFromImageName:@"AnamorphicTitle.png" reload:false].name;
         
         [weakSelf startImageProjectAnim];
     };
@@ -1118,7 +576,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
 -(void)viewImage:(NSString*)imagePathInDoc{
     __weak typeof(self) weakSelf = self;
     _unprojectCompletionBlock = ^(void){
-        weakSelf.paintTexture = [weakSelf.texMgr loadTextureInfoFromFileInDocument:imagePathInDoc reload:true].name;
+        weakSelf.paintTexture.texID = [TextureManager loadTextureInfoFromFileInDocument:imagePathInDoc reload:true].name;
         
         [weakSelf startImageProjectAnim];
     };
@@ -1169,9 +627,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
     CGContextRelease(newContext);
     CGColorSpaceRelease(colorSpace);
     
-    RELEASE_TEXTURE(_paintTexture);
-
-    self.paintTexture = [self.texMgr loadTextureInfoFromCGImage:newImage].name;
+    self.paintTexture.texID = [TextureManager loadTextureInfoFromCGImage:newImage].name;
     
     CGImageRelease(newImage);
 }
@@ -1349,7 +805,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
         
         // Do something interesting with the image.
         UIImage *image = [UIImage imageWithCGImage:halfWayImage];
-        self.paintTexture = [self.texMgr loadTextureInfoFromUIImage:image].name;
+        self.paintTexture.texID = [TextureManager loadTextureInfoFromUIImage:image].name;
 //        self.testImageView.backgroundColor = [UIColor colorWithPatternImage:image];
         
         CGImageRelease(halfWayImage);
@@ -1443,6 +899,17 @@ GLushort cylinderProjectQuadVertexIndices[] =
     [self.player seekToTime:kCMTimeZero];
 }
 
+#pragma mark- UIViewControllerTransitioningDelegate
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
+    self.transitionManager.isPresenting = YES;
+    return self.transitionManager;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
+    self.transitionManager.isPresenting = NO;
+    return self.transitionManager;
+}
+
 #pragma mark- 绘画代理PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup{
     return [self createBestEAGLContext];
@@ -1460,7 +927,7 @@ GLushort cylinderProjectQuadVertexIndices[] =
     self.paintDoc = paintDoc;
     self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
     self.paintScreenVC.delegate = self;
-//    self.paintScreenVC.transitioningDelegate = self;
+    self.paintScreenVC.transitioningDelegate = self;
     
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{

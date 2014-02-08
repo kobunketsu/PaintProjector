@@ -8,6 +8,7 @@
 
 attribute vec4 position;
 attribute vec4 texcoord;
+attribute vec4 color;
 
 uniform mat4 projMatrix;
 uniform mat4 modelViewMatrix;
@@ -16,6 +17,7 @@ uniform mat4 worldMatrix;
 varying highp vec2 texcoord0;
 varying highp vec4 worldPos;
 varying highp vec3 normal;
+varying lowp vec4 color0;
 void main()
 {
     worldPos = worldMatrix * position;
@@ -24,6 +26,7 @@ void main()
     normal = normalize(vNormal);
     texcoord0 = texcoord.xy;
     highp vec4 modelViewPos = modelViewMatrix * position;
+    color0 = color;
     
     gl_Position = projMatrix * modelViewPos;
 }

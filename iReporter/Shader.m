@@ -7,7 +7,28 @@
 //
 
 #import "Shader.h"
+#import "Resources.h"
+#import "GLWrapper.h"
 
 @implementation Shader
+- (id)init{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
 
+- (void)setUniformForKey:(NSString*)key{
+    GLuint uniform = glGetUniformLocation(self.program, [key UTF8String]);
+    [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:key];
+}
+
+- (void)destroy{
+    [super destroy];
+    
+    [self.uniformPropertyDic removeAllObjects];
+    self.uniformPropertyDic = nil;
+    
+    RELEASE_PROGRAM(_program);
+}
 @end

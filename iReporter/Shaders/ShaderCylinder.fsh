@@ -8,6 +8,7 @@
 varying highp vec2 texcoord0;
 varying highp vec4 worldPos;
 varying highp vec3 normal;
+varying lowp vec4 color0;
 
 uniform sampler2D texture0;
 uniform sampler2D reflectionTex;
@@ -43,5 +44,6 @@ void main()
 //    lowp vec4 cRefl = texture2D(reflectionTex, texcoord0);
 //    gl_FragColor.rgb = cBase.rgb + cRefl.rgb;
 
+    gl_FragColor.rgb *= color0.rgb;
     gl_FragColor.a = 1.0;
 }

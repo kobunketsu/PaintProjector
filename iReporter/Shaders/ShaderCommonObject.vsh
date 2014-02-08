@@ -8,13 +8,17 @@
 
 attribute vec4 position;
 attribute vec2 texcoord;
+attribute vec4 color;
 
-uniform mat4 viewProjectionMatrix;
+uniform mat4 viewProjMatrix;
 uniform mat4 worldMatrix;
-varying highp vec2 textureCoordinate;
+
+varying highp vec2 oTexcoord;
+varying highp vec4 oColor;
 void main()
 {
     highp vec4 worldPos = worldMatrix * position;
-    gl_Position = viewProjectionMatrix * worldPos;
-    textureCoordinate = texcoord;
+    gl_Position = viewProjMatrix * worldPos;
+    oTexcoord = texcoord;
+    oColor = color;
 }

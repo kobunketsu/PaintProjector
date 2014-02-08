@@ -110,8 +110,8 @@ float paintProjectQuadVertexData[] =
     _finalRenderbuffer = paintView.finalRenderbuffer;
     //截取texture
     UIImage *image = [paintView snapshotScreenToUIImageOutputSize:paintView.bounds.size];
-    _texMgr = [[TextureManager alloc]init];
-    _paintTexture = [self.texMgr loadTextureInfoFromUIImage:image].name;
+    [TextureManager initialize];
+    _paintTexture = [TextureManager loadTextureInfoFromUIImage:image].name;
     _bgTexture = paintView.backgroundTexture;
     
 //    _curViewAngleY = _lastViewAngleY = angle;
@@ -624,23 +624,23 @@ float paintProjectQuadVertexData[] =
 //    DebugLog(@"up x:%.1f y:%.1f z:%.1f", up.x, up.y, up.z);    
     
     GLKVector3 eye, center;
-    float orthorWidth = _projWidth;
-    float orthorHeight = _projHeight;
+    float orthoWidth = _projWidth;
+    float orthoHeight = _projHeight;
     if(_state == ZoomIn)
     {
 //        DebugLog(@"Magnifying _magnifyT %.2f", _magnifyT);
         eye = GLKVector3Lerp(_eyeTop, _eyeZoomInTop, _zoomInT);
         center = GLKVector3Lerp(_projCenter, _zoomInCenter, _zoomInT);
-        orthorWidth = _projWidth * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
-        orthorHeight = _projHeight * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
+        orthoWidth = _projWidth * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
+        orthoHeight = _projHeight * (1 - _zoomInT) + self.gridRealSize * _zoomInT;
     }
     else if (_state == Zoomed)
     {
 //        DebugLog(@"Zoomed _magnifyT %.2f", _magnifyT);
         eye = _eyeZoomInTop;
         center = _zoomInCenter;
-        orthorWidth = self.gridRealSize;
-        orthorHeight = self.gridRealSize;
+        orthoWidth = self.gridRealSize;
+        orthoHeight = self.gridRealSize;
         
     }
     else if(_state == ZoomOut)
@@ -648,8 +648,8 @@ float paintProjectQuadVertexData[] =
 //        DebugLog(@"ZoomOut _unMagnifyT %.2f", _unMagnifyT);
         eye = GLKVector3Lerp(_eyeZoomInTop, _eyeTop, _zoomOutT);
         center = GLKVector3Lerp(_zoomInCenter, _projCenter, _zoomOutT);
-        orthorWidth =  self.gridRealSize * (1 - _zoomOutT) + _projWidth * _zoomOutT;
-        orthorHeight =  self.gridRealSize * (1 - _zoomOutT) + _projHeight * _zoomOutT;
+        orthoWidth =  self.gridRealSize * (1 - _zoomOutT) + _projWidth * _zoomOutT;
+        orthoHeight =  self.gridRealSize * (1 - _zoomOutT) + _projHeight * _zoomOutT;
     }
 //    else if(_state == Projecting || _state == UnProjecting)
 //    {
@@ -661,8 +661,8 @@ float paintProjectQuadVertexData[] =
     {
         eye = _eyeTop;
         center = _projCenter;
-        orthorWidth = _projWidth;
-        orthorHeight = _projHeight;
+        orthoWidth = _projWidth;
+        orthoHeight = _projHeight;
         
     }
     //如果中心点反向，则up向量反向
@@ -679,9 +679,9 @@ float paintProjectQuadVertexData[] =
     GLKMatrix4 viewMatrix  = GLKMatrix4MakeLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
     GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, worldMatrix);
     //改为正交矩阵
-    DebugLog(@"projectionMatrix left %.1f right %.1f bottom %.1f top %.1f", -orthorWidth * 0.5, orthorWidth * 0.5, -orthorHeight * 0.5, orthorHeight * 0.5);
-    float orthorSize = MAX(orthorWidth, orthorHeight);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-orthorSize * 0.5, orthorSize * 0.5, -orthorHeight * 0.5, orthorSize - orthorHeight * 0.5,  NearClipDistance, FarClipDistance);
+    DebugLog(@"projectionMatrix left %.1f right %.1f bottom %.1f top %.1f", -orthoWidth * 0.5, orthoWidth * 0.5, -orthoHeight * 0.5, orthoHeight * 0.5);
+    float orthorSize = MAX(orthoWidth, orthoHeight);
+    GLKMatrix4 projectionMatrix = GLKMatrix4MakeOrtho(-orthorSize * 0.5, orthorSize * 0.5, -orthoHeight * 0.5, orthorSize - orthoHeight * 0.5,  NearClipDistance, FarClipDistance);
 //    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(HumanEyeFOV), _projAspect, NearClipDistance, FarClipDistance);
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     bool isInvertible = true;

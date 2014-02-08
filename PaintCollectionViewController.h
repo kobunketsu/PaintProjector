@@ -20,8 +20,7 @@
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
 CylinderProjectViewControllerDelegate,
-UIViewControllerTransitioningDelegate,
-UIViewControllerAnimatedTransitioning
+UIViewControllerTransitioningDelegate
 >
 
 @property (assign, nonatomic) id delegate;

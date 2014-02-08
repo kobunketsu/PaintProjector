@@ -179,14 +179,13 @@ typedef struct {
     
 }
 @property (retain, nonatomic) EAGLContext *context;
-@property (retain, nonatomic) GLWrapper* glWrapper;
+@property (retain, nonatomic) GLWrapper *glWrapper;
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic) size_t	vertexBrushMaxCount;
 @property (assign, nonatomic) GLuint VAOBrush;
 @property (assign, nonatomic) GLuint VAOBrushBack;
 @property (assign, nonatomic) GLuint VBOBrush;
 @property (assign, nonatomic) GLuint VBOBrushBack;
-@property (retain, nonatomic) TextureManager* texMgr;
 @property (retain, nonatomic)CommandManager *commandManager;
 @property (weak, nonatomic)NSMutableArray *brushTypes;
 @property (weak, nonatomic)EyeDropper *eyeDropper;

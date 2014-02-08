@@ -179,7 +179,7 @@
     [EAGLContext setCurrentContext:self.context];
     _glWrapper = [[GLWrapper alloc]init];
     //after set context
-    self.texMgr = [[TextureManager alloc]init];
+    [TextureManager initialize];
     
     [self loadShaders];
     
@@ -766,7 +766,7 @@
 - (void)destroyTextures{
     RELEASE_TEXTURE(_toTransformImageTex)
     
-    [self.texMgr destroyTextures];
+    [TextureManager destroyTextures];
 }
 
 //dealloc调用导致内存增加的问题？
@@ -1952,10 +1952,10 @@
             return NO;
         }
         
-        GLKTextureInfo* texInfo = [self.texMgr loadTextureInfoFromData:layer.data];
+        GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromData:layer.data];
         [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
         GLuint tex = texInfo.name;
-        [self.texMgr deleteTexture:tex];
+        [TextureManager deleteTexture:tex];
         
         [self.layerFramebuffers addObject:[NSNumber numberWithInt:layerFramebuffer]];
         [self.layerTextures addObject:[NSNumber numberWithInt:layerTexture]];
@@ -2053,10 +2053,10 @@
     }
     
     glClear(GL_COLOR_BUFFER_BIT);
-    GLKTextureInfo* texInfo = [self.texMgr loadTextureInfoFromData:layer.data];
+    GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromData:layer.data];
     [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
     GLuint tex = texInfo.name;
-    [self.texMgr deleteTexture:tex];
+    [TextureManager deleteTexture:tex];
 
     
     [self.layerFramebuffers insertObject:[NSNumber numberWithInt:layerFramebuffer] atIndex:index+1];
@@ -2595,7 +2595,7 @@
 - (void)beforeTransformImage:(UIImage*)uiImage{
     _state = PaintingView_TouchTransformImage;
     
-    GLKTextureInfo* texInfo = [self.texMgr loadTextureInfoFromUIImage:uiImage];
+    GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromUIImage:uiImage];
     _toTransformImageTex = texInfo.name;
     
     float widthScale = (float)texInfo.width / (float)self.bounds.size.width;

@@ -10,54 +10,70 @@
 //描述:
 //功能:
 
-#import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
-@interface Camera : NSObject{
-    GLKVector3 _target;
-    GLKVector3 _position;
-    GLKVector3 _dir;        
-    GLKVector3 _up;    
-    GLKVector3 _right;            
-    float _aspect;
-    float _fov;
-    float _nearClip;
-    float _farClip;    
-    GLKMatrix4 _viewMatrix;
-    GLKMatrix4 _projMatrix;    
-    GLKMatrix4 _viewProjMatrix;        
+#import "Component.h"
+#import "RenderTexture.h"
+#import "Display.h"
+
+typedef NS_ENUM(NSInteger, LayerMask) {
+    Layer_Default       = 1 <<  0,
+    Layer_Reflection    = 1 <<  1,
+};
+
+typedef NS_ENUM(NSInteger, CullingMask) {
+    Culling_Nothing       = 0,
+    Culling_Everything    = 0xFF,
+    Culling_Default       = 1 <<  0,
+    Culling_Reflection    = 1 <<  1,
+};
+
+@class Camera;
+
+static Camera *mainCamera;
+static Camera *current;
+static NSMutableArray *allCameras;
+
+@interface Camera : Component{
+    
 }
+@property (assign, nonatomic)GLKVector3 focus;
+@property (assign, nonatomic)GLKVector3 position;
+@property (assign, nonatomic)GLKVector3 dir;
+@property (assign, nonatomic)GLKVector3 up;
+@property (assign, nonatomic)GLKVector3 right;
+@property (assign, nonatomic)float aspect;
+@property (assign, nonatomic)float fov;
+@property (assign, nonatomic, getter = isOrtho)BOOL orthor;
+@property (assign, nonatomic)float orthoWidth;
+@property (assign, nonatomic)float orthoHeight;
+@property (assign, nonatomic)float nearClip;
+@property (assign, nonatomic)float farClip;
 @property (assign, nonatomic)GLKMatrix4 viewMatrix;
--(void)updateViewMatrix;
-- (GLKVector3)target;
+@property (assign, nonatomic)GLKMatrix4 projMatrix;
+@property (assign, nonatomic)GLKMatrix4 viewProjMatrix;
+@property (assign, nonatomic)GLKVector4 backgroundColor;
+@property (assign, nonatomic)CullingMask cullingMask;
+@property (retain, nonatomic)NSMutableArray *cullingEntities;
+@property (weak, nonatomic)RenderTexture *targetTexture;
 
-- (void)setTarget:(GLKVector3)newValue;
 
-- (GLKVector3)position;
++ (Camera*)mainCamera;
++ (void)setMainCamera:(Camera*)camera;
++ (Camera*)current;
++ (void)setCurrent:(Camera*)camera;
 
-- (void)setPosition:(GLKVector3)newValue;
+-(id)initPerspectiveWithPosition:(GLKVector3)position focus:(GLKVector3)focus up:(GLKVector3)up fov:(float)fov aspect:(float)aspect nearClip:(float)nearClip farClip:(float)farClip;
+    
+-(id)initOrthorWithPosition:(GLKVector3)position focus:(GLKVector3)focus up:(GLKVector3)up orthoWidth:(float)orthoWidth orthoHeight:(float)orthoHeight nearClip:(float)nearClip farClip:(float)farClip;
 
-- (GLKVector3)up;
+- (void)updateViewMatrix;
 
-- (void)setUp:(GLKVector3)newValue;
+//set a custom proj matrix
+- (void)setProjMatrix:(GLKMatrix4)projMatrix;
+//reset to normal proj matrix from custom
+- (void)resetProjMatrix;
 
-- (float)aspect;
-
-- (void)setAspect:(float)newValue;
-
-- (float)fov;
-
-- (void)setFov:(float)newValue;
-
-- (float)nearClip;
-
-- (void)setNearClip:(float)newValue;
-
-- (float)farClip;
-
-- (void)setFarClip:(float)newValue;
-
-- (GLKMatrix4)viewProjMatrix;
-
-//- (void)setViewProjMatrix:(GLKMatrix4)newValue;
-
+//- (void)preRender;
+- (void)render;
+//- (void)postRender;
 @end
