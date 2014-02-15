@@ -50,7 +50,7 @@ float vertexData[] =
 //    _isPaintMode = true;
     //texMgr not retained
     [TextureManager initialize];
-    _floorTextureInfo = [TextureManager loadTextureInfoFromImageName:@"check.jpg" reload:false];
+    _floorTextureInfo = [TextureManager textureInfoFromImageName:@"check.jpg" reload:false];
 //    _paintTextureInfo = _floorTextureInfo;            //test
     
 }

@@ -20,11 +20,20 @@
 
 - (void)addEntity:(Entity*)entity{
     [self.aEntities addObject:entity];
+    
+    for (Camera *camera in self.aCameras) {
+        if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
+            if (![camera.cullingEntities containsObject:entity]) {
+                [camera.cullingEntities addObject:entity];
+            }
+        }
+    }
 }
 
 - (void)flushAll{
     for (Camera *camera in self.aCameras) {
         //culling
+        [camera.cullingEntities removeAllObjects];
         for (Entity *entity in self.aEntities) {
             if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
                 [camera.cullingEntities addObject:entity];
@@ -35,6 +44,13 @@
 
 - (void)addCamera:(Camera*)camera{
     [self.aCameras addObject:camera];
+    
+    [camera.cullingEntities removeAllObjects];
+    for (Entity *entity in self.aEntities) {
+        if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
+            [camera.cullingEntities addObject:entity];
+        }
+    }
 }
 
 - (void)render{
@@ -51,4 +67,10 @@
     }
 }
 
+- (void)destroy{
+    [super destroy];
+    
+    [self.aCameras removeAllObjects];
+    [self.aEntities removeAllObjects];
+}
 @end

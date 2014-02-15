@@ -10,18 +10,18 @@
 #import "GLWrapper.h"
 #import "Object.h"
 #import "Shader.h"
-#import "BaseEffect.h"
+//#import "BaseEffect.h"
 #import "Texture.h"
 
 @interface Material : Object
 @property (weak, nonatomic) Shader *shader;
-@property (weak, nonatomic) BaseEffect *effect;
+//@property (weak, nonatomic) BaseEffect *effect;
 @property (weak, nonatomic) Texture *mainTexture;
 @property (assign, nonatomic) BOOL transparent;
 
 -(id)initWithShader:(Shader *)shader;
 
--(id)initWithEffect:(BaseEffect *)effect;
+//-(id)initWithEffect:(BaseEffect *)effect;
 
 //- (void)setFloat:(GLfloat)value forPropertyId:(GLint)propertyId;
     

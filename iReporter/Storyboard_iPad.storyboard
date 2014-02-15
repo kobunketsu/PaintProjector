@@ -379,19 +379,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="Wg5-3D-iTn">
-                                    <size key="itemSize" width="220" height="290"/>
+                                    <size key="itemSize" width="220" height="305"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="30"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PaintCollectionViewCell" reuseIdentifier="PaintCollectionViewCell" id="x3E-rr-5gw" customClass="PaintCollectionViewCell">
-                                        <rect key="frame" x="30" y="30" width="220" height="290"/>
+                                        <rect key="frame" x="30" y="30" width="220" height="305"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="220" height="290"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkCircle.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
+                                                    <rect key="frame" x="3" y="3" width="214" height="298"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <button userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Rs-q3-ZDJ" userLabel="Paint Frame View" customClass="PaintFrameView">
                                                     <rect key="frame" x="5" y="5" width="210" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1224,7 +1228,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="" label="Canvas">
                                             <accessibilityTraits key="traits" none="YES" updatesFrequently="YES"/>
                                             <bool key="isElement" value="YES"/>
@@ -1279,7 +1283,6 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.49019607840000001" green="0.50980392159999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" label="DrawingPad">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -1922,7 +1925,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" label="PaintScreen">
                             <bool key="isElement" value="YES"/>
                         </accessibility>
@@ -2220,7 +2222,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <glkView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="16" drawableStencilFormat="8" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="CylinderProjectView">
+                            <glkView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="16" drawableStencilFormat="8" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="CylinderProjectView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -2350,6 +2352,7 @@
                         <outlet property="toolBar" destination="jlQ-I2-QJ2" id="G5d-37-Jjj"/>
                         <outlet property="topViewButton" destination="853-Ud-5W7" id="CtG-Tu-pZ4"/>
                         <outletCollection property="allViews" destination="jlQ-I2-QJ2" id="hiq-s8-E4B"/>
+                        <outletCollection property="allViews" destination="nbv-5J-Y5R" id="zop-G3-uPH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeZ-Fy-Wf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2732,6 +2735,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkCircle.png" width="210" height="295"/>
         <image name="close.png" width="44" height="44"/>
         <image name="screenMask.png" width="768" height="1024"/>
         <image name="studioBackground.png" width="768" height="1024"/>

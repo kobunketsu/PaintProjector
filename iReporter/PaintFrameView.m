@@ -15,7 +15,7 @@
 //    DebugLog(@"[initWithCoder]");
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self initApperance];
+//        [self initApperance];
      
     }
     return self;
@@ -26,7 +26,7 @@
 //    DebugLog(@"[initWithFrame]");
     self = [super initWithFrame:frame];
     if (self) {
-        [self initApperance];
+//        [self initApperance];
     }
     return self;
 }

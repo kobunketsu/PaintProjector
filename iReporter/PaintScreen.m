@@ -110,7 +110,6 @@ typedef struct {
 @property (assign, nonatomic) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
 @property (retain, nonatomic) LayerTableViewController *layerTableViewController;
 @property (retain, nonatomic) NSDictionary *workspace;
-@property (retain, nonatomic) PaintDoc *paintDoc;
 @property (retain, nonatomic) Brush   *curBrush;
 @property (retain, nonatomic) EyeDropper *eyeDropper;
 @property (retain, nonatomic) InfColorPickerController *infColorPickerController;
@@ -209,10 +208,10 @@ typedef struct {
     self.lastDeviceAppOrientation = UIDeviceOrientationPortrait;
 
     //rootCanvasView
-    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
-    self.rootCanvasView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+//    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
+//    self.rootCanvasView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
     
-    //paintView 设置 //deprecated shadow cause fps drop down
+    //paintView 设置
     CGPathRef path = [UIBezierPath bezierPathWithRect:self.paintView.bounds].CGPath;
     [self.paintView.layer setShadowPath:path];
     self.paintView.layer.shadowOpacity = 0.5;
@@ -3974,11 +3973,14 @@ typedef struct {
 }
 
 -(void)didOpenPaintDoc{
+    DebugLog(@"didOpenPaintDoc");
+    
     //paintView alpha fade in
-    self.paintView.alpha = 0;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.paintView.alpha = 1.0;
-    } completion:nil];
+//    self.paintView.alpha = 0;
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.paintView.alpha = 1.0;
+//    } completion:nil];
+    self.paintView.alpha = 1;
     
     [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
     [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];

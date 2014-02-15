@@ -75,5 +75,5 @@ void main()
     texcoord0.y = 1.0 - texcoord0.y;
 
     color0 = color;
-    color0.a *= alphaBlend;
+    color0.a = alphaBlend;
 }

@@ -27,14 +27,14 @@
     return  self;
 }
 
--(id)initWithEffect:(BaseEffect *)effect{
-    self = [super init];
-    if (self) {
-        _effect = effect;
-//        [Resources addObject:self];
-    }
-    return  self;
-}
+//-(id)initWithEffect:(BaseEffect *)effect{
+//    self = [super init];
+//    if (self) {
+//        _effect = effect;
+////        [Resources addObject:self];
+//    }
+//    return  self;
+//}
 
 - (void)setFloat:(GLfloat)value forPropertyName:(NSString*)propertyName{
     NSNumber *num = [self.shader.uniformPropertyDic objectForKey:propertyName];
@@ -72,4 +72,19 @@
         [GLWrapper.current activeTexSlot:textureSlot bindTexture:texture.texID];
     }
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    Material *material = (Material *)[super copyWithZone:zone];
+    material.shader = self.shader;
+    material.mainTexture = self.mainTexture;
+    material.transparent = self.transparent;
+    return material;
+}
+
+-(void)destroy{
+    [super destroy];
+    
+    [self.mainTexture destroy];
+}
+
 @end

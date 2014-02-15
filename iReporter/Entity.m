@@ -18,6 +18,8 @@
     }
     return self;
 }
+
+
 - (void)render{
 #if DEBUG
     NSString *renderLog = [NSString stringWithFormat:@"rendering entity %@", self.name];
@@ -41,5 +43,21 @@
 - (void)destroy{
     [super destroy];
     [self setTransform:nil];
+    [self setRenderer:nil];
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    Entity *entity = (Entity *)[super copyWithZone:zone];
+    entity.transform = [self.transform copy];
+    entity.renderer = [self.renderer copy];
+    entity.layerMask = self.layerMask;
+    return entity;
+}
+
+- (void)setActive:(BOOL)active{
+    [super setActive:active];
+    
+    [self.renderer setActive:active];
+}
+
 @end

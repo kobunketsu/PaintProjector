@@ -111,7 +111,7 @@ float paintProjectQuadVertexData[] =
     //截取texture
     UIImage *image = [paintView snapshotScreenToUIImageOutputSize:paintView.bounds.size];
     [TextureManager initialize];
-    _paintTexture = [TextureManager loadTextureInfoFromUIImage:image].name;
+    _paintTexture = [TextureManager textureInfoFromUIImage:image].name;
     _bgTexture = paintView.backgroundTexture;
     
 //    _curViewAngleY = _lastViewAngleY = angle;

@@ -24,9 +24,16 @@
     
     size_t subMeshCount = self.meshFilter.mesh.subMeshTriCounts.count;
     for (size_t i = 0; i < subMeshCount; ++i) {
-        Material *material = [self.materials objectAtIndex:i];
+        Material *material = nil;
+        if (i < self.materials.count) {
+            material = [self.materials objectAtIndex:i];
+        }
+
         if (!material) {
-            continue;
+            material = [self.sharedMaterials objectAtIndex:i];
+            if (!material) {
+                continue;
+            }
         }
 
         NSNumber *subMeshTriCount = [self.meshFilter.mesh.subMeshTriCounts objectAtIndex:i];
@@ -38,16 +45,16 @@
             glDepthMask(GL_FALSE);
         }
         
-        if (material.effect != nil) {
-            [material.effect prepareToDraw];
-        }
-        else{
+//        if (material.effect != nil) {
+//            [material.effect prepareToDraw];
+//        }
+//        else{
             [GLWrapper.current useProgram:material.shader.program uniformBlock:^{
             }];
             if (material.mainTexture.texID) {
                 [GLWrapper.current activeTexSlot:GL_TEXTURE0 bindTexture:material.mainTexture.texID];
             }
-        }
+//        }
         
         //TODO: use other texture
         [self.delegate willRenderSubMeshAtIndex:i];
@@ -67,5 +74,11 @@
             glDepthMask(GL_TRUE);
         }
     }
+}
+
+- (id)copyWithZone:(NSZone *)zone{
+    MeshRenderer *renderer = (MeshRenderer *)[super copyWithZone:zone];
+    renderer.meshFilter = [self.meshFilter copy];
+    return  renderer;
 }
 @end

@@ -34,16 +34,11 @@ void main()
     lowp vec4 cBase = texture2D(texture0, texcoord0);
     
     lowp vec4 cRefl = texture2D(reflectionTex, vec2(u, v));
-    if (cRefl.x + cRefl.y + cRefl.z < 0.01) {
-        gl_FragColor.rgb = cBase.rgb;
-    }
-    else
-    {
-        gl_FragColor.rgb = cBase.rgb * 0.5 + cRefl.rgb;
-    }
-//    lowp vec4 cRefl = texture2D(reflectionTex, texcoord0);
-//    gl_FragColor.rgb = cBase.rgb + cRefl.rgb;
 
+    lowp float reflStrength = eye.w;
+    gl_FragColor.rgb = (cBase.rgb * 0.5 + cRefl.rgb * cRefl.a) * reflStrength;
+    
     gl_FragColor.rgb *= color0.rgb;
+
     gl_FragColor.a = 1.0;
 }

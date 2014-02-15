@@ -8,6 +8,9 @@
 
 #import "Object.h"
 
-@interface Component : Object
+@class Animation;
 
+@interface Component : Object
+@property (assign, nonatomic, getter = isActive) BOOL active;
+@property(retain, nonatomic) Animation *animation;
 @end

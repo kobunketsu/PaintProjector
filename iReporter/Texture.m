@@ -17,7 +17,14 @@
     }
     return self;
 }
+
 @synthesize texID = _texID;
+
++(id)textureFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
+    Texture *texture = [[Texture alloc]init];
+    texture.texID = [TextureManager textureInfoFromImagePath:imagePath reload:reload].name;
+    return texture;
+}
 
 - (void)destroy{
     [super destroy];

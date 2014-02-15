@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol PaintFrameTransitionManagerDelegate <NSObject>
-
+- (CGRect)willGetCylinderMirrorFrame;
 @end
 
 @interface PaintFrameTransitionManager : NSObject<UIViewControllerAnimatedTransitioning>

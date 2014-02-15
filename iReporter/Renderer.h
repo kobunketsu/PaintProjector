@@ -17,9 +17,10 @@
 
 @interface Renderer : Component
 @property (assign, nonatomic) id delegate;
-@property (weak, nonatomic) Material *material;
+@property (retain, nonatomic) Material *material;
 @property (retain, nonatomic) NSMutableArray *materials;
-
+@property (weak, nonatomic) Material *sharedMaterial;
+@property (retain, nonatomic) NSMutableArray *sharedMaterials;
 - (id)init;
 
 - (void)render;

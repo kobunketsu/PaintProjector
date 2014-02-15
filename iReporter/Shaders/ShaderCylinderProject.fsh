@@ -14,7 +14,7 @@ void main()
 {
     lowp vec4 cPaint = texture2D(paintTex, texcoord0);
     
-    gl_FragColor.rgb = cPaint.rgb * color0.rgb;
+    gl_FragColor.rgb = cPaint.rgb * cPaint.a * color0.a;
 //    gl_FragColor.rgb = vec3(0, 0, 1);
-    gl_FragColor.a = color0.a;
+    gl_FragColor.a = cPaint.a * color0.a;
 }

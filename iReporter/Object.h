@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Object : NSObject
+@interface Object : NSObject <NSCopying>
 @property(assign, nonatomic)NSString *name;
 
 +(void)destroy:(Object*)object;
 
 -(void)destroy;
+
 @end

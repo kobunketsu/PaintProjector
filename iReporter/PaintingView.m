@@ -1952,7 +1952,7 @@
             return NO;
         }
         
-        GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromData:layer.data];
+        GLKTextureInfo* texInfo = [TextureManager textureInfoFromData:layer.data];
         [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
         GLuint tex = texInfo.name;
         [TextureManager deleteTexture:tex];
@@ -2053,7 +2053,7 @@
     }
     
     glClear(GL_COLOR_BUFFER_BIT);
-    GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromData:layer.data];
+    GLKTextureInfo* texInfo = [TextureManager textureInfoFromData:layer.data];
     [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
     GLuint tex = texInfo.name;
     [TextureManager deleteTexture:tex];
@@ -2595,7 +2595,7 @@
 - (void)beforeTransformImage:(UIImage*)uiImage{
     _state = PaintingView_TouchTransformImage;
     
-    GLKTextureInfo* texInfo = [TextureManager loadTextureInfoFromUIImage:uiImage];
+    GLKTextureInfo* texInfo = [TextureManager textureInfoFromUIImage:uiImage];
     _toTransformImageTex = texInfo.name;
     
     float widthScale = (float)texInfo.width / (float)self.bounds.size.width;

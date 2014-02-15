@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol PaintScreenTransitionManagerDelegate <NSObject>
-
+- (CGRect)willGetCylinderMirrorFrame;
 @end
 
 @interface PaintScreenTransitionManager : NSObject

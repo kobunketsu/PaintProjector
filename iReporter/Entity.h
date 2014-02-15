@@ -9,9 +9,13 @@
 #import "Component.h"
 #import "Renderer.h"
 #import "Transform.h"
+#import "Animation.h"
 
 @interface Entity : Component <RendererDelegate>
-@property(weak, nonatomic) Renderer *renderer;//responsible to dealloc
+{
+}
+
+@property(retain, nonatomic) Renderer *renderer;
 @property(retain, nonatomic) Transform *transform;
 @property(assign, nonatomic) LayerMask layerMask;
 

@@ -12,5 +12,6 @@
 @property (assign, nonatomic) GLKVector3 eye;
 @property(weak, nonatomic)Texture *reflectionTex;
 @property(assign, nonatomic)GLKVector4 reflectionTexUVSpace;
+@property(assign, nonatomic)CGFloat reflectionStrength;
 
 @end

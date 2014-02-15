@@ -19,4 +19,12 @@
     }
     return self;
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    Transform *transform = (Transform *)[super copyWithZone:zone];
+    transform.translate = self.translate;
+    transform.scale = self.scale;
+    transform.rotate = self.rotate;
+    return transform;
+}
 @end

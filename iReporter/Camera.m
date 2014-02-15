@@ -196,8 +196,9 @@
 
 //    [self preRender];
     for (Entity *entity in self.cullingEntities) {
-
-        [entity render];
+        if (entity.active) {
+            [entity render];
+        }
     }
 //    [self postRender];
 }

@@ -20,4 +20,10 @@
     return  self;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    MeshFilter *filter = (MeshFilter *)[super copyWithZone:zone];
+    filter.mesh = self.mesh;
+    filter.sharedMesh = self.sharedMesh;
+    return  filter;
+}
 @end

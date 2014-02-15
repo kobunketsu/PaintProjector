@@ -383,7 +383,7 @@
         return;
     }
     
-    _shapeTexture = [TextureManager loadTextureInfoFromImageName:textureName reload:false].name;
+    _shapeTexture = [TextureManager textureInfoFromImageName:textureName reload:false].name;
     if (_shapeTexture == 0) {
         self.brushState.isShapeTexture = false;
         DebugLog(@"setBrushShapeTexture loadTextureInfo failed");
@@ -395,9 +395,9 @@
 
 -(void) setBrushCommonTextures
 {
-    _maskTexture = [TextureManager loadTextureInfoFromImageName:@"brushSoftFallOff.png" reload:false].name;
+    _maskTexture = [TextureManager textureInfoFromImageName:@"brushSoftFallOff.png" reload:false].name;
     
-    _noiseTexture = [TextureManager loadTextureInfoFromImageName:@"noise.png" reload:false].name;
+    _noiseTexture = [TextureManager textureInfoFromImageName:@"noise.png" reload:false].name;
 }
 - (void)setPatternTextureWithImage: (NSString*)patterName{
     

@@ -15,4 +15,5 @@
     GLuint _texID;
 }
 @property (assign, nonatomic) GLuint texID;
++(id)textureFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
 @end

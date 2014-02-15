@@ -84,7 +84,7 @@
 
 }
 
-+ (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
++ (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft, 
@@ -121,22 +121,22 @@
 //    return texInfo;
 }
 
-+ (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload{
++ (GLKTextureInfo *)textureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload{
     NSString* path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:filePathInDoc];            
-    return [self loadTextureInfoFromImagePath:path reload:reload];
+    return [self textureInfoFromImagePath:path reload:reload];
 }
 
-+ (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload{
++ (GLKTextureInfo *)textureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload{
     NSString *path = [Ultility getPathInApp:imageName];
     if (path!=nil) {    
-        return [self loadTextureInfoFromImagePath:path reload:reload];
+        return [self textureInfoFromImagePath:path reload:reload];
     }
     else{
         return nil;
     }
 }
 
-+ (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image{
++ (GLKTextureInfo *)textureInfoFromCGImage:(CGImageRef)image{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft,
@@ -160,7 +160,7 @@
 //    return texInfo;
 }
 
-+ (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage{
++ (GLKTextureInfo *)textureInfoFromUIImage:(UIImage*)uiImage{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft, 
@@ -190,7 +190,7 @@
 }
 
 
-+ (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data{
++ (GLKTextureInfo *)textureInfoFromData:(NSData*)data{
     NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSNumber numberWithBool:YES],
                               GLKTextureLoaderOriginBottomLeft,

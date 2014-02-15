@@ -168,6 +168,7 @@ FuzzyTransparentViewDelegate
 }
 
 @property (assign, nonatomic) id delegate;
+@property (retain, nonatomic) PaintDoc *paintDoc;
 
 //Interface Builder
 @property (weak, nonatomic) IBOutlet UIView *testOpenGLView;

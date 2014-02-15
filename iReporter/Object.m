@@ -26,4 +26,10 @@
 //    [NSException raise:NSInternalInconsistencyException
 //                format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    Object *object = [[[self class] alloc]init];
+    object.name = self.name;
+    return object;
+}
 @end

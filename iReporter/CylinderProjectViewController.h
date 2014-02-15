@@ -18,6 +18,8 @@
 #import "Ultility.h"
 #import "TextureManager.h"
 #import "ShaderManager.h"
+#import "TPPropertyAnimation.h"
+//object
 #import "Display.h"
 #import "Camera.h"
 #import "Grid.h"
@@ -26,12 +28,14 @@
 #import "ShaderCylinderProject.h"
 #import "ShaderCylinder.h"
 #import "ShaderNoLitTexture.h"
-
 #import "Scene.h"
 #import "PlaneMesh.h"
 #import "CylinderMesh.h"
+//component
 #import "MeshFilter.h"
 #import "MeshRenderer.h"
+#import "Animation.h"
+
 
 #import "PlayerView.h"
 //#import "ZBarSDK.h"
@@ -45,6 +49,9 @@
 #import "PaintDoc.h"
 #import "PaintDocManager.h"
 
+#import "PaintScreenTransitionManager.h"
+#import "CustomPercentDrivenInteractiveTransition.h"
+
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
 #define DeviceWidth 0.154
@@ -52,13 +59,13 @@
 static const NSString *ItemStatusContext;
 
 typedef NS_ENUM(NSInteger, CylinderProjectViewState) {
-    CP_Paint,
-    CP_PitchingToTopView,
-    CP_PitchingToBottomView,
-    
-    CP_Projecting,
-    CP_Projected,
-    CP_UnProjecting,
+    CP_Default,
+//    CP_PitchingToTopView,
+//    CP_PitchingToBottomView,
+//    
+//    CP_Projecting,
+//    CP_Projected,
+//    CP_UnProjecting,
     
     CP_RotateImage,
     CP_RotateViewAxisX,
@@ -82,7 +89,10 @@ typedef void(^MyCompletionBlock)(void);
 GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 UIViewControllerTransitioningDelegate,
-PaintScreenDelegate
+PaintScreenTransitionManagerDelegate,
+PaintScreenDelegate,
+TPPropertyAnimationDelegate,
+CustomPercentDrivenInteractiveTransition
 //ZBarReaderDelegate
 >
 {
@@ -92,34 +102,35 @@ PaintScreenDelegate
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (assign, nonatomic) id delegate;
+
+#pragma mark- File
+@property (weak, nonatomic) PaintFrameViewGroup *paintFrameViewGroup;
+
 #pragma mark- User Input
 @property (assign, nonatomic) CGFloat inputCylinderRadius;
 @property (assign, nonatomic) CGFloat inputCylinderImageWidth;
 @property (assign, nonatomic) CGFloat inputCylinderImageCenterOnSurfHeight;
 #pragma mark- GL
 @property (retain, nonatomic) EAGLContext *context;
+
 #pragma mark- Scene
 @property (retain, nonatomic) Texture *paintTexture;
 @property (retain, nonatomic) Scene *curScene;
-@property (retain, nonatomic) CylinderProject *cylinderProject;
+@property (retain, nonatomic) CylinderProject *cylinderProjectCur;
+@property (retain, nonatomic) CylinderProject *cylinderProjectNext;
+@property (retain, nonatomic) CylinderProject *cylinderProjectLast;
 @property (retain, nonatomic) Cylinder *cylinder;//圆柱体
+@property (assign, nonatomic) CGFloat cylinderProjectDefaultAlphaBlend;
 
-#pragma mark- 投影动画
-@property (assign, nonatomic) float lastMediaTime;//上个时间点
-@property (copy, nonatomic) MyCompletionBlock unprojectCompletionBlock;
-
+#pragma mark- 交互
+@property (retain, nonatomic) CustomPercentDrivenInteractiveTransition *browseNextAction;
+@property (retain, nonatomic) CustomPercentDrivenInteractiveTransition *browseLastAction;
 #pragma mark- 视角变换
 @property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部
 @property (assign, nonatomic) GLKVector3 eyeBottom;//视角底部
 @property (assign, nonatomic) float eyeTopAspect;//顶视图长宽比
 @property (assign, nonatomic) float eyeBottomTopBlend;
 @property (assign, nonatomic) float toEyeBottomTopBlend;
-
-#pragma mark- 视角变换动画
-@property (assign, nonatomic) float curViewTopAnimationTime;
-@property (assign, nonatomic) float curViewBottomAnimationTime;  
-@property (assign, nonatomic) float viewTopAnimDuration;
-@property (assign, nonatomic) float viewBottomAnimDuration;
 
 #pragma mark- project display helper
 @property (assign, nonatomic) BOOL showGrid;//是否显示网格
@@ -138,7 +149,6 @@ PaintScreenDelegate
 @property (weak, nonatomic) IBOutlet UIImageView *screenMask;
 @property (weak, nonatomic) IBOutlet DownToolBar *toolBar;
 
-
 #pragma mark- viewMode
 @property (retain, nonatomic) Camera *topCamera;
 @property (assign, nonatomic) GLKMatrix4 bottomCameraProjMatrix;
@@ -149,8 +159,12 @@ PaintScreenDelegate
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
+#pragma mark- cylinder coordinate
+- (CGRect)getCylinderMirrorFrame;
+- (CGRect)getCylinderMirrorTopFrame;
+
 #pragma mark- paintDoc
-@property (weak, nonatomic) PaintDoc *paintDoc;
+//@property (weak, nonatomic) PaintDoc *curPaintDoc;
 -(void)viewPaintDoc:(PaintDoc*)paintDoc;
 - (void)openPaintDoc:(PaintDoc*)paintDoc;
 

@@ -30,8 +30,54 @@
     
     self.lastPaintIndex = self.curPaintIndex;
     DebugLog(@"_curPaintFrameIndex:%d", self.curPaintIndex);    
-    
+}
 
+- (PaintDoc*)curPaintDoc{
+    if (!self.paintDocs) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex < 0) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex >= self.paintDocs.count) {
+        return nil;
+    }
+    
+    return [self.paintDocs objectAtIndex:self.curPaintIndex];
+}
+
+- (PaintDoc*)lastPaintDoc{
+    if (!self.paintDocs) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex <= 0) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex >= self.paintDocs.count) {
+        return nil;
+    }
+
+    return [self.paintDocs objectAtIndex:self.curPaintIndex - 1];
+}
+
+- (PaintDoc*)nextPaintDoc{
+    if (!self.paintDocs) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex < 0) {
+        return nil;
+    }
+    
+    if (self.curPaintIndex >= self.paintDocs.count - 1) {
+        return nil;
+    }
+    
+    return [self.paintDocs objectAtIndex:self.curPaintIndex + 1];
 }
 
 -(void)push:(PaintFrameView*)pf{

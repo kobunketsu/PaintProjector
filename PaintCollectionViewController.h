@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CylinderProjectViewController.h"
 #import "PaintFrameManager.h"
+#import "PaintFrameTransitionManager.h"
 @protocol PaintScreenDelegate;
 
 @class PaintDoc;
@@ -19,8 +20,9 @@
 @interface PaintCollectionViewController : UIViewController
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
+UIViewControllerTransitioningDelegate,
 CylinderProjectViewControllerDelegate,
-UIViewControllerTransitioningDelegate
+PaintFrameTransitionManagerDelegate
 >
 
 @property (assign, nonatomic) id delegate;

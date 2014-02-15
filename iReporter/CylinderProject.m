@@ -17,46 +17,10 @@
 -(id)init{
     self = [super init];
     if (self) {
-        self.morphBlend = 1;
-        self.alphaBlend = 1;
-        self.projectAnimDuration = 1.0;
-        self.curProjectAnimationTime = 0;
-        self.unprojectAnimDuration = 0.3;
-        self.curUnprojectAnimationTime = 0;
+        _morphBlend = 1;
+        _alphaBlend = 0;
     }
     return self;
-}
-
-- (void) updateProjectFinished:(float)timeDelta completion: (void (^)(void))completion{
-    self.curProjectAnimationTime += timeDelta;
-    //    self.morphBlend = self.curProjectAnimationTime / self.projectAnimDuration;
-    //    self.morphBlend = MIN(1, self.morphBlend);
-    //    self.morphBlend = sinf(self.morphBlend * M_PI_2);//ease in out
-    
-    self.alphaBlend = self.curProjectAnimationTime / self.projectAnimDuration;
-    self.alphaBlend = MIN(1, self.alphaBlend);
-    self.alphaBlend = sinf(self.alphaBlend * M_PI_2);//ease in out
-    
-    self.morphBlend = 1;
-    //    self.alphaBlend = 1.0;
-    if(self.alphaBlend >= 1.0){
-        self.curProjectAnimationTime = 0;
-        completion();
-    }
-}
-
-- (void) updateUnprojectFinished:(float)timeDelta completion: (void (^)(void))completion{
-    self.curUnprojectAnimationTime += timeDelta;
-    //    self.alphaBlend = 1.0 - self.curUnprojectAnimationTime / self.unprojectAnimDuration;
-    //    self.alphaBlend = MAX(0, self.alphaBlend);
-    //    self.alphaBlend = sinf(self.alphaBlend * M_PI_2);//ease in out
-    
-    self.alphaBlend = 0;
-    self.morphBlend = 1.0;
-    if(self.alphaBlend <= 0.0){
-        self.curUnprojectAnimationTime = 0;
-        completion();
-    }
 }
 
 - (void)update{
@@ -91,7 +55,11 @@
     GLKVector3 vEyeToImageCenterNormalized = GLKVector3Normalize(vEyeToImageCenter);
     float imageCenterY = (self.radius * eye.y + eye.z * self.imageCenterOnSurf.y) / (eye.z + self.radius);
     GLKVector3 imageCenter = GLKVector3Make(0, imageCenterY, 0);
-    
+//    imageCenter = GLKVector3Make(self.transform.translate.x + imageCenter.x,
+//                                 self.transform.translate.y + imageCenter.y,
+//                                 self.transform.translate.z + imageCenter.z);
+    imageCenter = GLKVector3Make(self.translateX + imageCenter.x, imageCenter.y, imageCenter.z);
+
     //3.find four corners for image
     GLKVector3 vRight = GLKVector3Make(vEyeToImageCenterNormalized.z, 0, -vEyeToImageCenterNormalized.x);
     vRight = GLKVector3Normalize(vRight);
@@ -106,21 +74,40 @@
     
     GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(imageCenter.x, imageCenter.y, imageCenter.z);
     
-    //test
-    //    rotateMatrix = GLKMatrix4RotateWithVector3(rotateMatrix, self.rotationImageAxisY, vUp);
-//    translateMatrix = GLKMatrix4Translate(translateMatrix, self.translateImageX, 0, 0);
-    
     self.transform.worldMatrix = GLKMatrix4Multiply(translateMatrix, GLKMatrix4Multiply(rotateMatrix, GLKMatrix4Multiply(rotateAxisYMatrix, scaleMatrix)));
 }
 
 -(void)willRenderSubMeshAtIndex:(int)index{
     [super willRenderSubMeshAtIndex:index];
+    Material *material = self.renderer.material;
+    if (!material) {
+        material = self.renderer.sharedMaterial;
+    }
     
-    [self.renderer.material setMatrix:Camera.current.viewProjMatrix forPropertyName:@"viewProjMatrix"];
-    [self.renderer.material setMatrix:self.transform.worldMatrix forPropertyName:@"worldMatrix"];
-    [self.renderer.material setVector:GLKVector4MakeWithVector3(self.eye, 0) forPropertyName:@"eye"];
-    [self.renderer.material setFloat:self.radius forPropertyName:@"radius"];
-    [self.renderer.material setFloat:self.morphBlend forPropertyName:@"morphBlend"];
-    [self.renderer.material setFloat:self.alphaBlend forPropertyName:@"alphaBlend"];
+    [material setMatrix:Camera.current.viewProjMatrix forPropertyName:@"viewProjMatrix"];
+    [material setMatrix:self.transform.worldMatrix forPropertyName:@"worldMatrix"];
+    [material setVector:GLKVector4MakeWithVector3(self.eye, 0) forPropertyName:@"eye"];
+    [material setFloat:self.radius forPropertyName:@"radius"];
+    [material setFloat:self.morphBlend forPropertyName:@"morphBlend"];
+    [material setFloat:self.alphaBlend forPropertyName:@"alphaBlend"];
 }
+
+
+- (id)copyWithZone:(NSZone *)zone{
+    CylinderProject *cylinderProject = (CylinderProject *)[super copyWithZone:zone];
+    cylinderProject.eye = self.eye;
+    cylinderProject.radius = self.radius;
+    cylinderProject.imageWidth = self.imageWidth;
+    cylinderProject.imageHeight = self.imageHeight;
+    cylinderProject.imageCenterOnSurf = self.imageCenterOnSurf;
+    cylinderProject.imageCenterOnSurfHeight = self.imageCenterOnSurfHeight;
+    cylinderProject.translateX = self.translateX;
+    cylinderProject.imageRatio = self.imageRatio;
+    cylinderProject.alphaBlend = self.alphaBlend;
+    cylinderProject.morphBlend = self.morphBlend;
+    cylinderProject.renderer.delegate = cylinderProject;
+    
+    return cylinderProject;
+}
+
 @end

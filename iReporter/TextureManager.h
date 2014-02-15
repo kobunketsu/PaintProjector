@@ -15,21 +15,18 @@
 static TextureManager *texMgr;
 //一个texMgr管理一个context下创建的资源
 @interface TextureManager : NSObject{
-//    NSMutableDictionary* _textureCache;
-//    NSMutableDictionary* _textureUIImageCache;
-//    NSMutableDictionary* _textureDataCache;
 }
 //+(id)sharedInstance;
 
 @property(retain, nonatomic) NSMutableDictionary* textureCache;
 @property(retain, nonatomic) NSMutableDictionary* textureUIImageCache;
 
-+ (GLKTextureInfo *)loadTextureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload;
-+ (GLKTextureInfo *)loadTextureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
-+ (GLKTextureInfo *)loadTextureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload;
-+ (GLKTextureInfo *)loadTextureInfoFromUIImage:(UIImage*)uiImage;
-+ (GLKTextureInfo *)loadTextureInfoFromCGImage:(CGImageRef)image;
-+ (GLKTextureInfo *)loadTextureInfoFromData:(NSData*)data;
++ (GLKTextureInfo *)textureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload;
++ (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
++ (GLKTextureInfo *)textureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload;
++ (GLKTextureInfo *)textureInfoFromUIImage:(UIImage*)uiImage;
++ (GLKTextureInfo *)textureInfoFromCGImage:(CGImageRef)image;
++ (GLKTextureInfo *)textureInfoFromData:(NSData*)data;
 
 + (void)destroy;
 + (void)destroyTextures;

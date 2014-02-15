@@ -14,7 +14,7 @@
 #import "PaintFrameManager.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
-#import "PaintFrameTransitionManager.h"
+#import "UIView+Tag.h"
 
 //#import "TestViewController.h"
 
@@ -58,6 +58,7 @@
     [self.paintFrameManager setCurPaintFrameGroupByIndex:1];
     
     self.transitionManager = [[PaintFrameTransitionManager alloc]init];
+    self.transitionManager.delegate = self;
 }
 
 - (void)viewDidUnload{
@@ -85,6 +86,8 @@
     //
     PaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
 
+//    cell.paintFrameView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"checkBox.png"]];
+    
     [self.paintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
 
     return cell;
@@ -109,9 +112,24 @@
         self.cylinderProjectVC.delegate = self;
         self.cylinderProjectVC.transitioningDelegate = self;
 
+        //prepare for segue
         PaintFrameView* view = cell.paintFrameView;
-        [self.cylinderProjectVC setPaintDoc:view.paintDoc];
+        self.cylinderProjectVC.paintFrameViewGroup = self.paintFrameManager.curPaintFrameGroup;
+//        [self.cylinderProjectVC setCurPaintDoc:view.paintDoc];
+        self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
+        
         [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
+            DebugLog(@"Fade in cylinderProjcet");
+            [self.cylinderProjectVC.cylinderProjectCur.animation play];
+            
+            //隐藏从paintCollectionVC transition 时添加的view
+            UIView *tempImageView = [self.cylinderProjectVC.view subViewWithTag:100];
+            if (tempImageView) {
+                [UIView animateWithDuration:1 animations:^{
+                    tempImageView.alpha = 0;
+                }completion:^(BOOL finished) {
+                }];
+            }
         }];
     }
     //编辑状态
@@ -119,6 +137,10 @@
     }
 }
 
+#pragma mark- PaintFrameTransitionManagerDelegate
+- (CGRect)willGetCylinderMirrorFrame{
+    return [self.cylinderProjectVC getCylinderMirrorFrame];
+}
 
 #pragma mark- UIViewControllerTransitioningDelegate
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
@@ -133,6 +155,9 @@
 
 #pragma mark- CylinderProjectViewControllerDelegate
 -(void)willTransitionToGallery{
+    //prepare seque
+    
+    
     [self.cylinderProjectVC dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
     }];
@@ -247,7 +272,7 @@
     if (paintDirectly) {
     }
     else{
-       [self.cylinderProjectVC setPaintDoc:paintFrameView.paintDoc];
+//       [self.cylinderProjectVC setCurPaintDoc:paintFrameView.paintDoc];
     }
     [self presentViewController:self.cylinderProjectVC animated:true completion:^{
         if (paintDirectly) {
