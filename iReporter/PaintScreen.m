@@ -117,8 +117,8 @@ typedef struct {
 @property (retain, nonatomic) UIPopoverController *blendModePopoverController;  //图层混合弹出控制器
 
 @property (assign, nonatomic) BOOL isPaintFullScreen;
-@property (strong, nonatomic) PaintScreenPopoverController *subPopoverController;
-@property (retain, nonatomic) PaintScreenPopoverController *sharedPopoverController;
+@property (strong, nonatomic) SharedPopoverController *subPopoverController;
+@property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
 @property (retain, nonatomic) NSDate *twoFingerPanGestureStartTime;   //检测手势的开始时间
 @property (assign, nonatomic) float twoFingerPanGestureCurTimeInterval;   //检测手势的当前误差时间
 @property (retain, nonatomic) NSMutableArray *colorButtons;//所有颜色槽
@@ -2520,7 +2520,7 @@ typedef struct {
 
     importTableViewController.preferredContentSize = CGSizeMake(320, importTableViewController.tableViewHeight);
     
-    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:importTableViewController];
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:importTableViewController];
     CGRect rect = CGRectMake(self.importButton.bounds.origin.x, self.importButton.bounds.origin.y, self.importButton.bounds.size.width, self.importButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -2757,7 +2757,7 @@ typedef struct {
     
     exportTableViewController.preferredContentSize = CGSizeMake(320, exportTableViewController.tableViewHeight);
     
-    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:exportTableViewController];
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:exportTableViewController];
     CGRect rect = CGRectMake(self.exportButton.bounds.origin.x, self.exportButton.bounds.origin.y, self.exportButton.bounds.size.width, self.exportButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -3376,7 +3376,7 @@ typedef struct {
     //屏幕尺寸减上下工具栏高度
     self.layerTableViewController.tableViewHeightMax = self.view.bounds.size.height - self.mainToolBar.bounds.size.height - self.paintToolBar.bounds.size.height;
     
-    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:self.layerTableViewController];
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.layerTableViewController];
     [self.sharedPopoverController presentPopoverFromRect:_layerButton.bounds inView:_layerButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
     //半透明
@@ -3568,7 +3568,7 @@ typedef struct {
     
     self.infColorPickerController.delegate = controllerDelegate;
     self.infColorPickerController.sourceColor = button.backgroundColor;//覆盖当前笔刷色
-    self.subPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:self.infColorPickerController];
+    self.subPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
     [self.subPopoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     
     FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
@@ -3715,7 +3715,7 @@ typedef struct {
     self.brushPropertyViewController.preferredContentSize = CGSizeMake(256, height);
     self.brushPropertyViewController.brush = brush;
     
-    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:self.brushPropertyViewController];
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.brushPropertyViewController];
     self.sharedPopoverController.delegate = self;
     [self.sharedPopoverController presentPopoverFromRect:self.brushButtonTempRect inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
@@ -4065,7 +4065,7 @@ typedef struct {
     self.colorPickerSrcButton = colorButton;
     self.infColorPickerController.delegate = self;
     self.infColorPickerController.sourceColor = color;//覆盖当前笔刷色
-    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:self.infColorPickerController];
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
     [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;

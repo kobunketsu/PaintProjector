@@ -9,7 +9,7 @@
 #import "Object.h"
 #import "GLWrapper.h"
 
-#define ToSeeCylinderTopPixelOffset 40
+#define ToSeeCylinderTopPixelOffset 70
 
 @class Display;
 static Display *main;

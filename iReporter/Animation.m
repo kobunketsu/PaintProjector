@@ -14,7 +14,7 @@
 @class Animation;
 
 @implementation Animation
-+ (id)animationWithAnimClip:(TPPropertyAnimation *)clip{
++ (id)animationWithAnimClip:(AnimationClip *)clip{
     Animation *anim = [[Animation alloc]init];
     [anim addClip:clip];
     anim.clip = clip;
@@ -29,7 +29,11 @@
     return self;
 }
 
-- (void)addClip:(TPPropertyAnimation*)clip{
+- (void)addClip:(AnimationClip*)clip{
+    if (!clip.name) {
+        DebugLog(@"addClip no name for clip %@", clip);
+        return;
+    }
     [self.clips setValue:clip forKey:clip.name];
 }
 

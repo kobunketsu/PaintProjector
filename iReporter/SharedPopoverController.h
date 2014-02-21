@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PaintScreenPopoverController : UIPopoverController
+@interface SharedPopoverController : UIPopoverController
 
 @end

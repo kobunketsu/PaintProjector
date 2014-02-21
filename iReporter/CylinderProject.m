@@ -55,10 +55,9 @@
     GLKVector3 vEyeToImageCenterNormalized = GLKVector3Normalize(vEyeToImageCenter);
     float imageCenterY = (self.radius * eye.y + eye.z * self.imageCenterOnSurf.y) / (eye.z + self.radius);
     GLKVector3 imageCenter = GLKVector3Make(0, imageCenterY, 0);
-//    imageCenter = GLKVector3Make(self.transform.translate.x + imageCenter.x,
-//                                 self.transform.translate.y + imageCenter.y,
-//                                 self.transform.translate.z + imageCenter.z);
-    imageCenter = GLKVector3Make(self.translateX + imageCenter.x, imageCenter.y, imageCenter.z);
+    imageCenter = GLKVector3Make(self.transform.translate.x + imageCenter.x,
+                                 self.transform.translate.y + imageCenter.y,
+                                 self.transform.translate.z + imageCenter.z);
 
     //3.find four corners for image
     GLKVector3 vRight = GLKVector3Make(vEyeToImageCenterNormalized.z, 0, -vEyeToImageCenterNormalized.x);
@@ -101,7 +100,6 @@
     cylinderProject.imageHeight = self.imageHeight;
     cylinderProject.imageCenterOnSurf = self.imageCenterOnSurf;
     cylinderProject.imageCenterOnSurfHeight = self.imageCenterOnSurfHeight;
-    cylinderProject.translateX = self.translateX;
     cylinderProject.imageRatio = self.imageRatio;
     cylinderProject.alphaBlend = self.alphaBlend;
     cylinderProject.morphBlend = self.morphBlend;

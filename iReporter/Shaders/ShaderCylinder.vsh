@@ -25,7 +25,7 @@ void main()
     //省略worldMatrix
     normal = normalize(vNormal);
     texcoord0 = texcoord.xy;
-    highp vec4 modelViewPos = modelViewMatrix * position;
+    highp vec4 modelViewPos = modelViewMatrix * worldPos;
     color0 = color;
     
     gl_Position = projMatrix * modelViewPos;

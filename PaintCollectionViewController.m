@@ -44,8 +44,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIImage *uiImage = [UIImage imageNamed:@"launchImage2.png"];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+//    UIImage *uiImage = [UIImage imageNamed:@"launchImage2.png"];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:uiImage];
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     self.isEditing = false;

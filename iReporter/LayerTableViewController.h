@@ -12,7 +12,7 @@
 
 #import "LayerDeleteDoneButton.h"
 #import "AutoRotateButton.h"
-#import "PaintScreenPopoverController.h"
+#import "SharedPopoverController.h"
 #import "InfColorPickerController.h"
 @class LayerTableViewController;
 @class FuzzyTransparentView;

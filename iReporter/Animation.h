@@ -7,15 +7,15 @@
 //
 
 #import "Component.h"
-#import "TPPropertyAnimation.h"
+#import "AnimationClip.h"
 
 @interface Animation : Object
 @property (assign, nonatomic, getter = isPlaying) BOOL playing;
-@property (weak, nonatomic) TPPropertyAnimation *clip;
+@property (weak, nonatomic) AnimationClip *clip;
 @property (retain, nonatomic) NSMutableDictionary *clips;
 @property (assign, nonatomic) id target;
-+ (id)animationWithAnimClip:(TPPropertyAnimation *)clip;
-- (void)addClip:(TPPropertyAnimation*)clip;
++ (id)animationWithAnimClip:(AnimationClip *)clip;
+- (void)addClip:(AnimationClip*)clip;
 - (void)removeClip:(NSString *)name;
 - (void)play;
 - (void)stop;

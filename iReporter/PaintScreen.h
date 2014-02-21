@@ -84,7 +84,7 @@
 #import "ImportTableViewController.h"
 #import "ExportTableViewController.h"
 #import "BrushTypeViewController.h"
-#import "PaintScreenPopoverController.h"
+#import "SharedPopoverController.h"
 #import "AutoRotateButton.h"
 #import "ClearGestureRecognizer.h"
 @class TransformContentView;

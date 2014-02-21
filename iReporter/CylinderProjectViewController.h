@@ -12,7 +12,10 @@
 #import <CoreVideo/CoreVideo.h>
 #import <CoreMotion/CoreMotion.h>
 
+
 #import "PaintScreen.h"
+#import "ShareTableViewController.h"
+//#import "SetupTableViewController.h"
 
 #import "GLWrapper.h"
 #import "Ultility.h"
@@ -52,9 +55,11 @@
 #import "PaintScreenTransitionManager.h"
 #import "CustomPercentDrivenInteractiveTransition.h"
 
+#import "CylinderProjectUserInputParams.h"
+//#import "CylinderProjectSetupViewController.h"
+
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
-#define DeviceWidth 0.154
 
 static const NSString *ItemStatusContext;
 
@@ -92,7 +97,10 @@ UIViewControllerTransitioningDelegate,
 PaintScreenTransitionManagerDelegate,
 PaintScreenDelegate,
 TPPropertyAnimationDelegate,
-CustomPercentDrivenInteractiveTransition
+CustomPercentDrivenInteractiveTransition,
+ShareTableViewControllerDelegate
+//SetupTableViewControllerDelegate,//deprecated
+//CylinderProjectSetupViewControllerDelegate
 //ZBarReaderDelegate
 >
 {
@@ -107,9 +115,7 @@ CustomPercentDrivenInteractiveTransition
 @property (weak, nonatomic) PaintFrameViewGroup *paintFrameViewGroup;
 
 #pragma mark- User Input
-@property (assign, nonatomic) CGFloat inputCylinderRadius;
-@property (assign, nonatomic) CGFloat inputCylinderImageWidth;
-@property (assign, nonatomic) CGFloat inputCylinderImageCenterOnSurfHeight;
+@property (retain, nonatomic) CylinderProjectUserInputParams *userInputParams;
 #pragma mark- GL
 @property (retain, nonatomic) EAGLContext *context;
 
@@ -125,12 +131,6 @@ CustomPercentDrivenInteractiveTransition
 #pragma mark- 交互
 @property (retain, nonatomic) CustomPercentDrivenInteractiveTransition *browseNextAction;
 @property (retain, nonatomic) CustomPercentDrivenInteractiveTransition *browseLastAction;
-#pragma mark- 视角变换
-@property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部
-@property (assign, nonatomic) GLKVector3 eyeBottom;//视角底部
-@property (assign, nonatomic) float eyeTopAspect;//顶视图长宽比
-@property (assign, nonatomic) float eyeBottomTopBlend;
-@property (assign, nonatomic) float toEyeBottomTopBlend;
 
 #pragma mark- project display helper
 @property (assign, nonatomic) BOOL showGrid;//是否显示网格
@@ -146,18 +146,43 @@ CustomPercentDrivenInteractiveTransition
 
 #pragma mark- main category
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
-@property (weak, nonatomic) IBOutlet UIImageView *screenMask;
-@property (weak, nonatomic) IBOutlet DownToolBar *toolBar;
+@property (weak, nonatomic) IBOutlet DownToolBar *downToolBar;
+@property (weak, nonatomic) IBOutlet UIView *topToolBar;
 
 #pragma mark- viewMode
-@property (retain, nonatomic) Camera *topCamera;
-@property (assign, nonatomic) GLKMatrix4 bottomCameraProjMatrix;
+
 @property (assign, nonatomic) BOOL isTopViewMode;
 @property (weak, nonatomic) IBOutlet UIButton *sideViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *topViewButton;
+@property (retain, nonatomic) Camera *topCamera;
+@property (assign, nonatomic) GLKMatrix4 bottomCameraProjMatrix;
+@property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部
+@property (assign, nonatomic) GLKVector3 eyeBottom;//视角底部
+@property (assign, nonatomic) float eyeTopAspect;//顶视图长宽比
+@property (assign, nonatomic) float eyeBottomTopBlend;
+@property (assign, nonatomic) float toEyeBottomTopBlend;
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
+
+#pragma mark- setup
+@property (weak, nonatomic) IBOutlet UIButton *setupButton;
+@property (weak, nonatomic) IBOutlet UISlider *valueSlider;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *allUserInputParamButtons;
+@property (weak, nonatomic) IBOutlet UIView *eyeDistanceParam;
+@property (weak, nonatomic) IBOutlet UIView *eyeHeightParam;
+@property (weak, nonatomic) IBOutlet UIView *unitZoomParam;
+@property (weak, nonatomic) IBOutlet UIButton *cylinderDiameterButton;
+@property (weak, nonatomic) IBOutlet UIButton *cylinderHeightButton;
+@property (weak, nonatomic) IBOutlet UIButton *imageWidthButton;
+@property (weak, nonatomic) IBOutlet UIButton *imageHeightButton;
+@property (weak, nonatomic) IBOutlet UIButton *eyeDistanceButton;
+@property (weak, nonatomic) IBOutlet UIButton *eyeHeightButton;
+@property (weak, nonatomic) IBOutlet UIButton *unitZoomButton;
+- (IBAction)setupButtonTouchUp:(UIButton *)sender;
+- (IBAction)userInputParamButtonTouchUp:(UIButton *)sender;
+- (IBAction)userInputParamSliderValueChanged:(UISlider *)sender;
+- (void)resetInputParams;
 
 #pragma mark- cylinder coordinate
 - (CGRect)getCylinderMirrorFrame;

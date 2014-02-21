@@ -173,6 +173,18 @@
     [self updateProjMatrix];        
 }
 
+- (void)setOrthoWidth:(float)orthoWidth{
+    assert(orthoWidth > 0);
+    _orthoWidth = orthoWidth;
+    [self updateProjMatrix];
+}
+
+- (void)setOrthoHeight:(float)orthoHeight{
+    assert(orthoHeight > 0);
+    _orthoHeight = orthoHeight;
+    [self updateProjMatrix];
+}
+
 - (GLKMatrix4)viewProjMatrix {
     return GLKMatrix4Multiply(_projMatrix, _viewMatrix);
 }

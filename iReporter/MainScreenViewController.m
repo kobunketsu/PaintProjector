@@ -240,7 +240,7 @@ PaintingViewDelegate
         _panOffsetInWorld= GLKVector3Make(translation.x*GestureTranslateScaleX, 0, 0);
         for (PaintFrame* paintFrame in _allPaintFrames) {
             paintFrame.translate = GLKVector3Add(paintFrame.translateBeforePanGR, _panOffsetInWorld);
-        }        
+        }
     }
     else if (_isPanVertical){
         _panOffsetInWorld= GLKVector3Make(0, 0, translation.y*GestureTranslateScaleY);

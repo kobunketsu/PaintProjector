@@ -15,7 +15,6 @@
 @property (assign, nonatomic) float radius;//圆柱体半径
 @property (assign, nonatomic) float imageWidth;//圆柱体中图片的宽 < 圆柱半径*2
 @property (assign, nonatomic) float imageCenterOnSurfHeight;//圆柱体中图片中心高度
-@property (assign, nonatomic) float translateX;
 
 #pragma mark- 圆柱体中Image的系统参数
 @property (assign, nonatomic) float imageRatio;//圆柱体中图片的宽高比率

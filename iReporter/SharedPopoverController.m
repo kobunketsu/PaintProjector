@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "PaintScreenPopoverController.h"
+#import "SharedPopoverController.h"
 #import "PaintScreenPopoverBackgroundView.h"
-@implementation PaintScreenPopoverController
+@implementation SharedPopoverController
 -(id)initWithContentViewController:(UIViewController *)viewController{
     self = [super initWithContentViewController:viewController];
     if (self) {

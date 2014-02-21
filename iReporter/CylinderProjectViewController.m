@@ -7,13 +7,21 @@
 //
 
 #import "CylinderProjectViewController.h"
+#import <Social/Social.h>
 #import "Resources.h"
 #import "UIView+Tag.h"
+#import "SharedPopoverController.h"
+#import "UnitConverter.h"
+#import "InAppPurchaseManager.h"
+
 @interface CylinderProjectViewController ()
-
+//TODO: deprecated
+@property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
+//@property (retain, nonatomic) CylinderProjectSetupViewController *setupVC;
 @property (assign, nonatomic)GLKVector2 touchDirectionBegin;
-@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
-
+//@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
+@property(nonatomic, retain) NSString *keyPath;
+@property (retain, nonatomic) Animation *resetAnimation;
 //VC切换动画效果管理器
 @property (nonatomic) PaintScreenTransitionManager *transitionManager;
 @end
@@ -44,7 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     DebugLog(@"[ viewWillAppear ]");
     //用于解决启动闪黑屏的问题
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
     
     DebugLog(@"setupInputParams");
     [self setupInputParams];
@@ -55,12 +63,11 @@
     
     //run completion block
     [self allViewUserInteractionEnable:true];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     DebugLog(@"[ viewDidAppear ]");
-    //screenmask遮罩问题
-//    self.screenMask.hidden = false;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -70,6 +77,7 @@
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLog(@"[ viewDidDisappear ]");
     [self tearDownGL];
+
 }
 
 - (void)viewDidLoad
@@ -84,6 +92,8 @@
      selector:@selector(willResignActiveNotification:)
      name:UIApplicationWillResignActiveNotification
      object:nil];
+    
+    self.projectView.opaque = NO;
     
     [self allViewUserInteractionEnable:true];
     
@@ -117,6 +127,9 @@
     
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
+    
+    [self addObserver:self forKeyPath:@"eyeTop" options:NSKeyValueObservingOptionOld context:nil];
+    
 }
 
 - (void)viewDidUnload{
@@ -132,7 +145,6 @@
     DebugLog(@"[ dealloc ]");
 }
 
-
 #pragma mark- 主程序
 - (BOOL)prefersStatusBarHidden
 {
@@ -147,6 +159,91 @@
 }
 
 #pragma mark- 工具栏
+- (IBAction)galleryButtonTouchUp:(id)sender {
+    //do some work
+    if (self.topViewButton.hidden) {
+        self.topViewButton.hidden = false;
+        self.sideViewButton.hidden = true;
+
+        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        [propAnim setCompletionBlock:^{
+            [self transitionToGallery];
+        }];
+        Camera.mainCamera.animation.clip = animClip;
+        Camera.mainCamera.animation.target = self;
+        [Camera.mainCamera.animation play];
+    }
+    else{
+        [self transitionToGallery];
+    }
+}
+
+- (IBAction)printButtonTouchUp:(UIButton *)sender {
+    //转换到顶视图
+    if (self.sideViewButton.hidden) {
+        self.sideViewButton.hidden = false;
+        self.topViewButton.hidden = true;
+        
+        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
+        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        [propAnim setCompletionBlock:^{
+            [self exportToAirPrint];
+        }];
+        Camera.mainCamera.animation.clip = animClip;
+        Camera.mainCamera.animation.target = self;
+        [Camera.mainCamera.animation play];
+    }
+    else{
+        [self exportToAirPrint];
+    }
+
+}
+
+- (IBAction)setupButtonTouchUp:(UIButton *)sender {
+    [(AutoRotateButton*)sender setHighlighted:false];
+    sender.selected = !sender.selected;
+    
+//    if (sender.selected) {
+//        [self setup];
+//    }
+//    else{
+//        [self setupDone];
+//    }
+
+    [[InAppPurchaseManager sharedInstance] requestProUpgradeProductData];
+}
+
+//- (IBAction)cylinderDiameterButtonTouchUp:(UIButton *)sender {
+//    DebugLog(@"cylinderDiameterButtonTouchUp");
+//}
+
+- (IBAction)shareButtonTouchUp:(UIButton *)sender {
+    [(AutoRotateButton*)sender setHighlighted:false];
+    [self share];
+}
+
+- (IBAction)paintButtonTouchUp:(UIButton *)sender {
+    //do some work
+    if (self.topViewButton.hidden) {
+        self.topViewButton.hidden = false;
+        self.sideViewButton.hidden = true;
+        
+        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        [propAnim setCompletionBlock:^{
+            [self transitionToPaint];
+        }];
+        Camera.mainCamera.animation.clip = animClip;
+        Camera.mainCamera.animation.target = self;
+        [Camera.mainCamera.animation play];
+    }
+    else{
+        [self transitionToPaint];
+    }
+}
+
+#pragma mark- 转换Transition
 - (void)transitionToGallery{
     //打开从paintCollectionVC transition 时添加的view
     UIImageView *tempView = (UIImageView *)[self.view subViewWithTag:100];
@@ -160,42 +257,17 @@
         }];
     }
     
-    TPPropertyAnimation *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"fadeOutAnimClip"];
+    AnimationClip *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"fadeOutAnimClip"];
     self.cylinderProjectCur.animation.clip = animClip;
     [self.cylinderProjectCur.animation play];
 }
 
-- (IBAction)galleryButtonTouchUp:(id)sender {
-    //do some work
-    if (self.topViewButton.hidden) {
-        self.topViewButton.hidden = false;
-        self.sideViewButton.hidden = true;
-
-        TPPropertyAnimation *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-        [animClip setCompletionBlock:^{
-            [self transitionToGallery];
-        }];
-        Camera.mainCamera.animation.clip = animClip;
-        Camera.mainCamera.animation.target = self;
-        [Camera.mainCamera.animation play];
-    }
-    else{
-        [self transitionToGallery];
-    }
-}
-
-- (IBAction)printButtonTouchUp:(UIButton *)sender {
-    [self exportToAirPrint];
-}
-
-- (IBAction)shareButtonTouchUp:(UIButton *)sender {
-}
-
 - (void)transitionToPaint{
-    TPPropertyAnimation *clip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
-    clip.duration = 0.5;
-    clip.fromValue = [NSNumber numberWithFloat:1];
-    clip.toValue = [NSNumber numberWithFloat:0];
+    AnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
+    TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+    propAnim.duration = 0.5;
+    propAnim.fromValue = [NSNumber numberWithFloat:1];
+    propAnim.toValue = [NSNumber numberWithFloat:0];
     [self.cylinder.animation play];
     
     //变换动画
@@ -227,46 +299,334 @@
     }];
     
 }
-
-- (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    //do some work
-    if (self.topViewButton.hidden) {
-        self.topViewButton.hidden = false;
-        self.sideViewButton.hidden = true;
-        
-        TPPropertyAnimation *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-        [animClip setCompletionBlock:^{
-            [self transitionToPaint];
-        }];
-        Camera.mainCamera.animation.clip = animClip;
-        Camera.mainCamera.animation.target = self;
-        [Camera.mainCamera.animation play];
-    }
-    else{
-        [self transitionToPaint];
-    }
+#pragma mark- 分享Share
+- (void)share{
+    ShareTableViewController* shareTableViewController = [[ShareTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    shareTableViewController.delegate = self;
+    
+    shareTableViewController.preferredContentSize = CGSizeMake(320, shareTableViewController.tableViewHeight);
+    
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:shareTableViewController];
+    CGRect rect = CGRectMake(self.shareButton.bounds.origin.x, self.shareButton.bounds.origin.y, self.shareButton.bounds.size.width, self.shareButton.bounds.size.height);
+    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+#pragma mark- 设置Setup
+//- (void)setup{
+//   
+//    SetupTableViewController* setupTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"setupTableViewController"];
+//    setupTableViewController.delegate = self;
+//    setupTableViewController.preferredContentSize = CGSizeMake(320, setupTableViewController.tableViewHeight);
+//    setupTableViewController.userInputParams = self.userInputParams;
+//    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:setupTableViewController];
+//    [self.sharedPopoverController presentPopoverFromRect:self.setupButton.bounds inView:self.setupButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//}
 
-#pragma mark- 内容CylinderProject View
-- (void)setupInputParams{
-    //根据ipad2的尺寸进行设定
-    self.inputCylinderRadius = 0.019;
-    //设定虚拟平面
-    self.inputCylinderImageWidth = 0.037;
-    self.inputCylinderImageCenterOnSurfHeight = 0.035; //default 0.035
+//- (void)setup{
+//    //加入设置VC
+//    self.setupVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectSetupViewController"];
+//    self.setupVC.delegate = self;
+//    self.setupVC.userInputParams = self.userInputParams;
+//    DebugLog(@"assign setupVC");
+//    [self addChildViewController:self.setupVC];
+//    [self.topToolBar addSubview:self.setupVC.view];
+//    [self.setupVC didMoveToParentViewController:self];
+//    
+//    self.topToolBar.alpha = 0;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.topToolBar.alpha = 1;
+//    }completion:^(BOOL finished) {
+//    }];
+//}
+
+//- (void)setupDone{
+//    //恢复到初始状态
+//    [self.setupVC resetInputParams];
+//    
+//    self.topToolBar.alpha = 1;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.topToolBar.alpha = 0;
+//    }completion:^(BOOL finished) {
+//        [self.setupVC.view removeFromSuperview];
+//        self.setupVC = nil;
+//    }];
+//}
+
+- (void)setup{
+    self.topToolBar.hidden = false;
+    self.topToolBar.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.topToolBar.alpha = 1;
+    }completion:^(BOOL finished) {
+    }];
+}
+
+- (void)setupDone{
+    //恢复到初始状态
+    [self resetInputParams];
+    
+    self.topToolBar.alpha = 1;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.topToolBar.alpha = 0;
+        self.topToolBar.hidden = true;
+    }completion:^(BOOL finished) {
+    }];
+}
+
+- (void)openUserInputParamValueSlider:(NSString*)keyPath minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue{
+    self.valueSlider.hidden = false;
+    self.valueSlider.minimumValue = minValue;
+    self.valueSlider.maximumValue = maxValue;
+    NSNumber *num = [self valueForKeyPath:keyPath];
+    self.valueSlider.value = num.floatValue;
+    self.keyPath = keyPath;
+}
+
+- (void)closeUserInputParamValueSlider{
+    self.valueSlider.hidden = true;
+}
+
+- (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
+    for (UIButton *button in self.allUserInputParamButtons) {
+        if (![button isEqual:sender]) {
+            button.selected = false;
+        }
+    }
+    sender.selected = !sender.selected;
+    //    DebugLog(@"sender.selected %i", sender.selected);
+    
+    NSString *userInputParamKey = nil;
+    CGFloat minValue = 0;
+    CGFloat maxValue = 1;
+    if ([sender isEqual:self.cylinderDiameterButton]) {
+        userInputParamKey = @"userInputParams.cylinderDiameter";
+        minValue = 0.038;
+        maxValue = 0.38;
+    }
+    else if ([sender isEqual:self.cylinderHeightButton]) {
+        userInputParamKey = @"userInputParams.cylinderHeight";
+        minValue = 0.068;
+        maxValue = 0.68;
+    }
+    else if ([sender isEqual:self.imageWidthButton]) {
+        userInputParamKey = @"userInputParams.imageWidth";
+        minValue = 0.037;
+        maxValue = 0.37;
+    }
+    else if ([sender isEqual:self.imageHeightButton]) {
+        userInputParamKey = @"userInputParams.imageCenterOnSurfHeight";
+        minValue = 0.035;
+        maxValue = 0.35;
+    }
+    else if ([sender isEqual:self.eyeDistanceButton]) {
+        userInputParamKey = @"userInputParams.eyeHonrizontalDistance";
+        minValue = 0.35;
+        maxValue = 3.5;
+    }
+    else if ([sender isEqual:self.eyeHeightButton]) {
+        userInputParamKey = @"userInputParams.eyeHonrizontalDistance";
+        minValue = 0.35;
+        maxValue = 3.5;
+    }
+    else if ([sender isEqual:self.unitZoomButton]) {
+        userInputParamKey = @"userInputParams.unitZoom";
+        minValue = 0.01;
+        maxValue = 1;
+    }
+    
+    if (sender.selected) {
+        [self openUserInputParamValueSlider:userInputParamKey minValue:minValue maxValue:maxValue];
+    }
+    else{
+        [self closeUserInputParamValueSlider];
+    }
     
 }
 
+- (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
+    [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.keyPath];
+}
+
+-(void)resetInputParams{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
+    [dic setObject:[NSNumber numberWithFloat:0.068] forKey:@"userInputParams.cylinderHeight"];
+    [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
+    [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+    [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
+    [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
+    [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+    
+    AnimationClip *animClip = [[AnimationClip alloc]init];
+    animClip.name = @"userInputParamsResetAnimClip";
+    NSEnumerator *enumeratorKey = [dic keyEnumerator];
+    for (NSObject *key in enumeratorKey) {
+        NSNumber *num = [dic objectForKey:key];
+        
+        TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:(NSString*)key];
+        propAnim.fromValue = [self valueForKeyPath:(NSString*)key];
+        propAnim.toValue = num;
+        propAnim.duration = 0.5;
+        propAnim.target = self;
+        propAnim.timing = TPPropertyAnimationTimingEaseOut;
+        [animClip addPropertyAnimation:propAnim];
+    }
+    
+    TPPropertyAnimation* propAnim = animClip.propertyAnimations.firstObject;
+    propAnim.delegate = self.parentViewController;
+    
+    self.resetAnimation = [Animation animationWithAnimClip:animClip];
+    self.resetAnimation.target = self;
+    [self.resetAnimation play];
+}
+//- (void)willCylinderProjectParamsChange{
+//}
+//
+//- (void)willCylinderProjectParamsReset{
+//}
+
+#pragma mark- 内容CylinderProject View
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+    
+    if (context == &ItemStatusContext) {
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [self syncPlayUI];
+                       });
+        return;
+    }
+
+    if ([keyPath isEqualToString:@"userInputParams.cylinderDiameter"]) {
+        if (self.cylinder) {
+            self.cylinder.transform.scale = GLKVector3Make(self.userInputParams.cylinderDiameter, self.userInputParams.cylinderHeight, self.userInputParams.cylinderDiameter);
+        }
+        if (self.cylinderProjectCur) {
+            self.cylinderProjectCur.radius = self.userInputParams.cylinderDiameter * 0.5;
+        }
+    }
+    else if ([keyPath isEqualToString:@"userInputParams.cylinderHeight"]) {
+        if (self.cylinder) {
+            self.cylinder.transform.scale = GLKVector3Make(self.userInputParams.cylinderDiameter, self.userInputParams.cylinderHeight, self.userInputParams.cylinderDiameter);
+        }
+    }
+    else if ([keyPath isEqualToString:@"userInputParams.imageWidth"]) {
+        if (self.cylinderProjectCur) {
+            self.cylinderProjectCur.imageWidth = self.userInputParams.imageWidth;
+        }
+    }
+    else if ([keyPath isEqualToString:@"userInputParams.imageCenterOnSurfHeight"]) {
+        if (self.cylinderProjectCur) {
+            self.cylinderProjectCur.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
+        }
+    }
+    else if ([keyPath isEqualToString:@"userInputParams.eyeHonrizontalDistance"] ||
+             [keyPath isEqualToString:@"userInputParams.eyeVerticalHeight"]) {
+        GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
+        GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
+        self.topCamera.position = eyeTop;
+        Camera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
+        if (self.cylinder) {
+            self.cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
+                                                                self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+                                                                self.topCamera.orthoWidth,
+                                                                self.topCamera.orthoHeight);
+        }
+    }
+    else if ([keyPath isEqualToString:@"userInputParams.unitZoom"]) {
+        if (self.topCamera) {
+            self.topCamera.orthoWidth = DeviceWidth / self.userInputParams.unitZoom;
+            self.topCamera.orthoHeight = (DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom;
+            [self.topCamera updateProjMatrix];
+            
+            if (self.cylinder) {
+                self.cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
+                                                               self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+                                                               self.topCamera.orthoWidth,
+                                                               self.topCamera.orthoHeight);
+            }
+
+        }
+    }
+    else{
+//        [super observeValueForKeyPath:keyPath
+//                             ofObject:object
+//                               change:change
+//                              context:context];
+    }
+    
+    return;
+}
+
+- (void)destroyInputParams{
+    [self removeObserver:self forKeyPath:@"userInputParams.cylinderDiameter"];
+    [self removeObserver:self forKeyPath:@"userInputParams.cylinderHeight"];
+    [self removeObserver:self forKeyPath:@"userInputParams.imageWidth"];
+    [self removeObserver:self forKeyPath:@"userInputParams.imageCenterOnSurfHeight"];
+    [self removeObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance"];
+    [self removeObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight"];
+    [self removeObserver:self forKeyPath:@"userInputParams.unitZoom"];
+    [self removeObserver:self forKeyPath:@"userInputParams.eyeTopZ"];
+}
+
+- (void)setupInputParams{
+    //根据ipad2的尺寸进行设定
+    CylinderProjectUserInputParams *userInputParams = [[CylinderProjectUserInputParams alloc]init];
+    
+    userInputParams.cylinderDiameter = 0.038;
+    userInputParams.cylinderHeight = 0.068;
+    //设定虚拟平面
+    userInputParams.imageWidth = 0.037;
+    userInputParams.imageCenterOnSurfHeight = 0.035; //default 0.035
+    userInputParams.eyeHonrizontalDistance = 0.35;
+    userInputParams.eyeVerticalHeight = 0.4;
+    userInputParams.unitZoom = 1.0;
+    userInputParams.eyeTopZ = 0.065;
+    
+    [self addObserver:self forKeyPath:@"userInputParams.cylinderDiameter" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.cylinderHeight" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.imageWidth" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.imageCenterOnSurfHeight" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.unitZoom" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.eyeTopZ" options:NSKeyValueObservingOptionOld context:nil];
+    
+    self.userInputParams = userInputParams;
+    
+    
+    //setup panel
+    USUnit unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderDiameter];
+    [self.cylinderDiameterButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+
+    
+    unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderHeight];
+    [self.cylinderHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    
+    unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageWidth];
+    [self.imageWidthButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    
+    unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageCenterOnSurfHeight];
+    [self.imageHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    
+    unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeHonrizontalDistance];
+    [self.eyeDistanceButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    
+    unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeVerticalHeight];
+    [self.eyeHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    
+    [self.unitZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateNormal];
+}
+
 -(void)initSceneCameras{
-    float eyeTopZ = -0.065;
-    self.eyeBottom = GLKVector3Make(0, 0.4, -0.35);//GLKVector3Make(0, 0.4, -0.35)
+    //eyeBottom should be output of userInputParams
     //顶视图视口比例
     self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / (self.projectView.bounds.size.height + ToSeeCylinderTopPixelOffset));
     
     Camera.mainCamera.name = @"mainCamera";
-    Camera.mainCamera.position = self.eyeBottom;
-    Camera.mainCamera.focus = GLKVector3Make(0, 0, eyeTopZ);
+    Camera.mainCamera.position = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
+    Camera.mainCamera.focus = GLKVector3Make(0, 0, -self.userInputParams.eyeTopZ);
     
     //如果中心点反向，则up向量反向
     if (Camera.mainCamera.focus.z >= 0) {
@@ -279,16 +639,16 @@
     Camera.mainCamera.farClip = FarClipDistance;
     Camera.mainCamera.aspect = self.eyeTopAspect;
     Camera.mainCamera.fov = GLKMathDegreesToRadians(29);
-    Camera.mainCamera.backgroundColor = GLKVector4Make(90.0/255.0, 230.0/255.0, 71.0 / 255.0, 1);
+//    Camera.mainCamera.backgroundColor = GLKVector4Make(90.0/255.0, 230.0/255.0, 71.0 / 255.0, 1);
+    Camera.mainCamera.backgroundColor = GLKVector4Make(0/255.0, 0/255.0, 0/255.0, 0);
     Camera.mainCamera.cullingMask = Culling_Everything;
     self.bottomCameraProjMatrix = Camera.mainCamera.projMatrix;
     
-    self.eyeTop = GLKVector3Make(0, -self.eyeBottom.z, eyeTopZ);
-    float orthoWidth = DeviceWidth;
-    float orthoHeight = DeviceWidth / self.eyeTopAspect;
+    float orthoWidth = DeviceWidth * self.userInputParams.unitZoom;
+    float orthoHeight = DeviceWidth / self.eyeTopAspect * self.userInputParams.unitZoom;
     
-    self.topCamera = [[Camera alloc]initOrthorWithPosition:self.eyeTop
-                                                     focus:GLKVector3Make(0, 0, eyeTopZ)
+    self.topCamera = [[Camera alloc]initOrthorWithPosition:GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ)
+                                                     focus:GLKVector3Make(0, 0, -self.userInputParams.eyeTopZ)
                                                         up:GLKVector3Make(0, 0, 1)
                                                 orthoWidth:orthoWidth
                                                orthoHeight:orthoHeight
@@ -307,23 +667,25 @@
     
     self.eyeBottomTopBlend = 0.0;
     
-    TPPropertyAnimation *topToBottomAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
-    topToBottomAnimClip.name = @"topToBottomAnimClip";
-    topToBottomAnimClip.delegate = self;
-    topToBottomAnimClip.fromValue = [NSNumber numberWithFloat:1];
-    topToBottomAnimClip.toValue = [NSNumber numberWithFloat:0];
-    topToBottomAnimClip.duration = 1;
-    topToBottomAnimClip.timing = TPPropertyAnimationTimingEaseOut;
-    Camera.mainCamera.animation = [Animation animationWithAnimClip:topToBottomAnimClip];
+    TPPropertyAnimation *topToBottomPropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
+    topToBottomPropAnim.delegate = self;
+    topToBottomPropAnim.fromValue = [NSNumber numberWithFloat:1];
+    topToBottomPropAnim.toValue = [NSNumber numberWithFloat:0];
+    topToBottomPropAnim.duration = 1;
+    topToBottomPropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
+    animClip.name = @"topToBottomAnimClip";
+    Camera.mainCamera.animation = [Animation animationWithAnimClip:animClip];
     
-    TPPropertyAnimation *bottomToTopAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
-    bottomToTopAnimClip.name = @"bottomToTopAnimClip";
-    bottomToTopAnimClip.delegate = self;
-    bottomToTopAnimClip.fromValue = [NSNumber numberWithFloat:0];
-    bottomToTopAnimClip.toValue = [NSNumber numberWithFloat:1];
-    bottomToTopAnimClip.duration = 1;
-    bottomToTopAnimClip.timing = TPPropertyAnimationTimingEaseOut;
-    [Camera.mainCamera.animation addClip:bottomToTopAnimClip];
+    TPPropertyAnimation *bottomToTopPropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
+    bottomToTopPropAnim.delegate = self;
+    bottomToTopPropAnim.fromValue = [NSNumber numberWithFloat:0];
+    bottomToTopPropAnim.toValue = [NSNumber numberWithFloat:1];
+    bottomToTopPropAnim.duration = 1;
+    bottomToTopPropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    animClip = [AnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
+    animClip.name = @"bottomToTopAnimClip";
+    [Camera.mainCamera.animation addClip:animClip];
 }
 
 - (void)createCylinder{
@@ -333,7 +695,7 @@
     Texture *texMain = [[Texture alloc]init];
     texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
     matMain.mainTexture = texMain;
-    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:self.inputCylinderRadius sides:60 height:0.068];
+    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
     [mesh create];
     MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
     MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
@@ -354,19 +716,20 @@
     cylinder.layerMask = Layer_Default;
     cylinder.eye = Camera.mainCamera.position;
     cylinder.reflectionTex = self.topCamera.targetTexture;
+    cylinder.transform.scale = GLKVector3Make(self.userInputParams.cylinderDiameter, self.userInputParams.cylinderHeight, self.userInputParams.cylinderDiameter);
     cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
                                                    self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
                                                    self.topCamera.orthoWidth,
                                                    self.topCamera.orthoHeight);
     meshRenderer.delegate = cylinder;
     
-    TPPropertyAnimation *clip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"reflectionStrength"];
-    clip.name = @"reflectionFadeInOutAnimClip";
-    clip.delegate = self;
-    clip.timing = TPPropertyAnimationTimingEaseInEaseOut;
-    clip.target = cylinder;
-    
-    Animation *anim = [Animation animationWithAnimClip:clip];
+    TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"reflectionStrength"];
+    propAnim.delegate = self;
+    propAnim.timing = TPPropertyAnimationTimingEaseInEaseOut;
+    propAnim.target = cylinder;
+    AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:propAnim];
+    animClip.name = @"reflectionFadeInOutAnimClip";
+    Animation *anim = [Animation animationWithAnimClip:animClip];
     cylinder.animation = anim;
     
     self.cylinder = cylinder;
@@ -391,44 +754,46 @@
 
     cylinderProject.name = @"cylinderProject";
     cylinderProject.renderer = meshRenderer;
-    cylinderProject.radius = self.inputCylinderRadius;
+    cylinderProject.radius = self.userInputParams.cylinderDiameter * 0.5;
     cylinderProject.eye = Camera.mainCamera.position;
-    cylinderProject.imageWidth = self.inputCylinderImageWidth;
-    cylinderProject.imageCenterOnSurfHeight = self.inputCylinderImageCenterOnSurfHeight;
+    cylinderProject.imageWidth = self.userInputParams.imageWidth;
+    cylinderProject.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
     cylinderProject.imageRatio = self.view.bounds.size.height / self.view.bounds.size.width;
     cylinderProject.layerMask = Layer_Reflection;
     cylinderProject.alphaBlend = self.cylinderProjectDefaultAlphaBlend;
     
-    TPPropertyAnimation *fadeInAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
-    fadeInAnimClip.name = @"fadeInAnimClip";
-    fadeInAnimClip.delegate = self;
-    fadeInAnimClip.toValue = [NSNumber numberWithFloat:1];
-    fadeInAnimClip.fromValue = [NSNumber numberWithFloat:0];
-    fadeInAnimClip.duration = 1;
-    fadeInAnimClip.timing = TPPropertyAnimationTimingEaseOut;
+    TPPropertyAnimation *fadeInPropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
+    fadeInPropAnim.delegate = self;
+    fadeInPropAnim.toValue = [NSNumber numberWithFloat:1];
+    fadeInPropAnim.fromValue = [NSNumber numberWithFloat:0];
+    fadeInPropAnim.duration = 1;
+    fadeInPropAnim.timing = TPPropertyAnimationTimingEaseOut;
 
-    
+    AnimationClip *fadeInAnimClip = [AnimationClip animationClipWithPropertyAnimation:fadeInPropAnim];
+    fadeInAnimClip.name = @"fadeInAnimClip";
     Animation *anim = [Animation animationWithAnimClip:fadeInAnimClip];
     cylinderProject.animation = anim;
     
-    TPPropertyAnimation *fadeOutAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
-    fadeOutAnimClip.name = @"fadeOutAnimClip";
-    fadeOutAnimClip.delegate = self;
-    fadeOutAnimClip.toValue = [NSNumber numberWithFloat:0];
-    fadeOutAnimClip.fromValue = [NSNumber numberWithFloat:1];
-    fadeOutAnimClip.duration = 1;
-    fadeOutAnimClip.timing = TPPropertyAnimationTimingEaseOut;
-    [fadeOutAnimClip setCompletionBlock:^{
+    
+    TPPropertyAnimation *fadeOutPropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
+    fadeOutPropAnim.delegate = self;
+    fadeOutPropAnim.toValue = [NSNumber numberWithFloat:0];
+    fadeOutPropAnim.fromValue = [NSNumber numberWithFloat:1];
+    fadeOutPropAnim.duration = 1;
+    fadeOutPropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    [fadeOutPropAnim setCompletionBlock:^{
         [self.delegate willTransitionToGallery];
     }];
-
+    AnimationClip *fadeOutAnimClip = [AnimationClip animationClipWithPropertyAnimation:fadeOutPropAnim];
+    fadeOutAnimClip.name = @"fadeOutAnimClip";
     [anim addClip:fadeOutAnimClip];
     
     
-    TPPropertyAnimation *browseAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"translateX"];
+    TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
+    browsePropAnim.delegate = self;
+    browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    AnimationClip *browseAnimClip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
     browseAnimClip.name = @"browseAnimClip";
-    browseAnimClip.delegate = self;
-    browseAnimClip.timing = TPPropertyAnimationTimingEaseOut;
     [anim addClip:browseAnimClip];
   
     
@@ -487,6 +852,7 @@
     touchDirection = GLKVector2Normalize(touchDirection);
     
     CGFloat angle = acosf(GLKVector2DotProduct(touchDirection, self.touchDirectionBegin));
+
     CGFloat percent = MAX(0, MIN(angle / (M_PI) , 1));
     
     return percent;
@@ -507,6 +873,10 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
             touchPoint = [sender locationInView:self.view];
+            if ( touchPoint.y < self.view.bounds.size.height * 0.5) {
+                sender.state = UIGestureRecognizerStateFailed;
+                return;
+            }
             self.touchDirectionBegin = GLKVector2Make(touchPoint.x - self.view.center.x, touchPoint.y - self.view.center.y);
             self.touchDirectionBegin = GLKVector2Normalize(self.touchDirectionBegin);
         }
@@ -514,7 +884,7 @@
         case UIGestureRecognizerStateChanged:{
             CGPoint translation = [sender translationInView:sender.view];
             CGFloat percent = 0.0;
-            if (translation.x > 0) {
+            if (translation.x > 0){
                 if (self.browseLastAction.interactionEnable) {
 //                    DebugLog(@"browse last");
                     percent = [self getPercent:sender];
@@ -522,8 +892,8 @@
                 }
  
             }
-            else if (translation.x < 0) {
-                if (self.browseNextAction.interactionEnable) {
+            else if(translation.x < 0){
+                     if (self.browseNextAction.interactionEnable) {
 //                    DebugLog(@"browse next");
                     percent = [self getPercent:sender];
                     [self.browseNextAction updateInteractiveTransition:percent];
@@ -579,7 +949,9 @@
 
 
 - (void)updateRenderViewParams{
-    Camera.mainCamera.position = GLKVector3Lerp(self.eyeBottom, self.eyeTop, self.eyeBottomTopBlend);
+    GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
+    GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
+    Camera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
     GLKMatrix4 matrix = [Ultility MatrixLerpFrom:self.bottomCameraProjMatrix to:self.topCamera.projMatrix blend:self.eyeBottomTopBlend];
     Camera.mainCamera.projMatrix = matrix;
 }
@@ -991,26 +1363,13 @@
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change context:(void *)context {
-    
-    if (context == &ItemStatusContext) {
-        dispatch_async(dispatch_get_main_queue(),
-                       ^{
-                           [self syncPlayUI];
-                       });
-        return;
-    }
-    [super observeValueForKeyPath:keyPath ofObject:object
-                           change:change context:context];
-    return;
-}
+
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     [self.player seekToTime:kCMTimeZero];
 }
 
 - (CGRect)getCylinderMirrorFrame{
-    return CGRectMake(311, 300, 145, 145 / 3.0 * 4.0);
+    return CGRectMake(308, 294, 152, 152 / 3.0 * 4.0);
 }
 
 - (CGRect)getCylinderMirrorTopFrame{
@@ -1043,8 +1402,8 @@
 //    DebugLog(@"willUpdatingInteractiveTransition");
     if ([transition.name isEqualToString:@"browseNext"]) {
 //        DebugLog(@"browsing Next");
-        self.cylinderProjectCur.translateX = transition.percentComplete * self.cylinderProjectCur.imageWidth;
-        
+        CGFloat x = transition.percentComplete * self.cylinderProjectCur.imageWidth;
+        [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         //查询是否有下一张图片
         if ([self.paintFrameViewGroup nextPaintDoc]) {
             //清空上一张图片资源
@@ -1053,12 +1412,13 @@
             
             if (!self.cylinderProjectNext) {
                 self.cylinderProjectNext = [self dequeueReusableCylinderProject];
-                TPPropertyAnimation *browseAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"translateX"];
-                browseAnimClip.name = @"browseAnimClip";
-                browseAnimClip.delegate = self;
-                browseAnimClip.timing = TPPropertyAnimationTimingEaseOut;
+                TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
+                browsePropAnim.delegate = self;
+                browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
+                AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
+                animclip.name = @"browseAnimClip";
                 [self.cylinderProjectNext.animation removeClip:@"browseAnimClip"];
-                [self.cylinderProjectNext.animation addClip:browseAnimClip];
+                [self.cylinderProjectNext.animation addClip:animclip];
                 
                 
                 NSString *path = [self.paintFrameViewGroup nextPaintDoc].thumbImagePath;
@@ -1066,13 +1426,15 @@
                 self.cylinderProjectNext.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
             }
             
-            self.cylinderProjectNext.translateX = (transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+            CGFloat x = (transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+            [self.cylinderProjectNext setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         }
         
     }
     else if ([transition.name isEqualToString:@"browseLast"]) {
 //        DebugLog(@"browsing Last");
-        self.cylinderProjectCur.translateX = -transition.percentComplete * self.cylinderProjectCur.imageWidth;
+        CGFloat x = -transition.percentComplete * self.cylinderProjectCur.imageWidth;
+        [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         
         //查询是否有上一张图片
         if ([self.paintFrameViewGroup lastPaintDoc]) {
@@ -1082,12 +1444,13 @@
             
             if (!self.cylinderProjectLast) {
                 self.cylinderProjectLast = [self dequeueReusableCylinderProject];
-                TPPropertyAnimation *browseAnimClip = [TPPropertyAnimation propertyAnimationWithKeyPath:@"translateX"];
-                browseAnimClip.name = @"browseAnimClip";
-                browseAnimClip.delegate = self;
-                browseAnimClip.timing = TPPropertyAnimationTimingEaseOut;
+                TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
+                browsePropAnim.delegate = self;
+                browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
+                AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
+                animclip.name = @"browseAnimClip";
                 [self.cylinderProjectLast.animation removeClip:@"browseAnimClip"];
-                [self.cylinderProjectLast.animation addClip:browseAnimClip];
+                [self.cylinderProjectLast.animation addClip:animclip];
                 
                 
                 NSString *path = [self.paintFrameViewGroup lastPaintDoc].thumbImagePath;
@@ -1095,8 +1458,8 @@
                 self.cylinderProjectLast.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
                 
             }
-            
-            self.cylinderProjectLast.translateX = -(transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+            CGFloat x = -(transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+            [self.cylinderProjectLast setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         }
     }
 }
@@ -1104,12 +1467,13 @@
 - (void)willFinishInteractiveTransition:(CustomPercentDrivenInteractiveTransition*)transition completion: (void (^)(void))completion{
     DebugLog(@"willFinishInteractiveTransition");
     
-    TPPropertyAnimation *curClip = [self.cylinderProjectCur.animation.clips valueForKey:@"browseAnimClip"];
+    AnimationClip *curAnimClip = [self.cylinderProjectCur.animation.clips valueForKey:@"browseAnimClip"];
+    TPPropertyAnimation *curPropAnim = curAnimClip.propertyAnimations.firstObject;
 
     if ([transition.name isEqualToString:@"browseNext"]) {
-        curClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectCur.translateX];
-        curClip.toValue = [NSNumber numberWithFloat:self.cylinderProjectCur.imageWidth];
-        [curClip setCompletionBlock:^{
+        curPropAnim.fromValue = [self.cylinderProjectCur valueForKeyPath:@"transform.translate.x"];
+        curPropAnim.toValue = [NSNumber numberWithFloat:self.cylinderProjectCur.imageWidth];
+        [curPropAnim setCompletionBlock:^{
             DebugLog(@"browse Next anim finished");
             self.cylinderProjectCur.active = false;
             self.cylinderProjectCur = self.cylinderProjectNext;
@@ -1119,23 +1483,23 @@
             
             completion();
         }];
-        self.cylinderProjectCur.animation.clip = curClip;
+        self.cylinderProjectCur.animation.clip = curAnimClip;
         [self.cylinderProjectCur.animation play];
         DebugLog(@"playing browse Next anim");
-        
-        TPPropertyAnimation *nextClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
-        nextClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectNext.translateX];
-        nextClip.toValue = [NSNumber numberWithFloat:0];
-        self.cylinderProjectNext.animation.clip = nextClip;
+        AnimationClip *nextAnimClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
+        TPPropertyAnimation *nextPropAnim = nextAnimClip.propertyAnimations.firstObject;
+        nextPropAnim.fromValue = [self.cylinderProjectNext valueForKeyPath:@"transform.translate.x"];
+        nextPropAnim.toValue = [NSNumber numberWithFloat:0];
+        self.cylinderProjectNext.animation.clip = nextAnimClip;
         [self.cylinderProjectNext.animation play];
         
     }
     else if ([transition.name isEqualToString:@"browseLast"]) {
 
-        curClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectCur.translateX];
-        curClip.toValue = [NSNumber numberWithFloat:-self.cylinderProjectCur.imageWidth];
+        curPropAnim.fromValue = [self.cylinderProjectCur valueForKeyPath:@"transform.translate.x"];
+        curPropAnim.toValue = [NSNumber numberWithFloat:-self.cylinderProjectCur.imageWidth];
         
-        [curClip setCompletionBlock:^{
+        [curPropAnim setCompletionBlock:^{
             DebugLog(@"browse Last anim finished");
             self.cylinderProjectCur.active = false;
             self.cylinderProjectCur = self.cylinderProjectLast;
@@ -1145,14 +1509,15 @@
             
             completion();
         }];
-        self.cylinderProjectCur.animation.clip = curClip;
+        self.cylinderProjectCur.animation.clip = curAnimClip;
         [self.cylinderProjectCur.animation play];
         DebugLog(@"playing browse Last anim");
-        
-        TPPropertyAnimation *lastClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
-        lastClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectLast.translateX];
-        lastClip.toValue = [NSNumber numberWithFloat:0];
-        self.cylinderProjectLast.animation.clip = lastClip;
+
+        AnimationClip *lastAnimClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
+        TPPropertyAnimation *lastPropAnim = lastAnimClip.propertyAnimations.firstObject;
+        lastPropAnim.fromValue = [self.cylinderProjectLast valueForKeyPath:@"transform.translate.x"];
+        lastPropAnim.toValue = [NSNumber numberWithFloat:0];
+        self.cylinderProjectLast.animation.clip = lastAnimClip;
         [self.cylinderProjectLast.animation play];
     }
 }
@@ -1160,48 +1525,54 @@
 - (void)willCancelInteractiveTransition:(CustomPercentDrivenInteractiveTransition *)transition completion: (void (^)(void))completion{
     DebugLog(@"willCancelInteractiveTransition");
     
-    TPPropertyAnimation *clip = [self.cylinderProjectCur.animation.clips valueForKey:@"browseAnimClip"];
+    AnimationClip *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"browseAnimClip"];
+    TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
     if ([transition.name isEqualToString:@"browseNext"]) {
         DebugLog(@"canceling browse Next");
-        clip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectCur.translateX];
-        clip.toValue = [NSNumber numberWithFloat:0];
-        [clip setCompletionBlock:^{
+        propAnim.fromValue = [self.cylinderProjectCur valueForKeyPath:@"transform.translate.x"];
+        propAnim.toValue = [NSNumber numberWithFloat:0];
+        [propAnim setCompletionBlock:^{
             completion();
         }];
-        self.cylinderProjectCur.animation.clip = clip;
+        self.cylinderProjectCur.animation.clip = animClip;
         [self.cylinderProjectCur.animation play];
         
         
-        TPPropertyAnimation *nextClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
-        nextClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectNext.translateX];
-        nextClip.toValue = [NSNumber numberWithFloat:-self.cylinderProjectNext.imageWidth];
-        self.cylinderProjectNext.animation.clip = nextClip;
+        AnimationClip *nextAnimClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
+        TPPropertyAnimation *propAnim = nextAnimClip.propertyAnimations.firstObject;
+        propAnim.fromValue = [self.cylinderProjectNext valueForKeyPath:@"transform.translate.x"];
+        propAnim.toValue = [NSNumber numberWithFloat:-self.cylinderProjectNext.imageWidth];
+        self.cylinderProjectNext.animation.clip = nextAnimClip;
         [self.cylinderProjectNext.animation play];
     }
     else if ([transition.name isEqualToString:@"browseLast"]) {
         DebugLog(@"canceling browse Last");
-        clip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectCur.translateX];
-        clip.toValue = [NSNumber numberWithFloat:0];
-        [clip setCompletionBlock:^{
+        propAnim.fromValue = [self.cylinderProjectCur valueForKeyPath:@"transform.translate.x"];
+        propAnim.toValue = [NSNumber numberWithFloat:0];
+        [propAnim setCompletionBlock:^{
             completion();
         }];
-        self.cylinderProjectCur.animation.clip = clip;
+        self.cylinderProjectCur.animation.clip = animClip;
         [self.cylinderProjectCur.animation play];
         
-        TPPropertyAnimation *lastClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
-        lastClip.fromValue = [NSNumber numberWithFloat:self.cylinderProjectLast.translateX];
-        lastClip.toValue = [NSNumber numberWithFloat:self.cylinderProjectLast.imageWidth];
-        self.cylinderProjectLast.animation.clip = lastClip;
+        
+        AnimationClip *lastAnimClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
+        TPPropertyAnimation *propAnim = lastAnimClip.propertyAnimations.firstObject;
+        propAnim.fromValue = [self.cylinderProjectLast valueForKeyPath:@"transform.translate.x"];
+        propAnim.toValue = [NSNumber numberWithFloat:self.cylinderProjectLast.imageWidth];
+        self.cylinderProjectLast.animation.clip = lastAnimClip;
         [self.cylinderProjectLast.animation play];
     }
 }
 
 #pragma mark- TPPropertyAnimationDelegate
 -(void)willBeginPropertyAnimation:(TPPropertyAnimation *)propertyAnimation{
+    DebugLog(@"willBeginPropertyAnimation");
     [self allViewUserInteractionEnable:false];
 }
 
 -(void)propertyAnimationDidFinish:(TPPropertyAnimation *)propertyAnimation{
+    DebugLog(@"propertyAnimationDidFinish");
     [self allViewUserInteractionEnable:true];
 }
 
@@ -1238,10 +1609,11 @@
         self.cylinderProjectCur.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:true];
         
         self.cylinder.reflectionStrength = 0;
-        TPPropertyAnimation *clip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
-        clip.duration = 0.5;
-        clip.fromValue = [NSNumber numberWithFloat:0];
-        clip.toValue = [NSNumber numberWithFloat:1];
+        AnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
+        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        propAnim.duration = 0.5;
+        propAnim.fromValue = [NSNumber numberWithFloat:0];
+        propAnim.toValue = [NSNumber numberWithFloat:1];
         [self.cylinder.animation play];
         
 
@@ -1262,10 +1634,8 @@
         
     }];
 }
-
-#pragma mark-
 -(void)openPaintDoc:(PaintDoc*)paintDoc {
-//    self.curPaintDoc = paintDoc;
+    //    self.curPaintDoc = paintDoc;
     self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
     self.paintScreenVC.delegate = self;
     self.paintScreenVC.transitioningDelegate = self;
@@ -1277,14 +1647,23 @@
     }];
 }
 
+#pragma mark- View
+- (BOOL)isTopViewMode{
+    return self.topViewButton.hidden;
+}
+
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
     self.sideViewButton.hidden = true;
     self.topViewButton.hidden = false;
     
-    TPPropertyAnimation *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+    AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
     Camera.mainCamera.animation.target = self;
     [Camera.mainCamera.animation play];
+
+    //setup
+    self.eyeDistanceParam.hidden = self.eyeHeightParam.hidden = false;
+    self.unitZoomParam.hidden = true;
 
 }
 
@@ -1292,18 +1671,20 @@
     self.topViewButton.hidden = true;
     self.sideViewButton.hidden = false;
     
-    TPPropertyAnimation *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
+    AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
     Camera.mainCamera.animation.target = self;
     [Camera.mainCamera.animation play];
 
+    //setup
+    self.eyeDistanceParam.hidden = self.eyeHeightParam.hidden = true;
+    self.unitZoomParam.hidden = false;
 }
 
 #pragma mark- 打印Print
 - (void)exportToAirPrint{
     //TODO:转换到顶视图，在放圆柱体的位置画上圈，并打印
-    
-    UIImage *image = [Ultility snapshot:self.projectView Context:self.context InViewportSize:self.projectView.bounds.size ToOutputSize:self.projectView.bounds.size];
+    UIImage *image = [self.projectView snapshot];
     
     //convert UIImage to NSData to add it as attachment
     NSData *data = UIImagePNGRepresentation(image);
@@ -1328,8 +1709,7 @@
                 DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
         };
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            //            [pic presentFromBarButtonItem:self.printButton animated:YES completionHandler:completionHandler];
-            [pic presentFromRect:self.printButton.frame inView:self.toolBar animated:true completionHandler:completionHandler];
+            [pic presentFromRect:self.printButton.bounds inView:self.printButton animated:true completionHandler:completionHandler];
         } else {
             [pic presentAnimated:YES completionHandler:completionHandler];
         }
@@ -1374,5 +1754,49 @@
         
     }
 }
+
+#pragma mark- share
+-(void) didSelectPostToFacebook {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+-(void) didSelectPostToTwitter{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *controller = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+-(void) didSelectPostToSinaWeibo {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
+        
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+
+
 
 @end

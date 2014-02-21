@@ -67,6 +67,7 @@ static NSMutableArray *allCameras;
 -(id)initOrthorWithPosition:(GLKVector3)position focus:(GLKVector3)focus up:(GLKVector3)up orthoWidth:(float)orthoWidth orthoHeight:(float)orthoHeight nearClip:(float)nearClip farClip:(float)farClip;
 
 - (void)updateViewMatrix;
+- (void)updateProjMatrix;
 
 //set a custom proj matrix
 - (void)setProjMatrix:(GLKMatrix4)projMatrix;

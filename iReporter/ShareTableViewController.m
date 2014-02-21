@@ -1,18 +1,18 @@
 //
-//  ExportViewController.m
-//  iReporter
+//  ShareTableViewController.m
+//  PaintProjector
 //
-//  Created by 胡 文杰 on 13-4-25.
-//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
+//  Created by 胡 文杰 on 2/15/14.
+//  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ExportTableViewController.h"
+#import "ShareTableViewController.h"
 
-@interface ExportTableViewController ()
+@interface ShareTableViewController ()
 
 @end
 
-@implementation ExportTableViewController
+@implementation ShareTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,7 +31,6 @@
         self.tableView = tv;
         
         self.view = self.tableView;
-        
     }
     return self;
 }
@@ -66,7 +65,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 6;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,28 +80,16 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = @"Email";
-            cell.imageView.image = [UIImage imageNamed:@"email_48.png"];
-            break;
-        case 1:
-            cell.textLabel.text = @"Photo";
-            cell.imageView.image = [UIImage imageNamed:@"PhotoLibrary.png"];
-            break;
-        case 2:
-            cell.textLabel.text = @"Dropbox";
-            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
-            break;
-        case 3:
             cell.textLabel.text = @"Facebook";
             cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
             break;
-        case 4:
+        case 1:
             cell.textLabel.text = @"Twitter";
             cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
-        case 5:
+        case 2:
             cell.textLabel.text = @"SinaWeibo";
-            cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];            
+            cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];
             
             //            cell.textLabel.text = @"Dropbox";
             break;
@@ -110,6 +97,7 @@
             break;
     }
     return cell;
+
 }
 
 /*
@@ -151,6 +139,18 @@
 }
 */
 
+/*
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+ */
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -164,21 +164,12 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [self.delegate didSelectExportToEmail];
-            break;
-        case 1:
-            [self.delegate didSelectExportToPhotoLibrary];
-            break;
-        case 2:
-            [self.delegate didSelectExportToDropbox];
-            break;
-        case 3:
             [self.delegate didSelectPostToFacebook];
             break;
-        case 4:
+        case 1:
             [self.delegate didSelectPostToTwitter];
             break;
-        case 5:
+        case 2:
             [self.delegate didSelectPostToSinaWeibo];
             break;
         default:

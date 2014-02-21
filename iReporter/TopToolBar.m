@@ -68,12 +68,12 @@
         
         
         //// Rounded Rectangle Drawing
-        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, 768, 80) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii: CGSizeMake(8, 8)];
+        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, 768, 88) byRoundingCorners: UIRectCornerBottomLeft | UIRectCornerBottomRight cornerRadii: CGSizeMake(8, 8)];
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
         CGContextBeginTransparencyLayer(context, NULL);
         [roundedRectanglePath addClip];
-        CGContextDrawLinearGradient(context, gradient, CGPointMake(384, 80), CGPointMake(384, -0), 0);
+        CGContextDrawLinearGradient(context, gradient, CGPointMake(384, 88), CGPointMake(384, -0), 0);
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
         
