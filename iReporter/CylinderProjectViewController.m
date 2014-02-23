@@ -210,8 +210,19 @@
 //    else{
 //        [self setupDone];
 //    }
+    if ([[InAppPurchaseManager sharedInstance] canMakePurchases]) {
+        DebugLog(@"可以进行购买");
+        self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+        self.iapVC.delegate = self;
+        [self presentViewController:self.iapVC animated:true completion:^{
+            //        self.iapVC.view.superview.bounds = CGRectMake(0, 0, 768, 848);
+        }];
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Store not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 
-    [[InAppPurchaseManager sharedInstance] requestProUpgradeProductData];
 }
 
 //- (IBAction)cylinderDiameterButtonTouchUp:(UIButton *)sender {
@@ -1592,6 +1603,12 @@
     return self.transitionManager;
 }
 
+#pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
+- (void)willPurchaseDone{
+    [self.iapVC dismissViewControllerAnimated:true completion:^{
+        DebugLog(@"willCancelPurchase");
+    }];
+}
 #pragma mark- 绘画代理PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup{
     return [self createBestEAGLContext];

@@ -57,6 +57,8 @@
 
 #import "CylinderProjectUserInputParams.h"
 //#import "CylinderProjectSetupViewController.h"
+#import "InAppPurchaseManager.h"
+#import "InAppPurchaseTableViewController.h"
 
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
@@ -94,11 +96,13 @@ typedef void(^MyCompletionBlock)(void);
 GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 UIViewControllerTransitioningDelegate,
+SKProductsRequestDelegate,
 PaintScreenTransitionManagerDelegate,
 PaintScreenDelegate,
 TPPropertyAnimationDelegate,
 CustomPercentDrivenInteractiveTransition,
-ShareTableViewControllerDelegate
+ShareTableViewControllerDelegate,
+InAppPurchaseTableViewControllerDelegate
 //SetupTableViewControllerDelegate,//deprecated
 //CylinderProjectSetupViewControllerDelegate
 //ZBarReaderDelegate
@@ -107,6 +111,7 @@ ShareTableViewControllerDelegate
     void * _baseAddress;
 }
 @property (weak, nonatomic) PaintScreen* paintScreenVC;
+@property (retain, nonatomic) InAppPurchaseTableViewController* iapVC;
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (assign, nonatomic) id delegate;

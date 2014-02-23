@@ -2571,7 +2571,7 @@ typedef struct {
                  [self.transformButton.layer setNeedsDisplay];
              }
              else{
-                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"import invalid images" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"import invalid images" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
                  [alertView show];
              }
              

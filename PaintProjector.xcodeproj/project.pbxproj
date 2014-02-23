@@ -34,6 +34,8 @@
 		080706DB18B7888C00D9385F /* PaintFrameTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08956DC418976F5B00EAB16C /* PaintFrameTransitionManager.m */; };
 		080706DC18B788AE00D9385F /* ShaderNoLitTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 080A046218A3434D004A4785 /* ShaderNoLitTexture.m */; };
 		080706DD18B788C900D9385F /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 0803D1FE189FF3EF0068B14B /* Object.m */; };
+		080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */; };
+		080706E118B78F4800D9385F /* InAppPurchaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */; };
 		08072EBC1692BDFE00E49D2B /* BrushTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */; };
 		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
 		0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* ColorButton.m */; };
@@ -128,6 +130,10 @@
 		08243A2A16CCAE2100FC12BA /* undo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08243A0016CCAE2100FC12BA /* undo_48.png */; };
 		0824C2AE1745346200DA40F1 /* popover-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0824C2AD1745346200DA40F1 /* popover-arrow.png */; };
 		0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */; };
+		0826EE8918B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
+		0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
+		0826EE8D18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
+		0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
 		0829C01F168349F80009CD1C /* ImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ImageStack.m */; };
 		082A92091647FA97001EF659 /* UndoGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 082A92081647FA97001EF659 /* UndoGestureRecognizer.m */; };
 		082CD49E16BD45BF00F18E6F /* AdjustSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 082CD49D16BD45BF00F18E6F /* AdjustSceneViewController.m */; };
@@ -400,6 +406,10 @@
 		08F3A695173613A6002E063A /* TransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A694173613A6002E063A /* TransformButton.m */; };
 		08F3A69817362A43002E063A /* LayerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69717362A43002E063A /* LayerButton.m */; };
 		08F3A69B17363261002E063A /* ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69A17363260002E063A /* ProjectButton.m */; };
+		08F5F3F118B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */; };
+		08F5F3F218B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */; };
+		08F5F3F718B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F618B868160009AD0C /* InAppPurchaseTableViewCell.m */; };
+		08F5F3F818B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F618B868160009AD0C /* InAppPurchaseTableViewCell.m */; };
 		08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F9B517164C0691001B3D3D /* BrushToolBar.m */; };
 		08FD1F99164DF509003738FC /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
 		08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */; };
@@ -813,6 +823,8 @@
 		080679A117DB72A600FED08D /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		080679A217DB72A600FED08D /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		080679A617DB72D000FED08D /* QuietAssertMacros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = QuietAssertMacros.c; sourceTree = "<group>"; };
+		080706DE18B78F4800D9385F /* InAppPurchaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseTableView.h; path = iReporter/InAppPurchaseTableView.h; sourceTree = "<group>"; };
+		080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseTableView.m; path = iReporter/InAppPurchaseTableView.m; sourceTree = "<group>"; };
 		08072EBA1692BDFD00E49D2B /* BrushTypeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeScrollView.h; sourceTree = "<group>"; };
 		08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeScrollView.m; sourceTree = "<group>"; };
 		08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeButton.h; sourceTree = "<group>"; };
@@ -936,6 +948,10 @@
 		0824C2AD1745346200DA40F1 /* popover-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popover-arrow.png"; sourceTree = "<group>"; };
 		0826B47A167D9001000B679B /* ShowPaintOnPlaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlaneViewController.h; sourceTree = "<group>"; };
 		0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlaneViewController.m; sourceTree = "<group>"; };
+		0826EE8718B98A230074FC9F /* ProductFeatureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFeatureCollectionView.h; path = iReporter/ProductFeatureCollectionView.h; sourceTree = "<group>"; };
+		0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionView.m; path = iReporter/ProductFeatureCollectionView.m; sourceTree = "<group>"; };
+		0826EE8B18B9920B0074FC9F /* ProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFeatureCollectionViewCell.h; path = iReporter/ProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
+		0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionViewCell.m; path = iReporter/ProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStack.m; sourceTree = "<group>"; };
 		082A92071647FA97001EF659 /* UndoGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UndoGestureRecognizer.h; sourceTree = "<group>"; };
@@ -1342,6 +1358,10 @@
 		08F3A69717362A43002E063A /* LayerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerButton.m; sourceTree = "<group>"; };
 		08F3A69917363260002E063A /* ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectButton.h; sourceTree = "<group>"; };
 		08F3A69A17363260002E063A /* ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectButton.m; sourceTree = "<group>"; };
+		08F5F3EF18B861200009AD0C /* InAppPurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseTableViewController.h; path = iReporter/InAppPurchaseTableViewController.h; sourceTree = "<group>"; };
+		08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseTableViewController.m; path = iReporter/InAppPurchaseTableViewController.m; sourceTree = "<group>"; };
+		08F5F3F518B868160009AD0C /* InAppPurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseTableViewCell.h; path = iReporter/InAppPurchaseTableViewCell.h; sourceTree = "<group>"; };
+		08F5F3F618B868160009AD0C /* InAppPurchaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseTableViewCell.m; path = iReporter/InAppPurchaseTableViewCell.m; sourceTree = "<group>"; };
 		08F7DF0318596DD100BFA2D5 /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		08F9B516164C0691001B3D3D /* BrushToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushToolBar.h; sourceTree = "<group>"; };
 		08F9B517164C0691001B3D3D /* BrushToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushToolBar.m; sourceTree = "<group>"; };
@@ -1619,6 +1639,16 @@
 				08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */,
 				08397FC318B64929009A8F3C /* SKProduct+LocalizedPrice.h */,
 				08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */,
+				080706DE18B78F4800D9385F /* InAppPurchaseTableView.h */,
+				080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */,
+				08F5F3EF18B861200009AD0C /* InAppPurchaseTableViewController.h */,
+				08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */,
+				08F5F3F518B868160009AD0C /* InAppPurchaseTableViewCell.h */,
+				08F5F3F618B868160009AD0C /* InAppPurchaseTableViewCell.m */,
+				0826EE8718B98A230074FC9F /* ProductFeatureCollectionView.h */,
+				0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */,
+				0826EE8B18B9920B0074FC9F /* ProductFeatureCollectionViewCell.h */,
+				0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */,
 			);
 			name = IAP;
 			sourceTree = "<group>";
@@ -2788,9 +2818,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A5CBB7189F36B300F4E226 /* Component.m in Sources */,
+				08F5F3F218B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */,
 				64f24f107f9afdcf43baf8ef /* UIImage+Pixel.m in Sources */,
+				0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */,
 				882033cbd8efa1050a5d6091 /* main.m in Sources */,
 				7006733dd0f628190d42e0b3 /* AppDelegate.m in Sources */,
+				080706E118B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				7180f0872705dada27b93742 /* UIAlertView+error.m in Sources */,
 				08397FC618B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
 				5b2117651ecfcf52639d39b2 /* UIImage+Alpha.m in Sources */,
@@ -2851,6 +2884,7 @@
 				cbbf0dc46bdbbadad4735fba /* BrushTypeScrollView.m in Sources */,
 				7d294f94056ab44ed9d1c266 /* ChineseBrush.m in Sources */,
 				39ffcb7043b23fa8536d2aeb /* BrushTypeButton.m in Sources */,
+				0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */,
 				a88bba2809784674fa9e73c0 /* ColorPickerView.m in Sources */,
 				46ab3c9aa9c71c15c6a8d514 /* Chalk.m in Sources */,
 				eb5cc21ea712daf8ae8cba4c /* InfColorPickerIndicatorMagnify.m in Sources */,
@@ -2968,6 +3002,7 @@
 				870c3bd1b6c3d5d76a2ad797 /* FirstScreenViewController.m in Sources */,
 				ab6df335afe0a8192b99f94b /* PaintFrameView.m in Sources */,
 				7b39cdcb495bf6f6db9ea829 /* PaintFrameViewGroup.m in Sources */,
+				08F5F3F818B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */,
 				951a9cc4959e2068ff8b25e8 /* CommandManager.m in Sources */,
 				4ed0b36c6f824d99ac8dea6c /* Command.m in Sources */,
 				c584a8d6513e6bd51a92a182 /* OpenCommand.m in Sources */,
@@ -3031,8 +3066,10 @@
 				08696F2A1806229D00FB16A5 /* UIImage+Pixel.m in Sources */,
 				08397FC018B6479D009A8F3C /* InAppPurchaseManager.m in Sources */,
 				9C21AF2314E4579F00DB003E /* main.m in Sources */,
+				0826EE8918B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */,
 				9C21AF2714E4579F00DB003E /* AppDelegate.m in Sources */,
 				9C21AF8114E4642000DB003E /* UIAlertView+error.m in Sources */,
+				0826EE8D18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */,
 				9CFE0B9814E5B12B00408F86 /* UIImage+Alpha.m in Sources */,
 				9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */,
 				088E1D8418A26F700059002C /* ShaderCylinder.m in Sources */,
@@ -3082,6 +3119,7 @@
 				081A7566166F44B200AB345A /* LayerDelegate.m in Sources */,
 				0802A10016731BBA00AE0F23 /* PaintRefView.m in Sources */,
 				08E19498167CCF9700D8ADAF /* ShowPaintOnPlane.m in Sources */,
+				08F5F3F118B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */,
 				08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */,
 				0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */,
 				0803D1FF189FF3EF0068B14B /* Object.m in Sources */,
@@ -3131,6 +3169,7 @@
 				088BC19617EBDCD0007CC49A /* BrushPreview.m in Sources */,
 				0847472116D2615900772015 /* PaintFrameGroup.m in Sources */,
 				081A228A16D8555C00F39468 /* TextureManager.m in Sources */,
+				08F5F3F718B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */,
 				085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */,
 				085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */,
 				087AEBA71890ABE100D5B393 /* PaintFrameManager.m in Sources */,
@@ -3210,6 +3249,7 @@
 				08B444BB175AF66C00787C18 /* FirstScreenViewController.m in Sources */,
 				08B444BE175B00E600787C18 /* PaintFrameView.m in Sources */,
 				08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */,
+				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
 				08802F6B1766FCFF00276B15 /* OpenCommand.m in Sources */,
