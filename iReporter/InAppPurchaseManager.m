@@ -28,7 +28,19 @@ static InAppPurchaseManager* sharedInstance = nil;
     self = [super init];
     if (self) {
         //custom initialize
-//        [self loadStore];
+        _productIdentifiers = [NSSet setWithObject:kInAppPurchaseProUpgradeProductId];
+        // Check for previously purchased products
+        _purchasedProductIdentifiers = [NSMutableSet set];
+        for (NSString * productIdentifier in _productIdentifiers) {
+            BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
+            if (productPurchased) {
+                [_purchasedProductIdentifiers addObject:productIdentifier];
+                NSLog(@"Previously purchased: %@", productIdentifier);
+            }
+            else {
+                NSLog(@"Not purchased: %@", productIdentifier);
+            }
+        }
     }
     return self;
 }
@@ -40,8 +52,7 @@ static InAppPurchaseManager* sharedInstance = nil;
 - (void)requestProUpgradeProductData
 {
     DebugLog(@"请求升级到升级版");
-    NSSet *productIdentifiers = [NSSet setWithObject:kInAppPurchaseProUpgradeProductId];
-    productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+    productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:self.productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];
     
@@ -80,7 +91,10 @@ static InAppPurchaseManager* sharedInstance = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:self userInfo:nil];
 }
 
-
+//TODO:timeout
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    
+}
 #pragma mark-
 #pragma Public methods
 //

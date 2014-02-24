@@ -20,7 +20,10 @@
     SKProduct *proUpgradeProduct;
     SKProductsRequest *productsRequest;
 }
+@property(retain, nonatomic)NSSet *productIdentifiers;
+@property (retain, nonatomic) NSMutableSet *purchasedProductIdentifiers;
 @property(retain, nonatomic, readonly)NSArray *products;
+
 +(id)sharedInstance;
 
 - (void)loadStore;
