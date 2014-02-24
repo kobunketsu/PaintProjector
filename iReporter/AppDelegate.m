@@ -30,8 +30,27 @@
 //    [DBAccountManager setSharedManager:accountMgr];
 //
 
-    //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
-    [self copyCollectionFromMainBundleToUserDocument];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
+        //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
+        [self copyCollectionFromMainBundleToUserDocument];
+        
+        // 這裡判斷是否第一次
+        UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"
+                                                        message:@"進入App"
+                                                       delegate:self
+                                              cancelButtonTitle:@"我知道了"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+
     
     //初始化IAP商店
     [[InAppPurchaseManager sharedInstance] loadStore];
