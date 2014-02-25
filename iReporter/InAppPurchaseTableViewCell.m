@@ -9,7 +9,14 @@
 #import "InAppPurchaseTableViewCell.h"
 #import "ProductFeatureCollectionView.h"
 #import "ProductFeatureCollectionViewCell.h"
-#import "InAppPurchaseManager.h"
+#import "AnaDrawIAPManager.h"
+#import "Reachability.h"
+
+@interface InAppPurchaseTableViewCell()
+{
+    
+}
+@end
 
 @implementation InAppPurchaseTableViewCell
 
@@ -30,12 +37,38 @@
 }
 
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender {
-    SKProduct *product = [[[InAppPurchaseManager sharedInstance] products] objectAtIndex:sender.tag];
+    SKProduct *product = [[[AnaDrawIAPManager sharedInstance] products] objectAtIndex:sender.tag];
     if (!product) {
         return;
     }
 
-    [[InAppPurchaseManager sharedInstance] purchase:product];
+    if ([[AnaDrawIAPManager sharedInstance] isDeviceJailBroken]) {
+        DebugLog(@"越狱设备禁止IAP");
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"jailbreak device can not buy product" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else{
+        if ([[AnaDrawIAPManager sharedInstance] canMakePurchases]) {
+            DebugLog(@"可以进行购买");
+            
+            Reachability *reach = [Reachability reachabilityForInternetConnection];
+            NetworkStatus netStatus = [reach currentReachabilityStatus];
+            if (netStatus == NotReachable) {
+                DebugLog(@"没有网络连接, 无法购买产品");
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"No access to AppStore.Please check your internet and try later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+            else{
+                [[AnaDrawIAPManager sharedInstance] purchaseProduct:product];
+            }
+
+        }
+        else{
+            DebugLog(@"设备禁止IAP");
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"InAppPurchase disabled by device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    }
 
 }
 
@@ -52,6 +85,7 @@
     cell.descriptionLabel.numberOfLines = 3;
     return cell;
 }
+
 @end
 
 

@@ -15,19 +15,25 @@
 #define kInAppPurchaseManagerTransactionFailedNotification @"kInAppPurchaseManagerTransactionFailedNotification"
 #define kInAppPurchaseManagerTransactionSucceededNotification @"kInAppPurchaseManagerTransactionSucceededNotification"
 
+typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * products);
+
 @interface InAppPurchaseManager : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 {
     SKProduct *proUpgradeProduct;
     SKProductsRequest *productsRequest;
+    RequestProductsCompletionHandler _completionHandler;
 }
 @property(retain, nonatomic)NSSet *productIdentifiers;
 @property (retain, nonatomic) NSMutableSet *purchasedProductIdentifiers;
 @property(retain, nonatomic, readonly)NSArray *products;
+@property(assign, nonatomic, getter = isProductsRequested)BOOL productsRequested;
 
-+(id)sharedInstance;
-
-- (void)loadStore;
+- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
+- (BOOL)isDeviceJailBroken;
+- (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
+- (BOOL)isRequestingProduct;
 - (BOOL)canMakePurchases;
-- (void)purchase:(SKProduct*)product;
+- (void)purchaseProduct:(SKProduct*)product;
 - (void)restorePurchase;
+- (BOOL)productPurchased:(NSString *)productIdentifier;
 @end

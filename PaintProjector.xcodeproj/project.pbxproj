@@ -303,6 +303,10 @@
 		0897D7E2187C46BA00A7ECD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1614E4579F00DB003E /* UIKit.framework */; };
 		0897D7E8187C46BA00A7ECD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0897D7E6187C46BA00A7ECD2 /* InfoPlist.strings */; };
 		0897D7EA187C46BA00A7ECD2 /* PaintProjector_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0897D7E9187C46BA00A7ECD2 /* PaintProjector_Tests.m */; };
+		08983D9318BCCCE00001C334 /* ProductList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08983D9218BCCCE00001C334 /* ProductList.plist */; };
+		08983D9418BCCCE00001C334 /* ProductList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08983D9218BCCCE00001C334 /* ProductList.plist */; };
+		08983D9918BCCD1B0001C334 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 08983D9818BCCD1B0001C334 /* Reachability.m */; };
+		08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 08983D9818BCCD1B0001C334 /* Reachability.m */; };
 		0899ACE916F4891100EDCBFE /* PaintProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */; };
 		0899C43B18575299006E5DEE /* TransformAnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C43A18575299006E5DEE /* TransformAnchorView.m */; };
 		089C629E17EC836C00E2AB48 /* BrushPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C629D17EC836C00E2AB48 /* BrushPropertyView.m */; };
@@ -321,6 +325,10 @@
 		08A5CBBC189F36C900F4E226 /* MeshFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C0189E3CF50066C1F2 /* MeshFilter.m */; };
 		08A5CBBF189F542300F4E226 /* Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A5CBBE189F542300F4E226 /* Scene.m */; };
 		08A5CBC0189F542300F4E226 /* Scene.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A5CBBE189F542300F4E226 /* Scene.m */; };
+		08A6FA4218BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */; };
+		08A6FA4318BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */; };
+		08A6FA4718BB838700D9A7EB /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A6FA4618BB838700D9A7EB /* libbeeblex.a */; };
+		08A6FA4818BB838700D9A7EB /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A6FA4618BB838700D9A7EB /* libbeeblex.a */; };
 		08A724B81844ED3E00B9178B /* LayerTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A724B71844ED3E00B9178B /* LayerTransformButton.m */; };
 		08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
 		08AB1DB91794362C00D6FF84 /* email_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08AB1DB81794362C00D6FF84 /* email_48.png */; };
@@ -1220,6 +1228,9 @@
 		0897D7E7187C46BA00A7ECD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0897D7E9187C46BA00A7ECD2 /* PaintProjector_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaintProjector_Tests.m; sourceTree = "<group>"; };
 		0897D7EB187C46BA00A7ECD2 /* PaintProjector Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PaintProjector Tests-Prefix.pch"; sourceTree = "<group>"; };
+		08983D9218BCCCE00001C334 /* ProductList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductList.plist; sourceTree = "<group>"; };
+		08983D9718BCCD1B0001C334 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = iReporter/Reachability.h; sourceTree = "<group>"; };
+		08983D9818BCCD1B0001C334 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = iReporter/Reachability.m; sourceTree = "<group>"; };
 		0899ACE716F4891100EDCBFE /* PaintProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintProjectViewController.h; sourceTree = "<group>"; };
 		0899ACE816F4891100EDCBFE /* PaintProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintProjectViewController.m; sourceTree = "<group>"; };
 		0899C43918575299006E5DEE /* TransformAnchorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformAnchorView.h; sourceTree = "<group>"; };
@@ -1242,6 +1253,11 @@
 		08A5CBB5189F36B300F4E226 /* Component.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Component.m; path = iReporter/Component.m; sourceTree = "<group>"; };
 		08A5CBBD189F542300F4E226 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene.h; path = iReporter/Scene.h; sourceTree = "<group>"; };
 		08A5CBBE189F542300F4E226 /* Scene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Scene.m; path = iReporter/Scene.m; sourceTree = "<group>"; };
+		08A6FA4018BB7FB400D9A7EB /* AnaDrawIAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnaDrawIAPManager.h; path = iReporter/AnaDrawIAPManager.h; sourceTree = "<group>"; };
+		08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnaDrawIAPManager.m; path = iReporter/AnaDrawIAPManager.m; sourceTree = "<group>"; };
+		08A6FA4618BB838700D9A7EB /* libbeeblex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbeeblex.a; sourceTree = "<group>"; };
+		08A6FA4918BB83E700D9A7EB /* BBXBeeblex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXBeeblex.h; sourceTree = "<group>"; };
+		08A6FA4A18BB83E700D9A7EB /* BBXIAPTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBXIAPTransaction.h; sourceTree = "<group>"; };
 		08A724B61844ED3E00B9178B /* LayerTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTransformButton.h; sourceTree = "<group>"; };
 		08A724B71844ED3E00B9178B /* LayerTransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTransformButton.m; sourceTree = "<group>"; };
 		08A932CA16FE9EBF00A75938 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1440,6 +1456,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				216bdc3c68d81261b5f22507 /* Security.framework in Frameworks */,
+				3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */,
 				3e7dd8de6a810d08740e45cf /* libz.dylib in Frameworks */,
 				7dd0fa43630dc8e286ceafe5 /* libTestFlight.a in Frameworks */,
 				d71a8e1cade19b3db9ade7de /* libiconv.dylib in Frameworks */,
@@ -1447,7 +1465,6 @@
 				adf05efc6b93af0bb3fe378b /* AdSupport.framework in Frameworks */,
 				a4670e94d5e6ef12668b4afa /* libsqlite3.dylib in Frameworks */,
 				37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */,
-				216bdc3c68d81261b5f22507 /* Security.framework in Frameworks */,
 				06508361ba7abe7b677c01a5 /* MessageUI.framework in Frameworks */,
 				3d391a33b235ec275f94f8b1 /* MobileCoreServices.framework in Frameworks */,
 				89b02925c6d5cc842e9485d6 /* ImageIO.framework in Frameworks */,
@@ -1460,9 +1477,9 @@
 				e8e0157a125dba81e51dfd51 /* libGPUImage.a in Frameworks */,
 				9d1a7219ce018f385ec95c35 /* CoreMotion.framework in Frameworks */,
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
-				3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
 				1006c97abc68dc68ec02f9f6 /* AssetsLibrary.framework in Frameworks */,
+				08A6FA4818BB838700D9A7EB /* libbeeblex.a in Frameworks */,
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
 				c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */,
@@ -1496,6 +1513,7 @@
 				08966F151660CA2700339901 /* libGPUImage.a in Frameworks */,
 				9483A663165F3DB100EE56AD /* CoreMotion.framework in Frameworks */,
 				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
+				08A6FA4718BB838700D9A7EB /* libbeeblex.a in Frameworks */,
 				9C427B0E14FA4DBA00C708B8 /* SystemConfiguration.framework in Frameworks */,
 				9C60DA8914E53C7100442413 /* CoreImage.framework in Frameworks */,
 				9C21AF6B14E45AAB00DB003E /* AssetsLibrary.framework in Frameworks */,
@@ -1635,6 +1653,12 @@
 		08397FC218B6490F009A8F3C /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				08983D9718BCCD1B0001C334 /* Reachability.h */,
+				08983D9818BCCD1B0001C334 /* Reachability.m */,
+				08A6FA4918BB83E700D9A7EB /* BBXBeeblex.h */,
+				08A6FA4A18BB83E700D9A7EB /* BBXIAPTransaction.h */,
+				08A6FA4018BB7FB400D9A7EB /* AnaDrawIAPManager.h */,
+				08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */,
 				08397FBE18B6479C009A8F3C /* InAppPurchaseManager.h */,
 				08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */,
 				08397FC318B64929009A8F3C /* SKProduct+LocalizedPrice.h */,
@@ -2279,7 +2303,7 @@
 				080679A617DB72D000FED08D /* QuietAssertMacros.c */,
 				080679A117DB72A600FED08D /* fishhook.c */,
 				080679A217DB72A600FED08D /* fishhook.h */,
-				081D3BBE17B130A6003D1D21 /* libiconv.dylib */,
+				08983D9218BCCCE00001C334 /* ProductList.plist */,
 				088B40171792FB7F002750EA /* DBChooser.bundle */,
 				9C21AF2514E4579F00DB003E /* AppDelegate.h */,
 				9C21AF2614E4579F00DB003E /* AppDelegate.m */,
@@ -2318,8 +2342,11 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08A6FA4618BB838700D9A7EB /* libbeeblex.a */,
 				080D245D18B6E5C400161756 /* StoreKit.framework */,
 				088DAE17187DB0BC001B3855 /* libz.dylib */,
+				081D3BBE17B130A6003D1D21 /* libiconv.dylib */,
+				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
 				08F7DF0318596DD100BFA2D5 /* calabash.framework */,
 				088B40181792FB7F002750EA /* DBChooser.framework */,
 				08A932CA16FE9EBF00A75938 /* MessageUI.framework */,
@@ -2334,7 +2361,6 @@
 				08966F161660CA4A00339901 /* CoreMedia.framework */,
 				0868B1FF172995EB00BF4688 /* Accounts.framework */,
 				0868B200172995EB00BF4688 /* AdSupport.framework */,
-				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
 				0868B202172995EB00BF4688 /* Social.framework */,
 				9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */,
 				9C60DA8814E53C7100442413 /* CoreImage.framework */,
@@ -2635,6 +2661,7 @@
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				bd4e438372f33c9d4b20c276 /* FB-f-Logo__blue_50.png in Resources */,
+				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				c625dd5b0366cdc6fca27107 /* sinaWeibo48x48.png in Resources */,
 				304cf200a0cf0971c46eeca7 /* twitter50x50.png in Resources */,
 				bceda2c70731fb92daa9c222 /* launchImage.png in Resources */,
@@ -2746,6 +2773,7 @@
 				08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */,
 				08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */,
 				08DE1EA1178DAA2200A04E5F /* FB-f-Logo__blue_50.png in Resources */,
+				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				08DE1EA6178DB16000A04E5F /* sinaWeibo48x48.png in Resources */,
 				08DE1EAA178DB55B00A04E5F /* twitter50x50.png in Resources */,
 				08BF030717E45AB0005B7B3D /* launchImage.png in Resources */,
@@ -2825,6 +2853,7 @@
 				7006733dd0f628190d42e0b3 /* AppDelegate.m in Sources */,
 				080706E118B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				7180f0872705dada27b93742 /* UIAlertView+error.m in Sources */,
+				08A6FA4318BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */,
 				08397FC618B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
 				5b2117651ecfcf52639d39b2 /* UIImage+Alpha.m in Sources */,
 				08A5CBBB189F36C500F4E226 /* Mesh.m in Sources */,
@@ -3036,6 +3065,7 @@
 				908eb62bd1bbda2ebb3316a5 /* PlayButton.m in Sources */,
 				6fd8e0e48c4bdc8fec755009 /* MediaFrameView.m in Sources */,
 				9fb688efbc3c80d3142c59fb /* VideoFrameView.m in Sources */,
+				08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */,
 				1b45185b843dee98ea7599da /* PaintButton.m in Sources */,
 				a2551e3c45b085876b4411ff /* AnamorphicButton.m in Sources */,
 				34d02516d408dac46ba4b603 /* AnamorphicSideViewButton.m in Sources */,
@@ -3061,6 +3091,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0814743C18B19A5C00BBC25A /* AnimationClip.m in Sources */,
+				08A6FA4218BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */,
 				086BF7C1189E3CF50066C1F2 /* MeshFilter.m in Sources */,
 				08EF9E5418A1E2B600376568 /* Resources.m in Sources */,
 				08696F2A1806229D00FB16A5 /* UIImage+Pixel.m in Sources */,
@@ -3078,6 +3109,7 @@
 				081A2CEB163CD9F8006EC27A /* Brush.m in Sources */,
 				08BD5CAE180102FA00F0FF67 /* FullScreenButton.m in Sources */,
 				0871D02F1812A32B00A0D037 /* EraserSoft.m in Sources */,
+				08983D9918BCCD1B0001C334 /* Reachability.m in Sources */,
 				0804E2F7163D910300D86624 /* BrushView.m in Sources */,
 				088FD61E18569CEA00B64ABF /* TransformContentViewLayer.m in Sources */,
 				0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */,
@@ -3385,7 +3417,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				PRODUCT_NAME = PaintProjector;
 				PROVISIONING_PROFILE = "F60886A5-3714-4308-AE31-721AE01C678A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DB6EACAC-7E10-412E-80C4-948CAFDF98E0";
@@ -3501,7 +3536,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",
@@ -3607,7 +3645,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				PRODUCT_NAME = PaintProjector;
 				PROVISIONING_PROFILE = "F60886A5-3714-4308-AE31-721AE01C678A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60886A5-3714-4308-AE31-721AE01C678A";
@@ -3639,7 +3680,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				PRODUCT_NAME = PaintProjector;
 				PROVISIONING_PROFILE = "F60886A5-3714-4308-AE31-721AE01C678A";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60886A5-3714-4308-AE31-721AE01C678A";
@@ -3671,7 +3715,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",
@@ -3709,7 +3756,10 @@
 				HEADER_SEARCH_PATHS = "Submodules/GPUImage/framework/**";
 				INFOPLIST_FILE = "iReporter/PaintProjector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
+					/Users/kobunketsu/Documents/_Projects/PaintProjector,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-force_load",

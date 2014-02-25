@@ -10,6 +10,7 @@
 #import <Social/Social.h>
 //#import <Dropbox/Dropbox.h>
 #import <DBChooser/DBChooser.h>
+#import "AnaDrawIAPManager.h"
 //#import "PaintView.h"
 #import "ShowPaint.h"
 #import "SelectLayerContentViewController.h"
@@ -33,6 +34,8 @@
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
 #define TwoFingerPanGestureTime 0.016
+#define LayerMaxCount_Pro 8
+#define LayerMaxCount_Free 2
 
 #pragma mark PaintRefView Assets
 int colorPalleteCount = 20;
@@ -106,6 +109,7 @@ typedef struct {
 @interface PaintScreen ()
 //绘图工具
 @property (assign, nonatomic) PaintScreenViewState state;
+@property (retain, nonatomic) InAppPurchaseTableViewController* iapVC;
 @property (assign, nonatomic) BOOL isInterfacePortraitUpsideDown;//用于调整横向时按钮label的方向
 @property (assign, nonatomic) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
 @property (retain, nonatomic) LayerTableViewController *layerTableViewController;
@@ -3497,10 +3501,31 @@ typedef struct {
     });
 }
 
--(void)willInsertLayerDataAtIndex:(int)index{
+-(void)willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion{
+    NSUInteger layerMaxCount = 0;
+    //IAP Product ProVersionPackage provide more layers
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
+        layerMaxCount = LayerMaxCount_Pro;
+        if (self.paintDoc.data.layers.count >= layerMaxCount) {
+            NSString *message = [NSString stringWithFormat:@"Pro version support maximum %d layers",layerMaxCount];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            [alertView show];
+            return;
+        }
+    }
+    else{
+        layerMaxCount = LayerMaxCount_Free;
+        if (self.paintDoc.data.layers.count >= layerMaxCount) {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Free version only support 2 layers" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
+            [alertView show];
+            return;
+        }
+    }
+    
     //数据 & 显示
     [self.paintView insertBlankLayerAtIndex:index transparent:true immediate:true];
     [self.paintView uploadLayerDatas];
+    completion();
 }
 
 -(void)willEraseLayerDataAtIndex:(int)index{
@@ -4427,4 +4452,27 @@ typedef struct {
 //- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
 //    return UIInterfaceOrientationPortrait;
 //}
+
+#pragma mark- 处理警告 UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+            DebugLog(@"打开商店");
+            self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+            self.iapVC.delegate = self;
+            [self presentViewController:self.iapVC animated:true completion:^{
+            }];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
+- (void)willPurchaseDone{
+    [self.iapVC dismissViewControllerAnimated:true completion:^{
+        DebugLog(@"willPurchaseDone");
+    }];
+}
 @end

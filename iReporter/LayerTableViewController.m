@@ -308,22 +308,22 @@ const float BackgroundLayerTableViewCellHeight = 75;
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender {
    
     //数据
-    [self.delegate willInsertLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
-    
-    //UI
-    DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
-    [self.tableView beginUpdates];
-
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:self.curLayerIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableView reloadData];
-    [self.tableView endUpdates];
-    
-    [self checkEditable];
-    self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
-    
-    //刷新后选择cell(不会invoke didSelectRowAtIndexPath)
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
-    [self selectRowAtIndexPath:indexPath];
+    [self.delegate willInsertLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row] completion:^{
+        //UI
+        DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
+        [self.tableView beginUpdates];
+        
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:self.curLayerIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+        //    [self.tableView reloadData];
+        [self.tableView endUpdates];
+        
+        [self checkEditable];
+        self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
+        
+        //刷新后选择cell(不会invoke didSelectRowAtIndexPath)
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
+        [self selectRowAtIndexPath:indexPath];
+    }];
 }
 
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender {

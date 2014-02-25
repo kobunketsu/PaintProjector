@@ -19,7 +19,7 @@
 
 @protocol LayerTableViewControllerDelegate
 - (void) willSetCurLayerDataAtIndex:(int)index;
-- (void) willInsertLayerDataAtIndex:(int)index;
+- (void) willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion;
 - (void) willInsertCopyLayerDataAtIndex:(int)index;
 - (void) willEraseLayerDataAtIndex:(int)index;
 - (void) willDeleteLayerDataAtIndex:(int)index;

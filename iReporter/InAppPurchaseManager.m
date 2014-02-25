@@ -7,28 +7,25 @@
 //
 
 #import "InAppPurchaseManager.h"
+#import "BBXBeeblex.h"
+#import "BBXIAPTransaction.h"
 
-#define kInAppPurchaseProUpgradeProductId @"ProVersionPackage"
+typedef NS_ENUM(NSInteger, BBTransactionResult) {
+    TransactionValidated        = 0,
+    TransactionDuplicate        = 1,
+    TransactionInvalid          = 2,
+    TransactionNoNetwork        = 3,
+    TransactionServerError      = 4,
+};
 
 @implementation InAppPurchaseManager
-static InAppPurchaseManager* sharedInstance = nil;
 
-+(InAppPurchaseManager*)sharedInstance{
-    if(sharedInstance != nil){
-        return sharedInstance;
-    }
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[InAppPurchaseManager alloc]init];
-    });
-    return sharedInstance;
-}
-
-- (id)init{
+- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
     self = [super init];
     if (self) {
         //custom initialize
-        _productIdentifiers = [NSSet setWithObject:kInAppPurchaseProUpgradeProductId];
+        _productIdentifiers = productIdentifiers;
+        
         // Check for previously purchased products
         _purchasedProductIdentifiers = [NSMutableSet set];
         for (NSString * productIdentifier in _productIdentifiers) {
@@ -41,34 +38,45 @@ static InAppPurchaseManager* sharedInstance = nil;
                 NSLog(@"Not purchased: %@", productIdentifier);
             }
         }
+        
+        // restarts any purchases if they were interrupted last time the app was open
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
 }
 
 - (void)dealloc{
-    [self unloadStore];
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
-- (void)requestProUpgradeProductData
+- (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler
 {
-    DebugLog(@"请求升级到升级版");
+    DebugLog(@"请求产品列表");
+    _completionHandler = [completionHandler copy];
+    
     productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:self.productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];
     
+    
     // we will release the request object in the delegate callback
 }
 
+- (BOOL)isRequestingProduct{
+    return productsRequest != nil;
+}
 #pragma mark -
 #pragma mark SKProductsRequestDelegate methods
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
+    NSLog(@"从AppStore得到产品列表.");
+    self.productsRequested = true;
     NSArray *products = response.products;
     _products = products;
     
     if (products.count == 0) {
-        DebugLog(@"无法获得产品信息, 购买失败");
+        DebugLog(@"没有产品, 无法购买");
         return;
     }
     
@@ -77,7 +85,7 @@ static InAppPurchaseManager* sharedInstance = nil;
         NSLog(@"产品标题: %@" , product.localizedTitle);
         NSLog(@"产品描述: %@" , product.localizedDescription);
         NSLog(@"产品价格: %@" , product.price);
-        NSLog(@"Product id: %@" , product.productIdentifier);
+        NSLog(@"产品标识: %@" , product.productIdentifier);
     }
     
     for (NSString *invalidProductId in response.invalidProductIdentifiers)
@@ -88,32 +96,37 @@ static InAppPurchaseManager* sharedInstance = nil;
     // finally release the reqest we alloc/init’ed in requestProUpgradeProductData
     productsRequest = nil;
     
+    _completionHandler(YES, products);
+    _completionHandler = nil;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:self userInfo:nil];
 }
 
-//TODO:timeout
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    NSLog(@"无法从AppStore得到产品列表.");
+    self.productsRequested = false;
+    productsRequest = nil;
     
+    _completionHandler(NO, nil);
+    _completionHandler = nil;
 }
 #pragma mark-
 #pragma Public methods
 //
 // call this method once on startup
 //
-- (void)loadStore
-{
-    DebugLog(@"加载商店");
-    // restarts any purchases if they were interrupted last time the app was open
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
-    // get the product description (defined in early sections)
-    [self requestProUpgradeProductData];
-}
-
-- (void)unloadStore
-{
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-}
+//- (void)loadStore
+//{
+//    DebugLog(@"加载商店");
+//    
+//    // get the product description (defined in early sections)
+//    [self requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+//        //add completion handle here
+//        if (success) {
+//
+//        }
+//    }];
+//}
 
 //
 // call this before making a purchase
@@ -125,7 +138,7 @@ static InAppPurchaseManager* sharedInstance = nil;
 //
 // kick off the upgrade transaction
 //
-- (void)purchase:(SKProduct*)product
+- (void)purchaseProduct:(SKProduct*)product
 {
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -142,35 +155,125 @@ static InAppPurchaseManager* sharedInstance = nil;
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
+- (BOOL)productPurchased:(NSString *)productIdentifier {
+    return [_purchasedProductIdentifiers containsObject:productIdentifier];
+}
+
+#pragma mark- Device JailBreak
+//
+// call this to diable IAP
+//
+- (BOOL)isDeviceJailBroken{
+    if ([[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app"]) {
+        DebugLog(@"Jialbreak detected");
+        return true;
+    }
+    return false;
+}
+
+#pragma mark- Beeblex Verifying receipts
+- (void)validateReceipt:(SKPaymentTransaction *)transaction restore:(BOOL)restore {
+    __block BBTransactionResult transactionResult = 2;
+    if (![BBXIAPTransaction canValidateTransactions]) {
+        transactionResult = TransactionNoNetwork;
+        DebugLog(@"没有网络连接,无法验证交易.请连接网络后尝试");
+        return; // There is no connectivity to reach the server.
+        // You should try the validation at a later date.
+    }
+    
+    BBXIAPTransaction *bbxTransaction = [[BBXIAPTransaction alloc] initWithTransaction:transaction];
+    bbxTransaction.useSandbox = YES;
+    
+    [bbxTransaction validateWithCompletionBlock:^(NSError *error) {
+        
+        if (bbxTransaction.transactionVerified) {
+            if (bbxTransaction.transactionIsDuplicate) {
+                // The transaction is valid, but duplicate - it has already been
+                // sent to Beeblex in the past.
+                transactionResult = TransactionDuplicate;
+                DebugLog(@"验证交易已存在");
+                [self finishTransaction:transaction wasSuccessful:YES];
+            }
+            else {
+                
+                // The transaction has been successfully validated
+                // and is unique.
+                
+                NSLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
+                transactionResult = TransactionValidated;
+                DebugLog(@"验证交易成功,提供产品下载");
+                if (restore) {
+                    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
+                }
+                else{
+                    [self provideContent:transaction.payment.productIdentifier];
+                }
+
+                [self finishTransaction:transaction wasSuccessful:YES];
+            }
+
+        } else {
+            
+            // Check whether this is a validation error, or if something
+            // went wrong with Beeblex.
+            
+            if (bbxTransaction.hasServerError) {
+                
+                // The error was not caused by a problem with the data, but is
+                // most likely due to some transient networking issues.
+                transactionResult = TransactionServerError;
+                DebugLog(@"验证交易服务器错误,请稍后尝试");
+            }
+            else {
+                
+                // The transaction supplied to the validation service was not valid according to Apple.
+                transactionResult = TransactionInvalid;
+                DebugLog(@"验证交易失败");
+                [self finishTransaction:transaction wasSuccessful:NO];
+            }
+            
+        }
+       
+    }];
+}
+
 #pragma mark-
 #pragma Purchase helpers
 //
 // saves a record of the transaction by storing the receipt to disk
 //
 
+//- (void)recordTransaction:(SKPaymentTransaction *)transaction
+//{
+//    DebugLog(@"记录交易,交易记录保存到磁盘存储收据");
+//    if ([transaction.payment.productIdentifier isEqualToString:kInAppPurchaseProUpgradeProductId])
+//    {
+//        // save the transaction receipt to disk
+//        NSString *productTransactionReceipt = [transaction.payment.productIdentifier stringByAppendingString:@"Receipt"];
+//        [[NSUserDefaults standardUserDefaults] setValue:transaction.transactionReceipt forKey:@"proUpgradeTransactionReceipt" ];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+//}
+
 - (void)recordTransaction:(SKPaymentTransaction *)transaction
 {
     DebugLog(@"记录交易,交易记录保存到磁盘存储收据");
-    if ([transaction.payment.productIdentifier isEqualToString:kInAppPurchaseProUpgradeProductId])
-    {
-        // save the transaction receipt to disk
-        [[NSUserDefaults standardUserDefaults] setValue:transaction.transactionReceipt forKey:@"proUpgradeTransactionReceipt" ];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    // save the transaction receipt to disk
+    NSString *productTransactionReceipt = [transaction.payment.productIdentifier stringByAppendingString:@"Receipt"];
+    [[NSUserDefaults standardUserDefaults] setValue:transaction.transactionReceipt forKey:productTransactionReceipt];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
 //
 // enable pro features
 //
-
-- (void)provideContent:(NSString *)productId
+- (void)provideContent:(NSString *)productIdentifier
 {
     DebugLog(@"下载内容");
-    if ([productId isEqualToString:kInAppPurchaseProUpgradeProductId])
-    {
-        // enable the pro features
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isProUpgradePurchased" ];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    [_purchasedProductIdentifiers addObject:productIdentifier];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 //
 // removes the transaction from the queue and posts a notification with the transaction result
@@ -199,9 +302,7 @@ static InAppPurchaseManager* sharedInstance = nil;
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
     DebugLog(@"完成交易");
-    [self recordTransaction:transaction];
-    [self provideContent:transaction.payment.productIdentifier];
-    [self finishTransaction:transaction wasSuccessful:YES];
+    [self validateReceipt:transaction restore:NO];
 }
 //
 // called when a transaction has been restored and and successfully completed
@@ -209,9 +310,7 @@ static InAppPurchaseManager* sharedInstance = nil;
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
     DebugLog(@"恢复交易");
-    [self recordTransaction:transaction.originalTransaction];
-    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
-    [self finishTransaction:transaction wasSuccessful:YES];
+    [self validateReceipt:transaction restore:YES];
 }
 //
 // called when a transaction has failed

@@ -12,7 +12,7 @@
 #import "UIView+Tag.h"
 #import "SharedPopoverController.h"
 #import "UnitConverter.h"
-#import "InAppPurchaseManager.h"
+#import "AnaDrawIAPManager.h"
 
 @interface CylinderProjectViewController ()
 //TODO: deprecated
@@ -210,19 +210,13 @@
 //    else{
 //        [self setupDone];
 //    }
-    if ([[InAppPurchaseManager sharedInstance] canMakePurchases]) {
-        DebugLog(@"可以进行购买");
-        self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
-        self.iapVC.delegate = self;
-        [self presentViewController:self.iapVC animated:true completion:^{
-            //        self.iapVC.view.superview.bounds = CGRectMake(0, 0, 768, 848);
-        }];
-    }
-    else{
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Store not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [alertView show];
-    }
+    
 
+    DebugLog(@"打开商店");
+    self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+    self.iapVC.delegate = self;
+    [self presentViewController:self.iapVC animated:true completion:^{
+    }];
 }
 
 //- (IBAction)cylinderDiameterButtonTouchUp:(UIButton *)sender {
@@ -1606,7 +1600,7 @@
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
 - (void)willPurchaseDone{
     [self.iapVC dismissViewControllerAnimated:true completion:^{
-        DebugLog(@"willCancelPurchase");
+        DebugLog(@"willPurchaseDone");
     }];
 }
 #pragma mark- 绘画代理PaintScreenDelegate

@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface InAppPurchaseTableViewController : UITableViewController
-
+<UIAlertViewDelegate>
 @property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (assign, nonatomic) CGRect superViewBounds;
 - (IBAction)doneButtonTouchUp:(UIButton *)sender;
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender;
 

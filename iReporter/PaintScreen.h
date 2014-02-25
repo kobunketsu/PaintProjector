@@ -87,6 +87,8 @@
 #import "SharedPopoverController.h"
 #import "AutoRotateButton.h"
 #import "ClearGestureRecognizer.h"
+#import "InAppPurchaseTableViewController.h"
+
 @class TransformContentView;
 @class TransformAnchorView;
 
@@ -135,6 +137,7 @@ UINavigationControllerDelegate,
 MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,
 UIScrollViewDelegate,//temp
+UIAlertViewDelegate,
 PaintingViewDelegate,
 BrushTypeScrollViewDelegate, 
 SelectLayerContentDelegate,
@@ -144,7 +147,8 @@ LayerTableViewControllerDelegate,
 BrushPropertyViewControllerDelegate,
 //BrushTypeViewControllerDelegate,
 InfColorPickerControllerDelegate,
-FuzzyTransparentViewDelegate
+FuzzyTransparentViewDelegate,
+InAppPurchaseTableViewControllerDelegate
 >
 {
     //变换
