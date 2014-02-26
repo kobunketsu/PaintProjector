@@ -26,4 +26,8 @@ static AnaDrawIAPManager* sharedInstance = nil;
     return sharedInstance;
 }
 
+//- (void)unlockLayerQuantityLimitation{
+//    
+//}
+
 @end

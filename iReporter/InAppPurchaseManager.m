@@ -269,10 +269,20 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)provideContent:(NSString *)productIdentifier
 {
-    DebugLog(@"下载内容");
+    DebugLog(@"解锁内容");
     [_purchasedProductIdentifiers addObject:productIdentifier];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
+    
+    if ([productIdentifier isEqualToString:@"ProVersionPackage"]) {
+        DebugLog(@"专业版提供16层图层");
+        [[NSUserDefaults standardUserDefaults] setInteger:16 forKey:@"LayerQuantityLimitation"];
+        DebugLog(@"专业版提供额外笔刷包");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
+    }
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+
     
 }
 //

@@ -44,6 +44,10 @@
         //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
         [self copyCollectionFromMainBundleToUserDocument];
         
+        //设置用户参数
+        [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"LayerQuantityLimitation"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+        
         // 這裡判斷是否第一次
         UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"
                                                         message:@"進入App"

@@ -82,4 +82,8 @@
 {
     //do nothing. done in prepareWithBrushState
 }
+
+- (BOOL)free{
+    return false;
+}
 @end

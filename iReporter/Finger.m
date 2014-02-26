@@ -59,4 +59,7 @@
     [self setBrushShapeTexture:nil];
 }
 
+- (BOOL)free{
+    return true;
+}
 @end

@@ -57,4 +57,8 @@
     [self setBrushCommonTextures];
     [self setBrushShapeTexture:@"chineseBrush.png"];
 }
+
+- (BOOL)free{
+    return true;
+}
 @end

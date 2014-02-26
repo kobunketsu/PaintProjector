@@ -57,4 +57,8 @@
     [self setBrushCommonTextures];
     [self setBrushShapeTexture:@"brush_square_64.png"];
 }
+
+- (BOOL)free{
+    return false;
+}
 @end

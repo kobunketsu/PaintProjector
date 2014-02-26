@@ -58,4 +58,8 @@
     [self setBrushShapeTexture:@"brush_dryTip_64.png"];
 //    [self setBrushShapeTexture:nil];
 }
+
+- (BOOL)free{
+    return false;
+}
 @end

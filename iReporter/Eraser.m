@@ -67,4 +67,8 @@
     [self setBrushCommonTextures];
     [self setBrushShapeTexture:nil];
 }
+
+- (BOOL)free{
+    return true;
+}
 @end

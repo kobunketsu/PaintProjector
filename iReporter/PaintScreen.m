@@ -34,8 +34,10 @@
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
 #define TwoFingerPanGestureTime 0.016
-#define LayerMaxCount_Pro 8
-#define LayerMaxCount_Free 2
+
+//使用NSUserDefault来存储数据
+//#define LayerMaxCount_Pro 8
+//#define LayerMaxCount_Free 2
 
 #pragma mark PaintRefView Assets
 int colorPalleteCount = 20;
@@ -3502,21 +3504,19 @@ typedef struct {
 }
 
 -(void)willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion{
-    NSUInteger layerMaxCount = 0;
-    //IAP Product ProVersionPackage provide more layers
+    NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
-        layerMaxCount = LayerMaxCount_Pro;
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            NSString *message = [NSString stringWithFormat:@"Pro version support maximum %d layers",layerMaxCount];
+            NSString *message = [NSString stringWithFormat:@"Maximum %d layers supported in Pro version.",layerMaxCount];
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
             [alertView show];
             return;
         }
     }
     else{
-        layerMaxCount = LayerMaxCount_Free;
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Free version only support 2 layers" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
+            NSString *message = [NSString stringWithFormat:@"Maximum %d layers supported in Free version.",layerMaxCount];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
             [alertView show];
             return;
         }
@@ -3791,7 +3791,7 @@ typedef struct {
 
 -(void)willSelectBrush:(id)sender{
     DebugLog(@"willSelectBrush");
-    
+
     BrushTypeButton* selButton = (BrushTypeButton*)sender;
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         for (BrushTypeButton* button in self.brushTypeScrollView.subviews) {
@@ -3807,22 +3807,23 @@ typedef struct {
 -(void)willSelectBrushDone:(id)sender{
     BrushTypeButton* button = (BrushTypeButton*)sender;
     DebugLog(@"[ selectBrushDone BrushId %d]", button.brush.brushState.classId);
-    //UI
-//    [self switchDownToolBar:self.brushTypeBar completion:^(void){
-//        BrushTypeButton* button = (BrushTypeButton*)sender;
-//        //Draw
-//        [self.paintView setBrush:button.brush];
-//        [self.paintView.brush setColor:self.paintColorButton.color];
-//
-//        
-//    }toMainToolBarsCompletion:^(BOOL finished){
-//        _state = PaintScreen_Normal;
-//        //笔刷面板打开绘图
-//        self.paintView.userInteractionEnabled = true;
-//    }];
+    
+    Brush *brush = button.brush;
 
-    //Draw
-    [self.paintView setBrush:button.brush];
+    //检查笔刷是否可用
+    if (!brush.available) {
+        [self willSelectBrushCanceled:sender];
+        
+        //笔刷不可用，询问购买
+        NSString *message = [NSString stringWithFormat:@"%@ is not supported in Free version.", NSStringFromClass(brush.class)];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    //UI
+    [self.paintView setBrush:brush];
     [self.paintView.brush setColor:self.paintColorButton.color];
    
     [self slideToolBarRightDirection:false out:self.brushTypeView in:self.paintToolView completion:^{
@@ -4271,6 +4272,7 @@ typedef struct {
     }completion:nil];
 }
 
+//TODO:需要在其他按钮按下时取消取色状态
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
     if (self.paintView.state != PaintingView_TouchEyeDrop) {
         self.paintView.state = PaintingView_TouchEyeDrop;
@@ -4283,6 +4285,7 @@ typedef struct {
     }
     else if(self.paintView.state == PaintingView_TouchEyeDrop){
         self.paintView.state = PaintingView_TouchNone;
+        _state = PaintScreen_Normal;
         
         [UIView animateWithDuration:0.2 animations:^{
             self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);

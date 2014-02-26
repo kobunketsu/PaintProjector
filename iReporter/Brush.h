@@ -114,36 +114,48 @@ typedef struct {
     GLfloat _projectionMat[16];
 }
 
-@property (retain, nonatomic) NSString *name;
-@property (assign, nonatomic) CGSize canvasSize;
-@property (assign, nonatomic)BrushVertex* vertexBuffer;
-@property (weak, nonatomic) PaintingView* paintView;
-@property (weak, nonatomic) GLWrapper* glWrapper;
-@property (retain, nonatomic) UIImage* iconImage;
+#pragma mark- InAppPurchase
+
+@property (assign, nonatomic, readonly) BOOL free;
+@property (assign, nonatomic, readonly) BOOL available;
+
+#pragma mark- Common
 @property (assign, nonatomic) id delegate;
-@property (assign, nonatomic) GLuint  shapeTexture;
-@property (assign, nonatomic) GLuint smudgeTexture;
-@property (assign, nonatomic) GLuint smudgeBackTexture;
-@property (assign, nonatomic) GLuint smudgeFramebuffer;
-@property (assign, nonatomic) GLuint smudgeBackFramebuffer;
-@property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
+@property (weak, nonatomic) PaintingView* paintView;
+@property (retain, nonatomic) NSString *name;
+@property (assign, nonatomic, readonly) BOOL isEditable;
+@property (assign, nonatomic) CGSize canvasSize;
+@property (retain, nonatomic) UIImage* iconImage;
+
+#pragma mark- Core
 @property (assign, nonatomic) CGPoint lastDrawPoint;
 @property (assign, nonatomic) CGPoint curDrawPoint;
 @property (retain, nonatomic) BrushState* brushState;
+@property (assign, nonatomic) BrushVertex* vertexBuffer;
 @property (assign, nonatomic) CGPoint position;
-@property (weak, nonatomic) EAGLContext* context;
-@property (assign, nonatomic) float radiusSliderMaxValue;
-@property (assign, nonatomic) float radiusSliderMinValue;
 @property (assign, nonatomic) float curDrawAccumDeltaLength;//当前绘制的长度
 @property (assign, nonatomic) float curDrawLength;//当前绘制的总长度
 @property (assign, nonatomic) float curDrawFade;//当前绘制结束防缩
 @property (assign, nonatomic) float lastDrawFade;//当前绘制结束防缩
 @property (assign, nonatomic) size_t allDrawSpriteCount;//当前一次绘制的数量
 @property (assign, nonatomic) CGPoint lastDrawSubPoint;
-@property (assign, nonatomic, readonly) BOOL isEditable;
+
+#pragma mark- OpenGLES
+@property (weak, nonatomic) GLWrapper* glWrapper;
+@property (weak, nonatomic) EAGLContext* context;
+@property (assign, nonatomic) GLuint shapeTexture;
+@property (assign, nonatomic) GLuint smudgeTexture;
+@property (assign, nonatomic) GLuint smudgeBackTexture;
+@property (assign, nonatomic) GLuint smudgeFramebuffer;
+@property (assign, nonatomic) GLuint smudgeBackFramebuffer;
+@property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
 @property (retain, nonatomic) NSString *shaderPreDefines;
 @property (retain, nonatomic) NSDictionary *vertShaderCaches;
 @property (retain, nonatomic) NSDictionary *fragShaderCaches;
+
+#pragma mark- UI
+@property (assign, nonatomic) float radiusSliderMaxValue;
+@property (assign, nonatomic) float radiusSliderMinValue;
 
 
 - (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper canvasSize:(CGSize)canvasSize;

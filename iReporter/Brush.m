@@ -933,4 +933,17 @@
 //    
 //}
 
+#pragma mark- IAP
+-(BOOL)available{
+    if (self.free) {
+        return YES;
+    }
+    else if([[NSUserDefaults standardUserDefaults] boolForKey:@"ExpandedBrushPackageAvailable"]){
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
+
 @end
