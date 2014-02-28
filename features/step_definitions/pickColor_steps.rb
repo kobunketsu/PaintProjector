@@ -38,15 +38,15 @@ Then /^I am using red color$/ do
   end
 end
 
-When /^I touch color slot number (\d+) on pallete$/ do |index|
-  res = element_exists("scrollView marked:'Pallete'")
+When /^I touch color slot number (\d+) on swatch$/ do |index|
+  res = element_exists("scrollView marked:'Swatch'")
   if not res
-    screenshot_and_raise "No element found with mark Pallete'"
+    screenshot_and_raise "No element found with mark Swatch'"
   end
   
   index = index.to_i
   strIndex = (index-1).to_s
-  label = 'PalleteColor_'+strIndex
+  label = 'SwatchColor_'+strIndex
   res = element_exists( "view:'ColorButton' marked:'#{label}'" )
   
   if not res
@@ -59,21 +59,21 @@ When /^I touch color slot number (\d+) on pallete$/ do |index|
   sleep(STEP_PAUSE)
 end
 
-Then /^I am using number (\d+) color from pallete$/ do |index|
-  res = element_exists("scrollView marked:'Pallete'")
+Then /^I am using number (\d+) color from swatch$/ do |index|
+  res = element_exists("scrollView marked:'Swatch'")
   if not res
-    screenshot_and_raise "No element found with mark Pallete'"
+    screenshot_and_raise "No element found with mark Swatch'"
   end
   
   index = index.to_i
   strIndex = (index-1).to_s
-  label = 'PalleteColor_'+strIndex
+  label = 'SwatchColor_'+strIndex
     
   strColor = query("view:'ColorButton' marked:'#{label}'", "color")[0]
   strUsingColor = query("view:'PaintColorButton'", "color")[0]
   res = strColor == strUsingColor
   if not res
-    raise "I am not using color from pallete. Using '#{strUsingColor}'"
+    raise "I am not using color from swatch. Using '#{strUsingColor}'"
   end  
 end
 

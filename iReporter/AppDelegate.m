@@ -47,6 +47,7 @@
         //设置用户参数
         [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"LayerQuantityLimitation"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
         
         // 這裡判斷是否第一次
         UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"

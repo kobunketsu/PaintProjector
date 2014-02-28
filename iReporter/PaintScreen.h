@@ -88,6 +88,8 @@
 #import "AutoRotateButton.h"
 #import "ClearGestureRecognizer.h"
 #import "InAppPurchaseTableViewController.h"
+#import "SwatchManagerTableViewController.h"
+
 
 @class TransformContentView;
 @class TransformAnchorView;
@@ -148,7 +150,8 @@ BrushPropertyViewControllerDelegate,
 //BrushTypeViewControllerDelegate,
 InfColorPickerControllerDelegate,
 FuzzyTransparentViewDelegate,
-InAppPurchaseTableViewControllerDelegate
+InAppPurchaseTableViewControllerDelegate,
+SwatchManagerTableViewControllerDelegate
 >
 {
     //变换
@@ -222,6 +225,7 @@ InAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet ColorSaveToSlotView *colorSaveToSlotView;
 @property (weak, nonatomic) IBOutlet UIView *brushOpacityView;
 @property (weak, nonatomic) IBOutlet UIView *paintColorView;
+@property (weak, nonatomic) IBOutlet UIButton *swatchManagerButton;
 @property (weak, nonatomic) IBOutlet OpacitySlider *opacitySlider;
 @property (weak, nonatomic) IBOutlet DownToolBar *paintToolBar;
 @property (weak, nonatomic) IBOutlet UIView *paintToolView;
@@ -266,6 +270,7 @@ InAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UndoButton *undoButton;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *topToolBarButtons;
+@property (retain, nonatomic) SwatchManagerTableViewController *swatchManagerVC;
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;

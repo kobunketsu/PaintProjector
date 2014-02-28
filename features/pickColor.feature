@@ -1,7 +1,7 @@
 Feature: Running pick color functions
   As AnaDraw developer
   I want to have a pick color feature file
-  So I can begin testing by picking from pallete, slots, canvas
+  So I can begin testing by picking from swatch, slots, canvas
 
   Background:
     Given I start to edit a new file in the Paint Screen
@@ -14,18 +14,18 @@ Feature: Running pick color functions
     And I confirm the pick
     Then I am using red color
   
-  Scenario: Painting pick a color in simple mode from pallete
+  Scenario: Painting pick a color in simple mode from swatch
     Given this is pending
 
-  Scenario Outline: Painting pick a color on pallete
-    When I touch color slot number <num> on pallete
-    Then I am using number <num> color from pallete
+  Scenario Outline: Painting pick a color on swatch
+    When I touch color slot number <num> on swatch
+    Then I am using number <num> color from swatch
     Examples:
     | num |
     | 1   |
     | 2   |
     
-  Scenario: Painting edit a color slot on pallete
+  Scenario: Painting edit a color slot on swatch
     Given this is pending  
   
   Scenario Outline: Painting pick a color from a eye dropper

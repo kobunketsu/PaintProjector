@@ -40,8 +40,8 @@
 //#define LayerMaxCount_Free 2
 
 #pragma mark PaintRefView Assets
-int colorPalleteCount = 20;
-float colorPalletes[] =
+int swatchCount = 20;
+float swatchs[] =
 {
     255, 255, 255,
     244, 146, 30,
@@ -325,74 +325,13 @@ typedef struct {
     [self.brushBackButton setNeedsDisplay];
 
     //颜色槽
+    self.colorSlotsScrollView.delegate = self;
     self.colorSlotsScrollView.isAccessibilityElement = true;
-    self.colorSlotsScrollView.accessibilityLabel = @"Pallete";
-    //将颜色槽加入颜色槽ScrollView
-    self.colorButtons = [[NSMutableArray alloc]init];
+    self.colorSlotsScrollView.accessibilityLabel = @"Swatch";
     
     //从user document目录workspace.plist中取出保存的颜色，如果是第一次使用无workspace.plist则创建workspace.plist
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ColorPallete_Default" withExtension:@"plist"];
-    NSArray * colorPalleteArray = [NSArray arrayWithContentsOfURL:url];
-//    NSMutableArray *colorPalleteArray = [self.workspace mutableArrayValueForKey:@"colorPalletes"];
-//    int emptyPalleteCount = 10 - colorPalleteArray.count % 10;
-    int emptyPalleteCount = 0;
-    for (int i = 0; i < colorPalleteArray.count + emptyPalleteCount; ++i) {
-        ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
-        colorButton.isAccessibilityElement = true;
-        colorButton.accessibilityLabel = [NSString stringWithFormat:@"PalleteColor_%d",i];
-        
-        UIColor *colorPallete;
-        if (i < colorPalleteArray.count) {
-            NSString *colorPalleteData = [colorPalleteArray objectAtIndex:i];
-            NSArray *rgb = [colorPalleteData componentsSeparatedByString:@","];
-            CGFloat r = [(NSString *)rgb[0] integerValue] / 255.0;
-            CGFloat g = [(NSString *)rgb[1] integerValue] / 255.0;
-            CGFloat b = [(NSString *)rgb[2] integerValue] / 255.0;
-            colorPallete = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-            colorButton.isEmpty = false;
-        }
-        else{
-            colorPallete = [UIColor clearColor];
-            colorButton.isEmpty = true;
-        }
-
-        colorButton.color = colorPallete;
-        
-        [colorButton addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchDown];
-        [colorButton addTarget:self action:@selector(selectColorConfirmed:) forControlEvents:UIControlEventTouchUpInside];
-        [colorButton addTarget:self action:@selector(selectColorCancel:) forControlEvents:UIControlEventTouchCancel];
-        [colorButton addTarget:self action:@selector(selectColorToBlend:) forControlEvents:UIControlEventTouchUpOutside];
-
-        //创建单击颜色进行混合手势
-        UITapGestureRecognizer *tapGRColorSlot = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapColorSlot:)];
-        tapGRColorSlot.delegate = self;
-        tapGRColorSlot.cancelsTouchesInView = true;
-        tapGRColorSlot.numberOfTouchesRequired = 1;
-        tapGRColorSlot.numberOfTapsRequired = 1;
-        [colorButton addGestureRecognizer:tapGRColorSlot];
-        
-//        //创建双击颜色进行混合手势
-//        UITapGestureRecognizer *doubleTapGRColorSlot = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTapColorSlot:)];
-//        doubleTapGRColorSlot.delegate = self;
-//        doubleTapGRColorSlot.cancelsTouchesInView = true;
-//        doubleTapGRColorSlot.numberOfTouchesRequired = 1;
-//        doubleTapGRColorSlot.numberOfTapsRequired = 2;
-//        [colorButton addGestureRecognizer:doubleTapGRColorSlot];
-//        [tapGRColorSlot requireGestureRecognizerToFail:doubleTapGRColorSlot];
-        
-        //创建颜色长按编辑手势
-        UILongPressGestureRecognizer *longPressGRColorSlot = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressColorSlot:)];
-        longPressGRColorSlot.delegate = self;
-        longPressGRColorSlot.cancelsTouchesInView = true;
-        longPressGRColorSlot.numberOfTouchesRequired = 1;
-        [colorButton addGestureRecognizer:longPressGRColorSlot];
-        
-        [self.colorButtons addObject:colorButton];
-        [self.colorSlotsScrollView addSubview:colorButton];
-    }
-    
-    self.colorSlotsScrollView.contentSize = CGSizeMake(50*(colorPalleteArray.count + emptyPalleteCount), 44);
-    self.colorSlotsScrollView.delegate = self;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Swatches/Swatch_Default" withExtension:@"plist"];
+    [self setSwatchFile:url];
     
     //将半径按钮加入半径ScrollView
 //    int radiusViewCount = 10;
@@ -1709,7 +1648,7 @@ typedef struct {
                         }
                     }
                     if (colorButtonIsFull) {
-                        [self addNewColorButtons];
+                        [self newSwatch];
                     }
                 }];
             }];
@@ -2231,8 +2170,8 @@ typedef struct {
         
     }
 }
-
-- (void)addNewColorButtons{
+#pragma mark-
+- (void)newSwatch{
     int srcCount = self.colorButtons.count;
     for (int i = 0; i < 10; ++i) {
         ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * (i + srcCount), 0, 50, 50)];
@@ -2258,6 +2197,92 @@ typedef struct {
 }
 
 
+- (void)setSwatchFile:(NSURL*)url{
+    //将颜色槽加入颜色槽ScrollView
+    if (self.colorButtons) {
+        for (ColorButton *button in self.colorButtons) {
+            [button removeFromSuperview];
+        }
+        [self.colorButtons removeAllObjects];
+    }
+    else{
+        self.colorButtons = [[NSMutableArray alloc]init];
+    }
+
+    NSArray * swatchArray = [NSArray arrayWithContentsOfURL:url];
+    
+    for (int i = 0; i < swatchArray.count; ++i) {
+        ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
+        colorButton.isAccessibilityElement = true;
+        colorButton.accessibilityLabel = [NSString stringWithFormat:@"SwatchColor_%d",i];
+        
+        UIColor *color;
+        if (i < swatchArray.count) {
+            NSString *swatchData = [swatchArray objectAtIndex:i];
+            NSArray *rgb = [swatchData componentsSeparatedByString:@","];
+            CGFloat r = [rgb[0] integerValue] / 255.0;
+            CGFloat g = [rgb[1] integerValue] / 255.0;
+            CGFloat b = [rgb[2] integerValue] / 255.0;
+            color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+            colorButton.isEmpty = false;
+        }
+        else{
+            color = [UIColor clearColor];
+            colorButton.isEmpty = true;
+        }
+        
+        colorButton.color = color;
+        
+        [colorButton addTarget:self action:@selector(selectColor:) forControlEvents:UIControlEventTouchDown];
+        [colorButton addTarget:self action:@selector(selectColorConfirmed:) forControlEvents:UIControlEventTouchUpInside];
+        [colorButton addTarget:self action:@selector(selectColorCancel:) forControlEvents:UIControlEventTouchCancel];
+        [colorButton addTarget:self action:@selector(selectColorToBlend:) forControlEvents:UIControlEventTouchUpOutside];
+        
+        //创建单击颜色进行混合手势
+        UITapGestureRecognizer *tapGRColorSlot = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapColorSlot:)];
+        tapGRColorSlot.delegate = self;
+        tapGRColorSlot.cancelsTouchesInView = true;
+        tapGRColorSlot.numberOfTouchesRequired = 1;
+        tapGRColorSlot.numberOfTapsRequired = 1;
+        [colorButton addGestureRecognizer:tapGRColorSlot];
+        
+        //        //创建双击颜色进行混合手势
+        //        UITapGestureRecognizer *doubleTapGRColorSlot = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTapColorSlot:)];
+        //        doubleTapGRColorSlot.delegate = self;
+        //        doubleTapGRColorSlot.cancelsTouchesInView = true;
+        //        doubleTapGRColorSlot.numberOfTouchesRequired = 1;
+        //        doubleTapGRColorSlot.numberOfTapsRequired = 2;
+        //        [colorButton addGestureRecognizer:doubleTapGRColorSlot];
+        //        [tapGRColorSlot requireGestureRecognizerToFail:doubleTapGRColorSlot];
+        
+        //创建颜色长按编辑手势
+        UILongPressGestureRecognizer *longPressGRColorSlot = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPressColorSlot:)];
+        longPressGRColorSlot.delegate = self;
+        longPressGRColorSlot.cancelsTouchesInView = true;
+        longPressGRColorSlot.numberOfTouchesRequired = 1;
+        [colorButton addGestureRecognizer:longPressGRColorSlot];
+        
+        [self.colorButtons addObject:colorButton];
+        [self.colorSlotsScrollView addSubview:colorButton];
+    }
+    self.colorSlotsScrollView.contentSize = CGSizeMake(50*(swatchArray.count), 44);
+}
+
+- (IBAction)swatchManagerButtonTouchUp:(UIButton *)sender {
+//    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"ExpandedSwatchManagerAvailable"]) {
+        //调色板管理功能可用
+        self.swatchManagerVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"SwatchManagerViewController"];
+        self.swatchManagerVC.delegate = self;
+        [self presentViewController:self.swatchManagerVC animated:YES completion:^{
+        }];
+        
+//    }
+//    else{
+//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"swatch manager not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
+//        [alertView show];
+//    }
+}
+
 - (IBAction)selectColor:(ColorButton *)sender {
     [sender enableHighlighted:true];
 }
@@ -2282,7 +2307,7 @@ typedef struct {
 - (IBAction)selectColorCancel:(ColorButton *)sender {
     [sender enableHighlighted:false];
 }
-
+#pragma mark-
 - (IBAction)selectBrushRadius:(RadiusButton *)sender {
     self.paintView.brush.brushState.radius = sender.radius;
     self.radiusSlider.value = (float)sender.radius;
@@ -2339,7 +2364,7 @@ typedef struct {
         }];
     }
 }
-
+#pragma mark-
 - (IBAction)slideBrushOpacity:(UISlider *)sender {
     //根据不同的brush，设置不同的参数
     if ([self.paintView.brush isKindOfClass:[Finger class]] ||
@@ -2361,6 +2386,7 @@ typedef struct {
         self.opacitySlider.value = brushState.opacity;
     }
 }
+#pragma mark-
 - (IBAction)syncBrushView:(id)sender {
     self.brushView.color = self.infColorPickerController.resultColor;
     [self.brushView setNeedsDisplay];    
@@ -2423,11 +2449,11 @@ typedef struct {
         //取出Workspace模版，添加内容
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Workspace" ofType:@"plist"];
         self.workspace = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        NSMutableArray *colorPalleteArray = [self.workspace mutableArrayValueForKey:@"colorPalletes"];
-        for (int i = 0; i < colorPalleteCount; ++i) {
-            UIColor* colorPallete = [UIColor colorWithRed:colorPalletes[i*3]/255.0 green:colorPalletes[i*3+1]/255.0 blue:colorPalletes[i*3+2]/255.0 alpha:1.0];
-            NSData *colorPalleteData = [NSKeyedArchiver archivedDataWithRootObject:colorPallete];
-            [colorPalleteArray addObject:colorPalleteData];
+        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
+        for (int i = 0; i < swatchCount; ++i) {
+            UIColor* swatch = [UIColor colorWithRed:swatchs[i*3]/255.0 green:swatchs[i*3+1]/255.0 blue:swatchs[i*3+2]/255.0 alpha:1.0];
+            NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:swatch];
+            [swatchArray addObject:swatchData];
         }
         [self.workspace writeToFile:plistFilePath atomically:YES];
     }
@@ -2442,13 +2468,13 @@ typedef struct {
 
     if([[NSFileManager defaultManager] fileExistsAtPath:plistFilePath])
     {//already exits
-        NSMutableArray *colorPalleteArray = [self.workspace mutableArrayValueForKey:@"colorPalletes"];
-        [colorPalleteArray removeAllObjects];
+        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
+        [swatchArray removeAllObjects];
         for (int i = 0; i < self.colorButtons.count; ++i) {
             ColorButton *colorButton = [self.colorButtons objectAtIndex:i];
             if (!colorButton.isEmpty) {
-                NSData *colorPalleteData = [NSKeyedArchiver archivedDataWithRootObject:colorButton.color];
-                [colorPalleteArray addObject:colorPalleteData];
+                NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:colorButton.color];
+                [swatchArray addObject:swatchData];
             }
         }
         [self.workspace writeToFile:plistFilePath atomically: YES];
@@ -4482,6 +4508,14 @@ typedef struct {
 - (void)willPurchaseDone{
     [self.iapVC dismissViewControllerAnimated:true completion:^{
         DebugLog(@"willPurchaseDone");
+    }];
+}
+
+#pragma mark- 调色板代理SwatchManagerTableViewControllerDelegate
+- (void)willSetSwatchFile:(NSURL *)url{
+    [self setSwatchFile:url];
+    [self.swatchManagerVC dismissViewControllerAnimated:YES completion:^{
+
     }];
 }
 @end

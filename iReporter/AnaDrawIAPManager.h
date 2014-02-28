@@ -12,10 +12,4 @@
 @interface AnaDrawIAPManager : InAppPurchaseManager
 +(id)sharedInstance;
 
-////解锁笔刷
-//- (void)unlockBrush:(Brush*)brush;
-////解锁图层数量限制
-//- (void)unlockLayerQuantityLimitation;
-////解锁调色板数量限制
-//- (void)unlockPalleteQuantityLimitation;
 @end

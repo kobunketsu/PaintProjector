@@ -83,6 +83,10 @@
 		082060DE189D455C0027247C /* CylinderProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 082060DC189D455C0027247C /* CylinderProject.m */; };
 		082060E5189D4CE70027247C /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = 082060E4189D4CE70027247C /* Transform.m */; };
 		082060E6189D4CE70027247C /* Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = 082060E4189D4CE70027247C /* Transform.m */; };
+		0822B00418C0B9510021A75B /* SwatchManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */; };
+		0822B00518C0B9510021A75B /* SwatchManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */; };
+		0822B00618C0B9510021A75B /* SwatchManagerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */; };
+		0822B00718C0B9510021A75B /* SwatchManagerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */; };
 		08234EBD18915541008B4189 /* PaintFrameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 087AEBA61890ABE100D5B393 /* PaintFrameManager.m */; };
 		08234EC218915A45008B4189 /* FileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* FileButton.m */; };
 		08234EC318915F32008B4189 /* FileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* FileButton.m */; };
@@ -252,8 +256,6 @@
 		087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* OpacitySlider.m */; };
 		087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */ = {isa = PBXBuildFile; fileRef = 087BB3A61730ABF7006C0A33 /* opacityChecker.png */; };
 		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
-		087C8E6318BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */; };
-		087C8E6418BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */; };
 		087D01E7174E5EB400938494 /* LayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* LayerMergeButton.m */; };
 		087D53751792BD47001D4086 /* dropbox_Logo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 087D53741792BD47001D4086 /* dropbox_Logo_48.png */; };
 		087FE73C173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE73B173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m */; };
@@ -349,6 +351,10 @@
 		08B24FF0170ECA6E007CA9D2 /* PaintLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */; };
 		08B2A07C18A0930B003C888F /* Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2A07B18A0930B003C888F /* Display.m */; };
 		08B2A07D18A0930B003C888F /* Display.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2A07B18A0930B003C888F /* Display.m */; };
+		08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */ = {isa = PBXBuildFile; fileRef = 08B2CFA718C0CA9E00D34C1E /* Swatches */; };
+		08B2CFA918C0CA9E00D34C1E /* Swatches in Resources */ = {isa = PBXBuildFile; fileRef = 08B2CFA718C0CA9E00D34C1E /* Swatches */; };
+		08B2CFAC18C0D7C800D34C1E /* SwatchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */; };
+		08B2CFAD18C0D7C800D34C1E /* SwatchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */; };
 		08B444B6175AF21800787C18 /* studioBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B444B3175AF21800787C18 /* studioBackground.png */; };
 		08B444B7175AF21800787C18 /* studioHuaJiaCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B444B4175AF21800787C18 /* studioHuaJiaCropped.png */; };
 		08B444B8175AF21800787C18 /* studioHuaJiaJiaZiCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B444B5175AF21800787C18 /* studioHuaJiaJiaZiCropped.png */; };
@@ -907,6 +913,10 @@
 		082060DC189D455C0027247C /* CylinderProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CylinderProject.m; sourceTree = "<group>"; };
 		082060E3189D4CE70027247C /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transform.h; path = iReporter/Transform.h; sourceTree = "<group>"; };
 		082060E4189D4CE70027247C /* Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transform.m; path = iReporter/Transform.m; sourceTree = "<group>"; };
+		0822B00018C0B9510021A75B /* SwatchManagerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerTableViewCell.h; sourceTree = "<group>"; };
+		0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerTableViewCell.m; sourceTree = "<group>"; };
+		0822B00218C0B9510021A75B /* SwatchManagerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerTableViewController.h; sourceTree = "<group>"; };
+		0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerTableViewController.m; sourceTree = "<group>"; };
 		08234EC018915A45008B4189 /* FileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileButton.h; sourceTree = "<group>"; };
 		08234EC118915A45008B4189 /* FileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileButton.m; sourceTree = "<group>"; };
 		0823AA5B16A6E44400CF499C /* ShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderManager.h; path = iReporter/ShaderManager.h; sourceTree = "<group>"; };
@@ -1150,7 +1160,6 @@
 		087BB3A61730ABF7006C0A33 /* opacityChecker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacityChecker.png; sourceTree = "<group>"; };
 		087C5AB116B2CF2E005F954A /* Finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* Finger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finger.m; sourceTree = "<group>"; };
-		087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ColorPallete_Default.plist; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* LayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerMergeButton.h; sourceTree = "<group>"; };
 		087D01E6174E5EB400938494 /* LayerMergeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerMergeButton.m; sourceTree = "<group>"; };
 		087D53741792BD47001D4086 /* dropbox_Logo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox_Logo_48.png; sourceTree = "<group>"; };
@@ -1285,6 +1294,9 @@
 		08B24FEF170ECA6E007CA9D2 /* PaintLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintLayerManager.m; sourceTree = "<group>"; };
 		08B2A07A18A0930B003C888F /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Display.h; path = iReporter/Display.h; sourceTree = "<group>"; };
 		08B2A07B18A0930B003C888F /* Display.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Display.m; path = iReporter/Display.m; sourceTree = "<group>"; };
+		08B2CFA718C0CA9E00D34C1E /* Swatches */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Swatches; sourceTree = "<group>"; };
+		08B2CFAA18C0D7C800D34C1E /* SwatchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchCollectionViewCell.h; sourceTree = "<group>"; };
+		08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchCollectionViewCell.m; sourceTree = "<group>"; };
 		08B444B3175AF21800787C18 /* studioBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studioBackground.png; sourceTree = "<group>"; };
 		08B444B4175AF21800787C18 /* studioHuaJiaCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studioHuaJiaCropped.png; sourceTree = "<group>"; };
 		08B444B5175AF21800787C18 /* studioHuaJiaJiaZiCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studioHuaJiaJiaZiCropped.png; sourceTree = "<group>"; };
@@ -1968,18 +1980,24 @@
 			name = Brush;
 			sourceTree = "<group>";
 		};
-		087C8E5F18BF7ABD001A3331 /* ColorPallete */ = {
+		087C8E5F18BF7ABD001A3331 /* Swatch */ = {
 			isa = PBXGroup;
 			children = (
+				08B2CFA718C0CA9E00D34C1E /* Swatches */,
+				0822B00018C0B9510021A75B /* SwatchManagerTableViewCell.h */,
+				0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */,
+				08B2CFAA18C0D7C800D34C1E /* SwatchCollectionViewCell.h */,
+				08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */,
+				0822B00218C0B9510021A75B /* SwatchManagerTableViewController.h */,
+				0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */,
 				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
 				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
 				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
 				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
 				08869ACE177DE9650010E0AA /* ColorSaveToSlotView.h */,
 				08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */,
-				087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */,
 			);
-			name = ColorPallete;
+			name = Swatch;
 			sourceTree = "<group>";
 		};
 		087D53781792C0D4001D4086 /* Import */ = {
@@ -2229,7 +2247,7 @@
 				084690FF1747AEB800E50554 /* Import */,
 				084691001747AEEA00E50554 /* Export */,
 				087C5AB616B2DC91005F954A /* Brush */,
-				087C8E5F18BF7ABD001A3331 /* ColorPallete */,
+				087C8E5F18BF7ABD001A3331 /* Swatch */,
 				94997B7F16819D12006E3661 /* PaintingView.h */,
 				94997B8016819D13006E3661 /* PaintingView.m */,
 				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
@@ -2650,9 +2668,9 @@
 				c63d49effab58f2c3b5424d1 /* sandClock.png in Resources */,
 				e49663dbbd5d36caa6ff7c72 /* sandClock1.png in Resources */,
 				a8775f23018cf4e1b0f84ef3 /* sandClock2.png in Resources */,
+				08B2CFA918C0CA9E00D34C1E /* Swatches in Resources */,
 				aa42cd4b05db50eaabf139ec /* checkBox.png in Resources */,
 				a3c16c3951a471a6e8e811ba /* delete.png in Resources */,
-				087C8E6418BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */,
 				f1ae9dcd6d37abf07a13d408 /* viewButton.png in Resources */,
 				53d0449ea714444084ab164a /* viewButtonDisable.png in Resources */,
 				e20b7189c7919568a1757947 /* layer.png in Resources */,
@@ -2763,9 +2781,9 @@
 				0809D4A816FDE13D00E13B8C /* sandClock.png in Resources */,
 				0809D4AD16FDE62300E13B8C /* sandClock1.png in Resources */,
 				0809D4AE16FDE62300E13B8C /* sandClock2.png in Resources */,
+				08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */,
 				0843A656171061FB004806C5 /* checkBox.png in Resources */,
 				089FC3FF171AD1F60018CE27 /* delete.png in Resources */,
-				087C8E6318BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */,
 				089FC404171AD48E0018CE27 /* viewButton.png in Resources */,
 				089FC405171AD48E0018CE27 /* viewButtonDisable.png in Resources */,
 				089743CF1722938C0085113C /* layer.png in Resources */,
@@ -2890,6 +2908,7 @@
 				039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */,
 				3ea74751a145c238a19bd801 /* InfSourceColorView.m in Sources */,
 				00d3b8801be0906d9d679618 /* SelectBrushButton.m in Sources */,
+				0822B00518C0B9510021A75B /* SwatchManagerTableViewCell.m in Sources */,
 				3e13c00c1f6987b13e759e6c /* EyeDropper.m in Sources */,
 				18e82aa8549080dbf54b5c50 /* UndoGestureRecognizer.m in Sources */,
 				ca53a460052690d799e70353 /* UndoButton.m in Sources */,
@@ -2965,6 +2984,7 @@
 				60a57c2da640e71310c3ec3d /* PaintProjectViewController.m in Sources */,
 				911394886ac356cacff50a95 /* FullScreenReverseButton.m in Sources */,
 				4dab84346bbaf3cf54aad775 /* PaintData.m in Sources */,
+				0822B00718C0B9510021A75B /* SwatchManagerTableViewController.m in Sources */,
 				b96c05be8b1fd142d303d318 /* PaintDoc.m in Sources */,
 				fa4a23bd44b5bb26f6e79093 /* PaintDocManager.m in Sources */,
 				f165c55f3ecb5d185d29e7c2 /* GLWrapper.m in Sources */,
@@ -3046,6 +3066,7 @@
 				ab6df335afe0a8192b99f94b /* PaintFrameView.m in Sources */,
 				7b39cdcb495bf6f6db9ea829 /* PaintFrameViewGroup.m in Sources */,
 				08F5F3F818B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */,
+				08B2CFAD18C0D7C800D34C1E /* SwatchCollectionViewCell.m in Sources */,
 				951a9cc4959e2068ff8b25e8 /* CommandManager.m in Sources */,
 				4ed0b36c6f824d99ac8dea6c /* Command.m in Sources */,
 				c584a8d6513e6bd51a92a182 /* OpenCommand.m in Sources */,
@@ -3260,6 +3281,7 @@
 				08D8369F1737EB2100B68990 /* CancelButton.m in Sources */,
 				08D836A21737EDA300B68990 /* DoneButton.m in Sources */,
 				08D836A51737FF5D00B68990 /* ClearButton.m in Sources */,
+				08B2CFAC18C0D7C800D34C1E /* SwatchCollectionViewCell.m in Sources */,
 				08B2A07C18A0930B003C888F /* Display.m in Sources */,
 				089D8E9D1840A24C00CCF11A /* BackgroundLayerTableViewCell.m in Sources */,
 				084F8EC8173BDD9D007676C3 /* BrushTypeViewController.m in Sources */,
@@ -3289,6 +3311,7 @@
 				087D01E7174E5EB400938494 /* LayerMergeButton.m in Sources */,
 				0847F103174FC31E008E795B /* LayerCopyButton.m in Sources */,
 				085539801751AA6E00DECF41 /* AnchorView.m in Sources */,
+				0822B00618C0B9510021A75B /* SwatchManagerTableViewController.m in Sources */,
 				085539841751B7D400DECF41 /* GridButton.m in Sources */,
 				08E251B7189CBCC60039AAC2 /* ShaderCylinderProject.m in Sources */,
 				080A046318A3434D004A4785 /* ShaderNoLitTexture.m in Sources */,
@@ -3317,6 +3340,7 @@
 				084228A618A7CADA0046BA61 /* UIView+Tag.m in Sources */,
 				088E57B61790D7C900464F61 /* ProjectViewRange.m in Sources */,
 				08FD2DC4179B8864006B0EB8 /* CylinderProjectViewController.m in Sources */,
+				0822B00418C0B9510021A75B /* SwatchManagerTableViewCell.m in Sources */,
 				080A81A517A35008008FE08C /* Grid.m in Sources */,
 				088B741A17F466000039ABC4 /* LayerTableView.m in Sources */,
 				0832967E17ACD22600F8DCF2 /* PlayerView.m in Sources */,
