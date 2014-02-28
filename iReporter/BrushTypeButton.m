@@ -76,6 +76,71 @@
     else if ([self.brush isKindOfClass:[Chalk class]]) {
         [self drawChalk];
     }
+    
+    if (!self.brush.available) {
+        //if use pixel image, use
+        //        [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        
+        [self drawLocker];
+    }
+}
+
+- (void)drawLocker{
+    //// General Declarations
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //// Color Declarations
+    UIColor* strokeColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.731 green: 0.731 blue: 0.731 alpha: 1];
+    UIColor* highlightedColor = [UIColor colorWithRed: 0.832 green: 0.832 blue: 0.832 alpha: 1];
+    
+    //// Gradient Declarations
+    NSArray* gradientColors = [NSArray arrayWithObjects:
+                               (id)color.CGColor,
+                               (id)[UIColor colorWithRed: 0.781 green: 0.781 blue: 0.781 alpha: 1].CGColor,
+                               (id)highlightedColor.CGColor,
+                               (id)[UIColor colorWithRed: 0.781 green: 0.781 blue: 0.781 alpha: 1].CGColor,
+                               (id)color.CGColor, nil];
+    CGFloat gradientLocations[] = {0, 0.14, 0.51, 0.87, 0.98};
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
+    
+    //// Bezier 2 Drawing
+    UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
+    [bezier2Path moveToPoint: CGPointMake(56.78, 3.55)];
+    [bezier2Path addLineToPoint: CGPointMake(50.22, 3.55)];
+    [bezier2Path addCurveToPoint: CGPointMake(49.72, 4.04) controlPoint1: CGPointMake(49.94, 3.55) controlPoint2: CGPointMake(49.72, 3.77)];
+    [bezier2Path addLineToPoint: CGPointMake(49.72, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(57.28, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(57.28, 4.04)];
+    [bezier2Path addCurveToPoint: CGPointMake(56.78, 3.55) controlPoint1: CGPointMake(57.28, 3.77) controlPoint2: CGPointMake(57.06, 3.55)];
+    [bezier2Path closePath];
+    [bezier2Path moveToPoint: CGPointMake(59.34, 2.5)];
+    [bezier2Path addLineToPoint: CGPointMake(59.34, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(64.5, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(64.5, 23.5)];
+    [bezier2Path addLineToPoint: CGPointMake(42.5, 23.5)];
+    [bezier2Path addLineToPoint: CGPointMake(42.5, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(47.66, 9.08)];
+    [bezier2Path addLineToPoint: CGPointMake(47.66, 2.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(48.66, 1.5) controlPoint1: CGPointMake(47.66, 1.95) controlPoint2: CGPointMake(48.11, 1.5)];
+    [bezier2Path addLineToPoint: CGPointMake(58.34, 1.5)];
+    [bezier2Path addCurveToPoint: CGPointMake(59.34, 2.5) controlPoint1: CGPointMake(58.89, 1.5) controlPoint2: CGPointMake(59.34, 1.95)];
+    [bezier2Path closePath];
+    CGContextSaveGState(context);
+    [bezier2Path addClip];
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(42.5, 12.5), CGPointMake(64.5, 12.5), 0);
+    CGContextRestoreGState(context);
+    [strokeColor setStroke];
+    bezier2Path.lineWidth = 1;
+    [bezier2Path stroke];
+    
+    
+    //// Cleanup
+    CGGradientRelease(gradient);
+    CGColorSpaceRelease(colorSpace);
+    
+
 }
 
 - (void)drawPencil{

@@ -252,6 +252,8 @@
 		087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* OpacitySlider.m */; };
 		087BB3A71730ABF7006C0A33 /* opacityChecker.png in Resources */ = {isa = PBXBuildFile; fileRef = 087BB3A61730ABF7006C0A33 /* opacityChecker.png */; };
 		087C5AB316B2CF2E005F954A /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
+		087C8E6318BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */; };
+		087C8E6418BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = 087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */; };
 		087D01E7174E5EB400938494 /* LayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* LayerMergeButton.m */; };
 		087D53751792BD47001D4086 /* dropbox_Logo_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 087D53741792BD47001D4086 /* dropbox_Logo_48.png */; };
 		087FE73C173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE73B173DF590009B34A2 /* PaintScreenPopoverBackgroundView.m */; };
@@ -1148,6 +1150,7 @@
 		087BB3A61730ABF7006C0A33 /* opacityChecker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opacityChecker.png; sourceTree = "<group>"; };
 		087C5AB116B2CF2E005F954A /* Finger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* Finger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Finger.m; sourceTree = "<group>"; };
+		087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ColorPallete_Default.plist; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* LayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerMergeButton.h; sourceTree = "<group>"; };
 		087D01E6174E5EB400938494 /* LayerMergeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerMergeButton.m; sourceTree = "<group>"; };
 		087D53741792BD47001D4086 /* dropbox_Logo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox_Logo_48.png; sourceTree = "<group>"; };
@@ -1965,6 +1968,20 @@
 			name = Brush;
 			sourceTree = "<group>";
 		};
+		087C8E5F18BF7ABD001A3331 /* ColorPallete */ = {
+			isa = PBXGroup;
+			children = (
+				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
+				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
+				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
+				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
+				08869ACE177DE9650010E0AA /* ColorSaveToSlotView.h */,
+				08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */,
+				087C8E6218BF7BFE001A3331 /* ColorPallete_Default.plist */,
+			);
+			name = ColorPallete;
+			sourceTree = "<group>";
+		};
 		087D53781792C0D4001D4086 /* Import */ = {
 			isa = PBXGroup;
 			children = (
@@ -2212,6 +2229,7 @@
 				084690FF1747AEB800E50554 /* Import */,
 				084691001747AEEA00E50554 /* Export */,
 				087C5AB616B2DC91005F954A /* Brush */,
+				087C8E5F18BF7ABD001A3331 /* ColorPallete */,
 				94997B7F16819D12006E3661 /* PaintingView.h */,
 				94997B8016819D13006E3661 /* PaintingView.m */,
 				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
@@ -2246,12 +2264,6 @@
 				0802D11317368D8A003259E6 /* GalleryButton.m */,
 				08D836A31737FF5D00B68990 /* ClearButton.h */,
 				08D836A41737FF5D00B68990 /* ClearButton.m */,
-				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
-				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
-				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
-				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
-				08869ACE177DE9650010E0AA /* ColorSaveToSlotView.h */,
-				08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */,
 				083F862C1734AF7A00DDE6BC /* RadiusButton.h */,
 				083F862D1734AF7B00DDE6BC /* RadiusButton.m */,
 				0849CEA61735503C004B30C6 /* RadiusIndicatorView.h */,
@@ -2640,6 +2652,7 @@
 				a8775f23018cf4e1b0f84ef3 /* sandClock2.png in Resources */,
 				aa42cd4b05db50eaabf139ec /* checkBox.png in Resources */,
 				a3c16c3951a471a6e8e811ba /* delete.png in Resources */,
+				087C8E6418BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */,
 				f1ae9dcd6d37abf07a13d408 /* viewButton.png in Resources */,
 				53d0449ea714444084ab164a /* viewButtonDisable.png in Resources */,
 				e20b7189c7919568a1757947 /* layer.png in Resources */,
@@ -2752,6 +2765,7 @@
 				0809D4AE16FDE62300E13B8C /* sandClock2.png in Resources */,
 				0843A656171061FB004806C5 /* checkBox.png in Resources */,
 				089FC3FF171AD1F60018CE27 /* delete.png in Resources */,
+				087C8E6318BF7BFE001A3331 /* ColorPallete_Default.plist in Resources */,
 				089FC404171AD48E0018CE27 /* viewButton.png in Resources */,
 				089FC405171AD48E0018CE27 /* viewButtonDisable.png in Resources */,
 				089743CF1722938C0085113C /* layer.png in Resources */,

@@ -306,6 +306,7 @@ InAppPurchaseTableViewControllerDelegate
 - (IBAction)showPaint:(id)sender;
 - (IBAction)colorSlotsSwitchTapped:(UIButton *)sender;
 - (IBAction)colorPickerSwitchTapped:(UIButton *)sender;
+- (IBAction)paintColorButtonTouchUp:(UIButton *)sender;
 
 //InfColorPicker
 - (IBAction)takeBarValue: (InfColorBarPicker*) sender;

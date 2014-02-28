@@ -331,9 +331,11 @@ typedef struct {
     self.colorButtons = [[NSMutableArray alloc]init];
     
     //从user document目录workspace.plist中取出保存的颜色，如果是第一次使用无workspace.plist则创建workspace.plist
-    NSMutableArray *colorPalleteArray = [self.workspace mutableArrayValueForKey:@"colorPalletes"];
-    int emptyPalleteCount = 10 - colorPalleteArray.count % 10;
-
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ColorPallete_Default" withExtension:@"plist"];
+    NSArray * colorPalleteArray = [NSArray arrayWithContentsOfURL:url];
+//    NSMutableArray *colorPalleteArray = [self.workspace mutableArrayValueForKey:@"colorPalletes"];
+//    int emptyPalleteCount = 10 - colorPalleteArray.count % 10;
+    int emptyPalleteCount = 0;
     for (int i = 0; i < colorPalleteArray.count + emptyPalleteCount; ++i) {
         ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
         colorButton.isAccessibilityElement = true;
@@ -341,8 +343,12 @@ typedef struct {
         
         UIColor *colorPallete;
         if (i < colorPalleteArray.count) {
-            NSData *colorPalleteData = [colorPalleteArray objectAtIndex:i];            
-            colorPallete = [NSKeyedUnarchiver unarchiveObjectWithData:colorPalleteData];
+            NSString *colorPalleteData = [colorPalleteArray objectAtIndex:i];
+            NSArray *rgb = [colorPalleteData componentsSeparatedByString:@","];
+            CGFloat r = [(NSString *)rgb[0] integerValue] / 255.0;
+            CGFloat g = [(NSString *)rgb[1] integerValue] / 255.0;
+            CGFloat b = [(NSString *)rgb[2] integerValue] / 255.0;
+            colorPallete = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
             colorButton.isEmpty = false;
         }
         else{
@@ -4092,7 +4098,7 @@ typedef struct {
     self.infColorPickerController.delegate = self;
     self.infColorPickerController.sourceColor = color;//覆盖当前笔刷色
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
-    [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
     FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
     [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
