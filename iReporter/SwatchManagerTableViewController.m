@@ -55,7 +55,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    self.swatches = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"plist" subdirectory:@"Swatches"];
+    self.swatches = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
 
     return self.swatches.count;
 }
@@ -69,7 +69,7 @@
     cell.swatchCollectionView.tag = indexPath.row;
     NSURL *url = [self.swatches objectAtIndex:indexPath.row];
     NSString *fileName = [url.pathComponents lastObject];
-    NSString *swatchName = [[[fileName stringByDeletingPathExtension]componentsSeparatedByString:@"_"]lastObject];
+    NSString *swatchName = [fileName stringByDeletingPathExtension];
 
     [cell.swatchNameButton setTitle:swatchName forState:UIControlStateNormal];
     
@@ -146,12 +146,17 @@
     // Configure the cell...
     NSURL *url = [self.swatches objectAtIndex:collectionView.tag];
     NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
-    NSString *colorData = [colorDatas objectAtIndex:indexPath.row];
-    NSArray *rgb = [colorData componentsSeparatedByString:@","];
-    CGFloat r = [rgb[0] integerValue] / 255.0;
-    CGFloat g = [rgb[1] integerValue] / 255.0;
-    CGFloat b = [rgb[2] integerValue] / 255.0;
-    cell.colorButton.color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    if (indexPath.row >= colorDatas.count) {
+        cell.colorButton.color = [UIColor clearColor];
+    }
+    else{
+        NSString *colorData = [colorDatas objectAtIndex:indexPath.row];
+        NSArray *rgb = [colorData componentsSeparatedByString:@" "];
+        CGFloat r = [rgb[0] integerValue] / 255.0;
+        CGFloat g = [rgb[1] integerValue] / 255.0;
+        CGFloat b = [rgb[2] integerValue] / 255.0;
+        cell.colorButton.color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    }
     
     return cell;
 }

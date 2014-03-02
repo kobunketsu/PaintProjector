@@ -97,6 +97,7 @@ GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 UIViewControllerTransitioningDelegate,
 SKProductsRequestDelegate,
+UIAlertViewDelegate,
 PaintScreenTransitionManagerDelegate,
 PaintScreenDelegate,
 TPPropertyAnimationDelegate,
@@ -201,12 +202,10 @@ InAppPurchaseTableViewControllerDelegate
 #pragma mark- file action
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *paintButton;
-@property (weak, nonatomic) IBOutlet UIButton *printButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
 - (IBAction)galleryButtonTouchUp:(id)sender;
 - (IBAction)paintButtonTouchUp:(UIButton *)sender;
-- (IBAction)printButtonTouchUp:(UIButton *)sender;
 - (IBAction)shareButtonTouchUp:(UIButton *)sender;
 
 #pragma mark-  CoreMotion

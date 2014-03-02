@@ -60,8 +60,7 @@
 
     
     //初始化IAP商店
-    [[AnaDrawIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-    }];
+    [[AnaDrawIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
 
     
     return YES;

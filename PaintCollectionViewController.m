@@ -201,10 +201,6 @@
     [self endEditFile];
 }
 
-- (IBAction)printButtonTouchUp:(id)sender {
-//    [self exportToAirPrint];
-}
-
 - (IBAction)newButtonTouchUp:(id)sender {
     if (!self.isEditing) {
         //非编辑状态下从最后一个PaintFrameView之后添加

@@ -39,8 +39,6 @@ PaintFrameTransitionManagerDelegate
 
 - (IBAction)deleteButtonTouchUp:(id)sender;
 
-- (IBAction)printButtonTouchUp:(id)sender;
-
 - (IBAction)newButtonTouchUp:(id)sender;
 
 @end

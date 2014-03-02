@@ -87,9 +87,11 @@
                 }
                 
                 //关闭Loading指示器
-                [self.activityView stopAnimating];
-                [self.activityView removeFromSuperview];
-                self.activityView = nil;
+                if (self.activityView) {
+                    [self.activityView stopAnimating];
+                    [self.activityView removeFromSuperview];
+                    self.activityView = nil;
+                }
             }];
     
             //显示Loading指示器
@@ -100,7 +102,7 @@
             [self.activityView startAnimating];
             
             //查询超时处理
-            [self performSelector:@selector(requestProductsTimeOut:) withObject:nil afterDelay:30.0];
+//            [self performSelector:@selector(requestProductsTimeOut:) withObject:nil afterDelay:10.0];
         }
     }
     //已经得到产品列表，直接显示
@@ -113,10 +115,11 @@
     DebugLog(@"查询产品超时，无法得到产品列表");
     if ([[AnaDrawIAPManager sharedInstance] isRequestingProduct]) {
         //关闭Loading指示器
-        [self.activityView stopAnimating];
-        [self.activityView removeFromSuperview];
-        self.activityView = nil;
-        
+        if (self.activityView) {
+            [self.activityView stopAnimating];
+            [self.activityView removeFromSuperview];
+            self.activityView = nil;
+        }
         self.alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Get products from AppStore failed. Please try later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [self.alertView show];
     }

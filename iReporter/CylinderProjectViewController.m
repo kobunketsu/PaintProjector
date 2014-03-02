@@ -179,44 +179,42 @@
     }
 }
 
-- (IBAction)printButtonTouchUp:(UIButton *)sender {
-    //转换到顶视图
-    if (self.sideViewButton.hidden) {
-        self.sideViewButton.hidden = false;
-        self.topViewButton.hidden = true;
-        
-        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
-        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-        [propAnim setCompletionBlock:^{
-            [self exportToAirPrint];
-        }];
-        Camera.mainCamera.animation.clip = animClip;
-        Camera.mainCamera.animation.target = self;
-        [Camera.mainCamera.animation play];
-    }
-    else{
-        [self exportToAirPrint];
-    }
-
-}
-
-- (IBAction)setupButtonTouchUp:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
-    sender.selected = !sender.selected;
-    
-//    if (sender.selected) {
-//        [self setup];
+//- (IBAction)printButtonTouchUp:(UIButton *)sender {
+//    //转换到顶视图
+//    if (self.sideViewButton.hidden) {
+//        self.sideViewButton.hidden = false;
+//        self.topViewButton.hidden = true;
+//        
+//        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
+//        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+//        [propAnim setCompletionBlock:^{
+//            [self exportToAirPrint];
+//        }];
+//        Camera.mainCamera.animation.clip = animClip;
+//        Camera.mainCamera.animation.target = self;
+//        [Camera.mainCamera.animation play];
 //    }
 //    else{
-//        [self setupDone];
+//        [self exportToAirPrint];
 //    }
-    
+//}
 
-    DebugLog(@"打开商店");
-    self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
-    self.iapVC.delegate = self;
-    [self presentViewController:self.iapVC animated:true completion:^{
-    }];
+- (IBAction)setupButtonTouchUp:(UIButton *)sender {
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
+        [(AutoRotateButton*)sender setHighlighted:false];
+        sender.selected = !sender.selected;
+        
+        if (sender.selected) {
+            [self setup];
+        }
+        else{
+            [self setupDone];
+        }
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Anamorphosis setup not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
+        [alertView show];
+    }
 }
 
 //- (IBAction)cylinderDiameterButtonTouchUp:(UIButton *)sender {
@@ -1693,39 +1691,40 @@
 }
 
 #pragma mark- 打印Print
-- (void)exportToAirPrint{
-    //TODO:转换到顶视图，在放圆柱体的位置画上圈，并打印
-    UIImage *image = [self.projectView snapshot];
-    
-    //convert UIImage to NSData to add it as attachment
-    NSData *data = UIImagePNGRepresentation(image);
-    
-    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
-    
-    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
-        
-        pic.delegate = self;
-        
-        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-        printInfo.outputType = UIPrintInfoOutputGeneral;
-        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
-        printInfo.duplex = UIPrintInfoDuplexLongEdge;
-        pic.printInfo = printInfo;
-        pic.showsPageRange = YES;
-        pic.printingItem = data;
-        
-        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
-            
-            if (!completed && error)
-                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
-        };
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            [pic presentFromRect:self.printButton.bounds inView:self.printButton animated:true completionHandler:completionHandler];
-        } else {
-            [pic presentAnimated:YES completionHandler:completionHandler];
-        }
-    }
-}
+//- (void)exportToAirPrint{
+//    //TODO:转换到顶视图，在放圆柱体的位置画上圈，并打印
+//    UIImage *image = [self.projectView snapshot];
+//    
+//    //convert UIImage to NSData to add it as attachment
+//    NSData *data = UIImagePNGRepresentation(image);
+//    
+//    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
+//    
+//    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
+//        
+//        pic.delegate = self;
+//        
+//        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+//        printInfo.outputType = UIPrintInfoOutputGeneral;
+//        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
+//        printInfo.duplex = UIPrintInfoDuplexLongEdge;
+//        pic.printInfo = printInfo;
+//        pic.showsPageRange = YES;
+//        pic.printingItem = data;
+//        
+//        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
+//            
+//            if (!completed && error)
+//                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
+//        };
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+//            [pic presentFromRect:self.printButton.bounds inView:self.printButton animated:true completionHandler:completionHandler];
+//        } else {
+//            [pic presentAnimated:YES completionHandler:completionHandler];
+//        }
+//    }
+//}
+
 #pragma mark- 陀螺仪代理MotionDelegate
 - (void)initMotionDetect{
     self.motionManager = [[CMMotionManager alloc]init];
@@ -1808,6 +1807,19 @@
     }
 }
 
-
-
+#pragma mark- 处理警告 UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+            DebugLog(@"打开商店");
+            self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+            self.iapVC.delegate = self;
+            [self presentViewController:self.iapVC animated:true completion:^{
+            }];
+            break;
+            
+        default:
+            break;
+    }
+}
 @end

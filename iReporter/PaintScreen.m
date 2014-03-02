@@ -330,7 +330,7 @@ typedef struct {
     self.colorSlotsScrollView.accessibilityLabel = @"Swatch";
     
     //从user document目录workspace.plist中取出保存的颜色，如果是第一次使用无workspace.plist则创建workspace.plist
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Swatches/Swatch_Default" withExtension:@"plist"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Swatches/Default" withExtension:@"swatch"];
     [self setSwatchFile:url];
     
     //将半径按钮加入半径ScrollView
@@ -2219,7 +2219,7 @@ typedef struct {
         UIColor *color;
         if (i < swatchArray.count) {
             NSString *swatchData = [swatchArray objectAtIndex:i];
-            NSArray *rgb = [swatchData componentsSeparatedByString:@","];
+            NSArray *rgb = [swatchData componentsSeparatedByString:@" "];
             CGFloat r = [rgb[0] integerValue] / 255.0;
             CGFloat g = [rgb[1] integerValue] / 255.0;
             CGFloat b = [rgb[2] integerValue] / 255.0;
@@ -2485,38 +2485,38 @@ typedef struct {
 }
 #pragma mark- 导出 Export
 //TODO:实现代理
-- (void)exportToAirPrint{
-    UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:self.view.frame.size];
-    //convert UIImage to NSData to add it as attachment
-    NSData *data = UIImagePNGRepresentation(image);
-    
-    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
-    
-    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
-        
-        pic.delegate = self;
-        
-        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
-        printInfo.outputType = UIPrintInfoOutputGeneral;
-        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
-        printInfo.duplex = UIPrintInfoDuplexLongEdge;
-        pic.printInfo = printInfo;
-        pic.showsPageRange = YES;
-        pic.printingItem = data;
-        
-        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
-            
-            if (!completed && error)
-                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
-        };
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-//            [pic presentFromBarButtonItem:self.printButton animated:YES completionHandler:completionHandler];
-            [pic presentFromRect:CGRectMake(0, self.view.frame.size.height - 66, 66, 66) inView:self.view animated:true completionHandler:completionHandler];
-        } else {
-            [pic presentAnimated:YES completionHandler:completionHandler];
-        }
-    }
-}
+//- (void)exportToAirPrint{
+//    UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:self.view.frame.size];
+//    //convert UIImage to NSData to add it as attachment
+//    NSData *data = UIImagePNGRepresentation(image);
+//    
+//    UIPrintInteractionController *pic = [UIPrintInteractionController sharedPrintController];
+//    
+//    if  (pic && [UIPrintInteractionController canPrintData: data] ) {
+//        
+//        pic.delegate = self;
+//        
+//        UIPrintInfo *printInfo = [UIPrintInfo printInfo];
+//        printInfo.outputType = UIPrintInfoOutputGeneral;
+//        printInfo.jobName = [NSString stringWithFormat:@"image%lu", (unsigned long)image.hash];
+//        printInfo.duplex = UIPrintInfoDuplexLongEdge;
+//        pic.printInfo = printInfo;
+//        pic.showsPageRange = YES;
+//        pic.printingItem = data;
+//        
+//        void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) = ^(UIPrintInteractionController *pic, BOOL completed, NSError *error) {
+//            
+//            if (!completed && error)
+//                DebugLog(@"FAILED! due to error in domain %@ with error code %u",error.domain, error.code);
+//        };
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+////            [pic presentFromBarButtonItem:self.printButton animated:YES completionHandler:completionHandler];
+//            [pic presentFromRect:CGRectMake(0, self.view.frame.size.height - 66, 66, 66) inView:self.view animated:true completionHandler:completionHandler];
+//        } else {
+//            [pic presentAnimated:YES completionHandler:completionHandler];
+//        }
+//    }
+//}
 
 - (void)exportToEmail{
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];

@@ -32,27 +32,32 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
             BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
             if (productPurchased) {
                 [_purchasedProductIdentifiers addObject:productIdentifier];
-                NSLog(@"Previously purchased: %@", productIdentifier);
+                DebugLog(@"Previously purchased: %@", productIdentifier);
             }
             else {
-                NSLog(@"Not purchased: %@", productIdentifier);
+                DebugLog(@"Not purchased: %@", productIdentifier);
             }
         }
         
         // restarts any purchases if they were interrupted last time the app was open
+        DebugLog(@"跟踪交易");
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
 }
 
 - (void)dealloc{
+    DebugLog(@"移除跟踪交易");
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler
 {
     DebugLog(@"请求产品列表");
-    _completionHandler = [completionHandler copy];
+    if (completionHandler) {
+        _completionHandler = [completionHandler copy];
+    }
+
     
     productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:self.productIdentifiers];
     productsRequest.delegate = self;
@@ -70,7 +75,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    NSLog(@"从AppStore得到产品列表.");
+    DebugLog(@"从AppStore得到产品列表.");
     self.productsRequested = true;
     NSArray *products = response.products;
     _products = products;
@@ -82,33 +87,38 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     
     DebugLog(@"付费产品数量: %d", [products count]);
     for (SKProduct *product in products) {
-        NSLog(@"产品标题: %@" , product.localizedTitle);
-        NSLog(@"产品描述: %@" , product.localizedDescription);
-        NSLog(@"产品价格: %@" , product.price);
-        NSLog(@"产品标识: %@" , product.productIdentifier);
+        DebugLog(@"产品标题: %@" , product.localizedTitle);
+        DebugLog(@"产品描述: %@" , product.localizedDescription);
+        DebugLog(@"产品价格: %@" , product.price);
+        DebugLog(@"产品标识: %@" , product.productIdentifier);
     }
     
     for (NSString *invalidProductId in response.invalidProductIdentifiers)
     {
-        NSLog(@"产品号不存在: %@" , invalidProductId);
+        DebugLog(@"产品号不存在: %@" , invalidProductId);
     }
     
     // finally release the reqest we alloc/init’ed in requestProUpgradeProductData
     productsRequest = nil;
-    
-    _completionHandler(YES, products);
-    _completionHandler = nil;
+
+    if (_completionHandler) {
+        _completionHandler(YES, products);
+        _completionHandler = nil;
+    }
+
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:self userInfo:nil];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    NSLog(@"无法从AppStore得到产品列表.");
+    DebugLog(@"无法从AppStore得到产品列表.");
     self.productsRequested = false;
     productsRequest = nil;
     
-    _completionHandler(NO, nil);
-    _completionHandler = nil;
+    if (_completionHandler) {
+        _completionHandler(NO, nil);
+        _completionHandler = nil;
+    }
 }
 #pragma mark-
 #pragma Public methods
@@ -199,7 +209,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // The transaction has been successfully validated
                 // and is unique.
                 
-                NSLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
+                DebugLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
                 transactionResult = TransactionValidated;
                 DebugLog(@"验证交易成功,提供产品下载");
                 if (restore) {
