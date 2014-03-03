@@ -9,6 +9,7 @@
 #import "SwatchManagerTableViewController.h"
 #import "SwatchManagerTableViewCell.h"
 #import "SwatchCollectionViewCell.h"
+#import "UIColor+String.h"
 
 @interface SwatchManagerTableViewController ()
 @property(retain, nonatomic) NSArray *swatches;
@@ -70,6 +71,9 @@
     NSURL *url = [self.swatches objectAtIndex:indexPath.row];
     NSString *fileName = [url.pathComponents lastObject];
     NSString *swatchName = [fileName stringByDeletingPathExtension];
+
+    NSArray * swatchColors = [NSArray arrayWithContentsOfURL:url];
+    cell.swatchChartView.swatchColors = swatchColors;
 
     [cell.swatchNameButton setTitle:swatchName forState:UIControlStateNormal];
     
@@ -151,11 +155,7 @@
     }
     else{
         NSString *colorData = [colorDatas objectAtIndex:indexPath.row];
-        NSArray *rgb = [colorData componentsSeparatedByString:@" "];
-        CGFloat r = [rgb[0] integerValue] / 255.0;
-        CGFloat g = [rgb[1] integerValue] / 255.0;
-        CGFloat b = [rgb[2] integerValue] / 255.0;
-        cell.colorButton.color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+        cell.colorButton.color = [UIColor colorWithString:colorData];
     }
     
     return cell;

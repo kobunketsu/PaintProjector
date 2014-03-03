@@ -361,6 +361,12 @@
 		08B444BB175AF66C00787C18 /* FirstScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BA175AF66C00787C18 /* FirstScreenViewController.m */; };
 		08B444BE175B00E600787C18 /* PaintFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BD175B00E600787C18 /* PaintFrameView.m */; };
 		08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */; };
+		08B60F3118C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */; };
+		08B60F3218C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */; };
+		08B60F3918C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
+		08B60F3A18C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
+		08B60F3B18C385DC00A415CA /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+String.m */; };
+		08B60F3C18C385DC00A415CA /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+String.m */; };
 		08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B71177ECE900039B5E5 /* Settings.bundle */; };
 		08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B7A177EFDE30039B5E5 /* Workspace.plist */; };
 		08B9104218AF4EA000BEA0D3 /* checkCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B9104118AF4EA000BEA0D3 /* checkCircle.png */; };
@@ -1306,6 +1312,12 @@
 		08B444BD175B00E600787C18 /* PaintFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintFrameView.m; path = iReporter/PaintFrameView.m; sourceTree = "<group>"; };
 		08B444BF175B145E00787C18 /* PaintFrameViewGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintFrameViewGroup.h; path = iReporter/PaintFrameViewGroup.h; sourceTree = "<group>"; };
 		08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintFrameViewGroup.m; path = iReporter/PaintFrameViewGroup.m; sourceTree = "<group>"; };
+		08B60F2F18C3834200A415CA /* SwatchManagerCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerCollectionViewController.h; sourceTree = "<group>"; };
+		08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerCollectionViewController.m; sourceTree = "<group>"; };
+		08B60F3518C385DC00A415CA /* SwatchChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchChartView.h; sourceTree = "<group>"; };
+		08B60F3618C385DC00A415CA /* SwatchChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchChartView.m; sourceTree = "<group>"; };
+		08B60F3718C385DC00A415CA /* UIColor+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+String.h"; sourceTree = "<group>"; };
+		08B60F3818C385DC00A415CA /* UIColor+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+String.m"; sourceTree = "<group>"; };
 		08B81B71177ECE900039B5E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		08B81B7A177EFDE30039B5E5 /* Workspace.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workspace.plist; sourceTree = "<group>"; };
 		08B9104118AF4EA000BEA0D3 /* checkCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkCircle.png; sourceTree = "<group>"; };
@@ -1983,6 +1995,8 @@
 		087C8E5F18BF7ABD001A3331 /* Swatch */ = {
 			isa = PBXGroup;
 			children = (
+				08B60F3518C385DC00A415CA /* SwatchChartView.h */,
+				08B60F3618C385DC00A415CA /* SwatchChartView.m */,
 				08B2CFA718C0CA9E00D34C1E /* Swatches */,
 				0822B00018C0B9510021A75B /* SwatchManagerTableViewCell.h */,
 				0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */,
@@ -1996,6 +2010,8 @@
 				085EFD4D1732BDD900F0395D /* PaintColorButton.m */,
 				08869ACE177DE9650010E0AA /* ColorSaveToSlotView.h */,
 				08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */,
+				08B60F2F18C3834200A415CA /* SwatchManagerCollectionViewController.h */,
+				08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */,
 			);
 			name = Swatch;
 			sourceTree = "<group>";
@@ -2444,6 +2460,8 @@
 		9C60DA8214E5308600442413 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				08B60F3718C385DC00A415CA /* UIColor+String.h */,
+				08B60F3818C385DC00A415CA /* UIColor+String.m */,
 				086C1D6D18062BA500E3A059 /* Extension.h */,
 				9CFE0B9214E5B12B00408F86 /* UIImage+Alpha.h */,
 				9CFE0B9314E5B12B00408F86 /* UIImage+Alpha.m */,
@@ -2913,6 +2931,7 @@
 				18e82aa8549080dbf54b5c50 /* UndoGestureRecognizer.m in Sources */,
 				ca53a460052690d799e70353 /* UndoButton.m in Sources */,
 				efce58c21b23dbf0c8fd3ffb /* Heap.m in Sources */,
+				08B60F3218C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */,
 				007caacc578989b98b28cd37 /* BrushToolBar.m in Sources */,
 				bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */,
 				dcc1369eefcabccd63408c2c /* CustomTouchUIView.m in Sources */,
@@ -3030,6 +3049,7 @@
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
 				43273277bbdc4a6f5211c327 /* DoneButton.m in Sources */,
 				3288492b37b2543a0ade13ad /* ClearButton.m in Sources */,
+				08B60F3C18C385DC00A415CA /* UIColor+String.m in Sources */,
 				7f1708e9135ab712a98551a6 /* BackgroundLayerTableViewCell.m in Sources */,
 				593da15714dbd9b0b661ae58 /* BrushTypeViewController.m in Sources */,
 				b21d4aae8a4506914f03a4e3 /* PaintScreenPopoverBackgroundView.m in Sources */,
@@ -3103,6 +3123,7 @@
 				08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */,
 				1b45185b843dee98ea7599da /* PaintButton.m in Sources */,
 				a2551e3c45b085876b4411ff /* AnamorphicButton.m in Sources */,
+				08B60F3A18C385DC00A415CA /* SwatchChartView.m in Sources */,
 				34d02516d408dac46ba4b603 /* AnamorphicSideViewButton.m in Sources */,
 				e9f960de75d0951d6cfd0ee8 /* TestGLKView.m in Sources */,
 				78934ebf43e31e8d5a4a2d8a /* AnamorphicTopViewButton.m in Sources */,
@@ -3196,6 +3217,7 @@
 				0829C01F168349F80009CD1C /* ImageStack.m in Sources */,
 				949066081684000A00AF072C /* Ultility.m in Sources */,
 				9490660B168412B700AF072C /* PNGImageStack.m in Sources */,
+				08B60F3918C385DC00A415CA /* SwatchChartView.m in Sources */,
 				949B368916896D3C00D3D5D2 /* PaintCommand.m in Sources */,
 				08A4C99F1689EC8400002625 /* CommandStack.m in Sources */,
 				08072EBC1692BDFE00E49D2B /* BrushTypeScrollView.m in Sources */,
@@ -3301,6 +3323,7 @@
 				089C629E17EC836C00E2AB48 /* BrushPropertyView.m in Sources */,
 				08AB75CA188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */,
 				084691061748917000E50554 /* LayerImageView.m in Sources */,
+				08B60F3B18C385DC00A415CA /* UIColor+String.m in Sources */,
 				088505BA17F718DF00E460CA /* LockCanvasRotationView.m in Sources */,
 				084691411748C4CA00E50554 /* LayerToolView.m in Sources */,
 				08672139174A6AA8005A9FE0 /* LayerVisibleButton.m in Sources */,
@@ -3321,6 +3344,7 @@
 				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
+				08B60F3118C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */,
 				08802F6B1766FCFF00276B15 /* OpenCommand.m in Sources */,
 				0875605C17676CD8002B806D /* ClearCommand.m in Sources */,
 				08E0584F17683621007955BB /* UndoBaseCommand.m in Sources */,
