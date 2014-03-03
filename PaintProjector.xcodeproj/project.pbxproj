@@ -361,8 +361,6 @@
 		08B444BB175AF66C00787C18 /* FirstScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BA175AF66C00787C18 /* FirstScreenViewController.m */; };
 		08B444BE175B00E600787C18 /* PaintFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BD175B00E600787C18 /* PaintFrameView.m */; };
 		08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */; };
-		08B60F3118C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */; };
-		08B60F3218C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */; };
 		08B60F3918C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
 		08B60F3A18C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
 		08B60F3B18C385DC00A415CA /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+String.m */; };
@@ -2931,7 +2929,6 @@
 				18e82aa8549080dbf54b5c50 /* UndoGestureRecognizer.m in Sources */,
 				ca53a460052690d799e70353 /* UndoButton.m in Sources */,
 				efce58c21b23dbf0c8fd3ffb /* Heap.m in Sources */,
-				08B60F3218C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */,
 				007caacc578989b98b28cd37 /* BrushToolBar.m in Sources */,
 				bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */,
 				dcc1369eefcabccd63408c2c /* CustomTouchUIView.m in Sources */,
@@ -3344,7 +3341,6 @@
 				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
-				08B60F3118C3834200A415CA /* SwatchManagerCollectionViewController.m in Sources */,
 				08802F6B1766FCFF00276B15 /* OpenCommand.m in Sources */,
 				0875605C17676CD8002B806D /* ClearCommand.m in Sources */,
 				08E0584F17683621007955BB /* UndoBaseCommand.m in Sources */,

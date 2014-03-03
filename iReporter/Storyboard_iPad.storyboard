@@ -2319,40 +2319,45 @@
         <scene sceneID="KMB-cA-M8e">
             <objects>
                 <tableViewController storyboardIdentifier="SwatchManagerViewController" id="0DD-B5-4h0" customClass="SwatchManagerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="0hv-cI-iEb">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1024" sectionHeaderHeight="22" sectionFooterHeight="22" id="0hv-cI-iEb">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Zbl-UA-Y9f" customClass="SwatchManagerTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="768" height="130"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zbl-UA-Y9f" id="T5z-ci-zZS">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="129"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="1023"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Fg4-cQ-9uI">
-                                            <rect key="frame" x="0.0" y="0.0" width="620" height="129"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="1280"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Zaw-tM-xXs">
-                                                <size key="itemSize" width="50" height="50"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Zaw-tM-xXs">
+                                                <size key="itemSize" width="256" height="256"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="10" minY="10" maxX="0.0" maxY="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="swatchCollectionViewCell" id="g5j-FO-Xiz" customClass="SwatchCollectionViewCell">
-                                                    <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PMx-OH-WSF" userLabel="ColorButton" customClass="ColorButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <view contentMode="scaleToFill" id="UWF-ck-rRw" userLabel="SwatchChartView" customClass="SwatchChartView">
+                                                                <rect key="frame" x="28" y="28" width="200" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <state key="normal">
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cdz-W2-7Xl" userLabel="NameButton">
+                                                                <rect key="frame" x="53" y="116" width="150" height="25"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <state key="normal" title="Button">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
@@ -2360,7 +2365,8 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <connections>
-                                                        <outlet property="colorButton" destination="PMx-OH-WSF" id="teD-LK-9yf"/>
+                                                        <outlet property="swatchChartView" destination="UWF-ck-rRw" id="GP1-xb-J6Z"/>
+                                                        <outlet property="swatchNameButton" destination="cdz-W2-7Xl" id="WKt-4r-VTN"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -2369,24 +2375,10 @@
                                                 <outlet property="delegate" destination="0DD-B5-4h0" id="kbi-WZ-u6w"/>
                                             </connections>
                                         </collectionView>
-                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cdz-W2-7Xl">
-                                            <rect key="frame" x="618" y="105" width="150" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                        </button>
-                                        <view contentMode="scaleToFill" id="UWF-ck-rRw" userLabel="SwatchChartView" customClass="SwatchChartView">
-                                            <rect key="frame" x="640" y="10" width="100" height="100"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </view>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="swatchChartView" destination="UWF-ck-rRw" id="zT2-ZC-P4r"/>
                                     <outlet property="swatchCollectionView" destination="Fg4-cQ-9uI" id="w5c-cU-xSa"/>
-                                    <outlet property="swatchNameButton" destination="cdz-W2-7Xl" id="wng-xd-TQd"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

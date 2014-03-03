@@ -58,7 +58,8 @@
     // Return the number of rows in the section.
     self.swatches = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
 
-    return self.swatches.count;
+//    return self.swatches.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,21 +69,21 @@
     
     // Configure the cell...
     cell.swatchCollectionView.tag = indexPath.row;
-    NSURL *url = [self.swatches objectAtIndex:indexPath.row];
-    NSString *fileName = [url.pathComponents lastObject];
-    NSString *swatchName = [fileName stringByDeletingPathExtension];
-
-    NSArray * swatchColors = [NSArray arrayWithContentsOfURL:url];
-    cell.swatchChartView.swatchColors = swatchColors;
-
-    [cell.swatchNameButton setTitle:swatchName forState:UIControlStateNormal];
+//    NSURL *url = [self.swatches objectAtIndex:indexPath.row];
+//    NSString *fileName = [url.pathComponents lastObject];
+//    NSString *swatchName = [fileName stringByDeletingPathExtension];
+//
+//    NSArray * swatchColors = [NSArray arrayWithContentsOfURL:url];
+//    cell.swatchChartView.swatchColors = swatchColors;
+//
+//    [cell.swatchNameButton setTitle:swatchName forState:UIControlStateNormal];
     
     return cell;
 }
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSURL *url = (NSURL *)[self.swatches objectAtIndex:indexPath.row];
-    [self.delegate willSetSwatchFile:url];
+//    NSURL *url = (NSURL *)[self.swatches objectAtIndex:indexPath.row];
+//    [self.delegate willSetSwatchFile:url];
 }
 
 /*
@@ -138,9 +139,10 @@
 
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSURL *url = [self.swatches objectAtIndex:collectionView.tag];
-    NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
-    return colorDatas.count;
+//    NSURL *url = [self.swatches objectAtIndex:collectionView.tag];
+//    NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
+//    return colorDatas.count;
+    return self.swatches.count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -148,15 +150,9 @@
     static NSString *cellIdentifier = @"swatchCollectionViewCell";
     SwatchCollectionViewCell *cell = (SwatchCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     // Configure the cell...
-    NSURL *url = [self.swatches objectAtIndex:collectionView.tag];
+    NSURL *url = [self.swatches objectAtIndex:indexPath.row];
     NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
-    if (indexPath.row >= colorDatas.count) {
-        cell.colorButton.color = [UIColor clearColor];
-    }
-    else{
-        NSString *colorData = [colorDatas objectAtIndex:indexPath.row];
-        cell.colorButton.color = [UIColor colorWithString:colorData];
-    }
+    cell.swatchChartView.swatchColors = colorDatas;
     
     return cell;
 }

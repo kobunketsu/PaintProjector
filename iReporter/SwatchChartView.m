@@ -31,7 +31,7 @@
 {
 
     CGFloat startAngle = 0;
-    CGRect ovalRect = CGRectMake(0.5, -0.5, 100, 100);
+    CGRect ovalRect = self.bounds;
     // Drawing code
     for (NSString *colorStr in self.swatchColors) {
         CGFloat percent = [[[colorStr componentsSeparatedByString:@"%"]lastObject]floatValue];

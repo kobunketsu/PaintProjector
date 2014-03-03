@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ColorButton.h"
+#import "SwatchChartView.h"
 
 @interface SwatchCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet ColorButton *colorButton;
+@property (weak, nonatomic) IBOutlet SwatchChartView *swatchChartView;
+@property (weak, nonatomic) IBOutlet UIButton *swatchNameButton;
+
 
 @end
