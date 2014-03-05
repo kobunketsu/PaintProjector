@@ -1537,7 +1537,7 @@
                                                     </slider>
                                                 </subviews>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="EyeDropperButton">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="EyeDropperButton">
                                                 <rect key="frame" x="630" y="20" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="EyeDropper"/>
@@ -1589,11 +1589,11 @@
                                                 <rect key="frame" x="130" y="5" width="500" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </scrollView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="087-uT-cxg" userLabel="swatchMangerButton">
-                                                <rect key="frame" x="630" y="5" width="50" height="50"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="087-uT-cxg" userLabel="swatchMangerButton" customClass="SwatchManagerButton">
+                                                <rect key="frame" x="637" y="5" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Button">
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -2319,13 +2319,21 @@
         <scene sceneID="KMB-cA-M8e">
             <objects>
                 <tableViewController storyboardIdentifier="SwatchManagerViewController" id="0DD-B5-4h0" customClass="SwatchManagerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1024" sectionHeaderHeight="22" sectionFooterHeight="22" id="0hv-cI-iEb">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1024" sectionHeaderHeight="44" sectionFooterHeight="44" id="0hv-cI-iEb">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="rmU-fx-DWG">
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="0DD-B5-4h0" id="48X-iW-nub"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Zbl-UA-Y9f" customClass="SwatchManagerTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="88" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zbl-UA-Y9f" id="T5z-ci-zZS">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="1023"/>
@@ -2349,24 +2357,27 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" id="UWF-ck-rRw" userLabel="SwatchChartView" customClass="SwatchChartView">
+                                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VTU-Kv-ImL" userLabel="SwatchChartButton" customClass="SwatchChartButton">
                                                                 <rect key="frame" x="28" y="28" width="200" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cdz-W2-7Xl" userLabel="NameButton">
-                                                                <rect key="frame" x="53" y="116" width="150" height="25"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <state key="normal" title="Button">
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                             </button>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AGT-zO-b7c">
+                                                                <rect key="frame" x="28" y="231" width="200" height="25"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                     <connections>
-                                                        <outlet property="swatchChartView" destination="UWF-ck-rRw" id="GP1-xb-J6Z"/>
-                                                        <outlet property="swatchNameButton" destination="cdz-W2-7Xl" id="WKt-4r-VTN"/>
+                                                        <outlet property="swatchChartButton" destination="VTU-Kv-ImL" id="cSQ-mo-5Ih"/>
+                                                        <outlet property="swatchNameLabel" destination="AGT-zO-b7c" id="cj7-Zl-8NS"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -2387,8 +2398,21 @@
                             <outlet property="delegate" destination="0DD-B5-4h0" id="ojA-Fg-1ep"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="searchBar" destination="rmU-fx-DWG" id="cBi-fq-MWY"/>
+                        <outlet property="searchDisplayController" destination="8g5-NW-hNf" id="HUo-pW-zFU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IR0-8A-L6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="8g5-NW-hNf">
+                    <connections>
+                        <outlet property="delegate" destination="0DD-B5-4h0" id="CvV-8Q-OIL"/>
+                        <outlet property="searchBar" destination="rmU-fx-DWG" id="AHz-ev-jva"/>
+                        <outlet property="searchContentsController" destination="0DD-B5-4h0" id="xkW-dw-rD6"/>
+                        <outlet property="searchResultsDataSource" destination="0DD-B5-4h0" id="Ngr-p4-vRz"/>
+                        <outlet property="searchResultsDelegate" destination="0DD-B5-4h0" id="kad-P3-puO"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-2774" y="620"/>
         </scene>

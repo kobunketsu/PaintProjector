@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SwatchManagerTableViewController : UITableViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface SwatchManagerTableViewController : UITableViewController
+<UICollectionViewDataSource,
+UICollectionViewDelegate,
+UISearchBarDelegate,
+UISearchDisplayDelegate>
+
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property(assign, nonatomic) id delegate;
 @end
 

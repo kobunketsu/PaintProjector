@@ -6,10 +6,10 @@
 //  Copyright (c) 2014年 WenjiHu. All rights reserved.
 //
 
-#import "SwatchChartView.h"
+#import "SwatchChartButton.h"
 #import "UIColor+String.h"
 
-@implementation SwatchChartView
+@implementation SwatchChartButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,7 +30,7 @@
 - (void)drawRect:(CGRect)rect
 {
 
-    CGFloat startAngle = 0;
+    CGFloat startAngle = -90;
     CGRect ovalRect = self.bounds;
     // Drawing code
     for (NSString *colorStr in self.swatchColors) {

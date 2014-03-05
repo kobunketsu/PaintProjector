@@ -89,7 +89,7 @@
 #import "ClearGestureRecognizer.h"
 #import "InAppPurchaseTableViewController.h"
 #import "SwatchManagerTableViewController.h"
-
+#import "SwatchManagerButton.h"
 
 @class TransformContentView;
 @class TransformAnchorView;
@@ -225,7 +225,7 @@ SwatchManagerTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet ColorSaveToSlotView *colorSaveToSlotView;
 @property (weak, nonatomic) IBOutlet UIView *brushOpacityView;
 @property (weak, nonatomic) IBOutlet UIView *paintColorView;
-@property (weak, nonatomic) IBOutlet UIButton *swatchManagerButton;
+@property (weak, nonatomic) IBOutlet SwatchManagerButton *swatchManagerButton;
 @property (weak, nonatomic) IBOutlet OpacitySlider *opacitySlider;
 @property (weak, nonatomic) IBOutlet DownToolBar *paintToolBar;
 @property (weak, nonatomic) IBOutlet UIView *paintToolView;

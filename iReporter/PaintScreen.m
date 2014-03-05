@@ -24,6 +24,7 @@
 #import "LayerTableViewController.h"
 #import "LayerBlendModePopoverController.h"
 #import "UIImage+ImageEffects.h"
+#import "UIColor+String.h"
 #import <pthread.h>
 #import "TransformContentView.h"
 #import "TransformContentViewLayer.h"
@@ -39,74 +40,6 @@
 //#define LayerMaxCount_Pro 8
 //#define LayerMaxCount_Free 2
 
-#pragma mark PaintRefView Assets
-int swatchCount = 20;
-float swatchs[] =
-{
-    255, 255, 255,
-    244, 146, 30,
-    133, 133, 133,
-    197, 210, 219,
-    62,  107, 133,
-    
-    77,  139, 77,
-    252, 194, 64,
-    191, 75,  49,
-    75,  57,  41,
-    206, 214, 180,
-    
-    199, 183, 115,
-    227, 219, 154,
-    245, 252, 208,
-    177, 194, 179,
-    119, 134, 145,
-    
-    99,  85,  83,
-    137, 147, 163,
-    81,  83,  86,
-    132, 137, 115,
-    158, 163, 145,
-    
-    255, 255, 255,
-    244, 146, 30,
-    133, 133, 133,
-    197, 210, 219,
-    62,  107, 133,
-};
-// Attribute index.
-enum
-{
-    ATTRIB_VERTEX,
-    ATTRIB_TEXCOORD,
-    NUM_ATTRIBUTES
-};
-float quadVertexData[] = 
-{
-    0.5f, 0, -0.5f,          1.0f, 1.0f,
-    -0.5f,0, -0.5f,          0.0f, 1.0f,
-    0.5f, 0, 0.5f,         1.0f, 0.0f,
-    0.5f, 0, 0.5f,        1.0f, 0.0f,
-    -0.5f,0, -0.5f,         0.0f, 1.0f,
-    -0.5f,0, 0.5f,        0.0f, 0.0f,
-};
-
-typedef struct {
-    float Position[3];
-    float Color[4];
-    float TexCoord[2];
-} Vertex;
-
-//const Vertex Vertices[] = {
-//    {{1, -1, 0}, {1, 1, 1, 1}, {1, 0}},
-//    {{1, 1, 0}, {1, 1, 1, 1}, {1, 1}},
-//    {{-1, 1, 0}, {1, 1, 1, 1}, {0, 1}},
-//    {{-1, -1, 0}, {1, 1, 1, 1}, {0, 0}}
-//};
-
-//const GLubyte Indices[] = {
-//    0, 1, 2,
-//    2, 3, 0
-//};
 #pragma mark Paint Screen
 @interface PaintScreen ()
 //绘图工具
@@ -152,6 +85,7 @@ typedef struct {
 {
     return YES;
 }
+
 - (void)registerDeviceRotation{
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
@@ -212,11 +146,15 @@ typedef struct {
     }
     
     self.lastDeviceAppOrientation = UIDeviceOrientationPortrait;
-
+    
     //rootCanvasView
 //    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
 //    self.rootCanvasView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
     
+    //通知程序退出到后台保存数据
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)   name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+
     //paintView 设置
     CGPathRef path = [UIBezierPath bezierPathWithRect:self.paintView.bounds].CGPath;
     [self.paintView.layer setShadowPath:path];
@@ -239,9 +177,7 @@ typedef struct {
     [self.paintView.context setDebugLabel:@"PaintView Context"];
     [self.paintView initGLObjects];
     
-    //加在工作环境
-    [self loadWorkSpace];
-    
+  
     [self.paintColorButton setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
     [self.opacitySlider setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
    
@@ -329,24 +265,9 @@ typedef struct {
     self.colorSlotsScrollView.isAccessibilityElement = true;
     self.colorSlotsScrollView.accessibilityLabel = @"Swatch";
     
-    //从user document目录workspace.plist中取出保存的颜色，如果是第一次使用无workspace.plist则创建workspace.plist
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Swatches/Default" withExtension:@"swatch"];
-    [self setSwatchFile:url];
-    
-    //将半径按钮加入半径ScrollView
-//    int radiusViewCount = 10;
-//    for (int i = 0; i < radiusViewCount; ++i) {
-//        RadiusButton* radiusButton = [[RadiusButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
-//        radiusButton.radius = 2 + 3 * i;
-//        
-//        [radiusButton addTarget:self action:@selector(selectBrushRadius:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        [self.radiusScrollView addSubview:radiusButton];
-//    }
-//    self.radiusScrollView.contentSize = CGSizeMake(50*radiusViewCount, 44);
-//    self.radiusScrollView.delegate = self;
-    
-    
+    //加在工作环境
+    [self loadWorkSpace];
+
     //初始化吸管
     self.eyeDropper = [[EyeDropper alloc]initWithView:self.paintView];
     self.paintView.eyeDropper =  self.eyeDropper;
@@ -457,11 +378,18 @@ typedef struct {
 }
 
 //dealloc调用导致内存增加的问题？
-//-(void)dealloc{
-//    DebugLog(@"[ dealloc ]");
-//}
+-(void)dealloc{
+    DebugLog(@"dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
 
 -(void)didReceiveMemoryWarning{
+    DebugLog(@"didReceiveMemoryWarning");
+}
+
+- (void)applicationDidEnterBackground:(id)sender{
+    DebugLog(@"applicationDidEnterBackground");
+    [self saveWorkSpace];
     
 }
 
@@ -2170,7 +2098,42 @@ typedef struct {
         
     }
 }
+#pragma mark- 调色板代理SwatchManagerTableViewControllerDelegate
+- (void)willSetSwatchFile:(NSURL *)url{
+    [self setSwatchFile:url];
+    [self.swatchManagerVC dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 #pragma mark-
+//- (void)SaveAsSwatchFile:(NSURL *)url{
+//    [self.swatchManagerButton.swatchColorDatas writeToURL:url atomically:YES];
+//}
+
+- (void)saveUserSwatch{
+    NSMutableArray *colorDatas = [[NSMutableArray alloc]init];
+    for (ColorButton *colorButton in self.colorButtons) {
+        NSString *colorData = [colorButton.color colorString];
+        [colorDatas addObject:colorData];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:colorDatas forKey:@"defaultSwatch"];
+}
+
+-(void)loadUserSwatch{
+    NSArray *defaultSwatch = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultSwatch"];
+    if (!defaultSwatch) {
+        //如果user default里没有默认调色板信息，从bundle中的Default.swatch中提取调色板
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"Default" withExtension:@"swatch"];
+        if (url) {
+            [self setSwatchFile:url];
+        }
+    }
+    else{
+        [self setSwatchData:defaultSwatch];
+    }
+    
+    
+}
 - (void)newSwatch{
     int srcCount = self.colorButtons.count;
     for (int i = 0; i < 10; ++i) {
@@ -2197,8 +2160,9 @@ typedef struct {
 }
 
 
-- (void)setSwatchFile:(NSURL*)url{
-    //将颜色槽加入颜色槽ScrollView
+//创建调色板UI,设置调色板数据
+- (void)setSwatchData:(NSArray*)colorDatas{
+    //清理调色板
     if (self.colorButtons) {
         for (ColorButton *button in self.colorButtons) {
             [button removeFromSuperview];
@@ -2208,22 +2172,18 @@ typedef struct {
     else{
         self.colorButtons = [[NSMutableArray alloc]init];
     }
-
-    NSArray * swatchArray = [NSArray arrayWithContentsOfURL:url];
     
-    for (int i = 0; i < swatchArray.count; ++i) {
-        ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(50 * i, 0, 50, 50)];
+    //创建调色板
+    NSUInteger size = 50;
+    for (int i = 0; i < colorDatas.count; ++i) {
+        ColorButton* colorButton = [[ColorButton alloc]initWithFrame:CGRectMake(size * i, 0, size, size)];
         colorButton.isAccessibilityElement = true;
         colorButton.accessibilityLabel = [NSString stringWithFormat:@"SwatchColor_%d",i];
         
+        //// Color Declarations
         UIColor *color;
-        if (i < swatchArray.count) {
-            NSString *swatchData = [swatchArray objectAtIndex:i];
-            NSArray *rgb = [swatchData componentsSeparatedByString:@" "];
-            CGFloat r = [rgb[0] integerValue] / 255.0;
-            CGFloat g = [rgb[1] integerValue] / 255.0;
-            CGFloat b = [rgb[2] integerValue] / 255.0;
-            color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+        if (i < colorDatas.count) {
+            color = [UIColor colorWithString:colorDatas[i]];
             colorButton.isEmpty = false;
         }
         else{
@@ -2265,24 +2225,42 @@ typedef struct {
         [self.colorButtons addObject:colorButton];
         [self.colorSlotsScrollView addSubview:colorButton];
     }
-    self.colorSlotsScrollView.contentSize = CGSizeMake(50*(swatchArray.count), 44);
+    self.colorSlotsScrollView.contentSize = CGSizeMake(size*(colorDatas.count), 44);
+}
+
+- (void)setSwatchFile:(NSURL*)url{
+    //将颜色槽加入颜色槽ScrollView
+    NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
+    
+    //对colorDatas按照百分比进行排序
+    NSArray *sortedColorDatas = [[[colorDatas sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        CGFloat percent1 = [[[(NSString*)obj1 componentsSeparatedByString:@"%"]lastObject]floatValue];
+        CGFloat percent2 = [[[(NSString*)obj2 componentsSeparatedByString:@"%"]lastObject]floatValue];
+        NSNumber *p1 = [NSNumber numberWithFloat:percent1];
+        NSNumber *p2 = [NSNumber numberWithFloat:percent2];
+        return [p1 compare:p2];
+    }] reverseObjectEnumerator]allObjects];
+    
+    [self setSwatchData:sortedColorDatas];
+    
+    //更新调色板管理按钮
+//    self.swatchManagerButton.swatchColorDatas = sortedColorDatas;
 }
 
 - (IBAction)swatchManagerButtonTouchUp:(UIButton *)sender {
-//    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"ExpandedSwatchManagerAvailable"]) {
+    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"ExpandedSwatchManagerAvailable"]) {
         //调色板管理功能可用
         self.swatchManagerVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"SwatchManagerViewController"];
         self.swatchManagerVC.delegate = self;
         [self presentViewController:self.swatchManagerVC animated:YES completion:^{
         }];
-        
-//    }
-//    else{
-//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"swatch manager not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
-//        [alertView show];
-//    }
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"swatch manager not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
+        [alertView show];
+    }
 }
-
+#pragma mark-
 - (IBAction)selectColor:(ColorButton *)sender {
     [sender enableHighlighted:true];
 }
@@ -2449,14 +2427,17 @@ typedef struct {
         //取出Workspace模版，添加内容
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Workspace" ofType:@"plist"];
         self.workspace = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
-        for (int i = 0; i < swatchCount; ++i) {
-            UIColor* swatch = [UIColor colorWithRed:swatchs[i*3]/255.0 green:swatchs[i*3+1]/255.0 blue:swatchs[i*3+2]/255.0 alpha:1.0];
-            NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:swatch];
-            [swatchArray addObject:swatchData];
-        }
+//        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
+//        for (int i = 0; i < swatchCount; ++i) {
+//            UIColor* swatch = [UIColor colorWithRed:swatchs[i*3]/255.0 green:swatchs[i*3+1]/255.0 blue:swatchs[i*3+2]/255.0 alpha:1.0];
+//            NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:swatch];
+//            [swatchArray addObject:swatchData];
+//        }
         [self.workspace writeToFile:plistFilePath atomically:YES];
     }
+    
+    //从user document目录workspace.plist中取出保存的颜色，如果是第一次使用无workspace.plist则创建workspace.plist
+    [self loadUserSwatch];
 }
 
 //保存工作空间文件，工作空间记录包括颜色设置，绘图设置等各种Preference
@@ -2468,20 +2449,23 @@ typedef struct {
 
     if([[NSFileManager defaultManager] fileExistsAtPath:plistFilePath])
     {//already exits
-        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
-        [swatchArray removeAllObjects];
-        for (int i = 0; i < self.colorButtons.count; ++i) {
-            ColorButton *colorButton = [self.colorButtons objectAtIndex:i];
-            if (!colorButton.isEmpty) {
-                NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:colorButton.color];
-                [swatchArray addObject:swatchData];
-            }
-        }
+//        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
+//        [swatchArray removeAllObjects];
+//        for (int i = 0; i < self.colorButtons.count; ++i) {
+//            ColorButton *colorButton = [self.colorButtons objectAtIndex:i];
+//            if (!colorButton.isEmpty) {
+//                NSData *swatchData = [NSKeyedArchiver archivedDataWithRootObject:colorButton.color];
+//                [swatchArray addObject:swatchData];
+//            }
+//        }
         [self.workspace writeToFile:plistFilePath atomically: YES];
     }
     else{
         DebugLog(@"Workspace.plist is missing");
     }
+    
+    //save current swatch to default.swatch
+    [self saveUserSwatch];
 }
 #pragma mark- 导出 Export
 //TODO:实现代理
@@ -4511,11 +4495,4 @@ typedef struct {
     }];
 }
 
-#pragma mark- 调色板代理SwatchManagerTableViewControllerDelegate
-- (void)willSetSwatchFile:(NSURL *)url{
-    [self setSwatchFile:url];
-    [self.swatchManagerVC dismissViewControllerAnimated:YES completion:^{
-
-    }];
-}
 @end

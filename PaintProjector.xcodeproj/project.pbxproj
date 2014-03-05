@@ -38,6 +38,8 @@
 		080706E118B78F4800D9385F /* InAppPurchaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */; };
 		08072EBC1692BDFE00E49D2B /* BrushTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */; };
 		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
+		0808118318C4A89C004D53F6 /* SwatchChartButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808118218C4A89C004D53F6 /* SwatchChartButton.m */; };
+		0808118418C4A89C004D53F6 /* SwatchChartButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808118218C4A89C004D53F6 /* SwatchChartButton.m */; };
 		0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* ColorButton.m */; };
 		0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CD164559870000DF40 /* InfColorBarPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CF164559870000DF40 /* InfColorIndicatorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -361,8 +363,6 @@
 		08B444BB175AF66C00787C18 /* FirstScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BA175AF66C00787C18 /* FirstScreenViewController.m */; };
 		08B444BE175B00E600787C18 /* PaintFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444BD175B00E600787C18 /* PaintFrameView.m */; };
 		08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */; };
-		08B60F3918C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
-		08B60F3A18C385DC00A415CA /* SwatchChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3618C385DC00A415CA /* SwatchChartView.m */; };
 		08B60F3B18C385DC00A415CA /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+String.m */; };
 		08B60F3C18C385DC00A415CA /* UIColor+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+String.m */; };
 		08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B71177ECE900039B5E5 /* Settings.bundle */; };
@@ -382,6 +382,8 @@
 		08CE1A6718968A350019A1AB /* PaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */; };
 		08CE1A6818968A350019A1AB /* PaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */; };
 		08D49982175A530B00ED100A /* studio.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D49981175A530B00ED100A /* studio.png */; };
+		08D4B8BA18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
+		08D4B8BB18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4BECA17ED6E4200D2448B /* BrushPatternTexture in Resources */ = {isa = PBXBuildFile; fileRef = 08D4BEC917ED6E4200D2448B /* BrushPatternTexture */; };
 		08D4BECC17ED70D900D2448B /* patternNone.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D4BECB17ED70D900D2448B /* patternNone.png */; };
 		08D836911737E2E600B68990 /* FreeTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836901737E2E600B68990 /* FreeTransformButton.m */; };
@@ -406,6 +408,8 @@
 		08E251B7189CBCC60039AAC2 /* ShaderCylinderProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E251B6189CBCC60039AAC2 /* ShaderCylinderProject.m */; };
 		08E251B8189CC10C0039AAC2 /* Shader.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E251B3189CBC5C0039AAC2 /* Shader.m */; };
 		08E251B9189CC10E0039AAC2 /* ShaderCylinderProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E251B6189CBCC60039AAC2 /* ShaderCylinderProject.m */; };
+		08E33F5718C61148007A26F2 /* SwatchManagerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E33F5618C61148007A26F2 /* SwatchManagerButton.m */; };
+		08E33F5818C61148007A26F2 /* SwatchManagerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E33F5618C61148007A26F2 /* SwatchManagerButton.m */; };
 		08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */; };
 		08E7B09817EAB55900A121B5 /* brushSoftFallOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E7B09717EAB55900A121B5 /* brushSoftFallOff.png */; };
 		08E7B09D17EACB4500A121B5 /* BrushPropertyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E7B09C17EACB4500A121B5 /* BrushPropertyTableViewController.m */; };
@@ -849,6 +853,8 @@
 		08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeScrollView.m; sourceTree = "<group>"; };
 		08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeButton.h; sourceTree = "<group>"; };
 		08072EBE1692FD5000E49D2B /* BrushTypeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeButton.m; sourceTree = "<group>"; };
+		0808118118C4A89C004D53F6 /* SwatchChartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchChartButton.h; sourceTree = "<group>"; };
+		0808118218C4A89C004D53F6 /* SwatchChartButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchChartButton.m; sourceTree = "<group>"; };
 		0808D9BC1644EC6F0000DF40 /* ColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButton.h; sourceTree = "<group>"; };
 		0808D9BD1644EC6F0000DF40 /* ColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButton.m; sourceTree = "<group>"; };
 		0808D9CC164559870000DF40 /* InfColorBarPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfColorBarPicker.h; sourceTree = "<group>"; };
@@ -1312,8 +1318,6 @@
 		08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintFrameViewGroup.m; path = iReporter/PaintFrameViewGroup.m; sourceTree = "<group>"; };
 		08B60F2F18C3834200A415CA /* SwatchManagerCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerCollectionViewController.h; sourceTree = "<group>"; };
 		08B60F3018C3834200A415CA /* SwatchManagerCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerCollectionViewController.m; sourceTree = "<group>"; };
-		08B60F3518C385DC00A415CA /* SwatchChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchChartView.h; sourceTree = "<group>"; };
-		08B60F3618C385DC00A415CA /* SwatchChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchChartView.m; sourceTree = "<group>"; };
 		08B60F3718C385DC00A415CA /* UIColor+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+String.h"; sourceTree = "<group>"; };
 		08B60F3818C385DC00A415CA /* UIColor+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+String.m"; sourceTree = "<group>"; };
 		08B81B71177ECE900039B5E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -1335,6 +1339,7 @@
 		08CE1A6518968A350019A1AB /* PaintHighlightedFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintHighlightedFrameView.h; path = iReporter/PaintHighlightedFrameView.h; sourceTree = "<group>"; };
 		08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintHighlightedFrameView.m; path = iReporter/PaintHighlightedFrameView.m; sourceTree = "<group>"; };
 		08D49981175A530B00ED100A /* studio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studio.png; sourceTree = "<group>"; };
+		08D4B8B918C56611008F5293 /* Default.swatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Default.swatch; sourceTree = "<group>"; };
 		08D4BEC917ED6E4200D2448B /* BrushPatternTexture */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BrushPatternTexture; path = ../BrushPatternTexture; sourceTree = "<group>"; };
 		08D4BECB17ED70D900D2448B /* patternNone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patternNone.png; sourceTree = "<group>"; };
 		08D8368F1737E2E600B68990 /* FreeTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreeTransformButton.h; sourceTree = "<group>"; };
@@ -1370,6 +1375,8 @@
 		08E251B3189CBC5C0039AAC2 /* Shader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Shader.m; path = iReporter/Shader.m; sourceTree = "<group>"; };
 		08E251B5189CBCC60039AAC2 /* ShaderCylinderProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderCylinderProject.h; sourceTree = "<group>"; };
 		08E251B6189CBCC60039AAC2 /* ShaderCylinderProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderCylinderProject.m; sourceTree = "<group>"; };
+		08E33F5518C61148007A26F2 /* SwatchManagerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerButton.h; sourceTree = "<group>"; };
+		08E33F5618C61148007A26F2 /* SwatchManagerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerButton.m; sourceTree = "<group>"; };
 		08E6BB9D17EFA3E3003749FE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		08E7B09717EAB55900A121B5 /* brushSoftFallOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushSoftFallOff.png; sourceTree = "<group>"; };
@@ -1993,8 +2000,7 @@
 		087C8E5F18BF7ABD001A3331 /* Swatch */ = {
 			isa = PBXGroup;
 			children = (
-				08B60F3518C385DC00A415CA /* SwatchChartView.h */,
-				08B60F3618C385DC00A415CA /* SwatchChartView.m */,
+				08D4B8B918C56611008F5293 /* Default.swatch */,
 				08B2CFA718C0CA9E00D34C1E /* Swatches */,
 				0822B00018C0B9510021A75B /* SwatchManagerTableViewCell.h */,
 				0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */,
@@ -2002,6 +2008,10 @@
 				08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */,
 				0822B00218C0B9510021A75B /* SwatchManagerTableViewController.h */,
 				0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */,
+				0808118118C4A89C004D53F6 /* SwatchChartButton.h */,
+				0808118218C4A89C004D53F6 /* SwatchChartButton.m */,
+				08E33F5518C61148007A26F2 /* SwatchManagerButton.h */,
+				08E33F5618C61148007A26F2 /* SwatchManagerButton.m */,
 				0808D9BC1644EC6F0000DF40 /* ColorButton.h */,
 				0808D9BD1644EC6F0000DF40 /* ColorButton.m */,
 				085EFD4C1732BDD900F0395D /* PaintColorButton.h */,
@@ -2643,6 +2653,7 @@
 				c13ad63245ffdbf209ec73a3 /* brushRadius16.png in Resources */,
 				e0529ad60c84c6af15766b84 /* BrushPatternTexture in Resources */,
 				e2add9a8810076ef3e631439 /* brushRadius2.png in Resources */,
+				08D4B8BB18C56611008F5293 /* Default.swatch in Resources */,
 				39feb8bd87a1c20d05ab0ab5 /* brushRadius4.png in Resources */,
 				bb68df98b1d1b3020d7d578e /* brushRadius8.png in Resources */,
 				4297ef017d97ef8a951f14af /* brushSquare.png in Resources */,
@@ -2756,6 +2767,7 @@
 				08243A0816CCAE2100FC12BA /* brushRadius16.png in Resources */,
 				08D4BECA17ED6E4200D2448B /* BrushPatternTexture in Resources */,
 				08243A0916CCAE2100FC12BA /* brushRadius2.png in Resources */,
+				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				08243A0A16CCAE2100FC12BA /* brushRadius4.png in Resources */,
 				08243A0B16CCAE2100FC12BA /* brushRadius8.png in Resources */,
 				08243A0C16CCAE2100FC12BA /* brushSquare.png in Resources */,
@@ -3046,6 +3058,7 @@
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
 				43273277bbdc4a6f5211c327 /* DoneButton.m in Sources */,
 				3288492b37b2543a0ade13ad /* ClearButton.m in Sources */,
+				08E33F5818C61148007A26F2 /* SwatchManagerButton.m in Sources */,
 				08B60F3C18C385DC00A415CA /* UIColor+String.m in Sources */,
 				7f1708e9135ab712a98551a6 /* BackgroundLayerTableViewCell.m in Sources */,
 				593da15714dbd9b0b661ae58 /* BrushTypeViewController.m in Sources */,
@@ -3094,6 +3107,7 @@
 				e01551c878d69b20bb0f586d /* LayerBlendModeTableView.m in Sources */,
 				d0dce5301693b12b9a439723 /* LayerBlendModePopoverBackgroundView.m in Sources */,
 				d44a0eace57255f8a4bbf0af /* ColorSaveToSlotView.m in Sources */,
+				0808118418C4A89C004D53F6 /* SwatchChartButton.m in Sources */,
 				2719eb9b9adf1c84b219ee53 /* Bucket.m in Sources */,
 				0818DC2E18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */,
 				082060D2189D38E40027247C /* Renderer.m in Sources */,
@@ -3120,7 +3134,6 @@
 				08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */,
 				1b45185b843dee98ea7599da /* PaintButton.m in Sources */,
 				a2551e3c45b085876b4411ff /* AnamorphicButton.m in Sources */,
-				08B60F3A18C385DC00A415CA /* SwatchChartView.m in Sources */,
 				34d02516d408dac46ba4b603 /* AnamorphicSideViewButton.m in Sources */,
 				e9f960de75d0951d6cfd0ee8 /* TestGLKView.m in Sources */,
 				78934ebf43e31e8d5a4a2d8a /* AnamorphicTopViewButton.m in Sources */,
@@ -3214,7 +3227,6 @@
 				0829C01F168349F80009CD1C /* ImageStack.m in Sources */,
 				949066081684000A00AF072C /* Ultility.m in Sources */,
 				9490660B168412B700AF072C /* PNGImageStack.m in Sources */,
-				08B60F3918C385DC00A415CA /* SwatchChartView.m in Sources */,
 				949B368916896D3C00D3D5D2 /* PaintCommand.m in Sources */,
 				08A4C99F1689EC8400002625 /* CommandStack.m in Sources */,
 				08072EBC1692BDFE00E49D2B /* BrushTypeScrollView.m in Sources */,
@@ -3287,6 +3299,7 @@
 				08F3A69817362A43002E063A /* LayerButton.m in Sources */,
 				0847F52218B0558A0038869A /* SetupViewController.m in Sources */,
 				082060DD189D455C0027247C /* CylinderProject.m in Sources */,
+				08E33F5718C61148007A26F2 /* SwatchManagerButton.m in Sources */,
 				08F3A69B17363261002E063A /* ProjectButton.m in Sources */,
 				088505C217F724EF00E460CA /* RotateCanvasView.m in Sources */,
 				0802D10C17367ACA003259E6 /* ImportButton.m in Sources */,
@@ -3310,6 +3323,7 @@
 				087751BB180450B20034FEA7 /* CustomLayer.m in Sources */,
 				087FE74A173E2F9C009B34A2 /* Marker.m in Sources */,
 				0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */,
+				0808118318C4A89C004D53F6 /* SwatchChartButton.m in Sources */,
 				08FF70C8189003AC00A7A09B /* PaintCollectionViewController.m in Sources */,
 				0803D1F6189FCCDB0068B14B /* RenderTexture.m in Sources */,
 				08E16DC917412581000B211D /* EyeDropperIndicatorView.m in Sources */,

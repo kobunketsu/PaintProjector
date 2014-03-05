@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SwatchChartView : UIView
+@interface SwatchChartButton : UIButton
 @property(retain, nonatomic)NSArray *swatchColors;
 @end

@@ -10,4 +10,5 @@
 
 @interface UIColor (String)
 +(UIColor*)colorWithString:(NSString*)string;
+-(NSString*)colorString;
 @end
