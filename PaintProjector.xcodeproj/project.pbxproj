@@ -38,6 +38,8 @@
 		080706E118B78F4800D9385F /* InAppPurchaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080706DF18B78F4800D9385F /* InAppPurchaseTableView.m */; };
 		08072EBC1692BDFE00E49D2B /* BrushTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */; };
 		08072EBF1692FD5100E49D2B /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
+		0807A63A18C77D3300AA3FA5 /* SwatchManagerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0807A63918C77D3300AA3FA5 /* SwatchManagerTableView.m */; };
+		0807A63B18C77D3300AA3FA5 /* SwatchManagerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0807A63918C77D3300AA3FA5 /* SwatchManagerTableView.m */; };
 		0808118318C4A89C004D53F6 /* SwatchChartButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808118218C4A89C004D53F6 /* SwatchChartButton.m */; };
 		0808118418C4A89C004D53F6 /* SwatchChartButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808118218C4A89C004D53F6 /* SwatchChartButton.m */; };
 		0808D9BE1644EC6F0000DF40 /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9BD1644EC6F0000DF40 /* ColorButton.m */; };
@@ -853,6 +855,8 @@
 		08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeScrollView.m; sourceTree = "<group>"; };
 		08072EBD1692FD4F00E49D2B /* BrushTypeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypeButton.h; sourceTree = "<group>"; };
 		08072EBE1692FD5000E49D2B /* BrushTypeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypeButton.m; sourceTree = "<group>"; };
+		0807A63818C77D3300AA3FA5 /* SwatchManagerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerTableView.h; sourceTree = "<group>"; };
+		0807A63918C77D3300AA3FA5 /* SwatchManagerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerTableView.m; sourceTree = "<group>"; };
 		0808118118C4A89C004D53F6 /* SwatchChartButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchChartButton.h; sourceTree = "<group>"; };
 		0808118218C4A89C004D53F6 /* SwatchChartButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchChartButton.m; sourceTree = "<group>"; };
 		0808D9BC1644EC6F0000DF40 /* ColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButton.h; sourceTree = "<group>"; };
@@ -2006,6 +2010,8 @@
 				0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */,
 				08B2CFAA18C0D7C800D34C1E /* SwatchCollectionViewCell.h */,
 				08B2CFAB18C0D7C800D34C1E /* SwatchCollectionViewCell.m */,
+				0807A63818C77D3300AA3FA5 /* SwatchManagerTableView.h */,
+				0807A63918C77D3300AA3FA5 /* SwatchManagerTableView.m */,
 				0822B00218C0B9510021A75B /* SwatchManagerTableViewController.h */,
 				0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */,
 				0808118118C4A89C004D53F6 /* SwatchChartButton.h */,
@@ -2932,6 +2938,7 @@
 				3610c8f26df35f53c2ca9f3f /* InfColorIndicatorView.m in Sources */,
 				5e923c9fc715b0f227dbe51f /* InfColorPickerRootView.m in Sources */,
 				ac3657bc9115214296e84f31 /* InfColorPickerController.m in Sources */,
+				0807A63B18C77D3300AA3FA5 /* SwatchManagerTableView.m in Sources */,
 				14aa0559a33e78d5019bfcfc /* InfColorSquarePicker.m in Sources */,
 				039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */,
 				3ea74751a145c238a19bd801 /* InfSourceColorView.m in Sources */,
@@ -3255,6 +3262,7 @@
 				08AFD4CE17F33DA600B9492B /* FuzzyTransparentView.m in Sources */,
 				0803469517F8F81E007852A6 /* ClearGestureRecognizer.m in Sources */,
 				0863F0E417DA3850008186CA /* TestGLKViewController.m in Sources */,
+				0807A63A18C77D3300AA3FA5 /* SwatchManagerTableView.m in Sources */,
 				08A5CBB6189F36B300F4E226 /* Component.m in Sources */,
 				082060E5189D4CE70027247C /* Transform.m in Sources */,
 				08B9104818AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m in Sources */,

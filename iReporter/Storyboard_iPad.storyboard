@@ -2319,46 +2319,68 @@
         <scene sceneID="KMB-cA-M8e">
             <objects>
                 <tableViewController storyboardIdentifier="SwatchManagerViewController" id="0DD-B5-4h0" customClass="SwatchManagerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1024" sectionHeaderHeight="44" sectionFooterHeight="44" id="0hv-cI-iEb">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="958" sectionHeaderHeight="44" sectionFooterHeight="44" id="0hv-cI-iEb" customClass="SwatchManagerTableView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="rmU-fx-DWG">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="m36-YD-ORq" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="0DD-B5-4h0" id="48X-iW-nub"/>
-                            </connections>
-                        </searchBar>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" placeholder="Type your feeling of colors" id="rmU-fx-DWG">
+                                    <rect key="frame" x="100" y="0.0" width="668" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="0DD-B5-4h0" id="48X-iW-nub"/>
+                                    </connections>
+                                </searchBar>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yqS-gO-sCG" userLabel="BackButton - Back">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
+                                    <accessibility key="accessibilityConfiguration" label="swatchManagerBackButton"/>
+                                    <state key="normal" title="Back">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="backButtonTouchUp:" destination="0DD-B5-4h0" eventType="touchUpInside" id="BOK-3c-cdK"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" label="swatchManagerHeader">
+                                <bool key="isElement" value="YES"/>
+                            </accessibility>
+                        </view>
                         <prototypes>
                             <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Zbl-UA-Y9f" customClass="SwatchManagerTableViewCell">
-                                <rect key="frame" x="0.0" y="88" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="88" width="768" height="958"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zbl-UA-Y9f" id="T5z-ci-zZS">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="1023"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="957"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Fg4-cQ-9uI">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="1280"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="1214"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Zaw-tM-xXs">
-                                                <size key="itemSize" width="256" height="256"/>
+                                                <size key="itemSize" width="256" height="240"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="swatchCollectionViewCell" id="g5j-FO-Xiz" customClass="SwatchCollectionViewCell">
-                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="240"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="256"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="240"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VTU-Kv-ImL" userLabel="SwatchChartButton" customClass="SwatchChartButton">
-                                                                <rect key="frame" x="28" y="28" width="200" height="200"/>
+                                                                <rect key="frame" x="28" y="10" width="200" height="200"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <state key="normal">
@@ -2366,7 +2388,7 @@
                                                                 </state>
                                                             </button>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AGT-zO-b7c">
-                                                                <rect key="frame" x="28" y="231" width="200" height="25"/>
+                                                                <rect key="frame" x="28" y="210" width="200" height="25"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -2394,11 +2416,14 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
+                            <outlet property="backButton" destination="yqS-gO-sCG" id="ZBC-W0-Hlr"/>
                             <outlet property="dataSource" destination="0DD-B5-4h0" id="p1b-IL-hr2"/>
                             <outlet property="delegate" destination="0DD-B5-4h0" id="ojA-Fg-1ep"/>
+                            <outlet property="searchBar" destination="rmU-fx-DWG" id="REc-ko-Jha"/>
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="backButton" destination="yqS-gO-sCG" id="DSs-Cr-Clh"/>
                         <outlet property="searchBar" destination="rmU-fx-DWG" id="cBi-fq-MWY"/>
                         <outlet property="searchDisplayController" destination="8g5-NW-hNf" id="HUo-pW-zFU"/>
                     </connections>

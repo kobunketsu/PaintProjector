@@ -2100,9 +2100,12 @@
 }
 #pragma mark- 调色板代理SwatchManagerTableViewControllerDelegate
 - (void)willSetSwatchFile:(NSURL *)url{
-    [self setSwatchFile:url];
+    if (url) {
+        [self setSwatchFile:url];
+    }
+
     [self.swatchManagerVC dismissViewControllerAnimated:YES completion:^{
-        
+       
     }];
 }
 #pragma mark-

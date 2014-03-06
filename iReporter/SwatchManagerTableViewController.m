@@ -47,6 +47,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)backButtonTouchUp:(UIButton *)sender {
+    [self.delegate willSetSwatchFile:nil];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -225,4 +228,5 @@
     // 返回YES，让table view重新加载。
     return YES;
 }
+
 @end
