@@ -4219,6 +4219,7 @@
 }
 
 - (void)slideToolBarRightDirection:(BOOL)right out:(UIView*)outView in:(UIView*)inView completion: (void (^) (void)) block1{
+    //移出View的最终状态
     CGRect outFrameTarget = outView.frame;
     if (right) {
         outFrameTarget.origin.x += self.rootView.frame.size.width;
@@ -4226,8 +4227,14 @@
     else{
         outFrameTarget.origin.x -= self.rootView.frame.size.width;
     }
+  
+    //移入View的最终状态
+    CGRect inFrameTarget = outView.frame;
     
+    //移出View的初始状态
+    outView.hidden = false;
     
+    //移入View的初始状态
     CGRect inFrameSrc = outView.frame;
     if (right) {
         inFrameSrc.origin.x -= self.rootView.frame.size.width;
@@ -4235,16 +4242,15 @@
     else{
         inFrameSrc.origin.x += self.rootView.frame.size.width;
     }
-    
-    CGRect inFrameTarget = outView.frame;
-    
     inView.frame = inFrameSrc;
     inView.hidden = false;
     
+    //开始动画
     [UIView animateWithDuration:0.3 animations:^{
         inView.frame = inFrameTarget;
         outView.frame = outFrameTarget;
     } completion:^(BOOL finished) {
+        outView.hidden = true;
         block1();
     }];
 }

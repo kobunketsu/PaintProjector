@@ -10,4 +10,5 @@
 
 @interface SwatchChartButton : UIButton
 @property(retain, nonatomic)NSArray *swatchColors;
+@property(assign, nonatomic)BOOL filtered;
 @end

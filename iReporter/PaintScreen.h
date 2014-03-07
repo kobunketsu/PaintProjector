@@ -88,7 +88,8 @@
 #import "AutoRotateButton.h"
 #import "ClearGestureRecognizer.h"
 #import "InAppPurchaseTableViewController.h"
-#import "SwatchManagerTableViewController.h"
+//#import "SwatchManagerTableViewController.h"
+#import "SwatchManagerViewController.h"
 #import "SwatchManagerButton.h"
 
 @class TransformContentView;
@@ -151,7 +152,8 @@ BrushPropertyViewControllerDelegate,
 InfColorPickerControllerDelegate,
 FuzzyTransparentViewDelegate,
 InAppPurchaseTableViewControllerDelegate,
-SwatchManagerTableViewControllerDelegate
+//SwatchManagerTableViewControllerDelegate
+SwatchManagerViewControllerDelegate
 >
 {
     //变换
@@ -270,7 +272,7 @@ SwatchManagerTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UndoButton *undoButton;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *topToolBarButtons;
-@property (retain, nonatomic) SwatchManagerTableViewController *swatchManagerVC;
+@property (retain, nonatomic) SwatchManagerViewController *swatchManagerVC;
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;

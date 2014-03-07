@@ -24,8 +24,11 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
-        [self setMinimumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
-        [self setMaximumTrackImage:[UIImage alloc] forState:UIControlStateNormal];
+        UIImage *minTrackImage = [[UIImage imageNamed:@"radiusSliderTracker.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        UIImage *maxTrackImage = [[UIImage imageNamed:@"radiusSliderTracker.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
+        [self setMinimumTrackImage:minTrackImage forState:UIControlStateNormal];
+        [self setMaximumTrackImage:maxTrackImage forState:UIControlStateNormal];
         
     }
     return self;
@@ -55,7 +58,7 @@
     CGFloat shadow2BlurRadius = 2;
     
     //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 1, 248, 20) cornerRadius: 10];
+    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 7, 248, 20) cornerRadius: 10];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
 

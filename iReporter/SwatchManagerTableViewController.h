@@ -17,6 +17,7 @@ UISearchDisplayDelegate>
 - (IBAction)backButtonTouchUp:(UIButton *)sender;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property(assign, nonatomic) id delegate;
 @end
 

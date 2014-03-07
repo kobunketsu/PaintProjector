@@ -13,5 +13,4 @@
 @property (weak, nonatomic) IBOutlet SwatchChartButton *swatchChartButton;
 @property (weak, nonatomic) IBOutlet UILabel *swatchNameLabel;
 
-
 @end
