@@ -62,7 +62,7 @@
     //初始化IAP商店
     [[AnaDrawIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
 
-    
+
     return YES;
 }
 

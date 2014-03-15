@@ -20,6 +20,7 @@ UISearchDisplayDelegate>
 - (IBAction)backButtonTouchUp:(UIButton *)sender;
 - (IBAction)swatchChartButtonTouchUp:(SwatchChartButton *)sender;
 - (IBAction)swatchChartButtonTouchDown:(UIButton *)sender;
+- (IBAction)swatchChartButtonTouchCancel:(UIButton *)sender;
 
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;

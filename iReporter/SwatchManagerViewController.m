@@ -59,21 +59,28 @@
         url = self.swatches[index];
     }
     
-    [self.delegate willSetSwatchFile:url];
+    //交互动画
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.transform = CATransform3DIdentity;
+    }completion:^(BOOL finished) {
+        [self.delegate willSetSwatchFile:url];
+    }];
+
 }
 
 - (IBAction)swatchChartButtonTouchDown:(UIButton *)sender {
 
     //交互动画
-//    CGRect frame = sender.frame;
-//    DebugLog(@"frame %@", NSStringFromCGRect(frame));
-//    CGRect newFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width*2, frame.size.height*2);
-//    DebugLog(@"scaled frame %@", NSStringFromCGRect(newFrame));
-//    CGPoint center = sender.center;
-//    [UIView animateWithDuration:1 animations:^{
-//        sender.transform = CGAffineTransformMakeScale(2, 2);
-//    }completion:^(BOOL finished) {
-//    }];
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.2);
+    }completion:nil];
+}
+
+- (IBAction)swatchChartButtonTouchCancel:(UIButton *)sender {
+    //交互动画
+    [UIView animateWithDuration:0.1 animations:^{
+        sender.layer.transform = CATransform3DIdentity;
+    }completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -196,19 +203,22 @@
     NSArray *colorDatas = [NSArray arrayWithContentsOfURL:url];
     
     //对colorDatas按照百分比进行排序
-    NSArray *sortedColors = [[[colorDatas sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
-        CGFloat percent1 = [[[(NSString*)obj1 componentsSeparatedByString:@"%"]lastObject]floatValue];
-        CGFloat percent2 = [[[(NSString*)obj2 componentsSeparatedByString:@"%"]lastObject]floatValue];
-        NSNumber *p1 = [NSNumber numberWithFloat:percent1];
-        NSNumber *p2 = [NSNumber numberWithFloat:percent2];
-        return [p1 compare:p2];
-    }] reverseObjectEnumerator]allObjects];
+//    NSArray *sortedColors = [[[colorDatas sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        CGFloat percent1 = [[[(NSString*)obj1 componentsSeparatedByString:@"%"]lastObject]floatValue];
+//        CGFloat percent2 = [[[(NSString*)obj2 componentsSeparatedByString:@"%"]lastObject]floatValue];
+//        NSNumber *p1 = [NSNumber numberWithFloat:percent1];
+//        NSNumber *p2 = [NSNumber numberWithFloat:percent2];
+//        return [p1 compare:p2];
+//    }] reverseObjectEnumerator]allObjects];
+//    
+//    cell.swatchChartButton.swatchColors = sortedColors;
     
-    cell.swatchChartButton.swatchColors = sortedColors;
+    cell.swatchChartButton.swatchColors = colorDatas;
     
     //tag正负号代表是否是查询过滤表格
     cell.swatchChartButton.tag = indexPath.row;
     cell.swatchChartButton.filtered = collectionView.tag == 1;
+    cell.swatchChartButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSString *fileName = [url.pathComponents lastObject];
     NSString *swatchName = [fileName stringByDeletingPathExtension];

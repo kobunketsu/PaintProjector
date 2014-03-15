@@ -26,6 +26,7 @@
 
 //是否编辑状态
 @property (assign, nonatomic) BOOL isEditing;
+
 @end
 
 @implementation PaintCollectionViewController
@@ -39,8 +40,23 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    DebugLog(@"viewWillAppear");
+    if (!self.isLaunchTransitioned) {
+        [self startLaunchTransitionToCylinderProject];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    DebugLog(@"viewDidAppear");
+    if (!self.isLaunchTransitioned) {
+        [self launchTransitionToCylinderProject];
+    }
+}
+
 - (void)viewDidLoad
 {
+    DebugLog(@"viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -59,6 +75,8 @@
     
     self.transitionManager = [[PaintFrameTransitionManager alloc]init];
     self.transitionManager.delegate = self;
+    
+    self.isLaunchTransitioned = false;
 }
 
 - (void)viewDidUnload{
@@ -75,6 +93,44 @@
     DebugLog(@"[ dealloc ]");
 }
 
+#pragma mark- LaunchTransition
+-(NSInteger)indexForRecentPaintDoc{
+    return 0;
+}
+
+-(void)startLaunchTransitionToCylinderProject{
+    //launchImage遮盖主屏幕
+    UIImage *image = [UIImage imageNamed:@"AnaDrawLaunch"];
+    self.launchImageView = [[UIImageView alloc]initWithImage:image];
+    [self.view addSubview:self.launchImageView];
+}
+
+-(void)launchTransitionToCylinderProject{
+    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count == 0) {
+        //没有文件，插入一个新文件
+        [self newButtonTouchUp:self.editNewButton];
+    }
+    else{
+        //TODO:载入保存的recentFiles
+        NSInteger index = [self indexForRecentPaintDoc];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+    }
+}
+
+-(void)launchTransitionToCylinderProjectCompleted{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.launchImageView.alpha = 0;
+    }completion:^(BOOL finished) {
+        [self.launchImageView removeFromSuperview];
+        self.launchImageView = nil;
+        self.isLaunchTransitioned = true;
+    }];
+
+}
+- (void)willCompleteLaunchTransitionToCylinderProject{
+    [self launchTransitionToCylinderProjectCompleted];
+}
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.paintFrameManager.curPaintFrameGroup.paintDocs.count;
@@ -108,29 +164,7 @@
     
     //非编辑状态，打开
     if (!self.isEditing) {
-        self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
-        self.cylinderProjectVC.delegate = self;
-        self.cylinderProjectVC.transitioningDelegate = self;
-
-        //prepare for segue
-        PaintFrameView* view = cell.paintFrameView;
-        self.cylinderProjectVC.paintFrameViewGroup = self.paintFrameManager.curPaintFrameGroup;
-//        [self.cylinderProjectVC setCurPaintDoc:view.paintDoc];
-        self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
-        
-        [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
-            DebugLog(@"Fade in cylinderProjcet");
-            [self.cylinderProjectVC.cylinderProjectCur.animation play];
-            
-            //隐藏从paintCollectionVC transition 时添加的view
-            UIView *tempImageView = [self.cylinderProjectVC.view subViewWithTag:100];
-            if (tempImageView) {
-                [UIView animateWithDuration:1 animations:^{
-                    tempImageView.alpha = 0;
-                }completion:^(BOOL finished) {
-                }];
-            }
-        }];
+        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
     }
     //编辑状态
     else{
@@ -226,7 +260,7 @@
     self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
     
     //放大画框开始绘制
-    [self openPaintFrame:self.paintFrameManager.curPaintFrameView paintDirectly:true];
+    [self viewPaintFrame:self.paintFrameManager.curPaintFrameView paintDirectly:true];
 }
 
 #pragma mark-
@@ -260,23 +294,36 @@
     }
 }
 
--(void)openPaintFrame:(PaintFrameView*)paintFrameView paintDirectly:(BOOL)paintDirectly{
+-(void)viewPaintFrame:(PaintFrameView*)paintFrameView paintDirectly:(BOOL)paintDirectly{
     self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];
     self.cylinderProjectVC.delegate = self;
     self.cylinderProjectVC.transitioningDelegate = self;
     
-    if (paintDirectly) {
-    }
-    else{
-//       [self.cylinderProjectVC setCurPaintDoc:paintFrameView.paintDoc];
-    }
-    [self presentViewController:self.cylinderProjectVC animated:true completion:^{
-        if (paintDirectly) {
-            [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
-        }
-        else{
-        }
+    //prepare to present
+    self.cylinderProjectVC.paintFrameViewGroup = self.paintFrameManager.curPaintFrameGroup;
+    self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
+    
+    [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
+        DebugLog(@"Fade in cylinderProjcet");
+        [self.cylinderProjectVC.cylinderProjectCur.animation play];
         
+        //隐藏从paintCollectionVC transition 时添加的view
+        UIView *transitionImageView = [self.cylinderProjectVC.view subViewWithTag:100];
+        if (transitionImageView) {
+            [UIView animateWithDuration:1 animations:^{
+                transitionImageView.alpha = 0;
+            }completion:^(BOOL finished) {
+                if (self.isLaunchTransitioned) {
+                    [self launchTransitionToCylinderProjectCompleted];
+                }
+                
+                if (paintDirectly) {
+                    [self.cylinderProjectVC transitionToPaint];
+//                    [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
+                }
+                
+            }];
+        }
     }];
 }
 

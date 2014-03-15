@@ -2,10 +2,25 @@
   "images" : [
     {
       "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "launchImage.png",
+      "filename" : "AnaDrawLaunch.png",
       "scale" : "1x"
     },
     {
@@ -13,7 +28,6 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "launchImage-2.png",
       "scale" : "1x"
     },
     {
@@ -21,6 +35,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "AnaDrawLaunch@2x.png",
       "scale" : "2x"
     },
     {
@@ -32,20 +47,65 @@
     },
     {
       "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "ipad",
+      "extent" : "to-status-bar",
+      "filename" : "AnaDrawLaunch-1.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "full-screen",
-      "filename" : "launchImage-1.png",
+      "filename" : "AnaDrawLaunch-2.png",
       "scale" : "1x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
-      "filename" : "launchImage-3.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "landscape",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
+      "idiom" : "ipad",
+      "extent" : "to-status-bar",
+      "filename" : "AnaDrawLaunch@2x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "ipad",
+      "extent" : "full-screen",
+      "filename" : "AnaDrawLaunch@2x-2.png",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
       "scale" : "2x"
@@ -53,7 +113,7 @@
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
-      "extent" : "to-status-bar",
+      "extent" : "full-screen",
       "scale" : "2x"
     }
   ],

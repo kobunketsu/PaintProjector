@@ -11,4 +11,6 @@
 @interface PaintUIKitAnimation : NSObject
 
 + (void)view:(UIView*)view switchDownToolBarFromView:(UIView*)fromView completion: (void (^) (void))block1 toView:(UIView*)toView completion: (void (^) (void)) block2;
+
++ (void)view:(UIView*)view switchTopToolBarFromView:(UIView*)fromView completion: (void (^) (void))block1 to:(UIView*)toView completion: (void (^) (void)) block2;
 @end

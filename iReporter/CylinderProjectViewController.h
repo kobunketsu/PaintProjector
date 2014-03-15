@@ -89,6 +89,7 @@ typedef void(^MyCompletionBlock)(void);
 @class CylinderProjectViewController;
 @protocol CylinderProjectViewControllerDelegate
 - (void) willTransitionToGallery;
+- (void) willCompleteLaunchTransitionToCylinderProject;
 @end
 
 @interface CylinderProjectViewController : UIViewController
@@ -198,6 +199,7 @@ InAppPurchaseTableViewControllerDelegate
 //@property (weak, nonatomic) PaintDoc *curPaintDoc;
 -(void)viewPaintDoc:(PaintDoc*)paintDoc;
 - (void)openPaintDoc:(PaintDoc*)paintDoc;
+- (void)transitionToPaint;
 
 #pragma mark- file action
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;

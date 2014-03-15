@@ -68,6 +68,8 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     DebugLog(@"[ viewDidAppear ]");
+    
+    [self.delegate willCompleteLaunchTransitionToCylinderProject];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -254,7 +256,7 @@
         //刷新的当前图片
         NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
         tempView.image = [UIImage imageWithContentsOfFile:path];
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
             tempView.alpha = 1;
         }completion:^(BOOL finished) {
         }];
@@ -263,6 +265,9 @@
     AnimationClip *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"fadeOutAnimClip"];
     self.cylinderProjectCur.animation.clip = animClip;
     [self.cylinderProjectCur.animation play];
+    
+    //ToolBar动画
+    [self switchDownToolBarFrom:self.downToolBar completion:nil to:nil completion:nil];
 }
 
 - (void)transitionToPaint{
@@ -277,12 +282,12 @@
     //更新临时view
     NSString *path = [self.paintFrameViewGroup curPaintDoc].thumbImagePath;
     path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
-    ImageView *tempImageView = (ImageView *)[self.view subViewWithTag:100];
-    tempImageView.image = nil;
-    tempImageView.image = [UIImage imageWithContentsOfFile:path];
-    tempImageView.alpha = 0;
-    [UIView animateWithDuration:0.5 animations:^{
-        tempImageView.alpha = 1;
+    ImageView *transitionImageView = (ImageView *)[self.view subViewWithTag:100];
+    transitionImageView.image = nil;
+    transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+    transitionImageView.alpha = 0;
+    [UIView animateWithDuration:0.4 animations:^{
+        transitionImageView.alpha = 1;
     }completion:^(BOOL finished) {
     }];
     
@@ -290,17 +295,16 @@
     CGRect rect = [self willGetCylinderMirrorFrame];
     CGFloat scale = self.view.frame.size.width / rect.size.width;
     CGPoint rectCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5, rect.origin.y + rect.size.height * 0.5);
-    rectCenter = CGPointMake(rectCenter.x, rectCenter.y - 27);
+    rectCenter = CGPointMake(rectCenter.x, rectCenter.y - 29);
     UIView *fromView = self.view;
     fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
     fromView.layer.position = rectCenter;
     
-    [UIView animateWithDuration:0.8 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
         [self openPaintDoc:self.paintFrameViewGroup.curPaintDoc];
     }];
-    
 }
 #pragma mark- 分享Share
 - (void)share{
@@ -358,7 +362,7 @@
 - (void)setup{
     self.topToolBar.hidden = false;
     self.topToolBar.alpha = 0;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         self.topToolBar.alpha = 1;
     }completion:^(BOOL finished) {
     }];
@@ -369,7 +373,7 @@
     [self resetInputParams];
     
     self.topToolBar.alpha = 1;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         self.topToolBar.alpha = 0;
         self.topToolBar.hidden = true;
     }completion:^(BOOL finished) {
@@ -1038,16 +1042,20 @@
 }
 
 - (void)switchDownToolBarFrom:(DownToolBar*)fromView completion: (void (^) (void))block1 to:(DownToolBar*)toView completion: (void (^) (void)) block2{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         if (fromView != NULL) {
             fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
+        if (fromView) {
+            fromView.hidden = true;
+        }
         if (block1 != NULL) {
             block1();
         }
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             if (toView != NULL) {
+                toView.hidden = false;                
                 toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
@@ -1372,7 +1380,7 @@
 }
 
 - (CGRect)getCylinderMirrorFrame{
-    return CGRectMake(308, 294, 152, 152 / 3.0 * 4.0);
+    return CGRectMake(308, 294, 152, 152 / self.view.bounds.size.width * self.view.bounds.size.height);
 }
 
 - (CGRect)getCylinderMirrorTopFrame{
@@ -1607,14 +1615,16 @@
 }
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc{
+    //刷新当前画框内容
+    NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
+    
     self.cylinderProjectDefaultAlphaBlend = 1;
     //变换动画
-    ImageView *tempImageView = (ImageView *)[self.view subViewWithTag:100];
-    tempImageView.alpha = 1;
+    ImageView *transitionImageView = (ImageView *)[self.view subViewWithTag:100];
+    transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+    transitionImageView.alpha = 1;
     
     [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
-        //刷新当前画架内容
-        NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
         self.cylinderProjectCur.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:true];
         
         self.cylinder.reflectionStrength = 0;
@@ -1626,8 +1636,8 @@
         [self.cylinder.animation play];
         
 
-        [UIView animateWithDuration:0.5 animations:^{
-            tempImageView.alpha = 0;
+        [UIView animateWithDuration:0.4 animations:^{
+            transitionImageView.alpha = 0;
         }completion:^(BOOL finished) {
         }];
         
@@ -1636,7 +1646,7 @@
         CGFloat scale = self.view.frame.size.width / rect.size.width;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
         
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
             [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         } completion:^(BOOL finished) {
         }];
@@ -1652,7 +1662,9 @@
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC");
-        [self.paintScreenVC openDoc:self.paintFrameViewGroup.curPaintDoc];
+//        [self.paintScreenVC openDoc:self.paintFrameViewGroup.curPaintDoc];
+        [self.paintScreenVC openDoc:paintDoc];
+        
     }];
 }
 

@@ -11,6 +11,10 @@
 #import "PaintCollectionViewCell.h"
 #import "UIView+Tag.h"
 
+#define PaintFrameMoveAnimationDuration 0.6
+#define PaintFrameFadeAnimationDuration 0.4
+#define PaintFrameFadeOutScale 0.95
+
 @implementation PaintFrameTransitionManager
 //动画方法:
 //1.显示的图片动画到圆柱体的右侧后，从圆柱体的右侧飞入圆柱体
@@ -48,62 +52,46 @@
     [containerView sendSubviewToBack:toView];
     [containerView addSubview:imageView];
 
+    //第一次启动处理launchImageView
+    if (!paintCollectionVC.isLaunchTransitioned) {
+        [paintCollectionVC.launchImageView removeFromSuperview];
+        [containerView addSubview:paintCollectionVC.launchImageView];
+    }
+    
     //动画隐藏所有paintFrame
-//    paintCollectionVC.view.alpha = 0;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
         paintCollectionVC.view.alpha = 0;
         
         for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
-            [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
+            [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
         }
         
-        [imageView.layer setValue:[NSNumber numberWithFloat:1.1] forKeyPath:@"transform.scale"];
+        [imageView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
         //初始化
         toView.alpha = 1;
-//        CGFloat destScale = destRect.size.width / imageView.frame.size.width;
-//        CGPoint destRectCenter = CGPointMake(destRect.origin.x + destRect.size.width * 0.5, destRect.origin.y + destRect.size.height * 0.5);
-//        CGFloat offsetX = destRectCenter.x - imageView.center.x;
-//        CGFloat offsetY = destRectCenter.y - imageView.center.y;
         
-//        [UIView animateKeyframesWithDuration:0.8 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
-//            //移动paintFrameView到cylinder position位置
-//            //frame animation无效
-//            CGFloat fakeCloseToScreenScale = 1.1;
-//            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:0.4 animations:^{
-//                CGAffineTransform transform = CGAffineTransformMakeTranslation(offsetX * 0.3, offsetY * 0.3);
-//                transform = CGAffineTransformScale(transform, fakeCloseToScreenScale, fakeCloseToScreenScale);
-//                imageView.layer.affineTransform = transform;
-//            }];
-//            
-//            [UIView addKeyframeWithRelativeStartTime:0.4 relativeDuration:0.6 animations:^{
-//                CGAffineTransform transform = CGAffineTransformMakeTranslation(offsetX, offsetY);
-//                transform = CGAffineTransformScale(transform, destScale, destScale);
-//                imageView.layer.affineTransform = transform;
-//            }];
-        
-        [UIView animateWithDuration:0.6 animations:^{
-//            CGAffineTransform transform = CGAffineTransformMakeTranslation(offsetX, offsetY);
-//            transform = CGAffineTransformScale(transform, destScale, destScale);
-//            imageView.layer.affineTransform = transform;
+        [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
             [imageView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
             imageView.frame = destRect;
         } completion:^(BOOL finished) {
-            //加入临时imageView用来fill containView 消失之后带来的问题
-            UIImageView *tempImageView = [[UIImageView alloc]initWithFrame:destRect];
-            tempImageView.image = imageView.image;
-            tempImageView.tag = 100;
-            [toView addSubview:tempImageView];
+       
+            //加入转换imageView用来fill containView 消失之后带来的问题
+            UIImageView *transitionImageView = [[UIImageView alloc]initWithFrame:destRect];
+            transitionImageView.image = imageView.image;
+            transitionImageView.tag = 100;
+            [toView addSubview:transitionImageView];
             [imageView removeFromSuperview];
             imageView.alpha = 1;
             
-            //渐入cylinderProjectView
-            //        [UIView animateWithDuration:0 animations:^{
-            //            toView.alpha = 1;
-            //            imageView.alpha = 0;
-            //        }completion:^(BOOL finished) {
+            //第一次启动处理launchImageView
+            if (!paintCollectionVC.isLaunchTransitioned) {
+                [paintCollectionVC.launchImageView removeFromSuperview];
+                [toView addSubview:paintCollectionVC.launchImageView];
+            }
+            
             if ([transitionContext transitionWasCancelled]) {
                 
             } else {
@@ -135,80 +123,51 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:paintCollectionVC.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
     [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
 
-    ImageView *tempImageView = (ImageView *)[fromVC.view subViewWithTag:100];
-    [tempImageView removeFromSuperview];
+    ImageView *transitionImageView = (ImageView *)[fromVC.view subViewWithTag:100];
+    [transitionImageView removeFromSuperview];
     
     //得到新的当前PaintFrameView
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
     UIButton *paintFrameView = cell.paintFrameView;
-    [paintFrameView setImage:tempImageView.image forState:UIControlStateNormal];
+    [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
     CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
     //patch:处理奇怪的偏移
     destRect.origin.x -= 5;
     destRect.origin.y -= 5;
     
-    //得到圆柱体在屏幕上的大小
-//    CGRect srcRect = [self.delegate willGetCylinderMirrorFrame];
-//    UIButton *imageView = [[UIButton alloc]initWithFrame:srcRect];
-//    [imageView setImage:image forState:UIControlStateNormal];
-//    imageView.alpha = 1;
-    
-
-    
     [containerView addSubview:toView];
     [containerView addSubview:fromVC.view];
-    [containerView addSubview:tempImageView];
+    [containerView addSubview:transitionImageView];
     
     //动画
     toView.alpha = 0;
-//    paintCollectionVC.collectionView.alpha = 0;
-//    CGFloat destScale = destRect.size.width / imageView.frame.size.width;
-//    CGPoint destRectCenter = CGPointMake(destRect.origin.x + destRect.size.width * 0.5, destRect.origin.y + destRect.size.height * 0.5);
-//    CGFloat offsetX = destRectCenter.x - imageView.center.x;
-//    CGFloat offsetY = destRectCenter.y - imageView.center.y;
     
-    [UIView animateWithDuration:0 animations:^{
-        //得到paintFrameView
-//        toView.alpha = 1;
-//        imageView.alpha = 1;
-        
+    [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
+        transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {
-//        [UIView animateKeyframesWithDuration:0.8 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeCubic animations:^{
-//            //移动paintFrameView到cylinder position位置
-//            [UIView addKeyframeWithRelativeStartTime:0 relativeDuration:1 animations:^{
-//                CGAffineTransform transform = CGAffineTransformMakeTranslation(offsetX, offsetY);
-//                transform = CGAffineTransformScale(transform, destScale, destScale);
-//                imageView.layer.affineTransform = transform;
-//            }];
-        [UIView animateWithDuration:0.6 animations:^{
-            tempImageView.frame = destRect;
-        } completion:^(BOOL finished) {
-            //渐入cylinderProjectView
-            [UIView animateWithDuration:0.5 animations:^{
-                toView.alpha = 1;
-                fromVC.view.alpha = 0;
-//                paintCollectionVC.collectionView.alpha = 1;
+        //渐入cylinderProjectView
+        [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
+            toView.alpha = 1;
+            fromVC.view.alpha = 0;
+            
+            for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+                [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+            }
+            
+            transitionImageView.alpha = 0;
+        }completion:^(BOOL finished) {
+            if ([transitionContext transitionWasCancelled]) {
                 
-                for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
-                    [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
-                }
-                
-                tempImageView.alpha = 0;
-            }completion:^(BOOL finished) {
-                if ([transitionContext transitionWasCancelled]) {
-                    
-                } else {
-                    // reset from- view to its original state
-                    [tempImageView removeFromSuperview];
-                    tempImageView.alpha = 1;
-                }
-                [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-            }];
+            } else {
+                // reset from- view to its original state
+                [transitionImageView removeFromSuperview];
+                transitionImageView.alpha = 1;
+            }
+            [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }];
-    
 
 }
 

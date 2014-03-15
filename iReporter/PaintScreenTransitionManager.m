@@ -39,12 +39,12 @@
 //    
 //    //获得圆柱体的位置和图片
 //    CGRect rect = [self.delegate willGetCylinderMirrorFrame];
-//    UIImageView *tempImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
+//    UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
 //
 //    //加入图片view到变换容器view
 //    UIView *containerView = [transitionContext containerView];
-//    [tempImageView removeFromSuperview];
-//    [containerView addSubview:tempImageView];
+//    [transitionImageView removeFromSuperview];
+//    [containerView addSubview:transitionImageView];
 //    
 //    //确定fromView的锚点，和放大缩小的尺寸
 //    self.scale = fromView.frame.size.width / rect.size.width;
@@ -56,14 +56,14 @@
 //    
 //    [UIView animateWithDuration:0.8 animations:^{
 //        //底和图片一起放大
-//        tempImageView.frame = toView.frame;
+//        transitionImageView.frame = toView.frame;
 //        [fromView.layer setValue:[NSNumber numberWithFloat:self.scale] forKeyPath:@"transform.scale"];
 //    } completion:^(BOOL finished) {
 //        if ([transitionContext transitionWasCancelled]) {
 //            
 //        } else {
-//            [tempImageView removeFromSuperview];
-//            [fromView addSubview:tempImageView];
+//            [transitionImageView removeFromSuperview];
+//            [fromView addSubview:transitionImageView];
 //        }
 //        
 //        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
@@ -92,31 +92,31 @@
 //    
 //    //获得圆柱体的位置和图片
 //    CGRect rect = [self.delegate willGetCylinderMirrorFrame];
-//    UIImageView *tempImageView = [[UIImageView alloc]initWithFrame:fromView.frame];
+//    UIImageView *transitionImageView = [[UIImageView alloc]initWithFrame:fromView.frame];
 //
 //    NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:fromVC.paintDoc.thumbImagePath];
-//    tempImageView.image = [UIImage imageWithContentsOfFile:thumbImagePath];
+//    transitionImageView.image = [UIImage imageWithContentsOfFile:thumbImagePath];
 //    
 //    //加入图片view到变换容器view
 //    UIView *containerView = [transitionContext containerView];
 //    
-//    [containerView addSubview:tempImageView];
+//    [containerView addSubview:transitionImageView];
 //    [containerView addSubview:toView];
 //    [containerView sendSubviewToBack:toView];
 //    
 //    //初始化变换开始大小
 //    fromView.alpha = 0;
-//    tempImageView.alpha = 1;
+//    transitionImageView.alpha = 1;
 //    [toView.layer setValue:[NSNumber numberWithFloat:self.scale] forKeyPath:@"transform.scale"];
 //    
 //    //变换动画
 //    [UIView animateWithDuration:0.5 animations:^{
-//        tempImageView.alpha = 0;
+//        transitionImageView.alpha = 0;
 //    }completion:^(BOOL finished) {
 //    }];
 //    
 //    [UIView animateWithDuration:0.8 animations:^{
-//        tempImageView.frame = rect;
+//        transitionImageView.frame = rect;
 //        [toView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
 //    } completion:^(BOOL finished) {
 //        //打开从paintCollectionVC transition 时添加的view
@@ -129,7 +129,7 @@
 //            
 //        } else {
 //            [toView removeFromSuperview];
-//            [tempImageView removeFromSuperview];
+//            [transitionImageView removeFromSuperview];
 //        }
 //        
 //        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];

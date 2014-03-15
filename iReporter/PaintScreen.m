@@ -4174,6 +4174,9 @@
             fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
+        if (fromView) {
+            fromView.hidden = true;
+        }
         if (block1 != NULL) {
             block1();
         }
@@ -4181,6 +4184,7 @@
        
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             if (toView != NULL) {
+                toView.hidden = false;
                 toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
@@ -4199,6 +4203,9 @@
             fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
+        if (fromView) {
+            fromView.hidden = true;
+        }
         if (block1 != NULL) {
             block1();
         }
@@ -4206,6 +4213,7 @@
         
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             if (toView != NULL) {
+                toView.hidden = false;
                 toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){

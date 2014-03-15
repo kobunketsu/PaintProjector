@@ -29,36 +29,95 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* fillColor = [UIColor colorWithRed: 0.347 green: 0.32 blue: 0.29 alpha: 1];
-    UIColor* strokeColor = [UIColor colorWithRed: 0.011 green: 0.035 blue: 0.05 alpha: 1];
+    UIColor* gradientColor1 = [UIColor colorWithRed: 0.89 green: 0.851 blue: 0.847 alpha: 1];
+    UIColor* gradientColor2 = [UIColor colorWithRed: 0.545 green: 0.655 blue: 0.694 alpha: 1];
+    UIColor* gradientColor3 = [UIColor colorWithRed: 0.51 green: 0.373 blue: 0.373 alpha: 1];
+    UIColor* fillColor = [UIColor colorWithRed: 0.168 green: 0.168 blue: 0.168 alpha: 1];
+    UIColor* black = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
+    UIColor* bottomLightCenter = [UIColor colorWithRed: 0.336 green: 0.336 blue: 0.336 alpha: 1];
     UIColor* gradientColor = [UIColor colorWithRed: 0.505 green: 0.505 blue: 0.505 alpha: 1];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
+    UIColor* white = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Gradient Declarations
     NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)fillColor.CGColor,
-                               (id)strokeColor.CGColor, nil];
-    CGFloat gradientLocations[] = {0, 0.87};
+                               (id)gradientColor1.CGColor,
+                               (id)gradientColor2.CGColor,
+                               (id)gradientColor3.CGColor, nil];
+    CGFloat gradientLocations[] = {0, 0.51, 1};
     CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
-    NSArray* gradientLightColors = [NSArray arrayWithObjects:
-                                    (id)gradientColor.CGColor,
-                                    (id)[UIColor colorWithRed: 0.252 green: 0.252 blue: 0.252 alpha: 1].CGColor,
-                                    (id)gradientColor2.CGColor, nil];
-    CGFloat gradientLightLocations[] = {0, 0.51, 1};
-    CGGradientRef gradientLight = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientLightColors, gradientLightLocations);
+    NSArray* bottomLightColors = [NSArray arrayWithObjects:
+                                  (id)black.CGColor,
+                                  (id)bottomLightCenter.CGColor,
+                                  (id)white.CGColor, nil];
+    CGFloat bottomLightLocations[] = {0.09, 0.57, 1};
+    CGGradientRef bottomLight = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)bottomLightColors, bottomLightLocations);
+    NSArray* centerLightColors = [NSArray arrayWithObjects:
+                                  (id)gradientColor.CGColor,
+                                  (id)[UIColor colorWithRed: 0.252 green: 0.252 blue: 0.252 alpha: 1].CGColor,
+                                  (id)black.CGColor, nil];
+    CGFloat centerLightLocations[] = {0, 0.51, 1};
+    CGGradientRef centerLight = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)centerLightColors, centerLightLocations);
     
     //// Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(-0.5, 0.5, 768, 1024)];
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
     CGContextSaveGState(context);
     [rectanglePath addClip];
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(383.5, 0.5), CGPointMake(383.5, 1024.5), 0);
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(384, 0), CGPointMake(384, 1024), 0);
     CGContextRestoreGState(context);
-    [strokeColor setStroke];
+    [[UIColor redColor] setStroke];
     rectanglePath.lineWidth = 1;
     [rectanglePath stroke];
     
     
     //// Group
+    {
+        CGContextSaveGState(context);
+        CGContextSetBlendMode(context, kCGBlendModeScreen);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+        //// Bezier Drawing
+        UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+        [bezierPath moveToPoint: CGPointMake(768, 568.25)];
+        [bezierPath addLineToPoint: CGPointMake(768, 1023)];
+        [bezierPath addCurveToPoint: CGPointMake(0, 1023) controlPoint1: CGPointMake(762.61, 1024.79) controlPoint2: CGPointMake(0, 1023)];
+        [bezierPath addLineToPoint: CGPointMake(0, 567.26)];
+        [bezierPath addCurveToPoint: CGPointMake(768, 568.25) controlPoint1: CGPointMake(227.21, 492.58) controlPoint2: CGPointMake(541.56, 492.91)];
+        [bezierPath closePath];
+        CGContextSaveGState(context);
+        [bezierPath addClip];
+        CGContextDrawLinearGradient(context, bottomLight, CGPointMake(384, 511.5), CGPointMake(384, 1023.8), 0);
+        CGContextRestoreGState(context);
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
+    
+    
+    //// Group 2
+    {
+        CGContextSaveGState(context);
+        CGContextSetAlpha(context, 0.88);
+        CGContextSetBlendMode(context, kCGBlendModeMultiply);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+        //// Rectangle 2 Drawing
+        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
+        [fillColor setFill];
+        [rectangle2Path fill];
+        [black setStroke];
+        rectangle2Path.lineWidth = 1;
+        [rectangle2Path stroke];
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
+    
+    
+    //// Group 3
     {
         CGContextSaveGState(context);
         CGContextSetAlpha(context, 0.62);
@@ -67,15 +126,15 @@
         
         
         //// Rectangle Light Drawing
-        UIBezierPath* rectangleLightPath = [UIBezierPath bezierPathWithRect: CGRectMake(-0.5, -0.5, 768, 1024)];
+        UIBezierPath* rectangleLightPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
         CGContextSaveGState(context);
         [rectangleLightPath addClip];
-        CGContextDrawRadialGradient(context, gradientLight,
-                                    CGPointMake(383.5, 260.07), 31.96,
-                                    CGPointMake(383.5, 511.5), 637.58,
+        CGContextDrawRadialGradient(context, centerLight,
+                                    CGPointMake(384, 260.57), 31.96,
+                                    CGPointMake(384, 512), 637.58,
                                     kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
         CGContextRestoreGState(context);
-        [strokeColor setStroke];
+        [white setStroke];
         rectangleLightPath.lineWidth = 1;
         [rectangleLightPath stroke];
         
@@ -87,8 +146,10 @@
     
     //// Cleanup
     CGGradientRelease(gradient);
-    CGGradientRelease(gradientLight);
+    CGGradientRelease(bottomLight);
+    CGGradientRelease(centerLight);
     CGColorSpaceRelease(colorSpace);
+    
     
 }
 

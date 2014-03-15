@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>242 193 40 %21</string>
+	<string>255 145 66 %11</string>
+	<string>199 161 189 %10</string>
+	<string>38 38 38 %9</string>
+	<string>33 153 208 %8</string>
+	<string>0 75 123 %6</string>
+	<string>123 87 71 %6</string>
+	<string>177 102 49 %5</string>
+	<string>120 46 81 %4</string>
+	<string>195 84 121 %4</string>
+	<string>33 102 110 %4</string>
+	<string>123 49 35 %4</string>
+	<string>237 188 177 %4</string>
+	<string>226 229 193 %2</string>
+	<string>242 193 40 %1</string>
+	<string>146 172 215 %1</string>	
+</array>
+</plist>
