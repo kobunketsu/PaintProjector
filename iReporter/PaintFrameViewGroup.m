@@ -45,7 +45,10 @@
         return nil;
     }
     
-    return [self.paintDocs objectAtIndex:self.curPaintIndex];
+    PaintDoc *paintDoc = self.paintDocs[self.curPaintIndex];
+    [[NSUserDefaults standardUserDefaults] setValue:paintDoc.docPath forKey:@"RecentDoc"];;
+    
+    return paintDoc;
 }
 
 - (PaintDoc*)lastPaintDoc{
@@ -61,7 +64,10 @@
         return nil;
     }
 
-    return [self.paintDocs objectAtIndex:self.curPaintIndex - 1];
+    PaintDoc *paintDoc = self.paintDocs[self.curPaintIndex - 1];
+    [[NSUserDefaults standardUserDefaults] setValue:paintDoc.docPath forKey:@"RecentDoc"];;
+    
+    return paintDoc;
 }
 
 - (PaintDoc*)nextPaintDoc{
@@ -77,7 +83,10 @@
         return nil;
     }
     
-    return [self.paintDocs objectAtIndex:self.curPaintIndex + 1];
+    PaintDoc *paintDoc = self.paintDocs[self.curPaintIndex + 1];
+    [[NSUserDefaults standardUserDefaults] setValue:paintDoc.docPath forKey:@"RecentDoc"];
+    
+    return paintDoc;
 }
 
 -(void)push:(PaintFrameView*)pf{

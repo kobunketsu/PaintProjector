@@ -25,6 +25,10 @@
     CylinderProjectViewController *fromVC = (CylinderProjectViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIView *fromView = fromVC.view;
     
+    PaintScreen *toVC = (PaintScreen *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [toVC prepareForPresentation];
+    
+    
     [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
 }

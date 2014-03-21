@@ -23,7 +23,8 @@
 @property (weak, nonatomic) CylinderProjectViewController *cylinderProjectVC;
 //VC切换动画效果管理器
 @property (nonatomic) PaintFrameTransitionManager *transitionManager;
-
+//记录选择的图片索引号
+@property (retain, nonatomic) NSMutableArray *selectedIndices;
 //是否编辑状态
 @property (assign, nonatomic) BOOL isEditing;
 
@@ -54,15 +55,21 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    DebugLog(@"viewDidDisappear");
+    [self.selectedIndices removeAllObjects];
+}
+
 - (void)viewDidLoad
 {
     DebugLog(@"viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-//    UIImage *uiImage = [UIImage imageNamed:@"launchImage2.png"];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+    self.selectedIndices = [[NSMutableArray alloc]init];
+    
     self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.allowsMultipleSelection = true;
     
     self.isEditing = false;
     for (UIButton *button in self.editButtons) {
@@ -91,11 +98,30 @@
 
 -(void)dealloc{
     DebugLog(@"[ dealloc ]");
+    self.selectedIndices = nil;
 }
 
 #pragma mark- LaunchTransition
 -(NSInteger)indexForRecentPaintDoc{
-    return 0;
+    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
+        NSString *recentDocPath = [[NSUserDefaults standardUserDefaults] valueForKey:@"RecentDoc"];
+        
+        if (!recentDocPath) {
+            return 0;
+        }
+        
+        for (NSUInteger i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+            PaintDoc *paintDoc = self.paintFrameManager.curPaintFrameGroup.paintDocs[i];
+            if ([paintDoc.docPath isEqualToString:recentDocPath]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+    else{
+        return -1;
+    }
+
 }
 
 -(void)startLaunchTransitionToCylinderProject{
@@ -140,10 +166,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     //
+    DebugLog(@"cellForItemAtIndexPath %d", indexPath.row);
+    
     PaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
 
-//    cell.paintFrameView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"checkBox.png"]];
-    
     [self.paintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
 
     return cell;
@@ -159,6 +185,9 @@
     self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
     self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
     
+    if (![self.selectedIndices containsObject:indexPath]) {
+        [self.selectedIndices addObject:indexPath];
+    }
 //    CGRect rect = [self.paintFrameManager.curPaintFrameView convertRect:self.paintFrameManager.curPaintFrameView.frame toView:self.view];
 //    DebugLog(@"rect %@", NSStringFromCGRect(rect));
     
@@ -171,6 +200,17 @@
     }
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    return true;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"didDeSelectItemAtIndexPath");
+ 
+    if ([self.selectedIndices containsObject:indexPath]) {
+        [self.selectedIndices removeObject:indexPath];
+    }
+}
 #pragma mark- PaintFrameTransitionManagerDelegate
 - (CGRect)willGetCylinderMirrorFrame{
     return [self.cylinderProjectVC getCylinderMirrorFrame];
@@ -216,19 +256,34 @@
         return;
     }
     
-    //从磁盘拷贝
-    [self.paintFrameManager insertCopyPaintDocAtCurIndex:self.paintFrameManager.curPaintFrameView.paintDoc];
+    NSMutableArray *indices = [[NSMutableArray alloc]init];
+    for (NSIndexPath *indexPath in self.selectedIndices) {
+        [indices addObject: [NSNumber numberWithInteger:indexPath.row]];
+    }
     
-    //插入新表单到表格
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+    //文件和内存中插入
+    [self.paintFrameManager insertCopyPaintDocAtIndices:indices];
+    indices = nil;
+    
+    //多项插入会导致显示错误，直接reloadData
+//    [self.collectionView insertItemsAtIndexPaths:self.selectedIndices];
+    
+    [self.collectionView reloadData];
+    
+    [self endEditFile];
 }
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
-    [self.paintFrameManager deletePaintDocAtCurIndex];
+    NSMutableArray *indices = [[NSMutableArray alloc]init];
+    for (NSIndexPath *indexPath in self.selectedIndices) {
+        [indices addObject: [NSNumber numberWithInteger:indexPath.row]];
+    }
     
-    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    [self.paintFrameManager deletePaintDocAtIndices:indices];
+    indices = nil;
+    
+    //多项插入会导致显示错误，直接reloadData
+//    [self.collectionView deleteItemsAtIndexPaths:self.selectedIndices];
 
     [self.collectionView reloadData];
     
@@ -281,6 +336,9 @@
 
 - (void)endEditFile{
     self.isEditing = false;
+    
+    [self.selectedIndices removeAllObjects];
+    
     for (UIButton *button in self.editButtons) {
         button.hidden = true;
     }

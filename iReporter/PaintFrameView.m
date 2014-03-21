@@ -124,7 +124,7 @@
         NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintDoc.thumbImagePath];
         
         [self setImage:[UIImage imageWithContentsOfFile:thumbImagePath] forState:UIControlStateNormal];
-//    DebugLog(@"DocThumbImage: %@", paintFrameView.paintDoc.thumbImagePath);
+        DebugLog(@"DocThumbImage: %@", self.paintDoc.thumbImagePath);
     }
 
 }

@@ -53,6 +53,7 @@
 //    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
 //        self.layer.backgroundColor = [UIColor colorWithPatternImage:blurredImage].CGColor;
 //    } completion:nil];
+    
     self.layer.backgroundColor = [UIColor whiteColor].CGColor;
 }
 
@@ -64,7 +65,8 @@
 - (void)removeFuzzyTransparent{
     //暂时取消半透明
 //    self.layer.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0].CGColor;
-    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    
+//    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
     
     [self.delegate willRemoveFuzzyTransparentEnd];
 }

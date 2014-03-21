@@ -16,6 +16,7 @@
 #import "PaintScreen.h"
 #import "ShareTableViewController.h"
 //#import "SetupTableViewController.h"
+#import "ProductInfoTableViewController.h"
 
 #import "GLWrapper.h"
 #import "Ultility.h"
@@ -104,6 +105,7 @@ PaintScreenDelegate,
 TPPropertyAnimationDelegate,
 CustomPercentDrivenInteractiveTransition,
 ShareTableViewControllerDelegate,
+ProductInfoTableViewControllerDelegate,
 InAppPurchaseTableViewControllerDelegate
 //SetupTableViewControllerDelegate,//deprecated
 //CylinderProjectSetupViewControllerDelegate
@@ -205,10 +207,12 @@ InAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *paintButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
+@property (weak, nonatomic) IBOutlet UIButton *infoButton;
 
-- (IBAction)galleryButtonTouchUp:(id)sender;
+- (IBAction)galleryButtonTouchUp:(UIButton *)sender;
 - (IBAction)paintButtonTouchUp:(UIButton *)sender;
 - (IBAction)shareButtonTouchUp:(UIButton *)sender;
+- (IBAction)infoButtonTouchUp:(UIButton *)sender;
 
 #pragma mark-  CoreMotion
 @property (retain, nonatomic)CMMotionManager *motionManager;

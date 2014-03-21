@@ -29,6 +29,7 @@
 #import "TransformContentView.h"
 #import "TransformContentViewLayer.h"
 #import "TransformAnchorView.h"
+#import "PaintUIKitAnimation.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -86,6 +87,17 @@
     return YES;
 }
 
+- (void)prepareForPresentation{
+    self.mainToolBar.hidden = true;
+    self.paintToolBar.hidden = true;
+}
+
+- (void)afterPresentation{
+    //同时更新UI
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+}
+
 - (void)registerDeviceRotation{
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
@@ -114,6 +126,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     DebugLog(@"[ viewWillAppear ]");
+//    [self prepareForPresentation];
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLog(@"[ viewDidAppear ]");
@@ -1084,8 +1097,8 @@
 //    [self showZoomCanvasUI:true];
 //    [self showRotateCanvasUI:[sender isEqual:self.lpgrTwoTouchesPaintView]];
 //    [self showLockRotateCanvasUI:![sender isEqual:self.lpgrTwoTouchesPaintView]];
-    [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
-    [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
 }
 
 - (void)handle2TouchesTransformCanvasEnded:(UIGestureRecognizer *)sender{
@@ -1116,8 +1129,8 @@
     [self showZoomCanvasUI:false];
     [self showLockRotateCanvasUI:false];
     if (!self.isPaintFullScreen) {
-        [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
-        [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
     }
 
 }
@@ -1214,9 +1227,9 @@
     self.paintView.state = PaintingView_TouchNone;
     
     if (self.isPaintFullScreen) {
-        [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
         //将layerPanel移到顶端
-        [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     }
 }
 
@@ -1976,7 +1989,7 @@
 //        [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
         
         //切换成横移动画
-        [self slideToolBarRightDirection:true out:self.paintToolView in:self.brushTypeView completion:^{
+        [PaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
             _state = PaintScreen_SelectBrush;
             //笔刷面板禁止绘图
             self.rootCanvasView.userInteractionEnabled = false;
@@ -2086,12 +2099,12 @@
         
         [self brushTypeBackButtonTouchUp:self.brushBackButton];
         
-        [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:^{
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
             
             if (self.isPaintFullScreen) {
-                [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
+                [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
                 //将layerPanel移到顶端
-                [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
+                [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
             }
         }];
         self.paintView.state = PaintingView_TouchNone;
@@ -2410,12 +2423,13 @@
     [self.paintView destroy];
     [self.paintDoc close];
     
-    [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
-    [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:^{
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
         //    DebugLog(@"delegate closePaintDoc");
         [self.delegate closePaintDoc:self.paintDoc];
     }];
 }
+
 #pragma mark- 工作环境
 -(void)loadWorkSpace{
     //保存颜色按钮 到workspace.plist
@@ -2467,7 +2481,7 @@
         DebugLog(@"Workspace.plist is missing");
     }
     
-    //save current swatch to default.swatch
+    //保存当前调色板到默认调色板
     [self saveUserSwatch];
 }
 #pragma mark- 导出 Export
@@ -3198,7 +3212,7 @@
     //    }];
     //
     
-    [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 
     //交互
     UIView* mainToolView = [self.mainToolBar.subviews objectAtIndex:0];
@@ -3220,7 +3234,7 @@
     [self createTransformHelperViews:rect];
     
     //隐藏MainToolBar PaintToolBar
-    [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 
     //交互
     UIView* mainToolView = [self.mainToolBar.subviews objectAtIndex:0];
@@ -3248,7 +3262,7 @@
 //    }];
     
    
-    [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
     
     [self removeTransformHelperViews];
     
@@ -3845,7 +3859,7 @@
     [self.paintView setBrush:brush];
     [self.paintView.brush setColor:self.paintColorButton.color];
    
-    [self slideToolBarRightDirection:false out:self.brushTypeView in:self.paintToolView completion:^{
+    [PaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
         _state = PaintScreen_Normal;
         //笔刷面板打开绘图
         self.rootCanvasView.userInteractionEnabled = true;
@@ -3941,8 +3955,8 @@
 - (void) willStartUIEyeDrop{
     _eyeDropperIndicatorView.hidden = false;
 
-    [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
-    [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 }
 
 - (CGPoint) willGetEyeDropLocation{
@@ -4011,8 +4025,8 @@
     [self.eyeDropperButton setColor:[UIColor clearColor]];
     
     if (!self.isPaintFullScreen) {
-        [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
-        [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
     }
 
 }
@@ -4026,9 +4040,6 @@
 //        self.paintView.alpha = 1.0;
 //    } completion:nil];
     self.paintView.alpha = 1;
-    
-    [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
-    [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
 }
 
 -(void)willUpdateUITransformTranslate:(CGPoint)translation rotate:(float)angle scale:(float)scale{
@@ -4044,14 +4055,14 @@
 //        CGRect mainToolBarFrame = self.mainToolBar.frame;
         if (CGRectContainsPoint(self.paintToolBar.frame, touchPointInRootView) ||
             CGRectContainsPoint(self.mainToolBar.frame, touchPointInRootView)) {
-            [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
-            [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
+            [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+            [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
             self.hideTopDownUITemp = true;
         }
     }
     else if (self.hideTopDownUITemp && !hide && !self.isPaintFullScreen){
-        [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
-        [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
         self.hideTopDownUITemp = false;
     }
 
@@ -4168,122 +4179,11 @@
 }
 
 #pragma mark- 工具栏
-- (void)switchTopToolBarFrom:(TopToolBar*)fromView completion: (void (^) (void))block1 to:(TopToolBar*)toView completion: (void (^) (void)) block2{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        if (fromView != NULL) {
-            fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
-        }
-    }completion:^(BOOL finished){//显示TransformBar
-        if (fromView) {
-            fromView.hidden = true;
-        }
-        if (block1 != NULL) {
-            block1();
-        }
-        [toView removeFuzzyTransparent];
-       
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            if (toView != NULL) {
-                toView.hidden = false;
-                toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
-            }
-        }completion:^(BOOL finished){
-            if (block2 != NULL) {
-                block2();
-            }
-            [toView setFuzzyTransparentSourceView:self.rootCanvasView];
-        }];
-
-    }];
-}
-
-- (void)switchDownToolBarFrom:(DownToolBar*)fromView completion: (void (^) (void))block1 to:(DownToolBar*)toView completion: (void (^) (void)) block2{
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        if (fromView != NULL) {
-            fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
-        }
-    }completion:^(BOOL finished){//显示TransformBar
-        if (fromView) {
-            fromView.hidden = true;
-        }
-        if (block1 != NULL) {
-            block1();
-        }
-        [toView removeFuzzyTransparent];
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            if (toView != NULL) {
-                toView.hidden = false;
-                toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
-            }
-        }completion:^(BOOL finished){
-            //设置工具半透明毛玻璃
-            if (block2 != NULL) {
-                block2();
-            }
-//            [toView setFuzzyTransparentSourceView:self.rootCanvasView];
-        }];
-    }];
-}
-
-- (void)slideToolBarRightDirection:(BOOL)right out:(UIView*)outView in:(UIView*)inView completion: (void (^) (void)) block1{
-    //移出View的最终状态
-    CGRect outFrameTarget = outView.frame;
-    if (right) {
-        outFrameTarget.origin.x += self.rootView.frame.size.width;
-    }
-    else{
-        outFrameTarget.origin.x -= self.rootView.frame.size.width;
-    }
-  
-    //移入View的最终状态
-    CGRect inFrameTarget = outView.frame;
-    
-    //移出View的初始状态
-    outView.hidden = false;
-    
-    //移入View的初始状态
-    CGRect inFrameSrc = outView.frame;
-    if (right) {
-        inFrameSrc.origin.x -= self.rootView.frame.size.width;
-    }
-    else{
-        inFrameSrc.origin.x += self.rootView.frame.size.width;
-    }
-    inView.frame = inFrameSrc;
-    inView.hidden = false;
-    
-    //开始动画
-    [UIView animateWithDuration:0.3 animations:^{
-        inView.frame = inFrameTarget;
-        outView.frame = outFrameTarget;
-    } completion:^(BOOL finished) {
-        outView.hidden = true;
-        block1();
-    }];
-}
-
-- (IBAction)togglePaint:(UIButton *)sender {
-}
-
-- (IBAction)selFloorTexButtonTapped:(UIButton *)sender {
-}
-
-- (IBAction)saveToDiskButtonTapped:(UIButton *)sender {
-}
-
-- (IBAction)savePaintImageButtonTapped:(UIButton *)sender {
-}
-
-
 - (IBAction)debugButtonTapped:(UIButton *)sender {
     [self.debugView layer].contents = (__bridge id)(self.paintView.brushingImage.CGImage);
     [self.debugView2 layer].contents = (__bridge id)(self.paintView.paintingImage.CGImage);
 }
 
-- (IBAction)pickImageInApp:(id)sender {
-//    self presentModalViewController:<#(UIViewController *)#> animated:<#(BOOL)#>
-}
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
     [(AutoRotateButton*)sender setHighlighted:false];
@@ -4344,16 +4244,16 @@
             self.fullScreenReverseButton.alpha = 0.0;
         }completion:^(BOOL finished) {
             self.fullScreenReverseButton.hidden = false;
-            [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:nil];
-            [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:nil];
+            [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+            [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
             self.isPaintFullScreen = false;
         }];
         
 
     }
     else{
-        [self switchDownToolBarFrom:self.paintToolBar completion:nil to:nil completion:nil];
-        [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:^{
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:^{
             self.fullScreenReverseButton.hidden = false;
             self.fullScreenReverseButton.alpha = 0.0;
             [UIView animateWithDuration:0.2 animations:^{

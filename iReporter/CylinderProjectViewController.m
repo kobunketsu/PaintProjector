@@ -13,6 +13,7 @@
 #import "SharedPopoverController.h"
 #import "UnitConverter.h"
 #import "AnaDrawIAPManager.h"
+#import "PaintUIKitAnimation.h"
 
 @interface CylinderProjectViewController ()
 //TODO: deprecated
@@ -161,7 +162,7 @@
 }
 
 #pragma mark- 工具栏
-- (IBAction)galleryButtonTouchUp:(id)sender {
+- (IBAction)galleryButtonTouchUp:(UIButton *)sender {
     //do some work
     if (self.topViewButton.hidden) {
         self.topViewButton.hidden = false;
@@ -228,6 +229,11 @@
     [self share];
 }
 
+- (IBAction)infoButtonTouchUp:(UIButton *)sender {
+    //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
+    [self productInfo];
+}
+
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
     //do some work
     if (self.topViewButton.hidden) {
@@ -267,7 +273,7 @@
     [self.cylinderProjectCur.animation play];
     
     //ToolBar动画
-    [self switchDownToolBarFrom:self.downToolBar completion:nil to:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
 }
 
 - (void)transitionToPaint{
@@ -316,6 +322,53 @@
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:shareTableViewController];
     CGRect rect = CGRectMake(self.shareButton.bounds.origin.x, self.shareButton.bounds.origin.y, self.shareButton.bounds.size.width, self.shareButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+#pragma mark- share Delegate
+-(void) didSelectPostToFacebook {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+
+-(void) didSelectPostToTwitter{
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *controller = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+
+-(void) didSelectPostToSinaWeibo {
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
+        
+        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        UIImage *image = [self.projectView snapshot];
+        [controller addImage:image];
+        
+        [self presentViewController:controller animated:YES completion:^{
+            [self.sharedPopoverController dismissPopoverAnimated:true];
+        }];
+    }
+}
+
+-(void) didSelectRateProduct {
+    
 }
 
 #pragma mark- 设置Setup
@@ -491,6 +544,37 @@
 //
 //- (void)willCylinderProjectParamsReset{
 //}
+#pragma mark- 产品信息ProductInfo
+- (void)productInfo{
+    ProductInfoTableViewController* productInfoTableViewController = [[ProductInfoTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    productInfoTableViewController.delegate = self;
+    
+    productInfoTableViewController.preferredContentSize = CGSizeMake(320, productInfoTableViewController.tableViewHeight);
+    
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:productInfoTableViewController];
+    [self.sharedPopoverController presentPopoverFromRect:self.infoButton.bounds inView:self.infoButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+#pragma mark- share Delegate
+
+- (void) willOpenWelcomGuideURL{
+    NSURL *url = [NSURL URLWithString:@"https://kobunketsu.wordpress.com"];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+- (void) willOpenSupportURL{
+    NSURL *url = [NSURL URLWithString:@"https://kobunketsu.wordpress.com/support/"];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+- (void) willOpenGalleryURL{
+    NSURL *url = [NSURL URLWithString:@"https://kobunketsu.wordpress.com/artwork-with-anadraw/"];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
 
 #pragma mark- 内容CylinderProject View
 
@@ -1039,31 +1123,6 @@
     for (UIView* view in self.allViews) {
         view.userInteractionEnabled = enable;
     }
-}
-
-- (void)switchDownToolBarFrom:(DownToolBar*)fromView completion: (void (^) (void))block1 to:(DownToolBar*)toView completion: (void (^) (void)) block2{
-    [UIView animateWithDuration:0.3 animations:^{
-        if (fromView != NULL) {
-            fromView.center = CGPointMake(fromView.center.x, self.view.bounds.size.height + fromView.bounds.size.height * 0.5);
-        }
-    }completion:^(BOOL finished){//显示TransformBar
-        if (fromView) {
-            fromView.hidden = true;
-        }
-        if (block1 != NULL) {
-            block1();
-        }
-        [UIView animateWithDuration:0.3 animations:^{
-            if (toView != NULL) {
-                toView.hidden = false;                
-                toView.center = CGPointMake(toView.center.x, self.view.bounds.size.height - toView.bounds.size.height * 0.5);
-            }
-        }completion:^(BOOL finished){
-            if (block2 != NULL) {
-                block2();
-            }
-        }];
-    }];
 }
 
 #pragma mark- 核心变换
@@ -1659,12 +1718,13 @@
     self.paintScreenVC.delegate = self;
     self.paintScreenVC.transitioningDelegate = self;
     
+    //prepare for presentation
+    
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC");
-//        [self.paintScreenVC openDoc:self.paintFrameViewGroup.curPaintDoc];
         [self.paintScreenVC openDoc:paintDoc];
-        
+        [self.paintScreenVC afterPresentation];
     }];
 }
 
@@ -1774,48 +1834,6 @@
              }
          }];
         
-    }
-}
-
-#pragma mark- share
--(void) didSelectPostToFacebook {
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
-        
-        [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
-        }];
-    }
-}
--(void) didSelectPostToTwitter{
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *controller = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
-        
-        [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
-        }];
-    }
-}
--(void) didSelectPostToSinaWeibo {
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
-        
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
-        
-        [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
-        }];
     }
 }
 

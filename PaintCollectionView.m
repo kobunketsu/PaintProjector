@@ -27,5 +27,7 @@
     // Drawing code
 }
 */
-
+- (BOOL)allowsMultipleSelection{
+    return YES;
+}
 @end

@@ -318,15 +318,10 @@ SwatchManagerViewControllerDelegate
 //InfColorPicker
 - (IBAction)takeBarValue: (InfColorBarPicker*) sender;
 - (IBAction)takeSquareValue: (InfColorSquarePicker*) sender;
-- (IBAction)togglePaint:(UIButton *)sender;
-- (IBAction)selFloorTexButtonTapped:(UIButton *)sender;
-- (IBAction)saveToDiskButtonTapped:(UIButton *)sender;      //转换透视图
-- (IBAction)savePaintImageButtonTapped:(UIButton *)sender;
 
 - (IBAction)debugButtonTapped:(UIButton *)sender;
 - (IBAction)takePhotoButtonTapped:(id)sender;
 - (IBAction)pickPhotoButtonTapped:(id)sender;
-- (IBAction)pickImageInApp:(id)sender;
 - (IBAction)clearButtonTouchUp:(ClearButton *)sender;
 - (IBAction)clearButtonTouchDown:(ClearButton *)sender;
 //- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
@@ -347,4 +342,7 @@ SwatchManagerViewControllerDelegate
 - (IBAction)scaleButtonTapped:(UIButton *)sender;
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender;
 
+#pragma mark- 
+- (void)prepareForPresentation;
+- (void)afterPresentation;
 @end

@@ -16,6 +16,32 @@
 
 @implementation PaintFrameManager
 #pragma mark- 从磁盘载入文件
+-(PaintDoc*)insertPaintDoc:(PaintDoc*)paintDoc atIndex:(NSInteger)index{
+    DebugLog(@"insertPaintDoc atIndex %d", index);
+    
+    if (index < 0) {
+        DebugLog(@"Can't insert paintDoc at negative index");
+        return nil;
+    }
+    if (index > self.curPaintFrameGroup.paintDocs.count) {
+        DebugLog(@"curPaintIndex over count");
+        return nil;
+    }
+    
+    [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:index];
+    
+    if (index <= self.curPaintFrameGroup.curPaintIndex) {
+        self.curPaintFrameGroup.curPaintIndex ++;
+    }
+    
+    DebugLog(@"curPaintIndex %d", self.curPaintFrameGroup.curPaintIndex);
+    return paintDoc;
+}
+
+-(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
+    return [self insertPaintDoc:paintDoc atIndex:self.curPaintFrameGroup.curPaintIndex];
+}
+
 -(void)insertNewPaintDocAtCurIndex{
     PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:self.curPaintFrameGroup.dirPath];
     [self insertPaintDocAtCurIndex:paintDoc];
@@ -26,20 +52,25 @@
     [self insertPaintDocAtCurIndex:newPaintDoc];
 }
 
--(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
-    self.curPaintFrameGroup.curPaintIndex ++;
-    if (self.curPaintFrameGroup.curPaintIndex < 0) {
-        DebugLog(@"Can't insert paintDoc at negative index");
-        return nil;
-    }
-    if (self.curPaintFrameGroup.curPaintIndex > self.curPaintFrameGroup.paintDocs.count) {
-        DebugLog(@"curPaintIndex over count");
-        return nil;
-    }
+-(void)insertCopyPaintDocAtIndices:(NSArray *)indices{
+    //对indices进行从小到大的排序
+    NSArray *sortedIndices = [indices sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSNumber *p1 = (NSNumber *)obj1;
+        NSNumber *p2 = (NSNumber *)obj2;
+        return [p1 compare:p2];
+    }];
     
-    [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:self.curPaintFrameGroup.curPaintIndex];
-
-    return paintDoc;
+    NSInteger indexOffset = 0;
+    for (NSNumber *num in sortedIndices) {
+        NSInteger index = num.intValue;
+        //插入导致数组变大后的目标插入位置
+        NSInteger targetIndex = index + indexOffset;
+        PaintDoc *paintDoc = self.curPaintFrameGroup.paintDocs[targetIndex];
+        PaintDoc *newPaintDoc = [[PaintDocManager sharedInstance] clonePaintDoc:paintDoc];
+        [self insertPaintDoc:newPaintDoc atIndex:targetIndex];
+        indexOffset ++;
+    }
+    sortedIndices = nil;
 }
 
 -(void)deletePaintDocAtCurIndex{
@@ -59,7 +90,7 @@
     
     //更改当前索引号
     if (self.curPaintFrameGroup.paintDocs.count > 0) {
-        if (self.curPaintFrameGroup.curPaintIndex == self.curPaintFrameGroup.paintDocs.count) {
+        while (self.curPaintFrameGroup.curPaintIndex >= self.curPaintFrameGroup.paintDocs.count) {
             self.curPaintFrameGroup.curPaintIndex--;
         }
     }
@@ -67,6 +98,49 @@
         self.curPaintFrameGroup.curPaintIndex = -1;
     }
 }
+
+-(void)deletePaintDocAtIndices:(NSArray *)indices{
+    NSMutableArray *paintDocsToRemove = [[NSMutableArray alloc]init];
+    
+    for (NSNumber *num in indices) {
+        NSInteger index = num.intValue;
+        if (index < 0) {
+            DebugLog(@"Nothing to delete");
+            continue;
+        }
+        if (index >= self.curPaintFrameGroup.paintDocs.count) {
+            DebugLog(@"Index %d over count %d", index, self.curPaintFrameGroup.paintDocs.count);
+            continue;
+        }
+        //更改当前索引号
+        if (self.curPaintFrameGroup.curPaintIndex > index) {
+            self.curPaintFrameGroup.curPaintIndex --;
+        }
+        //加入删除列表
+        [paintDocsToRemove addObject:self.curPaintFrameGroup.paintDocs[index]];
+    }
+    
+    //从内存和磁盘删除
+    for (PaintDoc *paintDoc in paintDocsToRemove) {
+        [[PaintDocManager sharedInstance] deletePaintDoc:paintDoc];
+        [self.curPaintFrameGroup.paintDocs removeObject:paintDoc];
+    }
+    
+    paintDocsToRemove = nil;
+    
+    //修正当前索引号
+    if (self.curPaintFrameGroup.paintDocs.count > 0) {
+        while (self.curPaintFrameGroup.curPaintIndex >= self.curPaintFrameGroup.paintDocs.count) {
+            self.curPaintFrameGroup.curPaintIndex--;
+        }
+    }
+    else{
+        self.curPaintFrameGroup.curPaintIndex = -1;
+    }
+    DebugLog(@"curPaintIndex %d", self.curPaintFrameGroup.curPaintIndex);
+    
+}
+
 //设置当前用于显示的组(Document下的子目录)
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex{
     PaintFrameViewGroup* paintFrameGroup = [[PaintFrameViewGroup alloc]initWithCapacity:1];

@@ -19,7 +19,11 @@
 
 -(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc;
 
+-(void)insertCopyPaintDocAtIndices:(NSArray *)indices;
+
 -(void)deletePaintDocAtCurIndex;
+
+-(void)deletePaintDocAtIndices:(NSArray *)indices;
 
 - (void)setCurPaintFrameGroupByIndex:(int)groupIndex;
 

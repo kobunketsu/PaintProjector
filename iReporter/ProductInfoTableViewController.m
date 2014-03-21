@@ -1,18 +1,18 @@
 //
-//  ShareTableViewController.m
+//  ProductInfoTableViewController.m
 //  PaintProjector
 //
 //  Created by 胡 文杰 on 2/15/14.
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ShareTableViewController.h"
+#import "ProductInfoTableViewController.h"
 
-@interface ShareTableViewController ()
+@interface ProductInfoTableViewController ()
 
 @end
 
-@implementation ShareTableViewController
+@implementation ProductInfoTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -38,10 +38,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -65,7 +65,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,76 +80,75 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = @"Facebook";
-            cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
+            cell.textLabel.text = @"Guide";
+//            cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
             break;
         case 1:
-            cell.textLabel.text = @"Twitter";
-            cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
+            cell.textLabel.text = @"Support";
+//            cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
         case 2:
-            cell.textLabel.text = @"SinaWeibo";
-            cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];
-        case 3:
-            cell.textLabel.text = @"Rate AnaDraw";
+            cell.textLabel.text = @"Ana Art";
 //            cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];
+            
+            //            cell.textLabel.text = @"Dropbox";
             break;
         default:
             break;
     }
     return cell;
-
+    
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 
 #pragma mark - Table view delegate
@@ -165,16 +164,13 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [self.delegate didSelectPostToFacebook];
+            [self.delegate willOpenWelcomGuideURL];
             break;
         case 1:
-            [self.delegate didSelectPostToTwitter];
+            [self.delegate willOpenSupportURL];
             break;
         case 2:
-            [self.delegate didSelectPostToSinaWeibo];
-            break;
-        case 3:
-            [self.delegate didSelectRateProduct];
+            [self.delegate willOpenGalleryURL];
             break;
         default:
             break;
