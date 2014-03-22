@@ -11,7 +11,6 @@
 - (void) didSelectPostToFacebook;
 - (void) didSelectPostToTwitter;
 - (void) didSelectPostToSinaWeibo;
-- (void) didSelectRateProduct;
 @end
 
 @interface ShareTableViewController : UITableViewController

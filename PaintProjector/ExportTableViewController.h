@@ -10,10 +10,10 @@
 @protocol ExportViewControllerDelegate
 - (void) didSelectExportToEmail;
 - (void) didSelectExportToDropbox;
+- (void) didSelectExportToPhotoLibrary;
 - (void) didSelectPostToFacebook;
 - (void) didSelectPostToTwitter;
 - (void) didSelectPostToSinaWeibo;
-- (void) didSelectExportToPhotoLibrary;
 @end
 @interface ExportTableViewController : UITableViewController
 @property (assign, nonatomic) id delegate;

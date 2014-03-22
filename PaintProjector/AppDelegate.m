@@ -15,11 +15,20 @@
 #import "AnaDrawIAPManager.h"
 #import "TestFlight.h"
 #import "BBXBeeblex.h"
+#import "iRate.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
 
++ (void)initialize
+{
+    //configure iRate
+    [iRate sharedInstance].appStoreID = 825620171;
+    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].usesUntilPrompt = 15;
+//    [iRate sharedInstance].previewMode = true;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

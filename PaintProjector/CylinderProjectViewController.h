@@ -161,8 +161,8 @@ InAppPurchaseTableViewControllerDelegate
 #pragma mark- viewMode
 
 @property (assign, nonatomic) BOOL isTopViewMode;
-@property (weak, nonatomic) IBOutlet UIButton *sideViewButton;
-@property (weak, nonatomic) IBOutlet UIButton *topViewButton;
+@property (weak, nonatomic) IBOutlet UIView *eyePerspectiveView;
+@property (weak, nonatomic) IBOutlet UIView *topPerspectiveView;
 @property (retain, nonatomic) Camera *topCamera;
 @property (assign, nonatomic) GLKMatrix4 bottomCameraProjMatrix;
 @property (assign, nonatomic) GLKVector3 eyeTop;//视角顶部

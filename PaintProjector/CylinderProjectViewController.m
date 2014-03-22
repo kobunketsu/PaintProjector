@@ -164,9 +164,9 @@
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
     //do some work
-    if (self.topViewButton.hidden) {
-        self.topViewButton.hidden = false;
-        self.sideViewButton.hidden = true;
+    if (self.topPerspectiveView.hidden) {
+        self.topPerspectiveView.hidden = false;
+        self.eyePerspectiveView.hidden = true;
 
         AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
         TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
@@ -215,7 +215,7 @@
         }
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Anamorphosis setup not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"AnamorphosisSetupUnavailabe", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"BuyProVersion", nil), nil];
         [alertView show];
     }
 }
@@ -236,9 +236,9 @@
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
     //do some work
-    if (self.topViewButton.hidden) {
-        self.topViewButton.hidden = false;
-        self.sideViewButton.hidden = true;
+    if (self.topPerspectiveView.hidden) {
+        self.topPerspectiveView.hidden = false;
+        self.eyePerspectiveView.hidden = true;
         
         AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
         TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
@@ -365,10 +365,6 @@
             [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
-}
-
--(void) didSelectRateProduct {
-    
 }
 
 #pragma mark- 设置Setup
@@ -951,7 +947,7 @@
 
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
     //顶视图模式下忽略圆柱体区域的触摸手势
-    if (!self.sideViewButton.hidden) {
+    if (!self.eyePerspectiveView.hidden) {
         //ignoreCylinderRectTouch
         CGPoint location = [sender locationInView:sender.view];
         CGRect cylinderTopRect = [self getCylinderMirrorTopFrame];
@@ -1413,12 +1409,12 @@
 
 - (void)flushAllUI {
     if(self.eyeBottomTopBlend > 0.0){
-        self.topViewButton.hidden = true;
-        self.sideViewButton.hidden = false;
+        self.topPerspectiveView.hidden = true;
+        self.eyePerspectiveView.hidden = false;
     }
     else{
-        self.topViewButton.hidden = false;
-        self.sideViewButton.hidden = true;
+        self.topPerspectiveView.hidden = false;
+        self.eyePerspectiveView.hidden = true;
     }
 //    [self syncPlayUI];
 }
@@ -1730,12 +1726,12 @@
 
 #pragma mark- View
 - (BOOL)isTopViewMode{
-    return self.topViewButton.hidden;
+    return self.topPerspectiveView.hidden;
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
-    self.sideViewButton.hidden = true;
-    self.topViewButton.hidden = false;
+    self.eyePerspectiveView.hidden = true;
+    self.topPerspectiveView.hidden = false;
     
     AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
@@ -1749,8 +1745,8 @@
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
-    self.topViewButton.hidden = true;
-    self.sideViewButton.hidden = false;
+    self.topPerspectiveView.hidden = true;
+    self.eyePerspectiveView.hidden = false;
     
     AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
