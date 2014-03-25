@@ -6,8 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "AutoRotateButton.h"    
-@interface ImportButton : AutoRotateButton
+#import "IconColorPermeateButton.h"
+@interface ImportButton : IconColorPermeateButton
 
 @end

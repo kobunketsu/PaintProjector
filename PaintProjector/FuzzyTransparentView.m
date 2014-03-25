@@ -20,15 +20,14 @@
     return self;
 }
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+//- (void)drawRect:(CGRect)rect
+//{
+//
+//}
 
-}
-*/
 -(void)_updateFuzzyTransparent{
     DebugLog(@"_updateFuzzyTransparent");
     //TODO:增加如果sourceView没有发出过已经截取过图像的通知，则截取新的图像，并发出通知，保证其他FuzzyTransparentView不用再次截取图像,
@@ -54,7 +53,8 @@
 //        self.layer.backgroundColor = [UIColor colorWithPatternImage:blurredImage].CGColor;
 //    } completion:nil];
     
-    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
+    //取消白色，采用drawRect
+//    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
 }
 
 - (void)updateFuzzyTransparentFromView:(UIView*)view{

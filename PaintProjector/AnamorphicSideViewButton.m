@@ -67,7 +67,7 @@
     CGRect frame = CGRectMake(0, 0, 128, 80);
     
     //// Subframes
-    CGRect group4 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 63) * 0.49231 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 56) * 0.50000 + 0.5), 63, 56);
+    CGRect group4 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 51) * 0.50649 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45) * 0.42857 + 0.5), 51, 45);
     
     
     //// Group 4
@@ -124,10 +124,10 @@
             CGContextSaveGState(context);
             [bezier3Path addClip];
             CGRect bezier3Bounds = CGPathGetPathBoundingBox(bezier3Path.CGPath);
-            CGFloat bezier3ResizeRatio = MIN(CGRectGetWidth(bezier3Bounds) / 62.49, CGRectGetHeight(bezier3Bounds) / 55.5);
+            CGFloat bezier3ResizeRatio = MIN(CGRectGetWidth(bezier3Bounds) / 50.59, CGRectGetHeight(bezier3Bounds) / 44.6);
             CGContextDrawRadialGradient(context, gradientCylinderProject,
-                                        CGPointMake(CGRectGetMidX(bezier3Bounds) + 0.24 * bezier3ResizeRatio, CGRectGetMidY(bezier3Bounds) + 5.76 * bezier3ResizeRatio), 22.37 * bezier3ResizeRatio,
-                                        CGPointMake(CGRectGetMidX(bezier3Bounds) + -0.01 * bezier3ResizeRatio, CGRectGetMidY(bezier3Bounds) + -1.74 * bezier3ResizeRatio), 59.88 * bezier3ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier3Bounds) + 0.19 * bezier3ResizeRatio, CGRectGetMidY(bezier3Bounds) + 4.65 * bezier3ResizeRatio), 18.05 * bezier3ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier3Bounds) + -0.01 * bezier3ResizeRatio, CGRectGetMidY(bezier3Bounds) + -1.4 * bezier3ResizeRatio), 48.32 * bezier3ResizeRatio,
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             CGContextRestoreGState(context);
             
@@ -212,10 +212,10 @@
             CGContextSaveGState(context);
             [bezier2Path addClip];
             CGRect bezier2Bounds = CGPathGetPathBoundingBox(bezier2Path.CGPath);
-            CGFloat bezier2ResizeRatio = MIN(CGRectGetWidth(bezier2Bounds) / 62.49, CGRectGetHeight(bezier2Bounds) / 55.5);
+            CGFloat bezier2ResizeRatio = MIN(CGRectGetWidth(bezier2Bounds) / 50.59, CGRectGetHeight(bezier2Bounds) / 44.6);
             CGContextDrawRadialGradient(context, gradient,
-                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.74 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -1.48 * bezier2ResizeRatio), 63.88 * bezier2ResizeRatio,
-                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.49 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -28.23 * bezier2ResizeRatio), 31.47 * bezier2ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.6 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -1.2 * bezier2ResizeRatio), 51.54 * bezier2ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.4 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -22.78 * bezier2ResizeRatio), 25.39 * bezier2ResizeRatio,
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             CGContextRestoreGState(context);
             
@@ -235,8 +235,6 @@
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
     
-    
-
 }
 
 

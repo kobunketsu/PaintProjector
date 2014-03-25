@@ -305,6 +305,10 @@
 		0823AA5D16A6E44400CF499C /* ShaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823AA5C16A6E44400CF499C /* ShaderManager.m */; };
 		0823E15016C13DE000F9C40A /* MainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E14F16C13DE000F9C40A /* MainScreenViewController.m */; };
 		0823E15B16C14B5B00F9C40A /* MainScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0823E15A16C14B5A00F9C40A /* MainScreenView.m */; };
+		0826775418E1D6BB004DA2F4 /* PaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* PaintUIKitStyle.m */; };
+		0826775718E1D6C5004DA2F4 /* PaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* PaintUIKitStyle.m */; };
+		0826775A18E1D92E004DA2F4 /* CrystalGradientStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775918E1D92E004DA2F4 /* CrystalGradientStyleView.m */; };
+		0826775B18E1D92E004DA2F4 /* CrystalGradientStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775918E1D92E004DA2F4 /* CrystalGradientStyleView.m */; };
 		0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */; };
 		0826EE8918B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
 		0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
@@ -475,6 +479,9 @@
 		089C629E17EC836C00E2AB48 /* BrushPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C629D17EC836C00E2AB48 /* BrushPropertyView.m */; };
 		089CEF1016BE58B200216099 /* AdjustImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 089CEF0F16BE58B000216099 /* AdjustImageViewController.m */; };
 		089D8E9D1840A24C00CCF11A /* BackgroundLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 089D8E9C1840A24C00CCF11A /* BackgroundLayerTableViewCell.m */; };
+		08A0315A18DE8896006EE308 /* IconColorPermeateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A0315918DE8896006EE308 /* IconColorPermeateButton.m */; };
+		08A0315E18DED0C2006EE308 /* RootCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A0315D18DED0C2006EE308 /* RootCanvasView.m */; };
+		08A0315F18DED0C2006EE308 /* RootCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A0315D18DED0C2006EE308 /* RootCanvasView.m */; };
 		08A3F3DB1850A756007922D2 /* GLWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A3F3DA1850A756007922D2 /* GLWrapper.m */; };
 		08A4C99F1689EC8400002625 /* CommandStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A4C99E1689EC8400002625 /* CommandStack.m */; };
 		08A5CBB6189F36B300F4E226 /* Component.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A5CBB5189F36B300F4E226 /* Component.m */; };
@@ -1111,8 +1118,8 @@
 		0822B00118C0B9510021A75B /* SwatchManagerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerTableViewCell.m; sourceTree = "<group>"; };
 		0822B00218C0B9510021A75B /* SwatchManagerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwatchManagerTableViewController.h; sourceTree = "<group>"; };
 		0822B00318C0B9510021A75B /* SwatchManagerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwatchManagerTableViewController.m; sourceTree = "<group>"; };
-		08234EC018915A45008B4189 /* FileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileButton.h; sourceTree = "<group>"; };
-		08234EC118915A45008B4189 /* FileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileButton.m; sourceTree = "<group>"; };
+		08234EC018915A45008B4189 /* FileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileButton.h; path = PaintProjector/FileButton.h; sourceTree = "<group>"; };
+		08234EC118915A45008B4189 /* FileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileButton.m; path = PaintProjector/FileButton.m; sourceTree = "<group>"; };
 		0823AA5B16A6E44400CF499C /* ShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderManager.h; path = PaintProjector/ShaderManager.h; sourceTree = "<group>"; };
 		0823AA5C16A6E44400CF499C /* ShaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShaderManager.m; path = PaintProjector/ShaderManager.m; sourceTree = "<group>"; };
 		0823E14E16C13DE000F9C40A /* MainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
@@ -1126,6 +1133,10 @@
 		082439FD16CCAE2100FC12BA /* rubberRadius16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubberRadius16.png; sourceTree = "<group>"; };
 		082439FE16CCAE2100FC12BA /* rubberRadius162.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rubberRadius162.png; sourceTree = "<group>"; };
 		082439FF16CCAE2100FC12BA /* starBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starBrush.png; sourceTree = "<group>"; };
+		0826775218E1D6BB004DA2F4 /* PaintUIKitStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintUIKitStyle.h; path = PaintProjector/PaintUIKitStyle.h; sourceTree = "<group>"; };
+		0826775318E1D6BB004DA2F4 /* PaintUIKitStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintUIKitStyle.m; path = PaintProjector/PaintUIKitStyle.m; sourceTree = "<group>"; };
+		0826775818E1D92E004DA2F4 /* CrystalGradientStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CrystalGradientStyleView.h; path = PaintProjector/CrystalGradientStyleView.h; sourceTree = "<group>"; };
+		0826775918E1D92E004DA2F4 /* CrystalGradientStyleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrystalGradientStyleView.m; path = PaintProjector/CrystalGradientStyleView.m; sourceTree = "<group>"; };
 		0826B47A167D9001000B679B /* ShowPaintOnPlaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPaintOnPlaneViewController.h; sourceTree = "<group>"; };
 		0826B47B167D9001000B679B /* ShowPaintOnPlaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPaintOnPlaneViewController.m; sourceTree = "<group>"; };
 		0826EE8718B98A230074FC9F /* ProductFeatureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFeatureCollectionView.h; path = PaintProjector/ProductFeatureCollectionView.h; sourceTree = "<group>"; };
@@ -1237,12 +1248,12 @@
 		0860059617466DEB004BF021 /* SharedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedTableViewCell.m; sourceTree = "<group>"; };
 		0860059817467847004BF021 /* LayerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTableViewController.h; sourceTree = "<group>"; };
 		0860059917467847004BF021 /* LayerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTableViewController.m; sourceTree = "<group>"; };
-		0860668917D2D8FB002EE42A /* NewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewButton.h; sourceTree = "<group>"; };
-		0860668A17D2D8FB002EE42A /* NewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewButton.m; sourceTree = "<group>"; };
-		0860668E17D2DB60002EE42A /* DeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteButton.h; sourceTree = "<group>"; };
-		0860668F17D2DB60002EE42A /* DeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteButton.m; sourceTree = "<group>"; };
-		0860669117D2DE40002EE42A /* CopyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyButton.h; sourceTree = "<group>"; };
-		0860669217D2DE40002EE42A /* CopyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyButton.m; sourceTree = "<group>"; };
+		0860668917D2D8FB002EE42A /* NewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewButton.h; path = PaintProjector/NewButton.h; sourceTree = "<group>"; };
+		0860668A17D2D8FB002EE42A /* NewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewButton.m; path = PaintProjector/NewButton.m; sourceTree = "<group>"; };
+		0860668E17D2DB60002EE42A /* DeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeleteButton.h; path = PaintProjector/DeleteButton.h; sourceTree = "<group>"; };
+		0860668F17D2DB60002EE42A /* DeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeleteButton.m; path = PaintProjector/DeleteButton.m; sourceTree = "<group>"; };
+		0860669117D2DE40002EE42A /* CopyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CopyButton.h; path = PaintProjector/CopyButton.h; sourceTree = "<group>"; };
+		0860669217D2DE40002EE42A /* CopyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CopyButton.m; path = PaintProjector/CopyButton.m; sourceTree = "<group>"; };
 		0860669417D2E235002EE42A /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		0860669517D2E235002EE42A /* BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackButton.m; sourceTree = "<group>"; };
 		0860669817D2EE35002EE42A /* AnamorphicTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AnamorphicTitle.png; path = Images/AnamorphicTitle.png; sourceTree = "<group>"; };
@@ -1405,6 +1416,11 @@
 		089CEF0F16BE58B000216099 /* AdjustImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdjustImageViewController.m; sourceTree = "<group>"; };
 		089D8E9B1840A24C00CCF11A /* BackgroundLayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayerTableViewCell.h; sourceTree = "<group>"; };
 		089D8E9C1840A24C00CCF11A /* BackgroundLayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayerTableViewCell.m; sourceTree = "<group>"; };
+		08A0315718DE7693006EE308 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Storyboard_iPad.strings"; sourceTree = "<group>"; };
+		08A0315818DE8896006EE308 /* IconColorPermeateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconColorPermeateButton.h; sourceTree = "<group>"; };
+		08A0315918DE8896006EE308 /* IconColorPermeateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconColorPermeateButton.m; sourceTree = "<group>"; };
+		08A0315C18DED0C2006EE308 /* RootCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootCanvasView.h; sourceTree = "<group>"; };
+		08A0315D18DED0C2006EE308 /* RootCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootCanvasView.m; sourceTree = "<group>"; };
 		08A3F3D91850A756007922D2 /* GLWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLWrapper.h; path = PaintProjector/GLWrapper.h; sourceTree = "<group>"; };
 		08A3F3DA1850A756007922D2 /* GLWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLWrapper.m; path = PaintProjector/GLWrapper.m; sourceTree = "<group>"; };
 		08A4C99D1689EC8400002625 /* CommandStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandStack.h; sourceTree = "<group>"; };
@@ -1493,7 +1509,6 @@
 		08D836A31737FF5D00B68990 /* ClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearButton.h; sourceTree = "<group>"; };
 		08D836A41737FF5D00B68990 /* ClearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearButton.m; sourceTree = "<group>"; };
 		08DAF6DB18DDDA32006D82E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		08DAF6DD18DDDC31006D82E0 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Storyboard_iPad.strings"; sourceTree = "<group>"; };
 		08DE435E17B3D37300E9C72B /* PlayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayButton.h; sourceTree = "<group>"; };
 		08DE435F17B3D37300E9C72B /* PlayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayButton.m; sourceTree = "<group>"; };
 		08E0584D17683621007955BB /* UndoBaseCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UndoBaseCommand.h; sourceTree = "<group>"; };
@@ -1565,8 +1580,8 @@
 		08FE79F917C8FF9900D1EEBD /* PaintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintButton.m; sourceTree = "<group>"; };
 		08FF70C6189003AC00A7A09B /* PaintCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintCollectionViewController.h; path = PaintProjector/PaintCollectionViewController.h; sourceTree = "<group>"; };
 		08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintCollectionViewController.m; path = PaintProjector/PaintCollectionViewController.m; sourceTree = "<group>"; };
-		08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintUIKitAnimation.h; sourceTree = "<group>"; };
-		08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintUIKitAnimation.m; sourceTree = "<group>"; };
+		08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintUIKitAnimation.h; path = PaintProjector/PaintUIKitAnimation.h; sourceTree = "<group>"; };
+		08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintUIKitAnimation.m; path = PaintProjector/PaintUIKitAnimation.m; sourceTree = "<group>"; };
 		9483A662165F3DB100EE56AD /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		949066061684000A00AF072C /* Ultility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ultility.h; sourceTree = "<group>"; };
 		949066071684000A00AF072C /* Ultility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ultility.m; sourceTree = "<group>"; };
@@ -1861,6 +1876,19 @@
 			path = PaintProjector/UI;
 			sourceTree = "<group>";
 		};
+		0826775C18E1D97C004DA2F4 /* SharedUITools */ = {
+			isa = PBXGroup;
+			children = (
+				08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */,
+				08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */,
+				0826775218E1D6BB004DA2F4 /* PaintUIKitStyle.h */,
+				0826775318E1D6BB004DA2F4 /* PaintUIKitStyle.m */,
+				0826775818E1D92E004DA2F4 /* CrystalGradientStyleView.h */,
+				0826775918E1D92E004DA2F4 /* CrystalGradientStyleView.m */,
+			);
+			name = SharedUITools;
+			sourceTree = "<group>";
+		};
 		08397FC218B6490F009A8F3C /* IAP */ = {
 			isa = PBXGroup;
 			children = (
@@ -2076,16 +2104,8 @@
 				08B9104B18AF6ACF00BEA0D3 /* ShareTableViewController.m */,
 				08CE4BFE18D7DD85008C4904 /* ProductInfoTableViewController.h */,
 				08CE4BFF18D7DD85008C4904 /* ProductInfoTableViewController.m */,
-				0860668917D2D8FB002EE42A /* NewButton.h */,
-				0860668A17D2D8FB002EE42A /* NewButton.m */,
-				0860668E17D2DB60002EE42A /* DeleteButton.h */,
-				0860668F17D2DB60002EE42A /* DeleteButton.m */,
-				0860669117D2DE40002EE42A /* CopyButton.h */,
-				0860669217D2DE40002EE42A /* CopyButton.m */,
 				0860669417D2E235002EE42A /* BackButton.h */,
 				0860669517D2E235002EE42A /* BackButton.m */,
-				08234EC018915A45008B4189 /* FileButton.h */,
-				08234EC118915A45008B4189 /* FileButton.m */,
 				08CA01BF189BD8F300524D81 /* ShareButton.h */,
 				08CA01C0189BD8F300524D81 /* ShareButton.m */,
 				0861490018D7442900661AD6 /* SetupButton.h */,
@@ -2284,6 +2304,14 @@
 				08B444C0175B145F00787C18 /* PaintFrameViewGroup.m */,
 				08956DC318976F5B00EAB16C /* PaintFrameTransitionManager.h */,
 				08956DC418976F5B00EAB16C /* PaintFrameTransitionManager.m */,
+				08234EC018915A45008B4189 /* FileButton.h */,
+				08234EC118915A45008B4189 /* FileButton.m */,
+				0860669117D2DE40002EE42A /* CopyButton.h */,
+				0860669217D2DE40002EE42A /* CopyButton.m */,
+				0860668E17D2DB60002EE42A /* DeleteButton.h */,
+				0860668F17D2DB60002EE42A /* DeleteButton.m */,
+				0860668917D2D8FB002EE42A /* NewButton.h */,
+				0860668A17D2D8FB002EE42A /* NewButton.m */,
 			);
 			name = CollectionScreen;
 			sourceTree = "<group>";
@@ -2363,8 +2391,6 @@
 				08966EC9166082E600339901 /* CalculateRunTime.m */,
 				949066061684000A00AF072C /* Ultility.h */,
 				949066071684000A00AF072C /* Ultility.m */,
-				08FF70CA189019A400A7A09B /* PaintUIKitAnimation.h */,
-				08FF70CB189019A400A7A09B /* PaintUIKitAnimation.m */,
 			);
 			name = Ultility;
 			sourceTree = "<group>";
@@ -2464,10 +2490,12 @@
 				084691001747AEEA00E50554 /* Export */,
 				087C5AB616B2DC91005F954A /* Brush */,
 				087C8E5F18BF7ABD001A3331 /* Swatch */,
-				94997B7F16819D12006E3661 /* PaintingView.h */,
-				94997B8016819D13006E3661 /* PaintingView.m */,
 				0817B38E163C38ED00BD52B2 /* PaintScreen.h */,
 				0817B38F163C38ED00BD52B2 /* PaintScreen.m */,
+				94997B7F16819D12006E3661 /* PaintingView.h */,
+				94997B8016819D13006E3661 /* PaintingView.m */,
+				08A0315C18DED0C2006EE308 /* RootCanvasView.h */,
+				08A0315D18DED0C2006EE308 /* RootCanvasView.m */,
 				08B11F5518A6558A00F303B5 /* PaintScreenTransitionManager.h */,
 				08B11F5618A6558A00F303B5 /* PaintScreenTransitionManager.m */,
 				0830455C166B454100E8E35C /* SelectLayerContentViewController.h */,
@@ -2522,6 +2550,8 @@
 				0860059517466DEB004BF021 /* SharedTableViewCell.h */,
 				0860059617466DEB004BF021 /* SharedTableViewCell.m */,
 				08930E1B1787F2B9001525B1 /* AutoRotateButton.h */,
+				08A0315818DE8896006EE308 /* IconColorPermeateButton.h */,
+				08A0315918DE8896006EE308 /* IconColorPermeateButton.m */,
 				08930E1C1787F2B9001525B1 /* AutoRotateButton.m */,
 				081EFBFB17CA1F3500D4FE46 /* AnamorphicButton.h */,
 				081EFBFC17CA1F3500D4FE46 /* AnamorphicButton.m */,
@@ -2558,6 +2588,7 @@
 				08AB75C0188F5980007DA20B /* CollectionScreen */,
 				085539811751B4C000DECF41 /* Project */,
 				08FD1F9E164E454A003738FC /* Paint */,
+				0826775C18E1D97C004DA2F4 /* SharedUITools */,
 				08B444B0175AEC9F00787C18 /* Misc */,
 				08CAFECA17C9B5BD0097B2A4 /* Collection */,
 				0897D7D8187C43CF00A7ECD2 /* Shaders */,
@@ -3307,6 +3338,8 @@
 				088E1D8518A26F700059002C /* ShaderCylinder.m in Sources */,
 				08B9104918AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m in Sources */,
 				08A5CBBA189F36C100F4E226 /* MeshRenderer.m in Sources */,
+				0826775718E1D6C5004DA2F4 /* PaintUIKitStyle.m in Sources */,
+				0826775B18E1D92E004DA2F4 /* CrystalGradientStyleView.m in Sources */,
 				082060E6189D4CE70027247C /* Transform.m in Sources */,
 				d906c58a640857c4cdfd882b /* GalleryButton.m in Sources */,
 				0835790B18B5018B0062E01C /* CylinderProjectSetupViewController.m in Sources */,
@@ -3339,6 +3372,7 @@
 				33c3e02f55644e233c7e50c0 /* LayerTableViewCell.m in Sources */,
 				08fa420721319a2c16a6af4c /* BrushPropertyView.m in Sources */,
 				08AB75CC188F5ABA007DA20B /* PaintCollectionViewCell.m in Sources */,
+				08A0315F18DED0C2006EE308 /* RootCanvasView.m in Sources */,
 				19ba8cb15b35fd1261697aef /* LayerImageView.m in Sources */,
 				0847F53418B0945E0038869A /* CylinderProjectUserInputParams.m in Sources */,
 				a8ccf61af24ca4caa5d33924 /* LockCanvasRotationView.m in Sources */,
@@ -3532,6 +3566,7 @@
 				0847472116D2615900772015 /* PaintFrameGroup.m in Sources */,
 				081A228A16D8555C00F39468 /* TextureManager.m in Sources */,
 				08F5F3F718B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */,
+				0826775A18E1D92E004DA2F4 /* CrystalGradientStyleView.m in Sources */,
 				085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */,
 				085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */,
 				087AEBA71890ABE100D5B393 /* PaintFrameManager.m in Sources */,
@@ -3619,6 +3654,7 @@
 				085C0C4A18D8A77F001B8AF7 /* ProductInfoTableViewController.m in Sources */,
 				08B444BE175B00E600787C18 /* PaintFrameView.m in Sources */,
 				08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */,
+				08A0315A18DE8896006EE308 /* IconColorPermeateButton.m in Sources */,
 				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
@@ -3650,6 +3686,8 @@
 				08234EC218915A45008B4189 /* FileButton.m in Sources */,
 				08E1DD9B17AE32D0002D9BC2 /* CylinderProjectView.m in Sources */,
 				080679A317DB72A600FED08D /* fishhook.c in Sources */,
+				08A0315E18DED0C2006EE308 /* RootCanvasView.m in Sources */,
+				0826775418E1D6BB004DA2F4 /* PaintUIKitStyle.m in Sources */,
 				08DE436017B3D37300E9C72B /* PlayButton.m in Sources */,
 				08FE79F017C8EBA000D1EEBD /* MediaFrameView.m in Sources */,
 				08FE79F517C8ECAD00D1EEBD /* VideoFrameView.m in Sources */,
@@ -3703,7 +3741,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				08561F8C18DDC7FD00839533 /* Base */,
-				08DAF6DD18DDDC31006D82E0 /* zh-Hans */,
+				08A0315718DE7693006EE308 /* zh-Hans */,
 			);
 			name = Storyboard_iPad.storyboard;
 			path = PaintProjector;

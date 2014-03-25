@@ -84,9 +84,4 @@
     self.contentSize = CGSizeMake(width * self.brushTypes.count, self.bounds.size.height);
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    DebugLog(@"scrollViewDidScroll");
-    
-    [self.delegate willBrushTypeScrollViewDidScroll:scrollView];
-}
 @end

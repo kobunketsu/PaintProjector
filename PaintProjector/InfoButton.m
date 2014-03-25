@@ -57,7 +57,7 @@
     CGRect frame = CGRectMake(0, 0, 128, 80);
     
     //// Subframes
-    CGRect group3 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 53) * 0.50667 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 53) * 0.48148 + 0.5), 53, 53);
+    CGRect group3 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 44) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 44) * 0.41667 + 0.5), 44, 44);
     
     
     //// Group 3
@@ -173,10 +173,10 @@
             CGContextSaveGState(context);
             [bezierPath addClip];
             CGRect bezierBounds = CGPathGetPathBoundingBox(bezierPath.CGPath);
-            CGFloat bezierResizeRatio = MIN(CGRectGetWidth(bezierBounds) / 52, CGRectGetHeight(bezierBounds) / 52);
+            CGFloat bezierResizeRatio = MIN(CGRectGetWidth(bezierBounds) / 43.17, CGRectGetHeight(bezierBounds) / 43.17);
             CGContextDrawRadialGradient(context, gradient,
-                                        CGPointMake(CGRectGetMidX(bezierBounds) + -0.73 * bezierResizeRatio, CGRectGetMidY(bezierBounds) + 0.78 * bezierResizeRatio), 62.42 * bezierResizeRatio,
-                                        CGPointMake(CGRectGetMidX(bezierBounds) + -0.73 * bezierResizeRatio, CGRectGetMidY(bezierBounds) + -25.97 * bezierResizeRatio), 31.63 * bezierResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezierBounds) + -0.61 * bezierResizeRatio, CGRectGetMidY(bezierBounds) + 0.64 * bezierResizeRatio), 51.82 * bezierResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezierBounds) + -0.61 * bezierResizeRatio, CGRectGetMidY(bezierBounds) + -21.56 * bezierResizeRatio), 26.26 * bezierResizeRatio,
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             CGContextRestoreGState(context);
             
@@ -195,7 +195,6 @@
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
     
-
 }
 
 

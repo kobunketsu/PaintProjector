@@ -12,8 +12,10 @@
 #import "UIColor+String.h"
 
 @interface SwatchManagerViewController ()
-@property(retain, nonatomic) NSArray *swatches;
-@property (retain,nonatomic) NSMutableArray *filteredSwatches;
+@property(retain, nonatomic) NSArray *swatchURLs;
+//记录本地化名字作为key的颜色组
+@property(retain, nonatomic) NSMutableDictionary *localNameKeySwatchURLs;
+@property (retain,nonatomic) NSMutableArray *filteredSwatchURLs;
 
 @end
 
@@ -33,8 +35,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.swatches = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
-    self.filteredSwatches = [NSMutableArray arrayWithCapacity:[self.swatches count]];
+    self.swatchURLs = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
+    
+    self.localNameKeySwatchURLs = [[NSMutableDictionary alloc]initWithCapacity:self.swatchURLs.count];
+    for (NSURL *url in self.swatchURLs) {
+        NSString *swatchName = [url.absoluteString.lastPathComponent stringByDeletingPathExtension];
+        NSString *localSwatchName = NSLocalizedString(swatchName, nil);
+        [self.localNameKeySwatchURLs setObject:url forKey:localSwatchName];
+    }
+    
+    self.filteredSwatchURLs = [NSMutableArray arrayWithCapacity:[self.swatchURLs count]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,10 +63,10 @@
     NSURL *url = nil;
     // 检查现在应该显示普通列表还是过滤后的列表
     if (filtered) {
-        url = self.filteredSwatches[index];
+        url = self.filteredSwatchURLs[index];
     }
     else{
-        url = self.swatches[index];
+        url = self.swatchURLs[index];
     }
     
     //交互动画
@@ -176,10 +186,10 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     NSInteger count = 0;
     if (collectionView.tag == 1){
-        count = self.filteredSwatches.count;
+        count = self.filteredSwatchURLs.count;
     }
     else if(collectionView.tag == 0){
-        count = self.swatches.count;
+        count = self.swatchURLs.count;
     }
     
     return count;
@@ -193,10 +203,10 @@
     // Configure the cell...
     NSArray *urls = nil;
     if (collectionView.tag == 1) {
-        urls = self.filteredSwatches;
+        urls = self.filteredSwatchURLs;
     }
     else if (collectionView.tag == 0){
-        urls = self.swatches;
+        urls = self.swatchURLs;
     }
     
     NSURL *url = [urls objectAtIndex:indexPath.row];
@@ -222,7 +232,7 @@
     
     NSString *fileName = [url.pathComponents lastObject];
     NSString *swatchName = [fileName stringByDeletingPathExtension];
-    cell.swatchNameLabel.text = swatchName;
+    cell.swatchNameLabel.text = NSLocalizedString(swatchName, nil);
     cell.swatchNameLabel.tag = indexPath.row;
     
     return cell;
@@ -246,11 +256,16 @@
 -(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     // 根据搜索栏的内容和范围更新过滤后的数组。
     // 先将过滤后的数组清空。
-    [self.filteredSwatches removeAllObjects];
+    [self.filteredSwatchURLs removeAllObjects];
     // 用NSPredicate来过滤数组。
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.path contains[c] %@",searchText];
-    self.filteredSwatches = [NSMutableArray arrayWithArray:[self.swatches filteredArrayUsingPredicate:predicate]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@",searchText];
+
+    NSArray *localNames = [self.localNameKeySwatchURLs allKeys];
+    NSArray *filteredLocalNames = [localNames filteredArrayUsingPredicate:predicate];
+    for (NSString *key in filteredLocalNames) {
+        [self.filteredSwatchURLs addObject:[self.localNameKeySwatchURLs valueForKey:key]];
+    }
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods

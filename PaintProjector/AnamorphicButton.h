@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "AutoRotateButton.h"
+#import "IconColorPermeateButton.h"
 
-@interface AnamorphicButton : AutoRotateButton
+@interface AnamorphicButton : IconColorPermeateButton
 
 @end

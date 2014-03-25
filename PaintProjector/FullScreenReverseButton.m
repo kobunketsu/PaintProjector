@@ -28,8 +28,8 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.92 green: 0.92 blue: 0.92 alpha: 1];
-    UIColor* iconColor = [UIColor colorWithRed: 0.675 green: 0.675 blue: 0.675 alpha: 1];
+    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.9 green: 0.9 blue: 0.9 alpha: 1];
+    UIColor* iconColor = [UIColor colorWithRed: 0.506 green: 0.506 blue: 0.506 alpha: 1];
     UIColor* iconShadowColorColor = [iconColor colorWithAlphaComponent: 0.87];
     
     //// Shadow Declarations
@@ -40,56 +40,57 @@
     CGSize iconShadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat iconShadowBlurRadius = 0;
     
-    //// Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, -60, 110, 80)];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
-    CGContextRestoreGState(context);
+    //// Frames
+    CGRect frame = CGRectMake(0, 0, 50, 33);
+    
+    //// Subframes
+    CGRect group = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 30) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 14) * 0.57895 + 0.5), 30, 14);
     
     
-    
-    //// Polygon Drawing
-    UIBezierPath* polygonPath = [UIBezierPath bezierPath];
-    [polygonPath moveToPoint: CGPointMake(20, 20)];
-    [polygonPath addLineToPoint: CGPointMake(7.01, 9.5)];
-    [polygonPath addLineToPoint: CGPointMake(32.99, 9.5)];
-    [polygonPath closePath];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
-    [iconColor setFill];
-    [polygonPath fill];
-    
-    ////// Polygon Inner Shadow
-    CGRect polygonBorderRect = CGRectInset([polygonPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
-    polygonBorderRect = CGRectOffset(polygonBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
-    polygonBorderRect = CGRectInset(CGRectUnion(polygonBorderRect, [polygonPath bounds]), -1, -1);
-    
-    UIBezierPath* polygonNegativePath = [UIBezierPath bezierPathWithRect: polygonBorderRect];
-    [polygonNegativePath appendPath: polygonPath];
-    polygonNegativePath.usesEvenOddFillRule = YES;
-    
-    CGContextSaveGState(context);
+    //// Group
     {
-        CGFloat xOffset = iconShadowOffset.width + round(polygonBorderRect.size.width);
-        CGFloat yOffset = iconShadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    iconShadowBlurRadius,
-                                    iconShadow.CGColor);
+        //// Polygon Drawing
+        UIBezierPath* polygonPath = [UIBezierPath bezierPath];
+        [polygonPath moveToPoint: CGPointMake(CGRectGetMinX(group) + 0.50000 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.00000 * CGRectGetHeight(group))];
+        [polygonPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.93301 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.75000 * CGRectGetHeight(group))];
+        [polygonPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.06699 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.75000 * CGRectGetHeight(group))];
+        [polygonPath closePath];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        [iconColor setFill];
+        [polygonPath fill];
         
-        [polygonPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(polygonBorderRect.size.width), 0);
-        [polygonNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [polygonNegativePath fill];
+        ////// Polygon Inner Shadow
+        CGRect polygonBorderRect = CGRectInset([polygonPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
+        polygonBorderRect = CGRectOffset(polygonBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
+        polygonBorderRect = CGRectInset(CGRectUnion(polygonBorderRect, [polygonPath bounds]), -1, -1);
+        
+        UIBezierPath* polygonNegativePath = [UIBezierPath bezierPathWithRect: polygonBorderRect];
+        [polygonNegativePath appendPath: polygonPath];
+        polygonNegativePath.usesEvenOddFillRule = YES;
+        
+        CGContextSaveGState(context);
+        {
+            CGFloat xOffset = iconShadowOffset.width + round(polygonBorderRect.size.width);
+            CGFloat yOffset = iconShadowOffset.height;
+            CGContextSetShadowWithColor(context,
+                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                        iconShadowBlurRadius,
+                                        iconShadow.CGColor);
+            
+            [polygonPath addClip];
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(polygonBorderRect.size.width), 0);
+            [polygonNegativePath applyTransform: transform];
+            [[UIColor grayColor] setFill];
+            [polygonNegativePath fill];
+        }
+        CGContextRestoreGState(context);
+        
+        CGContextRestoreGState(context);
+        
     }
-    CGContextRestoreGState(context);
-    
-    CGContextRestoreGState(context);
     
     
-    
-
 }
 
 

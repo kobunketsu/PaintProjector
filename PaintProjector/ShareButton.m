@@ -65,7 +65,7 @@
     CGRect frame = CGRectMake(0, 0, 128, 80);
     
     //// Subframes
-    CGRect icon2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 62) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 56) * 0.50000 + 0.5), 62, 56);
+    CGRect icon2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 50) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45) * 0.42857 + 0.5), 50, 45);
     
     
     //// Icon 2
@@ -103,10 +103,10 @@
             CGContextBeginTransparencyLayer(context, NULL);
             [bezier2Path addClip];
             CGRect bezier2Bounds = CGPathGetPathBoundingBox(bezier2Path.CGPath);
-            CGFloat bezier2ResizeRatio = MIN(CGRectGetWidth(bezier2Bounds) / 61, CGRectGetHeight(bezier2Bounds) / 55.11);
+            CGFloat bezier2ResizeRatio = MIN(CGRectGetWidth(bezier2Bounds) / 49.19, CGRectGetHeight(bezier2Bounds) / 44.29);
             CGContextDrawRadialGradient(context, gradient,
-                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.45 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -6.05 * bezier2ResizeRatio), 33.73 * bezier2ResizeRatio,
-                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.15 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + 13.27 * bezier2ResizeRatio), 14.14 * bezier2ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.36 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + -4.87 * bezier2ResizeRatio), 27.16 * bezier2ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(bezier2Bounds) + 0.12 * bezier2ResizeRatio, CGRectGetMidY(bezier2Bounds) + 10.68 * bezier2ResizeRatio), 11.39 * bezier2ResizeRatio,
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             CGContextEndTransparencyLayer(context);
             
@@ -172,10 +172,10 @@
             CGContextSaveGState(context);
             [oval4Path addClip];
             CGRect oval4Bounds = CGPathGetPathBoundingBox(oval4Path.CGPath);
-            CGFloat oval4ResizeRatio = MIN(CGRectGetWidth(oval4Bounds) / 61, CGRectGetHeight(oval4Bounds) / 55.11);
+            CGFloat oval4ResizeRatio = MIN(CGRectGetWidth(oval4Bounds) / 49.19, CGRectGetHeight(oval4Bounds) / 44.29);
             CGContextDrawRadialGradient(context, gradient2,
-                                        CGPointMake(CGRectGetMidX(oval4Bounds) + -0.35 * oval4ResizeRatio, CGRectGetMidY(oval4Bounds) + -5.89 * oval4ResizeRatio), 62.31 * oval4ResizeRatio,
-                                        CGPointMake(CGRectGetMidX(oval4Bounds) + -0.35 * oval4ResizeRatio, CGRectGetMidY(oval4Bounds) + -30.04 * oval4ResizeRatio), 30.69 * oval4ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(oval4Bounds) + -0.29 * oval4ResizeRatio, CGRectGetMidY(oval4Bounds) + -4.74 * oval4ResizeRatio), 50.17 * oval4ResizeRatio,
+                                        CGPointMake(CGRectGetMidX(oval4Bounds) + -0.28 * oval4ResizeRatio, CGRectGetMidY(oval4Bounds) + -24.19 * oval4ResizeRatio), 24.71 * oval4ResizeRatio,
                                         kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             CGContextRestoreGState(context);
             
@@ -195,7 +195,6 @@
     CGGradientRelease(gradient2);
     CGColorSpaceRelease(colorSpace);
     
-
 
 }
 

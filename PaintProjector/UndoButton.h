@@ -6,10 +6,9 @@
 //  Copyright (c) 2012年 Marin Todorov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "AutoRotateButton.h"
+#import "IconColorPermeateButton.h"
 
-@interface UndoButton : AutoRotateButton
+@interface UndoButton : IconColorPermeateButton
 {
 }
 @property (assign, nonatomic)CGPoint touchPoint;

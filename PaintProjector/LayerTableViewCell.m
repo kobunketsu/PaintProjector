@@ -7,6 +7,7 @@
 //
 
 #import "LayerTableViewCell.h"
+#import "PaintUIKitStyle.h"
 
 @implementation LayerTableViewCell
 
@@ -17,6 +18,19 @@
         // Initialization code
     }
     return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+    //    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: FuzzyTransparentAlpha];
+    //
+    //    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
+    //    [color setFill];
+    //    [rectanglePath fill];
+    
+    // Drawing code
+    [PaintUIKitStyle drawCrystalGradientInView:self];
 }
 
 - (void)setSelectedState:(BOOL)selected{

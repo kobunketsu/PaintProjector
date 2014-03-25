@@ -6,8 +6,7 @@
 //  Copyright (c) 2012年 Marin Todorov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "AutoRotateButton.h"
-@interface RedoButton : AutoRotateButton
+#import "IconColorPermeateButton.h"
+@interface RedoButton : IconColorPermeateButton
 
 @end

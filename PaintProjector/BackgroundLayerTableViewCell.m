@@ -7,6 +7,7 @@
 //
 
 #import "BackgroundLayerTableViewCell.h"
+#import "PaintUIKitStyle.h"
 
 @implementation BackgroundLayerTableViewCell
 
@@ -17,6 +18,12 @@
         // Initialization code
     }
     return self;
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+    [PaintUIKitStyle drawCrystalGradientInView:self];
 }
 
 - (void)setSelectedState:(BOOL)selected{

@@ -12,7 +12,9 @@
 #import "UIColor+String.h"
 
 @interface SwatchManagerTableViewController ()
-@property(retain, nonatomic) NSArray *swatches;
+//URL
+@property(retain, nonatomic) NSArray *swatchURLs;
+@property(retain, nonatomic) NSMutableDictionary *swatchDics;
 @property (retain,nonatomic) NSMutableArray *filteredSwatches;
 @end
 
@@ -37,8 +39,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    self.swatches = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
-    self.filteredSwatches = [NSMutableArray arrayWithCapacity:[self.swatches count]];
+    self.swatchURLs = [[NSBundle mainBundle] URLsForResourcesWithExtension:@"swatch" subdirectory:@"Swatches"];
+    self.swatchDics = [[NSMutableDictionary alloc]initWithCapacity:self.swatchURLs.count];
+    for (NSURL *url in self.swatchURLs) {
+        NSString *swatchName = [url.absoluteString.lastPathComponent stringByDeletingPathExtension];
+    }
+    self.filteredSwatches = [NSMutableArray arrayWithCapacity:[self.swatchURLs count]];
     
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(100, 0, self.tableView.bounds.size.width - 100, 44)];
     self.searchBar.delegate = self;
@@ -159,7 +165,7 @@
         count = self.filteredSwatches.count;
     }
     else if(collectionView.tag == 0){
-        count = self.swatches.count;
+        count = self.swatchURLs.count;
     }
     
     return count;
@@ -176,7 +182,7 @@
         urls = self.filteredSwatches;
     }
     else if (collectionView.tag == 0){
-        urls = self.swatches;
+        urls = self.swatchURLs;
     }
     
     NSURL *url = [urls objectAtIndex:indexPath.row];
@@ -208,7 +214,7 @@
         url = [self.filteredSwatches objectAtIndex:indexPath.row];
     }
     else if(collectionView.tag == 0) {
-        url = [self.swatches objectAtIndex:indexPath.row];
+        url = [self.swatchURLs objectAtIndex:indexPath.row];
     }
     
     [self.delegate willSetSwatchFile:url];
@@ -222,7 +228,7 @@
     // 用NSPredicate来过滤数组。
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.path contains[c] %@",searchText];
-    self.filteredSwatches = [NSMutableArray arrayWithArray:[self.swatches filteredArrayUsingPredicate:predicate]];
+    self.filteredSwatches = [NSMutableArray arrayWithArray:[self.swatchURLs filteredArrayUsingPredicate:predicate]];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods

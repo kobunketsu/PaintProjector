@@ -66,7 +66,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,9 +90,6 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-//            cell.nameLabel.text = @"Photo:";
-//            cell.thumbnailImageView.image = [UIImage imageNamed:@"layer.png"];
-            
             cell.textLabel.text = @"Photo";
             cell.imageView.image = [UIImage imageNamed:@"PhotoLibrary.png"];
             break;
@@ -100,10 +97,10 @@
             cell.textLabel.text = @"Camera";
             cell.imageView.image = [UIImage imageNamed:@"camera_48.png"];
             break;
-        case 2:
-            cell.textLabel.text = @"Dropbox";
-            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
-            break;
+//        case 2:
+//            cell.textLabel.text = @"Dropbox";
+//            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
+//            break;
         default:
             break;
     }
@@ -156,7 +153,7 @@
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+// ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
@@ -167,10 +164,10 @@
         case 1:
             [self.delegate didSelectImportCamera];
             break;
-        case 2:
-            //import 图片有问题
+//        case 2:
+//            //TODO: import 图片有问题
 //            [self.delegate didSelectImportDropbox];
-            break;
+//            break;
         default:
             break;
     }
@@ -183,7 +180,7 @@
 }
 
 - (float)tableViewHeight {
-    return 66 * 3;
+    return 66 * [self tableView:self.tableView numberOfRowsInSection:0];
 }
 
 

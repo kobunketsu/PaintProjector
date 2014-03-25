@@ -66,7 +66,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 6;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,19 +88,19 @@
             cell.textLabel.text = @"Photo";
             cell.imageView.image = [UIImage imageNamed:@"PhotoLibrary.png"];
             break;
+//        case 2:
+//            cell.textLabel.text = @"Dropbox";
+//            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
+//            break;
         case 2:
-            cell.textLabel.text = @"Dropbox";
-            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
-            break;
-        case 3:
             cell.textLabel.text = @"Facebook";
             cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
             break;
-        case 4:
+        case 3:
             cell.textLabel.text = @"Twitter";
             cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
-        case 5:
+        case 4:
             cell.textLabel.text = @"SinaWeibo";
             cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];            
             
@@ -169,16 +169,16 @@
         case 1:
             [self.delegate didSelectExportToPhotoLibrary];
             break;
+//        case 2:
+//            [self.delegate didSelectExportToDropbox];
+//            break;
         case 2:
-            [self.delegate didSelectExportToDropbox];
-            break;
-        case 3:
             [self.delegate didSelectPostToFacebook];
             break;
-        case 4:
+        case 3:
             [self.delegate didSelectPostToTwitter];
             break;
-        case 5:
+        case 4:
             [self.delegate didSelectPostToSinaWeibo];
             break;
         default:

@@ -1942,6 +1942,9 @@
             }
         }
     }
+    else if([scrollView isEqual:self.brushTypeScrollView]){
+        [self willBrushTypeScrollViewDidScroll:scrollView];
+    }
 }
 
 - (void)setBrushPreview:(bool)enable{
@@ -2423,6 +2426,8 @@
     [self.paintView destroy];
     [self.paintDoc close];
     
+    //UI
+    [self.paintView transformCanvasReset];
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
         //    DebugLog(@"delegate closePaintDoc");
@@ -2583,14 +2588,20 @@
 
 -(void) didSelectImportDropbox{
     [self.sharedPopoverController dismissPopoverAnimated:true];
-    [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypeDirect
+    [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypePreview
                                     fromViewController:self completion:^(NSArray *results)
      {
          if ([results count]) {
              // Process results from Chooser
              DBChooserResult *result = (DBChooserResult *)[results objectAtIndex:0];
              
-             NSData *imageData = [NSData dataWithContentsOfURL:result.link];
+             NSError *error = nil;
+             NSData *imageData = [NSData dataWithContentsOfURL:result.link options:NSDataReadingMapped error:&error];
+             if (imageData == nil) {
+                 DebugLog(@"Error loading file: %@", [error localizedDescription]);
+             }
+             
+//             NSData *imageData = [NSData dataWithContentsOfURL:result.link];
 
              UIImage *image = [UIImage imageWithData:imageData];
 
@@ -3815,6 +3826,7 @@
     
     [self setOpacitySliderValueWithBrushState:brushState];
 }
+
 #pragma mark- 笔刷种类代理 BrushTypeScrollView Delegate (Refresh UI)
 -(void)willBrushTypeScrollViewDidScroll:(UIScrollView *)scrollView{
 //    DebugLog(@"willBrushTypeScrollViewDidScroll");
@@ -4124,8 +4136,8 @@
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
     [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
-    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
-    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
+//    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
+//    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 - (IBAction)paintColorButtonTapped:(UIButton *)sender {
 //    if (colorPickerView.hidden) {

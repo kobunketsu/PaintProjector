@@ -367,6 +367,35 @@
     }
 }
 
+-(void) didSelectPostToEmail {
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    [picker setSubject:@"write your subject here"];
+    
+    UIImage *image = [self.projectView snapshot];
+    //convert UIImage to NSData to add it as attachment
+    NSData *imageData = UIImagePNGRepresentation(image);
+    
+    //this is how to attach any data in mail, remember mimeType will be different
+    //for other data type attachment.
+    
+    [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
+    
+    //showing MFMailComposerView here
+    [self presentViewController:picker animated:true completion:^{
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+    }];
+}
+#pragma mark- Email Delegate
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    if(result == MFMailComposeResultCancelled)
+        DebugLog(@"Mail has cancelled");
+    if(result == MFMailComposeResultSaved)
+        DebugLog(@"Mail has saved");
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 #pragma mark- 设置Setup
 //- (void)setup{
 //   

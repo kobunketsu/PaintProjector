@@ -65,7 +65,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,6 +90,11 @@
         case 2:
             cell.textLabel.text = NSLocalizedString(@"SinaWeibo", nil);
             cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];
+            break;
+        case 3:
+            cell.textLabel.text = NSLocalizedString(@"Email", nil);
+            cell.imageView.image = [UIImage imageNamed:@"email_48.png"];
+            break;
         default:
             break;
     }
@@ -168,6 +173,9 @@
             break;
         case 2:
             [self.delegate didSelectPostToSinaWeibo];
+            break;
+        case 3:
+            [self.delegate didSelectPostToEmail];
             break;
         default:
             break;

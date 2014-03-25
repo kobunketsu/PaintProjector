@@ -29,22 +29,15 @@
     return self;
 }
 
--(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
-    UIGraphicsPushContext(ctx);
-    
+//-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+- (void)drawRect:(CGRect)rect{
     //// General Declarations
-    CGContextRef context = ctx;
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.92 green: 0.92 blue: 0.92 alpha: 1];
-    CGFloat r = ((CustomLayer*)layer).baseColorR;
-    CGFloat g = ((CustomLayer*)layer).baseColorG;
-    CGFloat b = ((CustomLayer*)layer).baseColorB;
-    UIColor* iconColor = self.isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-    CGFloat iconColorRGBA[4];
-    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
-    
-    UIColor* iconShadowColorColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.675) green: (iconColorRGBA[1] * 0.675) blue: (iconColorRGBA[2] * 0.675) alpha: (iconColorRGBA[3] * 0.675 + 0.325)];
+    UIColor* iconHighlightColor = [UIColor colorWithRed: 0.9 green: 0.9 blue: 0.9 alpha: 1];
+    UIColor* iconColor = [UIColor colorWithRed: 0.506 green: 0.506 blue: 0.506 alpha: 1];
+    UIColor* iconShadowColorColor = [iconColor colorWithAlphaComponent: 0.87];
     
     //// Shadow Declarations
     UIColor* iconHighlight = iconHighlightColor;
@@ -54,50 +47,58 @@
     CGSize iconShadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat iconShadowBlurRadius = 0;
     
-    //// Polygon Drawing
-    UIBezierPath* polygonPath = [UIBezierPath bezierPath];
-    [polygonPath moveToPoint: CGPointMake(20, -0)];
-    [polygonPath addLineToPoint: CGPointMake(7.01, 10.5)];
-    [polygonPath addLineToPoint: CGPointMake(32.99, 10.5)];
-    [polygonPath closePath];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
-    [iconColor setFill];
-    [polygonPath fill];
+    //// Frames
+    CGRect frame = CGRectMake(0, 0, 50, 33);
     
-    ////// Polygon Inner Shadow
-    CGRect polygonBorderRect = CGRectInset([polygonPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
-    polygonBorderRect = CGRectOffset(polygonBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
-    polygonBorderRect = CGRectInset(CGRectUnion(polygonBorderRect, [polygonPath bounds]), -1, -1);
+    //// Subframes
+    CGRect group = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 30) * 0.55000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 14) * 0.47368 + 0.5), 30, 14);
     
-    UIBezierPath* polygonNegativePath = [UIBezierPath bezierPathWithRect: polygonBorderRect];
-    [polygonNegativePath appendPath: polygonPath];
-    polygonNegativePath.usesEvenOddFillRule = YES;
     
-    CGContextSaveGState(context);
+    //// Group
     {
-        CGFloat xOffset = iconShadowOffset.width + round(polygonBorderRect.size.width);
-        CGFloat yOffset = iconShadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    iconShadowBlurRadius,
-                                    iconShadow.CGColor);
+        //// Polygon Drawing
+        UIBezierPath* polygonPath = [UIBezierPath bezierPath];
+        [polygonPath moveToPoint: CGPointMake(CGRectGetMinX(group) + 0.50000 * CGRectGetWidth(group), CGRectGetMinY(group) + 1.00000 * CGRectGetHeight(group))];
+        [polygonPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.93301 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.25000 * CGRectGetHeight(group))];
+        [polygonPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.06699 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.25000 * CGRectGetHeight(group))];
+        [polygonPath closePath];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+        [iconColor setFill];
+        [polygonPath fill];
         
-        [polygonPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(polygonBorderRect.size.width), 0);
-        [polygonNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [polygonNegativePath fill];
+        ////// Polygon Inner Shadow
+        CGRect polygonBorderRect = CGRectInset([polygonPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
+        polygonBorderRect = CGRectOffset(polygonBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
+        polygonBorderRect = CGRectInset(CGRectUnion(polygonBorderRect, [polygonPath bounds]), -1, -1);
+        
+        UIBezierPath* polygonNegativePath = [UIBezierPath bezierPathWithRect: polygonBorderRect];
+        [polygonNegativePath appendPath: polygonPath];
+        polygonNegativePath.usesEvenOddFillRule = YES;
+        
+        CGContextSaveGState(context);
+        {
+            CGFloat xOffset = iconShadowOffset.width + round(polygonBorderRect.size.width);
+            CGFloat yOffset = iconShadowOffset.height;
+            CGContextSetShadowWithColor(context,
+                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                        iconShadowBlurRadius,
+                                        iconShadow.CGColor);
+            
+            [polygonPath addClip];
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(polygonBorderRect.size.width), 0);
+            [polygonNegativePath applyTransform: transform];
+            [[UIColor grayColor] setFill];
+            [polygonNegativePath fill];
+        }
+        CGContextRestoreGState(context);
+        
+        CGContextRestoreGState(context);
+        
     }
-    CGContextRestoreGState(context);
-    
-    CGContextRestoreGState(context);
-    
     
     
 
-    
-    UIGraphicsPopContext();
 }
 
 /*

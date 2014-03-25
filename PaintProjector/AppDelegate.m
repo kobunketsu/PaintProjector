@@ -75,18 +75,18 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
-  sourceApplication:(NSString *)source annotation:(id)annotation
-{
-    
-    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
-        // This was a Chooser response and handleOpenURL automatically ran the
-        // completion block
-        return YES;
-    }
-    
-    return NO;
-}
+//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url
+//  sourceApplication:(NSString *)source annotation:(id)annotation
+//{
+//    
+//    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+//        // This was a Chooser response and handleOpenURL automatically ran the
+//        // completion block
+//        return YES;
+//    }
+//    
+//    return NO;
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

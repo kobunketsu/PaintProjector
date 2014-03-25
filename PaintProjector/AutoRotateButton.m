@@ -63,6 +63,11 @@
     [super setHighlighted:highlighted];
     [self.layer setNeedsDisplay];
 }
+
+- (void)layoutSubviews{
+    [super layoutSubviews];    
+    self.titleEdgeInsets = UIEdgeInsetsMake(75, 0, 0, 0);
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
