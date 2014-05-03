@@ -18,20 +18,25 @@
 #pragma mark- 从磁盘载入文件
 -(PaintDoc*)insertPaintDoc:(PaintDoc*)paintDoc atIndex:(NSInteger)index{
     DebugLog(@"insertPaintDoc atIndex %d", index);
+    NSInteger count = self.curPaintFrameGroup.paintDocs.count;
+    if (index > count) {
+        DebugLog(@"index %d over count %d", index, count);
+        return nil;
+    }
     
     if (index < 0) {
-        DebugLog(@"Can't insert paintDoc at negative index");
-        return nil;
+        DebugLog(@"Can't insert paintDoc at negative index, insert at index 0");
+        [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:0];
+
+        self.curPaintFrameGroup.curPaintIndex = 0;
     }
-    if (index > self.curPaintFrameGroup.paintDocs.count) {
-        DebugLog(@"curPaintIndex over count");
-        return nil;
-    }
-    
-    [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:index];
-    
-    if (index <= self.curPaintFrameGroup.curPaintIndex) {
-        self.curPaintFrameGroup.curPaintIndex ++;
+    else{
+        [self.curPaintFrameGroup.paintDocs insertObject:paintDoc atIndex:index];
+        
+        if (index <= self.curPaintFrameGroup.curPaintIndex) {
+//            self.curPaintFrameGroup.curPaintIndex ++;
+            self.curPaintFrameGroup.curPaintIndex = index;
+        }
     }
     
     DebugLog(@"curPaintIndex %d", self.curPaintFrameGroup.curPaintIndex);
@@ -45,6 +50,11 @@
 -(void)insertNewPaintDocAtCurIndex{
     PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:self.curPaintFrameGroup.dirPath];
     [self insertPaintDocAtCurIndex:paintDoc];
+}
+
+-(void)insertNewPaintDocAtIndex:(NSInteger)index{
+    PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:self.curPaintFrameGroup.dirPath];
+    [self insertPaintDoc:paintDoc atIndex:index];
 }
 
 -(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc{

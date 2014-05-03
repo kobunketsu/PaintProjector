@@ -7,7 +7,7 @@
 //
 
 #import "BrushPropertyView.h"
-
+#import "PaintUIKitStyle.h"
 @implementation BrushPropertyView
 
 - (id)initWithFrame:(CGRect)frame
@@ -26,11 +26,13 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: FuzzyTransparentAlpha];
+//    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: FuzzyTransparentAlpha];
+//    
+//    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
+//    [color setFill];
+//    [rectanglePath fill];
     
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
-    [color setFill];
-    [rectanglePath fill];
+    [PaintUIKitStyle drawCrystalGradientInView:self];
 }
 
 

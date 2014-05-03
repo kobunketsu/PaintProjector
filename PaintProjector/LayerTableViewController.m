@@ -9,11 +9,14 @@
 #import "LayerTableViewController.h"
 #import "LayerTableViewCell.h"
 #import "BackgroundLayerTableViewCell.h"
+#import "LayerTableViewCellBackgroundView.h"
 #import "LayerToolView.h"
 #import "FuzzyTransparentView.h"
 
 const float LayerTableViewCellHeight  = 155;
 const float BackgroundLayerTableViewCellHeight = 75;
+const float LayerTableViewWidth = 256;
+
 @interface LayerTableViewController ()
 
 @end
@@ -101,6 +104,7 @@ const float BackgroundLayerTableViewCellHeight = 75;
         
         cell.isAccessibilityElement = true;
         cell.accessibilityLabel = @"BackgroundCell";
+        cell.backgroundView = [[LayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
         return cell;
     }
     else{
@@ -112,6 +116,7 @@ const float BackgroundLayerTableViewCellHeight = 75;
         
         cell.isAccessibilityElement = true;
         cell.accessibilityIdentifier = layer.identifier;
+        cell.backgroundView = [[LayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
         return cell;
     }
 }
@@ -475,7 +480,7 @@ const float BackgroundLayerTableViewCellHeight = 75;
 }
 
 - (float)tableViewWidth {
-    return 256;
+    return LayerTableViewWidth;
 }
 - (float)tableViewHeight {
 //    DebugLog(@"toolBar height %.1f", self.toolBar.bounds.size.height);

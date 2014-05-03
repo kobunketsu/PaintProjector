@@ -26,7 +26,7 @@
 //记录选择的图片索引号
 @property (retain, nonatomic) NSMutableArray *selectedIndices;
 //是否编辑状态
-@property (assign, nonatomic) BOOL isEditing;
+@property (assign, nonatomic) BOOL editing;
 
 @end
 
@@ -71,14 +71,14 @@
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.allowsMultipleSelection = true;
     
-    self.isEditing = false;
+    self.editing = false;
     for (UIButton *button in self.editButtons) {
         button.hidden = true;
     }
 
     //设置当前PaintFrameGroup PaintFrame
     self.paintFrameManager = [[PaintFrameManager alloc]init];
-    [self.paintFrameManager setCurPaintFrameGroupByIndex:1];
+    [self.paintFrameManager setCurPaintFrameGroupByIndex:0];
     
     self.transitionManager = [[PaintFrameTransitionManager alloc]init];
     self.transitionManager.delegate = self;
@@ -99,6 +99,39 @@
 -(void)dealloc{
     DebugLog(@"[ dealloc ]");
     self.selectedIndices = nil;
+}
+
+- (void)setEditing:(BOOL)editing{
+    _editing = editing;
+    
+    if (editing) {
+        for (UIButton *button in self.editButtons) {
+            button.hidden = false;
+        }
+        
+        for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+            if (cell.selectedBackgroundView) {
+                cell.selectedBackgroundView.hidden = NO;
+            }
+        }
+    }
+    else{
+        [self.selectedIndices removeAllObjects];
+        
+        for (UIButton *button in self.editButtons) {
+            button.hidden = true;
+        }
+        
+        for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+            if (cell.selectedBackgroundView) {
+                cell.selectedBackgroundView.hidden = YES;
+            }
+        }
+    }
 }
 
 #pragma mark- LaunchTransition
@@ -192,7 +225,7 @@
 //    DebugLog(@"rect %@", NSStringFromCGRect(rect));
     
     //非编辑状态，打开
-    if (!self.isEditing) {
+    if (!self.editing) {
         [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
     }
     //编辑状态
@@ -240,13 +273,7 @@
 #pragma mark- Tool Bar
 
 - (IBAction)fileButtonTouchUp:(id)sender{
-    self.isEditing = !self.isEditing;
-    if (self.isEditing) {
-        [self startEditFile];
-    }
-    else{
-        [self endEditFile];
-    }
+    self.editing = !self.editing;
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {
@@ -270,7 +297,7 @@
     
     [self.collectionView reloadData];
     
-    [self endEditFile];
+    self.editing = false;
 }
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
@@ -287,25 +314,26 @@
 
     [self.collectionView reloadData];
     
-    [self endEditFile];
+    self.editing = false;
 }
 
 - (IBAction)newButtonTouchUp:(id)sender {
-    if (!self.isEditing) {
-        //非编辑状态下从最后一个PaintFrameView之后添加
-        if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
-            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = self.paintFrameManager.curPaintFrameGroup.paintDocs.count - 1;
-        }
-        else{
-            self.paintFrameManager.curPaintFrameGroup.curPaintIndex = -1;
-            self.paintFrameManager.curPaintFrameView = nil;
-        }
+    self.editing = false;
+    
+    //非编辑状态下从最后一个PaintFrameView之后添加
+    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
+        self.paintFrameManager.curPaintFrameGroup.curPaintIndex = self.paintFrameManager.curPaintFrameGroup.paintDocs.count - 1;
+    }
+    else{
+        self.paintFrameManager.curPaintFrameGroup.curPaintIndex = -1;
+        self.paintFrameManager.curPaintFrameView = nil;
     }
 
     //插入新paintDoc到paintDocs中，
     [self.paintFrameManager insertNewPaintDocAtCurIndex];
     
     //插入新表单到表格
+//    [self.collectionView reloadData];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     
@@ -319,38 +347,6 @@
 }
 
 #pragma mark-
-- (void)startEditFile{
-    self.isEditing = true;
-    for (UIButton *button in self.editButtons) {
-        button.hidden = false;
-    }
-
-    for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        if (cell.selectedBackgroundView) {
-            cell.selectedBackgroundView.hidden = NO;
-        }
-    }
-}
-
-- (void)endEditFile{
-    self.isEditing = false;
-    
-    [self.selectedIndices removeAllObjects];
-    
-    for (UIButton *button in self.editButtons) {
-        button.hidden = true;
-    }
-    
-    for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-        if (cell.selectedBackgroundView) {
-            cell.selectedBackgroundView.hidden = YES;
-        }
-    }
-}
 
 -(void)viewPaintFrame:(PaintFrameView*)paintFrameView paintDirectly:(BOOL)paintDirectly{
     self.cylinderProjectVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectViewController"];

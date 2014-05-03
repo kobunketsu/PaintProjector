@@ -8,6 +8,7 @@
 
 #import "LayerTableViewCell.h"
 #import "PaintUIKitStyle.h"
+const float LayerTableViewWidth = 256;
 
 @implementation LayerTableViewCell
 
@@ -18,19 +19,6 @@
         // Initialization code
     }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-    //    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: FuzzyTransparentAlpha];
-    //
-    //    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
-    //    [color setFill];
-    //    [rectanglePath fill];
-    
-    // Drawing code
-    [PaintUIKitStyle drawCrystalGradientInView:self];
 }
 
 - (void)setSelectedState:(BOOL)selected{
@@ -52,34 +40,53 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+ 
+    //修正IOS7 AutoLayout下deleteButton 和reorder button消失问题
+    for (UIView *subview in self.subviews) {
+        for (UIView *subview2 in subview.subviews) {
+            if ([NSStringFromClass([subview2 class]) isEqualToString:@"UITableViewCellDeleteConfirmationView"]){ // move delete confirmation view
+                CGRect frame = subview2.frame;
+                frame.origin.x = LayerTableViewWidth;
+                subview2.frame = frame;
+                [subview bringSubviewToFront:subview2];
+                
+            }
+            else if ([NSStringFromClass([subview2 class]) isEqualToString:@"UITableViewCellReorderControl"]){
+                CGRect frame = subview2.frame;
+                frame.origin.x = LayerTableViewWidth - subview2.bounds.size.width;
+                subview2.frame = frame;
+                [subview bringSubviewToFront:subview2];
+            }
+        }
+    }
+    
     
     //substitude subview
-   
-    for (int i = 0; i< self.subviews.count; ++i) {
-        UIView *subview = [self.subviews objectAtIndex:i];
-//        DebugLog(@"SubView Class %@", NSStringFromClass([subview class]));
-//        DebugLog(@"SubView frame origin x:%.2f y:%.2f", subview.frame.origin.x, subview.frame.origin.y);
-        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellContentView"]) {
-//            DebugLog(@"UITableViewCellContentView index %d", i);
-            CGRect newFrame = subview.frame;
-            newFrame.origin.x = 0;
-            subview.frame = newFrame;
-        }
-        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellDeleteConfirmationControl"]) {
-//            DebugLog(@"UITableViewCellDeleteConfirmationControl index %d", i);
-            subview.frame = CGRectMake(130, 5, 44, 44);
-        }
-        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellEditControl"]) {
-//            DebugLog(@"UITableViewCellEditControl index %d", i);
-            subview.frame = CGRectMake(130, 5, 44, 44);
-        }
-//        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellReorderControl"]){
-//            DebugLog(@"UITableViewCellReorderControl index %d", i);
+//    for (int i = 0; i< self.subviews.count; ++i) {
+//        UIView *subview = [self.subviews objectAtIndex:i];
+////        DebugLog(@"SubView Class %@", NSStringFromClass([subview class]));
+////        DebugLog(@"SubView frame origin x:%.2f y:%.2f", subview.frame.origin.x, subview.frame.origin.y);
+//        if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellContentView"]) {
+////            DebugLog(@"UITableViewCellContentView index %d", i);
 //            CGRect newFrame = subview.frame;
-//            newFrame.origin.x = 200;
+//            newFrame.origin.x = 0;
 //            subview.frame = newFrame;
 //        }
-    }
+//        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellDeleteConfirmationControl"]) {
+////            DebugLog(@"UITableViewCellDeleteConfirmationControl index %d", i);
+//            subview.frame = CGRectMake(130, 5, 44, 44);
+//        }
+//        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellEditControl"]) {
+////            DebugLog(@"UITableViewCellEditControl index %d", i);
+//            subview.frame = CGRectMake(130, 5, 44, 44);
+//        }
+////        else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellReorderControl"]){
+////            DebugLog(@"UITableViewCellReorderControl index %d", i);
+////            CGRect newFrame = subview.frame;
+////            newFrame.origin.x = 200;
+////            subview.frame = newFrame;
+////        }
+//    }
 }
 
 - (void)willTransitionToState:(UITableViewCellStateMask)state {
@@ -105,4 +112,5 @@
         [UIView setAnimationsEnabled:true];
     }
 }
+
 @end

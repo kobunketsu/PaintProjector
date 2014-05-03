@@ -11,7 +11,8 @@
 @interface PaintScreenPopoverBackgroundView : UIPopoverBackgroundView
 {
     UIImageView *_borderImageView;
-    UIImageView *_arrowView;
+//    UIImageView *_arrowView;
+    UIView *_arrowView;
     CGFloat _arrowOffset;
     UIPopoverArrowDirection _arrowDirection;
 }

@@ -2783,12 +2783,11 @@
         imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, (NSString *) kUTTypeMovie, nil];
         imagePicker.allowsEditing = NO;
         imagePicker.delegate = self;
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePicker];
+        SharedPopoverController *popover = [[SharedPopoverController alloc] initWithContentViewController:imagePicker];
         self.subPopoverController = popover;
         self.subPopoverController.delegate = self;
         
-        CGRect rect = CGRectMake(self.importButton.bounds.origin.x, self.importButton.bounds.origin.y, self.importButton.bounds.size.width, self.importButton.bounds.size.height);
-        [popover presentPopoverFromRect:rect inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        [popover presentPopoverFromRect:self.importButton.bounds inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         
         return YES;
     }else {
@@ -2797,6 +2796,11 @@
         return NO;
     }
     
+}
+#pragma NavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 #pragma mark- 导出 Export
 - (IBAction)exportButtonTapped:(UIButton *)sender {

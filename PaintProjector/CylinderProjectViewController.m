@@ -203,15 +203,15 @@
 //}
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         [(AutoRotateButton*)sender setHighlighted:false];
         sender.selected = !sender.selected;
         
         if (sender.selected) {
-            [self setup];
+            [self setupAnamorphParams];
         }
         else{
-            [self setupDone];
+            [self setupAnamorphParamsDone];
         }
     }
     else{
@@ -273,6 +273,8 @@
     [self.cylinderProjectCur.animation play];
     
     //ToolBar动画
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
+    
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
 }
 
@@ -328,7 +330,8 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        NSString *postText = NSLocalizedString(@"PostToFacebookMessage", nil);
+        [controller setInitialText:postText];
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
@@ -343,7 +346,8 @@
     {
         SLComposeViewController *controller = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        NSString *postText = NSLocalizedString(@"PostToTwitterMessage", nil);
+        [controller setInitialText:postText];
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
@@ -357,7 +361,8 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
         
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        NSString *postText = NSLocalizedString(@"PostToSinaWeiboMessage", nil);
+        [controller setInitialText:postText];
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
@@ -370,7 +375,8 @@
 -(void) didSelectPostToEmail {
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
-    [picker setSubject:@"write your subject here"];
+    NSString *postText = NSLocalizedString(@"PostToEmailMessage", nil);
+    [picker setSubject:postText];
     
     UIImage *image = [self.projectView snapshot];
     //convert UIImage to NSData to add it as attachment
@@ -437,24 +443,32 @@
 //    }];
 //}
 
-- (void)setup{
-    self.topToolBar.hidden = false;
-    self.topToolBar.alpha = 0;
-    [UIView animateWithDuration:0.4 animations:^{
-        self.topToolBar.alpha = 1;
-    }completion:^(BOOL finished) {
+- (void)setupAnamorphParams{
+//    self.topToolBar.hidden = false;
+//    self.topToolBar.alpha = 0;
+//    [UIView animateWithDuration:0.4 animations:^{
+//        self.topToolBar.alpha = 1;
+//    }completion:^(BOOL finished) {
+//    }];
+    
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
+        
     }];
 }
 
-- (void)setupDone{
+- (void)setupAnamorphParamsDone{
     //恢复到初始状态
     [self resetInputParams];
     
-    self.topToolBar.alpha = 1;
-    [UIView animateWithDuration:0.4 animations:^{
-        self.topToolBar.alpha = 0;
-        self.topToolBar.hidden = true;
-    }completion:^(BOOL finished) {
+//    self.topToolBar.alpha = 1;
+//    [UIView animateWithDuration:0.4 animations:^{
+//        self.topToolBar.alpha = 0;
+//        self.topToolBar.hidden = true;
+//    }completion:^(BOOL finished) {
+//    }];
+    
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:^{
+        
     }];
 }
 
@@ -530,6 +544,7 @@
 
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.keyPath];
+    [self flushUIUserInputParams];
 }
 
 -(void)resetInputParams{
@@ -713,26 +728,36 @@
     
     
     //setup panel
+    [self flushUIUserInputParams];
+}
+
+-(void)flushUIUserInputParams{
     USUnit unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderDiameter];
     [self.cylinderDiameterButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-
+    [self.cylinderDiameterButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderHeight];
     [self.cylinderHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    [self.cylinderHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageWidth];
     [self.imageWidthButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    [self.imageWidthButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageCenterOnSurfHeight];
     [self.imageHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    [self.imageHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeHonrizontalDistance];
     [self.eyeDistanceButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    [self.eyeDistanceButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeVerticalHeight];
     [self.eyeHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
+    [self.eyeHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
     
     [self.unitZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateNormal];
+    [self.unitZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateSelected];
 }
 
 -(void)initSceneCameras{
@@ -1768,8 +1793,8 @@
     [Camera.mainCamera.animation play];
 
     //setup
-    self.eyeDistanceParam.hidden = self.eyeHeightParam.hidden = false;
-    self.unitZoomParam.hidden = true;
+    self.eyeParams.hidden = false;
+    self.unitZoomParams.hidden = true;
 
 }
 
@@ -1783,8 +1808,8 @@
     [Camera.mainCamera.animation play];
 
     //setup
-    self.eyeDistanceParam.hidden = self.eyeHeightParam.hidden = true;
-    self.unitZoomParam.hidden = false;
+    self.eyeParams.hidden = true;
+    self.unitZoomParams.hidden = false;
 }
 
 #pragma mark- 打印Print

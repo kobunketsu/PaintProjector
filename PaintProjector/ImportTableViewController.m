@@ -8,6 +8,7 @@
 
 #import "ImportTableViewController.h"
 #import "SharedTableViewCell.h"
+#import "SharedTableView.h"
 
 @interface ImportTableViewController ()
 
@@ -20,7 +21,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        UITableView *tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 20, 1024)
+        SharedTableView *tv = [[SharedTableView alloc] initWithFrame:CGRectMake(0, 0, 20, 1024)
                                                        style:UITableViewStylePlain];
         
         // assuming that your controller adopts the UITableViewDelegate and

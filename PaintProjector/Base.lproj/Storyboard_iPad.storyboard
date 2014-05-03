@@ -10,8 +10,8 @@
             <objects>
                 <viewController storyboardIdentifier="TestViewController" id="Fwe-P3-AHa" customClass="TestViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3Dt-8K-2TB"/>
-                        <viewControllerLayoutGuide type="bottom" id="O6P-Q3-ooW"/>
+                        <viewControllerLayoutGuide type="top" id="d3e-Qj-O1Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="Le6-Qr-imr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9K9-7p-W2e">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -69,8 +69,8 @@
             <objects>
                 <viewController storyboardIdentifier="LayerTableViewController" id="6Bu-8d-dY7" customClass="LayerTableViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dlo-Ha-FF0"/>
-                        <viewControllerLayoutGuide type="bottom" id="7LN-p0-yDH"/>
+                        <viewControllerLayoutGuide type="top" id="TBn-ze-M6T"/>
+                        <viewControllerLayoutGuide type="bottom" id="1bO-uL-HtY"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="ZS3-UO-Ns9" userLabel="RootView" customClass="FuzzyTransparentView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -328,8 +328,8 @@
             <objects>
                 <viewController storyboardIdentifier="CameraOverlayViewController" id="q3g-yS-7KX" customClass="CameraOverlayViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Hbo-R6-vN7"/>
-                        <viewControllerLayoutGuide type="bottom" id="wOf-Xf-EJe"/>
+                        <viewControllerLayoutGuide type="top" id="qMj-Sp-frU"/>
+                        <viewControllerLayoutGuide type="bottom" id="t5P-AI-CU3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kga-kw-0MZ" customClass="CameraOverlayView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -382,8 +382,8 @@
             <objects>
                 <viewController storyboardIdentifier="PaintCollectionViewController" id="ZXj-eQ-u2Q" userLabel="Paint Collection View Controller" customClass="PaintCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QFQ-52-Ccu"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZNj-jS-9z1"/>
+                        <viewControllerLayoutGuide type="top" id="iQV-dt-dBP"/>
+                        <viewControllerLayoutGuide type="bottom" id="ezc-Zd-ivS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LAI-hU-cYN" userLabel="RootView" customClass="CylinderProjectRootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -441,7 +441,7 @@
                                         <accessibility key="accessibilityConfiguration" label="File"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Manager">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.2805156707" green="0.42989894810000001" blue="0.87804878050000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -457,7 +457,7 @@
                                         <accessibility key="accessibilityConfiguration" label="Copy"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Copy">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.84705882352941175" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -473,7 +473,7 @@
                                         <accessibility key="accessibilityConfiguration" label="Delete"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Delete">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="0.29411764705882354" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -489,7 +489,7 @@
                                         <accessibility key="accessibilityConfiguration" label="New"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="New">
-                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted">
@@ -522,8 +522,8 @@
             <objects>
                 <viewController storyboardIdentifier="MainScreenViewController" modalTransitionStyle="crossDissolve" id="jG0-h4-9bT" customClass="MainScreenViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uAQ-Ol-z8L"/>
-                        <viewControllerLayoutGuide type="bottom" id="9PW-7Y-TOa"/>
+                        <viewControllerLayoutGuide type="top" id="JlL-Iv-bSA"/>
+                        <viewControllerLayoutGuide type="bottom" id="8lp-jP-dtL"/>
                     </layoutGuides>
                     <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dgJ-29-5ZW" userLabel="MainScreenView" customClass="MainScreenView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -566,8 +566,8 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" id="WxM-lz-nlz" customClass="FirstScreenViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0oq-AD-4eu"/>
-                        <viewControllerLayoutGuide type="bottom" id="djc-H8-S9N"/>
+                        <viewControllerLayoutGuide type="top" id="VT1-Cr-I9Z"/>
+                        <viewControllerLayoutGuide type="bottom" id="aCp-QK-cGm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PeZ-06-8Ea">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -741,8 +741,8 @@
             <objects>
                 <viewController storyboardIdentifier="BrushPropertyViewController" id="KgQ-jx-DYl" customClass="BrushPropertyViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="f6K-pb-vsK"/>
-                        <viewControllerLayoutGuide type="bottom" id="mcs-5X-eCG"/>
+                        <viewControllerLayoutGuide type="top" id="jya-JW-Adu"/>
+                        <viewControllerLayoutGuide type="bottom" id="qOZ-1u-KSP"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="N3k-pB-f8l" customClass="BrushPropertyView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -753,7 +753,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.49019607843137253" green="0.50980392156862742" blue="0.54117647058823526" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-Tz-rdn" userLabel="ConfirmBar">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mBH-Tz-rdn" userLabel="ConfirmBar" customClass="CrystalGradientStyleView">
                                 <rect key="frame" x="0.0" y="797" width="256" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -784,7 +784,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <scrollView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAj-hf-8z3" userLabel="PropertyRootView">
                                 <rect key="frame" x="0.0" y="0.0" width="256" height="640"/>
@@ -1165,7 +1164,6 @@
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="T9t-Zn-Drt">
                                 <rect key="frame" x="0.0" y="638" width="256" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="pageIndicatorTintColor" red="0.49019607840000001" green="0.50980392159999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.1163608662" green="0.4799987033" blue="0.83026452279999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -1351,8 +1349,8 @@
             <objects>
                 <viewController storyboardIdentifier="paintScreen" title="paintScreen" modalTransitionStyle="crossDissolve" id="NUX-zI-YbL" userLabel="paintScreen" customClass="PaintScreen" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qYZ-RQ-kZQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="IYL-x1-uSQ"/>
+                        <viewControllerLayoutGuide type="top" id="jXv-h1-BTi"/>
+                        <viewControllerLayoutGuide type="bottom" id="fOr-Kq-n60"/>
                     </layoutGuides>
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="C2z-vc-haW" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -2348,8 +2346,8 @@
             <objects>
                 <viewController storyboardIdentifier="SwatchManagerViewController" id="7XC-Ar-vVC" customClass="SwatchManagerViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aB6-gS-Fyf"/>
-                        <viewControllerLayoutGuide type="bottom" id="2Ip-dt-wyr"/>
+                        <viewControllerLayoutGuide type="top" id="H5X-ML-kcL"/>
+                        <viewControllerLayoutGuide type="bottom" id="emE-5Y-EMY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ap9-H6-xeU">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -2655,8 +2653,8 @@
             <objects>
                 <viewController storyboardIdentifier="browse layer content" title="browse layer content" id="0tL-XA-Vv4" customClass="SelectLayerContentViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="b4l-o7-fpi"/>
-                        <viewControllerLayoutGuide type="bottom" id="FpJ-WB-fyf"/>
+                        <viewControllerLayoutGuide type="top" id="6c5-V9-Ji5"/>
+                        <viewControllerLayoutGuide type="bottom" id="vBr-ga-0Fb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ncI-r4-7h3">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -2693,8 +2691,8 @@
             <objects>
                 <viewController storyboardIdentifier="CylinderProjectSetupViewController" id="aok-N6-YRX" customClass="CylinderProjectSetupViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aXA-Xk-O4l"/>
-                        <viewControllerLayoutGuide type="bottom" id="QBG-lY-dCG"/>
+                        <viewControllerLayoutGuide type="top" id="5Hu-U9-282"/>
+                        <viewControllerLayoutGuide type="bottom" id="tPJ-bt-zS2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="g0Y-8B-BnS">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -2936,8 +2934,8 @@
             <objects>
                 <viewController storyboardIdentifier="CylinderProjectViewController" id="Ykg-qI-0AR" customClass="CylinderProjectViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Y48-GM-Unr"/>
-                        <viewControllerLayoutGuide type="bottom" id="SGj-wF-bhX"/>
+                        <viewControllerLayoutGuide type="top" id="ueA-ZF-yGx"/>
+                        <viewControllerLayoutGuide type="bottom" id="54U-Ao-vHK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h4g-78-CMY" userLabel="RootView" customClass="CylinderProjectRootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -2959,25 +2957,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="256" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="setupCylinder.png" translatesAutoresizingMaskIntoConstraints="NO" id="qUr-Cv-l1s">
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q5V-YY-5to" userLabel="SetupCylinderView" customClass="SetupCylinderView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
+                                            </view>
                                             <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cfW-wF-Fz4" userLabel="CylinderDiameter">
                                                 <rect key="frame" x="66" y="0.0" width="190" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Diameter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55X-Oc-W3E" userLabel="CylinderDiameterLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="60" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1On-Dl-NSe" userLabel="CylinderDiameterButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <state key="normal" title="adf"/>
+                                                        <state key="normal" title="adfadfadf"/>
                                                         <connections>
                                                             <action selector="userInputParamButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="oF0-ab-25p"/>
                                                         </connections>
@@ -2989,14 +2987,14 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgW-w2-KNm" userLabel="CylinderHeightLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="50" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i42-kf-iWd" userLabel="CylinderHeightButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3013,23 +3011,23 @@
                                         <rect key="frame" x="256" y="0.0" width="256" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="setupImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="NMf-ER-hHy">
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wlb-3A-UXq" userLabel="SetupCylinderView" customClass="SetupCylinderImageView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
+                                            </view>
                                             <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-5D-uKI" userLabel="ImageWidth">
                                                 <rect key="frame" x="66" y="0.0" width="190" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Width" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7VK-ge-8h2" userLabel="ImageWidthLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="60" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3d5-8i-B14" userLabel="ImageWidthButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3045,14 +3043,14 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVC-pV-Nty" userLabel="ImageHeightLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="50" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5u-7e-9Zn" userLabel="ImageHeightButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3069,23 +3067,23 @@
                                         <rect key="frame" x="512" y="0.0" width="256" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="setupEye.png" translatesAutoresizingMaskIntoConstraints="NO" id="MCJ-pe-iVe">
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRY-Wu-9lD" userLabel="SetupCylinderView" customClass="SetupEyeView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
+                                            </view>
                                             <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLH-Rl-3VI" userLabel="EyeDistance">
                                                 <rect key="frame" x="66" y="0.0" width="190" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esf-aZ-s2a" userLabel="EyeDistanceLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="60" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVY-ih-kio" userLabel="EyeDistanceButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3101,14 +3099,14 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGv-Cb-oTh" userLabel="EyeHeightLabel">
-                                                        <rect key="frame" x="0.0" y="14" width="50" height="21"/>
+                                                        <rect key="frame" x="0.0" y="14" width="100" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b03-DM-4Xa" userLabel="EyeHeightButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3119,25 +3117,35 @@
                                                     </button>
                                                 </subviews>
                                             </view>
-                                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-39-arf" userLabel="UnitZoom">
+                                        </subviews>
+                                    </view>
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymr-xf-1aF" userLabel="UnitZoomParams">
+                                        <rect key="frame" x="512" y="0.0" width="256" height="88"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXJ-f2-MLj" userLabel="SetupUnitZoomView" customClass="SetupEyeView">
+                                                <rect key="frame" x="0.0" y="11" width="66" height="66"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
+                                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zN4-dZ-BHf" userLabel="UnitZoom">
                                                 <rect key="frame" x="66" y="20" width="190" height="33"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w01-Ti-cS9" userLabel="UnitZoomLabel">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ya-mw-mT6" userLabel="UnitZoomLabel">
                                                         <rect key="frame" x="0.0" y="14" width="50" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gg-QZ-XG5" userLabel="UnitZoomButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="33"/>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22v-i6-tDY" userLabel="UnitZoomButton">
+                                                        <rect key="frame" x="0.0" y="19" width="170" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="userInputParamButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="zSL-X2-NtT"/>
+                                                            <action selector="userInputParamButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="UMJ-p8-VWM"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -3284,6 +3292,7 @@
                         <outlet property="eyeDistanceParam" destination="PLH-Rl-3VI" id="EGa-Oh-OfS"/>
                         <outlet property="eyeHeightButton" destination="b03-DM-4Xa" id="9Le-E5-Dxe"/>
                         <outlet property="eyeHeightParam" destination="Jkm-cL-zX5" id="F6H-Ye-91B"/>
+                        <outlet property="eyeParams" destination="LB6-9v-gmY" id="oZi-MD-CfA"/>
                         <outlet property="eyePerspectiveView" destination="q9m-wd-BDj" id="6kL-dn-wbv"/>
                         <outlet property="imageHeightButton" destination="M5u-7e-9Zn" id="jIS-ZO-zfH"/>
                         <outlet property="imageWidthButton" destination="3d5-8i-B14" id="7Ky-CT-6dt"/>
@@ -3294,8 +3303,8 @@
                         <outlet property="shareButton" destination="Q2U-zg-Mkm" id="F8w-Bj-Ffl"/>
                         <outlet property="topPerspectiveView" destination="853-Ud-5W7" id="1jG-6C-fMc"/>
                         <outlet property="topToolBar" destination="KoF-0M-tDF" id="DfV-Pe-KqP"/>
-                        <outlet property="unitZoomButton" destination="7gg-QZ-XG5" id="Qp9-T8-epZ"/>
-                        <outlet property="unitZoomParam" destination="9qf-39-arf" id="vf5-Iq-DIe"/>
+                        <outlet property="unitZoomButton" destination="22v-i6-tDY" id="pRh-0b-ZRV"/>
+                        <outlet property="unitZoomParams" destination="ymr-xf-1aF" id="l1a-32-1Ic"/>
                         <outlet property="valueSlider" destination="Uox-bE-dEd" id="JFy-xW-psT"/>
                         <outletCollection property="allViews" destination="jlQ-I2-QJ2" id="hiq-s8-E4B"/>
                         <outletCollection property="allViews" destination="nbv-5J-Y5R" id="zop-G3-uPH"/>
@@ -3305,7 +3314,7 @@
                         <outletCollection property="allUserInputParamButtons" destination="M5u-7e-9Zn" id="BS9-LA-yFy"/>
                         <outletCollection property="allUserInputParamButtons" destination="pVY-ih-kio" id="dpH-Iz-HHa"/>
                         <outletCollection property="allUserInputParamButtons" destination="b03-DM-4Xa" id="cGy-yB-mDd"/>
-                        <outletCollection property="allUserInputParamButtons" destination="7gg-QZ-XG5" id="UAV-Gw-ZL0"/>
+                        <outletCollection property="allUserInputParamButtons" destination="22v-i6-tDY" id="NPX-Iu-wjq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeZ-Fy-Wf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3322,8 +3331,8 @@
             <objects>
                 <glkViewController autoresizesArchivedViewToFullSize="NO" title="testGLKError" preferredFramesPerSecond="30" id="EXW-Mt-GnO" customClass="TestGLKViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="h7k-bz-dJx"/>
-                        <viewControllerLayoutGuide type="bottom" id="j2g-tm-wqD"/>
+                        <viewControllerLayoutGuide type="top" id="SmX-5y-T5R"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Qe-64-CvI"/>
                     </layoutGuides>
                     <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="VAa-E9-c6o">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -3342,8 +3351,8 @@
             <objects>
                 <viewController storyboardIdentifier="paintProjectViewController" id="BT0-tM-DS6" customClass="PaintProjectViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="93X-31-Um6"/>
-                        <viewControllerLayoutGuide type="bottom" id="Mea-ey-ouP"/>
+                        <viewControllerLayoutGuide type="top" id="w9Y-OS-ZWU"/>
+                        <viewControllerLayoutGuide type="bottom" id="d1l-iH-JDr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="W2X-PX-Nva" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -3612,8 +3621,8 @@
             <objects>
                 <viewController storyboardIdentifier="AdjustImageViewController" id="VCU-yh-TwP" customClass="AdjustImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ICl-6C-RCh"/>
-                        <viewControllerLayoutGuide type="bottom" id="RGj-nd-8su"/>
+                        <viewControllerLayoutGuide type="top" id="5NZ-eC-yE4"/>
+                        <viewControllerLayoutGuide type="bottom" id="gri-jY-xk3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wPl-aT-hsE" userLabel="View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -3666,8 +3675,8 @@
             <objects>
                 <viewController storyboardIdentifier="AdjustSceneViewController" id="lj8-rn-x2R" customClass="AdjustSceneViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CyZ-Gt-ECM"/>
-                        <viewControllerLayoutGuide type="bottom" id="k0P-Gv-u3W"/>
+                        <viewControllerLayoutGuide type="top" id="tDG-am-YLi"/>
+                        <viewControllerLayoutGuide type="bottom" id="g9x-vD-XWL"/>
                     </layoutGuides>
                     <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jRf-v3-x7m" userLabel="AdjustSceneView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>

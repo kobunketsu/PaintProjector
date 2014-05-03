@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, ScaleMode) {
 //GLKViewDelegate, 
 //GLKViewControllerDelegate,
 UIPopoverControllerDelegate,
-UIImagePickerControllerDelegate, 
+UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,

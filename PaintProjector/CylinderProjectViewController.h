@@ -157,7 +157,7 @@ InAppPurchaseTableViewControllerDelegate
 #pragma mark- main category
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
 @property (weak, nonatomic) IBOutlet DownToolBar *downToolBar;
-@property (weak, nonatomic) IBOutlet UIView *topToolBar;
+@property (weak, nonatomic) IBOutlet TopToolBar *topToolBar;
 
 #pragma mark- viewMode
 
@@ -179,9 +179,10 @@ InAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UIButton *setupButton;
 @property (weak, nonatomic) IBOutlet UISlider *valueSlider;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *allUserInputParamButtons;
+@property (weak, nonatomic) IBOutlet UIView *eyeParams;
 @property (weak, nonatomic) IBOutlet UIView *eyeDistanceParam;
 @property (weak, nonatomic) IBOutlet UIView *eyeHeightParam;
-@property (weak, nonatomic) IBOutlet UIView *unitZoomParam;
+@property (weak, nonatomic) IBOutlet UIView *unitZoomParams;
 @property (weak, nonatomic) IBOutlet UIButton *cylinderDiameterButton;
 @property (weak, nonatomic) IBOutlet UIButton *cylinderHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton *imageWidthButton;

@@ -31,7 +31,7 @@
 "4vr-ew-gM4.accessibilityLabel" = "PaintToolBar";
 
 /* Class = "IBUILabel"; text = "Diameter"; ObjectID = "55X-Oc-W3E"; */
-"55X-Oc-W3E.text" = "Diameter";
+"55X-Oc-W3E.text" = "圆柱直径";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "5Ku-X4-eXF"; */
 "5Ku-X4-eXF.text" = "Label";
@@ -44,7 +44,7 @@
 "5gW-bx-Ggp.text" = "Radius : 10";
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "5hn-gz-xkw"; */
-"5hn-gz-xkw.text" = "Width";
+"5hn-gz-xkw.text" = "宽度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "UsingBrush"; ObjectID = "6ac-sw-jok"; */
 "6ac-sw-jok.accessibilityLabel" = "UsingBrush";
@@ -60,7 +60,7 @@
 "7Ux-Cz-bnn.text" = "Draw Package";
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "7VK-ge-8h2"; */
-"7VK-ge-8h2.text" = "Width";
+"7VK-ge-8h2.text" = "图片宽度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "853-Ud-5W7"; */
 "853-Ud-5W7.accessibilityLabel" = "Print";
@@ -69,7 +69,7 @@
 "853-Ud-5W7.normalTitle" = "顶 视";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "9SY-4H-8aQ"; */
-"9SY-4H-8aQ.text" = "Height";
+"9SY-4H-8aQ.text" = "圆柱高度";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "AGT-zO-b7c"; */
 "AGT-zO-b7c.text" = "Label";
@@ -106,7 +106,7 @@
 "El4-ji-yc7.text" = "散布";
 
 /* Class = "IBUILabel"; text = "Distance"; ObjectID = "Esf-aZ-s2a"; */
-"Esf-aZ-s2a.text" = "Distance";
+"Esf-aZ-s2a.text" = "视点距离差";
 
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "Fhb-Nh-7Gn"; */
 "Fhb-Nh-7Gn.text" = "抖动";
@@ -190,10 +190,10 @@
 "SUm-Ok-EUw.text" = "半径";
 
 /* Class = "IBUILabel"; text = "Center"; ObjectID = "TVC-pV-Nty"; */
-"TVC-pV-Nty.text" = "Center";
+"TVC-pV-Nty.text" = "图片中心高度";
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "UCq-ya-b9O"; */
-"UCq-ya-b9O.text" = "Width";
+"UCq-ya-b9O.text" = "图片宽度";
 
 /* Class = "IBUILabel"; text = "Round"; ObjectID = "V3f-2e-X2y"; */
 "V3f-2e-X2y.text" = "圆度";
@@ -233,10 +233,10 @@
 "bFr-4g-lOC.text" = "湿度";
 
 /* Class = "IBUILabel"; text = "Center"; ObjectID = "bTv-u9-bUV"; */
-"bTv-u9-bUV.text" = "Center";
+"bTv-u9-bUV.text" = "图片中心高度";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "bgW-w2-KNm"; */
-"bgW-w2-KNm.text" = "Height";
+"bgW-w2-KNm.text" = "圆柱高度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "BackgroundColor"; ObjectID = "boW-yU-zeM"; */
 "boW-yU-zeM.accessibilityLabel" = "BackgroundColor";
@@ -257,7 +257,7 @@
 "e4z-wS-yaC.text" = "Opacity : 1";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "e9e-lK-6Qk"; */
-"e9e-lK-6Qk.text" = "Height";
+"e9e-lK-6Qk.text" = "视点高度差";
 
 /* Class = "IBUILabel"; text = "Grid"; ObjectID = "eCY-MG-Cu5"; */
 "eCY-MG-Cu5.text" = "Grid";
@@ -291,7 +291,7 @@
 "fT3-TN-s92.text" = "杂色";
 
 /* Class = "IBUILabel"; text = "Zoom"; ObjectID = "fZE-q2-4Qc"; */
-"fZE-q2-4Qc.text" = "Zoom";
+"fZE-q2-4Qc.text" = "缩放";
 
 /* Class = "IBUIButton"; accessibilityLabel = "BackupBrush"; ObjectID = "gFo-DV-QR3"; */
 "gFo-DV-QR3.accessibilityLabel" = "BackupBrush";
@@ -300,10 +300,10 @@
 "gGf-qI-5rr.text" = "Roll";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "gGv-Cb-oTh"; */
-"gGv-Cb-oTh.text" = "Height";
+"gGv-Cb-oTh.text" = "视点高度差";
 
 /* Class = "IBUILabel"; text = "Distance"; ObjectID = "gNO-uE-8VL"; */
-"gNO-uE-8VL.text" = "Distance";
+"gNO-uE-8VL.text" = "视点距离差";
 
 /* Class = "IBUIButton"; accessibilityLabel = "ClearLayer"; ObjectID = "gYK-6m-KN5"; */
 "gYK-6m-KN5.accessibilityLabel" = "ClearLayer";
@@ -325,7 +325,7 @@
 "iQ2-mh-xrv.accessibilityLabel" = "Canvas";
 
 /* Class = "IBUILabel"; text = "Diameter"; ObjectID = "ikv-FI-as6"; */
-"ikv-FI-as6.text" = "Diameter";
+"ikv-FI-as6.text" = "圆柱直径";
 
 /* Class = "IBUIButton"; accessibilityLabel = "CopyLayer"; ObjectID = "kt2-vx-Hrw"; */
 "kt2-vx-Hrw.accessibilityLabel" = "CopyLayer";
@@ -369,8 +369,8 @@
 /* Class = "IBUILabel"; text = "Warning"; ObjectID = "v7y-QT-zde"; */
 "v7y-QT-zde.text" = "Warning";
 
-/* Class = "IBUILabel"; text = "Zoom"; ObjectID = "w01-Ti-cS9"; */
-"w01-Ti-cS9.text" = "Zoom";
+/* Class = "IBUILabel"; text = "Zoom"; ObjectID = "5Ya-mw-mT6"; */
+"5Ya-mw-mT6.text" = "缩放";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Draw"; ObjectID = "w1V-2I-Uqb"; */
 "w1V-2I-Uqb.accessibilityLabel" = "Draw";
@@ -405,3 +405,6 @@
 
 /* Class = "IBUIBarButtonItem"; title = "Save"; ObjectID = "zCG-rb-cGy"; */
 "zCG-rb-cGy.title" = "Save";
+
+/* Class = "IBUIButton"; normalTitle = "Cylinder"; ObjectID = "q59-it-eqX"; */
+"q59-it-eqX.normalTitle" = "圆柱";

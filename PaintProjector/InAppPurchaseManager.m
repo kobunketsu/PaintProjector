@@ -284,6 +284,10 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
     
     if ([productIdentifier isEqualToString:@"ProVersionPackage"]) {
+        
+        DebugLog(@"专业版提供Anamorphosis参数调整");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+        
         DebugLog(@"专业版提供16层图层");
         [[NSUserDefaults standardUserDefaults] setInteger:16 forKey:@"LayerQuantityLimitation"];
         
@@ -292,6 +296,8 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         
         DebugLog(@"专业版提供调色板管理");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
+        
+        
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];

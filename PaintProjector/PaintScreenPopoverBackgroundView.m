@@ -7,11 +7,13 @@
 //
 
 #import "PaintScreenPopoverBackgroundView.h"
+#import "PaintUIKitStyle.h"
+#import "SharedPopoverArrowView.h"
 
 #define CONTENT_INSET 0
 #define CAP_INSET 25.0
-#define ARROW_BASE 10.0
-#define ARROW_HEIGHT 10.0
+#define ARROW_BASE 22
+#define ARROW_HEIGHT 5.0
 
 @implementation PaintScreenPopoverBackgroundView
 
@@ -22,25 +24,29 @@
         // Initialization code
         _borderImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"popover-bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(CAP_INSET,CAP_INSET,CAP_INSET,CAP_INSET)]];
         
-        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popover-arrow.png"]];
+//        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"popover-arrow.png"]];
+        _arrowView = [[SharedPopoverArrowView alloc]initWithFrame:CGRectMake(0, 0, ARROW_BASE, ARROW_HEIGHT)];
+        _arrowView.opaque = false;
         
         [self addSubview:_borderImageView];
         [self addSubview:_arrowView];
         
         self.opaque = false;
         self.alpha = 0.8;
+        self.layer.shadowColor = [UIColor colorWithRed: 0.3 green: 0.28 blue: 0.28 alpha: 0.3].CGColor;
+
     }
     return self;
 }
 
-/*
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+//- (void)drawRect:(CGRect)rect
+//{
+//    // Drawing code
+//}
+
 
 - (CGFloat) arrowOffset {
     return _arrowOffset;

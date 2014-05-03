@@ -17,6 +17,7 @@
 #import "BBXBeeblex.h"
 #import "iRate.h"
 
+//#define DEBUG 1
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -49,15 +50,24 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
     }
     
+#if DEBUG
+    //设置用户参数
+    [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+    
+#else
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
         //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
         [self copyCollectionFromMainBundleToUserDocument];
-        
+
         //设置用户参数
         [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"LayerQuantityLimitation"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
-        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
+
         // 這裡判斷是否第一次
         UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"
                                                         message:@"進入App"
@@ -66,7 +76,7 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
-
+#endif
     
     //初始化IAP商店
     [[AnaDrawIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];

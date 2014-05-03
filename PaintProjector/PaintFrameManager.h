@@ -17,6 +17,8 @@
 
 -(void)insertNewPaintDocAtCurIndex;
 
+-(void)insertNewPaintDocAtIndex:(NSInteger)index;
+
 -(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc;
 
 -(void)insertCopyPaintDocAtIndices:(NSArray *)indices;
