@@ -308,10 +308,10 @@
 		for (AVCaptureConnection *connection in videoOutput.connections)
 		{
 			if ([connection respondsToSelector:@selector(setVideoMinFrameDuration:)])
-				connection.videoMinFrameDuration = CMTimeMake(1, _frameRate);
+				connection.videoMinFrameDuration = CMTimeMake(1, (int32_t)_frameRate);
 			
 			if ([connection respondsToSelector:@selector(setVideoMaxFrameDuration:)])
-				connection.videoMaxFrameDuration = CMTimeMake(1, _frameRate);
+				connection.videoMaxFrameDuration = CMTimeMake(1, (int32_t)_frameRate);
 		}
 	}
 	else
@@ -355,8 +355,8 @@
     
     CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
     CVImageBufferRef cameraFrame = CMSampleBufferGetImageBuffer(sampleBuffer);
-    int bufferWidth = CVPixelBufferGetWidth(cameraFrame);
-    int bufferHeight = CVPixelBufferGetHeight(cameraFrame);
+    int bufferWidth = (int)CVPixelBufferGetWidth(cameraFrame);
+    int bufferHeight = (int)CVPixelBufferGetHeight(cameraFrame);
     
 	CMTime currentTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
 
@@ -438,7 +438,7 @@
         // Using BGRA extension to pull in video frame data directly
         // The use of bytesPerRow / 4 accounts for a display glitch present in preview video frames when using the photo preset on the camera
         size_t bytesPerRow = CVPixelBufferGetBytesPerRow(cameraFrame);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(cameraFrame));
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)bytesPerRow / 4, bufferHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, CVPixelBufferGetBaseAddress(cameraFrame));
         
         for (id<GPUImageInput> currentTarget in targets)
         {

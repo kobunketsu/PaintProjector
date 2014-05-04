@@ -14,6 +14,8 @@
 #import "UnitConverter.h"
 #import "AnaDrawIAPManager.h"
 #import "PaintUIKitAnimation.h"
+#import "NSString+Unit.h"
+#import "AssetDatabase.h"
 
 @interface CylinderProjectViewController ()
 //TODO: deprecated
@@ -54,8 +56,8 @@
     DebugLog(@"[ viewWillAppear ]");
     //用于解决启动闪黑屏的问题
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
+    [self setupBaseParams];
     
-    DebugLog(@"setupInputParams");
     [self setupInputParams];
     
     [self setupGL];
@@ -133,6 +135,9 @@
     
     [self addObserver:self forKeyPath:@"eyeTop" options:NSKeyValueObservingOptionOld context:nil];
     
+    //test
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/sphere" ofType:@"obj"];
+    [AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
 }
 
 - (void)viewDidUnload{
@@ -163,6 +168,8 @@
 
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
+    sender.selected = true;
+    
     //do some work
     if (self.topPerspectiveView.hidden) {
         self.topPerspectiveView.hidden = false;
@@ -204,7 +211,6 @@
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
-        [(AutoRotateButton*)sender setHighlighted:false];
         sender.selected = !sender.selected;
         
         if (sender.selected) {
@@ -225,16 +231,21 @@
 //}
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+    sender.selected = true;
+    
     [self share];
 }
 
 - (IBAction)infoButtonTouchUp:(UIButton *)sender {
+    sender.selected = true;
+    
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
     [self productInfo];
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
+    sender.selected = true;
+    
     //do some work
     if (self.topPerspectiveView.hidden) {
         self.topPerspectiveView.hidden = false;
@@ -322,10 +333,11 @@
     shareTableViewController.preferredContentSize = CGSizeMake(320, shareTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:shareTableViewController];
+    self.sharedPopoverController.delegate = self;
     CGRect rect = CGRectMake(self.shareButton.bounds.origin.x, self.shareButton.bounds.origin.y, self.shareButton.bounds.size.width, self.shareButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
-#pragma mark- share Delegate
+#pragma mark- 分享 share Delegate
 -(void) didSelectPostToFacebook {
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -392,7 +404,7 @@
         [self.sharedPopoverController dismissPopoverAnimated:true];
     }];
 }
-#pragma mark- Email Delegate
+#pragma mark- 邮件代理 Email Delegate
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     if(result == MFMailComposeResultCancelled)
@@ -444,13 +456,7 @@
 //}
 
 - (void)setupAnamorphParams{
-//    self.topToolBar.hidden = false;
-//    self.topToolBar.alpha = 0;
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.topToolBar.alpha = 1;
-//    }completion:^(BOOL finished) {
-//    }];
-    
+
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
         
     }];
@@ -459,13 +465,6 @@
 - (void)setupAnamorphParamsDone{
     //恢复到初始状态
     [self resetInputParams];
-    
-//    self.topToolBar.alpha = 1;
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.topToolBar.alpha = 0;
-//        self.topToolBar.hidden = true;
-//    }completion:^(BOOL finished) {
-//    }];
     
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:^{
         
@@ -523,11 +522,11 @@
         maxValue = 3.5;
     }
     else if ([sender isEqual:self.eyeHeightButton]) {
-        userInputParamKey = @"userInputParams.eyeHonrizontalDistance";
+        userInputParamKey = @"userInputParams.eyeVerticalHeight";
         minValue = 0.35;
         maxValue = 3.5;
     }
-    else if ([sender isEqual:self.unitZoomButton]) {
+    else if ([sender isEqual:self.projectZoomButton]) {
         userInputParamKey = @"userInputParams.unitZoom";
         minValue = 0.01;
         maxValue = 1;
@@ -574,6 +573,14 @@
     
     TPPropertyAnimation* propAnim = animClip.propertyAnimations.firstObject;
     propAnim.delegate = self.parentViewController;
+    [propAnim setCompletionBlock:^{
+        for (UIButton *button in self.allUserInputParamButtons) {
+            button.selected = false;
+        }
+        [self closeUserInputParamValueSlider];
+        
+        [self flushUIUserInputParams];
+    }];
     
     self.resetAnimation = [Animation animationWithAnimClip:animClip];
     self.resetAnimation.target = self;
@@ -592,10 +599,11 @@
     productInfoTableViewController.preferredContentSize = CGSizeMake(320, productInfoTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:productInfoTableViewController];
+    self.sharedPopoverController.delegate = self;
     [self.sharedPopoverController presentPopoverFromRect:self.infoButton.bounds inView:self.infoButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-#pragma mark- share Delegate
+#pragma mark- 产品信息代理 info Delegate
 
 - (void) willOpenWelcomGuideURL{
     NSURL *url = [NSURL URLWithString:@"https://kobunketsu.wordpress.com"];
@@ -701,7 +709,14 @@
     [self removeObserver:self forKeyPath:@"userInputParams.eyeTopZ"];
 }
 
+- (void)setupBaseParams{
+    DebugLog(@"setupBaseParams");    
+    //顶视图视口比例
+    self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / (self.projectView.bounds.size.height + ToSeeCylinderTopPixelOffset));
+}
+
 - (void)setupInputParams{
+    DebugLog(@"setupInputParams");
     //根据ipad2的尺寸进行设定
     CylinderProjectUserInputParams *userInputParams = [[CylinderProjectUserInputParams alloc]init];
     
@@ -732,38 +747,36 @@
 }
 
 -(void)flushUIUserInputParams{
-    USUnit unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderDiameter];
-    [self.cylinderDiameterButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.cylinderDiameterButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.cylinderDiameterButton setTitle:[NSString unitStringFromFloat:self.userInputParams.cylinderDiameter] forState:UIControlStateNormal];
+    [self.cylinderDiameterButton setTitle:[NSString unitStringFromFloat:self.userInputParams.cylinderDiameter] forState:UIControlStateSelected];
     
-    unit = [UnitConverter usUnitFromMeter:self.userInputParams.cylinderHeight];
-    [self.cylinderHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.cylinderHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.cylinderHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.cylinderHeight] forState:UIControlStateNormal];
+    [self.cylinderHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.cylinderHeight] forState:UIControlStateSelected];
+
+    [self.imageWidthButton setTitle:[NSString unitStringFromFloat:self.userInputParams.imageWidth] forState:UIControlStateNormal];
+    [self.imageWidthButton setTitle:[NSString unitStringFromFloat:self.userInputParams.imageWidth] forState:UIControlStateSelected];
     
-    unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageWidth];
-    [self.imageWidthButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.imageWidthButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.imageHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.imageCenterOnSurfHeight] forState:UIControlStateNormal];
+    [self.imageHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.imageCenterOnSurfHeight] forState:UIControlStateSelected];
     
-    unit = [UnitConverter usUnitFromMeter:self.userInputParams.imageCenterOnSurfHeight];
-    [self.imageHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.imageHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.eyeDistanceButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeHonrizontalDistance] forState:UIControlStateNormal];
+    [self.eyeDistanceButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeHonrizontalDistance] forState:UIControlStateSelected];
     
-    unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeHonrizontalDistance];
-    [self.eyeDistanceButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.eyeDistanceButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateNormal];
+    [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateSelected];
+
+    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateNormal];
+    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateSelected];
     
-    unit = [UnitConverter usUnitFromMeter:self.userInputParams.eyeVerticalHeight];
-    [self.eyeHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateNormal];
-    [self.eyeHeightButton setTitle:[NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch] forState:UIControlStateSelected];
+    [self.projectWidthButton setTitle:[NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom] forState:UIControlStateNormal];
+    [self.projectWidthButton setTitle:[NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom] forState:UIControlStateSelected];
     
-    [self.unitZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateNormal];
-    [self.unitZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateSelected];
+    [self.projectHeightButton setTitle:[NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom] forState:UIControlStateNormal];
+    [self.projectHeightButton setTitle:[NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom] forState:UIControlStateSelected];
 }
 
 -(void)initSceneCameras{
     //eyeBottom should be output of userInputParams
-    //顶视图视口比例
-    self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / (self.projectView.bounds.size.height + ToSeeCylinderTopPixelOffset));
     
     Camera.mainCamera.name = @"mainCamera";
     Camera.mainCamera.position = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
@@ -1734,6 +1747,8 @@
     transitionImageView.alpha = 1;
     
     [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
+        self.paintButton.selected = false;
+        
         self.cylinderProjectCur.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:true];
         
         self.cylinder.reflectionStrength = 0;
@@ -1793,9 +1808,12 @@
     [Camera.mainCamera.animation play];
 
     //setup
-    self.eyeParams.hidden = false;
-    self.unitZoomParams.hidden = true;
-
+    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = true;
+    UIColor *color = [UIColor colorWithRed:72/255.0 green:110/255.0 blue:224/255.0 alpha:1];
+    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateNormal];
+    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateHighlighted];
+    [self.eyeHeightButton setTitleColor:color forState:UIControlStateNormal];
+    [self.eyeHeightButton setTitleColor:color forState:UIControlStateHighlighted];
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
@@ -1808,8 +1826,11 @@
     [Camera.mainCamera.animation play];
 
     //setup
-    self.eyeParams.hidden = true;
-    self.unitZoomParams.hidden = false;
+    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = false;
+    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 }
 
 #pragma mark- 打印Print
@@ -1900,6 +1921,16 @@
             
         default:
             break;
+    }
+}
+
+#pragma mark- 弹出框代理 UIPopoverViewControllerDelegate
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    if([popoverController.contentViewController isKindOfClass:[ShareTableViewController class]]){
+        self.shareButton.selected = false;
+    }
+    else if([popoverController.contentViewController isKindOfClass:[ProductInfoTableViewController class]]){
+        self.infoButton.selected = false;
     }
 }
 @end

@@ -98,6 +98,7 @@ typedef void(^MyCompletionBlock)(void);
 GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 UIViewControllerTransitioningDelegate,
+UIPopoverControllerDelegate,
 SKProductsRequestDelegate,
 UIAlertViewDelegate,
 MFMailComposeViewControllerDelegate,
@@ -182,14 +183,16 @@ InAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UIView *eyeParams;
 @property (weak, nonatomic) IBOutlet UIView *eyeDistanceParam;
 @property (weak, nonatomic) IBOutlet UIView *eyeHeightParam;
-@property (weak, nonatomic) IBOutlet UIView *unitZoomParams;
+@property (weak, nonatomic) IBOutlet UIView *projectParams;
 @property (weak, nonatomic) IBOutlet UIButton *cylinderDiameterButton;
 @property (weak, nonatomic) IBOutlet UIButton *cylinderHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton *imageWidthButton;
 @property (weak, nonatomic) IBOutlet UIButton *imageHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton *eyeDistanceButton;
 @property (weak, nonatomic) IBOutlet UIButton *eyeHeightButton;
-@property (weak, nonatomic) IBOutlet UIButton *unitZoomButton;
+@property (weak, nonatomic) IBOutlet UIButton *projectWidthButton;
+@property (weak, nonatomic) IBOutlet UIButton *projectHeightButton;
+@property (weak, nonatomic) IBOutlet UIButton *projectZoomButton;
 - (IBAction)setupButtonTouchUp:(UIButton *)sender;
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender;
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender;
@@ -206,10 +209,13 @@ InAppPurchaseTableViewControllerDelegate
 - (void)transitionToPaint;
 
 #pragma mark- file action
+@property (weak, nonatomic) IBOutlet UIButton *galleryButton;
 @property (weak, nonatomic) IBOutlet PlayButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *paintButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *infoButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *downTooBarButtons;
+
 
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender;
 - (IBAction)paintButtonTouchUp:(UIButton *)sender;

@@ -269,6 +269,14 @@
 		080BD0D91645FDC000B37C01 /* SelectBrushButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0D81645FDC000B37C01 /* SelectBrushButton.m */; };
 		080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0DC164601B400B37C01 /* EyeDropper.m */; };
 		080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080D245D18B6E5C400161756 /* StoreKit.framework */; };
+		0813AA1F19167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
+		0813AA2019167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
+		0813AA2519167C07000C4D00 /* ModelEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2419167C07000C4D00 /* ModelEntity.m */; };
+		0813AA2619167C07000C4D00 /* ModelEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2419167C07000C4D00 /* ModelEntity.m */; };
+		0813AA2919167C27000C4D00 /* AssetDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2819167C27000C4D00 /* AssetDatabase.m */; };
+		0813AA2A19167C27000C4D00 /* AssetDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2819167C27000C4D00 /* AssetDatabase.m */; };
+		0813AA2D19168C94000C4D00 /* VertexCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2C19168C94000C4D00 /* VertexCommon.m */; };
+		0813AA2E19168C94000C4D00 /* VertexCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2C19168C94000C4D00 /* VertexCommon.m */; };
 		0814743C18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0814743D18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0815334817D3809300A45B54 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
@@ -412,6 +420,8 @@
 		086BF7C9189E3F290066C1F2 /* Mesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C8189E3F290066C1F2 /* Mesh.m */; };
 		086F8EDE1728AE2F0024289C /* ExportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ExportTableViewController.m */; };
 		08701169177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m */; };
+		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
+		087103091914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		0871D02A1812A27400A0D037 /* Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D0291812A27400A0D037 /* Crayons.m */; };
 		0871D02F1812A32B00A0D037 /* EraserSoft.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D02E1812A32B00A0D037 /* EraserSoft.m */; };
 		0871D0321812A3DA00A0D037 /* InkPen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D0311812A3DA00A0D037 /* InkPen.m */; };
@@ -419,6 +429,14 @@
 		0871D03B1812A7BF00A0D037 /* AirBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D03A1812A7BF00A0D037 /* AirBrush.m */; };
 		0871D03E1812A92700A0D037 /* MarkerSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D03D1812A92700A0D037 /* MarkerSquare.m */; };
 		0871E937176621450046D505 /* CommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871E936176621450046D505 /* CommandManager.m */; };
+		0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */; };
+		0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */; };
+		0872BA481915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; };
+		0872BA491915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; };
+		0872BA4A1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */; };
+		0872BA4B1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */; };
+		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
+		0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
 		087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
 		087751BB180450B20034FEA7 /* CustomLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087751BA180450B20034FEA7 /* CustomLayer.m */; };
@@ -1094,6 +1112,13 @@
 		080BD0DB164601B400B37C01 /* EyeDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropper.h; sourceTree = "<group>"; };
 		080BD0DC164601B400B37C01 /* EyeDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropper.m; sourceTree = "<group>"; };
 		080D245D18B6E5C400161756 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		0813AA1E19167BD4000C4D00 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = PaintProjector/Models; sourceTree = "<group>"; };
+		0813AA2319167C07000C4D00 /* ModelEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelEntity.h; path = PaintProjector/ModelEntity.h; sourceTree = "<group>"; };
+		0813AA2419167C07000C4D00 /* ModelEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelEntity.m; path = PaintProjector/ModelEntity.m; sourceTree = "<group>"; };
+		0813AA2719167C27000C4D00 /* AssetDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssetDatabase.h; path = PaintProjector/AssetDatabase.h; sourceTree = "<group>"; };
+		0813AA2819167C27000C4D00 /* AssetDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetDatabase.m; path = PaintProjector/AssetDatabase.m; sourceTree = "<group>"; };
+		0813AA2B19168C94000C4D00 /* VertexCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VertexCommon.h; path = PaintProjector/VertexCommon.h; sourceTree = "<group>"; };
+		0813AA2C19168C94000C4D00 /* VertexCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VertexCommon.m; path = PaintProjector/VertexCommon.m; sourceTree = "<group>"; };
 		0814743A18B19A5C00BBC25A /* AnimationClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationClip.h; path = PaintProjector/AnimationClip.h; sourceTree = "<group>"; };
 		0814743B18B19A5C00BBC25A /* AnimationClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationClip.m; path = PaintProjector/AnimationClip.m; sourceTree = "<group>"; };
 		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
@@ -1318,6 +1343,8 @@
 		086F8EDD1728AE2F0024289C /* ExportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportTableViewController.m; sourceTree = "<group>"; };
 		08701167177B2C0000C2EE66 /* LayerBlendModeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewCell.h; sourceTree = "<group>"; };
 		08701168177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
+		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
+		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
 		0871D0281812A27400A0D037 /* Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crayons.h; sourceTree = "<group>"; };
 		0871D0291812A27400A0D037 /* Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crayons.m; sourceTree = "<group>"; };
 		0871D02D1812A32B00A0D037 /* EraserSoft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EraserSoft.h; sourceTree = "<group>"; };
@@ -1333,6 +1360,16 @@
 		0871E935176621450046D505 /* CommandManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandManager.h; sourceTree = "<group>"; };
 		0871E936176621450046D505 /* CommandManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandManager.m; sourceTree = "<group>"; };
 		08728FB5180242B700866441 /* chineseBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chineseBrush.png; sourceTree = "<group>"; };
+		0872BA3D1915C80700559E96 /* OpenGLTexture3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLTexture3D.h; path = OpenGLWaveFrontObj/OpenGLTexture3D.h; sourceTree = "<group>"; };
+		0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLTexture3D.m; path = OpenGLWaveFrontObj/OpenGLTexture3D.m; sourceTree = "<group>"; };
+		0872BA3F1915C80700559E96 /* OpenGLWaveFrontCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontCommon.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontCommon.h; sourceTree = "<group>"; };
+		0872BA401915C80700559E96 /* OpenGLWaveFrontMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontMaterial.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontMaterial.h; sourceTree = "<group>"; };
+		0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontMaterial.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontMaterial.m; sourceTree = "<group>"; };
+		0872BA421915C80700559E96 /* OpenGLWaveFrontMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontMesh.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontMesh.h; sourceTree = "<group>"; };
+		0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontMesh.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontMesh.m; sourceTree = "<group>"; };
+		0872BA441915C80700559E96 /* OpenGLWaveFrontObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontObject.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.h; sourceTree = "<group>"; };
+		0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontObject.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.m; sourceTree = "<group>"; };
+		0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstantsAndMacros.h; path = OpenGLWaveFrontObj/ConstantsAndMacros.h; sourceTree = "<group>"; };
 		087395B716BE8A8C00E6968B /* HandleGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleGestureRecognizer.h; sourceTree = "<group>"; };
 		087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleGestureRecognizer.m; sourceTree = "<group>"; };
 		0875424F1814A73400810509 /* brush_dryTip_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush_dryTip_64.png; sourceTree = "<group>"; };
@@ -2205,6 +2242,23 @@
 			name = Localize;
 			sourceTree = "<group>";
 		};
+		0872BA281915C6FB00559E96 /* WaveFrontObj */ = {
+			isa = PBXGroup;
+			children = (
+				0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */,
+				0872BA3D1915C80700559E96 /* OpenGLTexture3D.h */,
+				0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */,
+				0872BA3F1915C80700559E96 /* OpenGLWaveFrontCommon.h */,
+				0872BA401915C80700559E96 /* OpenGLWaveFrontMaterial.h */,
+				0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */,
+				0872BA421915C80700559E96 /* OpenGLWaveFrontMesh.h */,
+				0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */,
+				0872BA441915C80700559E96 /* OpenGLWaveFrontObject.h */,
+				0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */,
+			);
+			name = WaveFrontObj;
+			sourceTree = "<group>";
+		};
 		087C5AB616B2DC91005F954A /* Brush */ = {
 			isa = PBXGroup;
 			children = (
@@ -2448,6 +2502,7 @@
 		08E251BA189CC6AC0039AAC2 /* RenderEngine */ = {
 			isa = PBXGroup;
 			children = (
+				0872BA281915C6FB00559E96 /* WaveFrontObj */,
 				08F280BF189E76BF00DF744C /* Primitives */,
 				082060E7189D4DA90027247C /* ToDeprecate */,
 				08A3F3D91850A756007922D2 /* GLWrapper.h */,
@@ -2460,6 +2515,10 @@
 				08A5CBB5189F36B300F4E226 /* Component.m */,
 				082060D7189D44E40027247C /* Entity.h */,
 				082060D8189D44E40027247C /* Entity.m */,
+				0813AA2319167C07000C4D00 /* ModelEntity.h */,
+				0813AA2419167C07000C4D00 /* ModelEntity.m */,
+				0813AA2719167C27000C4D00 /* AssetDatabase.h */,
+				0813AA2819167C27000C4D00 /* AssetDatabase.m */,
 				08E251AB189CAA340039AAC2 /* Material.h */,
 				08E251AC189CAA340039AAC2 /* Material.m */,
 				08E251B2189CBC5C0039AAC2 /* Shader.h */,
@@ -2470,6 +2529,8 @@
 				082060D0189D38E40027247C /* Renderer.m */,
 				086BF7C4189E3D730066C1F2 /* MeshRenderer.h */,
 				086BF7C5189E3D730066C1F2 /* MeshRenderer.m */,
+				0813AA2B19168C94000C4D00 /* VertexCommon.h */,
+				0813AA2C19168C94000C4D00 /* VertexCommon.m */,
 				086BF7C7189E3F290066C1F2 /* Mesh.h */,
 				086BF7C8189E3F290066C1F2 /* Mesh.m */,
 				086BF7BF189E3CF50066C1F2 /* MeshFilter.h */,
@@ -2640,6 +2701,7 @@
 				08B444B0175AEC9F00787C18 /* Misc */,
 				08CAFECA17C9B5BD0097B2A4 /* Collection */,
 				0897D7D8187C43CF00A7ECD2 /* Shaders */,
+				0813AA1E19167BD4000C4D00 /* Models */,
 				08E251BA189CC6AC0039AAC2 /* RenderEngine */,
 				082439D716CCAE2100FC12BA /* Images */,
 				9C60DA8214E5308600442413 /* Categories */,
@@ -2755,6 +2817,8 @@
 				08696F291806229D00FB16A5 /* UIImage+Pixel.m */,
 				084228A418A7CADA0046BA61 /* UIView+Tag.h */,
 				084228A518A7CADA0046BA61 /* UIView+Tag.m */,
+				087103061914B1390030A5BF /* NSString+Unit.h */,
+				087103071914B1390030A5BF /* NSString+Unit.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -2920,6 +2984,7 @@
 				08086ED118DC8BA300F03EB4 /* popover-bg.png in Resources */,
 				08086E4318DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
 				08086EDF18DC8BA300F03EB4 /* rubberRadius162.png in Resources */,
+				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				38f2c239e432653e495cffdf /* testIOS7Color.png in Resources */,
 				08086ED518DC8BA300F03EB4 /* redo_48.png in Resources */,
@@ -3127,6 +3192,7 @@
 				08086E7218DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
 				08086E4C18DC8BA300F03EB4 /* AnamorphicTitle.png in Resources */,
 				08086EA018DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
+				0813AA1F19167BD4000C4D00 /* Models in Resources */,
 				08086E6218DC8BA300F03EB4 /* brushRadius4.png in Resources */,
 				08086E5E18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */,
 				08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */,
@@ -3276,6 +3342,7 @@
 				00d3b8801be0906d9d679618 /* SelectBrushButton.m in Sources */,
 				0822B00518C0B9510021A75B /* SwatchManagerTableViewCell.m in Sources */,
 				3e13c00c1f6987b13e759e6c /* EyeDropper.m in Sources */,
+				0872BA491915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */,
 				18e82aa8549080dbf54b5c50 /* UndoGestureRecognizer.m in Sources */,
 				ca53a460052690d799e70353 /* UndoButton.m in Sources */,
 				efce58c21b23dbf0c8fd3ffb /* Heap.m in Sources */,
@@ -3313,6 +3380,7 @@
 				0898765F1913897B009CEB3D /* SetupCylinderImageView.m in Sources */,
 				ec38f479ccf9e1931b167ef3 /* CommandStack.m in Sources */,
 				cbbf0dc46bdbbadad4735fba /* BrushTypeScrollView.m in Sources */,
+				0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */,
 				7d294f94056ab44ed9d1c266 /* ChineseBrush.m in Sources */,
 				39ffcb7043b23fa8536d2aeb /* BrushTypeButton.m in Sources */,
 				0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */,
@@ -3340,6 +3408,7 @@
 				08AE475918C8C126008940E8 /* SwatchManagerViewController.m in Sources */,
 				eaeb41511d9f1da47f3b6bb4 /* TestGLKViewController.m in Sources */,
 				e243e49eed2a843ccb577fa2 /* BackgroundLayer.m in Sources */,
+				0813AA2E19168C94000C4D00 /* VertexCommon.m in Sources */,
 				fcc39e92703da8cf8276bfdb /* Layer.m in Sources */,
 				72a06fc639e91a534a38c72f /* LayerTransformButton.m in Sources */,
 				8fa3b51bc57da104566ba69a /* AirBrush.m in Sources */,
@@ -3369,15 +3438,18 @@
 				2d65c2230979e2f2611e58c7 /* LayerManagerView.m in Sources */,
 				3b7714d2e94c240664a92eec /* BrushPropertyTableViewController.m in Sources */,
 				08A5CBBC189F36C900F4E226 /* MeshFilter.m in Sources */,
+				0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */,
 				08A5CBC0189F542300F4E226 /* Scene.m in Sources */,
 				082060DE189D455C0027247C /* CylinderProject.m in Sources */,
 				3e9af69b87333d5ed310511e /* OilBrush.m in Sources */,
 				d665075fb5e26582b6aef2d9 /* MarkerSquare.m in Sources */,
 				8df62399f6923366f5f96e1d /* LayerBlendModeTableViewController.m in Sources */,
+				0872BA4B1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */,
 				3ed089207f7784a398bf6d12 /* ImportTableViewController.m in Sources */,
 				65eda761451e45ad70d4fb72 /* ExportTableViewController.m in Sources */,
 				17b14fb94b0f8625fd6691c9 /* OpacitySlider.m in Sources */,
 				e8bf068d0fc58b89a6e034d9 /* PaintColorButton.m in Sources */,
+				0813AA2619167C07000C4D00 /* ModelEntity.m in Sources */,
 				5e50a7fdceed516adb9ddf41 /* RadiusButton.m in Sources */,
 				08E104C518E31F3B00B777FB /* SharedTableView.m in Sources */,
 				f7ad604354b222d745c7593c /* RadiusSlider.m in Sources */,
@@ -3402,6 +3474,7 @@
 				e8f80b053040869f414dd734 /* FreeTransformButton.m in Sources */,
 				8f2589fd699ba0752fa1e205 /* MoveButton.m in Sources */,
 				5ff703344d637f5dacebee0d /* RotateButton.m in Sources */,
+				0813AA2A19167C27000C4D00 /* AssetDatabase.m in Sources */,
 				6d174a419e4ae648971ae2c9 /* ScaleButton.m in Sources */,
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
 				43273277bbdc4a6f5211c327 /* DoneButton.m in Sources */,
@@ -3439,6 +3512,7 @@
 				ae562571891c95d007ed289c /* LayerOpacitySlider.m in Sources */,
 				bf4c2ea3f33c32c54f09c908 /* LayerBlendModeButton.m in Sources */,
 				05630e6029267a567a7cabf6 /* LayerBlendModePopoverController.m in Sources */,
+				087103091914B1390030A5BF /* NSString+Unit.m in Sources */,
 				0847F52818B05AAB0038869A /* SetupTableViewController.m in Sources */,
 				214927804934d810791d2b43 /* LayerMergeButton.m in Sources */,
 				8b04446cff5bf8c9a3fdcec7 /* LayerCopyButton.m in Sources */,
@@ -3509,6 +3583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0813AA2D19168C94000C4D00 /* VertexCommon.m in Sources */,
 				0814743C18B19A5C00BBC25A /* AnimationClip.m in Sources */,
 				08A6FA4218BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */,
 				086BF7C1189E3CF50066C1F2 /* MeshFilter.m in Sources */,
@@ -3526,6 +3601,7 @@
 				088E1D8418A26F700059002C /* ShaderCylinder.m in Sources */,
 				9CFE0B9A14E5B12B00408F86 /* UIImage+RoundedCorner.m in Sources */,
 				0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */,
+				0872BA481915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */,
 				081A2CEB163CD9F8006EC27A /* Brush.m in Sources */,
 				08BD5CAE180102FA00F0FF67 /* FullScreenButton.m in Sources */,
 				0871D02F1812A32B00A0D037 /* EraserSoft.m in Sources */,
@@ -3540,12 +3616,14 @@
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
 				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
 				0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */,
+				0813AA2519167C07000C4D00 /* ModelEntity.m in Sources */,
 				0808D9E0164559870000DF40 /* InfSourceColorView.m in Sources */,
 				94B8F66A18A8C93C007F8619 /* TPPropertyAnimation.m in Sources */,
 				0847F53318B0945E0038869A /* CylinderProjectUserInputParams.m in Sources */,
 				08F280C4189E76D900DF744C /* PlaneMesh.m in Sources */,
 				080BD0D91645FDC000B37C01 /* SelectBrushButton.m in Sources */,
 				080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */,
+				0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */,
 				082A92091647FA97001EF659 /* UndoGestureRecognizer.m in Sources */,
 				08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
 				0809EA45164946E00061233D /* UndoButton.m in Sources */,
@@ -3553,6 +3631,7 @@
 				08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */,
 				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* CylinderProjectRootView.m in Sources */,
+				0872BA4A1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */,
 				08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */,
 				08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */,
 				08FDC8C1165157EB008F35E8 /* Eraser.m in Sources */,
@@ -3575,6 +3654,7 @@
 				08F5F3F118B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */,
 				08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */,
 				0826B47C167D9001000B679B /* ShowPaintOnPlaneViewController.m in Sources */,
+				087103081914B1390030A5BF /* NSString+Unit.m in Sources */,
 				0803D1FF189FF3EF0068B14B /* Object.m in Sources */,
 				0847F52B18B066420038869A /* SetupTableViewCell.m in Sources */,
 				082060D9189D44E40027247C /* Entity.m in Sources */,
@@ -3597,6 +3677,7 @@
 				08E7B0A017EAD32800A121B5 /* BrushPropertyViewController.m in Sources */,
 				087C5AB316B2CF2E005F954A /* Finger.m in Sources */,
 				0871D0321812A3DA00A0D037 /* InkPen.m in Sources */,
+				0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */,
 				082CD49E16BD45BF00F18E6F /* AdjustSceneViewController.m in Sources */,
 				082060D1189D38E40027247C /* Renderer.m in Sources */,
 				089CEF1016BE58B200216099 /* AdjustImageViewController.m in Sources */,
@@ -3649,6 +3730,7 @@
 				089743D6172296990085113C /* ImportTableViewController.m in Sources */,
 				086F8EDE1728AE2F0024289C /* ExportTableViewController.m in Sources */,
 				087BB3A31730AB4B006C0A33 /* OpacitySlider.m in Sources */,
+				0813AA2919167C27000C4D00 /* AssetDatabase.m in Sources */,
 				08086F0F18DC95A800F03EB4 /* iRate.m in Sources */,
 				085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */,
 				083F862E1734AF7B00DDE6BC /* RadiusButton.m in Sources */,

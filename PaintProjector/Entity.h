@@ -22,4 +22,5 @@
 - (void)render;
 
 - (void)update;
+
 @end

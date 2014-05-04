@@ -8,17 +8,7 @@
 
 #import "Object.h"
 #import "GLWrapper.h"
-
-typedef struct {
-    float Position[3];
-    float Texcoord[2];
-} SimpleVertex;
-
-typedef struct {
-    float Position[3];
-    float Texcoord[2];
-    float Color[4];
-} Vertex;
+#import "VertexCommon.h"
 
 typedef NS_ENUM(NSInteger, MeshTopology) {
     Triangles,
@@ -29,6 +19,7 @@ typedef NS_ENUM(NSInteger, MeshTopology) {
 };
 
 @interface Mesh : Object
+@property (assign, nonatomic) VertexAttributes vertexAttr;
 @property (assign, nonatomic) size_t triangleCount;
 @property (assign, nonatomic) size_t verticeCount;
 @property (retain, nonatomic) NSData *vertices;
@@ -39,6 +30,7 @@ typedef NS_ENUM(NSInteger, MeshTopology) {
 @property (assign, nonatomic) GLuint vertexBuffer;
 @property (assign, nonatomic) GLuint vertexArray;
 @property (assign, nonatomic) GLuint indexBuffer;
+
 - (void)reset;
 - (void)clear;
 

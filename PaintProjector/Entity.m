@@ -19,7 +19,6 @@
     return self;
 }
 
-
 - (void)render{
 #if DEBUG
     NSString *renderLog = [NSString stringWithFormat:@"rendering entity %@", self.name];

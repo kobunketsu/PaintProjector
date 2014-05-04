@@ -34,7 +34,7 @@
 
 - (int)filterCount;
 {
-    return [filters count];
+    return (int)[filters count];
 }
 
 #pragma mark -

@@ -34,12 +34,13 @@
 
 - (id)copyWithZone:(NSZone *)zone{
     Mesh *mesh = [[[self class] allocWithZone:zone]init];
-    
+    mesh.vertexAttr = self.vertexAttr;    
     mesh.triangles = [NSData dataWithBytes:self.triangles.bytes length:self.triangles.length];
     mesh.vertices = [NSData dataWithBytes:self.vertices.bytes length:self.vertices.length];
     mesh.vertexArray = self.vertexArray;
     mesh.vertexBuffer = self.vertexBuffer;
     mesh.indexBuffer = self.indexBuffer;
+
     return mesh;
 }
 
@@ -70,12 +71,38 @@
     GLvoid *vertices = (GLvoid *)self.vertices.bytes;
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertLength, vertices, GL_STATIC_DRAW);
     
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(0));
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(12));
-    glEnableVertexAttribArray(GLKVertexAttribColor);
-    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, 36, BUFFER_OFFSET(20));
+    //计算步进
+    GLsizei stride = 0;
+    stride += (self.vertexAttr & Vertex_Position) == Vertex_Position ? 12 : 0;
+    stride += (self.vertexAttr & Vertex_Texcoord) == Vertex_Texcoord ? 8 : 0;
+    stride += (self.vertexAttr & Vertex_Color) == Vertex_Color ? 16 : 0;
+    stride += (self.vertexAttr & Vertex_Normal) == Vertex_Normal ? 12 : 0;
+    
+    GLsizei offset = 0;
+    if ((self.vertexAttr & Vertex_Position) == Vertex_Position) {
+        glEnableVertexAttribArray(GLKVertexAttribPosition);
+        glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, stride, BUFFER_OFFSET(offset));
+        offset += 12;
+    }
+
+    if ((self.vertexAttr & Vertex_Texcoord) == Vertex_Texcoord) {
+        glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+        glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, stride, BUFFER_OFFSET(offset));
+        offset += 8;
+    }
+
+    if ((self.vertexAttr & Vertex_Color) == Vertex_Color) {
+        glEnableVertexAttribArray(GLKVertexAttribColor);
+        glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, stride, BUFFER_OFFSET(offset));
+        offset += 16;
+    }
+    
+    if ((self.vertexAttr & Vertex_Normal) == Vertex_Normal) {
+        glEnableVertexAttribArray(GLKVertexAttribNormal);
+        glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, stride, BUFFER_OFFSET(offset));
+        offset += 12;
+    }
+
     [GLWrapper.current bindVertexArrayOES:0];
 }
 

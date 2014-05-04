@@ -90,6 +90,7 @@
 
     self.triangles = [NSData dataWithBytesNoCopy:indices length:self.triangleCount * 3 * sizeof(short) freeWhenDone:YES];
 
+    self.vertexAttr = Vertex_Position | Vertex_Texcoord | Vertex_Color;
 }
 
 - (id)copyWithZone:(NSZone *)zone{
