@@ -1,5 +1,5 @@
 //
-//  OpenGLWaveFrontMesh.h
+//  OpenGLWaveFrontGroup.h
 //  Wavefront OBJ Loader
 //
 //  Created by Jeff LaMarche on 12/18/08.
@@ -14,7 +14,7 @@
 
 @class OpenGLWaveFrontMaterial;
 
-@interface OpenGLWaveFrontMesh : NSObject 
+@interface OpenGLWaveFrontGroup : NSObject 
 {
 	NSString				*name;
 	GLuint					numberOfFaces;

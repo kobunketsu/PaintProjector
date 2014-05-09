@@ -1,5 +1,6 @@
 #import "GPUImageLuminosity.h"
 
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 NSString *const kGPUImageInitialLuminosityFragmentShaderString = SHADER_STRING
 (
  precision highp float;
@@ -51,6 +52,55 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
      gl_FragColor = vec4(luminosity, luminosity, luminosity, 1.0);
  }
 );
+#else
+NSString *const kGPUImageInitialLuminosityFragmentShaderString = SHADER_STRING
+(
+ uniform sampler2D inputImageTexture;
+ 
+ varying vec2 outputTextureCoordinate;
+ 
+ varying vec2 upperLeftInputTextureCoordinate;
+ varying vec2 upperRightInputTextureCoordinate;
+ varying vec2 lowerLeftInputTextureCoordinate;
+ varying vec2 lowerRightInputTextureCoordinate;
+ 
+ const vec3 W = vec3(0.2125, 0.7154, 0.0721);
+ 
+ void main()
+ {
+     float upperLeftLuminance = dot(texture2D(inputImageTexture, upperLeftInputTextureCoordinate).rgb, W);
+     float upperRightLuminance = dot(texture2D(inputImageTexture, upperRightInputTextureCoordinate).rgb, W);
+     float lowerLeftLuminance = dot(texture2D(inputImageTexture, lowerLeftInputTextureCoordinate).rgb, W);
+     float lowerRightLuminance = dot(texture2D(inputImageTexture, lowerRightInputTextureCoordinate).rgb, W);
+     
+     float luminosity = 0.25 * (upperLeftLuminance + upperRightLuminance + lowerLeftLuminance + lowerRightLuminance);
+     gl_FragColor = vec4(luminosity, luminosity, luminosity, 1.0);
+ }
+);
+
+NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
+(
+ uniform sampler2D inputImageTexture;
+ 
+ varying vec2 outputTextureCoordinate;
+ 
+ varying vec2 upperLeftInputTextureCoordinate;
+ varying vec2 upperRightInputTextureCoordinate;
+ varying vec2 lowerLeftInputTextureCoordinate;
+ varying vec2 lowerRightInputTextureCoordinate;
+ 
+ void main()
+ {
+     float upperLeftLuminance = texture2D(inputImageTexture, upperLeftInputTextureCoordinate).r;
+     float upperRightLuminance = texture2D(inputImageTexture, upperRightInputTextureCoordinate).r;
+     float lowerLeftLuminance = texture2D(inputImageTexture, lowerLeftInputTextureCoordinate).r;
+     float lowerRightLuminance = texture2D(inputImageTexture, lowerRightInputTextureCoordinate).r;
+     
+     float luminosity = 0.25 * (upperLeftLuminance + upperRightLuminance + lowerLeftLuminance + lowerRightLuminance);
+     gl_FragColor = vec4(luminosity, luminosity, luminosity, 1.0);
+ }
+);
+#endif
 
 @implementation GPUImageLuminosity
 
@@ -68,20 +118,16 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
     
     texelWidthUniform = [filterProgram uniformIndex:@"texelWidth"];
     texelHeightUniform = [filterProgram uniformIndex:@"texelHeight"];
-    
-    stageTextures = [[NSMutableArray alloc] init];
-    stageFramebuffers = [[NSMutableArray alloc] init];
-    stageSizes = [[NSMutableArray alloc] init];
-    
+        
     __unsafe_unretained GPUImageLuminosity *weakSelf = self;
     [self setFrameProcessingCompletionBlock:^(GPUImageOutput *filter, CMTime frameTime) {
         [weakSelf extractLuminosityAtFrameTime:frameTime];
     }];
 
     runSynchronouslyOnVideoProcessingQueue(^{
-        [GPUImageOpenGLESContext useImageProcessingContext];
+        [GPUImageContext useImageProcessingContext];
         
-        secondFilterProgram = [[GPUImageOpenGLESContext sharedImageProcessingOpenGLESContext] programForVertexShaderString:kGPUImageColorAveragingVertexShaderString fragmentShaderString:kGPUImageLuminosityFragmentShaderString];
+        secondFilterProgram = [[GPUImageContext sharedImageProcessingContext] programForVertexShaderString:kGPUImageColorAveragingVertexShaderString fragmentShaderString:kGPUImageLuminosityFragmentShaderString];
         
         if (!secondFilterProgram.initialized)
         {
@@ -108,7 +154,7 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
         secondFilterTexelWidthUniform = [secondFilterProgram uniformIndex:@"texelWidth"];
         secondFilterTexelHeightUniform = [secondFilterProgram uniformIndex:@"texelHeight"];
 
-        [GPUImageOpenGLESContext setActiveShaderProgram:secondFilterProgram];
+        [GPUImageContext setActiveShaderProgram:secondFilterProgram];
         
         glEnableVertexAttribArray(secondFilterPositionAttribute);
         glEnableVertexAttribArray(secondFilterTextureCoordinateAttribute);
@@ -123,15 +169,17 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
 	[secondFilterProgram addAttribute:@"inputTextureCoordinate"];
 }
 
-- (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates sourceTexture:(GLuint)sourceTexture;
+/*
+- (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates;
 {
     if (self.preventRendering)
     {
+        [firstInputFramebuffer unlock];
         return;
     }
     
     // Do an initial render pass that both convert to luminance and reduces
-    [GPUImageOpenGLESContext setActiveShaderProgram:filterProgram];
+    [GPUImageContext setActiveShaderProgram:filterProgram];
     
     glVertexAttribPointer(filterPositionAttribute, 2, GL_FLOAT, 0, 0, vertices);
     glVertexAttribPointer(filterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
@@ -139,10 +187,14 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
     GLuint currentFramebuffer = [[stageFramebuffers objectAtIndex:0] intValue];
     glBindFramebuffer(GL_FRAMEBUFFER, currentFramebuffer);
     
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     CGSize currentStageSize = [[stageSizes objectAtIndex:0] CGSizeValue];
+#else
+    NSSize currentStageSize = [[stageSizes objectAtIndex:0] sizeValue];
+#endif
     glViewport(0, 0, (int)currentStageSize.width, (int)currentStageSize.height);
 
-    GLuint currentTexture = sourceTexture;
+    GLuint currentTexture = [firstInputFramebuffer texture];
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -160,7 +212,7 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
     currentTexture = [[stageTextures objectAtIndex:0] intValue];
 
     // Just perform reductions from this point on
-    [GPUImageOpenGLESContext setActiveShaderProgram:secondFilterProgram];
+    [GPUImageContext setActiveShaderProgram:secondFilterProgram];
     glVertexAttribPointer(secondFilterPositionAttribute, 2, GL_FLOAT, 0, 0, vertices);
     glVertexAttribPointer(secondFilterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
 
@@ -170,7 +222,11 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
         currentFramebuffer = [[stageFramebuffers objectAtIndex:currentStage] intValue];
         glBindFramebuffer(GL_FRAMEBUFFER, currentFramebuffer);
         
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
         currentStageSize = [[stageSizes objectAtIndex:currentStage] CGSizeValue];
+#else
+        currentStageSize = [[stageSizes objectAtIndex:currentStage] sizeValue];
+#endif
         glViewport(0, 0, (int)currentStageSize.width, (int)currentStageSize.height);
         
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -224,37 +280,49 @@ NSString *const kGPUImageLuminosityFragmentShaderString = SHADER_STRING
 //            return;
 //        }
     }
+    
+    [firstInputFramebuffer unlock];
 }
+ */
 
 #pragma mark -
 #pragma mark Callbacks
 
 - (void)extractLuminosityAtFrameTime:(CMTime)frameTime;
 {
-    CGSize finalStageSize = [[stageSizes lastObject] CGSizeValue];
-    NSUInteger totalNumberOfPixels = round(finalStageSize.width * finalStageSize.height);
-    
-    if (rawImagePixels == NULL)
-    {
-        rawImagePixels = (GLubyte *)malloc(totalNumberOfPixels * 4);
-    }
-    
-    glReadPixels(0, 0, (int)finalStageSize.width, (int)finalStageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, rawImagePixels);
-    
-    NSUInteger luminanceTotal = 0;
-    NSUInteger byteIndex = 0;
-    for (NSUInteger currentPixel = 0; currentPixel < totalNumberOfPixels; currentPixel++)
-    {
-        luminanceTotal += rawImagePixels[byteIndex];
-        byteIndex += 4;
-    }
-    
-    CGFloat normalizedLuminosityTotal = (CGFloat)luminanceTotal / (CGFloat)totalNumberOfPixels / 255.0;
-    
-    if (_luminosityProcessingFinishedBlock != NULL)
-    {
-        _luminosityProcessingFinishedBlock(normalizedLuminosityTotal, frameTime);
-    }
+    runSynchronouslyOnVideoProcessingQueue(^{
+
+        // we need a normal color texture for this filter
+        NSAssert(self.outputTextureOptions.internalFormat == GL_RGBA, @"The output texture format for this filter must be GL_RGBA.");
+        NSAssert(self.outputTextureOptions.type == GL_UNSIGNED_BYTE, @"The type of the output texture of this filter must be GL_UNSIGNED_BYTE.");
+        
+        NSUInteger totalNumberOfPixels = round(finalStageSize.width * finalStageSize.height);
+        
+        if (rawImagePixels == NULL)
+        {
+            rawImagePixels = (GLubyte *)malloc(totalNumberOfPixels * 4);
+        }
+        
+        [GPUImageContext useImageProcessingContext];
+        [outputFramebuffer activateFramebuffer];
+
+        glReadPixels(0, 0, (int)finalStageSize.width, (int)finalStageSize.height, GL_RGBA, GL_UNSIGNED_BYTE, rawImagePixels);
+        
+        NSUInteger luminanceTotal = 0;
+        NSUInteger byteIndex = 0;
+        for (NSUInteger currentPixel = 0; currentPixel < totalNumberOfPixels; currentPixel++)
+        {
+            luminanceTotal += rawImagePixels[byteIndex];
+            byteIndex += 4;
+        }
+        
+        CGFloat normalizedLuminosityTotal = (CGFloat)luminanceTotal / (CGFloat)totalNumberOfPixels / 255.0;
+        
+        if (_luminosityProcessingFinishedBlock != NULL)
+        {
+            _luminosityProcessingFinishedBlock(normalizedLuminosityTotal, frameTime);
+        }
+    });
 }
 
 

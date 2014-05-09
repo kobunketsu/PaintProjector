@@ -31,7 +31,7 @@
 //- (void)layoutSubviews{
 //    DebugLog(@"layoutSubviews");
 //    for (UIView *view in self.subviews) {
-//        DebugLog(@"view %@ frame %@ label %@", view, NSStringFromCGRect(view.frame), view.accessibilityLabel);
+//        DebugLogSystem(@"view %@ frame %@ label %@", view, NSStringFromCGRect(view.frame), view.accessibilityLabel);
 //        for (UIView *subView in view.subviews) {
 //            DebugLog(@"subView %@ frame %@ label %@", subView, NSStringFromCGRect(subView.frame), subView.accessibilityLabel);
 //        }

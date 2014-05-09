@@ -950,7 +950,7 @@ step1.从观察角度绘制地面, 地面长宽根据视角自适应
     CGRect viewHeightSliderThumbRect = [self.heightSlider thumbRectForBounds:self.heightSlider.bounds trackRect:viewHeightSliderTrackRect value:self.heightSlider.value];
     CGPoint viewHeightSliderThumbRectCenter = CGPointMake(viewHeightSliderThumbRect.origin.x + viewHeightSliderThumbRect.size.width * 0.5, viewHeightSliderThumbRect.origin.y + viewHeightSliderThumbRect.size.height * 0.5);
     CGPoint viewHeightPoint = [self.projectViewRange convertPoint:viewHeightSliderThumbRectCenter fromView:self.heightSlider];
-    DebugLog(@"viewHeightPoint x:%.1f y:%.1f", viewHeightPoint.x, viewHeightPoint.y);
+    DebugLogSystem(@"viewHeightPoint x:%.1f y:%.1f", viewHeightPoint.x, viewHeightPoint.y);
     
     CGRect projectNearSliderTrackRect = [self.nearDistanceSlider trackRectForBounds:self.nearDistanceSlider.bounds];
     CGRect projectNearSliderThumbRect = [self.nearDistanceSlider thumbRectForBounds:self.nearDistanceSlider.bounds trackRect:projectNearSliderTrackRect value:self.nearDistanceSlider.value];

@@ -32,10 +32,10 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
             BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
             if (productPurchased) {
                 [_purchasedProductIdentifiers addObject:productIdentifier];
-                DebugLog(@"Previously purchased: %@", productIdentifier);
+                DebugLogWarn(@"Previously purchased: %@", productIdentifier);
             }
             else {
-                DebugLog(@"Not purchased: %@", productIdentifier);
+                DebugLogWarn(@"Not purchased: %@", productIdentifier);
             }
         }
         
@@ -81,7 +81,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     _products = products;
     
     if (products.count == 0) {
-        DebugLog(@"没有产品, 无法购买");
+        DebugLogWarn(@"没有产品, 无法购买");
         return;
     }
     
@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     
     for (NSString *invalidProductId in response.invalidProductIdentifiers)
     {
-        DebugLog(@"产品号不存在: %@" , invalidProductId);
+        DebugLogWarn(@"产品号不存在: %@" , invalidProductId);
     }
     
     // finally release the reqest we alloc/init’ed in requestProUpgradeProductData
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    DebugLog(@"无法从AppStore得到产品列表.");
+    DebugLogWarn(@"无法从AppStore得到产品列表.");
     self.productsRequested = false;
     productsRequest = nil;
     
@@ -186,7 +186,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     __block BBTransactionResult transactionResult = 2;
     if (![BBXIAPTransaction canValidateTransactions]) {
         transactionResult = TransactionNoNetwork;
-        DebugLog(@"没有网络连接,无法验证交易.请连接网络后尝试");
+        DebugLogWarn(@"没有网络连接,无法验证交易.请连接网络后尝试");
         return; // There is no connectivity to reach the server.
         // You should try the validation at a later date.
     }
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // The transaction is valid, but duplicate - it has already been
                 // sent to Beeblex in the past.
                 transactionResult = TransactionDuplicate;
-                DebugLog(@"验证交易已存在");
+                DebugLogWarn(@"验证交易已存在");
                 [self finishTransaction:transaction wasSuccessful:YES];
             }
             else {
@@ -211,7 +211,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 
                 DebugLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
                 transactionResult = TransactionValidated;
-                DebugLog(@"验证交易成功,提供产品下载");
+                DebugLogSuccess(@"验证交易成功,提供产品下载");
                 if (restore) {
                     [self provideContent:transaction.originalTransaction.payment.productIdentifier];
                 }
@@ -232,7 +232,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // The error was not caused by a problem with the data, but is
                 // most likely due to some transient networking issues.
                 transactionResult = TransactionServerError;
-                DebugLog(@"验证交易服务器错误,请稍后尝试");
+                DebugLogWarn(@"验证交易服务器错误,请稍后尝试");
             }
             else {
                 

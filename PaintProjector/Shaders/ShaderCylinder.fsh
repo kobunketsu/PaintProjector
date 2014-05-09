@@ -8,7 +8,7 @@
 varying highp vec2 texcoord0;
 varying highp vec4 worldPos;
 varying highp vec3 normal;
-varying lowp vec4 color0;
+//varying lowp vec4 color0;
 
 uniform sampler2D texture0;
 uniform sampler2D reflectionTex;
@@ -35,7 +35,6 @@ void main()
     lowp vec4 cBase = texture2D(texture0, texcoord0);
     
     //uv range out of (0,1) clamp to border color in code
-//    lowp vec4 cBorder = texture2D(borderTex, vec2(u, v));
     lowp vec4 cRefl = texture2D(reflectionTex, vec2(u, v));
     if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
         cRefl.rgb = vec3(0,0,0);
@@ -46,7 +45,7 @@ void main()
     gl_FragColor.rgb = (cBase.rgb * 0.5 + cRefl.rgb * cRefl.a);
 //    gl_FragColor.rgb = vec3(1.0, 1.0, 1.0);// * (1.0 - cRefl.a) + cRefl.rgb * cRefl.a;
     gl_FragColor.rgb *= reflStrength;
-    gl_FragColor.rgb *= color0.rgb;
+//    gl_FragColor.rgb *= color0.rgb;
 
     gl_FragColor.a = 1.0;
 }

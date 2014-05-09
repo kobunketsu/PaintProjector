@@ -783,7 +783,7 @@
 }
 - (void)dealloc
 {
-    DebugLog(@"[ dealloc ]");
+    DebugLogSystem(@"[ dealloc ]");
     
     [self destroy];
 }

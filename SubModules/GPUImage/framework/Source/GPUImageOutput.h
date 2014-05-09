@@ -1,6 +1,21 @@
-#import <UIKit/UIKit.h>
+#import "GPUImageContext.h"
+#import "GPUImageFramebuffer.h"
 
-#import "GPUImageOpenGLESContext.h"
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+// For now, just redefine this on the Mac
+typedef NS_ENUM(NSInteger, UIImageOrientation) {
+    UIImageOrientationUp,            // default orientation
+    UIImageOrientationDown,          // 180 deg rotation
+    UIImageOrientationLeft,          // 90 deg CCW
+    UIImageOrientationRight,         // 90 deg CW
+    UIImageOrientationUpMirrored,    // as above but image mirrored along other axis. horizontal flip
+    UIImageOrientationDownMirrored,  // horizontal flip
+    UIImageOrientationLeftMirrored,  // vertical flip
+    UIImageOrientationRightMirrored, // vertical flip
+};
+#endif
 
 void runOnMainQueueWithoutDeadlocking(void (^block)(void));
 void runSynchronouslyOnVideoProcessingQueue(void (^block)(void));
@@ -20,20 +35,18 @@ void reportAvailableMemoryForGPUImage(NSString *tag);
  
  Source objects upload still image frames to OpenGL ES as textures, then hand those textures off to the next objects in the processing chain.
  */
-@interface GPUImageOutput : NSObject <GPUImageTextureDelegate>
+@interface GPUImageOutput : NSObject
 {
+    GPUImageFramebuffer *outputFramebuffer;
+    
     NSMutableArray *targets, *targetTextureIndices;
     
-    GLuint outputTexture;
     CGSize inputTextureSize, cachedMaximumOutputSize, forcedMaximumSize;
     
     BOOL overrideInputSize;
     
-    BOOL processingLargeImage;
-    NSUInteger outputTextureRetainCount;
-    
-    __unsafe_unretained id<GPUImageTextureDelegate> firstTextureDelegate;
-    BOOL shouldConserveMemoryForNextFrame;
+    BOOL allTargetsWantMonochromeData;
+    BOOL usingNextFrameForImageCapture;
 }
 
 @property(readwrite, nonatomic) BOOL shouldSmoothlyScaleOutput;
@@ -42,10 +55,12 @@ void reportAvailableMemoryForGPUImage(NSString *tag);
 @property(readwrite, nonatomic, unsafe_unretained) id<GPUImageInput> targetToIgnoreForUpdates;
 @property(nonatomic, copy) void(^frameProcessingCompletionBlock)(GPUImageOutput*, CMTime);
 @property(nonatomic) BOOL enabled;
+@property(readwrite, nonatomic) GPUTextureOptions outputTextureOptions;
 
 /// @name Managing targets
-- (void)setInputTextureForTarget:(id<GPUImageInput>)target atIndex:(NSInteger)inputTextureIndex;
-- (GLuint)textureForOutput;
+- (void)setInputFramebufferForTarget:(id<GPUImageInput>)target atIndex:(NSInteger)inputTextureIndex;
+- (GPUImageFramebuffer *)framebufferForOutput;
+- (void)removeOutputFramebuffer;
 - (void)notifyTargetsAboutNewOutputTexture;
 
 /** Returns an array of the current targets.
@@ -82,37 +97,29 @@ void reportAvailableMemoryForGPUImage(NSString *tag);
 
 /// @name Manage the output texture
 
-- (void)initializeOutputTextureIfNeeded;
-- (void)deleteOutputTexture;
 - (void)forceProcessingAtSize:(CGSize)frameSize;
 - (void)forceProcessingAtSizeRespectingAspectRatio:(CGSize)frameSize;
-- (void)cleanupOutputImage;
 
 /// @name Still image processing
 
-/** Retreives the currently processed image as a UIImage.
- */
-- (UIImage *)imageFromCurrentlyProcessedOutput;
+- (void)useNextFrameForImageCapture;
 - (CGImageRef)newCGImageFromCurrentlyProcessedOutput;
+- (CGImageRef)newCGImageByFilteringCGImage:(CGImageRef)imageToFilter;
 
-/** Convenience method to retreive the currently processed image with a different orientation.
- @param imageOrientation Orientation for image
- */
-- (UIImage *)imageFromCurrentlyProcessedOutputWithOrientation:(UIImageOrientation)imageOrientation;
-- (CGImageRef)newCGImageFromCurrentlyProcessedOutputWithOrientation:(UIImageOrientation)imageOrientation;
-
-/** Convenience method to process an image with a filter.
- 
- This method is useful for using filters on still images without building a full pipeline.
- 
- @param imageToFilter Image to be filtered
- */
+// Platform-specific image output methods
+// If you're trying to use these methods, remember that you need to set -useNextFrameForImageCapture before running -processImage or running video and calling any of these methods, or you will get a nil image
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+- (UIImage *)imageFromCurrentFramebuffer;
+- (UIImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
 - (UIImage *)imageByFilteringImage:(UIImage *)imageToFilter;
 - (CGImageRef)newCGImageByFilteringImage:(UIImage *)imageToFilter;
-- (CGImageRef)newCGImageByFilteringCGImage:(CGImageRef)imageToFilter;
-- (CGImageRef)newCGImageByFilteringCGImage:(CGImageRef)imageToFilter orientation:(UIImageOrientation)orientation;
+#else
+- (NSImage *)imageFromCurrentFramebuffer;
+- (NSImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
+- (NSImage *)imageByFilteringImage:(NSImage *)imageToFilter;
+- (CGImageRef)newCGImageByFilteringImage:(NSImage *)imageToFilter;
+#endif
 
-- (void)prepareForImageCapture;
-- (void)conserveMemoryForNextFrame;
+- (BOOL)providesMonochromeOutput;
 
 @end

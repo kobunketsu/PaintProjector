@@ -24,7 +24,7 @@
     return self;
 }
 -(void)dealloc{
-//    DebugLog(@"[ dealloc ]");
+//    DebugLogSystem(@"[ dealloc ]");
     
     [self setBrushState:nil];
     [self.paintPaths removeAllObjects];

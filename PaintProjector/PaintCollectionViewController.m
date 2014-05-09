@@ -42,27 +42,27 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    DebugLog(@"viewWillAppear");
+    DebugLogSystem(@"viewWillAppear");
     if (!self.isLaunchTransitioned) {
         [self startLaunchTransitionToCylinderProject];
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    DebugLog(@"viewDidAppear");
+    DebugLogSystem(@"viewDidAppear");
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
     }
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    DebugLog(@"viewDidDisappear");
+    DebugLogSystem(@"viewDidDisappear");
     [self.selectedIndices removeAllObjects];
 }
 
 - (void)viewDidLoad
 {
-    DebugLog(@"viewDidLoad");
+    DebugLogSystem(@"viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -87,7 +87,7 @@
 }
 
 - (void)viewDidUnload{
-    DebugLog(@"[ viewDidUnload ]");
+    DebugLogSystem(@"[ viewDidUnload ]");
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,7 +97,7 @@
 }
 
 -(void)dealloc{
-    DebugLog(@"[ dealloc ]");
+    DebugLogSystem(@"[ dealloc ]");
     self.selectedIndices = nil;
 }
 

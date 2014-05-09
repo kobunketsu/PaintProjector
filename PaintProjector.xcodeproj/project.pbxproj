@@ -418,6 +418,10 @@
 		086BF7C1189E3CF50066C1F2 /* MeshFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C0189E3CF50066C1F2 /* MeshFilter.m */; };
 		086BF7C6189E3D730066C1F2 /* MeshRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C5189E3D730066C1F2 /* MeshRenderer.m */; };
 		086BF7C9189E3F290066C1F2 /* Mesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C8189E3F290066C1F2 /* Mesh.m */; };
+		086CF4981919DF1A000F1FBB /* ShaderDiffuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF4971919DF1A000F1FBB /* ShaderDiffuse.m */; };
+		086CF4991919DF1A000F1FBB /* ShaderDiffuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF4971919DF1A000F1FBB /* ShaderDiffuse.m */; };
+		086CF49F1919E6EB000F1FBB /* RenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RenderSettings.m */; };
+		086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RenderSettings.m */; };
 		086F8EDE1728AE2F0024289C /* ExportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ExportTableViewController.m */; };
 		08701169177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m */; };
 		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
@@ -429,13 +433,11 @@
 		0871D03B1812A7BF00A0D037 /* AirBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D03A1812A7BF00A0D037 /* AirBrush.m */; };
 		0871D03E1812A92700A0D037 /* MarkerSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D03D1812A92700A0D037 /* MarkerSquare.m */; };
 		0871E937176621450046D505 /* CommandManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871E936176621450046D505 /* CommandManager.m */; };
-		0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */; };
+		0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */; };
-		0872BA481915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; };
+		0872BA481915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA491915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; };
-		0872BA4A1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */; };
-		0872BA4B1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */; };
-		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
+		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
 		087395B916BE8A8C00E6968B /* HandleGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 087395B816BE8A8C00E6968B /* HandleGestureRecognizer.m */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
@@ -477,7 +479,6 @@
 		0894FF8118AFA21C00657D33 /* CylinderProjectRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0894FF7F18AFA21C00657D33 /* CylinderProjectRootView.m */; };
 		08956DC518976F5B00EAB16C /* PaintFrameTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08956DC418976F5B00EAB16C /* PaintFrameTransitionManager.m */; };
 		08966ECA166082E600339901 /* CalculateRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966EC9166082E600339901 /* CalculateRunTime.m */; };
-		08966F151660CA2700339901 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F101660C9E400339901 /* libGPUImage.a */; };
 		08966F171660CA4A00339901 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F161660CA4A00339901 /* CoreMedia.framework */; };
 		08966F191660CA5800339901 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F181660CA5800339901 /* CoreVideo.framework */; };
 		08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F1A1660CA6100339901 /* OpenGLES.framework */; };
@@ -556,6 +557,8 @@
 		08BD5CAE180102FA00F0FF67 /* FullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */; };
 		08BD5CB61801094200F0FF67 /* FullScreenReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */; };
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
+		08C0F6C41917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		08C0F6C51917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */; };
 		08CA01C1189BD8F300524D81 /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01C0189BD8F300524D81 /* ShareButton.m */; };
 		08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */ = {isa = PBXBuildFile; fileRef = 08CAFECA17C9B5BD0097B2A4 /* Collection */; };
 		08CE1A6718968A350019A1AB /* PaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* PaintHighlightedFrameView.m */; };
@@ -873,7 +876,6 @@
 		e63bb561df21a6ab1bc0971b /* patternNone.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D4BECB17ED70D900D2448B /* patternNone.png */; };
 		e87a4e637348a307626e32e7 /* Finger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* Finger.m */; };
 		e8bf068d0fc58b89a6e034d9 /* PaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* PaintColorButton.m */; };
-		e8e0157a125dba81e51dfd51 /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F101660C9E400339901 /* libGPUImage.a */; };
 		e8f80b053040869f414dd734 /* FreeTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836901737E2E600B68990 /* FreeTransformButton.m */; };
 		e9f960de75d0951d6cfd0ee8 /* TestGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0863F0E817DA386E008186CA /* TestGLKView.m */; };
 		eaeb41511d9f1da47f3b6bb4 /* TestGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0863F0E317DA3850008186CA /* TestGLKViewController.m */; };
@@ -908,27 +910,6 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		08966F0F1660C9E400339901 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
-			remoteInfo = GPUImage;
-		};
-		08966F111660C9E400339901 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BCF1A34414DDB1EC00852800;
-			remoteInfo = GPUImageTests;
-		};
-		08966F131660CA0200339901 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BCF1A33314DDB1EC00852800;
-			remoteInfo = GPUImage;
-		};
 		0897D7EC187C46BA00A7ECD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9C21AF0914E4579F00DB003E /* Project object */;
@@ -1339,6 +1320,10 @@
 		086BF7C7189E3F290066C1F2 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = PaintProjector/Mesh.h; sourceTree = "<group>"; };
 		086BF7C8189E3F290066C1F2 /* Mesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mesh.m; path = PaintProjector/Mesh.m; sourceTree = "<group>"; };
 		086C1D6D18062BA500E3A059 /* Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extension.h; sourceTree = "<group>"; };
+		086CF4961919DF1A000F1FBB /* ShaderDiffuse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderDiffuse.h; sourceTree = "<group>"; };
+		086CF4971919DF1A000F1FBB /* ShaderDiffuse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderDiffuse.m; sourceTree = "<group>"; };
+		086CF49D1919E6EB000F1FBB /* RenderSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderSettings.h; path = PaintProjector/RenderSettings.h; sourceTree = "<group>"; };
+		086CF49E1919E6EB000F1FBB /* RenderSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderSettings.m; path = PaintProjector/RenderSettings.m; sourceTree = "<group>"; };
 		086F8EDC1728AE2F0024289C /* ExportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportTableViewController.h; sourceTree = "<group>"; };
 		086F8EDD1728AE2F0024289C /* ExportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportTableViewController.m; sourceTree = "<group>"; };
 		08701167177B2C0000C2EE66 /* LayerBlendModeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewCell.h; sourceTree = "<group>"; };
@@ -1365,8 +1350,6 @@
 		0872BA3F1915C80700559E96 /* OpenGLWaveFrontCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontCommon.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontCommon.h; sourceTree = "<group>"; };
 		0872BA401915C80700559E96 /* OpenGLWaveFrontMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontMaterial.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontMaterial.h; sourceTree = "<group>"; };
 		0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontMaterial.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontMaterial.m; sourceTree = "<group>"; };
-		0872BA421915C80700559E96 /* OpenGLWaveFrontMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontMesh.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontMesh.h; sourceTree = "<group>"; };
-		0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontMesh.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontMesh.m; sourceTree = "<group>"; };
 		0872BA441915C80700559E96 /* OpenGLWaveFrontObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontObject.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.h; sourceTree = "<group>"; };
 		0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontObject.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.m; sourceTree = "<group>"; };
 		0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstantsAndMacros.h; path = OpenGLWaveFrontObj/ConstantsAndMacros.h; sourceTree = "<group>"; };
@@ -1442,7 +1425,6 @@
 		08956DC418976F5B00EAB16C /* PaintFrameTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintFrameTransitionManager.m; path = PaintProjector/PaintFrameTransitionManager.m; sourceTree = "<group>"; };
 		08966EC8166082E600339901 /* CalculateRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculateRunTime.h; sourceTree = "<group>"; };
 		08966EC9166082E600339901 /* CalculateRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculateRunTime.m; sourceTree = "<group>"; };
-		08966F061660C9E400339901 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = SubModules/GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		08966F161660CA4A00339901 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		08966F181660CA5800339901 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		08966F1A1660CA6100339901 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1543,6 +1525,8 @@
 		08BD5CB41801094200F0FF67 /* FullScreenReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenReverseButton.h; sourceTree = "<group>"; };
 		08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenReverseButton.m; sourceTree = "<group>"; };
 		08BDEA0017E54C3700803D6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PaintProjector/Images.xcassets; sourceTree = "<group>"; };
+		08C0F6C21917EDEA00AF3687 /* OpenGLWaveFrontGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontGroup.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontGroup.h; sourceTree = "<group>"; };
+		08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontGroup.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontGroup.m; sourceTree = "<group>"; };
 		08CA01BF189BD8F300524D81 /* ShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
 		08CA01C0189BD8F300524D81 /* ShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
 		08CAFECA17C9B5BD0097B2A4 /* Collection */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Collection; path = PaintProjector/Collection; sourceTree = "<group>"; };
@@ -1722,7 +1706,6 @@
 				080706DA18B7882800D9385F /* StoreKit.framework in Frameworks */,
 				ee04915c8f3f28fbc5df04c6 /* CoreVideo.framework in Frameworks */,
 				b1ce4e84e5de48755e56e475 /* CoreMedia.framework in Frameworks */,
-				e8e0157a125dba81e51dfd51 /* libGPUImage.a in Frameworks */,
 				9d1a7219ce018f385ec95c35 /* CoreMotion.framework in Frameworks */,
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
@@ -1758,7 +1741,6 @@
 				08966F191660CA5800339901 /* CoreVideo.framework in Frameworks */,
 				080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */,
 				08966F171660CA4A00339901 /* CoreMedia.framework in Frameworks */,
-				08966F151660CA2700339901 /* libGPUImage.a in Frameworks */,
 				9483A663165F3DB100EE56AD /* CoreMotion.framework in Frameworks */,
 				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
 				08086DBE18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
@@ -2205,6 +2187,8 @@
 				088E1D8318A26F700059002C /* ShaderCylinder.m */,
 				080A046118A3434D004A4785 /* ShaderNoLitTexture.h */,
 				080A046218A3434D004A4785 /* ShaderNoLitTexture.m */,
+				086CF4961919DF1A000F1FBB /* ShaderDiffuse.h */,
+				086CF4971919DF1A000F1FBB /* ShaderDiffuse.m */,
 				0847F52D18B07ECE0038869A /* UnitConverter.h */,
 				0847F52E18B07ECE0038869A /* UnitConverter.m */,
 			);
@@ -2245,14 +2229,14 @@
 		0872BA281915C6FB00559E96 /* WaveFrontObj */ = {
 			isa = PBXGroup;
 			children = (
+				08C0F6C21917EDEA00AF3687 /* OpenGLWaveFrontGroup.h */,
+				08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */,
 				0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */,
 				0872BA3D1915C80700559E96 /* OpenGLTexture3D.h */,
 				0872BA3E1915C80700559E96 /* OpenGLTexture3D.m */,
 				0872BA3F1915C80700559E96 /* OpenGLWaveFrontCommon.h */,
 				0872BA401915C80700559E96 /* OpenGLWaveFrontMaterial.h */,
 				0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */,
-				0872BA421915C80700559E96 /* OpenGLWaveFrontMesh.h */,
-				0872BA431915C80700559E96 /* OpenGLWaveFrontMesh.m */,
 				0872BA441915C80700559E96 /* OpenGLWaveFrontObject.h */,
 				0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */,
 			);
@@ -2357,15 +2341,6 @@
 				088DAE13187DB03F001B3855 /* TestFlight.h */,
 			);
 			path = "TestFlight-SDK-master";
-			sourceTree = "<group>";
-		};
-		08966F071660C9E400339901 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				08966F101660C9E400339901 /* libGPUImage.a */,
-				08966F121660C9E400339901 /* GPUImageTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		0897D7E3187C46BA00A7ECD2 /* PaintProjector Tests */ = {
@@ -2557,6 +2532,8 @@
 				0814743B18B19A5C00BBC25A /* AnimationClip.m */,
 				94B8F66818A8C93C007F8619 /* TPPropertyAnimation.h */,
 				94B8F66918A8C93C007F8619 /* TPPropertyAnimation.m */,
+				086CF49D1919E6EB000F1FBB /* RenderSettings.h */,
+				086CF49E1919E6EB000F1FBB /* RenderSettings.m */,
 			);
 			name = RenderEngine;
 			sourceTree = "<group>";
@@ -2710,7 +2687,6 @@
 				9C21AF1514E4579F00DB003E /* Frameworks */,
 				08C0B42916BD349200DE6286 /* NotUsed */,
 				9C21AF1314E4579F00DB003E /* Products */,
-				08966F061660C9E400339901 /* GPUImage.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2858,7 +2834,6 @@
 				0897D7D4187C375000A7ECD2 /* PBXBuildRule */,
 			);
 			dependencies = (
-				08966F141660CA0200339901 /* PBXTargetDependency */,
 			);
 			name = PaintProjector;
 			productName = PaintProjector;
@@ -2878,7 +2853,6 @@
 				0897D7D4187C375000A7ECD2 /* PBXBuildRule */,
 			);
 			dependencies = (
-				08966F141660CA0200339901 /* PBXTargetDependency */,
 			);
 			name = "PaintProjector-cal";
 			productName = "PaintProjector-cal";
@@ -2927,12 +2901,6 @@
 			mainGroup = 9C21AF0714E4579F00DB003E;
 			productRefGroup = 9C21AF1314E4579F00DB003E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 08966F071660C9E400339901 /* Products */;
-					ProjectRef = 08966F061660C9E400339901 /* GPUImage.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9C21AF1114E4579F00DB003E /* PaintProjector */,
@@ -2941,23 +2909,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		08966F101660C9E400339901 /* libGPUImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGPUImage.a;
-			remoteRef = 08966F0F1660C9E400339901 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		08966F121660C9E400339901 /* GPUImageTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GPUImageTests.octest;
-			remoteRef = 08966F111660C9E400339901 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0897D7DC187C46BA00A7ECD2 /* Resources */ = {
@@ -3350,6 +3301,7 @@
 				bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */,
 				dcc1369eefcabccd63408c2c /* CustomTouchUIView.m in Sources */,
 				b3bfd9587c8094c480be1249 /* Pencil.m in Sources */,
+				086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* Eraser.m in Sources */,
 				4e9779aa9b6bd2a3b1fd4cc6 /* Pen.m in Sources */,
 				c8a0d9e976109a182aa6c52c /* ShowPaint.m in Sources */,
@@ -3444,7 +3396,6 @@
 				3e9af69b87333d5ed310511e /* OilBrush.m in Sources */,
 				d665075fb5e26582b6aef2d9 /* MarkerSquare.m in Sources */,
 				8df62399f6923366f5f96e1d /* LayerBlendModeTableViewController.m in Sources */,
-				0872BA4B1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */,
 				3ed089207f7784a398bf6d12 /* ImportTableViewController.m in Sources */,
 				65eda761451e45ad70d4fb72 /* ExportTableViewController.m in Sources */,
 				17b14fb94b0f8625fd6691c9 /* OpacitySlider.m in Sources */,
@@ -3474,8 +3425,10 @@
 				e8f80b053040869f414dd734 /* FreeTransformButton.m in Sources */,
 				8f2589fd699ba0752fa1e205 /* MoveButton.m in Sources */,
 				5ff703344d637f5dacebee0d /* RotateButton.m in Sources */,
+				08C0F6C51917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */,
 				0813AA2A19167C27000C4D00 /* AssetDatabase.m in Sources */,
 				6d174a419e4ae648971ae2c9 /* ScaleButton.m in Sources */,
+				086CF4991919DF1A000F1FBB /* ShaderDiffuse.m in Sources */,
 				5b380e1a40aac727451182e7 /* CancelButton.m in Sources */,
 				43273277bbdc4a6f5211c327 /* DoneButton.m in Sources */,
 				3288492b37b2543a0ade13ad /* ClearButton.m in Sources */,
@@ -3631,7 +3584,6 @@
 				08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */,
 				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* CylinderProjectRootView.m in Sources */,
-				0872BA4A1915C80700559E96 /* OpenGLWaveFrontMesh.m in Sources */,
 				08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */,
 				08FDC8BD16513BB2008F35E8 /* Pencil.m in Sources */,
 				08FDC8C1165157EB008F35E8 /* Eraser.m in Sources */,
@@ -3706,6 +3658,7 @@
 				0847472116D2615900772015 /* PaintFrameGroup.m in Sources */,
 				081A228A16D8555C00F39468 /* TextureManager.m in Sources */,
 				08F5F3F718B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */,
+				086CF49F1919E6EB000F1FBB /* RenderSettings.m in Sources */,
 				0826775A18E1D92E004DA2F4 /* CrystalGradientStyleView.m in Sources */,
 				085A7E2C16D8A8AD00834C9D /* CameraOverlayView.m in Sources */,
 				085A7E2F16D8A96300834C9D /* CameraOverlayViewController.m in Sources */,
@@ -3724,6 +3677,7 @@
 				94926EBE17193375008C645A /* LayerManagerView.m in Sources */,
 				08E7B09D17EACB4500A121B5 /* BrushPropertyTableViewController.m in Sources */,
 				08E251B4189CBC5C0039AAC2 /* Shader.m in Sources */,
+				086CF4981919DF1A000F1FBB /* ShaderDiffuse.m in Sources */,
 				0871D0381812A72500A0D037 /* OilBrush.m in Sources */,
 				0871D03E1812A92700A0D037 /* MarkerSquare.m in Sources */,
 				083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */,
@@ -3855,17 +3809,13 @@
 				086BF7C6189E3D730066C1F2 /* MeshRenderer.m in Sources */,
 				0899C43B18575299006E5DEE /* TransformAnchorView.m in Sources */,
 				080679A717DB72D000FED08D /* QuietAssertMacros.c in Sources */,
+				08C0F6C41917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		08966F141660CA0200339901 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GPUImage;
-			targetProxy = 08966F131660CA0200339901 /* PBXContainerItemProxy */;
-		};
 		0897D7ED187C46BA00A7ECD2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9C21AF1114E4579F00DB003E /* PaintProjector */;
@@ -3953,8 +3903,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3979,6 +3929,7 @@
 					"values>/**",
 				);
 				TARGETED_DEVICE_FAMILY = 2;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = TestFlight;
@@ -4181,8 +4132,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4208,6 +4159,7 @@
 					"values>/**",
 				);
 				TARGETED_DEVICE_FAMILY = 2;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4218,8 +4170,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4244,6 +4196,7 @@
 					"values>/**",
 				);
 				TARGETED_DEVICE_FAMILY = 2;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

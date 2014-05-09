@@ -76,11 +76,11 @@
 //}
 
 - (UIImage*)filterImage:(UIImage*)image{
-    GPUImage3DViewFilter *selectedFilter;
-    selectedFilter = [[GPUImage3DViewFilter alloc] init];
-    [selectedFilter setAngle:-_lastPitch];
-    [selectedFilter setEyeRelativeX:self.deviceToEye.x Y:self.deviceToEye.y Z:self.deviceToEye.z];
-    return [selectedFilter imageByFilteringImage:image];    
+//    GPUImage3DViewFilter *selectedFilter;
+//    selectedFilter = [[GPUImage3DViewFilter alloc] init];
+//    [selectedFilter setAngle:-_lastPitch];
+//    [selectedFilter setEyeRelativeX:self.deviceToEye.x Y:self.deviceToEye.y Z:self.deviceToEye.z];
+//    return [selectedFilter imageByFilteringImage:image];    
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{

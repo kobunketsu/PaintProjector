@@ -24,7 +24,7 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    DebugLog(@"viewDidDisappear");
+    DebugLogSystem(@"viewDidDisappear");
     [self.brushPreview tearDownGL];
 }
 

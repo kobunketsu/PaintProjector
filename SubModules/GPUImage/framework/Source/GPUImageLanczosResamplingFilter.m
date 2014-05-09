@@ -39,7 +39,7 @@ NSString *const kGPUImageLanczosVertexShaderString = SHADER_STRING
  }
 );
 
-
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 NSString *const kGPUImageLanczosFragmentShaderString = SHADER_STRING
 (
  precision highp float;
@@ -77,7 +77,45 @@ NSString *const kGPUImageLanczosFragmentShaderString = SHADER_STRING
 
      gl_FragColor = fragmentColor;
  }
- );
+);
+#else
+NSString *const kGPUImageLanczosFragmentShaderString = SHADER_STRING
+(
+ uniform sampler2D inputImageTexture;
+ 
+ varying vec2 centerTextureCoordinate;
+ varying vec2 oneStepLeftTextureCoordinate;
+ varying vec2 twoStepsLeftTextureCoordinate;
+ varying vec2 threeStepsLeftTextureCoordinate;
+ varying vec2 fourStepsLeftTextureCoordinate;
+ varying vec2 oneStepRightTextureCoordinate;
+ varying vec2 twoStepsRightTextureCoordinate;
+ varying vec2 threeStepsRightTextureCoordinate;
+ varying vec2 fourStepsRightTextureCoordinate;
+ 
+ // sinc(x) * sinc(x/a) = (a * sin(pi * x) * sin(pi * x / a)) / (pi^2 * x^2)
+ // Assuming a Lanczos constant of 2.0, and scaling values to max out at x = +/- 1.5
+ 
+ void main()
+ {
+     vec4 fragmentColor = texture2D(inputImageTexture, centerTextureCoordinate) * 0.38026;
+     
+     fragmentColor += texture2D(inputImageTexture, oneStepLeftTextureCoordinate) * 0.27667;
+     fragmentColor += texture2D(inputImageTexture, oneStepRightTextureCoordinate) * 0.27667;
+     
+     fragmentColor += texture2D(inputImageTexture, twoStepsLeftTextureCoordinate) * 0.08074;
+     fragmentColor += texture2D(inputImageTexture, twoStepsRightTextureCoordinate) * 0.08074;
+     
+     fragmentColor += texture2D(inputImageTexture, threeStepsLeftTextureCoordinate) * -0.02612;
+     fragmentColor += texture2D(inputImageTexture, threeStepsRightTextureCoordinate) * -0.02612;
+     
+     fragmentColor += texture2D(inputImageTexture, fourStepsLeftTextureCoordinate) * -0.02143;
+     fragmentColor += texture2D(inputImageTexture, fourStepsRightTextureCoordinate) * -0.02143;
+     
+     gl_FragColor = fragmentColor;
+ }
+);
+#endif
 
 @implementation GPUImageLanczosResamplingFilter
 
@@ -121,6 +159,81 @@ NSString *const kGPUImageLanczosFragmentShaderString = SHADER_STRING
         horizontalPassTexelWidthOffset = 1.0 / _originalImageSize.width;
         horizontalPassTexelHeightOffset = 0.0;
     });
+}
+
+
+- (void)renderToTextureWithVertices:(const GLfloat *)vertices textureCoordinates:(const GLfloat *)textureCoordinates;
+{
+    if (self.preventRendering)
+    {
+        [firstInputFramebuffer unlock];
+        return;
+    }
+    
+    [GPUImageContext setActiveShaderProgram:filterProgram];
+    
+    CGSize currentFBOSize = [self sizeOfFBO];
+    if (GPUImageRotationSwapsWidthAndHeight(inputRotation))
+    {
+        currentFBOSize.height = self.originalImageSize.height;
+    }
+    else
+    {
+        currentFBOSize.width = self.originalImageSize.width;
+    }
+    outputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:currentFBOSize textureOptions:self.outputTextureOptions onlyTexture:NO];
+    [outputFramebuffer activateFramebuffer];
+    
+    [self setUniformsForProgramAtIndex:0];
+    
+    glClearColor(backgroundColorRed, backgroundColorGreen, backgroundColorBlue, backgroundColorAlpha);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, [firstInputFramebuffer texture]);
+	
+	glUniform1i(filterInputTextureUniform, 2);
+    
+    glVertexAttribPointer(filterPositionAttribute, 2, GL_FLOAT, 0, 0, vertices);
+	glVertexAttribPointer(filterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, textureCoordinates);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    
+    [firstInputFramebuffer unlock];
+    
+    // Run the second stage of the two-pass filter
+    [GPUImageContext setActiveShaderProgram:secondFilterProgram];
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    secondOutputFramebuffer = [[GPUImageContext sharedFramebufferCache] fetchFramebufferForSize:[self sizeOfFBO] textureOptions:self.outputTextureOptions onlyTexture:NO];
+    [secondOutputFramebuffer activateFramebuffer];
+    if (usingNextFrameForImageCapture)
+    {
+        [secondOutputFramebuffer lock];
+    }
+
+    [self setUniformsForProgramAtIndex:1];
+    
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, [outputFramebuffer texture]);
+    glVertexAttribPointer(secondFilterTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, [[self class] textureCoordinatesForRotation:kGPUImageNoRotation]);
+    
+	glUniform1i(secondFilterInputTextureUniform, 3);
+    
+    glVertexAttribPointer(secondFilterPositionAttribute, 2, GL_FLOAT, 0, 0, vertices);
+    
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    [outputFramebuffer unlock];
+    outputFramebuffer = nil;
+    if (usingNextFrameForImageCapture)
+    {
+        dispatch_semaphore_signal(imageCaptureSemaphore);
+    }
 }
 
 @end

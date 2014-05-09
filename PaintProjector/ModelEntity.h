@@ -7,8 +7,7 @@
 //
 
 #import "Entity.h"
-#import "OpenGLWaveFrontObject.h"
-#import "OpenGLWaveFrontMesh.h"
+@class OpenGLWaveFrontObject;
 
 @interface ModelEntity : Entity
 - (id)initWithWaveFrontObj:(OpenGLWaveFrontObject *)obj;

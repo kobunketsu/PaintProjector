@@ -1,8 +1,16 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
-#import "GPUImageOpenGLESContext.h"
+#import "GPUImageContext.h"
 #import "GPUImageOutput.h"
+
+extern const GLfloat kColorConversion601[];
+extern const GLfloat kColorConversion601FullRange[];
+extern const GLfloat kColorConversion709[];
+extern NSString *const kGPUImageYUVVideoRangeConversionForRGFragmentShaderString;
+extern NSString *const kGPUImageYUVFullRangeConversionForLAFragmentShaderString;
+extern NSString *const kGPUImageYUVVideoRangeConversionForLAFragmentShaderString;
+
 
 //Delegate Protocal for Face Detection.
 @protocol GPUImageVideoCameraDelegate <NSObject>
@@ -17,8 +25,6 @@
 */
 @interface GPUImageVideoCamera : GPUImageOutput <AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 {
-    CVOpenGLESTextureCacheRef coreVideoTextureCache;    
-
     NSUInteger numberOfFramesCaptured;
     CGFloat totalFrameTimeDuringCapture;
     
@@ -26,12 +32,16 @@
     AVCaptureDevice *_inputCamera;
     AVCaptureDevice *_microphone;
     AVCaptureDeviceInput *videoInput;
+	AVCaptureVideoDataOutput *videoOutput;
 
     BOOL capturePaused;
-    GPUImageRotationMode outputRotation;
+    GPUImageRotationMode outputRotation, internalRotation;
     dispatch_semaphore_t frameRenderingSemaphore;
+        
+    BOOL captureAsYUV;
+    GLuint luminanceTexture, chrominanceTexture;
 
-    id<GPUImageVideoCameraDelegate> _delegate;
+    __unsafe_unretained id<GPUImageVideoCameraDelegate> _delegate;
 }
 
 /// The AVCaptureSession used to capture from the camera
@@ -44,10 +54,11 @@
 /**
  Setting this to 0 or below will set the frame rate back to the default setting for a particular preset.
  */
-@property (readwrite) NSInteger frameRate;
+@property (readwrite) int32_t frameRate;
 
-/// Easy way to tell if front-facing camera is present on device
+/// Easy way to tell which cameras are present on device
 @property (readonly, getter = isFrontFacingCameraPresent) BOOL frontFacingCameraPresent;
+@property (readonly, getter = isBackFacingCameraPresent) BOOL backFacingCameraPresent;
 
 /// This enables the benchmarking mode, which logs out instantaneous and average frame times to the console
 @property(readwrite, nonatomic) BOOL runBenchmark;
@@ -61,7 +72,7 @@
 /// These properties determine whether or not the two camera orientations should be mirrored. By default, both are NO.
 @property(readwrite, nonatomic) BOOL horizontallyMirrorFrontFacingCamera, horizontallyMirrorRearFacingCamera;
 
-@property(nonatomic, retain) id<GPUImageVideoCameraDelegate> delegate;
+@property(nonatomic, assign) id<GPUImageVideoCameraDelegate> delegate;
 
 /// @name Initialization and teardown
 
@@ -73,6 +84,17 @@
  @param cameraPosition Camera to capture from
  */
 - (id)initWithSessionPreset:(NSString *)sessionPreset cameraPosition:(AVCaptureDevicePosition)cameraPosition;
+
+/** Add audio capture to the session. Adding inputs and outputs freezes the capture session momentarily, so you
+    can use this method to add the audio inputs and outputs early, if you're going to set the audioEncodingTarget 
+    later. Returns YES is the audio inputs and outputs were added, or NO if they had already been added.
+ */
+- (BOOL)addAudioInputsAndOutputs;
+
+/** Remove the audio capture inputs and outputs from this session. Returns YES if the audio inputs and outputs
+    were removed, or NO is they hadn't already been added.
+ */
+- (BOOL)removeAudioInputsAndOutputs;
 
 /** Tear down the capture session
  */
@@ -123,5 +145,10 @@
 /** When benchmarking is enabled, this will keep a running average of the time from uploading, processing, and final recording or display
  */
 - (CGFloat)averageFrameDurationDuringCapture;
+
+- (void)resetBenchmarkAverage;
+
++ (BOOL)isBackFacingCameraPresent;
++ (BOOL)isFrontFacingCameraPresent;
 
 @end

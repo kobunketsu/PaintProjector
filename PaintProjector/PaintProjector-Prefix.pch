@@ -15,10 +15,48 @@
     #import "Extension.h"
 #endif
 
+
+#define XCODE_COLORS_ESCAPE @"\033["
+
+#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+
+
 #ifdef DEBUG
 #define DebugLog(s, ...) NSLog(@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
 #define DebugLog(s, ...)
+#endif
+
+#ifdef DEBUG
+#define DebugLogWarn(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#else
+#define DebugLogWarn(s, ...)
+#endif
+
+#ifdef DEBUG
+#define DebugLogError(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,0,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#else
+#define DebugLogError(s, ...)
+#endif
+
+#ifdef DEBUG
+#define DebugLogSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#else
+#define DebugLogSuccess(s, ...)
+#endif
+
+#ifdef DEBUG
+#define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#else
+#define DebugLogFuncStart(s, ...)
+#endif
+
+#ifdef DEBUG
+#define DebugLogSystem(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg127,127,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#else
+#define DebugLogSystem(s, ...)
 #endif
 
 #define TEST 0
@@ -42,30 +80,3 @@ static bool IsOffsetEyeDropper = true;
 #define InchScale 3.28
 
 #define DeviceWidth 0.154
-
-
-
-
-//#define checkGL switch(glGetError()){\
-//case GL_INVALID_ENUM:\
-//NSLog(@"GL_INVALID_ENUM");\
-//break;\
-//case GL_INVALID_VALUE:\
-//NSLog(@"GL_INVALID_VALUE");\
-//break;\
-//case GL_INVALID_OPERATION:\
-//NSLog(@"GL_INVALID_OPERATION");\
-//break;\
-//case GL_STACK_OVERFLOW:\
-//NSLog(@"GL_STACK_OVERFLOW");\
-//break;\
-//case GL_STACK_UNDERFLOW:\
-//NSLog(@"GL_STACK_UNDERFLOW");\
-//break;\
-//case GL_OUT_OF_MEMORY:\
-//NSLog(@"GL_OUT_OF_MEMORY");\
-//break;\
-//default:\
-//break;\
-//}
-

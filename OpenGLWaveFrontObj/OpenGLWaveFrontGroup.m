@@ -1,14 +1,14 @@
 //
-//  OpenGLWaveFrontMesh.m
+//  OpenGLWaveFrontGroup.m
 //  Wavefront OBJ Loader
 //
 //  Created by Jeff LaMarche on 12/18/08.
 //  Copyright 2008 Jeff LaMarche. All rights reserved.
 //
 
-#import "OpenGLWaveFrontMesh.h"
+#import "OpenGLWaveFrontGroup.h"
 
-@implementation OpenGLWaveFrontMesh
+@implementation OpenGLWaveFrontGroup
 @synthesize name;
 @synthesize numberOfFaces;
 @synthesize faces;
@@ -35,7 +35,10 @@
 
 - (void)dealloc
 {
+	[name release];
 	if (faces)
 		free(faces);
+	[material release];
+	[super dealloc];
 }
 @end

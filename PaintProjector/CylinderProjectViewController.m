@@ -17,6 +17,7 @@
 #import "NSString+Unit.h"
 #import "AssetDatabase.h"
 
+
 @interface CylinderProjectViewController ()
 //TODO: deprecated
 @property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
@@ -44,7 +45,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    DebugLog(@"initWithCoder");
+    DebugLogSystem(@"initWithCoder");
     self = [super initWithCoder:aDecoder];
     if (self) {
         
@@ -53,7 +54,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    DebugLog(@"[ viewWillAppear ]");
+    DebugLogSystem(@"[ viewWillAppear ]");
     //用于解决启动闪黑屏的问题
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
     [self setupBaseParams];
@@ -70,24 +71,24 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    DebugLog(@"[ viewDidAppear ]");
+    DebugLogSystem(@"[ viewDidAppear ]");
     
     [self.delegate willCompleteLaunchTransitionToCylinderProject];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    DebugLog(@"[ viewWillDisappear ]");
+    DebugLogSystem(@"[ viewWillDisappear ]");
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    DebugLog(@"[ viewDidDisappear ]");
+    DebugLogSystem(@"[ viewDidDisappear ]");
     [self tearDownGL];
 
 }
 
 - (void)viewDidLoad
 {
-    DebugLog(@"[ viewDidLoad ]");
+    DebugLogSystem(@"[ viewDidLoad ]");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
@@ -134,14 +135,10 @@
 //    [self initMotionDetect];
     
     [self addObserver:self forKeyPath:@"eyeTop" options:NSKeyValueObservingOptionOld context:nil];
-    
-    //test
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/sphere" ofType:@"obj"];
-    [AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
 }
 
 - (void)viewDidUnload{
-    DebugLog(@"[ viewDidUnload ]");
+    DebugLogSystem(@"[ viewDidUnload ]");
 }
 - (void)didReceiveMemoryWarning
 {
@@ -150,7 +147,7 @@
 }
 
 -(void)dealloc{
-    DebugLog(@"[ dealloc ]");
+    DebugLogSystem(@"[ dealloc ]");
 }
 
 #pragma mark- 主程序
@@ -957,6 +954,26 @@
     
 }
 
+- (void)createTestObj{
+    //test
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/piaoLiuPing" ofType:@"obj"];
+    Entity *entity = (Entity *)[AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
+    entity.transform.scale = GLKVector3Make(0.5, 0.5, 0.5);
+    
+//    ShaderCylinder *shaderCylinder = [[ShaderCylinder alloc]init];
+//    Material *matMain = [[Material alloc]initWithShader:shaderCylinder];
+//    Texture *texMain = [[Texture alloc]init];
+//    texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
+//    matMain.mainTexture = texMain;
+//    entity.renderer.sharedMaterial = matMain;
+    
+    path = [[NSBundle mainBundle] pathForResource:@"testIOS7Color" ofType:@"png"];
+    entity.renderer.sharedMaterial.mainTexture = [Texture textureFromImagePath:path reload:NO];
+    
+    
+    [self.curScene addEntity:entity];
+}
+
 - (void)setupScene {
     
     DebugLog(@"init Scene");
@@ -975,7 +992,9 @@
     DebugLog(@"init Scene Entities ");
     [self createCylinderProject];
     
-    [self createCylinder];
+//    [self createCylinder];
+    
+    [self createTestObj];
     
     [self initOtherParams];
     

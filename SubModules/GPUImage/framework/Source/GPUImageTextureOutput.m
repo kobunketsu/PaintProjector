@@ -21,6 +21,11 @@
     return self;
 }
 
+- (void)doneWithTexture;
+{
+    [firstInputFramebuffer unlock];
+}
+
 #pragma mark -
 #pragma mark GPUImageInput protocol
 
@@ -34,9 +39,13 @@
     return 0;
 }
 
-- (void)setInputTexture:(GLuint)newInputTexture atIndex:(NSInteger)textureIndex;
+// TODO: Deal with the fact that the texture changes regularly as a result of the caching
+- (void)setInputFramebuffer:(GPUImageFramebuffer *)newInputFramebuffer atIndex:(NSInteger)textureIndex;
 {
-    _texture = newInputTexture;
+    firstInputFramebuffer = newInputFramebuffer;
+    [firstInputFramebuffer lock];
+    
+    _texture = [firstInputFramebuffer texture];
 }
 
 - (void)setInputRotation:(GPUImageRotationMode)newInputRotation atIndex:(NSInteger)textureIndex;
@@ -61,12 +70,12 @@
     return NO;
 }
 
-- (void)setTextureDelegate:(id<GPUImageTextureDelegate>)newTextureDelegate atIndex:(NSInteger)textureIndex;
+- (BOOL)wantsMonochromeInput;
 {
-    textureDelegate = newTextureDelegate;
+    return NO;
 }
 
-- (void)conserveMemoryForNextFrame;
+- (void)setCurrentlyReceivingMonochromeInput:(BOOL)newValue;
 {
     
 }

@@ -64,6 +64,7 @@
         
         GLvoid *ptr = (GLvoid*)(offset * sizeof(short));
         
+        //test
         if (self.meshFilter.mesh.topology == Triangles) {
             glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, ptr);
         }

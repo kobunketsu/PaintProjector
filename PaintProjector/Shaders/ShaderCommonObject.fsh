@@ -12,6 +12,7 @@ uniform sampler2D mainTexture;
 void main()
 {
     lowp vec4 cbase = texture2D(mainTexture, oTexcoord);
-    gl_FragColor.rgb = cbase.rgb * oColor.rgb;
+    gl_FragColor.rgb = cbase.rgb;
+//    gl_FragColor.rgb *= oColor.rgb;
     gl_FragColor.a = oColor.a;
 }

@@ -12,7 +12,6 @@
 #import <OpenGLES/ES1/glext.h>
 #import "OpengLWaveFrontCommon.h"
 #import "OpenGLWaveFrontMaterial.h"
-#import <GLKit/GLKit.h>
 #import "VertexCommon.h"
 
 // This line should be uncommented to use the famous Quake / invsqrt optimization
@@ -25,7 +24,7 @@
 	
 	GLuint				numberOfVertices;
 	Vertex3D			*vertices;	
-	GLuint				numberOfFaces;			// Total faces in all meshes
+	GLuint				numberOfFaces;			// Total faces in all groups
 	
 	Vector3D			*surfaceNormals;		// length = numberOfFaces
 	Vector3D			*vertexNormals;			// length = numberOfFaces (*3 vertices per triangle);
@@ -34,23 +33,22 @@
 	GLubyte				valuesPerCoord;			// 1, 2, or 3, representing U, UV, or UVW mapping, could be 4 but OBJ doesn't support 4
 	
 	NSDictionary		*materials;
-	NSMutableArray		*meshes;
+	NSMutableArray		*groups;
 	
 	Vertex3D			currentPosition;
 	Rotation3D			currentRotation;
 }
-
-@property (nonatomic) GLuint numberOfVertices;
-@property (nonatomic) GLuint numberOfFaces;
-@property (nonatomic) Vertex3D *vertexNormals;
-@property (nonatomic) Vertex3D *vertices;
 @property (nonatomic, retain) NSString *sourceObjFilePath;
 @property (nonatomic, retain) NSString *sourceMtlFilePath;
+@property (nonatomic, assign) GLuint numberOfVertices;
+@property (nonatomic, assign) GLuint numberOfFaces;
+@property (nonatomic, assign) Vertex3D *vertexNormals;
+@property (nonatomic, assign) Vertex3D *vertices;
 @property (nonatomic, retain) NSDictionary *materials;
-@property (nonatomic, retain) NSMutableArray *meshes;
+@property (nonatomic, retain) NSMutableArray *groups;
 @property Vertex3D currentPosition;
 @property Rotation3D currentRotation;
 - (id)initWithPath:(NSString *)path;
-//- (void)drawSelf;
+- (void)drawSelf;
 - (OBJVertex*)convertVertexStruct;
 @end

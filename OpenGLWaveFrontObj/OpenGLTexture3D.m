@@ -59,6 +59,7 @@
 			CGContextRelease(context);
 			
 			free(imageData);
+			[image release];
 		}
 		glEnable(GL_BLEND);
 
@@ -73,5 +74,7 @@
 - (void)dealloc
 {
 	glDeleteTextures(1, &texture[0]);
+	[filename release];
+	[super dealloc];
 }
 @end

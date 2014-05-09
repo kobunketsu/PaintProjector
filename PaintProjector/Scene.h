@@ -8,10 +8,11 @@
 
 #import "Object.h"
 #import "Entity.h"
+#import "RenderSettings.h"
 
 @interface Scene : Object
-@property (retain, nonatomic)NSMutableArray* aCameras;
-@property (retain, nonatomic)NSMutableArray* aEntities;
+@property (retain, nonatomic)NSMutableArray *aCameras;
+@property (retain, nonatomic)NSMutableArray *aEntities;
 
 - (void)addEntity:(Entity*)entity;
 

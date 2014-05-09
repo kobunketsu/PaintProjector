@@ -21,15 +21,15 @@ typedef struct {
 
 typedef struct {
     float Position[3];
-    float Normal[3];
     float Texcoord[2];
+    float Normal[3];
 } OBJVertex;
 
 typedef NS_ENUM(NSInteger, VertexAttributes) {
-    Vertex_Position        = 0,
-    Vertex_Texcoord        = 1 <<  0,
-    Vertex_Normal          = 1 <<  1,
-    Vertex_Color           = 1 <<  2,
+    Vertex_Position        = 1 <<  0,
+    Vertex_Texcoord        = 1 <<  1,
+    Vertex_Normal          = 1 <<  2,
+    Vertex_Color           = 1 <<  3,
 };
 
 @interface VertexCommon : NSObject

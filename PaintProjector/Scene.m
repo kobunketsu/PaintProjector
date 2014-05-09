@@ -14,6 +14,7 @@
     if (self != nil) {
         _aEntities = [[NSMutableArray alloc]init];
         _aCameras = [[NSMutableArray alloc]init];
+        [RenderSettings initialize];
     }
     return self;
 }
@@ -72,5 +73,7 @@
     
     [self.aCameras removeAllObjects];
     [self.aEntities removeAllObjects];
+    
+    [RenderSettings destroy];
 }
 @end

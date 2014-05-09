@@ -125,27 +125,27 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    DebugLog(@"[ viewWillAppear ]");
+    DebugLogSystem(@"[ viewWillAppear ]");
 //    [self prepareForPresentation];
 }
 - (void)viewDidAppear:(BOOL)animated{
-    DebugLog(@"[ viewDidAppear ]");
+    DebugLogSystem(@"[ viewDidAppear ]");
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    DebugLog(@"[ viewWillDisappear ]");
+    DebugLogSystem(@"[ viewWillDisappear ]");
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    DebugLog(@"[ viewDidDisappear ]");
+    DebugLogSystem(@"[ viewDidDisappear ]");
 }
 -(void)viewDidLayoutSubviews{
-    DebugLog(@"[ viewDidLayoutSubviews ]");
+    DebugLogSystem(@"[ viewDidLayoutSubviews ]");
 }
 -(void)viewWillLayoutSubviews{
-    DebugLog(@"[ viewWillLayoutSubviews ]");
+    DebugLogSystem(@"[ viewWillLayoutSubviews ]");
 }
 - (void)viewDidLoad
 {
-    DebugLog(@"[ viewDidLoad ]");
+    DebugLogSystem(@"[ viewDidLoad ]");
     [super viewDidLoad];
     
     //Notification
@@ -392,7 +392,7 @@
 
 //dealloc调用导致内存增加的问题？
 -(void)dealloc{
-    DebugLog(@"dealloc");
+    DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 

@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 #import <CoreMotion/CoreMotion.h>
-#import "GPUImage.h"
+//#import "GPUImage.h"
 //#import "PaintView.h"
 #import "LayerDelegate.h"
 @interface ShowPaint : UIView

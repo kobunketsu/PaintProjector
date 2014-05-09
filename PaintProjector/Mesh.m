@@ -60,6 +60,7 @@
 #endif
     size_t indicesCount = self.triangleCount * 3;
     GLvoid *indices = (GLvoid *)self.triangles.bytes;
+    
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(short), indices, GL_STATIC_DRAW);
     
     glGenBuffers(1, &_vertexBuffer);
@@ -69,7 +70,6 @@
 #endif
     size_t vertLength = self.verticeCount;
     GLvoid *vertices = (GLvoid *)self.vertices.bytes;
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertLength, vertices, GL_STATIC_DRAW);
     
     //计算步进
     GLsizei stride = 0;
@@ -77,6 +77,8 @@
     stride += (self.vertexAttr & Vertex_Texcoord) == Vertex_Texcoord ? 8 : 0;
     stride += (self.vertexAttr & Vertex_Color) == Vertex_Color ? 16 : 0;
     stride += (self.vertexAttr & Vertex_Normal) == Vertex_Normal ? 12 : 0;
+    
+    glBufferData(GL_ARRAY_BUFFER, stride * vertLength, vertices, GL_STATIC_DRAW);
     
     GLsizei offset = 0;
     if ((self.vertexAttr & Vertex_Position) == Vertex_Position) {
