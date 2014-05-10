@@ -12,7 +12,7 @@
 #import "UIView+Tag.h"
 
 #define PaintFrameMoveAnimationDuration 0.6
-#define PaintFrameFadeAnimationDuration 0.4
+#define PaintFrameFadeAnimationDuration 0.3
 #define PaintFrameFadeOutScale 0.95
 
 @implementation PaintFrameTransitionManager
@@ -29,6 +29,10 @@
 
 - (void)presentingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    //初始化view controller
+    CylinderProjectViewController *cylinderProjectVC = (CylinderProjectViewController *)toVC;
+    cylinderProjectVC.downToolBar.hidden = true;
+
     UIView *toView = toVC.view;
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     
@@ -117,6 +121,7 @@
     UIView *containerView = [transitionContext containerView];
     
     PaintCollectionViewController *paintCollectionVC = (PaintCollectionViewController*)toVC;
+    paintCollectionVC.downToolBar.hidden = true;
     UIView *toView = paintCollectionVC.view;
     
     //更新scroll位置

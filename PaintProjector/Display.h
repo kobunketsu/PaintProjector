@@ -9,13 +9,17 @@
 #import "Object.h"
 #import "GLWrapper.h"
 
-#define ToSeeCylinderTopPixelOffset 70
-
 @class Display;
 static Display *main;
 
+@protocol DisplayDelegate <NSObject>
+- (CGRect)willGetViewport;
+@end
+
+
 @interface Display : Object
 @property(weak, nonatomic)GLKView* view;
+@property(assign, nonatomic)id delegate;
 + (Display*)main;
 + (void)setMain:(Display*)display;
 - (id)initWithGLKView:(GLKView*)view;

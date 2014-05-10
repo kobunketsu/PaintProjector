@@ -19,10 +19,143 @@
     return self;
 }
 
+- (void)drawRect:(CGRect)rect{
+    if (self.isSelected || self.isHighlighted) {
+        [self drawSelected];
+        [self setTitleColor:[UIColor colorWithRed:255/255.0 green:75/255.0 blue:0/255.0 alpha:1] forState:UIControlStateSelected];
+    }
+    else{
+        [self drawNormal];
+        [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    }
+}
 
+- (void)drawNormal
+{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //// Color Declarations
+    UIColor* iconHighlightColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor* iconColor = [UIColor colorWithRed: 0.614 green: 0.614 blue: 0.614 alpha: 1];
+    CGFloat iconColorHSBA[4];
+    [iconColor getHue: &iconColorHSBA[0] saturation: &iconColorHSBA[1] brightness: &iconColorHSBA[2] alpha: &iconColorHSBA[3]];
+    
+    UIColor* iconShadowColorColor = [UIColor colorWithHue: iconColorHSBA[0] saturation: iconColorHSBA[1] brightness: 0.325 alpha: iconColorHSBA[3]];
+    
+    //// Shadow Declarations
+    UIColor* iconHighlight = iconHighlightColor;
+    CGSize iconHighlightOffset = CGSizeMake(0.1, 1.1);
+    CGFloat iconHighlightBlurRadius = 0;
+    UIColor* iconShadow = iconShadowColorColor;
+    CGSize iconShadowOffset = CGSizeMake(0.1, 1.1);
+    CGFloat iconShadowBlurRadius = 0;
+    UIColor* glow = iconHighlightColor;
+    CGSize glowOffset = CGSizeMake(0.1, -0.1);
+    CGFloat glowBlurRadius = 15;
+    
+    //// Frames
+    CGRect frame = CGRectMake(0, 0, 128, 80);
+    
+    
+    //// Group 2
+    {
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, glow.CGColor);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
+        //// Group
+        {
+            //// Main Drawing
+            UIBezierPath* mainPath = [UIBezierPath bezierPath];
+            [mainPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 76.14, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 71.71, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 71.71, CGRectGetMinY(frame) + 50.54)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 73.92, CGRectGetMinY(frame) + 52.79) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 71.71, CGRectGetMinY(frame) + 51.78) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 72.7, CGRectGetMinY(frame) + 52.79)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 76.14, CGRectGetMinY(frame) + 50.54) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 75.15, CGRectGetMinY(frame) + 52.79) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 76.14, CGRectGetMinY(frame) + 51.78)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 76.14, CGRectGetMinY(frame) + 24.59)];
+            [mainPath closePath];
+            [mainPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 67.27, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 61.73, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 61.73, CGRectGetMinY(frame) + 49.97)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 64.5, CGRectGetMinY(frame) + 52.79) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 61.73, CGRectGetMinY(frame) + 51.53) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 62.97, CGRectGetMinY(frame) + 52.79)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 67.27, CGRectGetMinY(frame) + 49.97) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 66.03, CGRectGetMinY(frame) + 52.79) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 67.27, CGRectGetMinY(frame) + 51.53)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 67.27, CGRectGetMinY(frame) + 24.59)];
+            [mainPath closePath];
+            [mainPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 57.29, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 52.86, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 52.86, CGRectGetMinY(frame) + 50.54)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 55.08, CGRectGetMinY(frame) + 52.79) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 52.86, CGRectGetMinY(frame) + 51.78) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 53.85, CGRectGetMinY(frame) + 52.79)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 57.29, CGRectGetMinY(frame) + 50.54) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 56.3, CGRectGetMinY(frame) + 52.79) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 57.29, CGRectGetMinY(frame) + 51.78)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 57.29, CGRectGetMinY(frame) + 24.59)];
+            [mainPath closePath];
+            [mainPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 70.6, CGRectGetMinY(frame) + 17.26)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 71.71, CGRectGetMinY(frame) + 18.95)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 86.67, CGRectGetMinY(frame) + 18.95)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 89.45, CGRectGetMinY(frame) + 21.77) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 88.2, CGRectGetMinY(frame) + 18.95) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 89.45, CGRectGetMinY(frame) + 20.21)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 86.67, CGRectGetMinY(frame) + 24.59) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 89.45, CGRectGetMinY(frame) + 23.33) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 88.2, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 82.79, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 81.68, CGRectGetMinY(frame) + 53.61)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 77.25, CGRectGetMinY(frame) + 58.44) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 81.68, CGRectGetMinY(frame) + 56.28) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 79.7, CGRectGetMinY(frame) + 58.44)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 51.75, CGRectGetMinY(frame) + 58.44)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 47.32, CGRectGetMinY(frame) + 53.61) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 49.3, CGRectGetMinY(frame) + 58.44) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 47.32, CGRectGetMinY(frame) + 56.28)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46.21, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 42.33, CGRectGetMinY(frame) + 24.59)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 39.55, CGRectGetMinY(frame) + 21.77) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 40.8, CGRectGetMinY(frame) + 24.59) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 39.55, CGRectGetMinY(frame) + 23.33)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 42.33, CGRectGetMinY(frame) + 18.95) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 39.55, CGRectGetMinY(frame) + 20.21) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 40.8, CGRectGetMinY(frame) + 18.95)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 55.08, CGRectGetMinY(frame) + 18.95)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 56.18, CGRectGetMinY(frame) + 17.26)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 58.96, CGRectGetMinY(frame) + 15.56) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 56.18, CGRectGetMinY(frame) + 15.7) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 57.43, CGRectGetMinY(frame) + 15.56)];
+            [mainPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 67.83, CGRectGetMinY(frame) + 15.56)];
+            [mainPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 70.6, CGRectGetMinY(frame) + 17.26) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 69.36, CGRectGetMinY(frame) + 15.56) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 70.6, CGRectGetMinY(frame) + 15.7)];
+            [mainPath closePath];
+            CGContextSaveGState(context);
+            CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
+            [iconColor setFill];
+            [mainPath fill];
+            
+            ////// Main Inner Shadow
+            CGRect mainBorderRect = CGRectInset([mainPath bounds], -iconShadowBlurRadius, -iconShadowBlurRadius);
+            mainBorderRect = CGRectOffset(mainBorderRect, -iconShadowOffset.width, -iconShadowOffset.height);
+            mainBorderRect = CGRectInset(CGRectUnion(mainBorderRect, [mainPath bounds]), -1, -1);
+            
+            UIBezierPath* mainNegativePath = [UIBezierPath bezierPathWithRect: mainBorderRect];
+            [mainNegativePath appendPath: mainPath];
+            mainNegativePath.usesEvenOddFillRule = YES;
+            
+            CGContextSaveGState(context);
+            {
+                CGFloat xOffset = iconShadowOffset.width + round(mainBorderRect.size.width);
+                CGFloat yOffset = iconShadowOffset.height;
+                CGContextSetShadowWithColor(context,
+                                            CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                            iconShadowBlurRadius,
+                                            iconShadow.CGColor);
+                
+                [mainPath addClip];
+                CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(mainBorderRect.size.width), 0);
+                [mainNegativePath applyTransform: transform];
+                [[UIColor grayColor] setFill];
+                [mainNegativePath fill];
+            }
+            CGContextRestoreGState(context);
+            
+            CGContextRestoreGState(context);
+            
+        }
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+    }
+    
+    
+
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)drawSelected
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();

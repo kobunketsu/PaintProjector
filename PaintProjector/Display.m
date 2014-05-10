@@ -31,8 +31,11 @@
     GLWrapper.current.lastFramebuffer = fbo;
     
     //将画面主体移动到中心
-    GLfloat offsetToCenter = -170;
-    glViewport(0, offsetToCenter, self.view.bounds.size.width, (self.view.bounds.size.height + ToSeeCylinderTopPixelOffset));
+    CGRect rect = self.view.bounds;
+    if (self.delegate != nil) {
+        rect = [self.delegate willGetViewport];
+    }
+    glViewport(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     
     glClear(GL_COLOR_BUFFER_BIT);
     

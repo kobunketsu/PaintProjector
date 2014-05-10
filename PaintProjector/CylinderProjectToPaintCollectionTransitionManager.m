@@ -11,6 +11,9 @@
 #import "PaintCollectionViewCell.h"
 #import "UIView+Tag.h"
 
+#define TempPaintFrameToGalleryTranslateDuration 0.6
+#define TempPaintFrameToGalleryFadeOutDuration 0.5
+
 @implementation CylinderProjectToPaintCollectionTransitionManager
 //动画方法:
 //1.显示的图片动画到圆柱体的右侧后，从圆柱体的右侧飞入圆柱体
@@ -69,11 +72,11 @@
     //动画
     toView.alpha = 0;
     
-    [UIView animateWithDuration:0.6 animations:^{
+    [UIView animateWithDuration:TempPaintFrameToGalleryTranslateDuration animations:^{
         transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {
         //渐入cylinderProjectView
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:TempPaintFrameToGalleryFadeOutDuration animations:^{
             toView.alpha = 1;
             fromVC.view.alpha = 0;
             //变换paintCollectionVC的Cell

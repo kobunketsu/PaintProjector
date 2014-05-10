@@ -358,7 +358,7 @@
     [iconColor getHue: &iconColorHSBA[0] saturation: &iconColorHSBA[1] brightness: &iconColorHSBA[2] alpha: &iconColorHSBA[3]];
     
     UIColor* iconShadowColorColor = [UIColor colorWithHue: iconColorHSBA[0] saturation: 0 brightness: iconColorHSBA[2] alpha: iconColorHSBA[3]];
-    UIColor* glowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.5];
+    UIColor* fillColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 0.49];
     UIColor* iconGlowGradientColor2 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     UIColor* iconGlowGradientColor3 = [UIColor colorWithRed: 0.545 green: 0.545 blue: 0.545 alpha: 0.23];
     
@@ -376,7 +376,7 @@
     UIColor* iconShadow = iconShadowColorColor;
     CGSize iconShadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat iconShadowBlurRadius = 0;
-    UIColor* glow = glowColor;
+    UIColor* glow = fillColor;
     CGSize glowOffset = CGSizeMake(0.1, -0.1);
     CGFloat glowBlurRadius = 12;
     
@@ -389,6 +389,11 @@
     
     //// Icon
     {
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, glow.CGColor);
+        CGContextBeginTransparencyLayer(context, NULL);
+        
+        
         //// frameIcon
         {
             CGContextSaveGState(context);
@@ -649,6 +654,10 @@
             CGContextEndTransparencyLayer(context);
             CGContextRestoreGState(context);
         }
+        
+        
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
     }
     
     
@@ -656,6 +665,6 @@
     CGGradientRelease(iconHighlightedGradient);
     CGColorSpaceRelease(colorSpace);
     
-    
+
 }
 @end

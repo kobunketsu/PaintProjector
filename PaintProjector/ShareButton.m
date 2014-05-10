@@ -25,7 +25,7 @@
 - (void)drawRect:(CGRect)rect{
     if (self.isSelected || self.isHighlighted) {
         [self drawSelected];
-        [self setTitleColor:[UIColor colorWithRed:247/255.0 green:167/255.0 blue:211/255.0 alpha:1] forState:UIControlStateSelected];
+        [self setTitleColor:[UIColor colorWithRed:247/255.0 green:166/255.0 blue:201/255.0 alpha:1] forState:UIControlStateSelected];
     }
     else{
         [self drawNormal];

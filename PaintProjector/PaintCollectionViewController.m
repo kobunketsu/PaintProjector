@@ -16,7 +16,10 @@
 #import "PaintScreen.h"
 #import "UIView+Tag.h"
 
-//#import "TestViewController.h"
+
+#define launchImageViewToCylinderFadeOutDuration 0.3
+#define TempPaintFrameToCylinderFadeOutDuration 1
+#define PaintFramePickOperationHalfDuration 0.2
 
 @interface PaintCollectionViewController ()
 //圆柱体投影VC
@@ -102,6 +105,7 @@
 }
 
 - (void)setEditing:(BOOL)editing{
+    self.fileButton.selected = editing;
     _editing = editing;
     
     if (editing) {
@@ -178,7 +182,7 @@
 }
 
 -(void)launchTransitionToCylinderProjectCompleted{
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:launchImageViewToCylinderFadeOutDuration animations:^{
         self.launchImageView.alpha = 0;
     }completion:^(BOOL finished) {
         [self.launchImageView removeFromSuperview];
@@ -226,11 +230,36 @@
     
     //非编辑状态，打开
     if (!self.editing) {
-        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:^{
+            [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
+        }toView:nil completion:nil];
+        
     }
     //编辑状态
     else{
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLogFuncStart(@"didHighlightItemAtIndexPath");
+    
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+     
+        [cell.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
+        
+    }completion:nil];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLogFuncStart(@"didUnHighlightItemAtIndexPath");
+    
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        
+        [cell.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+        
+    }completion:nil];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -263,16 +292,16 @@
 #pragma mark- CylinderProjectViewControllerDelegate
 -(void)willTransitionToGallery{
     //prepare seque
-    
-    
     [self.cylinderProjectVC dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
     }];
 }
 
 #pragma mark- Tool Bar
 
 - (IBAction)fileButtonTouchUp:(id)sender{
+
     self.editing = !self.editing;
 }
 
@@ -357,6 +386,7 @@
     self.cylinderProjectVC.paintFrameViewGroup = self.paintFrameManager.curPaintFrameGroup;
     self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
     
+    self.cylinderProjectVC.downToolBar.hidden = true;
     [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
         DebugLog(@"Fade in cylinderProjcet");
         [self.cylinderProjectVC.cylinderProjectCur.animation play];
@@ -364,7 +394,7 @@
         //隐藏从paintCollectionVC transition 时添加的view
         UIView *transitionImageView = [self.cylinderProjectVC.view subViewWithTag:100];
         if (transitionImageView) {
-            [UIView animateWithDuration:1 animations:^{
+            [UIView animateWithDuration:TempPaintFrameToCylinderFadeOutDuration animations:^{
                 transitionImageView.alpha = 0;
             }completion:^(BOOL finished) {
                 if (self.isLaunchTransitioned) {
@@ -373,12 +403,14 @@
                 
                 if (paintDirectly) {
                     [self.cylinderProjectVC transitionToPaint];
-//                    [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
+                    //                    [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
                 }
                 
             }];
+            
         }
     }];
+
 }
 
 @end

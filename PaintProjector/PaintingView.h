@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, PaintingViewState) {
     PaintingView_TouchTransformLayer,
     PaintingView_TouchTransformCanvas,
     PaintingView_TouchQuickTool,
+    PaintingView_TouchToggleFullScreen,
 };
 
 typedef struct {

@@ -771,7 +771,7 @@
 
 //dealloc调用导致内存增加的问题？
 - (void)destroy{
-    DebugLog(@"[ destroy ]");
+    DebugLogSystem(@"[ destroy ]");
     self.paintData = nil;
     
     [self.displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -816,13 +816,24 @@
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLog(@"========================================");        
-//    DebugLog(@"touchesBegan! touches count:%d", [touches count]);
+    DebugLogFuncStart(@"touchesBegan! touches count:%d", [touches count]);
 
     //不在Touch发生时马上开始绘制，不修改paintView.state
     if (self.firstTouch == NULL) {
         self.firstTouch = [touches anyObject];
     }
+    
+    //判断是否是触摸边缘切换全屏状态
+//    location = [self.firstTouch locationInView:self];
+//    DebugLog(@"firstTouch location %@", NSStringFromCGPoint(location));
+//    
+//    CGFloat toggleFullScreenRegionHeight = 10;
+//    if (location.y >= self.frame.size.height - toggleFullScreenRegionHeight ||
+//        location.y <= toggleFullScreenRegionHeight) {
+//        self.state = PaintingView_TouchToggleFullScreen;
+//        DebugLogWarn(@"TouchToggleFullScreen");
+//    }
+    
 
     //可能会被后续动作修改状态
     switch (self.state) {
@@ -840,6 +851,7 @@
             
             //清空之前可能在PaintingView_TouchNone状态下留下的笔迹
             [self.drawPath removeAllObjects];
+            
             break;
         }
         default:{
@@ -854,7 +866,7 @@
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    DebugLog(@"[ touchesMoved! touches count:%d ]", [touches count]);
+    DebugLogFuncStart(@"[ touchesMoved! touches count:%d ]", [touches count]);
     
     //只接受在touchesBegan注册的UITouch事件处理
     if (![touches containsObject:self.firstTouch]) {
@@ -963,7 +975,7 @@
             if([touches containsObject:self.paintTouch]){
                 location = [self.paintTouch locationInView:self];
                 
-                [self.delegate willHideUIPaintArea:false touchPoint:location];
+//                [self.delegate willHideUIPaintArea:false touchPoint:location];
                 
                 location.y = self.bounds.size.height - location.y;
                 previousLocation = [self.paintTouch previousLocationInView:self];
@@ -1016,7 +1028,7 @@
 //有手指结束按住状态，不能用来判断操作的完成
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    DebugLog(@"[ touchesEnded! touches count:%d ]", [touches count]);
+    DebugLogFuncStart(@"[ touchesEnded! touches count:%d ]", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }
@@ -1027,7 +1039,7 @@
 {
 	// If appropriate, add code necessary to save the state of the application.
 	// This application is not saving state.
-//    DebugLog(@"touchesCancelled! touches count:%d", [touches count]);
+    DebugLogFuncStart(@"touchesCancelled! touches count:%d", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }

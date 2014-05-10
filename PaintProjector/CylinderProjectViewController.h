@@ -18,6 +18,7 @@
 //#import "SetupTableViewController.h"
 #import "ProductInfoTableViewController.h"
 
+#import "Display.h"
 #import "GLWrapper.h"
 #import "Ultility.h"
 #import "TextureManager.h"
@@ -60,9 +61,6 @@
 #import "InAppPurchaseManager.h"
 #import "InAppPurchaseTableViewController.h"
 
-#define FarClipDistance 10
-#define NearClipDistance 0.0001
-
 static const NSString *ItemStatusContext;
 
 typedef NS_ENUM(NSInteger, CylinderProjectViewState) {
@@ -101,6 +99,9 @@ UIPopoverControllerDelegate,
 SKProductsRequestDelegate,
 UIAlertViewDelegate,
 MFMailComposeViewControllerDelegate,
+UICollectionViewDelegate,
+UICollectionViewDataSource,
+DisplayDelegate,
 PaintScreenTransitionManagerDelegate,
 PaintScreenDelegate,
 TPPropertyAnimationDelegate,
@@ -196,6 +197,10 @@ InAppPurchaseTableViewControllerDelegate
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender;
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender;
 - (void)resetInputParams;
+
+#pragma mark- virtualDevice
+@property (weak, nonatomic) IBOutlet UIButton *virtualDeviceButton;
+- (IBAction)virtualDeviceButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- cylinder coordinate
 - (CGRect)getCylinderMirrorFrame;

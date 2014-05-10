@@ -97,13 +97,13 @@
     }
     else if ([sender isEqual:self.cylinderHeightButton]) {
         userInputParamKey = @"userInputParams.cylinderHeight";
-        minValue = 0.068;
+        minValue = 0.07;
         maxValue = 0.68;
     }
     else if ([sender isEqual:self.imageWidthButton]) {
         userInputParamKey = @"userInputParams.imageWidth";
-        minValue = 0.037;
-        maxValue = 0.37;
+        minValue = 0.038;
+        maxValue = 0.38;
     }
     else if ([sender isEqual:self.imageHeightButton]) {
         userInputParamKey = @"userInputParams.imageCenterOnSurfHeight";
@@ -143,7 +143,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
     [dic setObject:[NSNumber numberWithFloat:0.068] forKey:@"userInputParams.cylinderHeight"];
-    [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
+    [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.imageWidth"];
     [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
     [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
     [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];

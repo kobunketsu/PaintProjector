@@ -29,11 +29,13 @@
 */
 
 -(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+
     //    DebugLog(@"LayerButton drawLayer inContext");
     CGFloat r = ((CustomLayer*)layer).baseColorR;
     CGFloat g = ((CustomLayer*)layer).baseColorG;
     CGFloat b = ((CustomLayer*)layer).baseColorB;
-    UIColor* iconColor = self.isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    
+    UIColor* iconColor = (self.isSelected || self.isHighlighted) ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
     
     UIGraphicsPushContext(ctx);
     

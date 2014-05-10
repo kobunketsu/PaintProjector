@@ -153,5 +153,23 @@
     
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogFuncStart(@"touchesBegan! touches count:%d", [touches count]);
+}
 
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogFuncStart(@"touchesMoved! touches count:%d", [touches count]);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogFuncStart(@"touchesEnded! touches count:%d", [touches count]);
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogFuncStart(@"touchesCancelled! touches count:%d", [touches count]);
+}
 @end

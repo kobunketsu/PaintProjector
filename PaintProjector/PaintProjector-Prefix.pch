@@ -48,7 +48,7 @@
 #endif
 
 #ifdef DEBUG
-#define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+#define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,127,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
 #define DebugLogFuncStart(s, ...)
 #endif

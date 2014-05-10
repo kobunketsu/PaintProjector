@@ -28,7 +28,7 @@ PaintFrameTransitionManagerDelegate
 @property (assign, nonatomic) id delegate;
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIView *toolBar;
+@property (weak, nonatomic) IBOutlet DownToolBar *downToolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
 @property (weak, nonatomic) IBOutlet UIButton *editNewButton;
 
@@ -47,5 +47,7 @@ PaintFrameTransitionManagerDelegate
 - (IBAction)deleteButtonTouchUp:(id)sender;
 
 - (IBAction)newButtonTouchUp:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *fileButton;
 
 @end

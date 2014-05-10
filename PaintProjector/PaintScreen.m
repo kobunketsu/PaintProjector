@@ -66,7 +66,6 @@
 @property (retain, nonatomic) ClearGestureRecognizer *clearGestureRecognizer;
 @property (assign, nonatomic) CGRect downToolBarFrame;//为移动工具栏记录原始位置
 @property (assign, nonatomic) CGRect topToolBarFrame;//为移动工具栏记录原始位置
-@property (assign, nonatomic) BOOL hideTopDownUITemp;
 @property (assign, nonatomic) CGRect brushButtonTempRect;
 @property (retain, nonatomic) UIView *transformContentView;//变换画布时显示的选择外框
 @property (assign, nonatomic) CGPoint transformContentViewSrcCenter;//当前变换框的中心
@@ -2557,7 +2556,7 @@
 
 #pragma mark- 导入 Import
 - (IBAction)importButtonTapped:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+    sender.selected = true;
     
     ImportTableViewController* importTableViewController = [[ImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
     importTableViewController.delegate = self;
@@ -2565,6 +2564,7 @@
     importTableViewController.preferredContentSize = CGSizeMake(320, importTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:importTableViewController];
+    self.sharedPopoverController.delegate = self;
     CGRect rect = CGRectMake(self.importButton.bounds.origin.x, self.importButton.bounds.origin.y, self.importButton.bounds.size.width, self.importButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -2688,6 +2688,8 @@
 // For responding to the user accepting a newly-captured picture or movie
 - (void) imagePickerController: (UIImagePickerController *) picker
  didFinishPickingMediaWithInfo: (NSDictionary *) info {
+    self.importButton.selected = false;
+    [self.importButton.layer setNeedsDisplay];
     
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave, *finalImage;
@@ -2804,7 +2806,7 @@
 }
 #pragma mark- 导出 Export
 - (IBAction)exportButtonTapped:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+    sender.selected = true;
     
     ExportTableViewController* exportTableViewController = [[ExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
     exportTableViewController.delegate = self;
@@ -2812,6 +2814,7 @@
     exportTableViewController.preferredContentSize = CGSizeMake(320, exportTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:exportTableViewController];
+    self.sharedPopoverController.delegate = self;
     CGRect rect = CGRectMake(self.exportButton.bounds.origin.x, self.exportButton.bounds.origin.y, self.exportButton.bounds.size.width, self.exportButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
@@ -3372,13 +3375,13 @@
 }
 
 - (IBAction)customLayerButtonTouchCancel:(AutoRotateButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+//    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchUpOutside:(AutoRotateButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+//    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:true];
+//    [(AutoRotateButton*)sender setHighlighted:true];
 }
 
 //deprecated
@@ -3416,7 +3419,7 @@
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTapped:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+    sender.selected = true;
     
     self.layerTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"LayerTableViewController"];
     self.layerTableViewController.delegate = self;
@@ -3431,6 +3434,7 @@
     self.layerTableViewController.tableViewHeightMax = self.view.bounds.size.height - self.mainToolBar.bounds.size.height - self.paintToolBar.bounds.size.height;
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.layerTableViewController];
+    self.sharedPopoverController.delegate = self;
     [self.sharedPopoverController presentPopoverFromRect:_layerButton.bounds inView:_layerButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
     //半透明
@@ -3701,7 +3705,7 @@
 //}
 
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+//    [(AutoRotateButton*)sender setHighlighted:false];
     
     if (_state == PaintScreen_Normal) {
         [self togglePaintFullScreen];
@@ -3715,7 +3719,7 @@
 }
 
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+//    [(AutoRotateButton*)sender setHighlighted:false];
     
     [self saveDoc];
     [self closeDoc];
@@ -4044,7 +4048,6 @@
         [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
         [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
     }
-
 }
 
 -(void)didOpenPaintDoc{
@@ -4065,23 +4068,18 @@
 
 - (void) willHideUIPaintArea:(BOOL)hide touchPoint:(CGPoint)touchPoint{
     //TODO:willHidePaintAreaUI
-    if (hide && !self.isPaintFullScreen) {
-        CGPoint touchPointInRootView = [self.paintView convertPoint:touchPoint toView:self.rootView];
-//        CGRect paintToolBarFrame = self.paintToolBar.frame;
-//        CGRect mainToolBarFrame = self.mainToolBar.frame;
-        if (CGRectContainsPoint(self.paintToolBar.frame, touchPointInRootView) ||
-            CGRectContainsPoint(self.mainToolBar.frame, touchPointInRootView)) {
-            [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
-            [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
-            self.hideTopDownUITemp = true;
-        }
+    if (!self.isPaintFullScreen && hide) {
+            CGPoint touchPointInRootView = [self.paintView convertPoint:touchPoint toView:self.rootView];
+            if (CGRectContainsPoint(self.paintToolBar.frame, touchPointInRootView) ||
+                CGRectContainsPoint(self.mainToolBar.frame, touchPointInRootView)) {
+                
+                [self togglePaintFullScreen];
+            }
     }
-    else if (self.hideTopDownUITemp && !hide && !self.isPaintFullScreen){
-        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
-        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-        self.hideTopDownUITemp = false;
+    else if (self.isPaintFullScreen && !hide){
+        [self togglePaintFullScreen];
     }
-
+    //非全屏模式下, 上下UI还可见，但是需要去显示 (UI在隐藏过程中)
 }
 
 - (void) willUpdateUIToolBars{
@@ -4100,7 +4098,7 @@
 //    [Ultility saveUIImage:image ToJPGInDocument:bgImageName];    
 //    self.paintView.paintFrame.bgImageName = bgImageName;
 //    [self.delegate paintBGChanged:bgImageName];
-//    
+//
 //    [self.paintView setBackgroundImage:[Ultility getPathInApp:bgImageName]];
     
 
@@ -4202,7 +4200,7 @@
 
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
-    [(AutoRotateButton*)sender setHighlighted:false];
+//    [(AutoRotateButton*)sender setHighlighted:false];
     
     [self.paintView clearData];
     [self updateFuzzyTransparentViews];
@@ -4254,6 +4252,7 @@
 
 
 - (void)togglePaintFullScreen{
+    DebugLogFuncStart(@"togglePaintFullScreen");
     if(self.isPaintFullScreen){
         self.fullScreenReverseButton.alpha = 1.0;
         [UIView animateWithDuration:0.2 animations:^{
@@ -4261,8 +4260,10 @@
         }completion:^(BOOL finished) {
             self.fullScreenReverseButton.hidden = false;
             [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
-            [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-            self.isPaintFullScreen = false;
+            [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:^{
+                self.isPaintFullScreen = false;
+            }];
+
         }];
         
 
@@ -4296,7 +4297,20 @@
 
         [self.paintView prepareDrawEnv];
     }
+    else if ([popoverController.contentViewController isKindOfClass:[LayerTableViewController class]]) {
+        self.layerButton.selected = false;
+        [self.layerButton.layer setNeedsDisplay];
+    }
+    else if ([popoverController.contentViewController isKindOfClass:[ImportTableViewController class]]) {
+        self.importButton.selected = false;
+        [self.importButton.layer setNeedsDisplay];
+    }
+    else if ([popoverController.contentViewController isKindOfClass:[ExportTableViewController class]]) {
+        self.exportButton.selected = false;
+        [self.exportButton.layer setNeedsDisplay];
+    }
 }
+
 
 #pragma mark- 半透明工具栏代理FuzzyTransparentViewDelegate
 -(void)willSnapshotUIImageEnd:(UIImage *)image{

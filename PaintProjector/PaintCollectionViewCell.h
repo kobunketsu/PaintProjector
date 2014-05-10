@@ -11,4 +11,5 @@
 
 @interface PaintCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet PaintFrameView *paintFrameView;
+- (IBAction)paintFrameViewTouchDown:(UIButton *)sender;
 @end

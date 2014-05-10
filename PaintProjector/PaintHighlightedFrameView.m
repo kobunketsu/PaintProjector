@@ -19,7 +19,7 @@
         self.layer.borderColor = [UIColor cyanColor].CGColor;
         self.layer.borderWidth = 5;
         self.clipsToBounds = YES;
-        self.layer.cornerRadius = 10;
+        self.layer.cornerRadius = 0;
     }
     return self;
 }
