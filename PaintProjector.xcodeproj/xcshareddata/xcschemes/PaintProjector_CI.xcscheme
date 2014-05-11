@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
-               BuildableName = "PaintProjector.app"
+               BuildableName = "AnaDraw.app"
                BlueprintName = "PaintProjector"
                ReferencedContainer = "container:PaintProjector.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
-            BuildableName = "PaintProjector.app"
+            BuildableName = "AnaDraw.app"
             BlueprintName = "PaintProjector"
             ReferencedContainer = "container:PaintProjector.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
-            BuildableName = "PaintProjector.app"
+            BuildableName = "AnaDraw.app"
             BlueprintName = "PaintProjector"
             ReferencedContainer = "container:PaintProjector.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
-            BuildableName = "PaintProjector.app"
+            BuildableName = "AnaDraw.app"
             BlueprintName = "PaintProjector"
             ReferencedContainer = "container:PaintProjector.xcodeproj">
          </BuildableReference>
@@ -117,7 +117,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
-                     BuildableName = "PaintProjector.app"
+                     BuildableName = "AnaDraw.app"
                      BlueprintName = "PaintProjector"
                      ReferencedContainer = "container:PaintProjector.xcodeproj">
                   </BuildableReference>

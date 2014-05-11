@@ -169,7 +169,7 @@ typedef struct {
     GLuint _programPaintLayerBlendModeColor;
     GLuint _programPaintLayerBlendModeLuminosity;
     
-    BOOL _lastProgramLayerNormalTransformIdentity;
+//    BOOL _lastProgramLayerNormalTransformIdentity;
 
 #if DEBUG_VIEW_COLORALPHA
     GLuint _programQuadDebugAlpha;

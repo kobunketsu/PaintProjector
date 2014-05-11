@@ -77,7 +77,7 @@ void DrawPatternCellCallback1(void *info, CGContextRef cgContext)
     CGFloat shadow2BlurRadius = 2;
     
     //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 1, self.bounds.size.width - 2, 20) cornerRadius: 10];
+    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 4, self.bounds.size.width - 2, 20) cornerRadius: 10];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
     //draw

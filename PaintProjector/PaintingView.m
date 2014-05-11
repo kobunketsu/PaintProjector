@@ -633,68 +633,113 @@
         
         [self.glWrapper useProgram:_programPaintLayerBlendModeNormal uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-            _lastProgramLayerNormalTransformIdentity = true;
+//            _lastProgramLayerNormalTransformIdentity = true;
         }];
     }
     
     if (_programPaintLayerBlendModeMultiply == 0) {
         _programPaintLayerBlendModeMultiply = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeMultiply"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeMultiply uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeScreen == 0) {
         _programPaintLayerBlendModeScreen = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeScreen"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeScreen uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeOverlay == 0) {
         _programPaintLayerBlendModeOverlay = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeOverlay"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeOverlay uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeDarken == 0) {
         _programPaintLayerBlendModeDarken = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDarken"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeDarken uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeLighten == 0) {
         _programPaintLayerBlendModeLighten = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLighten"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeLighten uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeColorDodge == 0) {
         _programPaintLayerBlendModeColorDodge = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorDodge"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeColorDodge uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeColorBurn == 0) {
         _programPaintLayerBlendModeColorBurn = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorBurn"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeColorBurn uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeSoftLight == 0) {
         _programPaintLayerBlendModeSoftLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSoftLight"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeSoftLight uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeHardLight == 0) {
         _programPaintLayerBlendModeHardLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHardLight"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeHardLight uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeDifference == 0) {
         _programPaintLayerBlendModeDifference = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDifference"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeDifference uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeExclusion == 0) {
         _programPaintLayerBlendModeExclusion = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeExclusion"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeExclusion uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeHue == 0) {
         _programPaintLayerBlendModeHue = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHue"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeHue uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeSaturation == 0) {
         _programPaintLayerBlendModeSaturation = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSaturation"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeSaturation uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeColor == 0) {
         _programPaintLayerBlendModeColor = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColor"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeColor uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
     if (_programPaintLayerBlendModeLuminosity == 0) {
         _programPaintLayerBlendModeLuminosity = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLuminosity"];
+        [self.glWrapper useProgram:_programPaintLayerBlendModeLuminosity uniformBlock:^{
+            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+        }];
     }
     
 #if DEBUG_VIEW_COLORALPHA
@@ -2329,12 +2374,12 @@
 //混合当前图层和下个图层
 - (void) drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
     GLuint program = 0;
-    BOOL *lastProgramTransformIdentity;
+//    BOOL *lastProgramTransformIdentity;
     
     switch (blendMode) {
         case kLayerBlendModeNormal:
             program = _programPaintLayerBlendModeNormal;
-            lastProgramTransformIdentity = &_lastProgramLayerNormalTransformIdentity;
+//            lastProgramTransformIdentity = &_lastProgramLayerNormalTransformIdentity;
             break;
         case kLayerBlendModeMultiply:
             program = _programPaintLayerBlendModeMultiply;
@@ -2386,11 +2431,12 @@
     }
     
     [self.glWrapper useProgram:program uniformBlock:nil];
-    
-    if (! (&lastProgramTransformIdentity)) {
+
+    //设置太麻烦，统一设数值
+//    if (! (&lastProgramTransformIdentity)) {
         glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        (*lastProgramTransformIdentity) = true;
-    }
+//        (*lastProgramTransformIdentity) = true;
+//    }
     
     if (self.lastProgramLayerTex != 0) {
         glUniform1i(_texQuadUniform, 0);

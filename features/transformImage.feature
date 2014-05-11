@@ -24,3 +24,8 @@ Feature: Running transform image functions
   Scenario: Painting scale selected image in height
     Given this is pending
     
+  Scenario: Painting transform selected image repeate for twice
+    Given this is pending 
+    
+  
+    

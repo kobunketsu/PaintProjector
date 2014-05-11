@@ -2658,9 +2658,6 @@
                      return;
                  }
                  [self enterTransformImageState:rect];
-                 
-                 self.transformButton.tag = 1;
-                 [self.transformButton.layer setNeedsDisplay];
              }
              else{
                  UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"import invalid images" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
@@ -2799,9 +2796,6 @@
             return;
         }
         [self enterTransformImageState:rect];
-        
-        self.transformButton.tag = 1;
-        [self.transformButton.layer setNeedsDisplay];
     }
     
     else if ([mediaType isEqualToString:(NSString*)kUTTypeMovie]) {
@@ -3262,16 +3256,8 @@
     //UI
     [self createTransformHelperViews:rect];
     
-    //UI
-    //    //隐藏MainToolBar PaintToolBar
-    //    [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:^{
-    ////        self.anchorView.hidden = false;
-    ////
-    ////        [self freeTransformButtonTapped:_freeTransformButton];
-    ////
-    ////        [self updateAnchor];
-    //    }];
-    //
+    self.transformButton.selected = true;
+    [self.transformButton.layer setNeedsDisplay];
     
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 
@@ -3295,6 +3281,8 @@
     [self createTransformHelperViews:rect];
     
     //隐藏MainToolBar PaintToolBar
+    self.transformButton.selected = true;
+    [self.transformButton.layer setNeedsDisplay];
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 
     //交互
@@ -3322,7 +3310,8 @@
 //        _state = PaintScreen_Normal;
 //    }];
     
-   
+    self.transformButton.selected = false;
+    [self.transformButton.layer setNeedsDisplay];
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
     
     [self removeTransformHelperViews];
@@ -3337,7 +3326,6 @@
 
 - (IBAction)transformButtonTapped:(id)sender {
     DebugLogIBAction(@"transformButtonTapped");
-    UIButton* view = (UIButton*)sender;
     
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
@@ -3352,9 +3340,6 @@
         //UI
         //TODO:禁止除TransformButton以外的按钮的交互
         [self enterTransformLayerState:rect];
-        
-        view.selected = true;
-        [view.layer setNeedsDisplay];
     }
     else if (_state == PaintScreen_Transform){
         [self.paintView transformImageDone];
@@ -3363,8 +3348,6 @@
         [self leaveTransformState];
         [self updateFuzzyTransparentViews];
 
-        view.selected = false;
-        [view.layer setNeedsDisplay];
     }
 
 }

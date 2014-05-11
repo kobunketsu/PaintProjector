@@ -155,7 +155,7 @@
 "NUX-zI-YbL.title" = "paintScreen";
 
 /* Class = "IBUILabel"; text = "BlendMode"; ObjectID = "NlS-j1-gPt"; */
-"NlS-j1-gPt.text" = "BlendMode";
+"NlS-j1-gPt.text" = "混合模式";
 
 /* Class = "IBUIButton"; normalTitle = "Export"; ObjectID = "OKV-ds-MNr"; */
 "OKV-ds-MNr.normalTitle" = "Export";

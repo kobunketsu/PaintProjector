@@ -75,6 +75,8 @@
 #define HumanEyeFOV 68.0f
 #define FuzzyTransparentAlpha 0.7
 #define PaintPixelOffsetThresold 0.1 //确定触摸时多大的距离会记录成一个绘制点
+#define UISliderDefaultHeight 31
+
 //全局设置
 //使用米还是
 //static NSString* version = @"version_0.1";
