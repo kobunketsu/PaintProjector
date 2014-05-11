@@ -345,4 +345,7 @@ SwatchManagerViewControllerDelegate
 #pragma mark- 
 - (void)prepareForPresentation;
 - (void)afterPresentation;
+
+#pragma test
+
 @end

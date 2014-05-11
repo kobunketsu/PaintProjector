@@ -241,7 +241,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLogFuncStart(@"didHighlightItemAtIndexPath");
+    DebugLogSystem(@"didHighlightItemAtIndexPath");
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -252,7 +252,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLogFuncStart(@"didUnHighlightItemAtIndexPath");
+    DebugLogSystem(@"didUnHighlightItemAtIndexPath");
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{

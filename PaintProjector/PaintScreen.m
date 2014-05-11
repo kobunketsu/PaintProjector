@@ -706,7 +706,7 @@
 }
 
 - (IBAction)handlePan2TouchesRootCanvasView:(UIPanGestureRecognizer *)sender {
-//    DebugLog(@"handlePan2TouchesRootCanvasView");
+    DebugLogIBAction(@"handlePan2TouchesRootCanvasView");
     if (_state == PaintScreen_Normal) {
         [self handlePan2TouchesRootCanvasViewInStateNormal:sender];
     }
@@ -716,7 +716,7 @@
 }
 
 - (IBAction)handlePan3TouchesRootCanvasView:(UIPanGestureRecognizer *)sender {
-//    DebugLog(@"handlePan3TouchesRootCanvasView");
+    DebugLogIBAction(@"handlePan3TouchesRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -840,7 +840,7 @@
 
 
 - (IBAction)handlePan3TouchesClearRootCanvasView:(ClearGestureRecognizer *)sender {
-    DebugLog(@"handlePan3TouchesClearRootCanvasView");
+    DebugLogIBAction(@"handlePan3TouchesClearRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -900,7 +900,7 @@
 
 
 - (IBAction)handleLongPress2TouchesRootCanvasView:(UILongPressGestureRecognizer *)sender {
-    DebugLog(@"handleLongPress2TouchesRootCanvasView");
+    DebugLogIBAction(@"handleLongPress2TouchesRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -931,7 +931,7 @@
 
 
 - (IBAction)handleTap1Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    DebugLog(@"handleTap1Touches2TapsRootCanvasView");
+    DebugLogIBAction(@"handleTap1Touches2TapsRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -942,7 +942,7 @@
 }
 
 - (IBAction)handleTap2Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    DebugLog(@"handleTap2Touches2TapsRootCanvasView");
+    DebugLogIBAction(@"handleTap2Touches2TapsRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -952,7 +952,7 @@
 }
 
 - (IBAction)handleTap3Touches1TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    DebugLog(@"handleTap3Touches1TapsRootCanvasView");
+    DebugLogIBAction(@"handleTap3Touches1TapsRootCanvasView");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -963,7 +963,7 @@
 
 
 - (IBAction)handlePanTransformAnchorView:(UIPanGestureRecognizer *)sender {
-//    DebugLog(@"handlePanAnchorView %@", sender.view);
+    DebugLogIBAction(@"handlePanAnchorView %@", sender.view);
     if (_state != PaintScreen_Transform) {
         return;
     }
@@ -1064,7 +1064,7 @@
 
 #pragma mark
 - (void)handle2TouchesTransformCanvasBegan:(UIGestureRecognizer *)sender{
-    DebugLog(@"handle2TouchesTransformCanvasBegan");
+    DebugLogFuncStart(@"handle2TouchesTransformCanvasBegan");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -1101,7 +1101,7 @@
 }
 
 - (void)handle2TouchesTransformCanvasEnded:(UIGestureRecognizer *)sender{
-//    DebugLog(@"handle2TouchesTransformCanvasEnd");
+    DebugLogFuncStart(@"handle2TouchesTransformCanvasEnd");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -1110,23 +1110,35 @@
     CALayer *layer = self.paintView.layer;
     CGFloat x = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.x"]).floatValue;
     CGFloat y = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.y"]).floatValue;
+    
+    DebugLogWarn(@"start to change layer");
+    DebugLog(@"before layer translation x:%.1f y:%.1f", x, y);
+    DebugLog(@"before layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
+    DebugLog(@"before layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
+    DebugLog(@"before layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
+    DebugLog(@"before layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
+    
     CGPoint center = CGPointMake(layer.frame.origin.x + layer.frame.size.width * 0.5, layer.frame.origin.y + layer.frame.size.height * 0.5);
     layer.anchorPoint = CGPointMake(0.5, 0.5);
     layer.position = CGPointMake(center.x - x, center.y - y);
 
-    DebugLog(@"final");
-    DebugLog(@"start layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
-    DebugLog(@"start layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
-    DebugLog(@"middle layer anchor %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
-    DebugLog(@"start layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
     CGFloat x1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.x"]).floatValue;
     CGFloat y1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.y"]).floatValue;
-    DebugLog(@"start layer translation x:%.1f y:%.1f", x1, y1);
+    
+    DebugLog(@"after layer translation x:%.1f y:%.1f", x1, y1);
+    DebugLog(@"after layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
+    DebugLog(@"after layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
+    DebugLog(@"after layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
+    DebugLog(@"after layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
+    DebugLog(@"after paintView %@", self.paintView);
+
+    
     
     //UI
-    [self showRotateCanvasUI:false];
-    [self showZoomCanvasUI:false];
-    [self showLockRotateCanvasUI:false];
+//    [self showRotateCanvasUI:false];
+//    [self showZoomCanvasUI:false];
+//    [self showLockRotateCanvasUI:false];
+    
     if (!self.isPaintFullScreen) {
         [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
         [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
@@ -1135,7 +1147,7 @@
 }
 
 - (void)handle2TouchesTransformCanvas:(UIGestureRecognizer *)sender{
-//    DebugLog(@"handle2TouchesTransformCanvas");
+    DebugLogFuncStart(@"handle2TouchesTransformCanvas");
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -1490,6 +1502,7 @@
 
 #pragma mark- 手势 Gestures 其他(无需判断状态)
 - (IBAction)handleLongPressPaintColorButton:(UILongPressGestureRecognizer *)sender {
+    DebugLogIBAction(@"handleLongPressPaintColorButton");
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             //吸出颜色
@@ -1603,6 +1616,7 @@
 }
 
 - (IBAction)handlePanTopDownToolBar:(UIPanGestureRecognizer *)sender {
+    DebugLogIBAction(@"handlePanTopDownToolBar");
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
             self.downToolBarFrame = self.paintToolBar.frame;
@@ -1633,6 +1647,7 @@
     }
 }
 - (IBAction)handleLongPressBrushButton:(UILongPressGestureRecognizer *)sender {
+    DebugLogIBAction(@"handleLongPressBrushButton");
     BrushTypeButton *brushTypeButton = (BrushTypeButton *)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
@@ -1662,6 +1677,7 @@
 
 
 - (IBAction)handle2TapsColorSlot:(UITapGestureRecognizer *)sender {
+    DebugLogIBAction(@"handle2TapsColorSlot");
     ColorButton* colorButton = (ColorButton*)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -1694,6 +1710,7 @@
 }
 
 - (IBAction)handleTapColorSlot:(UITapGestureRecognizer *)sender {
+    DebugLogIBAction(@"handleTapColorSlot");
     ColorButton* colorButton = (ColorButton*)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -1716,6 +1733,7 @@
     }    
 }
 - (IBAction)handleLongPressColorSlot:(UILongPressGestureRecognizer *)sender {
+    DebugLogIBAction(@"handleLongPressColorSlot");
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
@@ -1750,6 +1768,7 @@
 }
 
 - (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender {
+    DebugLogIBAction(@"handlePanBrushView");
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
             _state = PaintScreen_Normal;
@@ -1839,6 +1858,7 @@
 //}
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender {
+    DebugLogIBAction(@"handlePanPaintColorButton");
     if (sender.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [sender locationInView:sender.view];
         CGPoint locationInRootView = CGPointMake(sender.view.superview.frame.origin.x + location.x, sender.view.superview.frame.origin.y + location.y);
@@ -2001,11 +2021,12 @@
 }
 
 - (IBAction)brushTypeButtonTouchUp:(UIButton *)sender {
- 
+    DebugLogIBAction(@"brushTypeButtonTouchUp");
     [self brushTypeSelected];
 }
 
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender {
+    DebugLogIBAction(@"brushTypeButtonTouchDown");
     self.brushButtonTempRect = sender.frame;
     [UIView animateWithDuration:0.2 animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 20, sender.frame.size.width, sender.frame.size.height);        
@@ -2014,18 +2035,21 @@
 }
 
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender {
+    DebugLogIBAction(@"brushTypeButtonTouchCancel");
     [UIView animateWithDuration:0.2 animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
     }completion:nil];
 }
 
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender {
+    DebugLogIBAction(@"brushTypePageControlValueChanged");
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.brushTypeScrollView.contentOffset = CGPointMake(sender.currentPage * self.brushTypeScrollView.frame.size.width, 0);
     } completion:nil];
 }
 
 - (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"brushTypeBackButtonTouchUp");
     BrushTypeButton *tempButton = self.brushBackButton;
     self.brushBackButton = self.brushButton;
     self.brushButton = tempButton;
@@ -2077,6 +2101,7 @@
 }
 
 - (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender {
+    DebugLogIBAction(@"brushTypeBackButtonTouchCancel");
     [UIView animateWithDuration:0.3 animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 40, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 0, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
@@ -2084,6 +2109,7 @@
     }];
 }
 - (IBAction)brushTypeBackButtonTouchDown:(UIButton *)sender {
+    DebugLogIBAction(@"brushTypeBackButtonTouchDown");
     [UIView animateWithDuration:0.3 animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 40, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
@@ -2091,7 +2117,7 @@
     }];
 }
 -(void)swapBrushType{
-    DebugLog(@"swapBrushType");
+    DebugLogFuncStart(@"swapBrushType");
     if(_state == PaintScreen_Normal){
         //            [self togglePaintFullScreen];
         //            self.paintView.multiTouchEndCount = sender.numberOfTouchesRequired;
@@ -2266,6 +2292,7 @@
 }
 
 - (IBAction)swatchManagerButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"swatchManagerButtonTouchUp");
     if ([[NSUserDefaults standardUserDefaults]valueForKey:@"ExpandedSwatchManagerAvailable"]) {
         //调色板管理功能可用
         self.swatchManagerVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"SwatchManagerViewController"];
@@ -2280,13 +2307,16 @@
 }
 #pragma mark-
 - (IBAction)selectColor:(ColorButton *)sender {
+    DebugLogIBAction(@"selectColor");
     [sender enableHighlighted:true];
 }
 
 - (IBAction)selectColorConfirmed:(ColorButton *)sender {
+    DebugLogIBAction(@"selectColorConfirmed");
     [sender enableHighlighted:false];
 }
 - (IBAction)selectColorToBlend:(ColorButton *)sender {
+    DebugLogIBAction(@"selectColorToBlend");
     const CGFloat* srcColors = CGColorGetComponents(sender.color.CGColor);
     const CGFloat* dstColors = CGColorGetComponents(self.paintColorButton.color.CGColor);
     float blend = 0.1;
@@ -2301,10 +2331,12 @@
 }
 
 - (IBAction)selectColorCancel:(ColorButton *)sender {
+    DebugLogIBAction(@"selectColorCancel");
     [sender enableHighlighted:false];
 }
 #pragma mark-
 - (IBAction)selectBrushRadius:(RadiusButton *)sender {
+    DebugLogIBAction(@"selectBrushRadius");
     self.paintView.brush.brushState.radius = sender.radius;
     self.radiusSlider.value = (float)sender.radius;
     self.lblBrushRadius.text = [NSString stringWithFormat:@"Radius : %.0f", self.paintView.brush.brushState.radius];
@@ -2312,6 +2344,7 @@
 }
 
 - (IBAction)slideBrushRadius:(UISlider *)sender {
+    DebugLogIBAction(@"slideBrushRadius");
     self.paintView.brush.brushState.radius = sender.value;
     
     //UI
@@ -2338,10 +2371,12 @@
 
 
 - (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender {
+    DebugLogIBAction(@"radiusSliderTouchDown");
     self.radiusIndicatorView.hidden = false;
 }
 
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender {
+    DebugLogIBAction(@"radiusSliderTouchUp");
     if (!self.radiusIndicatorView.hidden) {
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
@@ -2352,6 +2387,7 @@
 }
 
 - (IBAction)radiusSliderTouchUpOutside:(RadiusSlider *)sender {
+    DebugLogIBAction(@"radiusSliderTouchUpOutside");
     if (!self.radiusIndicatorView.hidden) {
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
@@ -2362,6 +2398,7 @@
 }
 #pragma mark-
 - (IBAction)slideBrushOpacity:(UISlider *)sender {
+    DebugLogIBAction(@"slideBrushOpacity");
     //根据不同的brush，设置不同的参数
     if ([self.paintView.brush isKindOfClass:[Finger class]] ||
         [self.paintView.brush isKindOfClass:[OilBrush class]]) {
@@ -2384,11 +2421,13 @@
 }
 #pragma mark-
 - (IBAction)syncBrushView:(id)sender {
+    DebugLogIBAction(@"syncBrushView");
     self.brushView.color = self.infColorPickerController.resultColor;
     [self.brushView setNeedsDisplay];    
 }
 
 - (IBAction)showPaint:(id)sender {
+    DebugLogIBAction(@"showPaint");
 //    [paintView testSave];
 }
 
@@ -2556,6 +2595,7 @@
 
 #pragma mark- 导入 Import
 - (IBAction)importButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"importButtonTapped");
     sender.selected = true;
     
     ImportTableViewController* importTableViewController = [[ImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -2570,10 +2610,12 @@
 }
 
 - (IBAction)takePhotoButtonTapped:(id)sender {
+    DebugLogIBAction(@"takePhotoButtonTapped");
     [self startCameraControllerFromViewController:self usingDelegate:self];
 }
 
 - (IBAction)pickPhotoButtonTapped:(id)sender {
+    DebugLogIBAction(@"pickPhotoButtonTapped");
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
 -(void) didSelectImportPhoto{
@@ -2806,6 +2848,7 @@
 }
 #pragma mark- 导出 Export
 - (IBAction)exportButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"exportButtonTapped");
     sender.selected = true;
     
     ExportTableViewController* exportTableViewController = [[ExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -3002,7 +3045,7 @@
     CGFloat maxY = CGRectGetMaxY(rect);
     
     self.transformAnchorViewSize = 30;
-    
+
     self.transformAnchorViews = [[NSMutableArray alloc]init];
     
     [self createTransformAnchorViewWithOrigin:CGPointMake(minX, minY) tag:0];
@@ -3293,7 +3336,9 @@
 }
 
 - (IBAction)transformButtonTapped:(id)sender {
-
+    DebugLogIBAction(@"transformButtonTapped");
+    UIButton* view = (UIButton*)sender;
+    
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
         CGRect rect = [self.paintView calculateLayerContentRect];
@@ -3308,8 +3353,7 @@
         //TODO:禁止除TransformButton以外的按钮的交互
         [self enterTransformLayerState:rect];
         
-        UIView* view = (UIView*)sender;
-        view.tag = 1;
+        view.selected = true;
         [view.layer setNeedsDisplay];
     }
     else if (_state == PaintScreen_Transform){
@@ -3318,14 +3362,15 @@
         //UI
         [self leaveTransformState];
         [self updateFuzzyTransparentViews];
-        UIView* view = (UIView*)sender;
-        view.tag = 0;
+
+        view.selected = false;
         [view.layer setNeedsDisplay];
     }
 
 }
 
 - (IBAction)transformDoneButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"transformDoneButtonTapped");
     [self.paintView transformImageDone];
     
     //UI
@@ -3334,6 +3379,7 @@
 }
 
 - (IBAction)tranformCancelButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"tranformCancelButtonTapped");
     [self.paintView cancelInsertUIImageAtCurLayer];
     
     //UI
@@ -3341,6 +3387,7 @@
 }
 
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"freeTransformButtonTapped");
     for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
     }
@@ -3349,6 +3396,7 @@
 }
 
 - (IBAction)moveButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"moveButtonTapped");
     for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
     }
@@ -3358,6 +3406,7 @@
 }
 
 - (IBAction)rotateButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"rotateButtonTapped");
     for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
     }
@@ -3367,6 +3416,7 @@
 }
 
 - (IBAction)scaleButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"scaleButtonTapped");
     for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
     }
@@ -3375,12 +3425,15 @@
 }
 
 - (IBAction)customLayerButtonTouchCancel:(AutoRotateButton *)sender {
+    DebugLogIBAction(@"customLayerButtonTouchCancel");
 //    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchUpOutside:(AutoRotateButton *)sender {
+    DebugLogIBAction(@"customLayerButtonTouchUpOutside");
 //    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender {
+    DebugLogIBAction(@"customLayerButtonTouchDown");
 //    [(AutoRotateButton*)sender setHighlighted:true];
 }
 
@@ -3419,6 +3472,7 @@
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"layerButtonTapped");
     sender.selected = true;
     
     self.layerTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"LayerTableViewController"];
@@ -3462,6 +3516,7 @@
 
 
 - (IBAction)createLayerButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"createLayerButtonTapped");
     [self insertLayerAtIndex:[self curLayerIndex]];
 }
 
@@ -3705,6 +3760,7 @@
 //}
 
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"fullScreenButtonTouchUp");
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
     if (_state == PaintScreen_Normal) {
@@ -3715,10 +3771,12 @@
 
 #pragma mark- 退出 SaveClose
 - (IBAction)saveToDocButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"saveToDocButtonTapped");
     [self saveDoc];
 }
 
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"saveAndCloseButtonTapped");
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
     [self saveDoc];
@@ -3769,10 +3827,12 @@
 }
 
 - (IBAction)touchUpInsideUndoButton:(UndoButton *)sender{
+    DebugLogIBAction(@"touchUpInsideUndoButton");
     [self undoDraw];
 }
 
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender {
+    DebugLogIBAction(@"touchUpInsideRedoButton");
     [self redoDraw];
 }
 
@@ -4105,11 +4165,13 @@
 }
 #pragma mark- 取色界面 Pick Color UI Operation
 - (IBAction)colorSlotsSwitchTapped:(UIButton *)sender {
+    DebugLogIBAction(@"colorSlotsSwitchTapped");
     [self.brushOpacityView setHidden:![self.brushOpacityView isHidden]];
     _colorSlotsViewHidden = [self.brushOpacityView isHidden];
 }
 
 - (IBAction)colorPickerSwitchTapped:(UIButton *)sender {
+    DebugLogIBAction(@"colorPickerSwitchTapped");
     if(self.colorPickerView.sourceView!=NULL){
         self.colorPickerView.sourceView.backgroundColor = self.infColorPickerController.resultColor;
         if(self.colorPickerView.sourceView == _paintColorView){
@@ -4125,6 +4187,7 @@
     }
 }
 - (IBAction)colorPickerLockTapped:(UIButton *)sender {
+    DebugLogIBAction(@"colorPickerLockTapped");
     self.colorPickerView.locked = !self.colorPickerView.locked;
 }
 
@@ -4142,6 +4205,7 @@
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 - (IBAction)paintColorButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"paintColorButtonTapped");
 //    if (colorPickerView.hidden) {
 //        colorPickerView.hidden = false;
 //        colorPickerView.sourceView = _paintColorView;
@@ -4183,23 +4247,27 @@
 
 - (IBAction) takeBarValue: (InfColorBarPicker*) sender
 {
+    DebugLogIBAction(@"takeBarValue");
     [self.infColorPickerController takeBarValue:sender];
 }
 
 //-----------------------------------------------------------------------
 - (IBAction) takeSquareValue: (InfColorSquarePicker*) sender
 {
+    DebugLogIBAction(@"takeSquareValue");
     [self.infColorPickerController takeSquareValue:sender];
 }
 
 #pragma mark- 工具栏
 - (IBAction)debugButtonTapped:(UIButton *)sender {
+    DebugLogIBAction(@"debugButtonTapped");
     [self.debugView layer].contents = (__bridge id)(self.paintView.brushingImage.CGImage);
     [self.debugView2 layer].contents = (__bridge id)(self.paintView.paintingImage.CGImage);
 }
 
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"clearButtonTouchUp");
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
     [self.paintView clearData];
@@ -4209,11 +4277,13 @@
 }
 
 - (IBAction)clearButtonTouchDown:(UIButton *)sender {
+    DebugLogIBAction(@"clearButtonTouchDown");
     [self.clearButton setNeedsDisplay];
 }
 
 
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender {
+    DebugLogIBAction(@"eyeDropperButtonTouchDown");
     [UIView animateWithDuration:0.2 animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 0, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
@@ -4221,6 +4291,7 @@
 
 //TODO:需要在其他按钮按下时取消取色状态
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"eyeDropperButtonTouchUp");
     if (self.paintView.state != PaintingView_TouchEyeDrop) {
         self.paintView.state = PaintingView_TouchEyeDrop;
         _state = PaintScreen_PickColor;
@@ -4243,6 +4314,7 @@
 }
 
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender {
+    DebugLogIBAction(@"eyeDropperButtonTouchCancel");
     [UIView animateWithDuration:0.2 animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
@@ -4441,5 +4513,6 @@
         DebugLog(@"willPurchaseDone");
     }];
 }
+
 
 @end

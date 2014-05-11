@@ -19,6 +19,13 @@
     return self;
 }
 
+//- (void)layoutSubviews{
+//    DebugLogSystem(@"layoutSubviews");
+//    [super layoutSubviews];
+//    for (UIView *view in self.subviews) {
+//        DebugLog(@"subview %@", view);
+//    }
+//}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -155,21 +162,21 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"touchesBegan! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"touchesMoved! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesMoved! touches count:%d", [touches count]);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"touchesEnded! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesEnded! touches count:%d", [touches count]);
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"touchesCancelled! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
 }
 @end

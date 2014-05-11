@@ -816,7 +816,7 @@
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"touchesBegan! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
 
     //不在Touch发生时马上开始绘制，不修改paintView.state
     if (self.firstTouch == NULL) {
@@ -866,7 +866,7 @@
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"[ touchesMoved! touches count:%d ]", [touches count]);
+    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
     
     //只接受在touchesBegan注册的UITouch事件处理
     if (![touches containsObject:self.firstTouch]) {
@@ -1028,7 +1028,7 @@
 //有手指结束按住状态，不能用来判断操作的完成
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogFuncStart(@"[ touchesEnded! touches count:%d ]", [touches count]);
+    DebugLogSystem(@"[ touchesEnded! touches count:%d ]", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }
@@ -1039,7 +1039,7 @@
 {
 	// If appropriate, add code necessary to save the state of the application.
 	// This application is not saving state.
-    DebugLogFuncStart(@"touchesCancelled! touches count:%d", [touches count]);
+    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }
@@ -2452,6 +2452,8 @@
 }
 
 - (CGRect)calculateLayerContentRect{
+    DebugLogFuncStart(@"calculateLayerContentRect");
+    
     CGFloat minX = CGFLOAT_MAX;
     CGFloat maxX = CGFLOAT_MIN;
     CGFloat minY = CGFLOAT_MAX;
@@ -2485,22 +2487,22 @@
     }
     free(data);
     
+    DebugLog(@"minX %.1f, maxX %.1f, minY %.1f, maxY %.1f", minX, maxX, minY, maxY);
+    
     //convert to Quatz Core
-    w = maxX - minX;
+    NSInteger width = maxX - minX;
     if (maxX < minX) {
-        w = 0;
+        width = 0;
     }
 
-    h = maxY - minY;
+    NSInteger height = maxY - minY;
     if (maxY < minY) {
-        h = 0;
+        height = 0;
     }
     
-    CGRect rect = CGRectMake(minX, h - maxY, w, h);
-//    DebugLog(@"calculateLayerContentRect %@", NSStringFromCGRect(rect));
-    
+    CGRect rect = CGRectMake(minX, self.bounds.size.height - maxY, width, height);
+    DebugLog(@"calculateLayerContentRect result %@", NSStringFromCGRect(rect));
 
-    
     return  rect;
 }
 
@@ -3421,5 +3423,7 @@
     return YES;
 }
 #endif
+
+#pragma mark- 测试用Test
 
 @end
