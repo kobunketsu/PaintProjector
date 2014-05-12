@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+static UIColor *globalRefelectColor = nil;
 @interface PaintUIKitStyle : NSObject
++ (UIColor *)globalRefelectColor;
+
++ (void)setGlobalRefelectColor:(UIColor *)color;
+
 + (void)drawCrystalGradientInView:(UIView*)view;
 @end

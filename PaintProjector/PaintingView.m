@@ -1123,7 +1123,7 @@
 
     //使用Disable 不需要Clear
 //    glClear(GL_COLOR_BUFFER_BIT);
-    glDisable(GL_BLEND);
+//    glDisable(GL_BLEND);
     
     //绘制背景层
     [self drawBackgroundLayer];
@@ -1132,7 +1132,7 @@
     for (int i = 0; i < self.paintData.layers.count; ++i) {
         [self drawPaintLayerAtIndex:i];
     }
-    glEnable(GL_BLEND);
+//    glEnable(GL_BLEND);
 
 //    DebugLog(@"_updateRender willEndDraw glFinish. presentRenderbuffer.");
     //call glFlush internally
@@ -2443,16 +2443,16 @@
         self.lastProgramLayerTex = 0;
     }
     
-    if (self.lastProgramLayerAlpha != opacity) {
+//    if (self.lastProgramLayerAlpha != opacity) {
         glUniform1f(_alphaQuadUniform, opacity);
-        self.lastProgramLayerAlpha = opacity;
-    }
+//        self.lastProgramLayerAlpha = opacity;
+//    }
 
     [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
 
     //already disable blend
-//    [self.glWrapper blendFunc:BlendFuncOpaque];
+    [self.glWrapper blendFunc:BlendFuncAlphaBlendPremultiplied];
     
     [self.glWrapper bindVertexArrayOES: _VAOQuad];
 

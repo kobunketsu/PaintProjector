@@ -27,7 +27,7 @@
         }
 
         if (toView) {
-            [toView removeFuzzyTransparent];
+//            [toView removeFuzzyTransparent];
 //            toView.hidden = true;
             toView.center = CGPointMake(toView.center.x, view.bounds.size.height + toView.bounds.size.height * 0.5);
             toView.hidden = false;
@@ -63,7 +63,7 @@
         }
 
         if (toView) {
-            [toView removeFuzzyTransparent];
+//            [toView removeFuzzyTransparent];
 //            toView.hidden = true;
             toView.center = CGPointMake(toView.center.x, -toView.bounds.size.height * 0.5);
             toView.hidden = false;
@@ -81,7 +81,7 @@
             if (block2) {
                 block2();
             }
-            [toView setFuzzyTransparentSourceView:view];
+//            [toView setFuzzyTransparentSourceView:view];
         }];
         
     }];

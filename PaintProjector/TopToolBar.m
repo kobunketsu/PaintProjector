@@ -7,6 +7,7 @@
 //
 
 #import "TopToolBar.h"
+#import "PaintUIKitStyle.h"
 
 @implementation TopToolBar
 
@@ -28,6 +29,7 @@
         self.layer.shadowOffset = CGSizeMake(0, 0);
         self.layer.shadowOpacity = 0.3;
         self.layer.shadowRadius = 8.0;
+//        self.reflectColor = [UIColor colorWithRed: 0.902 green: 0.894 blue: 0.894 alpha: 1];
     }
     return self;
 }
@@ -47,10 +49,13 @@
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Gradient Declarations
+    UIColor *reflectColor = [PaintUIKitStyle globalRefelectColor];
     NSArray* gradientPinkColors = [NSArray arrayWithObjects:
-                                   (id)gradientColor4.CGColor,
+//                                   (id)gradientColor4.CGColor,
+                                   (id)reflectColor.CGColor,
                                    (id)gradientColor5.CGColor,
-                                   (id)gradientColor.CGColor, nil];
+                                   (id)reflectColor.CGColor, nil];
+//                                   (id)gradientColor.CGColor, nil];
     CGFloat gradientPinkLocations[] = {0, 0.3, 1};
     CGGradientRef gradientPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientPinkColors, gradientPinkLocations);
     

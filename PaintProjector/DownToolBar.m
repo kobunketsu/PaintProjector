@@ -7,6 +7,7 @@
 //
 
 #import "DownToolBar.h"
+#import "PaintUIKitStyle.h"
 
 @implementation DownToolBar
 
@@ -50,10 +51,13 @@
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Gradient Declarations
+    UIColor *reflectColor = [PaintUIKitStyle globalRefelectColor];
     NSArray* gradientPinkColors = [NSArray arrayWithObjects:
-                                   (id)gradientColor.CGColor,
+//                                   (id)gradientColor.CGColor,
+                                   (id)reflectColor.CGColor,
                                    (id)gradientColor5.CGColor,
-                                   (id)gradientColor4.CGColor, nil];
+                                   (id)reflectColor.CGColor, nil];
+//                                   (id)gradientColor4.CGColor, nil];
     CGFloat gradientPinkLocations[] = {0, 0.7, 1};
     CGGradientRef gradientPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientPinkColors, gradientPinkLocations);
     

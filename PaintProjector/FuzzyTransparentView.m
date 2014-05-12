@@ -58,8 +58,8 @@
 }
 
 - (void)updateFuzzyTransparentFromView:(UIView*)view{
-    [self removeFuzzyTransparent];
-    [self setFuzzyTransparentSourceView:view];
+//    [self removeFuzzyTransparent];
+//    [self setFuzzyTransparentSourceView:view];
 }
 
 - (void)removeFuzzyTransparent{
@@ -68,7 +68,7 @@
     
 //    self.layer.backgroundColor = [UIColor whiteColor].CGColor;
     
-    [self.delegate willRemoveFuzzyTransparentEnd];
+//    [self.delegate willRemoveFuzzyTransparentEnd];
 }
 
 - (void)setFuzzyTransparentSourceView:(UIView*)view{

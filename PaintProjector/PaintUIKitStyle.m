@@ -9,6 +9,18 @@
 #import "PaintUIKitStyle.h"
 
 @implementation PaintUIKitStyle
+
++ (UIColor *)globalRefelectColor{
+    if (globalRefelectColor == nil) {
+        globalRefelectColor = [UIColor colorWithRed: 0.902 green: 0.894 blue: 0.894 alpha: 1];
+    }
+    return globalRefelectColor;
+}
+
++ (void)setGlobalRefelectColor:(UIColor *)color{
+    globalRefelectColor = color;
+}
+
 + (void)drawCrystalGradientInView:(UIView*)view{
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -22,9 +34,11 @@
     
     //// Gradient Declarations
     NSArray* gradientPinkColors = [NSArray arrayWithObjects:
-                                   (id)gradientColor.CGColor,
+//                                   (id)gradientColor.CGColor,
+                                   (id)[self globalRefelectColor].CGColor,
                                    (id)gradientColor5.CGColor,
-                                   (id)gradientColor4.CGColor, nil];
+                                   (id)[self globalRefelectColor].CGColor, nil];
+//                                   (id)gradientColor4.CGColor, nil];
     CGFloat gradientPinkLocations[] = {0, 0.7, 1};
     CGGradientRef gradientPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientPinkColors, gradientPinkLocations);
     

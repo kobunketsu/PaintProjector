@@ -13,9 +13,14 @@
 @end
 
 @interface FuzzyTransparentView : UIView
-@property (weak, nonatomic)UIView*  sourceView;
 @property (assign, nonatomic)id delegate;
+//底层UIView
+@property (weak, nonatomic)UIView*  sourceView;
+//反光颜色
+//@property (copy, nonatomic)UIColor *reflectColor;
+
 - (void)updateFuzzyTransparentFromView:(UIView*)view;
-- (void)removeFuzzyTransparent;
 - (void)setFuzzyTransparentSourceView:(UIView*)view;
+- (void)removeFuzzyTransparent;
+
 @end

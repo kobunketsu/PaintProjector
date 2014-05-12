@@ -11,6 +11,7 @@ void main ( )
 
     gl_FragColor.rgb = srcColor.rgb  + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
     gl_FragColor.a = srcAlpha + (1.0 - srcAlpha) * gl_LastFragData[0].a;
+    
 }
 
 

@@ -30,6 +30,7 @@
 #import "TransformContentViewLayer.h"
 #import "TransformAnchorView.h"
 #import "PaintUIKitAnimation.h"
+#import "PaintUIKitStyle.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -321,6 +322,8 @@
 //    PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:@"test"];
 //    [self openDoc:paintDoc];
     
+    [self addObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
+    
 }
 
 - (void)viewDidUnload
@@ -393,6 +396,7 @@
 -(void)dealloc{
     DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [self removeObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor"];
 }
 
 -(void)didReceiveMemoryWarning{
@@ -873,7 +877,7 @@
                 //工具栏
                 self.clearButton.highlighted = false;
                 [self.clearButton.layer setNeedsDisplay];
-                [self updateFuzzyTransparentViews];
+//                [self updateFuzzyTransparentViews];
             }];
             break;
         }
@@ -3346,7 +3350,7 @@
         
         //UI
         [self leaveTransformState];
-        [self updateFuzzyTransparentViews];
+//        [self updateFuzzyTransparentViews];
 
     }
 
@@ -3358,7 +3362,7 @@
     
     //UI
     [self leaveTransformState];
-    [self updateFuzzyTransparentViews];
+//    [self updateFuzzyTransparentViews];
 }
 
 - (IBAction)tranformCancelButtonTapped:(UIButton *)sender {
@@ -3686,8 +3690,8 @@
     self.subPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
     [self.subPopoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
     
-    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
-    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
+//    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
+//    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 
 - (void) willSetBackgroundLayerClearColorChanged:(UIColor*)clearColor{
@@ -3698,7 +3702,7 @@
     });
 
     //UI
-    [self updateFuzzyTransparentViews];
+//    [self updateFuzzyTransparentViews];
 }
 - (void) willSetBackgroundLayerClearColorFinished:(UIColor*)clearColor{
     self.paintView.paintData.backgroundLayer.clearColor = [clearColor copy];
@@ -3839,8 +3843,8 @@
     self.sharedPopoverController.delegate = self;
     [self.sharedPopoverController presentPopoverFromRect:self.brushButtonTempRect inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
-    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
-    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
+//    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
+//    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
     
 }
 
@@ -4126,7 +4130,7 @@
 }
 
 - (void) willUpdateUIToolBars{
-    [self updateFuzzyTransparentViews];
+//    [self updateFuzzyTransparentViews];
 }
 
 //#pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
@@ -4254,7 +4258,7 @@
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
     [self.paintView clearData];
-    [self updateFuzzyTransparentViews];
+//    [self updateFuzzyTransparentViews];
     [self.clearButton setNeedsDisplay];
     
 }
@@ -4339,7 +4343,7 @@
 }
 
 -(void)updateFuzzyTransparentViews{
-    [self.mainToolBar updateFuzzyTransparentFromView:self.rootCanvasView];
+//    [self.mainToolBar updateFuzzyTransparentFromView:self.rootCanvasView];
 //    [self.paintToolBar updateFuzzyTransparentFromView:self.rootCanvasView];
     //TODO: add all fuzzyTranparentViews here
     
@@ -4497,5 +4501,35 @@
     }];
 }
 
+#pragma mark- 观察对象数值变化
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+
+    if ([keyPath isEqualToString:@"paintView.paintData.backgroundLayer.clearColor"]) {
+//        DebugLog(@"backgroundLayer.clearColor changed");
+        CGFloat colorRGBA[4];
+        [self.paintView.paintData.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+        
+        for (AutoRotateButton *button in self.topToolBarButtons) {
+            ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+            ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+            ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
+            
+            [button.layer setNeedsDisplay];
+        }
+        
+        CGFloat r = colorRGBA[0] * 0.1 + 0.9 * 0.85;
+        CGFloat g = colorRGBA[1] * 0.1 + 0.9 * 0.85;
+        CGFloat b = colorRGBA[2] * 0.1 + 0.9 * 0.85;
+        
+        [PaintUIKitStyle setGlobalRefelectColor:[UIColor colorWithRed:r green:g blue:b alpha:1.0]];
+        [self.mainToolBar setNeedsDisplay];
+        [self.paintToolBar setNeedsDisplay];
+    }
+    else{
+    }
+    
+    return;
+}
 
 @end
