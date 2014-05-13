@@ -29,20 +29,6 @@
     return self;
 }
 
--(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
-    //    DebugLog(@"LayerButton drawLayer inContext");
-    CGFloat r = ((CustomLayer*)layer).baseColorR;
-    CGFloat g = ((CustomLayer*)layer).baseColorG;
-    CGFloat b = ((CustomLayer*)layer).baseColorB;
-    UIColor* iconColor = (self.isHighlighted || self.isSelected) ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-    
-    UIGraphicsPushContext(ctx);
-    
-    [self pastPaintCode:ctx iconColor:iconColor];
-    
-    UIGraphicsPopContext();
-}
-
 - (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor{
     //// General Declarations
     CGContextRef context = ctx;

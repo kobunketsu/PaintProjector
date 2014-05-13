@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "AutoRotateButton.h"
 @interface LayerCopyButton : AutoRotateButton
 

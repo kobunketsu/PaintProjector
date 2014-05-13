@@ -4518,13 +4518,15 @@
             [button.layer setNeedsDisplay];
         }
         
+        //calculate reflect color for UI
         CGFloat r = colorRGBA[0] * 0.1 + 0.9 * 0.85;
         CGFloat g = colorRGBA[1] * 0.1 + 0.9 * 0.85;
         CGFloat b = colorRGBA[2] * 0.1 + 0.9 * 0.85;
         
         [PaintUIKitStyle setGlobalRefelectColor:[UIColor colorWithRed:r green:g blue:b alpha:1.0]];
-        [self.mainToolBar setNeedsDisplay];
-        [self.paintToolBar setNeedsDisplay];
+       
+        // send out a reflect color changed notification for the uis which use crystalGradient style
+        [[NSNotificationCenter defaultCenter] postNotificationName:BackgroundLayerClearColorChangedNotification object:self userInfo:nil];
     }
     else{
     }

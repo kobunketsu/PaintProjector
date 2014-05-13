@@ -22,19 +22,11 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
--(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
+- (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor{
     //    DebugLog(@"LayerButton drawLayer inContext");
-    
-    UIGraphicsPushContext(ctx);
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = ctx;
     
-    //// Color Declarations
-    CGFloat r = ((CustomLayer*)layer).baseColorR;
-    CGFloat g = ((CustomLayer*)layer).baseColorG;
-    CGFloat b = ((CustomLayer*)layer).baseColorB;
-    UIColor* color = self.isHighlighted ? [UIColor whiteColor] : [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    UIColor* color = iconColor;
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.2];
     
     //// Shadow Declarations

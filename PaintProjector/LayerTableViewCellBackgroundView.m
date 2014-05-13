@@ -15,15 +15,20 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(backgroundLayerClearColorChanged)
+                                                     name:BackgroundLayerClearColorChangedNotification
+                                                   object:nil];
     }
     return self;
 }
 
-//+ (Class)layerClass
-//{
-//    return [CAGradientLayer class];
-//}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:BackgroundLayerClearColorChangedNotification object:nil];
+}
+- (void)backgroundLayerClearColorChanged{
+    [self setNeedsDisplay];
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

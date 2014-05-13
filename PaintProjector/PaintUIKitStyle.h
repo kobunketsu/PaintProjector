@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define BackgroundLayerClearColorChangedNotification @"BackgroundLayerClearColorChangedNotification"
+
 static UIColor *globalRefelectColor = nil;
 @interface PaintUIKitStyle : NSObject
 + (UIColor *)globalRefelectColor;
