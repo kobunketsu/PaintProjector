@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "AutoRotateButton.h"
-@interface LayerMergeButton : AutoRotateButton
+#import "IconColorPermeateButton.h"
+@interface LayerMergeButton : IconColorPermeateButton
 
 @end

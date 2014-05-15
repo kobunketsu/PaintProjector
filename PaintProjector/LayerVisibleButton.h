@@ -6,8 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "AutoRotateButton.h"
-@interface LayerVisibleButton : AutoRotateButton
+#import "IconColorPermeateButton.h"
+@interface LayerVisibleButton : IconColorPermeateButton
 @property(nonatomic, setter = setIsVisible:,  assign)BOOL isVisible;
 @end

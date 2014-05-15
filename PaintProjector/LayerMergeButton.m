@@ -22,14 +22,15 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor
 {
     //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = ctx;
     
     //// Color Declarations
+    UIColor* color = iconColor;
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.2];
-    UIColor* color = [UIColor colorWithRed: 0.559 green: 0.559 blue: 0.559 alpha: 1];
+//    UIColor* color = [UIColor colorWithRed: 0.559 green: 0.559 blue: 0.559 alpha: 1];
     
     //// Shadow Declarations
     UIColor* highlight = [UIColor whiteColor];

@@ -29,15 +29,15 @@
         self.layer.shadowOffset = CGSizeMake(0, 0);
         self.layer.shadowOpacity = 0.3;
         self.layer.shadowRadius = 8.0;
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(backgroundLayerClearColorChanged)
-                                                     name:BackgroundLayerClearColorChangedNotification
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(backgroundLayerClearColorChanged)
+//                                                     name:BackgroundLayerClearColorChangedNotification
+//                                                   object:nil];
     }
     return self;
 }
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:BackgroundLayerClearColorChangedNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:BackgroundLayerClearColorChangedNotification object:nil];
 }
 - (void)backgroundLayerClearColorChanged{
     [self setNeedsDisplay];
@@ -60,11 +60,11 @@
     //// Gradient Declarations
     UIColor *reflectColor = [PaintUIKitStyle globalRefelectColor];
     NSArray* gradientPinkColors = [NSArray arrayWithObjects:
-//                                   (id)gradientColor4.CGColor,
-                                   (id)reflectColor.CGColor,
+                                   (id)gradientColor4.CGColor,
+//                                   (id)reflectColor.CGColor,
                                    (id)gradientColor5.CGColor,
-                                   (id)reflectColor.CGColor, nil];
-//                                   (id)gradientColor.CGColor, nil];
+//                                   (id)reflectColor.CGColor, nil];
+                                   (id)gradientColor.CGColor, nil];
     CGFloat gradientPinkLocations[] = {0, 0.3, 1};
     CGGradientRef gradientPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientPinkColors, gradientPinkLocations);
     

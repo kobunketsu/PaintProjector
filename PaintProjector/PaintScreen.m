@@ -127,12 +127,15 @@
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillAppear ]");
 //    [self prepareForPresentation];
+    [self addObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
+    
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidAppear ]");
 }
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillDisappear ]");
+    [self removeObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor"];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidDisappear ]");
@@ -322,8 +325,6 @@
 //    PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:@"test"];
 //    [self openDoc:paintDoc];
     
-    [self addObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
-    
 }
 
 - (void)viewDidUnload
@@ -396,7 +397,7 @@
 -(void)dealloc{
     DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [self removeObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor"];
+
 }
 
 -(void)didReceiveMemoryWarning{
@@ -4522,11 +4523,12 @@
         CGFloat r = colorRGBA[0] * 0.1 + 0.9 * 0.85;
         CGFloat g = colorRGBA[1] * 0.1 + 0.9 * 0.85;
         CGFloat b = colorRGBA[2] * 0.1 + 0.9 * 0.85;
-        
         [PaintUIKitStyle setGlobalRefelectColor:[UIColor colorWithRed:r green:g blue:b alpha:1.0]];
        
         // send out a reflect color changed notification for the uis which use crystalGradient style
-        [[NSNotificationCenter defaultCenter] postNotificationName:BackgroundLayerClearColorChangedNotification object:self userInfo:nil];
+//        dispatch_async(dispatch_get_main_queue(),^{
+//            [[NSNotificationCenter defaultCenter] postNotificationName:BackgroundLayerClearColorChangedNotification object:self userInfo:nil];
+//        });
     }
     else{
     }

@@ -19,3 +19,5 @@ void main ( )
 }
 
 
+//gl_FragColor.rgb = srcColor.rgb + (destColor.rgb) * (1 - srcColor.a);//normal mode
+//gl_FragColor.rgb = srcColor.rgb * layerAlpha + (destColor.rgb) * (1 - srcColor.a * layerAlpha);//normal mode with layer alpha

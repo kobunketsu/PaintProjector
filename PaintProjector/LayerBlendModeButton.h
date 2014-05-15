@@ -6,8 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface LayerBlendModeButton : UIButton
+#import "IconColorPermeateButton.h"
+@interface LayerBlendModeButton : IconColorPermeateButton
 @property (assign, nonatomic)BOOL isSetupBlendMode;
 @end

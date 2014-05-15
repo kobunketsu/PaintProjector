@@ -261,6 +261,9 @@
                                             <outlet property="layerImageView" destination="WBe-Io-Mjp" id="pt6-ur-qjU"/>
                                             <outlet property="layerImageViewFrame" destination="GiR-79-oU6" id="AaN-We-cuY"/>
                                             <outlet property="visibleButton" destination="qQh-uO-E1O" id="Utn-0u-s4C"/>
+                                            <outletCollection property="layerHelpButtons" destination="urM-Fp-7UF" id="sRR-aF-Lea"/>
+                                            <outletCollection property="layerHelpButtons" destination="qQh-uO-E1O" id="G9W-WQ-gcr"/>
+                                            <outletCollection property="layerHelpButtons" destination="fuU-1o-IoM" id="xqk-pN-e1C"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BackgroundLayerTableViewCell" rowHeight="75" id="oOv-D9-SWL" userLabel="BackgroundLayerTableViewCell" customClass="BackgroundLayerTableViewCell">
@@ -1434,7 +1437,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="AJ4-6O-LyP" userLabel="FullScreenReverseButton" customClass="FullScreenReverseButton">
-                                        <rect key="frame" x="637" y="974" width="50" height="50"/>
+                                        <rect key="frame" x="637" y="990" width="50" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>

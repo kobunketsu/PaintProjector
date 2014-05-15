@@ -12,6 +12,7 @@
 #import "LayerTableViewCellBackgroundView.h"
 #import "LayerToolView.h"
 #import "FuzzyTransparentView.h"
+#import "PaintUIKitStyle.h"
 
 const float LayerTableViewCellHeight  = 155;
 const float BackgroundLayerTableViewCellHeight = 75;
@@ -27,13 +28,45 @@ const float LayerTableViewWidth = 256;
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    //更新UI颜色
+    [self addObserver:self forKeyPath:@"backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
+    [self updateIconColors];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [self removeObserver:self forKeyPath:@"backgroundLayer.clearColor"];
+}
+- (void)dealloc{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:BackgroundLayerClearColorChangedNotification object:nil];
+}
+
+- (void)backgroundLayerClearColorChanged{
+    CGFloat colorRGBA[4];
+    [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    for (UIButton *button in self.layerToolButtons) {
+        
+        ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+        ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+        ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
+        
+        [button.layer setNeedsDisplay];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+   
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(backgroundLayerClearColorChanged)
+//                                                 name:BackgroundLayerClearColorChangedNotification
+//                                               object:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -624,5 +657,36 @@ const float LayerTableViewWidth = 256;
 
 -(void)willRemoveFuzzyTransparentEnd{
     DebugLog(@"willRemoveFuzzyTransparentEnd");
+}
+- (void)updateIconColors{
+    CGFloat colorRGBA[4];
+    [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    for (AutoRotateButton *button in self.layerToolButtons) {
+        ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+        ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+        ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
+        [button.layer setNeedsDisplay];
+    }
+    
+    size_t num = [self.tableView numberOfRowsInSection:0];
+    for (int i = 0; i < num-1; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        LayerTableViewCell *cell = (LayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
+        for (IconColorPermeateButton *button in cell.layerHelpButtons) {
+            ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+            ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+            ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
+            [button.layer setNeedsDisplay];
+        }
+    }
+
+
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"backgroundLayer.clearColor"]) {
+        [self updateIconColors];
+    }
 }
 @end
