@@ -28,6 +28,8 @@ mediump float hueToRgb(mediump float m1, mediump float m2, mediump float hue){
 void main ( )
 {
     mediump vec4 srcColor = texture2D(texture, oTexcoord0);
+    srcColor.rgb /= srcColor.a;
+    srcColor.rgb = clamp(srcColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
     mediump float srcAlpha = srcColor.a * alpha;
     
     //foreground lumination;
@@ -92,7 +94,7 @@ void main ( )
     
     
     gl_FragColor.rgb = vec3(r, g, b) * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = srcAlpha + (1.0 - srcAlpha) * gl_LastFragData[0].a;
+    gl_FragColor.a = 1.0;
 }
 
 

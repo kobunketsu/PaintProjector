@@ -1461,6 +1461,7 @@
 //        DebugLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d Opacity %.1f", _curLayerTexture, _curPaintedLayerFramebuffer, _curPaintedLayerTexture, brushState.opacity);
         
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
+        //图层透明度锁定
         [self drawQuadBrush:brushState texture2D:_brushTexture alpha:brushState.opacity];
     }
     

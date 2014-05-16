@@ -25,18 +25,20 @@ mediump float hueToRgb(mediump float m1, mediump float m2, mediump float hue){
     }
 }
 
-void main ( )
+void main()
 {
     mediump vec4 srcColor = texture2D(texture, oTexcoord0);
+    srcColor.rgb /= srcColor.a;
+    srcColor.rgb = clamp(srcColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
     mediump float srcAlpha = srcColor.a * alpha;
-    
+
     //foreground hue saturation;
     mediump float srcMax = max(max(srcColor.r, srcColor.g), srcColor.b);
     mediump float srcMin = min(min(srcColor.r, srcColor.g), srcColor.b);
     mediump float hue;
     mediump float saturation = 0.0;
     mediump float srcLumination = (srcMax + srcMin) / 2.0;
-    if (srcMax != srcMin) {
+    if(srcMax != srcMin) {
         //saturation
         if(srcLumination < 0.5){
             saturation = (srcMax - srcMin) / (srcMax + srcMin);
@@ -47,7 +49,7 @@ void main ( )
         
         mediump float delta = srcMax - srcMin;
         
-        if (srcColor.r == srcMax){
+        if(srcColor.r == srcMax){
             hue = (srcColor.g - srcColor.b) / delta;
         }
         else if (srcColor.g == srcMax){
@@ -57,37 +59,33 @@ void main ( )
             hue = 4.0 + (srcColor.r - srcColor.g) / delta;
         }
         hue /= 6.0;
-        if (hue < 0.0) {
+        if(hue < 0.0) {
             hue += 1.0;
         }
     }
     
     //background lumination
-    mediump float destMax = max(max(gl_LastFragData[0].r, gl_LastFragData[0].g), gl_LastFragData[0].b);
-    mediump float destMin = min(min(gl_LastFragData[0].r, gl_LastFragData[0].g), gl_LastFragData[0].b);
+    mediump vec3 destColor = gl_LastFragData[0].rgb;
+    mediump float destMax = max(max(destColor.r, destColor.g), destColor.b);
+
+    mediump float destMin = min(min(destColor.r, destColor.g), destColor.b);
     mediump float lumination = (destMax + destMin) / 2.0;
-   
+
     //convert HLS to RGB
-    mediump float r, g, b, m1, m2;
-    if (saturation == 0.0) {
-        r = g = b = lumination;
-    }
-    else{
-        if(lumination <= 0.5){
-            m2 = lumination * (1.0 + saturation);
-        }
-        else{
-            m2 = lumination + saturation - lumination * saturation;
-        }
-        m1 = 2.0 * lumination - m2;
-        r = hueToRgb(m1, m2, hue + (1.0 / 3.0));
-        g = hueToRgb(m1, m2, hue);
-        b = hueToRgb(m1, m2, hue - (1.0 / 3.0));
-    }
+    mediump float r = lumination;
+    mediump float g = lumination;
+    mediump float b = lumination;
+    mediump float m1 = 0.0;
+    mediump float m2 = 0.0;
+
+    m2 = lumination * (1.0 - sign(lumination - 0.5) * saturation) + (0.5 + sign(lumination - 0.5) * 0.5) * saturation;
+
+    m1 = 2.0 * lumination - m2;
+    r = hueToRgb(m1, m2, hue + (1.0 / 3.0));
+    g = hueToRgb(m1, m2, hue);
+    b = hueToRgb(m1, m2, hue - (1.0 / 3.0));
     
-    
-    gl_FragColor.rgb = vec3(r, g, b) * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = srcAlpha + (1.0 - srcAlpha) * gl_LastFragData[0].a;
+    gl_FragColor.rgb = vec3(r, g, b) * srcAlpha + destColor * (1.0 - srcAlpha);
+//    gl_FragColor.rgb = vec3(1.0,0.0,0.0);
+    gl_FragColor.a = 1.0;
 }
-
-

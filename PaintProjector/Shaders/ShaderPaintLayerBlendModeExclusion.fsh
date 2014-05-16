@@ -6,10 +6,12 @@ uniform mediump float alpha;
 void main ( )
 {
     mediump vec4 srcColor = texture2D(texture, oTexcoord0);
+    srcColor.rgb /= srcColor.a;
+    srcColor.rgb = clamp(srcColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
     mediump float srcAlpha = srcColor.a * alpha;
     mediump vec3 targetColor = srcColor.rgb + gl_LastFragData[0].rgb - 2.0 * srcColor.rgb * gl_LastFragData[0].rgb;
     gl_FragColor.rgb = targetColor.rgb * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = srcAlpha + (1.0 - srcAlpha) * gl_LastFragData[0].a;
+    gl_FragColor.a = 1.0;
 }
 
 
