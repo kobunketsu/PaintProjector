@@ -531,7 +531,6 @@
 		34f095e74d7370ccc4f294ba /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1A14E4579F00DB003E /* CoreGraphics.framework */; };
 		3610c8f26df35f53c2ca9f3f /* InfColorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CF164559870000DF40 /* InfColorIndicatorView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		364524c221467b3b1a347142 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
-		36e81dfc551703e51e331761 /* AnamorphicTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860669817D2EE35002EE42A /* AnamorphicTitle.png */; };
 		37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B202172995EB00BF4688 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */; };
 		37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 088B40171792FB7F002750EA /* DBChooser.bundle */; };
@@ -604,7 +603,6 @@
 		75d6729cf929ac759e711d3c /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE10187DB03F001B3855 /* release_notes.md */; };
 		78934ebf43e31e8d5a4a2d8a /* AnamorphicTopViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC0417CA28EA00D4FE46 /* AnamorphicTopViewButton.m */; };
 		78de4268fcc15d5b14c9bd04 /* ImportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D10B17367ACA003259E6 /* ImportButton.m */; };
-		7966ec0fbf9d0a11cf852b6b /* screenMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334C17D3905D00A45B54 /* screenMask.png */; };
 		797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B7A177EFDE30039B5E5 /* Workspace.plist */; };
 		7a27ca748767410425fc8f04 /* BrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0804E2F6163D910200D86624 /* BrushView.m */; };
 		7a89c8358a9a8c6fe0561771 /* LayerClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B080E81781BDCA000B7E60 /* LayerClearButton.m */; };
@@ -692,7 +690,6 @@
 		b898b9c52313a579a9749bdb /* ZoomCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505BE17F720FF00E460CA /* ZoomCanvasView.m */; };
 		b96c05be8b1fd142d303d318 /* PaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* PaintDoc.m */; };
 		b9c7be3996399a503583fba3 /* DeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860668F17D2DB60002EE42A /* DeleteButton.m */; };
-		b9d6f825328b65f86e9cf09f /* myArtworks.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F3308017D6C67F00DD387B /* myArtworks.png */; };
 		baeee30903f0ac5ba28684ff /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 0897D7D8187C43CF00A7ECD2 /* Shaders */; };
 		bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
 		bdf721c8d230e08aeb472afa /* PaintingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94997B8016819D13006E3661 /* PaintingView.m */; };
@@ -706,11 +703,9 @@
 		c4c4076e6f190f58cf0e49f3 /* BrushTypeSmallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */; };
 		c584a8d6513e6bd51a92a182 /* OpenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F6A1766FCFF00276B15 /* OpenCommand.m */; };
 		c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1814E4579F00DB003E /* Foundation.framework */; };
-		c71e0dee34ffd18e6436e0d2 /* setup.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F3308617D6C7E000DD387B /* setup.png */; };
 		c72ece01f21f3f52373e8d04 /* chalkStroke02.png in Resources */ = {isa = PBXBuildFile; fileRef = 082439E616CCAE2100FC12BA /* chalkStroke02.png */; };
 		c79b9852d1f07474d5fe92ea /* PaintRefView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A0FF16731BBA00AE0F23 /* PaintRefView.m */; };
 		c7d2a72bf6af8a376e6e214b /* CameraOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 085A7E2E16D8A96200834C9D /* CameraOverlayViewController.m */; };
-		c84633a4bd50baef3532bce7 /* anamorphicWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 08F3308417D6C6FD00DD387B /* anamorphicWorld.png */; };
 		c8a0d9e976109a182aa6c52c /* ShowPaint.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802A72816592695000F82D6 /* ShowPaint.m */; };
 		c8a2f215f9e96fca3c54cf0b /* ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69A17363260002E063A /* ProjectButton.m */; };
 		ca53a460052690d799e70353 /* UndoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0809EA44164946DF0061233D /* UndoButton.m */; };
@@ -903,7 +898,6 @@
 		0814743A18B19A5C00BBC25A /* AnimationClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationClip.h; path = PaintProjector/AnimationClip.h; sourceTree = "<group>"; };
 		0814743B18B19A5C00BBC25A /* AnimationClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationClip.m; path = PaintProjector/AnimationClip.m; sourceTree = "<group>"; };
 		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
-		0815334C17D3905D00A45B54 /* screenMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = screenMask.png; path = Images/screenMask.png; sourceTree = "<group>"; };
 		0817B38E163C38ED00BD52B2 /* PaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0817B38F163C38ED00BD52B2 /* PaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0818DC2B18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
@@ -1080,7 +1074,6 @@
 		0860669217D2DE40002EE42A /* CopyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CopyButton.m; path = PaintProjector/CopyButton.m; sourceTree = "<group>"; };
 		0860669417D2E235002EE42A /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		0860669517D2E235002EE42A /* BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackButton.m; sourceTree = "<group>"; };
-		0860669817D2EE35002EE42A /* AnamorphicTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AnamorphicTitle.png; path = Images/AnamorphicTitle.png; sourceTree = "<group>"; };
 		0861490018D7442900661AD6 /* SetupButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupButton.h; sourceTree = "<group>"; };
 		0861490118D7442900661AD6 /* SetupButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupButton.m; sourceTree = "<group>"; };
 		0862133D174D06AD006704C8 /* LayerBlendModeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeButton.h; sourceTree = "<group>"; };
@@ -1401,9 +1394,6 @@
 		08EF9E5318A1E2B600376568 /* Resources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Resources.m; path = PaintProjector/Resources.m; sourceTree = "<group>"; };
 		08F280C2189E76D900DF744C /* PlaneMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaneMesh.h; path = PaintProjector/PlaneMesh.h; sourceTree = "<group>"; };
 		08F280C3189E76D900DF744C /* PlaneMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaneMesh.m; path = PaintProjector/PlaneMesh.m; sourceTree = "<group>"; };
-		08F3308017D6C67F00DD387B /* myArtworks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = myArtworks.png; path = Images/myArtworks.png; sourceTree = "<group>"; };
-		08F3308417D6C6FD00DD387B /* anamorphicWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = anamorphicWorld.png; path = Images/anamorphicWorld.png; sourceTree = "<group>"; };
-		08F3308617D6C7E000DD387B /* setup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = setup.png; path = Images/setup.png; sourceTree = "<group>"; };
 		08F3A68E1736089C002E063A /* TopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopToolBar.h; sourceTree = "<group>"; };
 		08F3A68F1736089C002E063A /* TopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopToolBar.m; sourceTree = "<group>"; };
 		08F3A693173613A6002E063A /* TransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformButton.h; sourceTree = "<group>"; };
@@ -2287,12 +2277,7 @@
 			isa = PBXGroup;
 			children = (
 				0863F0EA17DA434C008186CA /* testIOS7Color.png */,
-				08F3308617D6C7E000DD387B /* setup.png */,
-				08F3308417D6C6FD00DD387B /* anamorphicWorld.png */,
-				08F3308017D6C67F00DD387B /* myArtworks.png */,
-				0815334C17D3905D00A45B54 /* screenMask.png */,
 				0815334717D3809300A45B54 /* cylinderShadow.png */,
-				0860669817D2EE35002EE42A /* AnamorphicTitle.png */,
 				08EDD50D17AD296B0023E08A /* cylinderMain.png */,
 				08EDD50B17AD23B70023E08A /* cylinderCap.png */,
 			);
@@ -2733,9 +2718,7 @@
 				0d3c80d30424070dcd7fccb2 /* chineseBrush.png in Resources */,
 				61a3f14b301d9c30231a51c5 /* cylinderMain.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
-				36e81dfc551703e51e331761 /* AnamorphicTitle.png in Resources */,
 				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
-				7966ec0fbf9d0a11cf852b6b /* screenMask.png in Resources */,
 				08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08086E5F18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */,
 				08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
@@ -2744,10 +2727,7 @@
 				08086EF118DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
 				08086E7118DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				ac8562a0e953f638c3be0333 /* noise.png in Resources */,
-				b9d6f825328b65f86e9cf09f /* myArtworks.png in Resources */,
 				08086ED318DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
-				c84633a4bd50baef3532bce7 /* anamorphicWorld.png in Resources */,
-				c71e0dee34ffd18e6436e0d2 /* setup.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
