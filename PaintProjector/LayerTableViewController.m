@@ -144,8 +144,9 @@ const float LayerTableViewWidth = 256;
         LayerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LayerTableViewCell"];
         PaintLayer *layer = [self.layers objectAtIndex:[self layerIndexForRow:indexPath.row]];
         cell.visibleButton.isVisible = layer.visible;
+        cell.layerOpacityLockButton.isOpacityLocked = layer.opacityLock;
         cell.layerOpacitySlider.value = layer.opacity;
-        cell.visibleButton.tag = cell.layerBlendModeButton.tag = cell.layerOpacitySlider.tag = [self layerIndexForRow:indexPath.row];
+        cell.visibleButton.tag = cell.layerBlendModeButton.tag = cell.layerOpacitySlider.tag = cell.layerOpacityLockButton.tag = [self layerIndexForRow:indexPath.row];
         
         cell.isAccessibilityElement = true;
         cell.accessibilityIdentifier = layer.identifier;
@@ -502,10 +503,19 @@ const float LayerTableViewWidth = 256;
 - (IBAction)layerTransformButtonTouchUp:(UIButton *)sender {
 }
 
-- (IBAction)layerVisibleButtonTouchUp:(LayerVisibleButton *)sender {
-    sender.isVisible = !sender.isVisible;
-    DebugLog(@"SetLayerAtIndex Index %d visible %i", sender.tag, sender.isVisible);
-    [self.delegate willSetLayerAtIndex:sender.tag visible:sender.isVisible];
+- (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender {
+    LayerVisibleButton *button = (LayerVisibleButton *)sender;
+    button.isVisible = !button.isVisible;
+    DebugLog(@"SetLayerAtIndex Index %d visible %i", button.tag, button.isVisible);
+    [self.delegate willSetLayerAtIndex:button.tag visible:button.isVisible];
+}
+
+- (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender {
+    LayerOpacityLockButton *button = (LayerOpacityLockButton *)sender;
+    button.isOpacityLocked = !button.isOpacityLocked;
+    
+    DebugLog(@"SetLayerAtIndex Index %d opacityLock %i", button.tag, button.isOpacityLocked);
+    [self.delegate willSetLayerAtIndex:button.tag opacityLock:button.isOpacityLocked];
 }
 
 - (IBAction)layerOpacitySliderSlide:(UISlider *)sender {
@@ -679,6 +689,13 @@ const float LayerTableViewWidth = 256;
             [button.layer setNeedsDisplay];
         }
     }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:num-1 inSection:0];
+    BackgroundLayerTableViewCell *cell = (BackgroundLayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
+    ((CustomLayer*)cell.visibleButton.layer).baseColorR = colorRGBA[0];
+    ((CustomLayer*)cell.visibleButton.layer).baseColorG = colorRGBA[1];
+    ((CustomLayer*)cell.visibleButton.layer).baseColorB = colorRGBA[2];
+    [cell.visibleButton.layer setNeedsDisplay];
 
 
 }

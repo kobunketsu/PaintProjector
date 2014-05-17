@@ -228,7 +228,6 @@
     //tag正负号代表是否是查询过滤表格
     cell.swatchChartButton.tag = indexPath.row;
     cell.swatchChartButton.filtered = collectionView.tag == 1;
-    cell.swatchChartButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSString *fileName = [url.pathComponents lastObject];
     NSString *swatchName = [fileName stringByDeletingPathExtension];

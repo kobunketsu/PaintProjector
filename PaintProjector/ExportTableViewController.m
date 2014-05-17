@@ -81,11 +81,11 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = @"Email";
+            cell.textLabel.text = NSLocalizedString(@"Email", nil);
             cell.imageView.image = [UIImage imageNamed:@"email_48.png"];
             break;
         case 1:
-            cell.textLabel.text = @"Photo";
+            cell.textLabel.text = NSLocalizedString(@"Photo", nil);
             cell.imageView.image = [UIImage imageNamed:@"PhotoLibrary.png"];
             break;
 //        case 2:
@@ -93,15 +93,15 @@
 //            cell.imageView.image = [UIImage imageNamed:@"dropbox_Logo_48.png"];
 //            break;
         case 2:
-            cell.textLabel.text = @"Facebook";
+            cell.textLabel.text = NSLocalizedString(@"Facebook", nil);
             cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
             break;
         case 3:
-            cell.textLabel.text = @"Twitter";
+            cell.textLabel.text = NSLocalizedString(@"Twitter", nil);
             cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
         case 4:
-            cell.textLabel.text = @"SinaWeibo";
+            cell.textLabel.text = NSLocalizedString(@"SinaWeibo", nil);
             cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];            
             
             //            cell.textLabel.text = @"Dropbox";

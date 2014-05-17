@@ -10,11 +10,13 @@
 #import "LayerVisibleButton.h"
 #import "LayerBlendModeButton.h"
 #import "LayerImageView.h"
-@class IconColorPermeateButton;
+#import "LayerOpacityLockButton.h"
+@class LayerOpacityLockButton;
 
 @interface LayerTableViewCell : UITableViewCell
 //@property (copy, nonatomic) NSString *layerIdentifier;
 @property (weak, nonatomic) IBOutlet LayerVisibleButton *visibleButton;
+@property (weak, nonatomic) IBOutlet LayerOpacityLockButton *layerOpacityLockButton;
 @property (weak, nonatomic) IBOutlet LayerImageView *layerImageView;
 @property (weak, nonatomic) IBOutlet UIView *layerImageViewFrame;
 @property (weak, nonatomic) IBOutlet UIButton *layerDeleteDoneButton;

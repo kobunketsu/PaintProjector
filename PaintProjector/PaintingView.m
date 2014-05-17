@@ -1123,7 +1123,7 @@
 
     //使用Disable 不需要Clear
 //    glClear(GL_COLOR_BUFFER_BIT);
-//    glDisable(GL_BLEND);
+    glDisable(GL_BLEND);
     
     //绘制背景层
     [self drawBackgroundLayer];
@@ -1132,7 +1132,7 @@
     for (int i = 0; i < self.paintData.layers.count; ++i) {
         [self drawPaintLayerAtIndex:i];
     }
-//    glEnable(GL_BLEND);
+    glEnable(GL_BLEND);
 
 //    DebugLog(@"_updateRender willEndDraw glFinish. presentRenderbuffer.");
     //call glFlush internally
@@ -1462,7 +1462,10 @@
         
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
-        [self drawQuadBrush:brushState texture2D:_brushTexture alpha:brushState.opacity];
+        
+        PaintLayer *layer = self.paintData.layers[_curLayerIndex];
+        CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
+        [self drawQuadBrush:brushState texture2D:_brushTexture alpha:opacity];
     }
     
     if (refresh) {
@@ -2351,8 +2354,6 @@
         NSNumber* numTex= [self.layerTextures objectAtIndex:index];
 //        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, numTex.intValue,  layer.blendMode, layer.opacity);
         [self drawLayerWithTex:numTex.intValue blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
-
-
     }
     
 }
@@ -2444,10 +2445,10 @@
         self.lastProgramLayerTex = 0;
     }
     
-//    if (self.lastProgramLayerAlpha != opacity) {
+    if (self.lastProgramLayerAlpha != opacity) {
         glUniform1f(_alphaQuadUniform, opacity);
-//        self.lastProgramLayerAlpha = opacity;
-//    }
+        self.lastProgramLayerAlpha = opacity;
+    }
 
     [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
@@ -2473,7 +2474,13 @@
     [self _updateRender];
     
 }
-
+- (void)setLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock{
+    PaintLayer* layer = [self.paintData.layers objectAtIndex:index];
+    layer.opacityLock = opacityLock;
+    
+    [self _updateRender];
+    
+}
 - (void)clearLayerAtIndex:(int)index{
 }
 - (void)mergeLayerAtIndex:(int)index{

@@ -29,6 +29,7 @@
 - (void) willSetLayerAtIndex:(int)index visible:(BOOL)visible;
 - (void) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index;
 - (void) willSetLayerAtIndex:(int)index opacity:(float)opacity;
+- (void) willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock;
 - (int) willGetLayerIndex;
 - (void) willUpdateRender;
 - (void) willSetBackgroundLayerVisible:(bool)visible;
@@ -87,4 +88,5 @@ UIAlertViewDelegate
 - (IBAction)layerBlendModeButtonTouchUp:(UIButton *)sender;
 //设置图层可见性
 - (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender;
+- (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender;
 @end

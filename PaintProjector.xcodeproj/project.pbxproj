@@ -521,6 +521,8 @@
 		08A6FA4218BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */; };
 		08A6FA4318BB7FB400D9A7EB /* AnaDrawIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* AnaDrawIAPManager.m */; };
 		08A724B81844ED3E00B9178B /* LayerTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A724B71844ED3E00B9178B /* LayerTransformButton.m */; };
+		08A79C151925A58D00E4EA6E /* LayerOpacityLockButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A79C141925A58D00E4EA6E /* LayerOpacityLockButton.m */; };
+		08A79C161925A58D00E4EA6E /* LayerOpacityLockButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A79C141925A58D00E4EA6E /* LayerOpacityLockButton.m */; };
 		08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
 		08AB75C5188F5A5A007DA20B /* PaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */; };
 		08AB75C7188F5A5A007DA20B /* PaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */; };
@@ -1478,6 +1480,8 @@
 		08A6FA4A18BB83E700D9A7EB /* BBXIAPTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBXIAPTransaction.h; path = BBXBeeblex/BBXIAPTransaction.h; sourceTree = "<group>"; };
 		08A724B61844ED3E00B9178B /* LayerTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTransformButton.h; sourceTree = "<group>"; };
 		08A724B71844ED3E00B9178B /* LayerTransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTransformButton.m; sourceTree = "<group>"; };
+		08A79C131925A58D00E4EA6E /* LayerOpacityLockButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerOpacityLockButton.h; sourceTree = "<group>"; };
+		08A79C141925A58D00E4EA6E /* LayerOpacityLockButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerOpacityLockButton.m; sourceTree = "<group>"; };
 		08A932CA16FE9EBF00A75938 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		08AB75C3188F5A5A007DA20B /* PaintCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintCollectionView.h; path = PaintProjector/PaintCollectionView.h; sourceTree = "<group>"; };
 		08AB75C4188F5A5A007DA20B /* PaintCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintCollectionView.m; path = PaintProjector/PaintCollectionView.m; sourceTree = "<group>"; };
@@ -2016,6 +2020,8 @@
 				08A724B61844ED3E00B9178B /* LayerTransformButton.h */,
 				08A724B71844ED3E00B9178B /* LayerTransformButton.m */,
 				08672137174A6AA8005A9FE0 /* LayerVisibleButton.h */,
+				08A79C131925A58D00E4EA6E /* LayerOpacityLockButton.h */,
+				08A79C141925A58D00E4EA6E /* LayerOpacityLockButton.m */,
 				08672138174A6AA8005A9FE0 /* LayerVisibleButton.m */,
 				08511B07174BD39D00C97202 /* LayerOpacitySlider.h */,
 				08511B08174BD39E00C97202 /* LayerOpacitySlider.m */,
@@ -3273,6 +3279,7 @@
 				828ef58ce6328626847f5dff /* UIImage+Resize.m in Sources */,
 				714030c503cb89776251bd00 /* UIImage+RoundedCorner.m in Sources */,
 				da5aed40201a0614a9d452a0 /* PaintScreen.m in Sources */,
+				08A79C161925A58D00E4EA6E /* LayerOpacityLockButton.m in Sources */,
 				6381e8b40ffe2d3a97f2793f /* Brush.m in Sources */,
 				4a7f4d3e26dbcdd05e7ad0ee /* FullScreenButton.m in Sources */,
 				08E251B9189CC10E0039AAC2 /* ShaderCylinderProject.m in Sources */,
@@ -3692,6 +3699,7 @@
 				0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */,
 				08F3A6901736089C002E063A /* TopToolBar.m in Sources */,
 				08F3A695173613A6002E063A /* TransformButton.m in Sources */,
+				08A79C151925A58D00E4EA6E /* LayerOpacityLockButton.m in Sources */,
 				08F3A69817362A43002E063A /* LayerButton.m in Sources */,
 				0847F52218B0558A0038869A /* SetupViewController.m in Sources */,
 				08CE4BFA18D7D2C1008C4904 /* InfoButton.m in Sources */,

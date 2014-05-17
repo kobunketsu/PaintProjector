@@ -208,7 +208,7 @@
                                                         </imageView>
                                                     </subviews>
                                                 </view>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="urM-Fp-7UF" userLabel="TransformButton" customClass="LayerTransformButton">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="urM-Fp-7UF" userLabel="OpacityLockButton" customClass="LayerOpacityLockButton">
                                                     <rect key="frame" x="130" y="55" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -220,7 +220,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="layerTransformButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="YT2-e7-OCV"/>
+                                                        <action selector="layerOpacityLockButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="uoL-yj-OPh"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qQh-uO-E1O" userLabel="VisibleButton" customClass="LayerVisibleButton">
@@ -260,6 +260,7 @@
                                             <outlet property="layerBlendModeButton" destination="fuU-1o-IoM" id="ar2-s8-fBI"/>
                                             <outlet property="layerImageView" destination="WBe-Io-Mjp" id="pt6-ur-qjU"/>
                                             <outlet property="layerImageViewFrame" destination="GiR-79-oU6" id="AaN-We-cuY"/>
+                                            <outlet property="layerOpacityLockButton" destination="urM-Fp-7UF" id="t5F-ky-U48"/>
                                             <outlet property="visibleButton" destination="qQh-uO-E1O" id="Utn-0u-s4C"/>
                                             <outletCollection property="layerHelpButtons" destination="urM-Fp-7UF" id="sRR-aF-Lea"/>
                                             <outletCollection property="layerHelpButtons" destination="qQh-uO-E1O" id="G9W-WQ-gcr"/>

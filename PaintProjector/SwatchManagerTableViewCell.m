@@ -18,6 +18,13 @@
     }
     return self;
 }
+//- (id)initWithCoder:(NSCoder *)aDecoder{
+//    self = [super initWithCoder:aDecoder];
+//    if (self) {
+//        self.swatchCollectionView.contentSize = CGSizeMake(self.bounds.size.width, 10000);
+//    }
+//    return self;
+//}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

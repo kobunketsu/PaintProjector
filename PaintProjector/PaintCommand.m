@@ -105,11 +105,16 @@
     [self.delegate willStartDrawBrushState:self.brushState FromPoint:startPoint isUndoBaseWrapped:self.isUndoBaseWrapped];
     
     //beforeDraw
-    [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:self.isUndoBaseWrapped isImmediate:false];
-
+    //FIXME:beforeDraw中只做了一次mapBuffer, 如果wet>0 每次willRenderDataWithBrushId都会unmapBuffer导致问题
+    if (self.brushState.wet == 0) {
+        [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:self.isUndoBaseWrapped isImmediate:false];
+    }
  
     //fillDatas 将command中记录的数据map到显存
     for (int i = 0; i < [self.paintPaths count]-1; ++i) {
+        if (self.brushState.wet > 0) {
+            [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:self.isUndoBaseWrapped isImmediate:false];
+        }
         
         //重置随机数字Seed
         srandom(self.brushState.seed + self.curSegmentOffset);
@@ -139,7 +144,6 @@
     if (self.brushState.wet == 0) {
         //只需要更新brushState的再填充好data后一次描画
         [self.delegate willRenderDataWithBrushId:self.brushState.classId isImmediate:false];
-        
     }
     
     //afterDraw

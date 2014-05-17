@@ -24,7 +24,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor
 {
-    //// General Declarations
+    //// General Declaratio1ns
     CGContextRef context = ctx;
     
     //// Color Declarations

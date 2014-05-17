@@ -10,7 +10,7 @@
 
 @implementation PaintLayer
 
-- (id)initWithData:(NSData*)data name:(NSString *)name identifier:(NSString*)identifier blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity{
+- (id)initWithData:(NSData*)data name:(NSString *)name identifier:(NSString*)identifier blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity opacityLock:(BOOL)opacityLock{
     self = [super init];
     if(self!=NULL){
         self.data = data;
@@ -18,6 +18,7 @@
         self.identifier = identifier;
         self.blendMode = blendMode;
         self.visible = visible;
+        self.opacityLock = opacityLock;
         self.dirty = true;
         self.opacity = 1.0;
 
@@ -32,6 +33,7 @@
 #define kDataKey          @"Data"
 #define kVisibleKey       @"Visible"
 #define kOpacityKey       @"Opacity"
+#define kOpacityLockKey   @"OpacityLock"
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.data forKey:kDataKey];
@@ -40,6 +42,7 @@
     [encoder encodeInteger:(NSInteger)self.blendMode forKey:kBlendModeKey];
     [encoder encodeBool:self.visible forKey:kVisibleKey];
     [encoder encodeFloat:self.opacity forKey:kOpacityKey];
+    [encoder encodeBool:self.opacityLock forKey:kOpacityLockKey];
 //    DebugLog(@"endcodeWithCoder data:%d blendMode:%d visible:%i opacity:%.2f", (id)self.data, (int)self.blendMode, self.visible, self.opacity);
 }
 
@@ -50,8 +53,9 @@
     LayerBlendMode blendMode = (LayerBlendMode)[decoder decodeIntegerForKey:kBlendModeKey];
     bool visible = [decoder decodeBoolForKey:kVisibleKey];
     float opacity = [decoder decodeFloatForKey:kOpacityKey];
+    BOOL opacityLock = [decoder decodeBoolForKey:kOpacityLockKey];
 //    DebugLog(@"initWithCoder data:%d blendMode:%d visible:%i opacity:%.2f", (id)data, (int)blendMode, visible, opacity);
-    return [self initWithData:data name:name identifier:identifier blendMode:blendMode visible:visible opacity:opacity];
+    return [self initWithData:data name:name identifier:identifier blendMode:blendMode visible:visible opacity:opacity opacityLock:opacityLock];
 }
 
 - (id)copyWithZone:(NSZone *)zone{
@@ -63,6 +67,7 @@
     layer.opacity = self.opacity;
     layer.dirty = self.dirty;
     layer.data = [self.data copyWithZone:zone];
+    layer.opacityLock = self.opacityLock;
     
     return layer;
 }
@@ -107,7 +112,7 @@
     NSString    *uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(nil, uuidObj);
     CFRelease(uuidObj);
     
-    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData name:@"NewLayer" identifier:uuidString blendMode:kLayerBlendModeNormal visible:true opacity:1.0];
+    PaintLayer* layer = [[PaintLayer alloc]initWithData:nsData name:@"NewLayer" identifier:uuidString blendMode:kLayerBlendModeNormal visible:true opacity:1.0 opacityLock:false];
 
     return layer;
 }
@@ -132,4 +137,10 @@
     }
 }
 
+- (void)setOpacityLock:(bool)opacityLock{
+    if (_opacityLock != opacityLock) {
+        _opacityLock = opacityLock;
+        _dirty = true;
+    }
+}
 @end

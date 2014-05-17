@@ -180,6 +180,10 @@
     self.paintView.layer.shadowColor = [UIColor blackColor].CGColor;
     
     self.paintView.delegate = self;
+    
+    //undo redo
+    [self willEnableUIRedo:false];
+    [self willEnableUIUndo:false];
 
     EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     if (context == nil) {
@@ -873,6 +877,7 @@
                 self.clearEffectView.alpha = 1.0;
             } completion:^(BOOL finished) {
                 [self.paintView clearData];
+//                [self requestClearData];
                 self.clearEffectView.hidden = true;
                 
                 //工具栏
@@ -2306,7 +2311,9 @@
         }];
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"swatch manager not supported in Free version" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro version", nil];
+        
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+        alertView.tag = 1;
         [alertView show];
     }
 }
@@ -2665,7 +2672,8 @@
                  [self enterTransformImageState:rect];
              }
              else{
-                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"import invalid images" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
+                 alertView.tag = 2;
                  [alertView show];
              }
              
@@ -3327,6 +3335,8 @@
         view.userInteractionEnabled = true;
     }
     self.pgr1TouchesPaintView.enabled = true;
+    
+    [self.paintView willEndWrapUndoBaseCommand];
 }
 
 - (IBAction)transformButtonTapped:(id)sender {
@@ -3456,7 +3466,13 @@
 - (void)showLockRotateCanvasUI:(BOOL)enable{
     self.lockCanvasRotationView.hidden = !enable;
 }
-
+#pragma marl- 清楚 Clear
+- (void)requestClearData{
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ClearAllLayersWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+    alertView.tag = 3;
+    [alertView show];
+}
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTapped:(UIButton *)sender {
@@ -3602,16 +3618,18 @@
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            NSString *message = [NSString stringWithFormat:@"Maximum %d layers supported in Pro version.",layerMaxCount];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil];
+            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersIAP", nil)];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
+            alertView.tag = 4;
             [alertView show];
             return;
         }
     }
     else{
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            NSString *message = [NSString stringWithFormat:@"Maximum %d layers supported in Free version.",layerMaxCount];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
+            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersFree", nil)];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+            alertView.tag = 5;
             [alertView show];
             return;
         }
@@ -3663,6 +3681,10 @@
 
 - (void)willSetLayerAtIndex:(int)index opacity:(float)opacity{
     [self.paintView setLayerAtIndex:index opacity:opacity];
+}
+
+- (void)willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock{
+    [self.paintView setLayerAtIndex:index opacityLock:opacityLock];
 }
 
 - (void)willMergeLayerDataAtIndex:(int)index{
@@ -3916,8 +3938,9 @@
         [self willSelectBrushCanceled:sender];
         
         //笔刷不可用，询问购买
-        NSString *message = [NSString stringWithFormat:@"%@ is not supported in Free version.", NSStringFromClass(brush.class)];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Pro Version", nil];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"This Brush is not supported in Free version.", nil)];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+        alertView.tag = 5;
         [alertView show];
         
         return;
@@ -3952,19 +3975,23 @@
 }
 
 -(void)willEnableUIRedo:(BOOL)enable{
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [self.redoButton.layer setNeedsDisplay];
+    self.redoButton.enabled = enable;
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 //        self.redoButton.alpha = enable ? 1 : 0;
-    } completion:^(BOOL finished) {
+//    } completion:^(BOOL finished) {
 //        self.redoButton.hidden = !enable;
-    }];
+//    }];
 }
 
 -(void)willEnableUIUndo:(BOOL)enable{
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [self.undoButton.layer setNeedsDisplay];
+    self.undoButton.enabled = enable;
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
 //        self.undoButton.alpha = enable ? 1 : 0;
-    } completion:^(BOOL finished) {
+//    } completion:^(BOOL finished) {
 //        self.undoButton.hidden = !enable;
-    }];
+//    }];
 }
 
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{
@@ -4258,8 +4285,9 @@
     DebugLogIBAction(@"clearButtonTouchUp");
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
-    [self.paintView clearData];
+//    [self.paintView clearData];
 //    [self updateFuzzyTransparentViews];
+    [self requestClearData];
     [self.clearButton setNeedsDisplay];
     
 }
@@ -4481,17 +4509,26 @@
 
 #pragma mark- 处理警告 UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 1:
-            DebugLog(@"打开商店");
-            self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
-            self.iapVC.delegate = self;
-            [self presentViewController:self.iapVC animated:true completion:^{
-            }];
-            break;
-            
-        default:
-            break;
+    if (alertView.tag == 3){
+        switch (buttonIndex) {
+            case 1:
+                [self.paintView clearData];
+                break;
+        }
+    }
+    else if (alertView.tag == 5) {
+        switch (buttonIndex) {
+            case 1:
+                DebugLog(@"打开商店");
+                self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+                self.iapVC.delegate = self;
+                [self presentViewController:self.iapVC animated:true completion:^{
+                }];
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 

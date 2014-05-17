@@ -91,11 +91,11 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = @"Photo";
+            cell.textLabel.text = NSLocalizedString(@"Photo", nil);
             cell.imageView.image = [UIImage imageNamed:@"PhotoLibrary.png"];
             break;
         case 1:
-            cell.textLabel.text = @"Camera";
+            cell.textLabel.text = NSLocalizedString(@"Camera", nil);
             cell.imageView.image = [UIImage imageNamed:@"camera_48.png"];
             break;
 //        case 2:

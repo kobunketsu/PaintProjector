@@ -257,6 +257,8 @@ typedef struct {
 - (void)setCurLayerBlendMode:(LayerBlendMode)blendMode;
 //指定当前图层透明度
 - (void)setLayerAtIndex:(int)index opacity:(float)opacity;
+//指定当前图层透明度锁定
+- (void)setLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock;
 //合并当前图层
 - (void)mergeLayerAtIndex:(int)index;
 //复制当前图层

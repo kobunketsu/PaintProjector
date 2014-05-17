@@ -33,8 +33,8 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
+    UIColor* strokeColor = [UIColor colorWithRed: 0.95 green: 0.95 blue: 0.95 alpha: 1];
     UIColor* gradientColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     UIColor* shadow1Color = [UIColor colorWithRed: 0.316 green: 0.316 blue: 0.316 alpha: 1];
     UIColor* highlightedColor = [UIColor colorWithRed: 0.903 green: 0.903 blue: 0.903 alpha: 1];
     UIColor* color = [UIColor colorWithRed: 1 green: 0 blue: 0 alpha: 1];
@@ -183,42 +183,40 @@
     
     
     //// Oval 7 Drawing
-    UIBezierPath* oval7Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(9, 8, 33, 33)];
+    UIBezierPath* oval7Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(15, 15, 20, 20)];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
     [highlightedColor setFill];
     [oval7Path fill];
     CGContextRestoreGState(context);
     
-    
+    [strokeColor setStroke];
+    oval7Path.lineWidth = 1;
+    [oval7Path stroke];
     
     //// Bezier 2 Drawing
-    UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
-    [bezier2Path moveToPoint: CGPointMake(23.66, 28.52)];
-    [bezier2Path addLineToPoint: CGPointMake(26.21, 28.52)];
-    [bezier2Path addLineToPoint: CGPointMake(26.21, 13)];
-    [bezier2Path addLineToPoint: CGPointMake(23.66, 13)];
-    [bezier2Path addLineToPoint: CGPointMake(23.66, 28.52)];
-    [bezier2Path closePath];
-    [bezier2Path moveToPoint: CGPointMake(34.49, 28.1)];
-    [bezier2Path addLineToPoint: CGPointMake(25.46, 37.24)];
-    [bezier2Path addLineToPoint: CGPointMake(25.02, 37.24)];
-    [bezier2Path addLineToPoint: CGPointMake(16, 28.1)];
-    [bezier2Path addLineToPoint: CGPointMake(17.8, 26.27)];
-    [bezier2Path addLineToPoint: CGPointMake(25.24, 33.81)];
-    [bezier2Path addLineToPoint: CGPointMake(32.68, 26.27)];
-    [bezier2Path addLineToPoint: CGPointMake(34.49, 28.1)];
-    [bezier2Path closePath];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
-    [gradientColor2 setFill];
-    [bezier2Path fill];
-    CGContextRestoreGState(context);
-    
-    
-    
-
-    
+//    UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
+//    [bezier2Path moveToPoint: CGPointMake(23.66, 28.52)];
+//    [bezier2Path addLineToPoint: CGPointMake(26.21, 28.52)];
+//    [bezier2Path addLineToPoint: CGPointMake(26.21, 13)];
+//    [bezier2Path addLineToPoint: CGPointMake(23.66, 13)];
+//    [bezier2Path addLineToPoint: CGPointMake(23.66, 28.52)];
+//    [bezier2Path closePath];
+//    [bezier2Path moveToPoint: CGPointMake(34.49, 28.1)];
+//    [bezier2Path addLineToPoint: CGPointMake(25.46, 37.24)];
+//    [bezier2Path addLineToPoint: CGPointMake(25.02, 37.24)];
+//    [bezier2Path addLineToPoint: CGPointMake(16, 28.1)];
+//    [bezier2Path addLineToPoint: CGPointMake(17.8, 26.27)];
+//    [bezier2Path addLineToPoint: CGPointMake(25.24, 33.81)];
+//    [bezier2Path addLineToPoint: CGPointMake(32.68, 26.27)];
+//    [bezier2Path addLineToPoint: CGPointMake(34.49, 28.1)];
+//    [bezier2Path closePath];
+//    CGContextSaveGState(context);
+//    CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
+//    [gradientColor2 setFill];
+//    [bezier2Path fill];
+//    CGContextRestoreGState(context);
+ 
 }
 //- (void)drawRect:(CGRect)rect
 //{

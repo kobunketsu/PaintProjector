@@ -374,6 +374,7 @@
     
     [self.glWrapper bindVertexArrayOES: self.paintView.VAOBrush];
     [self.glWrapper bindBuffer:self.paintView.VBOBrush];
+    DebugLogWarn(@"prepareWithBrushState glMapBufferOES");
     self.vertexBuffer = (BrushVertex *)glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
 }
 
@@ -635,6 +636,7 @@
 //    DebugLog(@"renderImmediate");
     
     //绘制内容前Unmap显卡
+    DebugLogWarn(@"renderImmediate glUnmapBufferOES");
     glUnmapBufferOES(GL_ARRAY_BUFFER);
     
     //GPU还未完成绘制时，下一个CPU使用 glBufferSubData可能导致stalling

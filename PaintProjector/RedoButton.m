@@ -24,6 +24,7 @@
     CGContextRef context = ctx;
     
     //// Color Declarations
+    UIColor* iconDisabledColor = [UIColor colorWithRed: 0.85 green: 0.85 blue: 0.85 alpha: 1];
     UIColor* iconHighlightColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
 //    UIColor* iconColor = [UIColor colorWithRed: 0.75 green: 0.75 blue: 0.75 alpha: 1];
     CGFloat iconColorHSBA[4];
@@ -69,7 +70,14 @@
         [mainPath closePath];
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, iconHighlight.CGColor);
-        [iconColor setFill];
+        
+        if (self.enabled) {
+            [iconColor setFill];
+        }
+        else{
+            [iconDisabledColor setFill];
+        }
+        
         [mainPath fill];
         
         ////// Main Inner Shadow
