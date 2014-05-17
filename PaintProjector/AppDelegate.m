@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "StreamScreen.h"
-
 #import <DBChooser/DBChooser.h>
 
 #import "AnaDrawIAPManager.h"
