@@ -128,7 +128,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:paintCollectionVC.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
     [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
 
-    ImageView *transitionImageView = (ImageView *)[fromVC.view subViewWithTag:100];
+    UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
     [transitionImageView removeFromSuperview];
     
     //得到新的当前PaintFrameView

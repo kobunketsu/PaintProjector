@@ -21,7 +21,6 @@
 #import "CommandStack.h"
 //#import "CalculateRunTime.h"
 
-#import "PaintFrame.h"
 @class PaintScreen;
 #import "PaintLayer.h"
 #import "PaintData.h"

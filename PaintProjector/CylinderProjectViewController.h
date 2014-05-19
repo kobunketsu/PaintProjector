@@ -15,7 +15,6 @@
 
 #import "PaintScreen.h"
 #import "ShareTableViewController.h"
-//#import "SetupTableViewController.h"
 #import "ProductInfoTableViewController.h"
 
 #import "Display.h"
@@ -47,7 +46,6 @@
 #import "PaintButton.h"
 #import "DownToolBar.h"
 
-//FirstScreenViewController
 #import "PaintFrameView.h"
 #import "PaintFrameViewGroup.h"
 #import "PaintDoc.h"
@@ -57,7 +55,6 @@
 #import "CustomPercentDrivenInteractiveTransition.h"
 
 #import "CylinderProjectUserInputParams.h"
-//#import "CylinderProjectSetupViewController.h"
 #import "InAppPurchaseManager.h"
 #import "InAppPurchaseTableViewController.h"
 
@@ -109,9 +106,7 @@ CustomPercentDrivenInteractiveTransition,
 ShareTableViewControllerDelegate,
 ProductInfoTableViewControllerDelegate,
 InAppPurchaseTableViewControllerDelegate
-//SetupTableViewControllerDelegate,//deprecated
 //CylinderProjectSetupViewControllerDelegate
-//ZBarReaderDelegate
 >
 {
     void * _baseAddress;

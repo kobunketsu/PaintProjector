@@ -38,7 +38,6 @@
 @interface CylinderProjectViewController ()
 //TODO: deprecated
 @property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
-//@property (retain, nonatomic) CylinderProjectSetupViewController *setupVC;
 @property (assign, nonatomic)GLKVector2 touchDirectionBegin;
 //@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
 @property(nonatomic, retain) NSString *keyPath;
@@ -324,7 +323,7 @@
     //更新临时view
     NSString *path = [self.paintFrameViewGroup curPaintDoc].thumbImagePath;
     path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
-    ImageView *transitionImageView = (ImageView *)[self.view subViewWithTag:100];
+    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = nil;
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
     transitionImageView.alpha = 0;
@@ -435,45 +434,6 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 #pragma mark- 设置Setup
-//- (void)setup{
-//   
-//    SetupTableViewController* setupTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"setupTableViewController"];
-//    setupTableViewController.delegate = self;
-//    setupTableViewController.preferredContentSize = CGSizeMake(320, setupTableViewController.tableViewHeight);
-//    setupTableViewController.userInputParams = self.userInputParams;
-//    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:setupTableViewController];
-//    [self.sharedPopoverController presentPopoverFromRect:self.setupButton.bounds inView:self.setupButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//}
-
-//- (void)setup{
-//    //加入设置VC
-//    self.setupVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectSetupViewController"];
-//    self.setupVC.delegate = self;
-//    self.setupVC.userInputParams = self.userInputParams;
-//    DebugLog(@"assign setupVC");
-//    [self addChildViewController:self.setupVC];
-//    [self.topToolBar addSubview:self.setupVC.view];
-//    [self.setupVC didMoveToParentViewController:self];
-//    
-//    self.topToolBar.alpha = 0;
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.topToolBar.alpha = 1;
-//    }completion:^(BOOL finished) {
-//    }];
-//}
-
-//- (void)setupDone{
-//    //恢复到初始状态
-//    [self.setupVC resetInputParams];
-//    
-//    self.topToolBar.alpha = 1;
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.topToolBar.alpha = 0;
-//    }completion:^(BOOL finished) {
-//        [self.setupVC.view removeFromSuperview];
-//        self.setupVC = nil;
-//    }];
-//}
 
 - (void)setupAnamorphParams{
 
@@ -1811,7 +1771,7 @@
     
     self.cylinderProjectDefaultAlphaBlend = 1;
     //变换动画
-    ImageView *transitionImageView = (ImageView *)[self.view subViewWithTag:100];
+    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
     transitionImageView.alpha = 1;
     

@@ -1,5 +1,5 @@
 //
-//  PaintFrameGroup.m
+//  PaintFrameViewGroup.m
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 13-2-18.

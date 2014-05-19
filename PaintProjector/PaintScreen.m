@@ -11,9 +11,6 @@
 //#import <Dropbox/Dropbox.h>
 #import <DBChooser/DBChooser.h>
 #import "AnaDrawIAPManager.h"
-//#import "PaintView.h"
-#import "ShowPaint.h"
-#import "SelectLayerContentViewController.h"
 //File
 #import "PaintDoc.h"
 #import "PaintData.h"
@@ -98,6 +95,9 @@
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
 }
 
+- (void)unregisterDeviceRotation{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+}
 - (void)registerDeviceRotation{
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter]
@@ -146,27 +146,17 @@
 -(void)viewWillLayoutSubviews{
     DebugLogSystem(@"[ viewWillLayoutSubviews ]");
 }
+
 - (void)viewDidLoad
 {
     DebugLogSystem(@"[ viewDidLoad ]");
     [super viewDidLoad];
     
-    //Notification
-    //旋转方向
-    [self registerDeviceRotation];
-    if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
-        self.isInterfacePortraitUpsideDown = false;
-    }
-    else if (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
-        self.isInterfacePortraitUpsideDown = true;
-    }
-    
-    self.lastDeviceAppOrientation = UIDeviceOrientationPortrait;
-    
     //rootCanvasView
-//    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
-//    self.rootCanvasView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
+    //    UIImage *uiImage = [UIImage imageNamed:@"rootCanvasViewBackground.png"];
+    //    self.rootCanvasView.backgroundColor = [UIColor colorWithPatternImage:uiImage];
     
+    //Notification
     //通知程序退出到后台保存数据
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)   name:UIApplicationDidEnterBackgroundNotification object:nil];
     
@@ -415,20 +405,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    //    if ([[segue identifier] isEqualToString:@"showPaint"]) {
-    //        
-    //        UIViewController *viewController = [segue destinationViewController];
-    //
-    //        ShowPaint *view = (ShowPaint*)viewController.view;
-    //        [view setSourcePaintView:paintView];
-    //        [viewController.view setNeedsDisplay];
-    //    }
-    if ([[segue identifier] isEqualToString:@"selectLayerContent"]) {
-        SelectLayerContentViewController *viewController = [segue destinationViewController];   
-        viewController.delegate = self;
-        //        viewController.paintScreen = self;
-    }
+
 }
 #pragma mark- 手势 Gestures 绘图
 - (IBAction)handlePan1TouchesPaintView:(UIPanGestureRecognizer *)sender {
@@ -2149,7 +2126,7 @@
         
     }
 }
-#pragma mark- 调色板代理SwatchManagerTableViewControllerDelegate
+#pragma mark- 调色板代理SwatchManagerViewControllerDelegate
 - (void)willSetSwatchFile:(NSURL *)url{
     if (url) {
         [self setSwatchFile:url];
@@ -2445,7 +2422,6 @@
 
 
 #pragma mark- 文件操作
-//主界面MainScreenViewControllerDelegate
 - (void)openDoc:(PaintDoc*)paintDoc{
     //DebugLog(@"Open Paint Doc");    
     self.paintDoc = paintDoc;
@@ -2714,16 +2690,6 @@
     
     cameraUI.showsCameraControls = YES;
     
-    //添加自定义信息层
-    //IOS7 cameraOverlayView会overlay retake和usePhoto按钮，需要解决
-    //    CameraOverlayViewController* overlayViewController = [[CameraOverlayViewController alloc] initWithNibName:@"CameraOverlayViewController" bundle:nil];
-    
-//    CameraOverlayViewController* overlayViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CameraOverlayViewController"];
-//    
-//    overlayViewController.view.backgroundColor = [UIColor clearColor];//设定透明背景色
-//    
-//    cameraUI.cameraOverlayView = overlayViewController.view;
-    
     cameraUI.delegate = ctrlDelegate;
     //    [self addChildViewController:cameraUI];
     
@@ -2763,15 +2729,6 @@
         }
         
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            
-            //记录照相时的参数
-            if (picker.cameraOverlayView!=NULL) {
-                CameraOverlayView* camOverlayView = (CameraOverlayView*)picker.cameraOverlayView;
-                float camShotPitch = camOverlayView.shotPitch;
-                DebugLog(@"Cam Shot Pitch Radian:%.3f", camShotPitch);
-                //        [self.delegate stopDetectCameraMotion];
-            }
-            
             // Save the new image (original or edited) to the Camera Roll
             //            ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
             //            [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error){
@@ -4473,6 +4430,19 @@
 ////    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
 //    return UIInterfaceOrientationMaskAll;
 //}
+
+- (void)setupDeviceRotation{
+    //旋转方向
+    [self registerDeviceRotation];
+    if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.isInterfacePortraitUpsideDown = false;
+    }
+    else if (self.interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        self.isInterfacePortraitUpsideDown = true;
+    }
+    
+    self.lastDeviceAppOrientation = UIDeviceOrientationPortrait;
+}
 
 - (BOOL)shouldAutorotate
 {

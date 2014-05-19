@@ -51,13 +51,13 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76~ipad.png",
+      "filename" : "AnaDraw76x76_2~ipad.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76@2x~ipad.png",
+      "filename" : "AnaDraw76x76_2@2x~ipad.png",
       "scale" : "2x"
     }
   ],

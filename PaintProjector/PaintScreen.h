@@ -32,17 +32,12 @@
 #import "InfColorSquarePicker.h"
 #import "InfColorPickerIndicatorMagnify.h"
 #import "EyeDropperIndicatorView.h"
-#import "UndoGestureRecognizer.h"
 #import "UndoButton.h"
 #import "RedoButton.h"
 #import "ClearButton.h"
 #import "BrushToolBar.h"
-//#import "GLProgram.h"
-#import "ShowPaintOnPlane.h"
-#import "ShowPaintOnPlaneViewController.h"
+
 //Other ViewController
-#import "SelectLayerContentViewController.h"
-//#import "PaintProjectViewController.h"
 //#import "CylinderProjectViewController.h"
 //@class PaintView;
 #import "PaintingView.h"
@@ -71,11 +66,7 @@
 //help method
 #import "Ultility.h"
 #import "ShaderManager.h"
-#import "HandleGestureRecognizer.h"
 @class CustomTouchUIView;
-#import "FirstScreenViewController.h"
-#import "CameraOverlayView.h"
-#import "CameraOverlayViewController.h"
 //File
 @class PaintDoc;
 @class LayerManagerView;//to delete
@@ -88,7 +79,6 @@
 #import "AutoRotateButton.h"
 #import "ClearGestureRecognizer.h"
 #import "InAppPurchaseTableViewController.h"
-//#import "SwatchManagerTableViewController.h"
 #import "SwatchManagerViewController.h"
 #import "SwatchManagerButton.h"
 
@@ -132,27 +122,20 @@ typedef NS_ENUM(NSInteger, ScaleMode) {
 
 @interface PaintScreen : UIViewController
 <UIGestureRecognizerDelegate, 
-//GLKViewDelegate, 
-//GLKViewControllerDelegate,
 UIPopoverControllerDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,
-UIScrollViewDelegate,//temp
+UIScrollViewDelegate,
 UIAlertViewDelegate,
 PaintingViewDelegate,
 BrushTypeScrollViewDelegate, 
-SelectLayerContentDelegate,
-FirstScreenViewControllerDelegate,
-//PaintProjectViewControllerDelegate,
 LayerTableViewControllerDelegate,
 BrushPropertyViewControllerDelegate,
-//BrushTypeViewControllerDelegate,
 InfColorPickerControllerDelegate,
 FuzzyTransparentViewDelegate,
 InAppPurchaseTableViewControllerDelegate,
-//SwatchManagerTableViewControllerDelegate
 SwatchManagerViewControllerDelegate
 >
 {
@@ -345,7 +328,7 @@ SwatchManagerViewControllerDelegate
 #pragma mark- 
 - (void)prepareForPresentation;
 - (void)afterPresentation;
-
+- (void)openDoc:(PaintDoc*)paintDoc;
 #pragma test
 
 @end

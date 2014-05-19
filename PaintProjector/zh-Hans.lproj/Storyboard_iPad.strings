@@ -1,9 +1,5 @@
-
-/* Class = "IBUIViewController"; title = "browse layer content"; ObjectID = "0tL-XA-Vv4"; */
-"0tL-XA-Vv4.title" = "browse layer content";
-
-/* Class = "IBUIButton"; normalTitle = "adf"; ObjectID = "1On-Dl-NSe"; */
-"1On-Dl-NSe.normalTitle" = "adf";
+/* Class = "IBUIButton"; normalTitle = "adfadfadf"; ObjectID = "1On-Dl-NSe"; */
+"1On-Dl-NSe.normalTitle" = "adfadfadf";
 
 /* Class = "IBUINavigationItem"; title = "Paint"; ObjectID = "1Oo-c7-eki"; */
 "1Oo-c7-eki.title" = "Paint";
@@ -13,16 +9,15 @@
 
 /* Class = "IBUIButton"; accessibilityLabel = "Undo"; ObjectID = "1Zl-fu-rHb"; */
 "1Zl-fu-rHb.accessibilityLabel" = "Undo";
-"1Zl-fu-rHb.normalTitle" = "撤 销";
+
+/* Class = "IBUIButton"; normalTitle = "Undo"; ObjectID = "1Zl-fu-rHb"; */
+"1Zl-fu-rHb.normalTitle" = "Undo";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Gallery"; ObjectID = "1js-2l-tGk"; */
 "1js-2l-tGk.accessibilityLabel" = "Gallery";
 
 /* Class = "IBUIButton"; normalTitle = "Gallery"; ObjectID = "1js-2l-tGk"; */
 "1js-2l-tGk.normalTitle" = "画 廊";
-
-/* Class = "IBUILabel"; text = "Height"; ObjectID = "325-Lq-j95"; */
-"325-Lq-j95.text" = "Height";
 
 /* Class = "IBUIButton"; accessibilityLabel = "MergeLayer"; ObjectID = "3kp-Bf-Pp2"; */
 "3kp-Bf-Pp2.accessibilityLabel" = "MergeLayer";
@@ -38,13 +33,15 @@
 
 /* Class = "IBUIButton"; accessibilityLabel = "Copy"; ObjectID = "5W3-Hm-oJT"; */
 "5W3-Hm-oJT.accessibilityLabel" = "Copy";
-"5W3-Hm-oJT.normalTitle" = "拷贝";
+
+/* Class = "IBUIButton"; normalTitle = "Copy"; ObjectID = "5W3-Hm-oJT"; */
+"5W3-Hm-oJT.normalTitle" = "Copy";
+
+/* Class = "IBUILabel"; text = "Zoom"; ObjectID = "5Ya-mw-mT6"; */
+"5Ya-mw-mT6.text" = "顶视缩放";
 
 /* Class = "IBUILabel"; text = "Radius : 10"; ObjectID = "5gW-bx-Ggp"; */
 "5gW-bx-Ggp.text" = "Radius : 10";
-
-/* Class = "IBUILabel"; text = "Width"; ObjectID = "5hn-gz-xkw"; */
-"5hn-gz-xkw.text" = "宽度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "UsingBrush"; ObjectID = "6ac-sw-jok"; */
 "6ac-sw-jok.accessibilityLabel" = "UsingBrush";
@@ -52,9 +49,17 @@
 /* Class = "IBUILabel"; text = "360"; ObjectID = "6ao-AP-Wtp"; */
 "6ao-AP-Wtp.text" = "360";
 
+/* Class = "IBUIButton"; accessibilityLabel = "Clear"; ObjectID = "6dc-Q8-cDV"; */
+"6dc-Q8-cDV.accessibilityLabel" = "Clear";
+
+/* Class = "IBUIButton"; normalTitle = "Clear"; ObjectID = "6dc-Q8-cDV"; */
+"6dc-Q8-cDV.normalTitle" = "Clear";
+
 /* Class = "IBUIButton"; accessibilityLabel = "Delete"; ObjectID = "7O8-IH-qsp"; */
 "7O8-IH-qsp.accessibilityLabel" = "Delete";
-"7O8-IH-qsp.normalTitle" = "删除";
+
+/* Class = "IBUIButton"; normalTitle = "Delete"; ObjectID = "7O8-IH-qsp"; */
+"7O8-IH-qsp.normalTitle" = "Delete";
 
 /* Class = "IBUILabel"; text = "Draw Package"; ObjectID = "7Ux-Cz-bnn"; */
 "7Ux-Cz-bnn.text" = "Draw Package";
@@ -68,18 +73,14 @@
 /* Class = "IBUIButton"; normalTitle = "Top"; ObjectID = "853-Ud-5W7"; */
 "853-Ud-5W7.normalTitle" = "顶 视";
 
-/* Class = "IBUILabel"; text = "Height"; ObjectID = "9SY-4H-8aQ"; */
-"9SY-4H-8aQ.text" = "圆柱高度";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "AGT-zO-b7c"; */
-"AGT-zO-b7c.text" = "Label";
-
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "AOV-WF-NGc"; */
 "AOV-WF-NGc.text" = "抖动";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Close"; ObjectID = "AdD-j2-c1b"; */
 "AdD-j2-c1b.accessibilityLabel" = "Close";
-"AdD-j2-c1b.normalTitle" = "保存关闭";
+
+/* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "AdD-j2-c1b"; */
+"AdD-j2-c1b.normalTitle" = "Close";
 
 /* Class = "IBUIView"; accessibilityLabel = "DrawingPad"; ObjectID = "Bfe-fw-T22"; */
 "Bfe-fw-T22.accessibilityLabel" = "DrawingPad";
@@ -90,17 +91,11 @@
 /* Class = "IBUIView"; accessibilityLabel = "PaintScreen"; ObjectID = "C2z-vc-haW"; */
 "C2z-vc-haW.accessibilityLabel" = "PaintScreen";
 
-/* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "Ci7-gn-w71"; */
-"Ci7-gn-w71.normalTitle" = "Close";
-
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "DCX-7H-Hpg"; */
 "DCX-7H-Hpg.text" = "抖动";
 
 /* Class = "IBUIView"; accessibilityLabel = "Magnifier"; ObjectID = "Dos-js-iyU"; */
 "Dos-js-iyU.accessibilityLabel" = "Magnifier";
-
-/* Class = "IBGLKViewController"; title = "testGLKError"; ObjectID = "EXW-Mt-GnO"; */
-"EXW-Mt-GnO.title" = "testGLKError";
 
 /* Class = "IBUILabel"; text = "Scatter"; ObjectID = "El4-ji-yc7"; */
 "El4-ji-yc7.text" = "散布";
@@ -114,21 +109,14 @@
 /* Class = "IBUIButton"; normalTitle = "OK"; ObjectID = "GAV-My-S8h"; */
 "GAV-My-S8h.normalTitle" = "完成";
 
-/* Class = "IBUILabel"; text = "feet 3  inch 11"; ObjectID = "GOc-Hz-LEi"; */
-"GOc-Hz-LEi.text" = "feet 3  inch 11";
-
-/* Class = "IBUILabel"; text = "FOV"; ObjectID = "Gon-gs-cqx"; */
-"Gon-gs-cqx.text" = "FOV";
-
 /* Class = "IBUIBarButtonItem"; title = "Background"; ObjectID = "H0v-WU-UlP"; */
 "H0v-WU-UlP.title" = "Background";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Layer"; ObjectID = "HXT-bj-iEv"; */
 "HXT-bj-iEv.accessibilityLabel" = "Layer";
-"HXT-bj-iEv.normalTitle" = "图 层";
 
-/* Class = "IBUILabel"; text = "Near"; ObjectID = "Ij7-y7-h10"; */
-"Ij7-y7-h10.text" = "Near";
+/* Class = "IBUIButton"; normalTitle = "Layer"; ObjectID = "HXT-bj-iEv"; */
+"HXT-bj-iEv.normalTitle" = "Layer";
 
 /* Class = "IBUIButton"; accessibilityLabel = "EyeDropper"; ObjectID = "JFh-1z-AJ1"; */
 "JFh-1z-AJ1.accessibilityLabel" = "EyeDropper";
@@ -145,9 +133,6 @@
 /* Class = "IBUILabel"; text = "Spacing"; ObjectID = "KeA-NJ-eID"; */
 "KeA-NJ-eID.text" = "间距";
 
-/* Class = "IBUILabel"; text = "Pitch"; ObjectID = "Kid-gp-bIQ"; */
-"Kid-gp-bIQ.text" = "Pitch";
-
 /* Class = "IBUILabel"; text = "Fade"; ObjectID = "Kn5-dZ-iPA"; */
 "Kn5-dZ-iPA.text" = "渐隐";
 
@@ -157,12 +142,11 @@
 /* Class = "IBUILabel"; text = "BlendMode"; ObjectID = "NlS-j1-gPt"; */
 "NlS-j1-gPt.text" = "混合模式";
 
-/* Class = "IBUIButton"; normalTitle = "Export"; ObjectID = "OKV-ds-MNr"; */
-"OKV-ds-MNr.normalTitle" = "Export";
-
 /* Class = "IBUIButton"; accessibilityLabel = "Transform"; ObjectID = "PEc-2b-GNU"; */
 "PEc-2b-GNU.accessibilityLabel" = "Transform";
-"PEc-2b-GNU.normalTitle" = "变 换";
+
+/* Class = "IBUIButton"; normalTitle = "Transform"; ObjectID = "PEc-2b-GNU"; */
+"PEc-2b-GNU.normalTitle" = "Transform";
 
 /* Class = "IBUILabel"; text = "Hardness"; ObjectID = "PMj-TK-Oh1"; */
 "PMj-TK-Oh1.text" = "硬度";
@@ -173,9 +157,14 @@
 /* Class = "IBUIButton"; normalTitle = "Share"; ObjectID = "Q2U-zg-Mkm"; */
 "Q2U-zg-Mkm.normalTitle" = "分 享";
 
+/* Class = "IBUILabel"; text = "Height"; ObjectID = "RgY-E0-Q0o"; */
+"RgY-E0-Q0o.text" = "Height";
+
 /* Class = "IBUIButton"; accessibilityLabel = "Import"; ObjectID = "Rmw-ah-joO"; */
 "Rmw-ah-joO.accessibilityLabel" = "Import";
-"Rmw-ah-joO.normalTitle" = "导 入";
+
+/* Class = "IBUIButton"; normalTitle = "Import"; ObjectID = "Rmw-ah-joO"; */
+"Rmw-ah-joO.normalTitle" = "Import";
 
 /* Class = "IBUIButton"; accessibilityLabel = "swatchManagerBackButton"; ObjectID = "SHl-VH-TSe"; */
 "SHl-VH-TSe.accessibilityLabel" = "swatchManagerBackButton";
@@ -192,9 +181,6 @@
 /* Class = "IBUILabel"; text = "Center"; ObjectID = "TVC-pV-Nty"; */
 "TVC-pV-Nty.text" = "图片中心";
 
-/* Class = "IBUILabel"; text = "Width"; ObjectID = "UCq-ya-b9O"; */
-"UCq-ya-b9O.text" = "图片宽度";
-
 /* Class = "IBUILabel"; text = "Round"; ObjectID = "V3f-2e-X2y"; */
 "V3f-2e-X2y.text" = "圆度";
 
@@ -206,22 +192,15 @@
 
 /* Class = "IBUIButton"; accessibilityLabel = "Export"; ObjectID = "Vhq-Ni-nC3"; */
 "Vhq-Ni-nC3.accessibilityLabel" = "Export";
-"Vhq-Ni-nC3.normalTitle" = "导 出";
 
-/* Class = "IBUIButton"; normalTitle = "Open"; ObjectID = "WHU-bE-gCI"; */
-"WHU-bE-gCI.normalTitle" = "Open";
-
-/* Class = "IBUILabel"; text = "Yaw"; ObjectID = "X6g-pv-bIV"; */
-"X6g-pv-bIV.text" = "Yaw";
+/* Class = "IBUIButton"; normalTitle = "Export"; ObjectID = "Vhq-Ni-nC3"; */
+"Vhq-Ni-nC3.normalTitle" = "Export";
 
 /* Class = "IBUIButton"; accessibilityLabel = "UsingColor"; ObjectID = "XFa-Ld-xa1"; */
 "XFa-Ld-xa1.accessibilityLabel" = "UsingColor";
 
 /* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "XfT-xF-guU"; */
 "XfT-xF-guU.normalTitle" = "取消";
-
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "Ydq-Ki-ecu"; */
-"Ydq-Ki-ecu.normalTitle" = "Button";
 
 /* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "ZLW-eu-dPm"; */
 "ZLW-eu-dPm.normalTitle" = "重置";
@@ -232,17 +211,11 @@
 /* Class = "IBUILabel"; text = "Wet"; ObjectID = "bFr-4g-lOC"; */
 "bFr-4g-lOC.text" = "湿度";
 
-/* Class = "IBUILabel"; text = "Center"; ObjectID = "bTv-u9-bUV"; */
-"bTv-u9-bUV.text" = "图片中心高度";
-
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "bgW-w2-KNm"; */
 "bgW-w2-KNm.text" = "圆柱高度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "BackgroundColor"; ObjectID = "boW-yU-zeM"; */
 "boW-yU-zeM.accessibilityLabel" = "BackgroundColor";
-
-/* Class = "IBUILabel"; text = "X / X"; ObjectID = "c0w-JX-5rI"; */
-"c0w-JX-5rI.text" = "X / X";
 
 /* Class = "IBUIButton"; accessibilityLabel = "File"; ObjectID = "dBk-v9-lg0"; */
 "dBk-v9-lg0.accessibilityLabel" = "File";
@@ -256,161 +229,4 @@
 /* Class = "IBUILabel"; text = "Opacity : 1"; ObjectID = "e4z-wS-yaC"; */
 "e4z-wS-yaC.text" = "Opacity : 1";
 
-/* Class = "IBUILabel"; text = "Height"; ObjectID = "e9e-lK-6Qk"; */
-"e9e-lK-6Qk.text" = "视点高度";
-
-/* Class = "IBUILabel"; text = "Grid"; ObjectID = "eCY-MG-Cu5"; */
-"eCY-MG-Cu5.text" = "Grid";
-
 /* Class = "IBUILabel"; text = "1000%"; ObjectID = "eKm-9L-VCE"; */
-"eKm-9L-VCE.text" = "1000%";
-
-/* Class = "IBUIButton"; normalTitle = "Price"; ObjectID = "ebH-3z-m7T"; */
-"ebH-3z-m7T.normalTitle" = "Price";
-
-/* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "edV-eN-YWW"; */
-"edV-eN-YWW.accessibilityLabel" = "Print";
-
-/* Class = "IBUIButton"; normalTitle = "Setup"; ObjectID = "edV-eN-YWW"; */
-"edV-eN-YWW.normalTitle" = "调 整";
-
-/* Class = "IBUIButton"; accessibilityLabel = "New"; ObjectID = "egz-LW-xJQ"; */
-"egz-LW-xJQ.accessibilityLabel" = "New";
-"egz-LW-xJQ.normalTitle" = "新建";
-
-/* Class = "IBUIView"; accessibilityLabel = "MainToolBar"; ObjectID = "erO-nK-SuU"; */
-"erO-nK-SuU.accessibilityLabel" = "MainToolBar";
-
-/* Class = "IBUILabel"; text = "LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel"; ObjectID = "exi-9z-UfO"; */
-"exi-9z-UfO.text" = "LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel";
-
-/* Class = "IBUILabel"; text = "Airbrush"; ObjectID = "fEf-by-4YH"; */
-"fEf-by-4YH.text" = "喷枪模式";
-
-/* Class = "IBUILabel"; text = "Dissolve"; ObjectID = "fT3-TN-s92"; */
-"fT3-TN-s92.text" = "杂色";
-
-/* Class = "IBUILabel"; text = "Zoom"; ObjectID = "fZE-q2-4Qc"; */
-"fZE-q2-4Qc.text" = "顶视缩放";
-
-/* Class = "IBUIButton"; accessibilityLabel = "BackupBrush"; ObjectID = "gFo-DV-QR3"; */
-"gFo-DV-QR3.accessibilityLabel" = "BackupBrush";
-
-/* Class = "IBUILabel"; text = "Roll"; ObjectID = "gGf-qI-5rr"; */
-"gGf-qI-5rr.text" = "Roll";
-
-/* Class = "IBUILabel"; text = "Height"; ObjectID = "gGv-Cb-oTh"; */
-"gGv-Cb-oTh.text" = "视点高度";
-
-/* Class = "IBUILabel"; text = "Distance"; ObjectID = "gNO-uE-8VL"; */
-"gNO-uE-8VL.text" = "视点距离";
-
-/* Class = "IBUIButton"; accessibilityLabel = "ClearLayer"; ObjectID = "gYK-6m-KN5"; */
-"gYK-6m-KN5.accessibilityLabel" = "ClearLayer";
-
-/* Class = "IBUIButton"; accessibilityLabel = "Clear"; ObjectID = "6dc-Q8-cDV"; */
-"6dc-Q8-cDV.accessibilityLabel" = "Clear";
-"6dc-Q8-cDV.normalTitle" = "纸 篓";
-
-/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "geC-fO-fTo"; */
-"geC-fO-fTo.normalTitle" = "Done";
-
-/* Class = "IBUIView"; accessibilityLabel = "CylinderRootView"; ObjectID = "h4g-78-CMY"; */
-"h4g-78-CMY.accessibilityLabel" = "CylinderRootView";
-
-/* Class = "IBUIButton"; normalTitle = "+"; ObjectID = "hW4-UL-QK2"; */
-"hW4-UL-QK2.normalTitle" = "+";
-
-/* Class = "IBUIView"; accessibilityLabel = "Canvas"; ObjectID = "iQ2-mh-xrv"; */
-"iQ2-mh-xrv.accessibilityLabel" = "Canvas";
-
-/* Class = "IBUILabel"; text = "Diameter"; ObjectID = "ikv-FI-as6"; */
-"ikv-FI-as6.text" = "圆柱直径";
-
-/* Class = "IBUIButton"; accessibilityLabel = "CopyLayer"; ObjectID = "kt2-vx-Hrw"; */
-"kt2-vx-Hrw.accessibilityLabel" = "CopyLayer";
-
-/* Class = "IBUILabel"; text = "Velocity Sensor"; ObjectID = "kxM-7r-R18"; */
-"kxM-7r-R18.text" = "速度感应";
-
-/* Class = "IBUILabel"; text = "Fade"; ObjectID = "laX-ku-kY9"; */
-"laX-ku-kY9.text" = "渐隐";
-
-/* Class = "IBUIView"; accessibilityLabel = "swatchManagerHeader"; ObjectID = "m36-YD-ORq"; */
-"m36-YD-ORq.accessibilityLabel" = "swatchManagerHeader";
-
-/* Class = "IBUILabel"; text = "Depth"; ObjectID = "m8f-Fn-Aba"; */
-"m8f-Fn-Aba.text" = "Depth";
-
-/* Class = "IBUILabel"; text = "Angle"; ObjectID = "mL0-5S-uYO"; */
-"mL0-5S-uYO.text" = "角度";
-
-/* Class = "IBUILabel"; text = "Fade"; ObjectID = "oQ8-o8-i0F"; */
-"oQ8-o8-i0F.text" = "渐隐";
-
-/* Class = "IBUIButton"; normalTitle = "Restore"; ObjectID = "oqr-Kp-EJS"; */
-"oqr-Kp-EJS.normalTitle" = "Restore";
-
-/* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "q9m-wd-BDj"; */
-"q9m-wd-BDj.accessibilityLabel" = "Print";
-
-/* Class = "IBUIButton"; normalTitle = "Eye"; ObjectID = "q9m-wd-BDj"; */
-"q9m-wd-BDj.normalTitle" = "视 点";
-
-/* Class = "IBUIButton"; normalTitle = "Print"; ObjectID = "riP-s0-rbr"; */
-"riP-s0-rbr.normalTitle" = "Print";
-
-/* Class = "IBUIView"; accessibilityLabel = "PaintToolBar"; ObjectID = "tc4-j6-Ww5"; */
-"tc4-j6-Ww5.accessibilityLabel" = "PaintToolBar";
-
-/* Class = "IBUILabel"; text = "Store"; ObjectID = "tes-J0-1eR"; */
-"tes-J0-1eR.text" = "Store";
-
-/* Class = "IBUILabel"; text = "Warning"; ObjectID = "v7y-QT-zde"; */
-"v7y-QT-zde.text" = "Warning";
-
-/* Class = "IBUILabel"; text = "Zoom"; ObjectID = "5Ya-mw-mT6"; */
-"5Ya-mw-mT6.text" = "顶视缩放";
-
-/* Class = "IBUIButton"; accessibilityLabel = "Draw"; ObjectID = "w1V-2I-Uqb"; */
-"w1V-2I-Uqb.accessibilityLabel" = "Draw";
-
-/* Class = "IBUIButton"; normalTitle = "Draw"; ObjectID = "w1V-2I-Uqb"; */
-"w1V-2I-Uqb.normalTitle" = "画 画";
-
-/* Class = "IBUIButton"; accessibilityLabel = "Redo"; ObjectID = "wGv-uB-mqP"; */
-"wGv-uB-mqP.accessibilityLabel" = "Redo";
-"wGv-uB-mqP.normalTitle" = "恢 复";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "wKe-PO-Yoz"; */
-"wKe-PO-Yoz.text" = "Label";
-
-/* Class = "IBUIButton"; normalTitle = "-"; ObjectID = "wsl-mY-TBP"; */
-"wsl-mY-TBP.normalTitle" = "-";
-
-/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "xbC-rz-2Gi"; */
-"xbC-rz-2Gi.normalTitle" = "Done";
-
-/* Class = "IBUILabel"; text = "Far"; ObjectID = "xbP-Iu-EtB"; */
-"xbP-Iu-EtB.text" = "Far";
-
-/* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "yaV-Fc-hN7"; */
-"yaV-Fc-hN7.normalTitle" = "Done";
-
-/* Class = "IBUIButton"; accessibilityLabel = "swatchManagerBackButton"; ObjectID = "yqS-gO-sCG"; */
-"yqS-gO-sCG.accessibilityLabel" = "swatchManagerBackButton";
-
-/* Class = "IBUIButton"; normalTitle = "Back"; ObjectID = "yqS-gO-sCG"; */
-"yqS-gO-sCG.normalTitle" = "Back";
-
-/* Class = "IBUIBarButtonItem"; title = "Save"; ObjectID = "zCG-rb-cGy"; */
-"zCG-rb-cGy.title" = "Save";
-
-/* Class = "IBUIButton"; normalTitle = "Cylinder"; ObjectID = "q59-it-eqX"; */
-"q59-it-eqX.normalTitle" = "圆柱";
-
-/* Class = "IBUILabel"; text = "Width"; ObjectID = "v58-lm-HT2"; */
-"v58-lm-HT2.text" = "顶视宽度";
-
-/* Class = "IBUILabel"; text = "Width"; ObjectID = "RgY-E0-Q0o"; */
-"RgY-E0-Q0o.text" = "顶视深度";

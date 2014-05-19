@@ -28,22 +28,26 @@
     [self.brushPreview tearDownGL];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
+- (void)initPatternTexture{
     //手动将patternTextureView移动到scrollView Page2
     CGRect frame = self.patternTextureView.frame;
     frame.origin.x = self.propertyRootScrollView.frame.size.width;
     self.patternTextureView.frame = frame;
     
+    //load pattern textures
+    self.patternImageArray = [[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"BrushPatternTexture"];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    
+//    [self initPatternTexture];
+    
     //pageControl
     self.propertyRootScrollView.delegate = self;
     self.propertyRootScrollView.contentSize = CGSizeMake(512, 640);
     self.basicPropertyView.contentSize = CGSizeMake(256, 720);
-    //load pattern textures
-    self.patternImageArray = [[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"BrushPatternTexture"];
     
     //brushPreview
     self.brushPreview.delegate = self.brushPreviewDelegate;
