@@ -125,31 +125,52 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    DebugLogSystem(@"[ viewWillAppear ]");
+    DebugLogSystem(@"viewWillAppear");
 //    [self prepareForPresentation];
-    [self addObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
     
+    //如果transition target viewController 是一个临时的vc, 为了保证流畅性, 则不创建任何资源
+    if(self.swatchManagerVC != nil){
+        return;
+    }
+    
+    [self.paintView initGL];
+    for (Brush *brush in self.brushTypeScrollView.brushTypes) {
+        [brush initGL];
+    }
 }
 - (void)viewDidAppear:(BOOL)animated{
-    DebugLogSystem(@"[ viewDidAppear ]");
+    DebugLogSystem(@"viewDidAppear");
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    DebugLogSystem(@"[ viewWillDisappear ]");
-    [self removeObserver:self forKeyPath:@"paintView.paintData.backgroundLayer.clearColor"];
+    DebugLogSystem(@"viewWillDisappear");
+
+    //如果transition target viewController 是一个临时的vc, 为了保证流畅性, 则不删除当前任何资源
+    if(self.swatchManagerVC != nil){
+        return;
+    }
+    
+    [self.paintView tearDownGL];
+    for (Brush *brush in self.brushTypeScrollView.brushTypes) {
+        [brush tearDownGL];
+    }
+    
+    [GLWrapper destroy];
+    
+    [self.paintView destroy];
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    DebugLogSystem(@"[ viewDidDisappear ]");
+    DebugLogSystem(@"viewDidDisappear");
 }
 -(void)viewDidLayoutSubviews{
-    DebugLogSystem(@"[ viewDidLayoutSubviews ]");
+    DebugLogSystem(@"viewDidLayoutSubviews");
 }
 -(void)viewWillLayoutSubviews{
-    DebugLogSystem(@"[ viewWillLayoutSubviews ]");
+    DebugLogSystem(@"viewWillLayoutSubviews");
 }
 
 - (void)viewDidLoad
 {
-    DebugLogSystem(@"[ viewDidLoad ]");
+    DebugLogSystem(@"viewDidLoad");
     [super viewDidLoad];
     
     //rootCanvasView
@@ -158,10 +179,26 @@
     
     //Notification
     //通知程序退出到后台保存数据
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:)   name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationDidEnterBackground:)
+     name:UIApplicationDidEnterBackgroundNotification
+     object:nil];
     
+    //通知程序返回激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationWillEnterForeground:)
+     name:UIApplicationWillEnterForegroundNotification
+     object:nil];
+    
+    //通知程序退出激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResignActive:)
+     name:UIApplicationWillResignActiveNotification
+     object:nil];
 
     //paintView 设置
+    self.paintView.delegate = self;
     CGPathRef path = [UIBezierPath bezierPathWithRect:self.paintView.bounds].CGPath;
     [self.paintView.layer setShadowPath:path];
     self.paintView.layer.shadowOpacity = 0.5;
@@ -169,24 +206,21 @@
     self.paintView.layer.shadowOffset = CGSizeMake(0, 5);
     self.paintView.layer.shadowColor = [UIColor blackColor].CGColor;
     
-    self.paintView.delegate = self;
-    
     //undo redo
     [self willEnableUIRedo:false];
     [self willEnableUIUndo:false];
 
-    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    if (context == nil) {
-        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        if(context == nil){
-            DebugLog(@"Failed to create ES context");
-        }
-    }
-    self.paintView.context = context;
+//    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+//    if (context == nil) {
+//        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+//        if(context == nil){
+//            DebugLog(@"Failed to create ES context");
+//        }
+//    }
+//    self.paintView.context = context;
 //    self.paintView.context = [self.delegate createEAGleContextWithShareGroup];
-    [self.paintView.context setDebugLabel:@"PaintView Context"];
-    [self.paintView initGLObjects];
-    
+//    [self.paintView.context setDebugLabel:@"PaintView Context"];
+
   
     [self.paintColorButton setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
     [self.opacitySlider setColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
@@ -203,40 +237,40 @@
     //主要工具
 
     //初始化各种笔刷
-    Pencil *pencil = [[Pencil alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Pencil *pencil = [[Pencil alloc]initWithPaintView:self.paintView];
     pencil.delegate = self.paintView;
     
-    Eraser *eraser = [[Eraser alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Eraser *eraser = [[Eraser alloc]initWithPaintView:self.paintView];
     eraser.delegate = self.paintView;
     
-    Pen *pen = [[Pen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Pen *pen = [[Pen alloc]initWithPaintView:self.paintView];
     pen.delegate = self.paintView;
     
-    Marker *marker = [[Marker alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Marker *marker = [[Marker alloc]initWithPaintView:self.paintView];
     marker.delegate = self.paintView;
     
-    Finger *finger = [[Finger alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Finger *finger = [[Finger alloc]initWithPaintView:self.paintView];
     finger.delegate = self.paintView;
     
-    ChineseBrush *chineseBrush = [[ChineseBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    ChineseBrush *chineseBrush = [[ChineseBrush alloc]initWithPaintView:self.paintView];
     chineseBrush.delegate = self.paintView;
     
-    Crayons *crayons = [[Crayons alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Crayons *crayons = [[Crayons alloc]initWithPaintView:self.paintView];
     crayons.delegate = self.paintView;
     
-    Bucket *bucket = [[Bucket alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    Bucket *bucket = [[Bucket alloc]initWithPaintView:self.paintView];
     bucket.delegate = self.paintView;
     
-    InkPen *inkPen = [[InkPen alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    InkPen *inkPen = [[InkPen alloc]initWithPaintView:self.paintView];
     inkPen.delegate = self.paintView;
     
-    MarkerSquare *markerSquare = [[MarkerSquare alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    MarkerSquare *markerSquare = [[MarkerSquare alloc]initWithPaintView:self.paintView];
     markerSquare.delegate = self.paintView;
     
-    OilBrush *oilBrush = [[OilBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    OilBrush *oilBrush = [[OilBrush alloc]initWithPaintView:self.paintView];
     oilBrush.delegate = self.paintView;
     
-    AirBrush *airBrush = [[AirBrush alloc]initWithPaintView:self.paintView GLWrapper:self.paintView.glWrapper canvasSize:self.paintView.bounds.size];
+    AirBrush *airBrush = [[AirBrush alloc]initWithPaintView:self.paintView];
     airBrush.delegate = self.paintView;
     
     //将笔刷加入笔刷类型视图
@@ -391,19 +425,35 @@
 -(void)dealloc{
     DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 
 }
 
 -(void)didReceiveMemoryWarning{
-    DebugLog(@"didReceiveMemoryWarning");
+    DebugLogSystem(@"didReceiveMemoryWarning");
 }
 
 - (void)applicationDidEnterBackground:(id)sender{
-    DebugLog(@"applicationDidEnterBackground");
+    DebugLogFuncStart(@"applicationDidEnterBackground sender:%@", sender);
     [self saveWorkSpace];
     
+    //TODO:删除一些OpenGL资源,让其他App可以使用OpenGLES资源,使用glFinish 保证直接删除
+    [self.paintView applicationDidEnterBackground];
 }
 
+- (void)applicationWillEnterForeground:(NSNotification *)note{
+    DebugLogFuncStart(@"applicationWillEnterForeground note:%@", note);
+    [self.paintView applicationWillEnterForeground];
+}
+
+-(void)applicationWillResignActive:(id)sender{
+    DebugLogFuncStart(@"applicationWillResignActive sender:%@", sender);
+    //TODO:清理干净所有OpenGLES command
+    [self.paintView applicationWillResignActive];
+}
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
 }
@@ -2427,7 +2477,9 @@
     self.paintDoc = paintDoc;
 
     [self.paintView setOpenData:[self.paintDoc open]];
-   
+    
+    self.paintView.paintData.backgroundLayer.delegate = self;
+    [self willClearColorChanged:[self.paintView.paintData.backgroundLayer.clearColor copy]];
 }
 
 - (void)saveDoc{
@@ -2449,7 +2501,6 @@
 
 -(void)closeDoc{
 //    DebugLog(@"self.paintView close");
-    [self.paintView destroy];
     [self.paintDoc close];
     
     //UI
@@ -3293,7 +3344,7 @@
     }
     self.pgr1TouchesPaintView.enabled = true;
     
-    [self.paintView willEndWrapUndoBaseCommand];
+    [self.paintView resetUndoRedo];
 }
 
 - (IBAction)transformButtonTapped:(id)sender {
@@ -3564,10 +3615,7 @@
         [self setCurLayerIndex: index];
         
         //命令 如果点击了图层面板，则Undo Redo重置
-//        DebugLog(@"SetCurLayer Reset CommandManager");
-        [self.paintView.commandManager clearAllCommands];
-    
-        [self.paintView willEndWrapUndoBaseCommand];
+        [self.paintView resetUndoRedo];
     });
 }
 
@@ -3843,10 +3891,9 @@
 //    [self.paintView.brush setCanvas:self.paintView]; //do in startDraw
 }
 
--(EAGLContext*)willGetBrushPreviewContext{
-//    return [[EAGLContext alloc]initWithAPI:[self.paintView.context API] sharegroup:[self.paintView.context sharegroup]];
-    return self.paintView.context;
-}
+//-(EAGLContext*)willGetBrushPreviewContext{
+//    return self.paintView.context;
+//}
 
 -(void)willBrushShaderChanged:(BrushState*)brushState{
     Brush *brush = [self.paintView.brushTypes objectAtIndex:brushState.classId];
@@ -4510,13 +4557,10 @@
 }
 
 #pragma mark- 观察对象数值变化
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
-                        change:(NSDictionary *)change context:(void *)context {
-
-    if ([keyPath isEqualToString:@"paintView.paintData.backgroundLayer.clearColor"]) {
+- (void)willClearColorChanged:(UIColor *)color{
 //        DebugLog(@"backgroundLayer.clearColor changed");
         CGFloat colorRGBA[4];
-        [self.paintView.paintData.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+        [color getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
         
         for (AutoRotateButton *button in self.topToolBarButtons) {
             ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
@@ -4536,10 +4580,7 @@
 //        dispatch_async(dispatch_get_main_queue(),^{
 //            [[NSNotificationCenter defaultCenter] postNotificationName:BackgroundLayerClearColorChangedNotification object:self userInfo:nil];
 //        });
-    }
-    else{
-    }
-    
+
     return;
 }
 

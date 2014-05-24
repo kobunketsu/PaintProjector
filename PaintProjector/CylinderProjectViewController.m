@@ -84,6 +84,7 @@
     //run completion block
     [self allViewUserInteractionEnable:true];
     
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -96,16 +97,17 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillDisappear ]");
+    
+    [self tearDownGL];
+    
+    [self destroyInputParams];
+    
+    [self destroyBaseParams];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidDisappear ]");
-   
-    [self tearDownGL];
 
-    [self destroyInputParams];
-    
-    [self destroyBaseParams];
 }
 
 - (void)viewDidLoad
@@ -140,10 +142,7 @@
     
 
     //创建context
-    self.context = [self createBestEAGLContext];
-    [self.context setDebugLabel:@"CylinderProjectView Context"];
-    
-    self.projectView.context = self.context;
+//    self.context = [self createBestEAGLContext];
     self.projectView.delegate = self;
     
     self.browseNextAction = [[CustomPercentDrivenInteractiveTransition alloc]init];
@@ -170,6 +169,7 @@
 
 -(void)dealloc{
     DebugLogSystem(@"[ dealloc ]");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 #pragma mark- 主程序
@@ -178,11 +178,13 @@
     return YES;
 }
 -(void)willResignActiveNotification:(id)sender{
-//    DebugLog(@"willResignActiveNotification sender:%@", sender);
+    DebugLogFuncStart(@"willResignActiveNotification sender:%@", sender);
     self.playTime = [self.player currentTime];
+    
+    //because cylinderProjectView is subclass of GLKitView, will pauses its animation timer under resign active
 }
 -(void)didEnterBackgroundNotification{
-    DebugLog(@"didEnterBackgroundNotification");
+    DebugLogFuncStart(@"didEnterBackgroundNotification");
 }
 
 #pragma mark- 工具栏
@@ -683,7 +685,7 @@
 
 
 - (void)setupBaseParams{
-    DebugLog(@"setupBaseParams");    
+    DebugLogFuncStart(@"setupBaseParams");
     //顶视图视口比例
     self.eyeTopAspect = fabsf(self.projectView.bounds.size.width / (self.projectView.bounds.size.height + ToSeeCylinderTopPixelOffset));
     
@@ -694,7 +696,7 @@
 }
 
 - (void)setupInputParams{
-    DebugLog(@"setupInputParams");
+    DebugLogFuncStart(@"setupInputParams");
     //根据ipad2的尺寸进行设定
     CylinderProjectUserInputParams *userInputParams = [[CylinderProjectUserInputParams alloc]init];
     
@@ -991,7 +993,6 @@
     [self.curScene flushAll];
     DebugLog(@"init Scene finished");
     
-    DebugLog(@"updateRenderViewParams");
     [self updateRenderViewParams];
 }
 
@@ -1124,6 +1125,7 @@
 
 #pragma mark- 绘图设置
 - (void)updateRenderViewParams{
+//    DebugLogFuncStart(@"updateRenderViewParams");
     GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
     GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
     Camera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
@@ -1154,6 +1156,7 @@
 
 #pragma mark- Opengles Shader相关
 -(EAGLContext *)createBestEAGLContext{
+    DebugLogFuncStart(@"createBestEAGLContext");
     EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     if (context == nil) {
         context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -1172,15 +1175,16 @@
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     
-    [GLWrapper.current blendFunc:BlendFuncAlphaBlendPremultiplied];
+    [[GLWrapper current] blendFunc:BlendFuncAlphaBlendPremultiplied];
 }
 
 - (void)setupGL {
-    DebugLog(@"setupGL");
+    DebugLogFuncStart(@"setupGL");
     
+//    [GLWrapper destroy];
     [GLWrapper initialize];
-    
-    [EAGLContext setCurrentContext:self.context];
+    [[GLWrapper current].context setDebugLabel:@"CylinderProjectView Context"];
+    self.projectView.context = [GLWrapper current].context;
     [self initGLState];
     
     [Resources initialize];
@@ -1194,9 +1198,7 @@
 - (void)tearDownGL {
     DebugLog(@"tearDownGL");
     
-    [GLWrapper destroy];
-    
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
     
     [Resources unloadAllAsset];
     
@@ -1206,6 +1208,7 @@
     
     Camera.mainCamera = nil;
     
+    [GLWrapper destroy];
 }
 
 #pragma mark- UI动画
@@ -1816,7 +1819,7 @@
     
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
-        DebugLog(@"presentViewController paintScreenVC");
+        DebugLog(@"presentViewController paintScreenVC completionBlock");
         [self.paintScreenVC openDoc:paintDoc];
         [self.paintScreenVC afterPresentation];
     }];

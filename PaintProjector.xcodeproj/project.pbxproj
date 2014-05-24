@@ -238,7 +238,10 @@
 		08621342174D1A9E006704C8 /* LayerBlendModePopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08621341174D1A9E006704C8 /* LayerBlendModePopoverController.m */; };
 		08624EFF18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08624EFE18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m */; };
 		08624F0018D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08624EFE18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m */; };
+		08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08631125192CDF71004233B2 /* Crashlytics.framework */; };
+		08631127192CDF71004233B2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08631125192CDF71004233B2 /* Crashlytics.framework */; };
 		0863F0EB17DA434C008186CA /* testIOS7Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 0863F0EA17DA434C008186CA /* testIOS7Color.png */; };
+		08664935192AF15700A6EB41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
 		08665CBA1780F5B100CA4FCA /* LayerAddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08665CB91780F5B100CA4FCA /* LayerAddButton.m */; };
 		08672139174A6AA8005A9FE0 /* LayerVisibleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08672138174A6AA8005A9FE0 /* LayerVisibleButton.m */; };
 		0867EE121801A09700AACBFF /* ChineseBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0867EE111801A09700AACBFF /* ChineseBrush.m */; };
@@ -265,6 +268,10 @@
 		0871A827192A47E000BB8558 /* AnaDraw76x76_2@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0871A825192A47E000BB8558 /* AnaDraw76x76_2@2x~ipad.png */; };
 		0871A828192A47E000BB8558 /* AnaDraw76x76_2~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0871A826192A47E000BB8558 /* AnaDraw76x76_2~ipad.png */; };
 		0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
+		0871A82C192A569600BB8558 /* BrushPropertyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871A82B192A569600BB8558 /* BrushPropertyTableView.m */; };
+		0871A82D192A569600BB8558 /* BrushPropertyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871A82B192A569600BB8558 /* BrushPropertyTableView.m */; };
+		0871A830192A56E200BB8558 /* BrushPropertyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871A82F192A56E200BB8558 /* BrushPropertyTableViewCell.m */; };
+		0871A831192A56E200BB8558 /* BrushPropertyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871A82F192A56E200BB8558 /* BrushPropertyTableViewCell.m */; };
 		0871D02A1812A27400A0D037 /* Crayons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D0291812A27400A0D037 /* Crayons.m */; };
 		0871D02F1812A32B00A0D037 /* EraserSoft.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D02E1812A32B00A0D037 /* EraserSoft.m */; };
 		0871D0321812A3DA00A0D037 /* InkPen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D0311812A3DA00A0D037 /* InkPen.m */; };
@@ -943,6 +950,7 @@
 		08621341174D1A9E006704C8 /* LayerBlendModePopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModePopoverController.m; sourceTree = "<group>"; };
 		08624EFD18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CylinderProjectToPaintCollectionTransitionManager.h; sourceTree = "<group>"; };
 		08624EFE18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CylinderProjectToPaintCollectionTransitionManager.m; sourceTree = "<group>"; };
+		08631125192CDF71004233B2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0863F0EA17DA434C008186CA /* testIOS7Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testIOS7Color.png; sourceTree = "<group>"; };
 		08665CB81780F5B100CA4FCA /* LayerAddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerAddButton.h; sourceTree = "<group>"; };
 		08665CB91780F5B100CA4FCA /* LayerAddButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerAddButton.m; sourceTree = "<group>"; };
@@ -980,6 +988,10 @@
 		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
 		0871A825192A47E000BB8558 /* AnaDraw76x76_2@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
 		0871A826192A47E000BB8558 /* AnaDraw76x76_2~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2~ipad.png"; sourceTree = SOURCE_ROOT; };
+		0871A82A192A569600BB8558 /* BrushPropertyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushPropertyTableView.h; sourceTree = "<group>"; };
+		0871A82B192A569600BB8558 /* BrushPropertyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushPropertyTableView.m; sourceTree = "<group>"; };
+		0871A82E192A56E200BB8558 /* BrushPropertyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushPropertyTableViewCell.h; sourceTree = "<group>"; };
+		0871A82F192A56E200BB8558 /* BrushPropertyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushPropertyTableViewCell.m; sourceTree = "<group>"; };
 		0871D0281812A27400A0D037 /* Crayons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crayons.h; sourceTree = "<group>"; };
 		0871D0291812A27400A0D037 /* Crayons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crayons.m; sourceTree = "<group>"; };
 		0871D02D1812A32B00A0D037 /* EraserSoft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EraserSoft.h; sourceTree = "<group>"; };
@@ -1326,6 +1338,7 @@
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
 				c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */,
+				08631127192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
 				34f095e74d7370ccc4f294ba /* CoreGraphics.framework in Frameworks */,
 				5e613c7afd7ea243ad969c20 /* DBChooser.framework in Frameworks */,
 				ccb3eb9ece33921ac23aff70 /* calabash.framework in Frameworks */,
@@ -1346,6 +1359,7 @@
 				08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */,
 				083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */,
 				083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */,
+				08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
 				081B83EA16722E8B002866DC /* GLKit.framework in Frameworks */,
 				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
 				080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */,
@@ -1818,6 +1832,10 @@
 				088BC19517EBDCD0007CC49A /* BrushPreview.m */,
 				089C629C17EC836C00E2AB48 /* BrushPropertyView.h */,
 				089C629D17EC836C00E2AB48 /* BrushPropertyView.m */,
+				0871A82A192A569600BB8558 /* BrushPropertyTableView.h */,
+				0871A82B192A569600BB8558 /* BrushPropertyTableView.m */,
+				0871A82E192A56E200BB8558 /* BrushPropertyTableViewCell.h */,
+				0871A82F192A56E200BB8558 /* BrushPropertyTableViewCell.m */,
 			);
 			name = Brush;
 			sourceTree = "<group>";
@@ -2187,6 +2205,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08631125192CDF71004233B2 /* Crashlytics.framework */,
 				08086DBD18DC8A9900F03EB4 /* libbeeblex.a */,
 				080D245D18B6E5C400161756 /* StoreKit.framework */,
 				088DAE17187DB0BC001B3855 /* libz.dylib */,
@@ -2268,6 +2287,7 @@
 				9C21AF0F14E4579F00DB003E /* Frameworks */,
 				9C21AF1014E4579F00DB003E /* Resources */,
 				0804E2FA163D97D300D86624 /* ShellScript */,
+				08631124192CDF16004233B2 /* ShellScript */,
 			);
 			buildRules = (
 				0897D7D4187C375000A7ECD2 /* PBXBuildRule */,
@@ -2415,6 +2435,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
 				08086E4818DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */,
 				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
@@ -2492,6 +2513,19 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/scripts/update_storyboard_strings.sh";
+		};
+		08631124192CDF16004233B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run c9088b1cc6c9d24318c5ed35da6d53c9457d0365 8f107659dc432cdb4d182e94ba91290bba3cd22b53f6ff99e72a5257b7eb02bd";
 		};
 		8c024a53dc97acb54fb27d17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2618,6 +2652,7 @@
 				b96c05be8b1fd142d303d318 /* PaintDoc.m in Sources */,
 				fa4a23bd44b5bb26f6e79093 /* PaintDocManager.m in Sources */,
 				f165c55f3ecb5d185d29e7c2 /* GLWrapper.m in Sources */,
+				0871A82D192A569600BB8558 /* BrushPropertyTableView.m in Sources */,
 				abf32362c1359d6698146649 /* MovableObject.m in Sources */,
 				a788ee01564d7346373b8dee /* PaintLayer.m in Sources */,
 				084228A718A7CADA0046BA61 /* UIView+Tag.m in Sources */,
@@ -2643,6 +2678,7 @@
 				e19edfe62634110eb5a1fe6a /* RadiusIndicatorView.m in Sources */,
 				fb806f8eefb9a2f8bc463ad5 /* TopToolBar.m in Sources */,
 				d7f10ceb9e5af08d1e7ae126 /* TransformButton.m in Sources */,
+				0871A831192A56E200BB8558 /* BrushPropertyTableViewCell.m in Sources */,
 				6f8aadcd898535ad254b5933 /* LayerButton.m in Sources */,
 				c8a2f215f9e96fca3c54cf0b /* ProjectButton.m in Sources */,
 				392ff0f8f3dc9f836cfa4064 /* RotateCanvasView.m in Sources */,
@@ -2822,6 +2858,7 @@
 				08FDC8C1165157EB008F35E8 /* Eraser.m in Sources */,
 				08FDC8C416515829008F35E8 /* Pen.m in Sources */,
 				08CA01C1189BD8F300524D81 /* ShareButton.m in Sources */,
+				0871A82C192A569600BB8558 /* BrushPropertyTableView.m in Sources */,
 				088E1D8A18A278A40059002C /* Cylinder.m in Sources */,
 				08966ECA166082E600339901 /* CalculateRunTime.m in Sources */,
 				0847F52F18B07ECE0038869A /* UnitConverter.m in Sources */,
@@ -2902,6 +2939,7 @@
 				0813AA2919167C27000C4D00 /* AssetDatabase.m in Sources */,
 				08086F0F18DC95A800F03EB4 /* iRate.m in Sources */,
 				085EFD4E1732BDD900F0395D /* PaintColorButton.m in Sources */,
+				0871A830192A56E200BB8558 /* BrushPropertyTableViewCell.m in Sources */,
 				083F862E1734AF7B00DDE6BC /* RadiusButton.m in Sources */,
 				083F86651735083F00DDE6BC /* RadiusSlider.m in Sources */,
 				0849CEA81735503D004B30C6 /* RadiusIndicatorView.m in Sources */,
@@ -3112,7 +3150,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -3149,7 +3188,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -3260,7 +3300,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -3298,7 +3339,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -3335,7 +3377,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -3377,7 +3420,8 @@
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";

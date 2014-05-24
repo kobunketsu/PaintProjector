@@ -55,10 +55,8 @@
 }
 
 - (void)setupGL{
-    self.glWrapper = [self.delegate willGetBrushPreviewGLWrapper];
-    
-    self.context = [self.delegate willGetBrushPreviewContext];
-    [EAGLContext setCurrentContext:self.context];
+//    self.context = [self.delegate willGetBrushPreviewContext];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
 
     [self createBrushFramebuffer];
     
@@ -68,9 +66,9 @@
 }
 
 - (void)deletePreviewFramebuffer{
-    RELEASE_FRAMEBUFFER(_framebuffer)
+    [[GLWrapper current] deleteFramebufferOES:_framebuffer];
     
-    RELEASE_RENDERBUFFER(_renderbuffer)
+    [[GLWrapper current] deleteRenderbufferOES:_renderbuffer];
 }
 
 - (BOOL)createPreviewFramebuffer{
@@ -96,7 +94,7 @@
 #endif
 	// This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
 	// allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
-	[self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
+	[[GLWrapper current].context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _renderbuffer);
 	
 //	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
@@ -122,9 +120,10 @@
 }
 
 - (void)deleteBrushFramebuffer{
-    RELEASE_FRAMEBUFFER(_brushFramebuffer)
+
+    [[GLWrapper current] deleteFramebufferOES:_brushFramebuffer];
     
-    RELEASE_TEXTURE(_brushTexture)
+    [[GLWrapper current] deleteTexture:_brushTexture];
 }
 
 - (BOOL)createBrushFramebuffer{
@@ -173,13 +172,13 @@
     
     //重置混合模式
     glClearColor(125.0/255.0, 130.0 / 255.0, 138.0 / 255.0, 1.0);
-    [self.glWrapper bindFramebufferOES:_framebuffer discardHint:true clear:true];
+    [[GLWrapper current] bindFramebufferOES:_framebuffer discardHint:true clear:true];
     glClearColor(0, 0, 0, 0);
     
     glViewport(0, 0, BrushPreview_Size, BrushPreview_Size);
     
     glEnable(GL_BLEND);
-    [self.glWrapper blendFunc:BlendFuncAlphaBlend];
+    [[GLWrapper current] blendFunc:BlendFuncAlphaBlend];
     
 #if DEBUG
     glPopGroupMarkerEXT();
@@ -244,7 +243,7 @@
     else{
         //在吸取屏幕颜色的brush吸取颜色之后，切换到brushFramebuffer
         //clear brushFramebuffer
-        [self.glWrapper bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+        [[GLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
     }
     
 #if DEBUG
@@ -279,10 +278,10 @@
     }
     
     //重新分配_VBOBrush用于undo data的缓冲区的大小
-    [self.glWrapper bindBuffer: self.brush.paintView.VBOBrushBack];
+    [[GLWrapper current] bindBuffer: self.brush.paintView.VBOBrushBack];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
     
-    [self.glWrapper bindBuffer: self.brush.paintView.VBOBrush];
+    [[GLWrapper current] bindBuffer: self.brush.paintView.VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
     DebugLog(@"glBufferData realloc count %lu", count);
     
@@ -379,14 +378,14 @@
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
 //        glViewport(0, 0, self.frame.size.width, self.frame.size.height);
         glClearColor(125.0/255.0, 130.0 / 255.0, 138.0 / 255.0, 1.0);
-        [self.glWrapper bindFramebufferOES:_framebuffer discardHint:true clear:true];
+        [[GLWrapper current] bindFramebufferOES:_framebuffer discardHint:true clear:true];
         glClearColor(0, 0, 0, 0);
         
         //TODO: screenQuad aspect is square ratio here!
         [self.delegate willDrawScreenQuadWithTexture2D:_brushTexture Alpha:brushState.opacity];
     }
     
-    [self.context presentRenderbuffer:GL_RENDERBUFFER];
+    [[GLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
     
 #if DEBUG
     glPopGroupMarkerEXT();

@@ -195,8 +195,8 @@
 - (void)tearDownGL {
     self.effect = nil;
     
-    RELEASE_BUFFER(_vertexLineBuffer);
+    [[GLWrapper current] deleteBuffer:_vertexLineBuffer];
     
-    RELEASE_VERTEXARRAY(_vertexLineArray);
+    [[GLWrapper current] deleteVertexArrayOES:_vertexLineArray];
 }
 @end

@@ -41,6 +41,10 @@
 }
 
 - (void)push:(id)object {
+    if (object == nil) {
+        CLSLog(@"Command heap push nil");
+    }
+    
     if(self.capacity == 0)return;
     
     NSUInteger count = [self.contents count];

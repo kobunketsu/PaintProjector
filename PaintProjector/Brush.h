@@ -141,7 +141,6 @@ typedef struct {
 @property (assign, nonatomic) CGPoint lastDrawSubPoint;
 
 #pragma mark- OpenGLES
-@property (weak, nonatomic) GLWrapper* glWrapper;
 @property (weak, nonatomic) EAGLContext* context;
 @property (assign, nonatomic) GLuint shapeTexture;
 @property (assign, nonatomic) GLuint smudgeTexture;
@@ -158,8 +157,11 @@ typedef struct {
 @property (assign, nonatomic) float radiusSliderMinValue;
 
 
-- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper canvasSize:(CGSize)canvasSize;
+- (id)initWithPaintView:(PaintingView*)paintView;
+- (void)initGL;
+- (void)tearDownGL;
 - (BOOL)loadShader;
+- (void)resetDefaultTextures;
 - (void)resetDefaultBrushState;
 - (BOOL)createSmudgeFramebuffers;
 - (void)deleteSmudgeFramebuffers;

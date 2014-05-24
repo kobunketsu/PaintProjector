@@ -178,8 +178,8 @@ typedef struct {
 #endif
     
 }
+//@property (assign, nonatomic) size_t allocVertexCount;//打补丁
 @property (retain, nonatomic) EAGLContext *context;
-@property (retain, nonatomic) GLWrapper *glWrapper;
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic) size_t	vertexBrushMaxCount;
 @property (assign, nonatomic) GLuint VAOBrush;
@@ -200,11 +200,18 @@ typedef struct {
 @property (retain, nonatomic) UIImage *brushingImage;//纪录当前的绘图内容
 @property (retain, nonatomic) UIImage *paintRefImage;//纪录当前的绘图内容
 
+#pragma mark GL资源
 - (void)swapVBO;
-- (void)initGLObjects;
-- (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
-//取色
-- (void)eyeDropColor:(CGPoint)point;
+//初始化OpenGLES资源
+- (void)initGL;
+- (void)tearDownGL;
+- (void)destroy;
+//准备进入后台，停止所有OpenGLES操作
+- (void)applicationWillResignActive;
+//进入后台，释放OpenGLES资源
+- (void)applicationDidEnterBackground;
+//进入前台,恢复GL
+- (void)applicationWillEnterForeground;
 #pragma mark 绘图Draw
 - (void)prepareDrawEnv;
 - (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw;
@@ -235,7 +242,6 @@ typedef struct {
 
 - (void)transformImageDone;
 - (void)transformImageCancelled;
-- (void)destroy;
 
 #pragma mark 图层Layer
 - (int)curLayerIndex;
@@ -267,7 +273,12 @@ typedef struct {
 #pragma mark 文件系统FileSystem
 - (void)setOpenData:(PaintData*)data;
 - (void)uploadLayerDatas;
-#pragma mark UndoRedo
+#pragma mark 撤销UndoRedo
 - (void)undoDraw;
 - (void)redoDraw;
+- (void)resetUndoRedo;
+#pragma mark 其他Misc
+- (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
+//取色
+- (void)eyeDropColor:(CGPoint)point;
 @end

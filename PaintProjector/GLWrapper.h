@@ -32,9 +32,10 @@ typedef NS_ENUM(NSInteger, InterpolationType) {
 #define RELEASE_TEXTURE(tex) if(tex){glDeleteTextures(1, &tex);tex = 0;}
 
 @class GLWrapper;
-static GLWrapper* glWrapper;
+static GLWrapper* glWrapper = nil;
 
 @interface GLWrapper : NSObject
+@property (retain, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) GLuint lastProgram;//记录上一次绘制使用的program
 @property (assign, nonatomic) GLuint lastVBO;//记录上一次绘制使用的vertexbuffer object
 @property (assign, nonatomic) GLuint lastVEBO;//记录上一次绘制使用的vertex element buffer object
@@ -49,19 +50,27 @@ static GLWrapper* glWrapper;
 +(GLWrapper*)current;
 +(void)setCurrent:(GLWrapper*)current;
 
-+(void)initialize;
-
 +(void)destroy;
 
 -(void)blendFunc:(BlendFuncType)blendFuncType;
 
+-(void)deleteRenderbufferOES:(GLuint)RBO;
+
 -(void)bindFramebufferOES:(GLuint)FBO discardHint:(BOOL)discardHint clear:(BOOL)clear;
+
+-(void)deleteFramebufferOES:(GLuint)FBO;
 
 -(void)bindBuffer:(GLuint)buffer;
 
+-(void)deleteBuffer:(GLuint)buffer;
+
 -(void)bindElementBuffer:(GLuint)buffer;
 
+-(void)deleteElementBuffer:(GLuint)buffer;
+
 -(void)bindVertexArrayOES:(GLuint)VAO;
+
+-(void)deleteVertexArrayOES:(GLuint)VAO;
 
 -(void)bindTexture:(GLuint)tex;
 
@@ -69,7 +78,11 @@ static GLWrapper* glWrapper;
 
 -(void)activeTexSlot:(GLuint)activeTex bindTexture:(GLuint)bindTex;
 
+-(void)deleteTexture:(GLuint)tex;
+
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block;
+
+-(void)deleteProgram:(GLuint)program;
 
 -(void)setImageInterpolation:(InterpolationType)type;
 

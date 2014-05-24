@@ -53,8 +53,10 @@
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
     self.brushState.wet = 0;
-    
-    [self setBrushCommonTextures];
+}
+
+- (void)resetDefaultTextures{
+    [super resetDefaultTextures];
     [self setBrushShapeTexture:@"brush_square_64.png"];
 }
 

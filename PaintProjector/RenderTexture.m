@@ -28,13 +28,13 @@
     //创建frame buffer
 
     glGenFramebuffersOES(1, &_framebuffer);
-    [GLWrapper.current bindFramebufferOES:_framebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES:_framebuffer discardHint:false clear:false];
 #if DEBUG
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, _framebuffer, 0, [@"framebuffer" UTF8String]);
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_texID);
-    [GLWrapper.current bindTexture:_texID];
+    [[GLWrapper current] bindTexture:_texID];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _texID, 0, [@"texID" UTF8String]);
 #endif
@@ -48,7 +48,7 @@
     glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    [GLWrapper.current bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -60,7 +60,7 @@
 }
 
 - (void)active{
-    [GLWrapper.current bindFramebufferOES:_framebuffer discardHint:true clear:true];
+    [[GLWrapper current] bindFramebufferOES:_framebuffer discardHint:true clear:true];
     glViewport(0, 0, self.width, self.height);
     
     if (!self.depthBuffer) {
@@ -73,7 +73,7 @@
 
 - (void)destroy{
     [super destroy];
-    
-    RELEASE_FRAMEBUFFER(_framebuffer);
+
+    [[GLWrapper current] deleteFramebufferOES:_framebuffer];
 }
 @end

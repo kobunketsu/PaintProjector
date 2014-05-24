@@ -17,15 +17,13 @@
 @protocol BrushPreviewDelegate
 - (void) willDrawScreenQuadWithTexture2D:(GLuint)texture Alpha:(GLfloat)alpha;
 - (id) willGetBrushPreviewDelegate;
-- (EAGLContext*)willGetBrushPreviewContext;
-- (GLWrapper*)willGetBrushPreviewGLWrapper;
+//- (EAGLContext*)willGetBrushPreviewContext;
 @end
 
 @interface BrushPreview : UIView <PaintCommandDelegate>
 {
 }
 @property (assign, nonatomic) id delegate;
-@property (weak, nonatomic) GLWrapper *glWrapper;
 @property (weak, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) GLuint renderbuffer;
 @property (assign, nonatomic) GLuint framebuffer;

@@ -29,7 +29,7 @@
 }
 
 - (void)setBlendMode{
-    [self.glWrapper blendFunc:BlendFuncErase];
+    [[GLWrapper current] blendFunc:BlendFuncErase];
 }
 
 - (void)prepareWithBrushState:(BrushState*)brushState lastBrushState:(BrushState *)lastBrushState{
@@ -63,9 +63,6 @@
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
     self.brushState.wet = 0;
-    
-    [self setBrushCommonTextures];
-    [self setBrushShapeTexture:nil];
 }
 
 - (BOOL)free{

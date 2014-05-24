@@ -152,7 +152,7 @@
                                             <bool key="isElement" value="NO"/>
                                         </accessibility>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.11636086618257262" green="0.47999870331950206" blue="0.83026452282157681" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -511,11 +511,11 @@
                                 </subviews>
                             </view>
                             <scrollView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="CAj-hf-8z3" userLabel="PropertyRootView">
-                                <rect key="frame" x="0.0" y="0.0" width="256" height="640"/>
+                                <rect key="frame" x="0.0" y="0.0" width="256" height="677"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <scrollView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="H99-Bp-nHw" userLabel="BasicPropertyView">
-                                        <rect key="frame" x="0.0" y="0.0" width="256" height="640"/>
+                                    <scrollView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="H99-Bp-nHw" userLabel="BasicPropertyView">
+                                        <rect key="frame" x="0.0" y="37" width="256" height="640"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" id="Ioq-jX-79R" userLabel="Radius">
@@ -858,8 +858,77 @@
                                             </view>
                                         </subviews>
                                     </scrollView>
+                                    <view opaque="NO" contentMode="scaleToFill" id="bRF-Kc-YTi" userLabel="SectionHeaderView">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="feN-Nn-T5I">
+                                                <rect key="frame" x="10" y="8" width="42" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="T9t-Zn-Drt">
+                                                <rect key="frame" x="0.0" y="0.0" width="256" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="pageIndicatorTintColor" red="0.49019607840000001" green="0.50980392159999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="currentPageIndicatorTintColor" red="0.1163608662" green="0.4799987033" blue="0.83026452279999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="pageControlValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="eZ7-Qt-Xgs"/>
+                                                </connections>
+                                            </pageControl>
+                                        </subviews>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="40" sectionHeaderHeight="37" sectionFooterHeight="1" id="NNt-6p-RW0" userLabel="BasicPropertyTableView">
+                                        <rect key="frame" x="0.0" y="35" width="256" height="640"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BrushPropertyTableViewCell" id="qBm-qg-Cc5" customClass="BrushPropertyTableViewCell">
+                                                <rect key="frame" x="0.0" y="37" width="256" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qBm-qg-Cc5" id="yHJ-aX-7mV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="256" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="unr-Uy-LXo" userLabel="PropertyNameLabel">
+                                                            <rect key="frame" x="10" y="9" width="80" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="m3U-DF-jc2" userLabel="PropertyValueSlider">
+                                                            <rect key="frame" x="90" y="4" width="150" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <connections>
+                                                                <action selector="propertyValueSliderValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="ddh-2U-OKM"/>
+                                                            </connections>
+                                                        </slider>
+                                                        <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="IWm-KB-ns8" userLabel="PropertyValueSwitch">
+                                                            <rect key="frame" x="139" y="5" width="51" height="31"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <connections>
+                                                                <action selector="propertyValueSwitchValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="RFO-2u-4bi"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="propertyNameLabel" destination="unr-Uy-LXo" id="D3U-zc-SDL"/>
+                                                    <outlet property="propertyValueSlider" destination="m3U-DF-jc2" id="dyC-es-Zcj"/>
+                                                    <outlet property="propertyValueSwitch" destination="IWm-KB-ns8" id="d9X-TN-Zpn"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="KgQ-jx-DYl" id="rTY-kQ-KVt"/>
+                                            <outlet property="delegate" destination="KgQ-jx-DYl" id="XEW-sz-ux6"/>
+                                        </connections>
+                                    </tableView>
                                     <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="2nu-AN-LmV" userLabel="PatternTextureCollectionView">
-                                        <rect key="frame" x="256" y="0.0" width="256" height="640"/>
+                                        <rect key="frame" x="256" y="0.0" width="256" height="677"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="16" minimumInteritemSpacing="16" id="3Xn-ak-WCg">
@@ -882,15 +951,6 @@
                                     </collectionView>
                                 </subviews>
                             </scrollView>
-                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="T9t-Zn-Drt">
-                                <rect key="frame" x="0.0" y="638" width="256" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="pageIndicatorTintColor" red="0.49019607840000001" green="0.50980392159999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="0.1163608662" green="0.4799987033" blue="0.83026452279999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="pageControlValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="eZ7-Qt-Xgs"/>
-                                </connections>
-                            </pageControl>
                         </subviews>
                     </view>
                     <connections>
@@ -898,6 +958,7 @@
                         <outlet property="angleFadeSlider" destination="t1Q-V1-Bfj" id="xKU-7x-k3c"/>
                         <outlet property="angleJitterSlider" destination="3mT-DW-gfq" id="B2f-bu-IdP"/>
                         <outlet property="angleSlider" destination="n2A-K1-ofX" id="6Hi-e4-N04"/>
+                        <outlet property="basicPropertyTableView" destination="NNt-6p-RW0" id="p5Q-aa-h0E"/>
                         <outlet property="basicPropertyView" destination="H99-Bp-nHw" id="tea-3H-hAr"/>
                         <outlet property="brushPreview" destination="i7X-Oy-0Bg" id="mFi-eS-5fN"/>
                         <outlet property="dissolveSwitch" destination="A2E-eJ-aJM" id="DfS-Y0-j89"/>
@@ -915,6 +976,8 @@
                         <outlet property="roundJitterSlider" destination="chk-RT-fSH" id="IaX-gI-TaQ"/>
                         <outlet property="roundSlider" destination="l5x-ME-JkY" id="HC9-r4-bNJ"/>
                         <outlet property="scatteringSlider" destination="pS6-Aq-npw" id="tiX-Yw-93d"/>
+                        <outlet property="sectionHeaderTitleLabel" destination="feN-Nn-T5I" id="hzp-FB-wW4"/>
+                        <outlet property="sectionHeaderView" destination="bRF-Kc-YTi" id="mVH-gS-wn6"/>
                         <outlet property="spacingSlider" destination="A2B-oU-x2P" id="xPL-hj-aei"/>
                         <outlet property="velocitySensorSwitch" destination="vvu-PL-iod" id="Icu-c5-Arx"/>
                         <outlet property="wetSlider" destination="AYr-1W-Di7" id="6cd-D6-Usz"/>
@@ -1933,7 +1996,7 @@
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -1969,7 +2032,7 @@
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -1987,7 +2050,7 @@
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2003,7 +2066,7 @@
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>

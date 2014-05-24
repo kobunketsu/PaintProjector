@@ -7,6 +7,7 @@
 //
 
 #import "TextureManager.h"
+#import "GLWrapper.h"
 
 @implementation TextureManager
 //static TextureManager* sharedInstance = nil;
@@ -23,6 +24,7 @@
 //}
 
 + (void)initialize{
+    DebugLogFuncStart(@"initialize");
     [super initialize];
     if(!texMgr){
         texMgr = [[TextureManager alloc]init];
@@ -30,9 +32,14 @@
 }
 
 + (void)destroy{
+    DebugLogFuncStart(@"destroy");
     if (texMgr) {
         texMgr = nil;
     }
+}
+
++ (TextureManager*)current{
+    return texMgr;
 }
 
 - (id)init{
@@ -50,6 +57,8 @@
 }
 
 -(void)memoryWarning:(NSNotification*)note {
+    DebugLogFuncStart(@"memoryWarning");
+    
     DebugLog(@"removeTextureCache");
     [_textureCache removeAllObjects];
     DebugLog(@"removeTextureUIImageCache");
@@ -58,12 +67,13 @@
 }
 
 + (void)destroyTextures{
-    DebugLog(@"[ destroyTextures ]");
+    DebugLogFuncStart(@"destroyTextures");
     for (GLKTextureInfo *texInfo in [texMgr.textureCache allValues]) {
         GLuint tex = texInfo.name;
-        glDeleteTextures(1, &tex);
+        [[GLWrapper current]deleteTexture:tex];
     }
     [texMgr.textureCache removeAllObjects];
+    DebugLogSuccess(@"all textures deleted from cache and gl");
 }
 
 + (void)deleteTexture:(GLuint)texture{
@@ -78,8 +88,8 @@
     
     if (deleteTexKey != 0) {
         [texMgr.textureCache removeObjectForKey:deleteTexKey];
-        glDeleteTextures(1, &texture);
-        texture = 0;
+        [[GLWrapper current]deleteTexture:texture];
+        DebugLogSuccess(@"texture %@ deleted from cache and gl", deleteTexKey);
     }
 
 }
@@ -104,7 +114,7 @@
         NSError * error;         
         texInfo = [GLKTextureLoader textureWithContentsOfFile:imagePath options:options error:&error];     
         if (texInfo == nil) {
-            DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
+            DebugLogError(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
             [texMgr.textureCache setObject:texInfo forKey:imagePath];
@@ -191,16 +201,26 @@
 
 
 + (GLKTextureInfo *)textureInfoFromData:(NSData*)data{
-    NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithBool:YES],
-                              GLKTextureLoaderOriginBottomLeft,
-                              nil];
-    GLKTextureInfo* texInfo;
 
-    NSError * error;
-    texInfo = [GLKTextureLoader textureWithContentsOfData:data options:options error:&error];
-    if (texInfo == nil) {
-        DebugLog(@"Error loading file: %@", [error localizedDescription]);
+    GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:[NSNumber numberWithInteger:data.hash]];
+    if (texInfo != NULL) {
+        return texInfo;
+    }
+    else {
+        NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithBool:YES],
+                                  GLKTextureLoaderOriginBottomLeft,
+                                  nil];
+        NSError * error;
+        texInfo = [GLKTextureLoader textureWithContentsOfData:data options:options error:&error];
+        if (texInfo == nil) {
+            DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
+        }
+        else {
+            [texMgr.textureCache setObject:texInfo forKey:[NSNumber numberWithInteger:data.hash]];
+            DebugLog(@"load texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:data.hash]);
+        }
+        return texInfo;
     }
     
     return texInfo;

@@ -54,7 +54,10 @@
     self.brushState.isRadiusMagnifySensor = false;    
     self.brushState.wet = 0;
     
-    [self setBrushCommonTextures];
+}
+
+- (void)resetDefaultTextures{
+    [super resetDefaultTextures];
     [self setBrushShapeTexture:@"chineseBrush.png"];
 }
 

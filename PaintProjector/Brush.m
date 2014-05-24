@@ -55,22 +55,12 @@
 
 //绘制笔刷
 
-- (id)initWithPaintView:(PaintingView*)paintView GLWrapper:(GLWrapper*)glWrapper canvasSize:(CGSize)canvasSize{
+- (id)initWithPaintView:(PaintingView*)paintView{
     self = [super init];
     if (self !=nil) {
         _paintView = paintView;
-        _glWrapper = glWrapper;
-        _context = paintView.context;
-        
-        //Shader
-        _shaderPreDefines = @"";
-        if(![self loadShader]){
-            DebugLog(@"Brush init loadShader failed");
-            return NULL;
-        }
-        
-        [self setCanvasSize:canvasSize];
-        
+//        _context = paintView.context;
+      
         //Param
         _brushState = [[BrushState alloc]init];
         [self resetDefaultBrushState];
@@ -85,6 +75,32 @@
     return self;
 }
 
+- (void)initGL{
+    //Shader
+    _shaderPreDefines = @"";
+    if(![self loadShader]){
+        DebugLogError(@"Brush init loadShader failed");
+    }
+    
+    [self setCanvasSize:self.paintView.bounds.size];
+    
+    [self resetDefaultTextures];
+    
+}
+- (void)tearDownGL{
+    DebugLogFuncStart(@"%@ tearDownGL", [self class]);
+//    EAGLContext* context = [EAGLContext currentContext];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    
+    [TextureManager deleteTexture:_maskTexture];
+    [TextureManager deleteTexture:_shapeTexture];
+    [self deleteSmudgeFramebuffers];
+    
+    [[GLWrapper current] deleteProgram:_programBrush];
+    
+//    [GLWrapper current].context = nil;
+//    [EAGLContext setCurrentContext:context];
+}
 - (NSString*)name{
     return @"nil";
 }
@@ -117,7 +133,7 @@
     _projectionMat[14] = 0.0;
     _projectionMat[15] = 1.0;
     
-    [self.glWrapper useProgram:_programBrush uniformBlock:^{
+    [[GLWrapper current] useProgram:_programBrush uniformBlock:^{
         glUniformMatrix4fv( _projectionUniform, 1, GL_FALSE, _projectionMat);
     }];
 }
@@ -127,7 +143,7 @@
 }
 
 - (void)setBlendMode{
-    [self.glWrapper blendFunc:BlendFuncAlphaBlend];
+    [[GLWrapper current] blendFunc:BlendFuncAlphaBlend];
 }
 
 - (CGFloat)radius {
@@ -235,18 +251,18 @@
 
 - (void)prepareNewWithBrushState:(BrushState*)brushState lastBrushState:(BrushState*)lastBrushState{
     glBindProgramPipelineEXT(_ppo);
-    [self.glWrapper useProgram:0 uniformBlock:nil];
+    [[GLWrapper current] useProgram:0 uniformBlock:nil];
     
     UIColor* color = brushState.color;
     [color getRed:&_red green:&_green blue:&_blue alpha:&_alpha];
     
     if (self.brushState.wet > 0){
         //if use gl_LastFragData, please use glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
-        [self.glWrapper blendFunc:BlendFuncOpaque];
+        [[GLWrapper current] blendFunc:BlendFuncOpaque];
     }
     else{
         //draw to brushbuffer
-        [self.glWrapper blendFunc:BlendFuncOpaqueAlphaBlend];
+        [[GLWrapper current] blendFunc:BlendFuncOpaqueAlphaBlend];
     }
     
     glProgramUniformMatrix4fvEXT(_vertexProgram, _projectionUniform, 1, GL_FALSE, _projectionMat);
@@ -258,14 +274,14 @@
     if (self.brushState.isShapeTexture) {
         //设置发生了改变
         if (lastBrushState == NULL || self.brushState.classId != lastBrushState.classId || !lastBrushState.isShapeTexture) {
-            [self.glWrapper activeTexSlot:GL_TEXTURE1 bindTexture:_shapeTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE1 bindTexture:_shapeTexture];
             glProgramUniform1iEXT(_fragmentProgram, _maskTextureUniform, 1);
         }
     }
     else{
         //设置发生了改变
         if (lastBrushState == NULL || self.brushState.classId != lastBrushState.classId || lastBrushState.isShapeTexture) {
-            [self.glWrapper activeTexSlot:GL_TEXTURE1 bindTexture:_maskTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE1 bindTexture:_maskTexture];
             glProgramUniform1iEXT(_fragmentProgram, _maskTextureUniform, 1);
         }
     }
@@ -274,7 +290,7 @@
     if (self.brushState.isDissolve) {
         //设置发生了改变
         if (lastBrushState == NULL || self.brushState.classId != lastBrushState.classId || !lastBrushState.isDissolve) {
-            [self.glWrapper activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
             glProgramUniform1iEXT(_fragmentProgram, _noiseTextureUniform, 2);
         }
     }
@@ -282,7 +298,7 @@
     if (self.brushState.wet > 0){
         //设置发生了改变
         if (lastBrushState == NULL || self.brushState.classId != lastBrushState.classId || lastBrushState.wet < 0.001) {
-            [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:_smudgeTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:_smudgeTexture];
             glProgramUniform1iEXT(_fragmentProgram, _smudgeTextureUniform, 0);
         }
     }
@@ -290,7 +306,7 @@
 
 - (void)prepareWithBrushState:(BrushState*)brushState lastBrushState:(BrushState*)lastBrushState{
     //TODO:优化命令，减少redunt命令
-    [self.glWrapper useProgram:_programBrush uniformBlock:^{
+    [[GLWrapper current] useProgram:_programBrush uniformBlock:^{
 
     }];
 
@@ -319,11 +335,11 @@
 
     if (brushState.wet > 0){
         //if use gl_LastFragData, please use glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
-        [self.glWrapper blendFunc:BlendFuncOpaque];
+        [[GLWrapper current] blendFunc:BlendFuncOpaque];
     }
     else{
         //draw to brushbuffer
-        [self.glWrapper blendFunc:BlendFuncOpaqueAlphaBlend];
+        [[GLWrapper current] blendFunc:BlendFuncOpaqueAlphaBlend];
     }
 
     
@@ -335,8 +351,8 @@
         if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || !lastBrushState.isShapeTexture) {
             glUniform1i(_maskTextureUniform, 1);
             
-            [self.glWrapper activeTexSlot:GL_TEXTURE1 bindTexture:_shapeTexture];
-            
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE1 bindTexture:_shapeTexture];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
         }
     }
     else{
@@ -345,7 +361,8 @@
         if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || lastBrushState.isShapeTexture) {
             glUniform1i(_maskTextureUniform, 1);
 
-            [self.glWrapper activeTexSlot:GL_TEXTURE1 bindTexture:_maskTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE1 bindTexture:_maskTexture];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
         }
     }
     
@@ -356,7 +373,8 @@
         if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || !lastBrushState.isDissolve) {
             glUniform1i(_noiseTextureUniform, 2);
             
-            [self.glWrapper activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
             
         }
     }
@@ -367,13 +385,14 @@
         if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || lastBrushState.wet < 0.001) {
             glUniform1i(_smudgeTextureUniform, 0);
             
-            [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:_smudgeTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:_smudgeTexture];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
             
         }
     }
     
-    [self.glWrapper bindVertexArrayOES: self.paintView.VAOBrush];
-    [self.glWrapper bindBuffer:self.paintView.VBOBrush];
+    [[GLWrapper current] bindVertexArrayOES: self.paintView.VAOBrush];
+    [[GLWrapper current] bindBuffer:self.paintView.VBOBrush];
     DebugLogWarn(@"prepareWithBrushState glMapBufferOES");
     self.vertexBuffer = (BrushVertex *)glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
 }
@@ -383,13 +402,16 @@
         self.brushState.isShapeTexture = false;
         return;
     }
-    
     _shapeTexture = [TextureManager textureInfoFromImageName:textureName reload:false].name;
     if (_shapeTexture == 0) {
         self.brushState.isShapeTexture = false;
         DebugLog(@"setBrushShapeTexture loadTextureInfo failed");
     }
     else{
+#if DEBUG
+        NSString *Label = [NSString stringWithFormat:@"%@", textureName];
+        glLabelObjectEXT(GL_TEXTURE, _shapeTexture, 0, [Label UTF8String]);
+#endif
         self.brushState.isShapeTexture = true;
     }
 }
@@ -405,19 +427,6 @@
 }
 
 -(void)dealloc{
-    DebugLog(@"%@ dealloc", [self class]);
-    EAGLContext* context = [EAGLContext currentContext];
-    [EAGLContext setCurrentContext:self.context];
-    
-    [TextureManager deleteTexture:_maskTexture];
-    [TextureManager deleteTexture:_shapeTexture];
-    [self deleteSmudgeFramebuffers];
-    
-    RELEASE_PROGRAM(_programBrush);
-
-    
-    self.context = nil;
-    [EAGLContext setCurrentContext:context];
 }
 
 - (UIColor *)color {
@@ -641,13 +650,14 @@
     
     //GPU还未完成绘制时，下一个CPU使用 glBufferSubData可能导致stalling
     if (self.allDrawSpriteCount > 0) {
-        DebugLog(@"glDrawArrays allDrawSpriteCount %lu", self.allDrawSpriteCount);
-        glDrawArrays(GL_POINTS, 0, self.allDrawSpriteCount);
+        size_t count = self.allDrawSpriteCount;
+        DebugLog(@"glDrawArrays allDrawSpriteCount %lu", count);
+        glDrawArrays(GL_POINTS, 0, count);
         DebugLog(@"-----------------------------------Pass End-----------------------------------");
+
+        self.allDrawSpriteCount = 0;
         
         [self.paintView swapVBO];
-        
-        self.allDrawSpriteCount = 0;
     }
     else{
         //引起Inefficient State Update
@@ -808,19 +818,19 @@
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;
     self.brushState.wet = 0;
-    
+}
+
+- (void)resetDefaultTextures{
     [self setBrushCommonTextures];
-    
-
-
+    [self setBrushShapeTexture:nil];
 }
 
 #pragma mark- Smudge
 - (void)deleteSmudgeFramebuffers{
-    RELEASE_FRAMEBUFFER(_smudgeFramebuffer)
-    RELEASE_FRAMEBUFFER(_smudgeBackFramebuffer)
-    RELEASE_TEXTURE(_smudgeTexture)
-    RELEASE_TEXTURE(_smudgeBackTexture)
+    [[GLWrapper current] deleteFramebufferOES:_smudgeFramebuffer];
+    [[GLWrapper current] deleteFramebufferOES:_smudgeBackFramebuffer];
+    [[GLWrapper current] deleteTexture:_smudgeTexture];
+    [[GLWrapper current] deleteTexture:_smudgeBackTexture];
 }
 
 - (BOOL)createSmudgeFramebuffers{
@@ -833,7 +843,7 @@
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_smudgeTexture);
-    [self.glWrapper bindTexture: _smudgeTexture];
+    [[GLWrapper current] bindTexture: _smudgeTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _smudgeTexture, 0, [@"smudgeTexture" UTF8String]);
 #endif
@@ -850,7 +860,7 @@
     glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -867,7 +877,7 @@
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_smudgeBackTexture);
-    [self.glWrapper bindTexture: _smudgeBackTexture];
+    [[GLWrapper current] bindTexture: _smudgeBackTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _smudgeBackTexture, 0, [@"smudgeBackTexture" UTF8String]);
 #endif
@@ -882,7 +892,7 @@
     glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -915,7 +925,7 @@
 //    if (_smudgeTexture == 0) {
 //        glGenTextures(1, &_smudgeTexture);
 //    }
-//    [self.glWrapper bindTexture: _smudgeTexture];
+//    [[GLWrapper current] bindTexture: _smudgeTexture];
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -928,7 +938,7 @@
 //    
 //    //need half pixel offset adjust
 //    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, locationX, locationY, copyRadius*2, copyRadius*2);
-//    [self.glWrapper bindTexture: 0];
+//    [[GLWrapper current] bindTexture: 0];
 //    
 //    //    DebugLog(@"start x:%.1f y:%.1f", startLocation.x, startLocation.y);
 //    //    DebugLog(@"finger radius:%.1f", _brushState.radius);

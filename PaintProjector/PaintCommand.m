@@ -8,7 +8,6 @@
 
 #import "PaintCommand.h"
 
-
 @implementation PaintCommand
 
 - (PaintCommand*)initWithBrushState:(BrushState*)brushState{
@@ -19,6 +18,9 @@
         _paintPaths = [[NSMutableArray alloc]init];
         _curSegmentOffset = 0;
         _isTapDraw = false;
+    }
+    else{
+        CLSLog(@"PaintCommand initWithBrushState return nil");
     }
 
     return self;
@@ -54,7 +56,7 @@
     }
 }
 -(void)prewarm{
-    DebugLog(@"prewarm shaders");
+    DebugLogFuncStart(@"prewarm shaders");
 
 #if DEBUG
     glPushGroupMarkerEXT(0, "PaintCommand execute");

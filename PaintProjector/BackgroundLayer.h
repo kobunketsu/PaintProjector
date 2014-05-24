@@ -12,5 +12,9 @@
 @property (assign, nonatomic) bool dirty;
 @property (assign, nonatomic) bool visible;
 @property (retain, nonatomic)UIColor* clearColor;
+@property (assign, nonatomic) id delegate;
+@end
 
+@protocol BackgroundLayerDelegate
+- (void)willClearColorChanged:(UIColor*)color;
 @end

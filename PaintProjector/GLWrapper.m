@@ -37,10 +37,36 @@
 }
 
 - (id)init{
+    DebugLogSystem(@"init");
     if ((self = [super init])) {
         _activeSlotTex = [[NSMutableDictionary alloc]init];
+        _context = [self createBestEAGLContext];
+        [EAGLContext setCurrentContext:_context];
     }
     return self;
+}
+
+- (void)dealloc{
+    DebugLogSystem(@"dealloc");
+    [EAGLContext setCurrentContext:nil];
+    self.context = nil;
+}
+
+-(EAGLContext *)createBestEAGLContext{
+    DebugLogFuncStart(@"createBestEAGLContext");
+    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+    if (context == nil) {
+        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        if(context == nil){
+            DebugLog(@"Failed to create ES context");
+        }
+    }
+    
+    return context;
+}
+
+-(void)deleteRenderbufferOES:(GLuint)RBO{
+    RELEASE_RENDERBUFFER(RBO);
 }
 
 -(void)bindFramebufferOES:(GLuint)FBO discardHint:(BOOL)discardHint clear:(BOOL)clear{
@@ -58,11 +84,25 @@
     }
 }
 
+-(void)deleteFramebufferOES:(GLuint)FBO{
+    if (self.lastFramebuffer == FBO) {
+        self.lastFramebuffer = 0;
+    }
+    RELEASE_FRAMEBUFFER(FBO);
+}
+
 -(void)bindBuffer:(GLuint)buffer{
     if(buffer != self.lastVBO){
         glBindBuffer(GL_ARRAY_BUFFER,buffer);
         self.lastVBO = buffer;
     }
+}
+
+-(void)deleteBuffer:(GLuint)buffer{
+    if (self.lastVBO == buffer) {
+        self.lastVBO = 0;
+    }
+    RELEASE_BUFFER(buffer);
 }
 
 -(void)bindElementBuffer:(GLuint)buffer{
@@ -72,11 +112,25 @@
     }
 }
 
+-(void)deleteElementBuffer:(GLuint)buffer{
+    if (self.lastVEBO == buffer) {
+        self.lastVEBO = 0;
+    }
+    RELEASE_BUFFER(buffer);
+}
+
 -(void)bindVertexArrayOES:(GLuint)VAO{
     if(VAO != self.lastVAO){
         glBindVertexArrayOES(VAO);
         self.lastVAO = VAO;
     }
+}
+
+-(void)deleteVertexArrayOES:(GLuint)VAO{
+    if (self.lastVAO == VAO) {
+        self.lastVAO = 0;
+    }
+    RELEASE_VERTEXARRAY(VAO);
 }
 
 -(void)bindTexture:(GLuint)tex{
@@ -108,6 +162,13 @@
     self.lastTexture = bindTex;
 }
 
+-(void)deleteTexture:(GLuint)tex{
+    if (self.lastTexture == tex) {
+        self.lastTexture = 0;
+    }
+    RELEASE_TEXTURE(tex);
+}
+
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block1{
     if(program != self.lastProgram){
         glUseProgram(program);
@@ -118,6 +179,13 @@
     if (block1 != NULL) {
         block1();
     }
+}
+
+-(void)deleteProgram:(GLuint)program{
+    if (self.lastProgram == program) {
+        self.lastProgram = 0;
+    }
+    RELEASE_PROGRAM(program);
 }
 
 -(void)blendFunc:(BlendFuncType)blendFuncType{

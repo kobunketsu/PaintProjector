@@ -47,13 +47,13 @@
 - (void)create{
     //绑定gpu
     glGenVertexArraysOES(1, &_vertexArray);
-    [GLWrapper.current bindVertexArrayOES:_vertexArray];
+    [[GLWrapper current] bindVertexArrayOES:_vertexArray];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexArray, 0, "meshRenderer");
 #endif
     
     glGenBuffers(1, &_indexBuffer);
-    [GLWrapper.current bindElementBuffer:_indexBuffer];
+    [[GLWrapper current] bindElementBuffer:_indexBuffer];
     
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _indexBuffer, 0, "indexBuffer");
@@ -64,7 +64,7 @@
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(short), indices, GL_STATIC_DRAW);
     
     glGenBuffers(1, &_vertexBuffer);
-    [GLWrapper.current bindBuffer:_vertexBuffer];
+    [[GLWrapper current] bindBuffer:_vertexBuffer];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _vertexBuffer, 0, "vertexBuffer");
 #endif
@@ -105,18 +105,16 @@
         offset += 12;
     }
 
-    [GLWrapper.current bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
 }
 
 - (void)destroy{
     [super destroy];
     
-//    [self clear];
+    [[GLWrapper current] deleteBuffer:_vertexBuffer];
     
-    RELEASE_BUFFER(_vertexBuffer);
+    [[GLWrapper current] deleteBuffer:_indexBuffer];
     
-    RELEASE_BUFFER(_indexBuffer);
-    
-    RELEASE_VERTEXARRAY(_vertexArray);
+    [[GLWrapper current] deleteVertexArrayOES:_vertexArray];
 }
 @end

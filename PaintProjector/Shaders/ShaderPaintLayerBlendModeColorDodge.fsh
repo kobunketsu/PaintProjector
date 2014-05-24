@@ -10,8 +10,9 @@ void main ( )
     srcColor.rgb = clamp(srcColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
     mediump float srcAlpha = srcColor.a * alpha;
     mediump vec3 targetColor = gl_LastFragData[0].rgb / (1.0 - srcColor.rgb);
+    targetColor = clamp(targetColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
     gl_FragColor.rgb = targetColor.rgb * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = srcAlpha;
 }
 
 

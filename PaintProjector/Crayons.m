@@ -50,9 +50,6 @@
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
     self.brushState.wet = 0;
-
-    [self setBrushCommonTextures];
-    [self setBrushShapeTexture:nil];
 }
 
 - (BOOL)free{

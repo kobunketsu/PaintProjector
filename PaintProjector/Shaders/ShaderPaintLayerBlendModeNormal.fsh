@@ -12,7 +12,7 @@ void main ( )
     mediump float srcAlpha = srcColor.a * alpha;
 
     gl_FragColor.rgb = srcColor.rgb * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = srcAlpha;
     
 }
 

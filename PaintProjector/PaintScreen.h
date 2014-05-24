@@ -82,6 +82,7 @@
 #import "SwatchManagerViewController.h"
 #import "SwatchManagerButton.h"
 
+#import "BackgroundLayer.h"
 @class TransformContentView;
 @class TransformAnchorView;
 
@@ -136,7 +137,8 @@ BrushPropertyViewControllerDelegate,
 InfColorPickerControllerDelegate,
 FuzzyTransparentViewDelegate,
 InAppPurchaseTableViewControllerDelegate,
-SwatchManagerViewControllerDelegate
+SwatchManagerViewControllerDelegate,
+BackgroundLayerDelegate
 >
 {
     //变换

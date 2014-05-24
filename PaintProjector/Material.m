@@ -69,7 +69,7 @@
     if (num != nil) {
         glUniform1i((GLint)num.intValue, index);
         GLuint textureSlot = GL_TEXTURE0 + index;
-        [GLWrapper.current activeTexSlot:textureSlot bindTexture:texture.texID];
+        [[GLWrapper current] activeTexSlot:textureSlot bindTexture:texture.texID];
     }
 }
 

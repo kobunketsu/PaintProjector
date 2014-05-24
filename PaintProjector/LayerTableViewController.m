@@ -349,6 +349,7 @@ const float LayerTableViewWidth = 256;
     //数据
     [self.delegate willInsertLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row] completion:^{
         //UI
+       
         DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
         [self.tableView beginUpdates];
         
@@ -362,6 +363,8 @@ const float LayerTableViewWidth = 256;
         //刷新后选择cell(不会invoke didSelectRowAtIndexPath)
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
         [self selectRowAtIndexPath:indexPath];
+        
+        [self updateIconColors];
     }];
 }
 
@@ -378,10 +381,12 @@ const float LayerTableViewWidth = 256;
     //刷新后选择cell
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
     [self selectRowAtIndexPath:indexPath];
+    
+    [self updateIconColors];
 }
 
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender {
- 
+
     //数据
     [self.delegate willMergeLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
     [self.tableView reloadData];
@@ -393,6 +398,8 @@ const float LayerTableViewWidth = 256;
     //刷新后选择cell
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
     [self selectRowAtIndexPath:indexPath];
+    
+    [self updateIconColors];
 }
 
 - (IBAction)clearLayerButtonTouchUp:(UIButton *)sender {
@@ -402,34 +409,11 @@ const float LayerTableViewWidth = 256;
     [self.tableView reloadData];
     
     [self selectRowAtIndexPath:self.curLayerIndexPath];
+    
+    [self updateIconColors];
 }
 
 - (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender {
-    //如果没有选择Layer
-    if (self.curLayerIndexPath == nil) {
-        return;
-    }
-    
-    LayerTableViewCell *cell = (LayerTableViewCell *)[self.tableView cellForRowAtIndexPath:self.curLayerIndexPath];
-
-    if (sender.tag == 0) {
-        sender.tag = 1;
-        //显示提示框
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-        alertView.transform = CGAffineTransformTranslate( alertView.transform, 200, 0 );
-        [alertView show];
-        
-
-        cell.layerDeleteDoneButton.hidden = false;
-        [sender setNeedsDisplay];
-    }
-    else {
-        sender.tag = 0;
-
-
-        cell.layerDeleteDoneButton.hidden = true;
-        [sender setNeedsDisplay];
-    }
 }
 
 - (IBAction)deleteDoneLayerButtonTouchUp:(UIButton *)sender {

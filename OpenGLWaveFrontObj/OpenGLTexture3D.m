@@ -22,6 +22,9 @@
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  
 		glGenTextures(1, &texture[0]);
 		glBindTexture(GL_TEXTURE_2D, texture[0]);
+#if DEBUG
+        glLabelObjectEXT(GL_TEXTURE, texture[0], 0, [[NSString stringWithFormat:@"%@",inFilename]UTF8String]);
+#endif
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

@@ -94,7 +94,7 @@ void main ( )
     
     
     gl_FragColor.rgb = vec3(r, g, b) * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = srcAlpha;
 }
 
 

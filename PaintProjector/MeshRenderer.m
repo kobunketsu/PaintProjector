@@ -19,7 +19,7 @@
 }
 
 - (void)render{
-    [GLWrapper.current bindVertexArrayOES:self.meshFilter.mesh.vertexArray];
+    [[GLWrapper current] bindVertexArrayOES:self.meshFilter.mesh.vertexArray];
     size_t offset = 0;
     
     size_t subMeshCount = self.meshFilter.mesh.subMeshTriCounts.count;
@@ -49,10 +49,10 @@
 //            [material.effect prepareToDraw];
 //        }
 //        else{
-            [GLWrapper.current useProgram:material.shader.program uniformBlock:^{
+            [[GLWrapper current] useProgram:material.shader.program uniformBlock:^{
             }];
             if (material.mainTexture.texID) {
-                [GLWrapper.current activeTexSlot:GL_TEXTURE0 bindTexture:material.mainTexture.texID];
+                [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:material.mainTexture.texID];
             }
 //        }
         

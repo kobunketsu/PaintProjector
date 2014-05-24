@@ -18,6 +18,8 @@
 
 
 @interface BrushPropertyViewController : UIViewController <
+UITableViewDataSource,
+UITableViewDelegate,
 UIScrollViewDelegate,
 UICollectionViewDataSource,
 UICollectionViewDelegate,
@@ -30,6 +32,9 @@ UICollectionViewDelegateFlowLayout>
 @property (retain, nonatomic) BrushState *brushStateBeforeChange;
 //@property (retain, nonatomic) NSMutableArray *patterImages;
 @property (retain, nonatomic) NSArray *patternImageArray;
+@property (strong, nonatomic) IBOutlet UIView *sectionHeaderView;
+@property (weak, nonatomic) IBOutlet UILabel *sectionHeaderTitleLabel;
+@property (weak, nonatomic) IBOutlet UITableView *basicPropertyTableView;
 
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
@@ -57,5 +62,7 @@ UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UIScrollView *propertyRootScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *basicPropertyView;
 @property (weak, nonatomic) IBOutlet UIView *patternTextureView;
+- (IBAction)propertyValueSliderValueChanged:(UISlider *)sender;
+- (IBAction)propertyValueSwitchValueChanged:(UISwitch *)sender;
 
 @end

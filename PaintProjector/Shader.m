@@ -29,6 +29,6 @@
     [self.uniformPropertyDic removeAllObjects];
     self.uniformPropertyDic = nil;
     
-    RELEASE_PROGRAM(_program);
+    [[GLWrapper current] deleteProgram:_program];
 }
 @end

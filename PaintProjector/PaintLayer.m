@@ -97,7 +97,7 @@
     // otherwise, use kCGImageAlphaPremultipliedLast
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGImageRef image = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast,
+    CGImageRef image = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast,
                                     dataProvider, NULL, true, kCGRenderingIntentDefault);
     
     NSData* nsData = UIImagePNGRepresentation([UIImage imageWithCGImage:image]);

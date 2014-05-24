@@ -15,7 +15,7 @@ void main ( )
     mediump float srcAlpha = srcColor.a * alpha;
     mediump vec3 targetColor = srcColor.rgb * gl_LastFragData[0].rgb;
     gl_FragColor.rgb =  targetColor.rgb * srcAlpha + gl_LastFragData[0].rgb * (1.0 - srcAlpha);
-    gl_FragColor.a = 1.0;
+    gl_FragColor.a = srcAlpha;
     
     //disable blend
 //    srcColor.rgb *= alpha;    

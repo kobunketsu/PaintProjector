@@ -28,7 +28,7 @@
     
     GLint fbo;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &fbo);
-    GLWrapper.current.lastFramebuffer = fbo;
+    [GLWrapper current].lastFramebuffer = fbo;
     
     //将画面主体移动到中心
     CGRect rect = self.view.bounds;

@@ -169,26 +169,20 @@
 	return self;
 }
 
--(void)initGLObjects{
-    DebugLog(@"[ initCustom ]");
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(paintViewDidBecomeActiveNotification:)
-     name:UIApplicationDidBecomeActiveNotification
-     object:nil];
+//move from viewDidLoad to viewWillAppear
+-(void)initGL{
+    DebugLogFuncStart(@"initGL");
     
-    [EAGLContext setCurrentContext:self.context];
-    _glWrapper = [[GLWrapper alloc]init];
-    //after set context
+//    [GLWrapper destroy];
+    [GLWrapper initialize];
+    [[GLWrapper current].context setDebugLabel:@"PaintView Context"];
     [TextureManager initialize];
     
-    [self loadShaders];
+//    [EAGLContext setCurrentContext:self.context];
     
-    //创建GLObject not related to view size
-    [self createBrushVertexbuffer];
+    [self loadPrograms];
     
-    [self createQuadVertexbuffer];
-    
-    [self createScreenQuadVertexbuffer];
+    [self createBuffers];
     
     //重置混合模式 redundent
 //    glDisable(GL_DITHER);
@@ -198,16 +192,73 @@
 //    glClearColor(0.0, 0.0, 0.0, 0.0);
     
     glEnable(GL_BLEND);
+    
+
 }
 
--(void)paintViewDidBecomeActiveNotification:(NSNotification *)note{
-    DebugLog(@"paintViewDidBecomeActiveNotification");
-    if (self.context == NULL) {
-        DebugLog(@"paintViewDidBecomeActiveNotification context null");
+- (void)tearDownGL{
+    DebugLogFuncStart(@"tearDownGL");
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    
+    [self destroyFrameBufferTextures];
+    
+    [self destroyVertexBufferObjects];
+    
+    [self destroyPrograms];
+    
+    [self destroyTextures];
+    
+    [TextureManager destroy];
+
+}
+
+//dealloc调用导致内存增加的问题？
+- (void)destroy{
+    DebugLogFuncStart(@"destroy");
+    self.paintData = nil;
+    
+    [self.displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    self.displayLink = nil;
+}
+
+- (void)dealloc
+{
+    DebugLogSystem(@"dealloc");
+}
+
+-(void)applicationWillResignActive{
+    DebugLogFuncStart(@"applicationWillResignActive");
+    //remove animation timer
+    
+    glFinish();
+}
+
+-(void)applicationDidEnterBackground{
+    DebugLogFuncStart(@"applicationDidEnterBackground");
+    //https://developer.apple.com/library/ios/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/ImplementingaMultitasking-awareOpenGLESApplication/ImplementingaMultitasking-awareOpenGLESApplication.html
+    //textures models should not be disposed.
+    //TODO:some framebuffers can be disposed.
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    
+    [self destroyFrameBufferTextures];
+    
+    glFinish();
+}
+
+-(void)applicationWillEnterForeground{
+    DebugLogFuncStart(@"applicationWillEnterForeground");
+    if ([GLWrapper current].context == NULL) {
+        DebugLogWarn(@"reactiveGL context null");
         return;
     }
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    
+    [self createFramebufferTextures];
+    [self setCurLayerIndex:self.curLayerIndex];
+    
+    glFinish();
 }
+
 // If our view is resized, we'll be asked to layout subviews.
 // This is the perfect opportunity to also update the framebuffer so that it is
 // the same size as our display area.
@@ -218,16 +269,17 @@
 //}
 
 #pragma mark- Buffer
-- (BOOL)createUndoBaseFramebuffer{
+- (BOOL)createUndoBaseFramebufferTexture{
+    DebugLogFuncStart(@"createUndoBaseFramebufferTexture");
     //创建frame buffer
     glGenFramebuffersOES(1, &_undoBaseFramebuffer);
-    [self.glWrapper bindFramebufferOES:_undoBaseFramebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES:_undoBaseFramebuffer discardHint:false clear:false];
 #if DEBUG
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, _undoBaseFramebuffer, 0, [@"undoBaseFramebuffer" UTF8String]);
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_undoBaseTexture);
-    [self.glWrapper bindTexture:_undoBaseTexture];
+    [[GLWrapper current] bindTexture:_undoBaseTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _undoBaseTexture, 0, [@"undoBaseTexture" UTF8String]);
 #endif
@@ -236,7 +288,7 @@
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 //    glGenerateMipmapOES(GL_TEXTURE_2D);
     glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _undoBaseTexture, 0);
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -245,6 +297,11 @@
 	}   
     
 	return YES;    
+}
+- (void)deleteUndoBaseFramebufferTexture{
+    [[GLWrapper current] deleteFramebufferOES:_undoBaseFramebuffer];
+    
+    [[GLWrapper current] deleteTexture:_undoBaseTexture];
 }
 
 - (BOOL)createDebugQuadVerticesbuffer{
@@ -262,12 +319,12 @@
         {{-1.0f*widthScale + offset.x, 1.0f*heightScale + offset.y, 0.0},{0.0f, 1.0f}}   
     };
     glGenVertexArraysOES(1, &_debugVertexArray);
-    [self.glWrapper bindVertexArrayOES: _debugVertexArray];
+    [[GLWrapper current] bindVertexArrayOES: _debugVertexArray];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray, 0, "debugVertexArray");
 #endif
     glGenBuffers(1, &_debugVertexBuffer);
-    [self.glWrapper bindBuffer: _debugVertexBuffer];
+    [[GLWrapper current] bindBuffer: _debugVertexBuffer];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer, 0, "debugVertexBuffer");
 #endif
@@ -279,7 +336,7 @@
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);    
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), BUFFER_OFFSET(12));
     
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     
     return true;
 }
@@ -298,12 +355,12 @@
         {{-1.0f*widthScale + offset.x, 1.0f*heightScale + offset.y, 0.0},{0.0f, 1.0f}}
     };
     glGenVertexArraysOES(1, &_debugVertexArray2);
-    [self.glWrapper bindVertexArrayOES:_debugVertexArray2];
+    [[GLWrapper current] bindVertexArrayOES:_debugVertexArray2];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray2, 0, "debugVertexArray2");
 #endif
     glGenBuffers(1, &_debugVertexBuffer2);
-    [self.glWrapper bindBuffer: _debugVertexBuffer2];
+    [[GLWrapper current] bindBuffer: _debugVertexBuffer2];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer2, 0, "debugVertexBuffer2");
 #endif
@@ -315,20 +372,20 @@
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), BUFFER_OFFSET(12));
     
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     
     return true;
 }
 
 - (BOOL)createScreenQuadVertexbuffer{
     glGenVertexArraysOES(1, &_VAOScreenQuad);
-    [self.glWrapper bindVertexArrayOES:_VAOScreenQuad];
+    [[GLWrapper current] bindVertexArrayOES:_VAOScreenQuad];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOScreenQuad, 0, "VAOScreenQuad");
 #endif
     glGenBuffers(1, &_VBOScreenQuad);
-//    [self.glWrapper bindBuffer: _vertexBufferScreenQuad];
-    [self.glWrapper bindBuffer: _VBOScreenQuad];
+//    [[GLWrapper current] bindBuffer: _vertexBufferScreenQuad];
+    [[GLWrapper current] bindBuffer: _VBOScreenQuad];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOScreenQuad, 0, "VBOScreenQuad");
 #endif
@@ -349,18 +406,18 @@
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), BUFFER_OFFSET(12));
     
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     return true;
 }
 
 - (BOOL)createQuadVertexbuffer{
     glGenVertexArraysOES(1, &_VAOQuad);
-    [self.glWrapper bindVertexArrayOES:_VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES:_VAOQuad];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOQuad, 0, "VAOQuad");
 #endif
     glGenBuffers(1, &_VBOQuad);
-    [self.glWrapper bindBuffer: _VBOQuad];
+    [[GLWrapper current] bindBuffer: _VBOQuad];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOQuad, 0, "VBOQuad");
 #endif
@@ -412,7 +469,7 @@
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);    
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, sizeof(QuadVertex), BUFFER_OFFSET(12));
     
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     
     //setup projMatrix
 //    float size = MAX(self.bounds.size.width, self.bounds.size.height);
@@ -421,12 +478,13 @@
     return true;
 }
 
-- (BOOL)createFinalFramebuffer{
+- (BOOL)createFinalFramebufferTexture{
+    DebugLogFuncStart(@"createFinalFramebufferTexture");
 	// Generate IDs for a framebuffer object and a color renderbuffer
     if (_finalFramebuffer==0) {
         glGenFramebuffersOES(1, &_finalFramebuffer);
     }
-	[self.glWrapper bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
+	[[GLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
 #if DEBUG
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, _finalFramebuffer, 0, [@"finalFramebuffer" UTF8String]);
 #endif
@@ -439,7 +497,7 @@
 #endif
 	// This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
 	// allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
-	[self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
+	[[GLWrapper current].context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, _finalRenderbuffer);
 	
     //	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
@@ -461,16 +519,23 @@
     
     return YES;
 }
-- (BOOL)createBrushFramebuffer{
+- (void)deleteFinalFramebufferTexture{
+    DebugLogFuncStart(@"deleteFinalFramebufferTexture");
+    [[GLWrapper current] deleteFramebufferOES:_finalFramebuffer];
+    
+    [[GLWrapper current] deleteRenderbufferOES:_finalRenderbuffer];
+}
+- (BOOL)createBrushFramebufferTexture{
+    DebugLogFuncStart(@"createBrushFramebufferTexture");
     //创建frame buffer
     glGenFramebuffersOES(1, &_brushFramebuffer);
-    [self.glWrapper bindFramebufferOES: _brushFramebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:false clear:false];
 #if DEBUG
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, _brushFramebuffer, 0, [@"brushFramebuffer" UTF8String]);
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_brushTexture);
-    [self.glWrapper bindTexture:_brushTexture];
+    [[GLWrapper current] bindTexture:_brushTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _brushTexture, 0, [@"brushTexture" UTF8String]);
 #endif
@@ -479,7 +544,7 @@
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 //    glGenerateMipmapOES(GL_TEXTURE_2D);
     glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _brushTexture, 0);
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
 		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
@@ -488,16 +553,33 @@
 
 	return YES;
 }
+- (void)deleteBrushFramebufferTexture{
+    DebugLogFuncStart(@"deleteBrushFramebufferTexture");
+    [[GLWrapper current] deleteFramebufferOES:_brushFramebuffer];
+    
+    [[GLWrapper current] deleteTexture:_brushTexture];
+}
 
 - (void)setVBOBrushForImmediate{
     //恢复分配_VBOBrush用于普通描画的缓冲区大小, 顺序不能交换，保证最后bind VBOBrush
-    [self.glWrapper bindBuffer: _VBOBrushBack];
+    [[GLWrapper current] bindBuffer: _VBOBrushBack];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
-    [self.glWrapper bindBuffer: _VBOBrush];
+    [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
 }
 
+- (void)createBuffers{
+    DebugLogFuncStart(@"createBuffers");
+    //创建GLObject not related to view size
+    [self createBrushVertexbuffer];
+    
+    [self createQuadVertexbuffer];
+    
+    [self createScreenQuadVertexbuffer];
+}
+
 - (BOOL)createBrushVertexbuffer{
+    DebugLogFuncStart(@"createBrushVertexbuffer");
     if(_vertexBufferBrush == NULL){
         _vertexBufferBrush = malloc(256 * sizeof(BrushVertex));
     }
@@ -506,7 +588,7 @@
     
     //创建VAO
     glGenVertexArraysOES(1, &_VAOBrush);
-    [self.glWrapper bindVertexArrayOES:_VAOBrush];
+    [[GLWrapper current] bindVertexArrayOES:_VAOBrush];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrush, 0, "VAOBrush");
 #endif
@@ -516,7 +598,7 @@
     }
     
     //将buffer数据绑定VBO
-    [self.glWrapper bindBuffer: _VBOBrush];
+    [[GLWrapper current] bindBuffer: _VBOBrush];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOBrush, 0, "VBOBrush");
 #endif
@@ -525,12 +607,12 @@
     glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
     glEnableVertexAttribArray(GLKVertexAttribColor);
     glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), BUFFER_OFFSET(16));
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     
     
     //创建VAO
     glGenVertexArraysOES(1, &_VAOBrushBack);
-    [self.glWrapper bindVertexArrayOES:_VAOBrushBack];
+    [[GLWrapper current] bindVertexArrayOES:_VAOBrushBack];
 #if DEBUG
     glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrushBack, 0, "VAOBrushBack");
 #endif
@@ -539,7 +621,7 @@
     }
     
     //将buffer数据绑定Back VBO
-    [self.glWrapper bindBuffer: _VBOBrushBack];
+    [[GLWrapper current] bindBuffer: _VBOBrushBack];
 #if DEBUG
     glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOBrushBack, 0, "VBOBrushBack");
 #endif
@@ -548,7 +630,7 @@
     glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
     glEnableVertexAttribArray(GLKVertexAttribColor);
     glVertexAttribPointer(GLKVertexAttribColor, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), BUFFER_OFFSET(16));
-    [self.glWrapper bindVertexArrayOES:0];
+    [[GLWrapper current] bindVertexArrayOES:0];
     
     return YES;
 }
@@ -556,69 +638,45 @@
 
 - (void)createFramebufferTextures
 {
-    [self createFinalFramebuffer];
+    DebugLogFuncStart(@"createFramebufferTextures");
+    
+    [self createFinalFramebufferTexture];
     //从paintData创建显示用的layer texture
     [self createLayerFramebufferTextures];
     //创建临时绘制层
     [self createTempLayerFramebufferTexture];
     
-    [self createBrushFramebuffer];
+    [self createBrushFramebufferTexture];
     
-    [self createUndoBaseFramebuffer];
+    [self createUndoBaseFramebufferTexture];
 }
 
 - (void)destroyFrameBufferTextures{
-    DebugLog(@"[ destroyFrameBufferTextures ]");
+    DebugLogFuncStart(@"destroyFrameBufferTextures");
     
     //final
-    RELEASE_FRAMEBUFFER(_finalFramebuffer)
-    
-    RELEASE_RENDERBUFFER(_finalRenderbuffer)
+    [self deleteFinalFramebufferTexture];
     
     //layers
-    for(int i = 0; i< self.layerTextures.count;++i){
-        GLuint name = (GLuint)[[self.layerTextures objectAtIndex:i] intValue];
-        RELEASE_TEXTURE(name);
-        
-        _curLayerTexture = 0;
-        
-    }
-    
-    [self.layerTextures removeAllObjects];
-    
-    for(int i = 0; i< self.layerFramebuffers.count;++i){
-        NSNumber* number = [self.layerFramebuffers objectAtIndex:i];
-        
-        GLuint layerFramebuffer = (GLuint)number.intValue;
-        RELEASE_FRAMEBUFFER(layerFramebuffer);
-        
-        _curLayerFramebuffer = 0;
-        
-    }
-    [self.layerFramebuffers removeAllObjects];
+    [self deleteLayerFramebufferTextures];
     
     //current paint layer
-    RELEASE_FRAMEBUFFER(_curPaintedLayerFramebuffer)
-    
-    RELEASE_TEXTURE(_curPaintedLayerTexture)
+    [self deleteTempLayerFramebufferTexture];
     
     //brush temp
-    RELEASE_FRAMEBUFFER(_brushFramebuffer)
-    
-    RELEASE_TEXTURE(_brushTexture)
+    [self deleteBrushFramebufferTexture];
     
     //undo
-    RELEASE_FRAMEBUFFER(_undoBaseFramebuffer)
-    
-    RELEASE_TEXTURE(_undoBaseTexture)
+    [self deleteUndoBaseFramebufferTexture];
 }
 
-- (void)loadShaders{
+- (void)loadPrograms{
+    DebugLogFuncStart(@"loadPrograms");
     //确保不重复load两次
     if (_programQuad == 0) {
         [self loadShaderQuad];
         
-        [self.glWrapper useProgram:_programQuad uniformBlock:^{
+        [[GLWrapper current] useProgram:_programQuad uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
             _lastProgramQuadTransformIdentity = true;
         }];
@@ -631,7 +689,7 @@
     if (_programPaintLayerBlendModeNormal == 0) {
         _programPaintLayerBlendModeNormal = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeNormal"];
         
-        [self.glWrapper useProgram:_programPaintLayerBlendModeNormal uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeNormal uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
 //            _lastProgramLayerNormalTransformIdentity = true;
         }];
@@ -639,105 +697,105 @@
     
     if (_programPaintLayerBlendModeMultiply == 0) {
         _programPaintLayerBlendModeMultiply = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeMultiply"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeMultiply uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeMultiply uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeScreen == 0) {
         _programPaintLayerBlendModeScreen = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeScreen"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeScreen uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeScreen uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeOverlay == 0) {
         _programPaintLayerBlendModeOverlay = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeOverlay"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeOverlay uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeOverlay uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeDarken == 0) {
         _programPaintLayerBlendModeDarken = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDarken"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeDarken uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeDarken uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeLighten == 0) {
         _programPaintLayerBlendModeLighten = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLighten"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeLighten uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeLighten uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeColorDodge == 0) {
         _programPaintLayerBlendModeColorDodge = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorDodge"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeColorDodge uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeColorDodge uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeColorBurn == 0) {
         _programPaintLayerBlendModeColorBurn = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorBurn"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeColorBurn uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeColorBurn uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeSoftLight == 0) {
         _programPaintLayerBlendModeSoftLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSoftLight"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeSoftLight uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeSoftLight uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeHardLight == 0) {
         _programPaintLayerBlendModeHardLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHardLight"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeHardLight uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeHardLight uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeDifference == 0) {
         _programPaintLayerBlendModeDifference = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDifference"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeDifference uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeDifference uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeExclusion == 0) {
         _programPaintLayerBlendModeExclusion = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeExclusion"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeExclusion uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeExclusion uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeHue == 0) {
         _programPaintLayerBlendModeHue = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHue"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeHue uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeHue uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeSaturation == 0) {
         _programPaintLayerBlendModeSaturation = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSaturation"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeSaturation uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeSaturation uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeColor == 0) {
         _programPaintLayerBlendModeColor = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColor"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeColor uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeColor uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
     
     if (_programPaintLayerBlendModeLuminosity == 0) {
         _programPaintLayerBlendModeLuminosity = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLuminosity"];
-        [self.glWrapper useProgram:_programPaintLayerBlendModeLuminosity uniformBlock:^{
+        [[GLWrapper current] useProgram:_programPaintLayerBlendModeLuminosity uniformBlock:^{
             glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
         }];
     }
@@ -749,27 +807,25 @@
 }
 
 - (void)destroyPrograms{
-    DebugLog(@"[ destroyShaders ]");
-    RELEASE_PROGRAM(_programQuad);
-   
-    //destroy layer shaders
-//    RELEASE_PROGRAM(_programBackgroundLayer);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeColor);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeColorBurn);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeColorDodge);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeDarken);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeDifference);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeExclusion);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeHardLight);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeHue);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeLighten);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeLuminosity);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeMultiply);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeNormal);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeOverlay);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeSaturation);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeScreen);
-    RELEASE_PROGRAM(_programPaintLayerBlendModeSoftLight);
+    DebugLogFuncStart(@"destroyPrograms");
+    
+    [[GLWrapper current] deleteProgram:_programQuad];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeColor];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeColorBurn];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeColorDodge];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeDarken];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeDifference];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeExclusion];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeHardLight];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeHue];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeLighten];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeLuminosity];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeMultiply];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeNormal];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeOverlay];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeSaturation];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeScreen];
+    [[GLWrapper current] deleteProgram:_programPaintLayerBlendModeSoftLight];
     
 #if DEBUG_VIEW_COLORALPHA
 //    RELEASE_PROGRAM(_programQuadDebugAlpha);
@@ -777,60 +833,51 @@
 #endif
 }
 
-
+- (void)prewarmShaders{
+    for (Brush *brush in self.brushTypes) {
+        PaintCommand *paintCommand = [[PaintCommand alloc]initWithBrushState:brush.brushState];
+        paintCommand.delegate = self;
+        [paintCommand prewarm];
+    }
+    //完成prewarm之后恢复bufferData的大小
+    [self setVBOBrushForImmediate];
+}
 
 - (void)destroyVertexBufferObjects
 {
-    DebugLog(@"[ destroyBuffers ]");
+    DebugLogFuncStart(@"destroyBuffers");
     
-    RELEASE_BUFFER(_VBOBrush)
+    [[GLWrapper current] deleteBuffer:_VBOBrush];
     
-    RELEASE_BUFFER(_VBOBrushBack)
+    [[GLWrapper current] deleteBuffer:_VBOBrushBack];
     
-    RELEASE_VERTEXARRAY(_VAOBrush);
+    [[GLWrapper current] deleteVertexArrayOES:_VAOBrush];
     
-    RELEASE_VERTEXARRAY(_VAOBrushBack);
+    [[GLWrapper current] deleteVertexArrayOES:_VAOBrushBack];
     
-    RELEASE_BUFFER(_VBOQuad)
+    [[GLWrapper current] deleteBuffer:_VBOQuad];
     
-    RELEASE_VERTEXARRAY(_VAOQuad)
+    [[GLWrapper current] deleteVertexArrayOES:_VAOQuad];
     
-    RELEASE_BUFFER(_VBOScreenQuad)
+    [[GLWrapper current] deleteBuffer:_VBOScreenQuad];
     
-    RELEASE_VERTEXARRAY(_VAOScreenQuad)
+    [[GLWrapper current] deleteVertexArrayOES:_VAOScreenQuad];
     
-    RELEASE_BUFFER(_debugVertexBuffer)
-
-    RELEASE_VERTEXARRAY(_debugVertexArray)
-
-    RELEASE_BUFFER(_debugVertexBuffer2)
-
-    RELEASE_VERTEXARRAY(_debugVertexArray2)
+    [[GLWrapper current] deleteBuffer:_debugVertexBuffer];
+    
+    [[GLWrapper current] deleteVertexArrayOES:_debugVertexArray];
+    
+    [[GLWrapper current] deleteBuffer:_debugVertexBuffer2];
+    
+    [[GLWrapper current] deleteVertexArrayOES:_debugVertexBuffer2];
+    
 }
 
 - (void)destroyTextures{
-    RELEASE_TEXTURE(_toTransformImageTex)
+
+    [[GLWrapper current] deleteTexture:_toTransformImageTex];
     
     [TextureManager destroyTextures];
-}
-
-//dealloc调用导致内存增加的问题？
-- (void)destroy{
-    DebugLogSystem(@"[ destroy ]");
-    self.paintData = nil;
-    
-    [self.displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    self.displayLink = nil;
-    
-    [self tearDownGL];
-    
-    
-}
-- (void)dealloc
-{
-    DebugLogSystem(@"[ dealloc ]");
-    
-    [self destroy];
 }
 
 // Reads previously recorded points and draws them onscreen. This is the Shake Me message that appears when the application launches.
@@ -1119,11 +1166,10 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "_updateRender Draw Final Framebuffer");
 #endif
-    [self.glWrapper bindFramebufferOES: _finalFramebuffer discardHint:true clear:false];
+    [[GLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:true clear:false];
 
     //使用Disable 不需要Clear
 //    glClear(GL_COLOR_BUFFER_BIT);
-    glDisable(GL_BLEND);
     
     //绘制背景层
     [self drawBackgroundLayer];
@@ -1132,17 +1178,15 @@
     for (int i = 0; i < self.paintData.layers.count; ++i) {
         [self drawPaintLayerAtIndex:i];
     }
-    glEnable(GL_BLEND);
 
 //    DebugLog(@"_updateRender willEndDraw glFinish. presentRenderbuffer.");
     //call glFlush internally
-    [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    [[GLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
     DebugLog(@"-----------------------------------Frame End-----------------------------------");
 
 #if DEBUG
     glPopGroupMarkerEXT();
 #endif
-//    DebugLog(@"[ UpdateRender End ]");
 }
 
 
@@ -1162,20 +1206,20 @@
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
 //    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
-	[self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+	[[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
 }
 
 - (void)copyCurPaintedLayerToCurLayer{
 //    DebugLog(@"[ copyCurPaintedLayerToCurLayer ]");
-	[self.glWrapper bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
+	[[GLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
 }
 
 - (void)copyScreenBufferToTexture:(GLuint)texture{
-    [self.glWrapper bindTexture:texture];
+    [[GLWrapper current] bindTexture:texture];
     glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, 1024, 1024);
 }
 
@@ -1208,8 +1252,8 @@
 
 - (void)eyeDropColor:(CGPoint)point{
     
-    [EAGLContext setCurrentContext:self.context];
-    [self.glWrapper bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    [[GLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
     
     GLubyte *data = (GLubyte*)malloc(4 * sizeof(GLubyte));
     // Read pixel data from the framebuffer
@@ -1307,8 +1351,8 @@
     SwapGL(self.VBOBrush, self.VBOBrushBack)
     SwapGL(self.VAOBrush, self.VAOBrushBack)
     
-//    [self.glWrapper bindVertexArrayOES: self.VAOBrush];
-//    [self.glWrapper bindBuffer:self.VBOBrush];
+//    [[GLWrapper current] bindVertexArrayOES: self.VAOBrush];
+//    [[GLWrapper current] bindBuffer:self.VBOBrush];
 }
 
 #pragma mark- Paint Command Delegate
@@ -1332,7 +1376,7 @@
     else{
         //在吸取屏幕颜色的brush吸取颜色之后，切换到brushFramebuffer
         //clear brushFramebuffer
-        [self.glWrapper bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+        [[GLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
     }
     
 #if DEBUG
@@ -1356,7 +1400,7 @@
     }
     else {
         //reserve brushFramebuffer
-        [self.glWrapper bindFramebufferOES: _brushFramebuffer discardHint:true clear:false];
+        [[GLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:false];
     }
     
     
@@ -1398,15 +1442,20 @@
     }
 
     //重新分配_VBOBrush用于undo data的缓冲区的大小
-    [self.glWrapper bindBuffer: _VBOBrushBack];
+    [[GLWrapper current] bindBuffer: _VBOBrushBack];
     //TODO:GL_INVALID_VALUE
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
     
-    [self.glWrapper bindBuffer: _VBOBrush];
+    [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
     DebugLog(@"glBufferData realloc count %lu", count);
     
+//    self.allocVertexCount = count;
 #if DEBUG
+    NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
+    glPushGroupMarkerEXT(0, [label UTF8String]);
+    glPopGroupMarkerEXT();
+    
     glPopGroupMarkerEXT();
 #endif
 }
@@ -1455,7 +1504,7 @@
         }
         else{
             //do not clear!
-            [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:false];
+            [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:false];
         }
         
 //        DebugLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d Opacity %.1f", _curLayerTexture, _curPaintedLayerFramebuffer, _curPaintedLayerTexture, brushState.opacity);
@@ -1505,10 +1554,10 @@
 
 #pragma mark- Command Manager Delegate
 - (void)willBeginUndo{
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
     
     //清空实际图层，重新进行绘制
-	[self.glWrapper bindFramebufferOES: _curLayerFramebuffer discardHint:false clear:true];
+	[[GLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:false clear:true];
 }
 
 - (void)willFinishUndo{
@@ -1527,10 +1576,10 @@
 
 
 - (void)willBeginRedo{
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
     
 //    //在绘制当前层前的操作
-//	[self.glWrapper bindFramebufferOES: _tempLayerFramebuffer];
+//	[[GLWrapper current] bindFramebufferOES: _tempLayerFramebuffer];
 //	glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -1552,7 +1601,7 @@
 
 - (void) willBeginWrapUndoBaseCommand{
 //    DebugLog(@"willBeginWrapUndoBaseCommand draw _undoBaseTexture to _curPaintedLayerFramebuffer");
-//    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer];
+//    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer];
 //    const GLenum discards[] = {GL_COLOR_ATTACHMENT0};
 //    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
 //    glClear(GL_COLOR_BUFFER_BIT);
@@ -1562,7 +1611,7 @@
 - (void) willEndWrapUndoBaseCommand{
     DebugLog(@"willWrapUndoBaseCommand draw _curPaintedLayerTexture to _undoBaseFramebuffer");
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
-    [self.glWrapper bindFramebufferOES: _undoBaseFramebuffer discardHint:true clear:true];
+    [[GLWrapper current] bindFramebufferOES: _undoBaseFramebuffer discardHint:true clear:true];
 
     [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
 
@@ -1587,11 +1636,10 @@
     [self.commandManager redo];
 }
 
-- (void)resetUndo{
+- (void)resetUndoRedo{
     //重置undo
-    UndoBaseCommand *cmd = [[UndoBaseCommand alloc]initWithTexture:_undoBaseTexture];
-    cmd.delegate = self;
-    [self.commandManager addCommand:cmd];
+    [self.commandManager clearAllCommands];
+    [self willEndWrapUndoBaseCommand];
 }
 //- (void)undoDrawClearCacheImages{
 //    NSString *fileName;NSString *newPath;
@@ -1620,7 +1668,7 @@
     NSString* path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:object];
     if( ![[NSFileManager defaultManager] fileExistsAtPath:path])
     {
-        self.paintingImage = [Ultility snapshot:self Context:self.context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
+        self.paintingImage = [Ultility snapshot:self Context:[GLWrapper current].context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
 
         [Ultility saveUIImage: self.paintingImage  ToPNGInDocument:(NSString*)object];         
 
@@ -1677,22 +1725,6 @@
     }
 }
 
-- (void)tearDownGL{
-    EAGLContext* context = [EAGLContext currentContext];
-    [EAGLContext setCurrentContext:self.context];
-    
-    [self destroyFrameBufferTextures];
-    
-    [self destroyVertexBufferObjects];
-
-    [self destroyPrograms];
-    
-    [self destroyTextures];
-    
-    self.context = nil;
-    [EAGLContext setCurrentContext:context];
-}
-
 - (void)setOpenData:(PaintData*)data{
     //如果data是nil, self.paintData无法保存paintDoc的data数据
     self.paintData = data;//paintDoc own paintData
@@ -1702,36 +1734,25 @@
 
 //打开文件
 - (void)open{
-    [EAGLContext setCurrentContext:self.context];
+    DebugLogFuncStart(@"open doc");
+    self.contentScaleFactor = 1.0;
     
-    //from layoutSubviews
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+    
     //before opengles
     _viewGLSize = MAX(self.bounds.size.width, self.bounds.size.height);
     glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
     
     //删除之前的buffer
     [self destroyFrameBufferTextures];
-    
     [self createFramebufferTextures];
-    // Create a texture from an image
-    // First create a UIImage object from the data in a image file, and then extract the Core Graphics image
-    // Set the view's scale factor
-    self.contentScaleFactor = 1.0;
-    //from layoutSubviews
-    
     [self setCurLayerIndex:0];
 
-    //command
-    [self willEndWrapUndoBaseCommand];
+    //重置撤销
+    [self resetUndoRedo];
 
-    //prewarn brush shaders
-    for (Brush *brush in self.brushTypes) {
-        PaintCommand *paintCommand = [[PaintCommand alloc]initWithBrushState:brush.brushState];
-        paintCommand.delegate = self;
-        [paintCommand prewarm];
-    }
-    //完成prewarm之后恢复bufferData的大小
-    [self setVBOBrushForImmediate];
+    //预编译部分Shader
+    [self prewarmShaders];
     
     //第一次presentRenderbuffer,在此之前prewarm所有的shader
     [self _updateRender];
@@ -1739,6 +1760,9 @@
     [self.delegate didOpenPaintDoc];
 }
 
+- (void)close{
+    
+}
 #pragma mark- Open Command Delegate
 //将undobase的基点贴图纹理绘制到当前临时图层上
 - (void) willExecuteUndoBaseCommand:(UndoBaseCommand*)command{
@@ -1747,7 +1771,7 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "willExecuteUndoBaseCommand");
 #endif
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
 
     [self drawSquareQuadWithTexture2DPremultiplied:command.texture];
     
@@ -1786,9 +1810,9 @@
 #endif
 
 //    使用DrawQuad的方式代替glCopyTexSubImage2D
-//    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer];
+//    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer];
 //
-//    [self.glWrapper bindTexture:brush.smudgeTexture];
+//    [[GLWrapper current] bindTexture:brush.smudgeTexture];
 //
 //    //如果笔刷涂抹半径发生变化，重置贴图空间
 ////    if (brush.lastSmudgeTextureSize != copyRadius * 2) {
@@ -1803,20 +1827,20 @@
     
     
     
-    [self.glWrapper bindTexture:brush.smudgeTexture];
+    [[GLWrapper current] bindTexture:brush.smudgeTexture];
     
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
     
-    GLuint lastVAO = self.glWrapper.lastVAO;
-    GLuint lastProgram = self.glWrapper.lastProgram;
-    BlendFuncType lastBlendFuncType = self.glWrapper.lastBlendFuncType;
+    GLuint lastVAO = [GLWrapper current].lastVAO;
+    GLuint lastProgram = [GLWrapper current].lastProgram;
+    BlendFuncType lastBlendFuncType = [GLWrapper current].lastBlendFuncType;
     
     glViewport(0, 0, copyRadius*2, copyRadius*2);
-    [self.glWrapper bindFramebufferOES:brush.smudgeFramebuffer discardHint:true clear:true];
+    [[GLWrapper current] bindFramebufferOES:brush.smudgeFramebuffer discardHint:true clear:true];
     
-    [self.glWrapper bindVertexArrayOES:_VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES:_VAOQuad];
     
-    [self.glWrapper useProgram:_programQuad uniformBlock:nil];
+    [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     GLKMatrix4 transform = GLKMatrix4MakeScale((float)self.bounds.size.width / (float)(copyRadius*2), (float)self.bounds.size.height / (float)(copyRadius*2), 1.0);
     
@@ -1837,24 +1861,24 @@
         self.lastProgramQuadAlpha = 1;
     }
     
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:_curPaintedLayerTexture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:_curPaintedLayerTexture];
     
-    [self.glWrapper blendFunc:BlendFuncAlphaBlendPremultiplied];
+    [[GLWrapper current] blendFunc:BlendFuncAlphaBlendPremultiplied];
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     //恢复到之前的状态
     glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
     
-    [self.glWrapper bindFramebufferOES:_curPaintedLayerFramebuffer discardHint:true clear:false];
+    [[GLWrapper current] bindFramebufferOES:_curPaintedLayerFramebuffer discardHint:true clear:false];
     
-    [self.glWrapper bindVertexArrayOES:lastVAO];
+    [[GLWrapper current] bindVertexArrayOES:lastVAO];
     
-    [self.glWrapper useProgram:lastProgram uniformBlock:nil];
+    [[GLWrapper current] useProgram:lastProgram uniformBlock:nil];
     
-    [self.glWrapper blendFunc:lastBlendFuncType];
+    [[GLWrapper current] blendFunc:lastBlendFuncType];
     
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:brush.smudgeTexture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:brush.smudgeTexture];
     
 #if DEBUG
     glPopGroupMarkerEXT();
@@ -1872,7 +1896,7 @@
 {
     //	[EAGLContext setCurrentContext:_context];//之前有丢失context的现象出现
 
-    [self.glWrapper bindFramebufferOES: self.brush.smudgeFramebuffer];
+    [[GLWrapper current] bindFramebufferOES: self.brush.smudgeFramebuffer];
     
     size_t width = roundf(self.brush.brushState.radius) * 2;
     size_t height = width;
@@ -1957,18 +1981,15 @@
     return self;
 }
 
-- (EAGLContext*)willGetBrushPreviewContext{
-    return self.context;
-}
-
-- (GLWrapper*)willGetBrushPreviewGLWrapper{
-    return self.glWrapper;
-}
+//- (EAGLContext*)willGetBrushPreviewContext{
+//    return self.context;
+//}
 
 #pragma mark- Layer
 
 //创建图层
 - (BOOL)createLayerFramebufferTextures{
+    DebugLogFuncStart(@"createLayerFramebufferTextures");
     if (self.paintData == nil) {
         DebugLog(@"createLayerFramebufferTextures failed. paintData nil");
         return NO;
@@ -1983,7 +2004,7 @@
         //创建每个图层的framebuffer texture
         GLuint layerFramebuffer = 0;
         glGenFramebuffersOES(1, &layerFramebuffer);
-        [self.glWrapper bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
+        [[GLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
 #if DEBUG
         NSString *layerFBOLabel = [NSString stringWithFormat:@"layerFramebuffer%d", i];
         glLabelObjectEXT(GL_FRAMEBUFFER_OES, layerFramebuffer, 0, [layerFBOLabel UTF8String]);
@@ -1991,7 +2012,7 @@
         
         GLuint layerTexture;
         glGenTextures(1, &layerTexture);
-        [self.glWrapper bindTexture:layerTexture];
+        [[GLWrapper current] bindTexture:layerTexture];
 #if DEBUG
         glLabelObjectEXT(GL_TEXTURE, layerTexture, 0, [@"layerFrameTexture" UTF8String]);
 #endif
@@ -2005,7 +2026,7 @@
         glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
         glClear(GL_COLOR_BUFFER_BIT);
         
-        [self.glWrapper bindTexture:0];
+        [[GLWrapper current] bindTexture:0];
         
         if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
         {
@@ -2014,6 +2035,9 @@
         }
         
         GLKTextureInfo* texInfo = [TextureManager textureInfoFromData:layer.data];
+#if DEBUG
+        glLabelObjectEXT(GL_TEXTURE, texInfo.name, 0, [[NSString stringWithFormat:@"layerDataTex%d", i]UTF8String]);
+#endif
         [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
         GLuint tex = texInfo.name;
         [TextureManager deleteTexture:tex];
@@ -2024,17 +2048,41 @@
 
     return true;
 }
-
+- (void)deleteLayerFramebufferTextures{
+    DebugLogFuncStart(@"deleteLayerFramebufferTextures");
+    for(int i = 0; i< self.layerTextures.count;++i){
+        GLuint name = (GLuint)[[self.layerTextures objectAtIndex:i] intValue];
+        
+        [[GLWrapper current] deleteTexture:name];
+        
+        _curLayerTexture = 0;
+        
+    }
+    
+    [self.layerTextures removeAllObjects];
+    
+    for(int i = 0; i< self.layerFramebuffers.count;++i){
+        NSNumber* number = [self.layerFramebuffers objectAtIndex:i];
+        
+        GLuint layerFramebuffer = (GLuint)number.intValue;
+        [[GLWrapper current] deleteFramebufferOES:layerFramebuffer];
+        
+        _curLayerFramebuffer = 0;
+        
+    }
+    [self.layerFramebuffers removeAllObjects];
+}
 - (BOOL)createTempLayerFramebufferTexture{
+    DebugLogFuncStart(@"createTempLayerFramebufferTexture");
     //创建frame buffer
     glGenFramebuffersOES(1, &_curPaintedLayerFramebuffer);
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
 #if DEBUG
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, _curPaintedLayerFramebuffer, 0, [@"curPaintedLayerFramebuffer" UTF8String]);
 #endif
     //链接renderBuffer对象
     glGenTextures(1, &_curPaintedLayerTexture);
-    [self.glWrapper bindTexture:_curPaintedLayerTexture];
+    [[GLWrapper current] bindTexture:_curPaintedLayerTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, _curPaintedLayerTexture, 0, [@"curPaintedLayerTexture" UTF8String]);
 #endif
@@ -2044,7 +2092,7 @@
 //    glGenerateMipmapOES(GL_TEXTURE_2D);
     glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _curPaintedLayerTexture, 0);
     
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
 	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -2054,6 +2102,13 @@
     
 //    DebugLog(@"createTempLayerFramebuffer: %d Texture: %d", _tempLayerFramebuffer, _tempLayerTexture);
 	return YES;
+}
+
+- (void)deleteTempLayerFramebufferTexture{
+    DebugLogFuncStart(@"deleteTempLayerFramebufferTexture");
+    [[GLWrapper current] deleteFramebufferOES:_curPaintedLayerFramebuffer];
+    
+    [[GLWrapper current] deleteTexture:_curPaintedLayerTexture];
 }
 
 - (int)curLayerIndex {
@@ -2090,14 +2145,14 @@
     GLuint layerFramebuffer = 0;
     glGenFramebuffersOES(1, &layerFramebuffer);
     DebugLog(@"gen layerFramebuffer %d", layerFramebuffer);
-    [self.glWrapper bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
 #if DEBUG
     NSString *layerFBOLabel = [NSString stringWithFormat:@"layerFramebuffer%d", index];
     glLabelObjectEXT(GL_FRAMEBUFFER_OES, layerFramebuffer, 0, [layerFBOLabel UTF8String]);
 #endif
     GLuint layerTexture;
     glGenTextures(1, &layerTexture);
-    [self.glWrapper bindTexture:layerTexture];
+    [[GLWrapper current] bindTexture:layerTexture];
 #if DEBUG
     glLabelObjectEXT(GL_TEXTURE, layerTexture, 0, [@"layerFrameTexture" UTF8String]);
 #endif
@@ -2106,7 +2161,7 @@
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 //    glGenerateMipmapOES(GL_TEXTURE_2D);
     glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, layerTexture, 0);
-    [self.glWrapper bindTexture:0];
+    [[GLWrapper current] bindTexture:0];
     
     if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
     {
@@ -2119,9 +2174,9 @@
     GLuint tex = texInfo.name;
     [TextureManager deleteTexture:tex];
 
-    
     [self.layerFramebuffers insertObject:[NSNumber numberWithInt:layerFramebuffer] atIndex:index+1];
     [self.layerTextures insertObject:[NSNumber numberWithInt:layerTexture] atIndex:index+1];
+
     
     //显示
     if (isImmediate) {
@@ -2153,13 +2208,16 @@
     //texture
     NSNumber *numTex = [self.layerTextures objectAtIndex:index];
     GLuint tex = (GLuint)numTex.intValue;
-    RELEASE_TEXTURE(tex)
+    [[GLWrapper current] deleteTexture:tex];
+    DebugLogWarn(@"self.layerTextures removeObject %d", numTex.intValue);
     [self.layerTextures removeObject:numTex];
+
     
     //framebuffer
     NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
     GLuint layerFramebuffer = num.intValue;
-    RELEASE_FRAMEBUFFER(layerFramebuffer)
+    [[GLWrapper current] deleteFramebufferOES:layerFramebuffer];
+    DebugLogWarn(@"self.layerFramebuffer removeObject %d", num.intValue);
     [self.layerFramebuffers removeObject:num];
    
     //在没有选定新图层之前，去除当前图层标示，保证updateRender时候bu
@@ -2179,8 +2237,8 @@
         [self deleteLayerAtIndex:i immediate:false];
     }
     //清除临时绘制图层
-    [EAGLContext setCurrentContext:self.context];
-	[self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
+	[[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     
     //插入空图层
     [self insertBlankLayerAtIndex:-1 transparent:true immediate:false];
@@ -2190,11 +2248,11 @@
     [self _updateRender];
     
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
-    [self.glWrapper bindFramebufferOES: _undoBaseFramebuffer discardHint:false clear:true];
+    [[GLWrapper current] bindFramebufferOES: _undoBaseFramebuffer discardHint:false clear:true];
 
     [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
     
-    [self resetUndo];
+    [self resetUndoRedo];
 }
 
 // Erases the screen
@@ -2205,16 +2263,16 @@
     layer.dirty = true;
     
     //显示
-	[EAGLContext setCurrentContext:self.context];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];
     
 	//clear paint layer
     NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
     GLuint layerFramebuffer = (GLuint)num.intValue;
-    [self.glWrapper bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
+    [[GLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
     
     if (self.curLayerIndex == index) {
         // Clear the buffer
-        [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+        [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     }
     
     [self _updateRender];
@@ -2229,19 +2287,19 @@
     }
     
     //显示
-	[EAGLContext setCurrentContext:self.context];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];
     
 	//clear all paint layer
     for (int i = 0; i < self.paintData.layers.count; ++i) {
         NSNumber* num = [self.layerFramebuffers objectAtIndex:i];
         GLuint layerFramebuffer = (GLuint)num.intValue;
-        [self.glWrapper bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
+        [[GLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
     }
-    //	[self.glWrapper bindFramebufferOES: _curLayerFramebuffer];
+    //	[[GLWrapper current] bindFramebufferOES: _curLayerFramebuffer];
     //	glClear(GL_COLOR_BUFFER_BIT);
     
 	// Clear the buffer
-	[self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+	[[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     
     [self _updateRender];
 }
@@ -2368,7 +2426,7 @@
 //    glUniform4f(_colorQuadUniform, red, green, blue, alpha);
 //    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
 //
-//    [self.glWrapper bindVertexArrayOES: _vertexArrayQuad);
+//    [[GLWrapper current] bindVertexArrayOES: _vertexArrayQuad);
 //    
 //    glDrawArrays(GL_TRIANGLES, 0, 6);
 //}
@@ -2432,7 +2490,7 @@
             break;
     }
     
-    [self.glWrapper useProgram:program uniformBlock:nil];
+    [[GLWrapper current] useProgram:program uniformBlock:nil];
 
     //设置太麻烦，统一设数值
 //    if (! (&lastProgramTransformIdentity)) {
@@ -2445,18 +2503,17 @@
         self.lastProgramLayerTex = 0;
     }
     
-    if (self.lastProgramLayerAlpha != opacity) {
+//    if (self.lastProgramLayerAlpha != opacity) {
         glUniform1f(_alphaQuadUniform, opacity);
-        self.lastProgramLayerAlpha = opacity;
-    }
+//        self.lastProgramLayerAlpha = opacity;
+//    }
 
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
-    
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
     //already disable blend
-    [self.glWrapper blendFunc:BlendFuncAlphaBlendPremultiplied];
+    [[GLWrapper current] blendFunc:BlendFuncOpaqueAlphaBlend];
     
-    [self.glWrapper bindVertexArrayOES: _VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES: _VAOQuad];
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
@@ -2490,11 +2547,11 @@
     }
     
     //仅绘制当前图层和下层图层
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
     
     NSNumber* num = [self.layerFramebuffers objectAtIndex:index - 1];
     GLuint layerFramebuffer = (GLuint)num.intValue;
-    [self.glWrapper bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
     
     //合成图层(暂时不考虑混合模式)
     [self drawPaintLayerAtIndex:index];
@@ -2516,7 +2573,7 @@
     NSNumber *num = [self.layerFramebuffers objectAtIndex:self.curLayerIndex];
     GLuint curLayerFBO = num.intValue;
 
-    [self.glWrapper bindFramebufferOES: curLayerFBO discardHint:false clear:false];
+    [[GLWrapper current] bindFramebufferOES: curLayerFBO discardHint:false clear:false];
     
     NSInteger w = (NSInteger)self.bounds.size.width;
     NSInteger h = (NSInteger)self.bounds.size.height;
@@ -2683,7 +2740,7 @@
     //将导入的图片作为绘制来描画
     [self drawImageTransformed:_toTransformImageTex];
     
-    [self resetUndo];
+    [self resetUndoRedo];
 }
 
 - (void)beforeTransformLayer{
@@ -2703,7 +2760,7 @@
     //将当前图层作为绘制来描画
     [self drawCurLayerTransformed];
     
-    [self resetUndo];
+    [self resetUndoRedo];
 }
 
 - (void)transformImageBeganAnchorPoint:(CGPoint)anchorPoint{
@@ -2754,7 +2811,7 @@
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
     _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
     
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     
     [self drawQuad:_VAOQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:_curLayerTexture];
 
@@ -2785,7 +2842,7 @@
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
     _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
     
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     
     [self drawQuad:_VAOScreenQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:texture];
     
@@ -2863,9 +2920,9 @@
 
 
 - (void)cancelInsertUIImageAtCurLayer{
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:[GLWrapper current].context];
     
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
     
@@ -2903,21 +2960,21 @@
 
 #if DEBUG_VIEW_COLORALPHA
 - (void) drawDebugScreenQuadWithTexture2DPremultiplied:(GLuint)texture{
-	[EAGLContext setCurrentContext:self.context];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];
     
     glUseProgram(_programQuadDebugAlpha);
     self.lastProgram = _programQuadDebugAlpha;
     
     //texcoord and texture
     glActiveTexture(GL_TEXTURE0);    
-    [self.glWrapper bindTexture:texture];
+    [[GLWrapper current] bindTexture:texture];
     glUniform1i(_texQuadDebugUniform, 0);
     glUniform1f(_alphaQuadDebugUniform, 1);    
     
-    [self.glWrapper blendFunc:BlendFuncOpaque];
+    [[GLWrapper current] blendFunc:BlendFuncOpaque];
 //    glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE);
     
-    [self.glWrapper bindVertexArrayOES: _debugVertexArray];
+    [[GLWrapper current] bindVertexArrayOES: _debugVertexArray];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 - (void) drawDebugScreenQuad2WithTexture2DPremultiplied:(GLuint)texture{
@@ -2926,17 +2983,17 @@
     self.lastProgram = _programQuadDebugColor;
     //texcoord and texture
     glActiveTexture(GL_TEXTURE0);
-    [self.glWrapper bindTexture:texture];
+    [[GLWrapper current] bindTexture:texture];
     glUniform1i(_texQuadDebugUniform, 0);
     glUniform1f(_alphaQuadDebugUniform, 1);
     
     //    glDisable(GL_BLEND);
     glEnable(GL_BLEND);
 
-    [self.glWrapper blendFunc:BlendFuncOpaque];
+    [[GLWrapper current] blendFunc:BlendFuncOpaque];
 //    glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE);
     
-    [self.glWrapper bindVertexArrayOES: _debugVertexArray2];
+    [[GLWrapper current] bindVertexArrayOES: _debugVertexArray2];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
     //    glEnable(GL_BLEND);
 }
@@ -2945,7 +3002,7 @@
 
 
 - (void) drawQuadBrush:(BrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
-    [self.glWrapper useProgram:_programQuad uniformBlock:nil];
+    [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     if (!_lastProgramQuadTransformIdentity) {
         glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
@@ -2962,18 +3019,18 @@
         self.lastProgramQuadAlpha = alpha;
     }
     
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
     //使用合成brush的blendMode
     Brush *brush = [self.brushTypes objectAtIndex:brushState.classId];
     [brush setBlendMode];
 
-    [self.glWrapper bindVertexArrayOES: _VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES: _VAOQuad];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 - (void)drawQuad:(GLuint)quad texture2D:(GLuint)texture premultiplied:(BOOL)premultiplied alpha:(GLfloat)alpha{
-    [self.glWrapper useProgram:_programQuad uniformBlock:nil];
+    [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     if (!_lastProgramQuadTransformIdentity) {
         glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
@@ -2990,21 +3047,21 @@
         self.lastProgramQuadAlpha = alpha;
     }
    
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
     if (premultiplied) {
-        [self.glWrapper blendFunc:BlendFuncAlphaBlendPremultiplied];
+        [[GLWrapper current] blendFunc:BlendFuncAlphaBlendPremultiplied];
     }
     else{
-        [self.glWrapper blendFunc:BlendFuncAlphaBlend];
+        [[GLWrapper current] blendFunc:BlendFuncAlphaBlend];
     }
 
-    [self.glWrapper bindVertexArrayOES: quad];
+    [[GLWrapper current] bindVertexArrayOES: quad];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 - (void) drawQuad:(GLuint)quad transformMatrix:(GLKMatrix4)transformMatrix texture2DPremultiplied:(GLuint)texture{
-    [self.glWrapper useProgram:_programQuad uniformBlock:nil];
+    [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transformMatrix.m);
     _lastProgramQuadTransformIdentity = false;
@@ -3019,16 +3076,16 @@
         self.lastProgramQuadAlpha = 1;
     }
     
-    [self.glWrapper activeTexSlot:GL_TEXTURE0 bindTexture:texture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
-    [self.glWrapper setImageInterpolation:Interpolation_Linear];
+    [[GLWrapper current] setImageInterpolation:Interpolation_Linear];
     
-    [self.glWrapper blendFunc:BlendFuncAlphaBlendPremultiplied];
+    [[GLWrapper current] blendFunc:BlendFuncAlphaBlendPremultiplied];
     
-    [self.glWrapper bindVertexArrayOES: quad];
+    [[GLWrapper current] bindVertexArrayOES: quad];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
     
-    [self.glWrapper setImageInterpolationFinished];
+    [[GLWrapper current] setImageInterpolationFinished];
     
 }
 
@@ -3046,28 +3103,28 @@
 
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer
 {
-	[EAGLContext setCurrentContext:self.context];//之前有丢失context的现象出现
-    [self.glWrapper bindFramebufferOES: framebuffer discardHint:false clear:false];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];//之前有丢失context的现象出现
+    [[GLWrapper current] bindFramebufferOES: framebuffer discardHint:false clear:false];
     CGSize viewportSize = self.bounds.size;
-    UIImage *image = [Ultility snapshot:self Context:self.context InViewportSize:viewportSize ToOutputSize:viewportSize];
+    UIImage *image = [Ultility snapshot:self Context:[GLWrapper current].context InViewportSize:viewportSize ToOutputSize:viewportSize];
 
     return image;
 }
 
 - (UIImage*)snapshotPaintToUIImage
 {
-	[EAGLContext setCurrentContext:self.context];//之前有丢失context的现象出现
-    [self.glWrapper bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
-    UIImage *image = [Ultility snapshot:self Context:self.context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];//之前有丢失context的现象出现
+    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
+    UIImage *image = [Ultility snapshot:self Context:[GLWrapper current].context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
 
     return image;
 }
 
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size
 {
-	[EAGLContext setCurrentContext:self.context];//之前有丢失context的现象出现
-    [self.glWrapper bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
-    UIImage *image = [Ultility snapshot:self Context:self.context InViewportSize:self.bounds.size ToOutputSize:size];
+	[EAGLContext setCurrentContext:[GLWrapper current].context];//之前有丢失context的现象出现
+    [[GLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
+    UIImage *image = [Ultility snapshot:self Context:[GLWrapper current].context InViewportSize:self.bounds.size ToOutputSize:size];
 
     return image;
 }
@@ -3108,7 +3165,7 @@
 //        // Use OpenGL ES to generate a name for the texture.
 //        glGenTextures(1, &brushTexture);
 //        // Bind the texture name. 
-//        self.glWrapper bindTexture:brushTexture);
+//        [GLWrapper current] bindTexture:brushTexture);
 //        // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
 //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 //        // Specify a 2D texture image, providing the a pointer to the image data in memory

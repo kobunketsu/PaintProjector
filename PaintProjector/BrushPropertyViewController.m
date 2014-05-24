@@ -7,6 +7,7 @@
 //
 
 #import "BrushPropertyViewController.h"
+#import "BrushPropertyTableViewCell.h"
 
 @interface BrushPropertyViewController ()
 
@@ -44,9 +45,11 @@
     
 //    [self initPatternTexture];
     
+    self.sectionHeaderTitleLabel.text = NSLocalizedString(@"Property", nil);
+    
     //pageControl
     self.propertyRootScrollView.delegate = self;
-    self.propertyRootScrollView.contentSize = CGSizeMake(512, 640);
+    self.propertyRootScrollView.contentSize = CGSizeMake(256, 640);
     self.basicPropertyView.contentSize = CGSizeMake(256, 720);
     
     //brushPreview
@@ -87,6 +90,8 @@
     self.dissolveSwitch.on = self.brush.brushState.isDissolve;
     self.airbrushModeSwitch.on = self.brush.brushState.isAirbrush;
     self.velocitySensorSwitch.on = self.brush.brushState.isVelocitySensor;
+    
+    [self.basicPropertyTableView reloadData];
     [self.brushPreview refresh];
     [self.view setNeedsDisplay];
 }
@@ -211,7 +216,170 @@
 - (IBAction)onOKButtonTouchUpInside:(UIButton *)sender {
     [self.delegate willDismissBrushPropertyViewController];
 }
+#pragma mark- UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 18;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"BrushPropertyTableViewCell";
+    
+    BrushPropertyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[BrushPropertyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    NSString *label;
+    BOOL isSmall = NO;
+    CGFloat sliderValue = 0;
+    BOOL isSwitch = NO;
+    BOOL switchValue = NO;
+    CGFloat minValue = 0;
+    CGFloat maxValue = 1;
+    //configure table view cell
+    switch (indexPath.row) {
+        case 0:
+            label = NSLocalizedString(@"Radius", nil);
+            sliderValue = self.brush.brushState.radius;
+            minValue = 1;
+            maxValue = 100;
+            break;
+        case 1:
+            label = NSLocalizedString(@"Noise", nil);
+            isSmall = YES;
+            sliderValue = self.brush.brushState.radiusJitter;
+            minValue = 0;
+            maxValue = 1;
+            break;
+        case 2:
+            label = NSLocalizedString(@"Fade", nil);
+            isSmall = YES;
+            sliderValue = self.brush.brushState.radiusFade;
+            minValue = 0;
+            maxValue = 1000;
+            break;
+        case 3:
+            label = NSLocalizedString(@"Opacity", nil);
+            sliderValue = self.brush.brushState.opacity;
+            break;
+            minValue = 0;
+            maxValue = 1.0;
+        case 4:
+            label = NSLocalizedString(@"Flow", nil);
+            sliderValue = self.brush.brushState.flow;
+            minValue = 0;
+            maxValue = 1;
+            break;
+        case 5:
+            label = NSLocalizedString(@"Noise", nil);
+            sliderValue = self.brush.brushState.flowJitter;
+            minValue = 0;
+            maxValue = 1;
+            isSmall = YES;
+            break;
+        case 6:
+            label = NSLocalizedString(@"Fade", nil);
+            sliderValue = self.brush.brushState.flowFade;
+            minValue = 0;
+            maxValue = 1000;
+            isSmall = YES;
+            break;
+        case 7:
+            label = NSLocalizedString(@"Angle", nil);
+            sliderValue = self.brush.brushState.angle;
+            minValue = 0;
+            maxValue = 360;
+            break;
+        case 8:
+            label = NSLocalizedString(@"Noise", nil);
+            sliderValue = self.brush.brushState.angleJitter;
+            minValue = 0;
+            maxValue = 1;
+            isSmall = YES;
+            break;
+        case 9:
+            label = NSLocalizedString(@"Fade", nil);
+            sliderValue = self.brush.brushState.radiusFade;
+            minValue = 0;
+            maxValue = 1000;
+            isSmall = YES;
+            break;
+        case 10:
+            label = NSLocalizedString(@"Round", nil);
+            sliderValue = self.brush.brushState.roundness;
+            minValue = 0;
+            maxValue = 1;
+            break;
+        case 11:
+            label = NSLocalizedString(@"Hard", nil);
+            sliderValue = self.brush.brushState.hardness;
+            minValue = 0;
+            maxValue  =1;
+            break;
+        case 12:
+            label = NSLocalizedString(@"Spacing", nil);
+            sliderValue = self.brush.brushState.spacing;
+            break;
+            minValue = 0.05;
+            maxValue = 5;
+        case 13:
+            label = NSLocalizedString(@"Scatter", nil);
+            sliderValue = self.brush.brushState.scattering;
+            minValue = 0;
+            maxValue = 10;
+            break;
+        case 14:
+            label = NSLocalizedString(@"Wet", nil);
+            sliderValue = self.brush.brushState.wet;
+            minValue = 0;
+            maxValue = 1;
+            break;
+        case 15:
+            label = NSLocalizedString(@"Dither", nil);
+            switchValue = self.brush.brushState.isDissolve;
+            break;
+        case 16:
+            label = NSLocalizedString(@"AirBrush", nil);
+            switchValue = self.brush.brushState.isAirbrush;
+            isSwitch = YES;
+            break;
+        case 17:
+            label = NSLocalizedString(@"VelSensor", nil);
+            switchValue = self.brush.brushState.isVelocitySensor;
+            isSwitch = YES;
+            break;
+        default:
+            break;
+    }
+    
+    cell.propertyNameLabel.text = label;
+    cell.propertyNameLabel.textColor = [UIColor darkGrayColor];
+    if (isSmall) {
+        cell.propertyNameLabel.textAlignment = NSTextAlignmentRight;
+        [cell.propertyNameLabel setFont:[UIFont systemFontOfSize:14]];
+    }
+    else{
+        cell.propertyNameLabel.textAlignment = NSTextAlignmentLeft;
+        [cell.propertyNameLabel setFont:[UIFont systemFontOfSize:19]];
+    }
+    
+    if (isSwitch) {
+        cell.propertyValueSwitch.hidden = false;
+        cell.propertyValueSlider.hidden = true;
+    }
+    cell.propertyValueSwitch.on = switchValue;
+    cell.propertyValueSwitch.tag = indexPath.row;
+    cell.propertyValueSlider.value = sliderValue;
+    cell.propertyValueSlider.minimumValue = minValue;
+    cell.propertyValueSlider.maximumValue = maxValue;
+    cell.propertyValueSlider.tag = indexPath.row;
+    return cell;
+}
+#pragma mark- UITableViewDelegate
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    self.sectionHeaderTitleLabel.text = NSLocalizedString(@"Property", nil);
+//    return self.sectionHeaderView;
+//}
 #pragma mark- ScrollView Delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 //    DebugLog(@"[scrollViewDidScroll] contentOffset %@", NSStringFromCGPoint(scrollView.contentOffset));
@@ -279,5 +447,72 @@
 -(float)brushPatternSizeFromFileName:(NSString*)name{
     NSString *strSize = [[[name stringByDeletingPathExtension] componentsSeparatedByString:@"_"]lastObject];
     return [strSize floatValue];
+}
+- (IBAction)propertyValueSliderValueChanged:(UISlider *)sender {
+    switch (sender.tag) {
+        case 0:
+            [self onRadiusSliderValueChanged:sender];
+            break;
+        case 1:
+            [self onRadiusJitterSliderValueChanged:sender];
+            break;
+        case 2:
+            [self onRadiusFadeSliderValueChanged:sender];
+            break;
+        case 3:
+            [self onOpacitySliderValueChanged:sender];
+            break;
+        case 4:
+            [self onFlowSliderValueChanged:sender];
+            break;
+        case 5:
+            [self onFlowJitterSliderValueChanged:sender];
+            break;
+        case 6:
+            [self onFlowFadeSliderValueChanged:sender];
+            break;
+        case 7:
+            [self onAngleSliderValueChanged:sender];
+            break;
+        case 8:
+            [self onAngleJitterSliderValueChanged:sender];
+            break;
+        case 9:
+            [self onAngleFadeSliderValueChanged:sender];
+            break;
+        case 10:
+            [self onRoundSliderValueChanged:sender];
+            break;
+        case 11:
+            [self onHardnessSliderValueChanged:sender];
+            break;
+        case 12:
+            [self onSpacingSliderValueChanged:sender];
+            break;
+        case 13:
+            [self onScatteringSliderValueChanged:sender];
+            break;
+        case 14:
+            [self onWetSwitchValueChanged:sender];
+            break;
+        default:
+            break;
+    }
+}
+
+- (IBAction)propertyValueSwitchValueChanged:(UISwitch *)sender {
+    switch (sender.tag) {
+        case 15:
+            [self onDissolveSwitchValueChanged:sender];
+            break;
+        case 16:
+            [self onAirBrushModeSwitchValueChanged:sender];
+            break;
+        case 17:
+            [self onVelocitySensorSwitchValueChanged:sender];
+            break;
+        default:
+            break;
+    }
 }
 @end
