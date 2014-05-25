@@ -13,7 +13,7 @@
     self = [super initWithContentViewController:viewController];
     if (self) {
         // Initialization code
-        self.popoverBackgroundViewClass = [PaintScreenPopoverBackgroundView class];
+//        self.popoverBackgroundViewClass = [PaintScreenPopoverBackgroundView class];
     }
     return self;
 }

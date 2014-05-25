@@ -184,6 +184,8 @@
 		08304561166B46EC00E8E35C /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08304560166B46EC00E8E35C /* ImageView.m */; };
 		0832967E17ACD22600F8DCF2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0832967D17ACD22600F8DCF2 /* PlayerView.m */; };
 		08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
+		08383D421931C06900EA3647 /* BrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* BrushSwapButton.m */; };
+		08383D431931C06900EA3647 /* BrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* BrushSwapButton.m */; };
 		08397FC018B6479D009A8F3C /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */; };
 		08397FC118B6479D009A8F3C /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */; };
 		08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */; };
@@ -286,6 +288,8 @@
 		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
+		0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
+		0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
 		08771E641927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08771E611927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m */; };
 		08771E651927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08771E611927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m */; };
 		08771E661927C3C100CBF7B3 /* CylinderProjectVirualDeviceCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08771E631927C3C100CBF7B3 /* CylinderProjectVirualDeviceCollectionView.m */; };
@@ -865,6 +869,8 @@
 		08329AF118DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		08329AF218DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		08329AF318DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		08383D401931C06900EA3647 /* BrushSwapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushSwapButton.h; sourceTree = "<group>"; };
+		08383D411931C06900EA3647 /* BrushSwapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushSwapButton.m; sourceTree = "<group>"; };
 		08397FBE18B6479C009A8F3C /* InAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseManager.h; path = PaintProjector/InAppPurchaseManager.h; sourceTree = "<group>"; };
 		08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseManager.m; path = PaintProjector/InAppPurchaseManager.m; sourceTree = "<group>"; };
 		08397FC318B64929009A8F3C /* SKProduct+LocalizedPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SKProduct+LocalizedPrice.h"; path = "PaintProjector/SKProduct+LocalizedPrice.h"; sourceTree = "<group>"; };
@@ -1016,6 +1022,8 @@
 		0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstantsAndMacros.h; path = OpenGLWaveFrontObj/ConstantsAndMacros.h; sourceTree = "<group>"; };
 		0875605A17676CD8002B806D /* ClearCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCommand.h; sourceTree = "<group>"; };
 		0875605B17676CD8002B806D /* ClearCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCommand.m; sourceTree = "<group>"; };
+		0876F491193215E600E7906B /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
+		0876F492193215E600E7906B /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		08771E601927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CylinderProjectVirtualDeviceCollectionViewController.h; sourceTree = "<group>"; };
 		08771E611927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CylinderProjectVirtualDeviceCollectionViewController.m; sourceTree = "<group>"; };
 		08771E621927C3C100CBF7B3 /* CylinderProjectVirualDeviceCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CylinderProjectVirualDeviceCollectionView.h; sourceTree = "<group>"; };
@@ -2153,6 +2161,8 @@
 				08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */,
 				08BD5CAC180102FA00F0FF67 /* FullScreenButton.h */,
 				08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */,
+				08383D401931C06900EA3647 /* BrushSwapButton.h */,
+				08383D411931C06900EA3647 /* BrushSwapButton.m */,
 				087751B9180450B20034FEA7 /* CustomLayer.h */,
 				087751BA180450B20034FEA7 /* CustomLayer.m */,
 			);
@@ -2271,6 +2281,8 @@
 				084228A518A7CADA0046BA61 /* UIView+Tag.m */,
 				087103061914B1390030A5BF /* NSString+Unit.h */,
 				087103071914B1390030A5BF /* NSString+Unit.m */,
+				0876F491193215E600E7906B /* UIImage+Extensions.h */,
+				0876F492193215E600E7906B /* UIImage+Extensions.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -2594,6 +2606,7 @@
 				086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* Eraser.m in Sources */,
 				4e9779aa9b6bd2a3b1fd4cc6 /* Pen.m in Sources */,
+				0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				08EF9E5718A1E2C000376568 /* Resources.m in Sources */,
 				08E251B1189CAA520039AAC2 /* ShareButton.m in Sources */,
 				94AAAFBD18A8A6CD00B4920E /* Animation.m in Sources */,
@@ -2697,6 +2710,7 @@
 				8f2589fd699ba0752fa1e205 /* MoveButton.m in Sources */,
 				5ff703344d637f5dacebee0d /* RotateButton.m in Sources */,
 				08C0F6C51917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */,
+				08383D431931C06900EA3647 /* BrushSwapButton.m in Sources */,
 				0813AA2A19167C27000C4D00 /* AssetDatabase.m in Sources */,
 				6d174a419e4ae648971ae2c9 /* ScaleButton.m in Sources */,
 				086CF4991919DF1A000F1FBB /* ShaderDiffuse.m in Sources */,
@@ -2848,6 +2862,7 @@
 				080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */,
 				0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */,
 				08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
+				08383D421931C06900EA3647 /* BrushSwapButton.m in Sources */,
 				0809EA45164946E00061233D /* UndoButton.m in Sources */,
 				0809EA49164970D70061233D /* Heap.m in Sources */,
 				08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */,
@@ -2920,6 +2935,7 @@
 				087AEBA71890ABE100D5B393 /* PaintFrameManager.m in Sources */,
 				08BD5CB61801094200F0FF67 /* FullScreenReverseButton.m in Sources */,
 				08402CB41701E1F000DE952A /* PaintData.m in Sources */,
+				0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				084D5405170338A60052F510 /* PaintDoc.m in Sources */,
 				08E104C418E31F3B00B777FB /* SharedTableView.m in Sources */,
 				084D540A17033C270052F510 /* PaintDocManager.m in Sources */,

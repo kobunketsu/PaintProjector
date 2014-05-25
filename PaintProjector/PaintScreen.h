@@ -229,8 +229,8 @@ BackgroundLayerDelegate
 @property (weak, nonatomic) IBOutlet EyeDropperButton *eyeDropperButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *layerButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *fullScreenButtons;
 
-@property (weak, nonatomic) IBOutlet UIButton *fullScreenReverseButton;
 @property (weak, nonatomic) IBOutlet UIButton *transformButton;
 @property (weak, nonatomic) IBOutlet UIButton *projectButton;
 @property (weak, nonatomic) IBOutlet UIButton *importButton;
@@ -258,6 +258,7 @@ BackgroundLayerDelegate
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *topToolBarButtons;
 @property (retain, nonatomic) SwatchManagerViewController *swatchManagerVC;
+@property (retain, nonatomic) UIImagePickerController *cameraImagePickerVC;
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
 - (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;
@@ -332,5 +333,6 @@ BackgroundLayerDelegate
 - (void)afterPresentation;
 - (void)openDoc:(PaintDoc*)paintDoc;
 #pragma test
+@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 
 @end

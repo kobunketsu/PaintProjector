@@ -17,4 +17,5 @@
                     interpolationQuality:(CGInterpolationQuality)quality;
 - (UIImage *)resizeImage:(CGSize)newSize;
 - (UIImage *)flipVertically;
+- (UIImage*)rotatedImage:(UIImage*)src byOrientation:(UIImageOrientation) orientation;
 @end

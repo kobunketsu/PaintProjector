@@ -176,7 +176,7 @@
                               GLKTextureLoaderOriginBottomLeft, 
                               nil];    
     
-    GLKTextureInfo* texInfo = [texMgr.textureUIImageCache objectForKey:uiImage];
+    GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:[NSNumber numberWithInteger:uiImage.hash]];
     if (texInfo != NULL) {
         return texInfo;
     } 
@@ -184,19 +184,14 @@
         NSError * error;         
         texInfo = [GLKTextureLoader textureWithCGImage:uiImage.CGImage options:options error:&error];     
         if (texInfo == nil) {
-            DebugLog(@"Error loading file: %@", [error localizedDescription]);
+            DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
-            [texMgr.textureUIImageCache setObject:texInfo forKey:[uiImage copy]];
+            [texMgr.textureCache setObject:texInfo forKey:[NSNumber numberWithInteger:uiImage.hash]];
+            DebugLogSuccess(@"loaded texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:uiImage.hash]);
         }
         return texInfo;
     }
-//    NSError * error;
-//    GLKTextureInfo* texInfo = [GLKTextureLoader textureWithCGImage:uiImage.CGImage options:options error:&error];
-//    if (texInfo == nil) {
-//        DebugLog(@"Error loading file: %@", [error localizedDescription]);
-//    }
-//    return texInfo;
 }
 
 
@@ -218,7 +213,7 @@
         }
         else {
             [texMgr.textureCache setObject:texInfo forKey:[NSNumber numberWithInteger:data.hash]];
-            DebugLog(@"load texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:data.hash]);
+            DebugLogSuccess(@"loaded texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:data.hash]);
         }
         return texInfo;
     }

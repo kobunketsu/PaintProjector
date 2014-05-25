@@ -1158,6 +1158,10 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="et7-gM-lLx">
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="512"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="" label="Canvas">
@@ -1214,6 +1218,14 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <action selector="fullScreenButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="doN-eg-6pO"/>
+                                        </connections>
+                                    </view>
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Olc-1G-d92" userLabel="BrushSwapButton" customClass="BrushSwapButton">
+                                        <rect key="frame" x="80" y="990" width="50" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <action selector="brushSwapButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="LpQ-TY-cI5"/>
                                         </connections>
                                     </view>
                                 </subviews>
@@ -1801,7 +1813,7 @@
                                         </accessibility>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="close.png">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1820,7 +1832,7 @@
                                         </accessibility>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" image="switch.png.png">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1911,7 +1923,6 @@
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
                         <outlet property="freeTransformButton" destination="j1i-FF-Mnk" id="hIc-S3-B1m"/>
-                        <outlet property="fullScreenReverseButton" destination="AJ4-6O-LyP" id="WXy-ks-kia"/>
                         <outlet property="importButton" destination="Rmw-ah-joO" id="CQ1-lc-GMw"/>
                         <outlet property="layerButton" destination="HXT-bj-iEv" id="Xg9-7T-g2z"/>
                         <outlet property="lblBrushOpacity" destination="e4z-wS-yaC" id="wqt-SO-3mo"/>
@@ -1950,6 +1961,7 @@
                         <outlet property="tapGR1Touches2TapsRootCanvasView" destination="zQY-1r-Dfz" id="pHA-hT-goY"/>
                         <outlet property="tapGR2Touches2TapsRootCanvasView" destination="btS-GN-p3J" id="0GF-dZ-8IA"/>
                         <outlet property="tapGR3Touches1TapsRootCanvasView" destination="UHa-tB-uQ7" id="kLU-b9-dTb"/>
+                        <outlet property="testImageView" destination="et7-gM-lLx" id="SnD-xI-erc"/>
                         <outlet property="transformButton" destination="PEc-2b-GNU" id="diM-MJ-Bso"/>
                         <outlet property="transformDoneButton" destination="ELD-wJ-aj2" id="4of-dr-Vt1"/>
                         <outlet property="transformToolBar" destination="KXd-SK-HpQ" id="GtM-Qf-tpA"/>
@@ -1989,14 +2001,21 @@
                         <outletCollection property="topToolBarButtons" destination="1Zl-fu-rHb" id="nPS-Yb-Ddb"/>
                         <outletCollection property="topToolBarButtons" destination="wGv-uB-mqP" id="jzI-vW-iX9"/>
                         <outletCollection property="topToolBarButtons" destination="1Aq-H8-fVk" id="On6-0D-h5Q"/>
+                        <outletCollection property="fullScreenButtons" destination="AJ4-6O-LyP" id="KF7-nN-cyg"/>
+                        <outletCollection property="fullScreenButtons" destination="Olc-1G-d92" id="iEt-Jw-VCb"/>
                     </connections>
                 </viewController>
+                <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="LkA-0M-IXn" userLabel="FullScreenReverseButton" customClass="FullScreenReverseButton">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
+                </view>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30U-BW-oJu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="9Qu-66-uty" userLabel="PanGR 1TouchesRootCanvasView">
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="controlContent" size="11"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2032,7 +2051,7 @@
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="controlContent" size="11"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2050,7 +2069,7 @@
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="controlContent" size="11"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2066,7 +2085,7 @@
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="controlContent" size="11"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2730,8 +2749,6 @@
     </scenes>
     <resources>
         <image name="checkCircle.png" width="210" height="295"/>
-        <image name="close.png" width="44" height="44"/>
-        <image name="switch.png.png" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

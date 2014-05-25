@@ -21,6 +21,8 @@
 #import "LayerTableViewController.h"
 #import "LayerBlendModePopoverController.h"
 #import "UIImage+ImageEffects.h"
+#import "UIImage+Resize.h"
+//#import "UIImage+Extensions.h"
 #import "UIColor+String.h"
 #import <pthread.h>
 #import "TransformContentView.h"
@@ -28,6 +30,8 @@
 #import "TransformAnchorView.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintUIKitStyle.h"
+
+
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -132,7 +136,10 @@
     if(self.swatchManagerVC != nil){
         return;
     }
-    
+    if(self.cameraImagePickerVC != nil){
+        return;
+    }
+
     [self.paintView initGL];
     for (Brush *brush in self.brushTypeScrollView.brushTypes) {
         [brush initGL];
@@ -146,6 +153,9 @@
 
     //如果transition target viewController 是一个临时的vc, 为了保证流畅性, 则不删除当前任何资源
     if(self.swatchManagerVC != nil){
+        return;
+    }
+    if(self.cameraImagePickerVC != nil){
         return;
     }
     
@@ -195,6 +205,13 @@
      addObserver:self
      selector:@selector(applicationWillResignActive:)
      name:UIApplicationWillResignActiveNotification
+     object:nil];
+    
+    //通知程序即将关闭
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillTerminate:)
+     name:UIApplicationWillTerminateNotification
      object:nil];
 
     //paintView 设置
@@ -429,6 +446,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 
 }
 
@@ -438,8 +457,6 @@
 
 - (void)applicationDidEnterBackground:(id)sender{
     DebugLogFuncStart(@"applicationDidEnterBackground sender:%@", sender);
-    [self saveWorkSpace];
-    
     //TODO:删除一些OpenGL资源,让其他App可以使用OpenGLES资源,使用glFinish 保证直接删除
     [self.paintView applicationDidEnterBackground];
 }
@@ -451,9 +468,15 @@
 
 -(void)applicationWillResignActive:(id)sender{
     DebugLogFuncStart(@"applicationWillResignActive sender:%@", sender);
+    [self saveDoc];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
 }
+
+-(void)applicationWillTerminate:(id)sender{
+    DebugLogFuncStart(@"applicationWillTerminate sender:%@", sender);
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
 }
@@ -974,7 +997,8 @@
     }
     
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        [self swapBrushType];
+        //容易和普通点击绘制冲突
+//        [self swapBrushType];
     }
 }
 
@@ -1234,27 +1258,27 @@
     UIPanGestureRecognizer *gesture = (UIPanGestureRecognizer *)sender;
     CGPoint translation = [gesture translationInView:self.rootCanvasView];
     
-    if (translation.x > 0 && translation.y < 0) {
+    CGFloat lengthSqrt = translation.x * translation.x + translation.y * translation.y;
+    CGFloat recognizePixel = 2;
+    if (lengthSqrt < (recognizePixel * recognizePixel)) {
+        return;
+    }
+    
+    if (translation.x > 0 && abs(translation.x / translation.y) > 1.0){
         [self redoDraw];
     }
-    else if (translation.x > 0 && translation.y > 0) {
-        //打开取色器快捷方式
-
-//        [self switchDownToolBarFrom:nil completion:nil to:self.paintToolBar completion:^{
-            [self paintColorButtonTapped:nil];
-//        }];
-    }
-    else if (translation.x < 0 && translation.y < 0 ) {
-        //打开图层快捷方式
-//        [self switchTopToolBarFrom:nil completion:nil to:self.mainToolBar completion:^{
-            [self layerButtonTapped:nil];
-//        }];
-    }
-    else if (translation.x < 0 && translation.y > 0) {
+    else if (translation.x < 0 && abs(translation.x / translation.y) > 1.0){
         [self undoDraw];
-        
-
     }
+    else if (translation.y > 0 && abs(translation.x / translation.y) < 1.0){
+        //打开取色器快捷方式
+        [self paintColorButtonTapped:nil];
+    }
+    else if (translation.y < 0 && abs(translation.x / translation.y) < 1.0){
+        //打开图层快捷方式
+        [self layerButtonTapped:nil];
+    }
+
 }
 
 - (void)handle3TouchesOperation:(UIGestureRecognizer *)sender{
@@ -2483,7 +2507,7 @@
 }
 
 - (void)saveDoc{
-    DebugLog(@"self.paintView uploadLayerDatas");
+    DebugLogFuncStart(@"saveDoc");
     [self.paintView uploadLayerDatas];
     
     //在paintView完成上传paintData后更新到paintDoc中，并保存paintDoc到磁盘
@@ -2664,11 +2688,15 @@
 
 -(void) didSelectImportCamera{
     [self.sharedPopoverController dismissPopoverAnimated:true];
+    self.importButton.selected = false;
+    [self.importButton.layer setNeedsDisplay];
     [self startCameraControllerFromViewController:self usingDelegate:self];
 }
 
 -(void) didSelectImportDropbox{
     [self.sharedPopoverController dismissPopoverAnimated:true];
+    self.importButton.selected = false;
+    [self.importButton.layer setNeedsDisplay];
     [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypePreview
                                     fromViewController:self completion:^(NSArray *results)
      {
@@ -2724,6 +2752,7 @@
     
     
     UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    self.cameraImagePickerVC = cameraUI;
     cameraUI.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
     
@@ -2761,7 +2790,8 @@
     [self.importButton.layer setNeedsDisplay];
     
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
-    UIImage *originalImage, *editedImage, *imageToSave, *finalImage;
+    UIImage *originalImage, *editedImage, *imageToSave;
+    __block UIImage *finalImage;
     
     // Handle a still image capture
     
@@ -2779,51 +2809,56 @@
             imageToSave = originalImage;
         }
         
+        CGFloat w = CGImageGetWidth(imageToSave.CGImage);
+        CGFloat h = CGImageGetHeight(imageToSave.CGImage);
+        DebugLog(@"camera image w %f h %f", w, h);
+        
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             // Save the new image (original or edited) to the Camera Roll
-            //            ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
-            //            [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationUp completionBlock:^(NSURL *assetURL, NSError *error){
-            //                if (error) {
-            //                    DebugLog(@"error");
-            //                }
-            //                else {
-            //                    NSString* imageURL = [NSString stringWithFormat:@"%@",assetURL];
-            //                    DebugLog(@"url %@", imageURL);
-            //                }
-            //            }];
-            //            library = nil;
-            
-            
+            ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
+            [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
+                if (error) {
+                    DebugLogError(@"writeImageToSavedPhotosAlbum error");
+                }
+                else {
+                    DebugLogSuccess(@"writeImageToSavedPhotosAlbum url %@", assetURL);
+                    [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                        ALAssetRepresentation *assetRep = [asset defaultRepresentation];
+                        finalImage = [UIImage imageWithCGImage:[assetRep fullResolutionImage]];
+                        finalImage = [[UIImage alloc] initWithCGImage: finalImage.CGImage scale: 1.0 orientation: UIImageOrientationRight];
+                        finalImage = [finalImage resizedImage:finalImage.size interpolationQuality:kCGInterpolationDefault];
+                        [self importEditImage:finalImage];
+                        
+                    } failureBlock:^(NSError *error) {
+                        DebugLogError(@"readImageFromPhotosAlbum error %@", [error localizedDescription]);
+                    }];
+                }
+            }];
+            library = nil;
             [self dismissViewControllerAnimated:true completion:nil];
-            
-            //TODO:portrait mode rotate photo 90 degree no work?
-//            finalImage = imageToSave;
-            finalImage = [[UIImage alloc] initWithCGImage: imageToSave.CGImage scale: 1.0 orientation: UIImageOrientationLeft];
         }
         else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
             finalImage = imageToSave;
             if (self.subPopoverController) {
                 [self.subPopoverController dismissPopoverAnimated:true];
             }
+            
+            [self importEditImage:finalImage];
         }
-        
-        //将UIImage转换
-        [self.paintView insertUIImageAtCurLayer:finalImage];
-        
-        //添加编辑Done按钮在导入图片的中心
-        CGRect rect = [self.paintView calculateLayerContentRect];
-        
-        if(CGRectEqualToRect(rect, CGRectZero)){
-            return;
-        }
-        [self enterTransformImageState:rect];
     }
+}
+
+- (void)importEditImage:(UIImage *)image{
+    //将UIImage转换
+    [self.paintView insertUIImageAtCurLayer:image];
     
-    else if ([mediaType isEqualToString:(NSString*)kUTTypeMovie]) {
-//        NSURL * url = [info objectForKey:UIImagePickerControllerMediaURL];
-//        AVURLAsset* asset = [[AVURLAsset alloc] initWithURL:url options:nil];
-//        NSArray* array = [asset tracks];
+    //添加编辑Done按钮在导入图片的中心
+    CGRect rect = [self.paintView calculateLayerContentRect];
+    
+    if(CGRectEqualToRect(rect, CGRectZero)){
+        return;
     }
+    [self enterTransformImageState:rect];
 }
 
 - (BOOL) startMediaBrowserFromViewController: (UIViewController*) controller
@@ -2878,6 +2913,8 @@
 }
 
 -(void) didSelectExportToEmail{
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
     [self exportToEmail];
 }
 
@@ -2893,16 +2930,22 @@
 }
 
 -(void) didSelectExportToPhotoLibrary{
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
     UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(savedPhotoImage:didFinishSavingWithError:contextInfo:), nil);
 }
 
 -(void) didSelectExportToDropbox{
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
 //    [self exportToEmail];
 }
 
 -(void) didSelectPostToFacebook {
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
@@ -2915,8 +2958,13 @@
             [self.sharedPopoverController dismissPopoverAnimated:true];            
         }];
     }
+    else{
+        
+    }
 }
 -(void) didSelectPostToTwitter{
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
         SLComposeViewController *controller = [SLComposeViewController
@@ -2929,8 +2977,13 @@
             [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
+    else{
+        
+    }
 }
 -(void) didSelectPostToSinaWeibo {
+    self.exportButton.selected = false;
+    [self.exportButton.layer setNeedsDisplay];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
         
@@ -2941,6 +2994,9 @@
         [self presentViewController:controller animated:YES completion:^{
             [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
+    }
+    else{
+        
     }
 }
 
@@ -3783,6 +3839,10 @@
     }
 }
 
+- (IBAction)brushSwapButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"brushSwapButtonTouchUp");
+    [self swapBrushType];
+}
 
 #pragma mark- 退出 SaveClose
 - (IBAction)saveToDocButtonTapped:(UIButton *)sender {
@@ -3800,6 +3860,10 @@
 
 #pragma mark- 取消操作 Undo Redo
 - (void)undoDraw{
+    if (!self.undoButton.enabled) {
+        return;
+    }
+    
     //在undoDraw未结束之前，关闭undoDraw
     self.undoButton.userInteractionEnabled = false;
     
@@ -3807,13 +3871,18 @@
     CGRect frame = self.undoButton.frame;
     CGRect target = frame;
     target.origin.x -= 20;
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.undoButton.frame = target;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.undoButton.frame = frame;
-        } completion:nil];
-    }];
+    //动画即使播放，保证尽早提示用户目前的状态
+    dispatch_async(dispatch_get_main_queue(),
+                   ^{
+                       [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                           self.undoButton.frame = target;
+                       } completion:^(BOOL finished) {
+                           [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                               self.undoButton.frame = frame;
+                           } completion:nil];
+                       }];
+                   });
+
     
     [self.paintView undoDraw];
     
@@ -3822,22 +3891,31 @@
 }
 
 - (void)redoDraw{
+    if (!self.redoButton.enabled) {
+        return;
+    }
+    
     self.redoButton.userInteractionEnabled = false;
 
     //UI bounce animation
     CGRect frame = self.redoButton.frame;
     CGRect target = frame;
     target.origin.x += 20;
-    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.redoButton.frame = target;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.redoButton.frame = frame;
-        } completion:nil];
-    }];
+    //动画即使播放，保证尽早提示用户目前的状态
+    dispatch_async(dispatch_get_main_queue(),
+                   ^{
+                       [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                           self.redoButton.frame = target;
+                       } completion:^(BOOL finished) {
+                           [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                               self.redoButton.frame = frame;
+                           } completion:nil];
+                       }];
+                   });
     
     [self.paintView redoDraw];
-
+    
+    //在最后一个undoDraw glFinished之后恢复UI响应
     self.redoButton.userInteractionEnabled = true;
 }
 
@@ -3869,7 +3947,10 @@
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.brushPropertyViewController];
     self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:self.brushButtonTempRect inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    CGRect frame = self.brushButtonTempRect;
+    frame.origin.x += 3;
+    frame.origin.y += 10;
+    [self.sharedPopoverController presentPopoverFromRect:frame inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
 //    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
@@ -4346,11 +4427,17 @@
 - (void)togglePaintFullScreen{
     DebugLogFuncStart(@"togglePaintFullScreen");
     if(self.isPaintFullScreen){
-        self.fullScreenReverseButton.alpha = 1.0;
+        for (UIButton *button in self.fullScreenButtons) {
+            button.alpha = 1.0;
+        }
         [UIView animateWithDuration:0.2 animations:^{
-            self.fullScreenReverseButton.alpha = 0.0;
+            for (UIButton *button in self.fullScreenButtons) {
+                button.alpha = 0.0;
+            }
         }completion:^(BOOL finished) {
-            self.fullScreenReverseButton.hidden = false;
+            for (UIButton *button in self.fullScreenButtons) {
+                button.hidden = false;
+            }
             [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
             [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:^{
                 self.isPaintFullScreen = false;
@@ -4363,10 +4450,14 @@
     else{
         [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
         [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:^{
-            self.fullScreenReverseButton.hidden = false;
-            self.fullScreenReverseButton.alpha = 0.0;
+            for (UIButton *button in self.fullScreenButtons) {
+                button.hidden = false;
+                button.alpha = 0.0;
+            }
             [UIView animateWithDuration:0.2 animations:^{
-                self.fullScreenReverseButton.alpha = 1.0;
+                for (UIButton *button in self.fullScreenButtons) {
+                    button.alpha = 1.0;
+                }
             }completion:^(BOOL finished) {
                 self.isPaintFullScreen = true;
             }];
@@ -4393,7 +4484,8 @@
         self.layerButton.selected = false;
         [self.layerButton.layer setNeedsDisplay];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[ImportTableViewController class]]) {
+    else if ([popoverController.contentViewController isKindOfClass:[ImportTableViewController class]] ||
+             [popoverController.contentViewController isKindOfClass:[UIImagePickerController class]]) {
         self.importButton.selected = false;
         [self.importButton.layer setNeedsDisplay];
     }

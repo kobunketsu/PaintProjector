@@ -157,10 +157,10 @@
     [archiver encodeObject:self.data forKey:kDataKey];
     [archiver finishEncoding];
     if ([data writeToFile:dataPath atomically:YES]) {
-        DebugLog(@"saved to %@", dataPath);
+        DebugLogSuccess(@"saved to %@", dataPath);
     }
     else{
-        DebugLog(@"save to %@ failed!", dataPath);
+        DebugLogError(@"save to %@ failed!", dataPath);
     }
 
 }
@@ -180,10 +180,10 @@
     NSData *thumbImageData = UIImagePNGRepresentation(image);
 //    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);
     if([thumbImageData writeToFile:thumbImagePath atomically:YES]){
-        DebugLog(@"thumbImage saved to %@", thumbImagePath);
+        DebugLogSuccess(@"thumbImage saved to %@", thumbImagePath);
     }
     else{
-        DebugLog(@"thumbImage save to %@ failed!", thumbImagePath);
+        DebugLogError(@"thumbImage save to %@ failed!", thumbImagePath);
     }
 }
 

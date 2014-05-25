@@ -241,7 +241,7 @@
             [self setupAnamorphParams];
         }
         else{
-            [self setupAnamorphParamsDone];
+            [self setupAnamorphParamsDoneCompletion:nil];
         }
     }
     else{
@@ -269,23 +269,34 @@
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
     sender.selected = true;
+    self.setupButton.selected = false;
     
     //do some work
     if (self.topPerspectiveView.hidden) {
         self.topPerspectiveView.hidden = false;
         self.eyePerspectiveView.hidden = true;
         
-        AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-        TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-        [propAnim setCompletionBlock:^{
-            [self transitionToPaint];
-        }];
-        Camera.mainCamera.animation.clip = animClip;
-        Camera.mainCamera.animation.target = self;
-        [Camera.mainCamera.animation play];
+        if (!self.setupButton.selected) {
+            [self setupAnamorphParamsDoneCompletion:^{
+                AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+                TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+                [propAnim setCompletionBlock:^{
+                    [self transitionToPaint];
+                }];
+                Camera.mainCamera.animation.clip = animClip;
+                Camera.mainCamera.animation.target = self;
+                [Camera.mainCamera.animation play];
+            }];
+        }
+        
+
     }
     else{
-        [self transitionToPaint];
+        if (!self.setupButton.selected) {
+            [self setupAnamorphParamsDoneCompletion:^{
+                [self transitionToPaint];
+            }];
+        }
     }
 }
 
@@ -446,12 +457,15 @@
 //    [self openVirtualDevice];
 }
 
-- (void)setupAnamorphParamsDone{
+- (void)setupAnamorphParamsDoneCompletion: (void (^) (void)) block{
     //恢复到初始状态
     [self resetInputParams];
     
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:^{
-        
+        if (block != nil) {
+            block();
+        }
+
     }];
 }
 

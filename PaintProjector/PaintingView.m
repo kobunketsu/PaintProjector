@@ -256,6 +256,10 @@
     [self createFramebufferTextures];
     [self setCurLayerIndex:self.curLayerIndex];
     
+    //刷新renderbuffer, 保证重新创建的内容还原正确
+
+    [self _updateRender];
+    
     glFinish();
 }
 
@@ -299,6 +303,7 @@
 	return YES;    
 }
 - (void)deleteUndoBaseFramebufferTexture{
+    DebugLogFuncStart(@"deleteUndoBaseFramebufferTexture");
     [[GLWrapper current] deleteFramebufferOES:_undoBaseFramebuffer];
     
     [[GLWrapper current] deleteTexture:_undoBaseTexture];
@@ -1684,16 +1689,6 @@
 - (void)allElementRemoved{}
 
 #pragma mark- Paint Frame
-- (void)uploadDataAtIndex:(int)index{
-    //TODO: 隐藏其他图层，截取当前图层
-    NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
-    GLuint layerFramebuffer = [num intValue];
-    UIImage* image = [self snapshotFramebufferToUIImage:layerFramebuffer];
-    PaintLayer* layer =  [self.paintData.layers objectAtIndex:index];
-    layer.data = nil;
-    layer.data = UIImagePNGRepresentation(image);
-}
-
 - (void)uploadLayerDataAtIndex:(int)index{
     DebugLog(@"uploadLayerDataAtIndex %d", index);
     GLuint layerFramebuffer;
@@ -1714,7 +1709,7 @@
 }
 
 - (void)uploadLayerDatas{
-    DebugLog(@"uploadLayerDatas");
+    DebugLogFuncStart(@"uploadLayerDatas");
     //更新层的内容
     for (int i =0; i < self.paintData.layers.count; ++i) {
         PaintLayer* layer = [self.paintData.layers objectAtIndex:i];

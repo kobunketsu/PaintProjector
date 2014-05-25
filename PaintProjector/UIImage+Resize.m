@@ -8,16 +8,17 @@
 #import "UIImage+Alpha.h"
 
 // Private helper methods
-@interface UIImage ()
-- (UIImage *)resizedImage:(CGSize)newSize
-                transform:(CGAffineTransform)transform
-           drawTransposed:(BOOL)transpose
-     interpolationQuality:(CGInterpolationQuality)quality;
-- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
-@end
+//@interface UIImage ()
+//- (UIImage *)resizedImage:(CGSize)newSize
+//                transform:(CGAffineTransform)transform
+//           drawTransposed:(BOOL)transpose
+//     interpolationQuality:(CGInterpolationQuality)quality;
+//- (CGAffineTransform)transformForOrientation:(CGSize)newSize;
+//@end
+
 
 @implementation UIImage (Resize)
-
+static inline double radians (double degrees) {return degrees * M_PI/180;}
 // Returns a copy of this image that is cropped to the given bounds.
 // The bounds will be adjusted using CGRectIntegral.
 // This method ignores the image's imageOrientation setting.
@@ -209,5 +210,28 @@
     UIGraphicsEndImageContext();
     
     return flippedImage;
+}
+
+
+- (UIImage*)rotatedImage:(UIImage *)src byOrientation:(UIImageOrientation) orientation{
+    UIGraphicsBeginImageContext(src.size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    if (orientation == UIImageOrientationRight) {
+        CGContextRotateCTM (context, radians(90));
+    } else if (orientation == UIImageOrientationLeft) {
+        CGContextRotateCTM (context, radians(-90));
+    } else if (orientation == UIImageOrientationDown) {
+        // NOTHING
+    } else if (orientation == UIImageOrientationUp) {
+        CGContextRotateCTM (context, radians(90));
+    }
+    
+    [self drawAtPoint:CGPointMake(0, 0)];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 @end
