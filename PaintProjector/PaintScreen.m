@@ -296,15 +296,17 @@
     [self.brushTypeScrollView addBrushType:pencil];
     [self.brushTypeScrollView addBrushType:eraser];
     [self.brushTypeScrollView addBrushType:pen];
-    [self.brushTypeScrollView addBrushType:marker];
-    [self.brushTypeScrollView addBrushType:finger];
-    [self.brushTypeScrollView addBrushType:chineseBrush];
-    [self.brushTypeScrollView addBrushType:crayons];
-    [self.brushTypeScrollView addBrushType:bucket];
     [self.brushTypeScrollView addBrushType:inkPen];
+    [self.brushTypeScrollView addBrushType:marker];
+    [self.brushTypeScrollView addBrushType:bucket];
+    
+    [self.brushTypeScrollView addBrushType:crayons];
+    [self.brushTypeScrollView addBrushType:finger];
     [self.brushTypeScrollView addBrushType:markerSquare];
-    [self.brushTypeScrollView addBrushType:oilBrush];
     [self.brushTypeScrollView addBrushType:airBrush];
+    [self.brushTypeScrollView addBrushType:chineseBrush];
+    [self.brushTypeScrollView addBrushType:oilBrush];
+
     
     const NSInteger numOfBrushPerPage = 6;
     [self.brushTypeScrollView initSubviewsWithNumOfBrushPerPage:numOfBrushPerPage];
@@ -1999,25 +2001,26 @@
 //    DebugLog(@"count %d", _colorSlotsScrollView.subviews.count);
     
     if ([scrollView isEqual:self.colorSlotsScrollView]) {
-        int count = scrollView.subviews.count - 1;//bug?
+        int count = scrollView.subviews.count;//bug?
+        CGFloat iconSize = 50;
         for (int i = 0; i < count; ++i) {
             UIButton *button = [scrollView.subviews objectAtIndex:i];
             float newSize;
-            float fadeLeftDistance = i*50 + 25 - scrollView.contentOffset.x;
-            float fadeRightDistance = scrollView.contentOffset.x + scrollView.frame.size.width - (i*50 + 25);
+            float fadeLeftDistance = i*iconSize + 25 - scrollView.contentOffset.x;
+            float fadeRightDistance = scrollView.contentOffset.x + scrollView.frame.size.width - (i*iconSize + 25);
             //左端缩小
             if(fadeLeftDistance < 25){
-                newSize = MAX(0.1, 50 * (fadeLeftDistance / 25.0));
-                button.frame = CGRectMake(i*50 + (50 - newSize) * 0.5, (50 - newSize) * 0.5, newSize, newSize);
+                newSize = MAX(0.1, iconSize * (fadeLeftDistance / 25.0));
+                button.frame = CGRectMake(i*iconSize + (50 - newSize) * 0.5, (iconSize - newSize) * 0.5, newSize, newSize);
             }
             //右端缩小
             else if(fadeRightDistance < 25){
                 newSize = MAX(0.1, 50 * (fadeRightDistance / 25.0));
-                button.frame = CGRectMake(i*50, (50 - newSize) * 0.5, newSize, newSize);
+                button.frame = CGRectMake(i*iconSize, (iconSize - newSize) * 0.5, newSize, newSize);
             }
             //正常大小
             else{
-                button.frame = CGRectMake(i*50, 0, 50, 50);
+                button.frame = CGRectMake(i*iconSize, 0, iconSize, iconSize);
             }
         }
     }
@@ -2276,6 +2279,7 @@
     else{
         self.colorButtons = [[NSMutableArray alloc]init];
     }
+    self.colorSlotsScrollView.contentSize = CGSizeZero;
     
     //创建调色板
     NSUInteger size = 50;

@@ -189,6 +189,9 @@
 
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"galleryButtonTouchUp"];
+    
+    
     sender.selected = true;
     
     //重置cylinder参数
@@ -234,6 +237,8 @@
 //}
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"setupButtonTouchUp"];
+    
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
         
@@ -255,12 +260,14 @@
 //}
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
+   [TestFlight passCheckpoint:@"shareButtonTouchUp"];
     sender.selected = true;
     
     [self share];
 }
 
 - (IBAction)infoButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"infoButtonTouchUp"];
     sender.selected = true;
     
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
@@ -268,6 +275,8 @@
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"paintButtonTouchUp"];
+    
     sender.selected = true;
     self.setupButton.selected = false;
     
@@ -1842,6 +1851,8 @@
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"sideViewButtonTouchUp"];
+    
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
     
@@ -1860,6 +1871,8 @@
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
+    [TestFlight passCheckpoint:@"topViewButtonTouchUp"];
+    
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
     

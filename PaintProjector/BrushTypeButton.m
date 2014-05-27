@@ -671,12 +671,12 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* color = [UIColor colorWithRed: 0.349 green: 0.313 blue: 0.763 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.396 green: 0.216 blue: 0.711 alpha: 1];
     CGFloat colorRGBA[4];
     [color getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
     
     UIColor* colorHighlight = [UIColor colorWithRed: (colorRGBA[0] * 0.6 + 0.4) green: (colorRGBA[1] * 0.6 + 0.4) blue: (colorRGBA[2] * 0.6 + 0.4) alpha: (colorRGBA[3] * 0.6 + 0.4)];
-    UIColor* colorShadow = [UIColor colorWithRed: (colorRGBA[0] * 0.3) green: (colorRGBA[1] * 0.3) blue: (colorRGBA[2] * 0.3) alpha: (colorRGBA[3] * 0.3 + 0.7)];
+    UIColor* colorShadow = [UIColor colorWithRed: (colorRGBA[0] * 1) green: (colorRGBA[1] * 1) blue: (colorRGBA[2] * 1) alpha: (colorRGBA[3] * 1 + 0)];
     
     //// Shadow Declarations
     UIColor* shadow = color;
@@ -687,7 +687,6 @@
     {
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
-        
         CGContextBeginTransparencyLayer(context, NULL);
         
         
@@ -707,6 +706,7 @@
         
         //// Rounded Rectangle Drawing
         UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(17, 65, 32, 35) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(3, 3)];
+        [roundedRectanglePath closePath];
         [colorHighlight setFill];
         [roundedRectanglePath fill];
         
@@ -726,8 +726,6 @@
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
     }
-    
-    
 }
 
 - (void)drawMarkerSquare{
@@ -1036,7 +1034,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* color = [UIColor colorWithRed: 0.237 green: 0.463 blue: 0.607 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.505 green: 0.505 blue: 0.505 alpha: 1];
     UIColor* color4 = [UIColor colorWithRed: 0.297 green: 0.297 blue: 0.297 alpha: 1];
     UIColor* color6 = [UIColor colorWithRed: 0.95 green: 0.95 blue: 0.95 alpha: 1];
     
@@ -1145,6 +1143,5 @@
     }
     
     
-
 }
 @end

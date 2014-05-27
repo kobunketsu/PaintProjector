@@ -58,6 +58,6 @@
 }
 
 - (BOOL)free{
-    return false;
+    return true;
 }
 @end
