@@ -863,7 +863,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="feN-Nn-T5I">
-                                                <rect key="frame" x="10" y="8" width="42" height="21"/>
+                                                <rect key="frame" x="10" y="8" width="236" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1158,10 +1158,6 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="et7-gM-lLx">
-                                                <rect key="frame" x="0.0" y="0.0" width="384" height="512"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <accessibility key="accessibilityConfiguration" hint="" label="Canvas">
@@ -1961,7 +1957,6 @@
                         <outlet property="tapGR1Touches2TapsRootCanvasView" destination="zQY-1r-Dfz" id="pHA-hT-goY"/>
                         <outlet property="tapGR2Touches2TapsRootCanvasView" destination="btS-GN-p3J" id="0GF-dZ-8IA"/>
                         <outlet property="tapGR3Touches1TapsRootCanvasView" destination="UHa-tB-uQ7" id="kLU-b9-dTb"/>
-                        <outlet property="testImageView" destination="et7-gM-lLx" id="SnD-xI-erc"/>
                         <outlet property="transformButton" destination="PEc-2b-GNU" id="diM-MJ-Bso"/>
                         <outlet property="transformDoneButton" destination="ELD-wJ-aj2" id="4of-dr-Vt1"/>
                         <outlet property="transformToolBar" destination="KXd-SK-HpQ" id="GtM-Qf-tpA"/>
@@ -2015,7 +2010,7 @@
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2051,7 +2046,7 @@
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2069,7 +2064,7 @@
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2085,7 +2080,7 @@
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>

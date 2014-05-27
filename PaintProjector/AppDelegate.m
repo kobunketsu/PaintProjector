@@ -36,7 +36,7 @@
     
     [BBXBeeblex initializeWithAPIKey:@"OWEwODU3ZWVjNzU3NmNkMjg2MDFiODg1ODE3NThjNTk2MTliYTE3ZDM5YTA2MDcwODI4YWRjN2FiMzgwNzAwMDc1YmI1ZDFkMTE0Njk2YzBhMDNkYzhhNTY1M2NiY2I1NGFjM2U2MDMyMzYxYTcyYjU5ZTRmNzBjMjU3ZWYzNWUsLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE1cW5mN0hka29UZXRVeEYwOHM2Qwp2ME95NEtOd3F4bGVvcW5wd3pUa1orUXVQTWhkU0xXQ1NSUHhOUjNRYjlzeVEvVHhkS1hWTUt2VjJicldWZE42ClhnNUxQT2NjZ0l6ZWFQQWp2UXdjcGc2KzZmOFlKTFpEUGtudzAxeGhZZkRCajJqNzY3NFNRVmNVenB1QUZqYVEKeEV2Zm5DUkxIZUh5SnNWTm1YZGp1clZJOW9xTERVcnk5S3hEdkVXMENyKzBqK0NaYzlkMytxOXBBRXdVRUxlaApSY3g2cTdjMmxtL0c1NU9LTkw0NmVqcTgrK3VTTEJSL0pkWUF5MFR2MnY4bkdHQURhb2tjUG9XMUVVdjk1Z0gyCnBqTC8vSzNDY1dpZUo0U2d0NVRnZFBPNmhhS3NaTk5lZDVxNmZ6Vm9LWlB6WVdPcnk4dGluclNGSFZtckt1TTMKeXdJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t"];
     
-    [TestFlight takeOff:@"0532108b-0c25-49ec-b2d8-e19b45687adf"];
+    [TestFlight takeOff:@"d99fa9e3-3923-4f55-acea-0a1e077b133f"];
     
     [Crashlytics startWithAPIKey:@"c9088b1cc6c9d24318c5ed35da6d53c9457d0365"];
     
@@ -72,12 +72,12 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
 
         // 這裡判斷是否第一次
-        UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"
-                                                        message:@"進入App"
-                                                       delegate:self
-                                              cancelButtonTitle:@"我知道了"
-                                              otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"第一次"
+//                                                        message:@"進入App"
+//                                                       delegate:self
+//                                              cancelButtonTitle:@"我知道了"
+//                                              otherButtonTitles:nil];
+//        [alert show];
     }
 #endif
     

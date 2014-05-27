@@ -163,7 +163,7 @@
 
 -(void)startLaunchTransitionToCylinderProject{
     //launchImage遮盖主屏幕
-    UIImage *image = [UIImage imageNamed:@"AnaDrawLaunch"];
+    UIImage *image = [UIImage imageNamed:@"bgRootView.png"];
     self.launchImageView = [[UIImageView alloc]initWithImage:image];
     [self.view addSubview:self.launchImageView];
 }

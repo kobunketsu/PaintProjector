@@ -44,8 +44,7 @@
 	// Do any additional setup after loading the view.
     
 //    [self initPatternTexture];
-    
-    self.sectionHeaderTitleLabel.text = NSLocalizedString(@"Property", nil);
+    self.sectionHeaderTitleLabel.text = NSLocalizedString(NSStringFromClass([self.brush class]), nil);
     
     //pageControl
     self.propertyRootScrollView.delegate = self;

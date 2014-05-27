@@ -1474,9 +1474,6 @@
         DebugLog(@"Got halfWayImage: Asked for %@, got %@", requestedTimeString, actualTimeString);
         
         // Do something interesting with the image.
-        UIImage *image = [UIImage imageWithCGImage:halfWayImage];
-//        self.paintTexture.texID = [TextureManager textureInfoFromUIImage:image].name;
-//        self.testImageView.backgroundColor = [UIColor colorWithPatternImage:image];
         
         CGImageRelease(halfWayImage);
     }

@@ -333,6 +333,5 @@ BackgroundLayerDelegate
 - (void)afterPresentation;
 - (void)openDoc:(PaintDoc*)paintDoc;
 #pragma test
-@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 
 @end

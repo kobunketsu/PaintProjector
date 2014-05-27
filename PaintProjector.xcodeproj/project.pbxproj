@@ -184,6 +184,12 @@
 		08304561166B46EC00E8E35C /* ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08304560166B46EC00E8E35C /* ImageView.m */; };
 		0832967E17ACD22600F8DCF2 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0832967D17ACD22600F8DCF2 /* PlayerView.m */; };
 		08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
+		0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832E2741933A7EA004BD986 /* libTestFlight.a */; };
+		0832E27B1933A7EA004BD986 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832E2741933A7EA004BD986 /* libTestFlight.a */; };
+		0832E27C1933A7EA004BD986 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0832E2751933A7EA004BD986 /* README.md */; };
+		0832E27D1933A7EA004BD986 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0832E2751933A7EA004BD986 /* README.md */; };
+		0832E27E1933A7EA004BD986 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 0832E2761933A7EA004BD986 /* release_notes.md */; };
+		0832E27F1933A7EA004BD986 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 0832E2761933A7EA004BD986 /* release_notes.md */; };
 		08383D421931C06900EA3647 /* BrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* BrushSwapButton.m */; };
 		08383D431931C06900EA3647 /* BrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* BrushSwapButton.m */; };
 		08397FC018B6479D009A8F3C /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */; };
@@ -242,7 +248,6 @@
 		08624F0018D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08624EFE18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m */; };
 		08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08631125192CDF71004233B2 /* Crashlytics.framework */; };
 		08631127192CDF71004233B2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08631125192CDF71004233B2 /* Crashlytics.framework */; };
-		0863F0EB17DA434C008186CA /* testIOS7Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 0863F0EA17DA434C008186CA /* testIOS7Color.png */; };
 		08664935192AF15700A6EB41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
 		08665CBA1780F5B100CA4FCA /* LayerAddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08665CB91780F5B100CA4FCA /* LayerAddButton.m */; };
 		08672139174A6AA8005A9FE0 /* LayerVisibleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08672138174A6AA8005A9FE0 /* LayerVisibleButton.m */; };
@@ -317,9 +322,6 @@
 		088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B741E17F4787A0039ABC4 /* InfColorPickerRootView.m */; };
 		088BC19617EBDCD0007CC49A /* BrushPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BC19517EBDCD0007CC49A /* BrushPreview.m */; };
 		088CC7D4177B3DDF006C8DA8 /* LayerBlendModeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088CC7D3177B3DDF006C8DA8 /* LayerBlendModeTableView.m */; };
-		088DAE14187DB03F001B3855 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE0E187DB03F001B3855 /* libTestFlight.a */; };
-		088DAE15187DB03F001B3855 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE0F187DB03F001B3855 /* README.md */; };
-		088DAE16187DB03F001B3855 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE10187DB03F001B3855 /* release_notes.md */; };
 		088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE17187DB0BC001B3855 /* libz.dylib */; };
 		088E1D8418A26F700059002C /* ShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ShaderCylinder.m */; };
 		088E1D8518A26F700059002C /* ShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ShaderCylinder.m */; };
@@ -396,6 +398,10 @@
 		08B9104918AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104718AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m */; };
 		08B9104C18AF6ACF00BEA0D3 /* ShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ShareTableViewController.m */; };
 		08B9104D18AF6ACF00BEA0D3 /* ShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ShareTableViewController.m */; };
+		08BD36E81932D097000B14EF /* bgRootView.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E61932D097000B14EF /* bgRootView.png */; };
+		08BD36E91932D097000B14EF /* bgRootView.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E61932D097000B14EF /* bgRootView.png */; };
+		08BD36EA1932D097000B14EF /* bgRootView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E71932D097000B14EF /* bgRootView@2x.png */; };
+		08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E71932D097000B14EF /* bgRootView@2x.png */; };
 		08BD5CAE180102FA00F0FF67 /* FullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */; };
 		08BD5CB61801094200F0FF67 /* FullScreenReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */; };
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
@@ -500,7 +506,6 @@
 		37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B202172995EB00BF4688 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C427B0D14FA4DBA00C708B8 /* SystemConfiguration.framework */; };
 		37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 088B40171792FB7F002750EA /* DBChooser.bundle */; };
-		38f2c239e432653e495cffdf /* testIOS7Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 0863F0EA17DA434C008186CA /* testIOS7Color.png */; };
 		392ff0f8f3dc9f836cfa4064 /* RotateCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505C117F724EF00E460CA /* RotateCanvasView.m */; };
 		39ffcb7043b23fa8536d2aeb /* BrushTypeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBE1692FD5000E49D2B /* BrushTypeButton.m */; };
 		3a04b0025429b1da2e36033e /* NewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860668A17D2D8FB002EE42A /* NewButton.m */; };
@@ -518,7 +523,6 @@
 		44c3a468a4bf3475a7a36dc9 /* LayerToolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 084691421748C4F500E50554 /* LayerToolView.xib */; };
 		44e07334b6d516780130c2bd /* InfColorBarPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9CD164559870000DF40 /* InfColorBarPicker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		46ab3c9aa9c71c15c6a8d514 /* Chalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* Chalk.m */; };
-		47b5d225cfec5027961aa246 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE0F187DB03F001B3855 /* README.md */; };
 		4a7f4d3e26dbcdd05e7ad0ee /* FullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */; };
 		4b727493103a118dab239e46 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1614E4579F00DB003E /* UIKit.framework */; };
 		4c46996c1102229ecaa20f23 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B1FF172995EB00BF4688 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -555,7 +559,6 @@
 		7180f0872705dada27b93742 /* UIAlertView+error.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF8014E4642000DB003E /* UIAlertView+error.m */; };
 		72a06fc639e91a534a38c72f /* LayerTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A724B71844ED3E00B9178B /* LayerTransformButton.m */; };
 		72cff82b1e9ecef6d41c5c4b /* LayerDeleteDoneButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08494ED01781DC1200A256E8 /* LayerDeleteDoneButton.m */; };
-		75d6729cf929ac759e711d3c /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 088DAE10187DB03F001B3855 /* release_notes.md */; };
 		78934ebf43e31e8d5a4a2d8a /* AnamorphicTopViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC0417CA28EA00D4FE46 /* AnamorphicTopViewButton.m */; };
 		78de4268fcc15d5b14c9bd04 /* ImportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D10B17367ACA003259E6 /* ImportButton.m */; };
 		797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B7A177EFDE30039B5E5 /* Workspace.plist */; };
@@ -565,7 +568,6 @@
 		7b48a987f01c40eb25d0f497 /* Collection in Resources */ = {isa = PBXBuildFile; fileRef = 08CAFECA17C9B5BD0097B2A4 /* Collection */; };
 		7d294f94056ab44ed9d1c266 /* ChineseBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0867EE111801A09700AACBFF /* ChineseBrush.m */; };
 		7d3679a32694854662870645 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* Camera.m */; };
-		7dd0fa43630dc8e286ceafe5 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE0E187DB03F001B3855 /* libTestFlight.a */; };
 		7f1708e9135ab712a98551a6 /* BackgroundLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 089D8E9C1840A24C00CCF11A /* BackgroundLayerTableViewCell.m */; };
 		828ef58ce6328626847f5dff /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CFE0B9514E5B12B00408F86 /* UIImage+Resize.m */; };
 		82f135bc896d402dccd58cfe /* DownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* DownToolBar.m */; };
@@ -869,6 +871,12 @@
 		08329AF118DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		08329AF218DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		08329AF318DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		0832E2741933A7EA004BD986 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		0832E2751933A7EA004BD986 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		0832E2761933A7EA004BD986 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		0832E2771933A7EA004BD986 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		0832E2781933A7EA004BD986 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		0832E2791933A7EA004BD986 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		08383D401931C06900EA3647 /* BrushSwapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushSwapButton.h; sourceTree = "<group>"; };
 		08383D411931C06900EA3647 /* BrushSwapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushSwapButton.m; sourceTree = "<group>"; };
 		08397FBE18B6479C009A8F3C /* InAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseManager.h; path = PaintProjector/InAppPurchaseManager.h; sourceTree = "<group>"; };
@@ -957,7 +965,6 @@
 		08624EFD18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CylinderProjectToPaintCollectionTransitionManager.h; sourceTree = "<group>"; };
 		08624EFE18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CylinderProjectToPaintCollectionTransitionManager.m; sourceTree = "<group>"; };
 		08631125192CDF71004233B2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		0863F0EA17DA434C008186CA /* testIOS7Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testIOS7Color.png; sourceTree = "<group>"; };
 		08665CB81780F5B100CA4FCA /* LayerAddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerAddButton.h; sourceTree = "<group>"; };
 		08665CB91780F5B100CA4FCA /* LayerAddButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerAddButton.m; sourceTree = "<group>"; };
 		08672137174A6AA8005A9FE0 /* LayerVisibleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerVisibleButton.h; sourceTree = "<group>"; };
@@ -1072,12 +1079,6 @@
 		088BC19517EBDCD0007CC49A /* BrushPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushPreview.m; sourceTree = "<group>"; };
 		088CC7D2177B3DDF006C8DA8 /* LayerBlendModeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableView.h; sourceTree = "<group>"; };
 		088CC7D3177B3DDF006C8DA8 /* LayerBlendModeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableView.m; sourceTree = "<group>"; };
-		088DAE0E187DB03F001B3855 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		088DAE0F187DB03F001B3855 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		088DAE10187DB03F001B3855 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		088DAE11187DB03F001B3855 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		088DAE12187DB03F001B3855 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		088DAE13187DB03F001B3855 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		088DAE17187DB0BC001B3855 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		088E1D8218A26F700059002C /* ShaderCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderCylinder.h; sourceTree = "<group>"; };
 		088E1D8318A26F700059002C /* ShaderCylinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaderCylinder.m; sourceTree = "<group>"; };
@@ -1180,6 +1181,8 @@
 		08B9104718AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintCollectionViewCellFrame.m; path = PaintProjector/PaintCollectionViewCellFrame.m; sourceTree = "<group>"; };
 		08B9104A18AF6ACF00BEA0D3 /* ShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareTableViewController.h; sourceTree = "<group>"; };
 		08B9104B18AF6ACF00BEA0D3 /* ShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareTableViewController.m; sourceTree = "<group>"; };
+		08BD36E61932D097000B14EF /* bgRootView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bgRootView.png; path = PaintProjector/Images/bgRootView.png; sourceTree = SOURCE_ROOT; };
+		08BD36E71932D097000B14EF /* bgRootView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bgRootView@2x.png"; path = "PaintProjector/Images/bgRootView@2x.png"; sourceTree = SOURCE_ROOT; };
 		08BD5CAC180102FA00F0FF67 /* FullScreenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenButton.h; sourceTree = "<group>"; };
 		08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenButton.m; sourceTree = "<group>"; };
 		08BD5CB41801094200F0FF67 /* FullScreenReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenReverseButton.h; sourceTree = "<group>"; };
@@ -1328,9 +1331,9 @@
 				216bdc3c68d81261b5f22507 /* Security.framework in Frameworks */,
 				3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */,
 				3e7dd8de6a810d08740e45cf /* libz.dylib in Frameworks */,
-				7dd0fa43630dc8e286ceafe5 /* libTestFlight.a in Frameworks */,
 				d71a8e1cade19b3db9ade7de /* libiconv.dylib in Frameworks */,
 				4c46996c1102229ecaa20f23 /* Accounts.framework in Frameworks */,
+				0832E27B1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				a4670e94d5e6ef12668b4afa /* libsqlite3.dylib in Frameworks */,
 				37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */,
 				06508361ba7abe7b677c01a5 /* MessageUI.framework in Frameworks */,
@@ -1358,9 +1361,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
-				088DAE14187DB03F001B3855 /* libTestFlight.a in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
+				0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */,
 				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
 				9C21AF6514E459CC00DB003E /* Security.framework in Frameworks */,
@@ -1463,6 +1466,8 @@
 				08086DCC18DC8BA200F03EB4 /* AnaDraw512x512@2x.png */,
 				08086DCD18DC8BA200F03EB4 /* AnaDrawLaunch.png */,
 				08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */,
+				08BD36E61932D097000B14EF /* bgRootView.png */,
+				08BD36E71932D097000B14EF /* bgRootView@2x.png */,
 				08086DDF18DC8BA200F03EB4 /* camera_48.png */,
 				08086DE118DC8BA200F03EB4 /* chalkStroke.png */,
 				08086DE218DC8BA200F03EB4 /* chalkStroke02.png */,
@@ -1502,6 +1507,19 @@
 				08930E1C1787F2B9001525B1 /* AutoRotateButton.m */,
 			);
 			name = SharedUITools;
+			sourceTree = "<group>";
+		};
+		0832E2731933A7EA004BD986 /* TestFlightSDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				0832E2741933A7EA004BD986 /* libTestFlight.a */,
+				0832E2751933A7EA004BD986 /* README.md */,
+				0832E2761933A7EA004BD986 /* release_notes.md */,
+				0832E2771933A7EA004BD986 /* TestFlight+AsyncLogging.h */,
+				0832E2781933A7EA004BD986 /* TestFlight+ManualSessions.h */,
+				0832E2791933A7EA004BD986 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3;
 			sourceTree = "<group>";
 		};
 		08397FC218B6490F009A8F3C /* IAP */ = {
@@ -1877,19 +1895,6 @@
 			name = Swatch;
 			sourceTree = "<group>";
 		};
-		088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */ = {
-			isa = PBXGroup;
-			children = (
-				088DAE0E187DB03F001B3855 /* libTestFlight.a */,
-				088DAE0F187DB03F001B3855 /* README.md */,
-				088DAE10187DB03F001B3855 /* release_notes.md */,
-				088DAE11187DB03F001B3855 /* TestFlight+AsyncLogging.h */,
-				088DAE12187DB03F001B3855 /* TestFlight+ManualSessions.h */,
-				088DAE13187DB03F001B3855 /* TestFlight.h */,
-			);
-			path = "TestFlight-SDK-master";
-			sourceTree = "<group>";
-		};
 		0897D7E3187C46BA00A7ECD2 /* PaintProjector Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2068,7 +2073,6 @@
 		08EDD50817AD23A20023E08A /* Texture */ = {
 			isa = PBXGroup;
 			children = (
-				0863F0EA17DA434C008186CA /* testIOS7Color.png */,
 				0815334717D3809300A45B54 /* cylinderShadow.png */,
 				08EDD50D17AD296B0023E08A /* cylinderMain.png */,
 				08EDD50B17AD23B70023E08A /* cylinderCap.png */,
@@ -2183,7 +2187,6 @@
 				08397FC218B6490F009A8F3C /* IAP */,
 				08086F1118DC95BE00F03EB4 /* iRate */,
 				0870C6CF18DD8D24007AFA9E /* Localize */,
-				088DAE0D187DB03F001B3855 /* TestFlight-SDK-master */,
 				08AB75C0188F5980007DA20B /* CollectionScreen */,
 				085539811751B4C000DECF41 /* Project */,
 				08FD1F9E164E454A003738FC /* Paint */,
@@ -2200,6 +2203,7 @@
 				9C21AF1514E4579F00DB003E /* Frameworks */,
 				08C0B42916BD349200DE6286 /* NotUsed */,
 				9C21AF1314E4579F00DB003E /* Products */,
+				0832E2731933A7EA004BD986 /* TestFlightSDK3 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2384,12 +2388,12 @@
 			files = (
 				08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
 				08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
+				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
 				08086E3918DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
 				08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08086E4318DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
-				38f2c239e432653e495cffdf /* testIOS7Color.png in Resources */,
 				08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08086E6B18DC8BA300F03EB4 /* brushSquare.png in Resources */,
 				08561F8918DDC7EF00839533 /* Storyboard_iPad.storyboard in Resources */,
@@ -2402,7 +2406,6 @@
 				08086E3B18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
 				08D4B8BB18C56611008F5293 /* Default.swatch in Resources */,
 				08086E9B18DC8BA300F03EB4 /* email_48.png in Resources */,
-				47b5d225cfec5027961aa246 /* README.md in Resources */,
 				08086F0E18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				08086E3518DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
 				364524c221467b3b1a347142 /* Images.xcassets in Resources */,
@@ -2414,7 +2417,6 @@
 				08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
 				08B2CFA918C0CA9E00D34C1E /* Swatches in Resources */,
 				08086E5B18DC8BA300F03EB4 /* brush_square_64.png in Resources */,
-				75d6729cf929ac759e711d3c /* release_notes.md in Resources */,
 				baeee30903f0ac5ba28684ff /* Shaders in Resources */,
 				08086E4118DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
 				08086E7318DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
@@ -2427,7 +2429,9 @@
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */,
+				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
+				08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */,
 				a6559ed589dcc0977b6e52e4 /* cylinderCap.png in Resources */,
 				61a3f14b301d9c30231a51c5 /* cylinderMain.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
@@ -2438,6 +2442,7 @@
 				08086E7D18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E2F18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */,
 				08086EF118DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
+				08BD36E91932D097000B14EF /* bgRootView.png in Resources */,
 				08086E7118DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				08086ED318DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 			);
@@ -2451,7 +2456,6 @@
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
 				08086E4818DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */,
 				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
-				0863F0EB17DA434C008186CA /* testIOS7Color.png in Resources */,
 				08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */,
 				08086E3218DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
@@ -2464,8 +2468,9 @@
 				0808D9DD164559870000DF40 /* InfColorPickerView.xib in Resources */,
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
-				088DAE15187DB03F001B3855 /* README.md in Resources */,
+				08BD36E81932D097000B14EF /* bgRootView.png in Resources */,
 				08086EFE18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
+				0832E27E1933A7EA004BD986 /* release_notes.md in Resources */,
 				08086E7018DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				08086EA418DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08086E7818DC8BA300F03EB4 /* checkCircle.png in Resources */,
@@ -2473,7 +2478,6 @@
 				0871A828192A47E000BB8558 /* AnaDraw76x76_2~ipad.png in Resources */,
 				08086E5A18DC8BA300F03EB4 /* brush_square_64.png in Resources */,
 				08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */,
-				088DAE16187DB03F001B3855 /* release_notes.md in Resources */,
 				0897D7D9187C43CF00A7ECD2 /* Shaders in Resources */,
 				08086EB418DC8BA300F03EB4 /* noise.png in Resources */,
 				08086E9A18DC8BA300F03EB4 /* email_48.png in Resources */,
@@ -2489,7 +2493,9 @@
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				08086E3A18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
 				08086E3618DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */,
+				08BD36EA1932D097000B14EF /* bgRootView@2x.png in Resources */,
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
+				0832E27C1933A7EA004BD986 /* README.md in Resources */,
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				08086E4018DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
@@ -3161,8 +3167,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Wenjie Hu (P8U4FN6M4B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3179,10 +3185,11 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				PROVISIONING_PROFILE = "507FB301-A5FC-464E-A7D2-6A8D2C92FCBF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "507FB301-A5FC-464E-A7D2-6A8D2C92FCBF";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3218,6 +3225,7 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3312,7 +3320,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3330,9 +3338,10 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
@@ -3351,7 +3360,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3368,9 +3377,10 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
@@ -3406,6 +3416,7 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3449,6 +3460,7 @@
 					"/Users/kobunketsu/Documents/_Projects/PaintProjector/TestFlight-SDK-master",
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
+					"$(PROJECT_DIR)/TestFlightSDK3",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

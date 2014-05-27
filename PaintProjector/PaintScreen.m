@@ -22,7 +22,6 @@
 #import "LayerBlendModePopoverController.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImage+Resize.h"
-//#import "UIImage+Extensions.h"
 #import "UIColor+String.h"
 #import <pthread.h>
 #import "TransformContentView.h"
@@ -2663,6 +2662,7 @@
     
     ImportTableViewController* importTableViewController = [[ImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
     importTableViewController.delegate = self;
+    importTableViewController.tableView.scrollEnabled = false;
 
     importTableViewController.preferredContentSize = CGSizeMake(320, importTableViewController.tableViewHeight);
     
@@ -2885,7 +2885,7 @@
         
         return YES;
     }else {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Error accessing photo library!" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
         [alert show];
         return NO;
     }
@@ -2902,6 +2902,7 @@
     sender.selected = true;
     
     ExportTableViewController* exportTableViewController = [[ExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
+    exportTableViewController.tableView.scrollEnabled = false;
     exportTableViewController.delegate = self;
     
     exportTableViewController.preferredContentSize = CGSizeMake(320, exportTableViewController.tableViewHeight);
@@ -3450,18 +3451,19 @@
 
 - (IBAction)freeTransformButtonTapped:(UIButton *)sender {
     DebugLogIBAction(@"freeTransformButtonTapped");
-    for (UIButton* button in _transformToolButtons) {
+//    for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
-    }
+//    }
 //    sender.backgroundColor = [UIColor greenColor];
+    
     _transformImageState = TransformImage_Free;
 }
 
 - (IBAction)moveButtonTapped:(UIButton *)sender {
     DebugLogIBAction(@"moveButtonTapped");
-    for (UIButton* button in _transformToolButtons) {
+//    for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
-    }
+//    }
 //    sender.backgroundColor = [UIColor greenColor];
     
     _transformImageState = TransformImage_Move;
@@ -3469,9 +3471,9 @@
 
 - (IBAction)rotateButtonTapped:(UIButton *)sender {
     DebugLogIBAction(@"rotateButtonTapped");
-    for (UIButton* button in _transformToolButtons) {
+//    for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
-    }
+//    }
 //    sender.backgroundColor = [UIColor greenColor];
     
     _transformImageState = TransformImage_Rotate;
@@ -3479,10 +3481,11 @@
 
 - (IBAction)scaleButtonTapped:(UIButton *)sender {
     DebugLogIBAction(@"scaleButtonTapped");
-    for (UIButton* button in _transformToolButtons) {
+//    for (UIButton* button in _transformToolButtons) {
 //        button.backgroundColor = [UIColor lightGrayColor];
-    }
+//    }
 //    sender.backgroundColor = [UIColor greenColor];
+    
     _transformImageState = TransformImage_Scale;
 }
 
@@ -3675,7 +3678,8 @@
     });
 }
 
--(void)willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion{
+//检查是否可以插入图层
+-(BOOL)checkInsertAvailable{
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
@@ -3683,7 +3687,7 @@
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
             alertView.tag = 4;
             [alertView show];
-            return;
+            return false;
         }
     }
     else{
@@ -3692,14 +3696,19 @@
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
             alertView.tag = 5;
             [alertView show];
-            return;
+            return false;
         }
     }
-    
-    //数据 & 显示
-    [self.paintView insertBlankLayerAtIndex:index transparent:true immediate:true];
-    [self.paintView uploadLayerDatas];
-    completion();
+    return  true;
+}
+
+-(void)willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion{
+    if ([self checkInsertAvailable]) {
+        //数据 & 显示
+        [self.paintView insertBlankLayerAtIndex:index transparent:true immediate:true];
+        [self.paintView uploadLayerDatas];
+        completion();
+    }
 }
 
 -(void)willEraseLayerDataAtIndex:(int)index{
@@ -3756,7 +3765,9 @@
     [self.paintView uploadLayerDataAtIndex:index];
 }
 - (void) willInsertCopyLayerDataAtIndex:(int)index{
-    [self.paintView insertCopyLayerAtIndex:index immediate:true];
+    if ([self checkInsertAvailable]) {
+        [self.paintView insertCopyLayerAtIndex:index immediate:true];
+    }
 }
 
 - (int) willGetLayerIndex{
@@ -4023,7 +4034,7 @@
         [self willSelectBrushCanceled:sender];
         
         //笔刷不可用，询问购买
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"This Brush is not supported in Free version.", nil)];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"BrushIAP", nil)];
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
         alertView.tag = 5;
         [alertView show];

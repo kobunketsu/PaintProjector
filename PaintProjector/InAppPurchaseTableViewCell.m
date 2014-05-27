@@ -44,7 +44,7 @@
 
     if ([[AnaDrawIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"jailbreak device can not buy product" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
     else{
@@ -55,7 +55,7 @@
             NetworkStatus netStatus = [reach currentReachabilityStatus];
             if (netStatus == NotReachable) {
                 DebugLog(@"没有网络连接, 无法购买产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"No access to AppStore.Please check your internet and try later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
                 [alertView show];
             }
             else{
@@ -65,7 +65,7 @@
         }
         else{
             DebugLog(@"设备禁止IAP");
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"InAppPurchase disabled by device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
             [alertView show];
         }
     }
