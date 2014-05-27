@@ -15,7 +15,8 @@
     #import "Extension.h"
 //for crash report
     #import <Crashlytics/Crashlytics.h>
-    #import <TestFlight.h>
+    #import "TestFlight.h"
+    #import "Flurry.h"
 #endif
 
 

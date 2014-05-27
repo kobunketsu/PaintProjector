@@ -177,6 +177,8 @@
 		0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
 		0826EE8D18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
 		0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
+		082988641934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */; };
+		082988651934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */; };
 		0829C01F168349F80009CD1C /* ImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ImageStack.m */; };
 		082DF31816A166AB007656AA /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31716A166AA007656AA /* ColorPickerView.m */; };
 		082DF31B16A1A647007656AA /* Chalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* Chalk.m */; };
@@ -856,6 +858,8 @@
 		0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionView.m; path = PaintProjector/ProductFeatureCollectionView.m; sourceTree = "<group>"; };
 		0826EE8B18B9920B0074FC9F /* ProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFeatureCollectionViewCell.h; path = PaintProjector/ProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
 		0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionViewCell.m; path = PaintProjector/ProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
+		082988621934F2CC00EF8C7B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.0.0.a; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStack.m; sourceTree = "<group>"; };
 		082DF31616A166AA007656AA /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -1345,6 +1349,7 @@
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
 				1006c97abc68dc68ec02f9f6 /* AssetsLibrary.framework in Frameworks */,
+				082988651934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */,
 				08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
@@ -1363,6 +1368,7 @@
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
+				082988641934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */,
 				0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */,
 				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
@@ -1507,6 +1513,16 @@
 				08930E1C1787F2B9001525B1 /* AutoRotateButton.m */,
 			);
 			name = SharedUITools;
+			sourceTree = "<group>";
+		};
+		082988611934F2CC00EF8C7B /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				082988621934F2CC00EF8C7B /* Flurry.h */,
+				082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */,
+			);
+			name = Flurry;
+			path = "Flurry iPad SDK viPad 5/Flurry-iOS-5.0.0/Flurry";
 			sourceTree = "<group>";
 		};
 		0832E2731933A7EA004BD986 /* TestFlightSDK3 */ = {
@@ -2177,6 +2193,7 @@
 		9C21AF0714E4579F00DB003E = {
 			isa = PBXGroup;
 			children = (
+				082988611934F2CC00EF8C7B /* Flurry */,
 				08BDEA0017E54C3700803D6F /* Images.xcassets */,
 				08983D9218BCCCE00001C334 /* ProductList.plist */,
 				088B40171792FB7F002750EA /* DBChooser.bundle */,
@@ -2302,6 +2319,7 @@
 				9C21AF0E14E4579F00DB003E /* Sources */,
 				9C21AF0F14E4579F00DB003E /* Frameworks */,
 				9C21AF1014E4579F00DB003E /* Resources */,
+				0829885B1934D56F00EF8C7B /* ShellScript */,
 				0804E2FA163D97D300D86624 /* ShellScript */,
 				08631124192CDF16004233B2 /* ShellScript */,
 			);
@@ -2531,6 +2549,19 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/scripts/update_storyboard_strings.sh";
+		};
+		0829885B1934D56F00EF8C7B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION == Release ]; then\necho \"Bumping build number...\"\nplist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n#increment the build number (ie 115 to 116)\nbuildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\nif [[ \"${buildnum}\" == \"\" ]]; then\necho \"No build number in $plist\"\nexit 2\nfi\n\nbuildnum=$(expr $buildnum + 1)\n/usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\necho \"Bumped build number to $buildnum\"\n\nelse\necho $CONFIGURATION \" build - Not bumping build number.\"\nfi";
 		};
 		08631124192CDF16004233B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3170,6 +3201,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Wenjie Hu (P8U4FN6M4B)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = YES;
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -3186,10 +3218,15 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "507FB301-A5FC-464E-A7D2-6A8D2C92FCBF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "507FB301-A5FC-464E-A7D2-6A8D2C92FCBF";
+				PROVISIONING_PROFILE = "2E239F3E-CEA1-4FE9-AD6E-888FB1ED1569";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E239F3E-CEA1-4FE9-AD6E-888FB1ED1569";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3226,6 +3263,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3339,6 +3381,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
@@ -3378,6 +3425,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
@@ -3417,6 +3469,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3461,6 +3518,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
