@@ -54,10 +54,12 @@
 }
 #pragma mark - Action
 - (IBAction)backButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"backButtonTouchUp" identifier:sender];
     [self.delegate willSetSwatchFile:nil];
 }
 
 - (IBAction)swatchChartButtonTouchUp:(SwatchChartButton *)sender {
+    [IBActionReport logAction:@"swatchChartButtonTouchUp" identifier:sender];
     NSInteger index = sender.tag;
     BOOL filtered = sender.filtered;
     NSURL *url = nil;
@@ -79,7 +81,7 @@
 }
 
 - (IBAction)swatchChartButtonTouchDown:(UIButton *)sender {
-
+    [IBActionReport logAction:@"swatchChartButtonTouchDown" identifier:sender];
     //交互动画
     [UIView animateWithDuration:0.1 animations:^{
         sender.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.2);
@@ -87,6 +89,7 @@
 }
 
 - (IBAction)swatchChartButtonTouchCancel:(UIButton *)sender {
+    [IBActionReport logAction:@"swatchChartButtonTouchCancel" identifier:sender];
     //交互动画
     [UIView animateWithDuration:0.1 animations:^{
         sender.layer.transform = CATransform3DIdentity;

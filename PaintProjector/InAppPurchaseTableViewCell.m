@@ -37,6 +37,8 @@
 }
 
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"buyProductButtonTouchUp" identifier:sender];
+    
     SKProduct *product = [[[AnaDrawIAPManager sharedInstance] products] objectAtIndex:sender.tag];
     if (!product) {
         return;

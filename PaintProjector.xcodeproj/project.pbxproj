@@ -177,8 +177,6 @@
 		0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */; };
 		0826EE8D18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
 		0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */; };
-		082988641934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */; };
-		082988651934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */; };
 		0829C01F168349F80009CD1C /* ImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ImageStack.m */; };
 		082DF31816A166AB007656AA /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31716A166AA007656AA /* ColorPickerView.m */; };
 		082DF31B16A1A647007656AA /* Chalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* Chalk.m */; };
@@ -198,6 +196,10 @@
 		08397FC118B6479D009A8F3C /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */; };
 		08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */; };
 		08397FC618B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */; };
+		083A810719356C960088980E /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083A810619356C960088980E /* libFlurry_5.0.0.a */; };
+		083A810819356C960088980E /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 083A810619356C960088980E /* libFlurry_5.0.0.a */; };
+		083A810B19356FE30088980E /* IBActionReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* IBActionReport.m */; };
+		083A810C19356FE30088980E /* IBActionReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* IBActionReport.m */; };
 		083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */; };
 		083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E0167768A400050793 /* ImageIO.framework */; };
 		083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E216776CAF00050793 /* MobileCoreServices.framework */; };
@@ -858,8 +860,6 @@
 		0826EE8818B98A230074FC9F /* ProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionView.m; path = PaintProjector/ProductFeatureCollectionView.m; sourceTree = "<group>"; };
 		0826EE8B18B9920B0074FC9F /* ProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductFeatureCollectionViewCell.h; path = PaintProjector/ProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
 		0826EE8C18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductFeatureCollectionViewCell.m; path = PaintProjector/ProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
-		082988621934F2CC00EF8C7B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.0.0.a; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStack.m; sourceTree = "<group>"; };
 		082DF31616A166AA007656AA /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
@@ -887,6 +887,10 @@
 		08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseManager.m; path = PaintProjector/InAppPurchaseManager.m; sourceTree = "<group>"; };
 		08397FC318B64929009A8F3C /* SKProduct+LocalizedPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SKProduct+LocalizedPrice.h"; path = "PaintProjector/SKProduct+LocalizedPrice.h"; sourceTree = "<group>"; };
 		08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SKProduct+LocalizedPrice.m"; path = "PaintProjector/SKProduct+LocalizedPrice.m"; sourceTree = "<group>"; };
+		083A810519356C960088980E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		083A810619356C960088980E /* libFlurry_5.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_5.0.0.a; path = "Flurry iPad SDK viPad 5/Flurry-iOS-5.0.0/Flurry/libFlurry_5.0.0.a"; sourceTree = "<group>"; };
+		083A810919356FE30088980E /* IBActionReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBActionReport.h; path = PaintProjector/IBActionReport.h; sourceTree = "<group>"; };
+		083A810A19356FE30088980E /* IBActionReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBActionReport.m; path = PaintProjector/IBActionReport.m; sourceTree = "<group>"; };
 		083B425B171CCEEC0088B654 /* LayerBlendModeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewController.h; sourceTree = "<group>"; };
 		083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewController.m; sourceTree = "<group>"; };
 		083DD3E0167768A400050793 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1309,7 +1313,7 @@
 		9C21AF1E14E4579F00DB003E /* PaintProjector-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PaintProjector-Info.plist"; sourceTree = "<group>"; };
 		9C21AF2014E4579F00DB003E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C21AF2214E4579F00DB003E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9C21AF2414E4579F00DB003E /* PaintProjector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PaintProjector-Prefix.pch"; sourceTree = "<group>"; };
+		9C21AF2414E4579F00DB003E /* PaintProjector-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "PaintProjector-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		9C21AF2514E4579F00DB003E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PaintProjector/AppDelegate.h; sourceTree = "<group>"; };
 		9C21AF2614E4579F00DB003E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = PaintProjector/AppDelegate.m; sourceTree = "<group>"; };
 		9C21AF6014E4596F00DB003E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1349,7 +1353,7 @@
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
 				1006c97abc68dc68ec02f9f6 /* AssetsLibrary.framework in Frameworks */,
-				082988651934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */,
+				083A810819356C960088980E /* libFlurry_5.0.0.a in Frameworks */,
 				08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
@@ -1368,7 +1372,7 @@
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
-				082988641934F2CC00EF8C7B /* libFlurry_5.0.0.a in Frameworks */,
+				083A810719356C960088980E /* libFlurry_5.0.0.a in Frameworks */,
 				0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */,
 				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
@@ -1518,8 +1522,7 @@
 		082988611934F2CC00EF8C7B /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
-				082988621934F2CC00EF8C7B /* Flurry.h */,
-				082988631934F2CC00EF8C7B /* libFlurry_5.0.0.a */,
+				083A810519356C960088980E /* Flurry.h */,
 			);
 			name = Flurry;
 			path = "Flurry iPad SDK viPad 5/Flurry-iOS-5.0.0/Flurry";
@@ -1703,7 +1706,7 @@
 			name = Transform;
 			sourceTree = "<group>";
 		};
-		085539811751B4C000DECF41 /* Project */ = {
+		085539811751B4C000DECF41 /* ProjectScreen */ = {
 			isa = PBXGroup;
 			children = (
 				08EDD50817AD23A20023E08A /* Texture */,
@@ -1782,7 +1785,7 @@
 				0847F52D18B07ECE0038869A /* UnitConverter.h */,
 				0847F52E18B07ECE0038869A /* UnitConverter.m */,
 			);
-			name = Project;
+			name = ProjectScreen;
 			path = PaintProjector;
 			sourceTree = "<group>";
 		};
@@ -1970,6 +1973,8 @@
 		08B444B0175AEC9F00787C18 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				083A810919356FE30088980E /* IBActionReport.h */,
+				083A810A19356FE30088980E /* IBActionReport.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -2107,7 +2112,7 @@
 			name = Primitives;
 			sourceTree = "<group>";
 		};
-		08FD1F9E164E454A003738FC /* Paint */ = {
+		08FD1F9E164E454A003738FC /* PaintScreen */ = {
 			isa = PBXGroup;
 			children = (
 				0808D9CB164559870000DF40 /* InfColorPicker */,
@@ -2186,14 +2191,13 @@
 				087751B9180450B20034FEA7 /* CustomLayer.h */,
 				087751BA180450B20034FEA7 /* CustomLayer.m */,
 			);
-			name = Paint;
+			name = PaintScreen;
 			path = PaintProjector;
 			sourceTree = "<group>";
 		};
 		9C21AF0714E4579F00DB003E = {
 			isa = PBXGroup;
 			children = (
-				082988611934F2CC00EF8C7B /* Flurry */,
 				08BDEA0017E54C3700803D6F /* Images.xcassets */,
 				08983D9218BCCCE00001C334 /* ProductList.plist */,
 				088B40171792FB7F002750EA /* DBChooser.bundle */,
@@ -2205,10 +2209,11 @@
 				08086F1118DC95BE00F03EB4 /* iRate */,
 				0870C6CF18DD8D24007AFA9E /* Localize */,
 				08AB75C0188F5980007DA20B /* CollectionScreen */,
-				085539811751B4C000DECF41 /* Project */,
-				08FD1F9E164E454A003738FC /* Paint */,
+				085539811751B4C000DECF41 /* ProjectScreen */,
+				08FD1F9E164E454A003738FC /* PaintScreen */,
 				0826775C18E1D97C004DA2F4 /* SharedUITools */,
 				08B444B0175AEC9F00787C18 /* Misc */,
+				082988611934F2CC00EF8C7B /* Flurry */,
 				08CAFECA17C9B5BD0097B2A4 /* Collection */,
 				0897D7D8187C43CF00A7ECD2 /* Shaders */,
 				0813AA1E19167BD4000C4D00 /* Models */,
@@ -2236,12 +2241,13 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				08631125192CDF71004233B2 /* Crashlytics.framework */,
+				083A810619356C960088980E /* libFlurry_5.0.0.a */,
 				08086DBD18DC8A9900F03EB4 /* libbeeblex.a */,
-				080D245D18B6E5C400161756 /* StoreKit.framework */,
 				088DAE17187DB0BC001B3855 /* libz.dylib */,
 				081D3BBE17B130A6003D1D21 /* libiconv.dylib */,
 				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
+				080D245D18B6E5C400161756 /* StoreKit.framework */,
+				08631125192CDF71004233B2 /* Crashlytics.framework */,
 				08F7DF0318596DD100BFA2D5 /* calabash.framework */,
 				088B40181792FB7F002750EA /* DBChooser.framework */,
 				08A932CA16FE9EBF00A75938 /* MessageUI.framework */,
@@ -2641,6 +2647,7 @@
 				dcc1369eefcabccd63408c2c /* CustomTouchUIView.m in Sources */,
 				b3bfd9587c8094c480be1249 /* Pencil.m in Sources */,
 				086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */,
+				083A810C19356FE30088980E /* IBActionReport.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* Eraser.m in Sources */,
 				4e9779aa9b6bd2a3b1fd4cc6 /* Pen.m in Sources */,
 				0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */,
@@ -2974,6 +2981,7 @@
 				08402CB41701E1F000DE952A /* PaintData.m in Sources */,
 				0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				084D5405170338A60052F510 /* PaintDoc.m in Sources */,
+				083A810B19356FE30088980E /* IBActionReport.m in Sources */,
 				08E104C418E31F3B00B777FB /* SharedTableView.m in Sources */,
 				084D540A17033C270052F510 /* PaintDocManager.m in Sources */,
 				08A3F3DB1850A756007922D2 /* GLWrapper.m in Sources */,
@@ -3223,6 +3231,11 @@
 					SDK,
 					viPad,
 					"5/Flurry-iOS-5.0.0/Flurry",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "2E239F3E-CEA1-4FE9-AD6E-888FB1ED1569";
@@ -3263,6 +3276,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 					"$(PROJECT_DIR)/Flurry",
 					iPad,
 					SDK,
@@ -3386,6 +3404,11 @@
 					SDK,
 					viPad,
 					"5/Flurry-iOS-5.0.0/Flurry",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
@@ -3425,6 +3448,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 					"$(PROJECT_DIR)/Flurry",
 					iPad,
 					SDK,
@@ -3474,6 +3502,11 @@
 					SDK,
 					viPad,
 					"5/Flurry-iOS-5.0.0/Flurry",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3518,6 +3551,11 @@
 					/Users/kobunketsu/Documents/_Projects/PaintProjector,
 					"$(PROJECT_DIR)/BBXBeeblex",
 					"$(PROJECT_DIR)/TestFlightSDK3",
+					"$(PROJECT_DIR)/Flurry",
+					iPad,
+					SDK,
+					viPad,
+					"5/Flurry-iOS-5.0.0/Flurry",
 					"$(PROJECT_DIR)/Flurry",
 					iPad,
 					SDK,

@@ -301,11 +301,14 @@
 #pragma mark- Tool Bar
 
 - (IBAction)fileButtonTouchUp:(id)sender{
-
+    [IBActionReport logAction:@"fileButtonTouchUp" identifier:sender];
+    
     self.editing = !self.editing;
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {
+    [IBActionReport logAction:@"copyButtonTouchUp" identifier:sender];
+    
     //插入拷贝paintDoc到paintDocs中，
     if (self.paintFrameManager.curPaintFrameView.paintDoc == nil) {
         DebugLog(@"No PaintDoc to copy!");
@@ -330,6 +333,8 @@
 }
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
+    [IBActionReport logAction:@"deleteButtonTouchUp" identifier:sender];
+    
     NSMutableArray *indices = [[NSMutableArray alloc]init];
     for (NSIndexPath *indexPath in self.selectedIndices) {
         [indices addObject: [NSNumber numberWithInteger:indexPath.row]];
@@ -347,6 +352,8 @@
 }
 
 - (IBAction)newButtonTouchUp:(id)sender {
+    [IBActionReport logAction:@"newButtonTouchUp" identifier:sender];
+    
     self.editing = false;
     
     //非编辑状态下从最后一个PaintFrameView之后添加

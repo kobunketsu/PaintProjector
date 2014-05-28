@@ -345,7 +345,8 @@ const float LayerTableViewWidth = 256;
 
 
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender {
-   
+    [IBActionReport logAction:@"addLayerButtonTouchUp" identifier:sender];
+    
     //数据
     [self.delegate willInsertLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row] completion:^{
         //UI
@@ -369,6 +370,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"copyLayerButtonTouchUp" identifier:sender];
     
     //数据
     [self.delegate willInsertCopyLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
@@ -386,7 +388,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender {
-
+    [IBActionReport logAction:@"mergeLayerButtonTouchUp" identifier:sender];
+    
     //数据
     [self.delegate willMergeLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
     [self.tableView reloadData];
@@ -403,6 +406,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)clearLayerButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"clearLayerButtonTouchUp" identifier:sender];
+    
     //数据
     [self.delegate willClearLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
     
@@ -421,6 +426,8 @@ const float LayerTableViewWidth = 256;
 
 
 - (IBAction)layerBlendModeButtonTouchUp:(LayerBlendModeButton *)sender {
+    [IBActionReport logAction:@"layerBlendModeButtonTouchUp" identifier:sender];
+    
     int row = [self rowForLayerIndex:sender.tag];
     if (self.inBlendModeRow == row) {
         self.inBlendModeRow = -1;
@@ -475,11 +482,15 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)backgroundLayerImageButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"backgroundLayerImageButtonTouchUp" identifier:sender];
+    
     self.backgroundLayerButton = sender;
     [self.delegate willSetBackgroundLayerClearColor:sender colorPickerControllerDelegate:self];
 }
 
 - (IBAction)backgroundLayerVisibleButtonTouchUp:(LayerVisibleButton *)sender {
+    [IBActionReport logAction:@"backgroundLayerVisibleButtonTouchUp" identifier:sender];
+    
     sender.isVisible = !sender.isVisible;
     [self.delegate willSetBackgroundLayerVisible:sender.isVisible];
 }
@@ -488,6 +499,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"layerVisibleButtonTouchUp" identifier:sender];
+    
     LayerVisibleButton *button = (LayerVisibleButton *)sender;
     button.isVisible = !button.isVisible;
     DebugLog(@"SetLayerAtIndex Index %d visible %i", button.tag, button.isVisible);
@@ -495,6 +508,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"layerOpacityLockButtonTouchUp" identifier:sender];
+    
     LayerOpacityLockButton *button = (LayerOpacityLockButton *)sender;
     button.isOpacityLocked = !button.isOpacityLocked;
     
@@ -503,6 +518,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)layerOpacitySliderSlide:(UISlider *)sender {
+    [IBActionReport logAction:@"layerOpacitySliderSlide" identifier:sender];
+    
     [self.delegate willSetLayerAtIndex:sender.tag opacity:sender.value];
 }
 

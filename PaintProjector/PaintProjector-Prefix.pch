@@ -17,6 +17,7 @@
     #import <Crashlytics/Crashlytics.h>
     #import "TestFlight.h"
     #import "Flurry.h"
+    #import "IBActionReport.h"
 #endif
 
 
@@ -60,7 +61,7 @@
 #ifdef DEBUG
 #define DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
-#define DebugLogIBAction(s, ...)
+#define [IBActionReport logAction:s, ...)
 #endif
 
 #ifdef DEBUG
@@ -68,6 +69,7 @@
 #else
 #define DebugLogFuncStart(s, ...)
 #endif
+
 
 #define TEST 0
 #define UndoMaxCount 10

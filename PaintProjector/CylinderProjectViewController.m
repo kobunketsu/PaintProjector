@@ -189,8 +189,7 @@
 
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"galleryButtonTouchUp"];
-    
+    [IBActionReport logAction:@"galleryButtonTouchUp" identifier:sender];
     
     sender.selected = true;
     
@@ -237,7 +236,7 @@
 //}
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"setupButtonTouchUp"];
+    [IBActionReport logAction:@"setupButtonTouchUp" identifier:sender];
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
@@ -255,19 +254,15 @@
     }
 }
 
-//- (IBAction)cylinderDiameterButtonTouchUp:(UIButton *)sender {
-//    DebugLog(@"cylinderDiameterButtonTouchUp");
-//}
-
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
-   [TestFlight passCheckpoint:@"shareButtonTouchUp"];
+   [IBActionReport logAction:@"shareButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     [self share];
 }
 
 - (IBAction)infoButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"infoButtonTouchUp"];
+    [IBActionReport logAction:@"infoButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
@@ -275,7 +270,7 @@
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"paintButtonTouchUp"];
+    [IBActionReport logAction:@"paintButtonTouchUp" identifier:sender];
     
     sender.selected = true;
     self.setupButton.selected = false;
@@ -492,6 +487,8 @@
 }
 
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"userInputParamButtonTouchUp" identifier:sender];
+    
     for (UIButton *button in self.allUserInputParamButtons) {
         if (![button isEqual:sender]) {
             button.selected = false;
@@ -549,6 +546,8 @@
 }
 
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
+    [IBActionReport logAction:@"userInputParamSliderValueChanged" identifier:sender];
+    
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.keyPath];
     [self flushUIUserInputParams];
 }
@@ -1059,6 +1058,8 @@
 }
 
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
+    [IBActionReport logAction:@"handlePanCylinderProjectView" identifier:sender];
+    
     //顶视图模式下忽略圆柱体区域的触摸手势
     if (!self.eyePerspectiveView.hidden) {
         //ignoreCylinderRectTouch
@@ -1276,9 +1277,10 @@
     self.playState = PS_Stopped;
 }
 #pragma mark- 视频
-- (IBAction)playbackButtonTouchUp:(UIButton *)sender {
-    [self.player play];
-}
+//- (IBAction)playbackButtonTouchUp:(UIButton *)sender {
+//    [IBActionReport logAction:@"playbackButtonTouchUp" identifier:sender];
+//    [self.player play];
+//}
 
 - (void)textureFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
     
@@ -1512,17 +1514,18 @@
     [self.playButton setIsPlaying:false];
 }
 
-- (IBAction)playButtonTouchUp:(UIButton *)sender {
-    if (self.playState == PS_Stopped) {
-        [self playVideo];
-    }
-    else if (self.playState == PS_Playing) {
-        [self pauseVideo];
-    }
-    else if (self.playState == PS_Pause) {
-        [self playVideo];
-    }
-}
+//- (IBAction)playButtonTouchUp:(UIButton *)sender {
+//    [IBActionReport logAction:@"playButtonTouchUp" identifier:sender];
+//    if (self.playState == PS_Stopped) {
+//        [self playVideo];
+//    }
+//    else if (self.playState == PS_Playing) {
+//        [self pauseVideo];
+//    }
+//    else if (self.playState == PS_Pause) {
+//        [self playVideo];
+//    }
+//}
 
 - (void)flushAllUI {
     if(self.eyeBottomTopBlend > 0.0){
@@ -1851,7 +1854,7 @@
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"sideViewButtonTouchUp"];
+    [IBActionReport logAction:@"sideViewButtonTouchUp" identifier:sender];
     
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
@@ -1871,7 +1874,7 @@
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
-    [TestFlight passCheckpoint:@"topViewButtonTouchUp"];
+    [IBActionReport logAction:@"topViewButtonTouchUp" identifier:sender];
     
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
@@ -1991,6 +1994,7 @@
 }
 
 - (IBAction)virtualDeviceButtonTouchUp:(UIButton *)sender {
+    [IBActionReport logAction:@"virtualDeviceButtonTouchUp" identifier:sender];
     
     CylinderProjectVirtualDeviceCollectionViewController* virtualDeviceCollectionViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectVirtualDeviceCollectionViewController"];
 //    virtualDeviceCollectionViewController.delegate = self;
