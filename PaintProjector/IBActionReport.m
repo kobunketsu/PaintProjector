@@ -18,6 +18,9 @@
         return;
     }
     else if ([sender isKindOfClass:[UIGestureRecognizer class]]) {
+        if ([sender isKindOfClass:[UIPanGestureRecognizer class]]) {
+            return;
+        }
         UIGestureRecognizer *gesture = (UIGestureRecognizer *)sender;
         if (gesture.state != UIGestureRecognizerStateEnded){
             return;
@@ -26,5 +29,10 @@
     
     [Flurry logEvent:name];
     [TestFlight passCheckpoint:name];
+}
+
++ (void)logCrash:(NSString *)name{
+    CLSLog(name, nil);
+    TFLog(name, nil);
 }
 @end

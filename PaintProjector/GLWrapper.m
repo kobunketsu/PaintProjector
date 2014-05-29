@@ -54,14 +54,17 @@
 
 -(EAGLContext *)createBestEAGLContext{
     DebugLogFuncStart(@"createBestEAGLContext");
-    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    if (context == nil) {
-        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        if(context == nil){
-            DebugLog(@"Failed to create ES context");
-        }
-    }
+//    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+//    if (context == nil) {
+//    }
     
+    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    if(context == nil){
+        DebugLogError(@"Failed to create ES context");
+    }
+    else{
+        DebugLogSuccess(@"create kEAGLRenderingAPIOpenGLES2 context success");
+    }
     return context;
 }
 

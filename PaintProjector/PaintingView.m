@@ -566,11 +566,14 @@
 }
 
 - (void)setVBOBrushForImmediate{
+    DebugLogFuncStart(@"setVBOBrushForImmediate");
     //恢复分配_VBOBrush用于普通描画的缓冲区大小, 顺序不能交换，保证最后bind VBOBrush
     [[GLWrapper current] bindBuffer: _VBOBrushBack];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
     [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
+    
+    DebugLogSuccess(@"glBufferData vertex count %zu", _vertexBrushMaxCount);
 }
 
 - (void)createBuffers{
@@ -840,6 +843,7 @@
 
 - (void)prewarmShaders{
     for (Brush *brush in self.brushTypes) {
+//        CLSLog(@"prewarmShaders brushState %d", brush.brushState.classId);
         PaintCommand *paintCommand = [[PaintCommand alloc]initWithBrushState:brush.brushState];
         paintCommand.delegate = self;
         [paintCommand prewarm];
@@ -1453,7 +1457,7 @@
     
     [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
-    DebugLog(@"glBufferData realloc count %lu", count);
+//    CLSLog(@"glBufferData realloc count %lu", count);
     
 //    self.allocVertexCount = count;
 #if DEBUG

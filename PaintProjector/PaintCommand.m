@@ -56,7 +56,7 @@
     }
 }
 -(void)prewarm{
-    DebugLogFuncStart(@"prewarm shaders");
+    DebugLogFuncStart(@"prewarm");
 
 #if DEBUG
     glPushGroupMarkerEXT(0, "PaintCommand execute");

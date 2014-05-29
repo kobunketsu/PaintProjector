@@ -61,7 +61,7 @@
 #ifdef DEBUG
 #define DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
-#define [IBActionReport logAction:s, ...)
+#define DebugLogIBAction(s, ...)
 #endif
 
 #ifdef DEBUG

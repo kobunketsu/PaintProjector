@@ -613,6 +613,7 @@
         int index = self.allDrawSpriteCount + i;
         
         //TODO:是否需要在点模式下开启捕捉像素点功能
+//        CLSLog(@"self.vertexBuffer index %d", index);
         self.vertexBuffer[index].Position[0] = x;
         self.vertexBuffer[index].Position[1] = y;
         self.vertexBuffer[index].Position[2] = radius * 2;
@@ -636,6 +637,7 @@
 //        [self.delegate willUpdateLayerContentCGRectWithPoint:self.lastDrawSubPoint radius:radius];
     }
     
+    //allDrawSpriteCount累加count
     self.allDrawSpriteCount += count;
 }
 

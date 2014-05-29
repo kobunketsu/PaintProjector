@@ -10,4 +10,5 @@
 
 @interface IBActionReport : NSObject
 + (void)logAction:(NSString *)name identifier:(id)sender;
++ (void)logCrash:(NSString *)name;
 @end

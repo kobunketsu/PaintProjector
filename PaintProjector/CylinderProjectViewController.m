@@ -1159,7 +1159,12 @@
 
 #pragma mark- 显示代理DisplayDelegate
 - (CGRect)willGetViewport{
-    return CGRectMake(0, ToSeeCylinderTopViewportPixelOffsetY, self.view.bounds.size.width, (self.view.bounds.size.height + ToSeeCylinderTopPixelOffset));
+//    struct { GLint x, y, w, h; } rect;
+//    glGetIntegerv(GL_VIEWPORT, (GLint*)&rect);
+//    printf("%s %d %d\n", __FUNCTION__, rect.w, rect.h);
+    CGFloat scale = self.projectView.contentScaleFactor;
+
+    return CGRectMake(0, ToSeeCylinderTopViewportPixelOffsetY * scale, self.view.bounds.size.width * scale, (self.view.bounds.size.height + ToSeeCylinderTopPixelOffset) * scale);
 }
 
 #pragma mark- 更新
@@ -1181,14 +1186,13 @@
 #pragma mark- Opengles Shader相关
 -(EAGLContext *)createBestEAGLContext{
     DebugLogFuncStart(@"createBestEAGLContext");
-    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    if (context == nil) {
-        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-        if(context == nil){
-            DebugLog(@"Failed to create ES context");
-        }
+    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    if(context == nil){
+        DebugLogError(@"Failed to create ES context");
     }
-    
+    else{
+        DebugLogSuccess(@"create kEAGLRenderingAPIOpenGLES2 context success");
+    }
     return context;
 }
 
