@@ -354,6 +354,10 @@
 - (IBAction)newButtonTouchUp:(id)sender {
     [IBActionReport logAction:@"newButtonTouchUp" identifier:sender];
     
+    //在present到cylinderProject之后恢复userInteractionEnable
+    UIButton *button = (UIButton *)sender;
+    button.userInteractionEnabled = false;
+    
     self.editing = false;
     
     //非编辑状态下从最后一个PaintFrameView之后添加
@@ -395,6 +399,7 @@
     
     self.cylinderProjectVC.downToolBar.hidden = true;
     [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
+        self.editNewButton.userInteractionEnabled = true;
         DebugLog(@"Fade in cylinderProjcet");
         [self.cylinderProjectVC.cylinderProjectCur.animation play];
         

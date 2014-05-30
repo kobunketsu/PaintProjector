@@ -228,7 +228,6 @@
 		0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */; };
 		085539801751AA6E00DECF41 /* AnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0855397F1751AA6D00DECF41 /* AnchorView.m */; };
 		085539841751B7D400DECF41 /* GridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085539831751B7D400DECF41 /* GridButton.m */; };
-		08561F8918DDC7EF00839533 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
 		08561FB017806184008449E7 /* LayerBlendModeButton2.m in Sources */ = {isa = PBXBuildFile; fileRef = 08561FAF17806184008449E7 /* LayerBlendModeButton2.m */; };
 		0857779916C62DC80040B152 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* Camera.m */; };
 		085C0C4A18D8A77F001B8AF7 /* ProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ProductInfoTableViewController.m */; };
@@ -294,6 +293,7 @@
 		0872BA491915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA411915C80700559E96 /* OpenGLWaveFrontMaterial.m */; };
 		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
+		0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
 		0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
 		0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
@@ -713,7 +713,7 @@
 		0802D11317368D8A003259E6 /* GalleryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryButton.m; sourceTree = "<group>"; };
 		0802D11517369821003259E6 /* EyeDropperButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropperButton.h; sourceTree = "<group>"; };
 		0802D11617369821003259E6 /* EyeDropperButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropperButton.m; sourceTree = "<group>"; };
-		08030A461881973C00904CB7 /* PaintProjector-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PaintProjector-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		08030A461881973C00904CB7 /* AnaDraw-cal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnaDraw-cal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0803469317F8F81E007852A6 /* ClearGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearGestureRecognizer.h; sourceTree = "<group>"; };
 		0803469417F8F81E007852A6 /* ClearGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearGestureRecognizer.m; sourceTree = "<group>"; };
 		0803D1F4189FCCDB0068B14B /* RenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderTexture.h; path = PaintProjector/RenderTexture.h; sourceTree = "<group>"; };
@@ -2232,7 +2232,7 @@
 			isa = PBXGroup;
 			children = (
 				9C21AF1214E4579F00DB003E /* AnaDraw.app */,
-				08030A461881973C00904CB7 /* PaintProjector-cal.app */,
+				08030A461881973C00904CB7 /* AnaDraw-cal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2354,7 +2354,7 @@
 			);
 			name = "PaintProjector-cal";
 			productName = "PaintProjector-cal";
-			productReference = 08030A461881973C00904CB7 /* PaintProjector-cal.app */;
+			productReference = 08030A461881973C00904CB7 /* AnaDraw-cal.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2409,6 +2409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
 				08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
 				08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
@@ -2419,7 +2420,6 @@
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08086E6B18DC8BA300F03EB4 /* brushSquare.png in Resources */,
-				08561F8918DDC7EF00839533 /* Storyboard_iPad.storyboard in Resources */,
 				08086E7918DC8BA300F03EB4 /* checkCircle.png in Resources */,
 				2bd9b4e63efc55eb48214f7c /* InfoPlist.strings in Resources */,
 				1730f73413c9164df5673fd7 /* InfColorPickerView.xib in Resources */,
@@ -3227,8 +3227,8 @@
 					"$(PROJECT_DIR)/Flurry",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "2E239F3E-CEA1-4FE9-AD6E-888FB1ED1569";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2E239F3E-CEA1-4FE9-AD6E-888FB1ED1569";
+				PROVISIONING_PROFILE = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3245,8 +3245,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3282,9 +3282,9 @@
 					"\"$(SRCROOT)/calabash.framework/calabash\"",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "PaintProjector-cal";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60886A5-3714-4308-AE31-721AE01C678A";
+				PRODUCT_NAME = "AnaDraw-cal";
+				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3448,8 +3448,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Wenjie Hu (P8U4FN6M4B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Wenjie Hu (P8U4FN6M4B)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3484,9 +3484,9 @@
 					"\"$(SRCROOT)/calabash.framework/calabash\"",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "PaintProjector-cal";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DB6EACAC-7E10-412E-80C4-948CAFDF98E0";
+				PRODUCT_NAME = "AnaDraw-cal";
+				PROVISIONING_PROFILE = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3502,8 +3502,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenjie Hu (3K7QPAQ4FJ)";
 				COMPRESS_PNG_FILES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3538,9 +3538,9 @@
 					"\"$(SRCROOT)/calabash.framework/calabash\"",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "PaintProjector-cal";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F60886A5-3714-4308-AE31-721AE01C678A";
+				PRODUCT_NAME = "AnaDraw-cal";
+				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

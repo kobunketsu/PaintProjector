@@ -1197,7 +1197,6 @@
 }
 
 - (void)initGLState{
-    glViewport(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
     glEnable(GL_CULL_FACE);
