@@ -393,7 +393,7 @@
     
     [[GLWrapper current] bindVertexArrayOES: self.paintView.VAOBrush];
     [[GLWrapper current] bindBuffer:self.paintView.VBOBrush];
-    DebugLogWarn(@"prepareWithBrushState glMapBufferOES");
+//    DebugLogWarn(@"prepareWithBrushState glMapBufferOES");
     self.vertexBuffer = (BrushVertex *)glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
 }
 
@@ -459,7 +459,7 @@
     
     //绘制间隔
     float spaceThresold = brushState.radius * 2 * brushState.spacing;
-//    DebugLog(@"radius %.2f spacing %.2f spaceThresold %.2f", brushState.radius, brushState.spacing, spaceThresold);
+    DebugLog(@"radius %.2f spacing %.2f spaceThresold %.2f", brushState.radius, brushState.spacing, spaceThresold);
     
     //绘制数量
     size_t count = 0;
@@ -647,7 +647,7 @@
 //    DebugLog(@"renderImmediate");
     
     //绘制内容前Unmap显卡
-    DebugLogWarn(@"renderImmediate glUnmapBufferOES");
+//    DebugLogWarn(@"renderImmediate glUnmapBufferOES");
     glUnmapBufferOES(GL_ARRAY_BUFFER);
     
     //GPU还未完成绘制时，下一个CPU使用 glBufferSubData可能导致stalling

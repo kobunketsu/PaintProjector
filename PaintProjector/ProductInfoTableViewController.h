@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol ProductInfoTableViewControllerDelegate
 - (void) willOpenWelcomGuideURL;
+- (void) willOpenUserManualURL;
 - (void) willOpenSupportURL;
 - (void) willOpenGalleryURL;
 @end

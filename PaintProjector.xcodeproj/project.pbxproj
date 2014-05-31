@@ -196,8 +196,8 @@
 		08397FC118B6479D009A8F3C /* InAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */; };
 		08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */; };
 		08397FC618B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */; };
-		083A810B19356FE30088980E /* IBActionReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* IBActionReport.m */; };
-		083A810C19356FE30088980E /* IBActionReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* IBActionReport.m */; };
+		083A810B19356FE30088980E /* RemoteLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* RemoteLog.m */; };
+		083A810C19356FE30088980E /* RemoteLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 083A810A19356FE30088980E /* RemoteLog.m */; };
 		083B425D171CCEEC0088B654 /* LayerBlendModeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */; };
 		083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E0167768A400050793 /* ImageIO.framework */; };
 		083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E216776CAF00050793 /* MobileCoreServices.framework */; };
@@ -887,8 +887,8 @@
 		08397FBF18B6479D009A8F3C /* InAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseManager.m; path = PaintProjector/InAppPurchaseManager.m; sourceTree = "<group>"; };
 		08397FC318B64929009A8F3C /* SKProduct+LocalizedPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SKProduct+LocalizedPrice.h"; path = "PaintProjector/SKProduct+LocalizedPrice.h"; sourceTree = "<group>"; };
 		08397FC418B64929009A8F3C /* SKProduct+LocalizedPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SKProduct+LocalizedPrice.m"; path = "PaintProjector/SKProduct+LocalizedPrice.m"; sourceTree = "<group>"; };
-		083A810919356FE30088980E /* IBActionReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBActionReport.h; path = PaintProjector/IBActionReport.h; sourceTree = "<group>"; };
-		083A810A19356FE30088980E /* IBActionReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBActionReport.m; path = PaintProjector/IBActionReport.m; sourceTree = "<group>"; };
+		083A810919356FE30088980E /* RemoteLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteLog.h; path = PaintProjector/RemoteLog.h; sourceTree = "<group>"; };
+		083A810A19356FE30088980E /* RemoteLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteLog.m; path = PaintProjector/RemoteLog.m; sourceTree = "<group>"; };
 		083B425B171CCEEC0088B654 /* LayerBlendModeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewController.h; sourceTree = "<group>"; };
 		083B425C171CCEEC0088B654 /* LayerBlendModeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewController.m; sourceTree = "<group>"; };
 		083DD3E0167768A400050793 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -1964,8 +1964,8 @@
 		08B444B0175AEC9F00787C18 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				083A810919356FE30088980E /* IBActionReport.h */,
-				083A810A19356FE30088980E /* IBActionReport.m */,
+				083A810919356FE30088980E /* RemoteLog.h */,
+				083A810A19356FE30088980E /* RemoteLog.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -2325,7 +2325,6 @@
 				9C21AF0F14E4579F00DB003E /* Frameworks */,
 				9C21AF1014E4579F00DB003E /* Resources */,
 				0829885B1934D56F00EF8C7B /* ShellScript */,
-				0804E2FA163D97D300D86624 /* ShellScript */,
 				08631124192CDF16004233B2 /* ShellScript */,
 			);
 			buildRules = (
@@ -2542,19 +2541,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0804E2FA163D97D300D86624 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "${PROJECT_DIR}/scripts/update_storyboard_strings.sh";
-		};
 		0829885B1934D56F00EF8C7B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2566,7 +2552,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION == Release ]; then\necho \"Bumping build number...\"\nplist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n#increment the build number (ie 115 to 116)\nbuildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\nif [[ \"${buildnum}\" == \"\" ]]; then\necho \"No build number in $plist\"\nexit 2\nfi\n\nbuildnum=$(expr $buildnum + 1)\n/usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\necho \"Bumped build number to $buildnum\"\n\nelse\necho $CONFIGURATION \" build - Not bumping build number.\"\nfi";
+			shellScript = "if [ $CONFIGURATION == Testflight ]; then\necho \"Bumping build number...\"\nplist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n#increment the build number (ie 115 to 116)\nbuildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\nif [[ \"${buildnum}\" == \"\" ]]; then\necho \"No build number in $plist\"\nexit 2\nfi\n\nbuildnum=$(expr $buildnum + 1)\n/usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\necho \"Bumped build number to $buildnum\"\n\nelse\necho $CONFIGURATION \" build - Not bumping build number.\"\nfi";
 		};
 		08631124192CDF16004233B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2646,7 +2632,7 @@
 				dcc1369eefcabccd63408c2c /* CustomTouchUIView.m in Sources */,
 				b3bfd9587c8094c480be1249 /* Pencil.m in Sources */,
 				086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */,
-				083A810C19356FE30088980E /* IBActionReport.m in Sources */,
+				083A810C19356FE30088980E /* RemoteLog.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* Eraser.m in Sources */,
 				4e9779aa9b6bd2a3b1fd4cc6 /* Pen.m in Sources */,
 				0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */,
@@ -2980,7 +2966,7 @@
 				08402CB41701E1F000DE952A /* PaintData.m in Sources */,
 				0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				084D5405170338A60052F510 /* PaintDoc.m in Sources */,
-				083A810B19356FE30088980E /* IBActionReport.m in Sources */,
+				083A810B19356FE30088980E /* RemoteLog.m in Sources */,
 				08E104C418E31F3B00B777FB /* SharedTableView.m in Sources */,
 				084D540A17033C270052F510 /* PaintDocManager.m in Sources */,
 				08A3F3DB1850A756007922D2 /* GLWrapper.m in Sources */,

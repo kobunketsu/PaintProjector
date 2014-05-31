@@ -47,13 +47,13 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 }
 
 - (void)dealloc{
-    DebugLog(@"移除跟踪交易");
+    DebugLogSystem(@"移除跟踪交易");
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 - (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler
 {
-    DebugLog(@"请求产品列表");
+    DebugLogFuncStart(@"请求产品列表");
     if (completionHandler) {
         _completionHandler = [completionHandler copy];
     }
@@ -75,7 +75,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-    DebugLog(@"从AppStore得到产品列表.");
+    DebugLogSystem(@"从AppStore得到产品列表.");
     self.productsRequested = true;
     NSArray *products = response.products;
     _products = products;
@@ -111,7 +111,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    DebugLogWarn(@"无法从AppStore得到产品列表.");
+    DebugLogSystem(@"无法从AppStore得到产品列表.");
     self.productsRequested = false;
     productsRequest = nil;
     
@@ -175,7 +175,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (BOOL)isDeviceJailBroken{
     if ([[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app"]) {
-        DebugLog(@"Jialbreak detected");
+        DebugLogError(@"Jialbreak detected");
         return true;
     }
     return false;
@@ -238,7 +238,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 
                 // The transaction supplied to the validation service was not valid according to Apple.
                 transactionResult = TransactionInvalid;
-                DebugLog(@"验证交易失败");
+                DebugLogWarn(@"验证交易失败");
                 [self finishTransaction:transaction wasSuccessful:NO];
             }
             
@@ -267,7 +267,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLog(@"记录交易,交易记录保存到磁盘存储收据");
+    DebugLogSystem(@"记录交易,交易记录保存到磁盘存储收据");
     // save the transaction receipt to disk
     NSString *productTransactionReceipt = [transaction.payment.productIdentifier stringByAppendingString:@"Receipt"];
     [[NSUserDefaults standardUserDefaults] setValue:transaction.transactionReceipt forKey:productTransactionReceipt];
@@ -279,7 +279,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)provideContent:(NSString *)productIdentifier
 {
-    DebugLog(@"解锁内容");
+    DebugLogFuncStart(@"解锁内容");
     [_purchasedProductIdentifiers addObject:productIdentifier];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
     
@@ -310,7 +310,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)finishTransaction:(SKPaymentTransaction *)transaction wasSuccessful:(BOOL)wasSuccessful
 {
-    DebugLog(@"结束交易");
+    DebugLogFuncStart(@"结束交易");
     // remove the transaction from the payment queue.
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
     
@@ -331,7 +331,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLog(@"完成交易");
+    DebugLogFuncStart(@"完成交易");
     [self validateReceipt:transaction restore:NO];
 }
 //
@@ -339,7 +339,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLog(@"恢复交易");
+    DebugLogFuncStart(@"恢复交易");
     [self validateReceipt:transaction restore:YES];
 }
 //
@@ -347,7 +347,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLog(@"交易失败 domain:%@ error:%u", transaction.error.domain, transaction.error.code);
+    DebugLogFuncStart(@"交易失败 domain:%@ error:%u", transaction.error.domain, transaction.error.code);
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
         // error!
@@ -366,6 +366,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
+    DebugLogFuncStart(@"paymentQueue updatedTransactions");
     for (SKPaymentTransaction *transaction in transactions)
     {
         switch (transaction.transactionState)

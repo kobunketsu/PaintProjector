@@ -13,61 +13,71 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "Extension.h"
-//for crash report
-    #import <Crashlytics/Crashlytics.h>
-    #import "TestFlight.h"
-    #import "Flurry.h"
-    #import "IBActionReport.h"
-#endif
+    #import "RemoteLog.h"
 
+//debug color
+    #define XCODE_COLORS_ESCAPE @"\033["
 
-#define XCODE_COLORS_ESCAPE @"\033["
+    #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
+    #define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
+    #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
-#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
+    #ifdef DEBUG
+//普通的log
+    #define DebugLog(s, ...) NSLog(@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLog(s, ...)
+    #endif
 
+    #ifdef DEBUG
+//警告的log
+    #define DebugLogWarn(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogWarn(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLog(s, ...) NSLog(@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLog(s, ...)
-#endif
+    #ifdef DEBUG
+//严重错误的log
+    #define DebugLogError(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,0,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogError(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLogWarn(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogWarn(s, ...)
-#endif
+    #ifdef DEBUG
+//成功的log
+    #define DebugLogSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogSuccess(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLogError(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,0,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogError(s, ...)
-#endif
+    #ifdef DEBUG
+//系统函数调用的log
+    #define DebugLogSystem(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg127,127,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogSystem(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:s]];[RemoteLog log:str];
+    #endif
 
-#ifdef DEBUG
-#define DebugLogSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogSuccess(s, ...)
-#endif
+    #ifdef DEBUG
+//用户交互的log
+    #define DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogIBAction(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLogSystem(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg127,127,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogSystem(s, ...)
-#endif
+    #ifdef DEBUG
+//函数开始的log
+    #define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogFuncStart(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogIBAction(s, ...)
-#endif
+    #ifdef DEBUG
+//函数每帧都调用的log
+    #define DebugLogFuncUpdate(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogFuncUpdate(s, ...)
+    #endif
 
-#ifdef DEBUG
-#define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,127,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-#else
-#define DebugLogFuncStart(s, ...)
 #endif
 
 
@@ -82,7 +92,6 @@
 #define FuzzyTransparentAlpha 0.7
 #define PaintPixelOffsetThresold 0.1 //确定触摸时多大的距离会记录成一个绘制点
 #define UISliderDefaultHeight 31
-
 //全局设置
 //使用米还是
 //static NSString* version = @"version_0.1";

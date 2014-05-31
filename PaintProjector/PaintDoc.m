@@ -36,6 +36,9 @@
     return self;
 }
 
+- (void)dealloc{
+    DebugLogSystem(@"dealloc");
+}
 //创建数据目录
 - (BOOL)createDataPath {
     

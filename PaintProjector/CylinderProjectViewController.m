@@ -22,6 +22,7 @@
 #define NearClipDistance 0.0001
 
 #define PRODUCT_INFO_INTRODUCTION @"http://115.28.22.180/anadraw/"
+#define PRODUCT_INFO_USERMANUAL @"http://115.28.22.180/anadraw/?topic=official-user-manaul"
 #define PRODUCT_INFO_GALLERY @"http://115.28.22.180/anadraw/?page_id=43"
 #define PRODUCT_INFO_COMMUNITY @"http://115.28.22.180/anadraw/?page_id=45"
 
@@ -189,7 +190,7 @@
 
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"galleryButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"galleryButtonTouchUp" identifier:sender];
     
     sender.selected = true;
     
@@ -236,16 +237,21 @@
 //}
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"setupButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
+        sender.userInteractionEnabled = false;
         
         if (sender.selected) {
-            [self setupAnamorphParams];
+            [self setupAnamorphParamsCompletion:^{
+                sender.userInteractionEnabled = true;
+            }];
         }
         else{
-            [self setupAnamorphParamsDoneCompletion:nil];
+            [self setupAnamorphParamsDoneCompletion:^{
+                sender.userInteractionEnabled = true;
+            }];
         }
     }
     else{
@@ -255,14 +261,14 @@
 }
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
-   [IBActionReport logAction:@"shareButtonTouchUp" identifier:sender];
+   [RemoteLog logAction:@"shareButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     [self share];
 }
 
 - (IBAction)infoButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"infoButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"infoButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
@@ -270,7 +276,7 @@
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"paintButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"paintButtonTouchUp" identifier:sender];
     
     sender.selected = true;
     self.setupButton.selected = false;
@@ -375,56 +381,71 @@
 }
 #pragma mark- 分享 share Delegate
 -(void) didSelectPostToFacebook {
+    [RemoteLog logAction:@"didSelectPostToFacebook" identifier:nil];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        NSString *postText = NSLocalizedString(@"PostToFacebookMessage", nil);
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
+        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        [controller addURL:appURL];
+
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
 }
 
 -(void) didSelectPostToTwitter{
+    [RemoteLog logAction:@"didSelectPostToTwitter" identifier:nil];
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
     {
         SLComposeViewController *controller = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-        NSString *postText = NSLocalizedString(@"PostToTwitterMessage", nil);
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
+        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        [controller addURL:appURL];
+        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
 }
 
 -(void) didSelectPostToSinaWeibo {
+    [RemoteLog logAction:@"didSelectPostToSinaWeibo" identifier:nil];
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
-        
-        NSString *postText = NSLocalizedString(@"PostToSinaWeiboMessage", nil);
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
+        
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
+        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        [controller addURL:appURL];
+        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
+            
         }];
     }
 }
 
 -(void) didSelectPostToEmail {
+    [RemoteLog logAction:@"didSelectPostToEmail" identifier:nil];
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
-    NSString *postText = NSLocalizedString(@"PostToEmailMessage", nil);
+    NSString *postText = NSLocalizedString(@"EmailMessageSubject", nil);
     [picker setSubject:postText];
+    [picker setMessageBody:NSLocalizedString(@"EmailMessageBody", nil) isHTML:YES];
     
     UIImage *image = [self.projectView snapshot];
     //convert UIImage to NSData to add it as attachment
@@ -436,8 +457,8 @@
     [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
     
     //showing MFMailComposerView here
+    [self.sharedPopoverController dismissPopoverAnimated:true];
     [self presentViewController:picker animated:true completion:^{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
     }];
 }
 #pragma mark- 邮件代理 Email Delegate
@@ -452,9 +473,11 @@
 }
 #pragma mark- 设置Setup
 
-- (void)setupAnamorphParams{
-
+- (void)setupAnamorphParamsCompletion: (void (^) (void)) block{
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
+        if (block != nil) {
+            block();
+        }
         
     }];
     
@@ -487,7 +510,7 @@
 }
 
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"userInputParamButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"userInputParamButtonTouchUp" identifier:sender];
     
     for (UIButton *button in self.allUserInputParamButtons) {
         if (![button isEqual:sender]) {
@@ -546,7 +569,7 @@
 }
 
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
-    [IBActionReport logAction:@"userInputParamSliderValueChanged" identifier:sender];
+    [RemoteLog logAction:@"userInputParamSliderValueChanged" identifier:sender];
     
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.keyPath];
     [self flushUIUserInputParams];
@@ -612,18 +635,29 @@
 #pragma mark- 产品信息代理 info Delegate
 
 - (void) willOpenWelcomGuideURL{
+    [RemoteLog logAction:@"willOpenWelcomGuideURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }
 }
+- (void) willOpenUserManualURL{
+    [RemoteLog logAction:@"willOpenUserManualURL" identifier:nil];
+    NSURL *url = [NSURL URLWithString:PRODUCT_INFO_USERMANUAL];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
 - (void) willOpenSupportURL{
+    [RemoteLog logAction:@"willOpenSupportURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_COMMUNITY];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }
 }
 - (void) willOpenGalleryURL{
+    [RemoteLog logAction:@"willOpenGalleryURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_GALLERY];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
@@ -1058,7 +1092,7 @@
 }
 
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
-    [IBActionReport logAction:@"handlePanCylinderProjectView" identifier:sender];
+    [RemoteLog logAction:@"handlePanCylinderProjectView" identifier:sender];
     
     //顶视图模式下忽略圆柱体区域的触摸手势
     if (!self.eyePerspectiveView.hidden) {
@@ -1149,7 +1183,7 @@
 
 #pragma mark- 绘图设置
 - (void)updateRenderViewParams{
-//    DebugLogFuncStart(@"updateRenderViewParams");
+//    DebugLogFuncUpdate(@"updateRenderViewParams");
     GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
     GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
     Camera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
@@ -1588,7 +1622,7 @@
 
 #pragma mark- CustomPercentDrivenInteractiveTransition
 - (void)willUpdatingInteractiveTransition:(CustomPercentDrivenInteractiveTransition*)transition{
-//    DebugLogFuncStart(@"willUpdatingInteractiveTransition");
+//    DebugLogFuncUpdate(@"willUpdatingInteractiveTransition");
     if ([transition.name isEqualToString:@"browseNext"]) {
 //        DebugLog(@"browsing Next");
         CGFloat x = transition.percentComplete * self.cylinderProjectCur.imageWidth;
@@ -1794,7 +1828,7 @@
     return [self createBestEAGLContext];
 }
 
-- (void) closePaintDoc:(PaintDoc *)paintDoc{
+- (void) closePaintDoc:(PaintDoc *)paintDoc completionBlock:(void (^) (void)) block{
     //刷新当前画框内容
     NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
     
@@ -1805,6 +1839,10 @@
     transitionImageView.alpha = 1;
     
     [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
+        if (block) {
+            block();
+        }
+        
         self.paintButton.selected = false;
         
         self.cylinderProjectCur.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:true];
@@ -1857,7 +1895,7 @@
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"sideViewButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"sideViewButtonTouchUp" identifier:sender];
     
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
@@ -1877,7 +1915,7 @@
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"topViewButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"topViewButtonTouchUp" identifier:sender];
     
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
@@ -1975,6 +2013,7 @@
     switch (buttonIndex) {
         case 1:
             DebugLog(@"打开商店");
+            [RemoteLog logAction:@"Open IAP" identifier:nil];
             self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
             self.iapVC.delegate = self;
             [self presentViewController:self.iapVC animated:true completion:^{
@@ -1997,7 +2036,7 @@
 }
 
 - (IBAction)virtualDeviceButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"virtualDeviceButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"virtualDeviceButtonTouchUp" identifier:sender];
     
     CylinderProjectVirtualDeviceCollectionViewController* virtualDeviceCollectionViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectVirtualDeviceCollectionViewController"];
 //    virtualDeviceCollectionViewController.delegate = self;

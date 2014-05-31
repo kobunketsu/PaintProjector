@@ -11,3 +11,6 @@ Feature: Running misc functions
     And I should see a "FullScreen" button
     When I touch the "FullScreen" button
     Then I enter FullScreen
+    
+  Scenario: save and close repeatly
+    Given this is pending  

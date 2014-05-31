@@ -573,7 +573,7 @@
     [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
     
-    DebugLogSuccess(@"glBufferData vertex count %zu", _vertexBrushMaxCount);
+    DebugLog(@"glBufferData vertex count %zu", _vertexBrushMaxCount);
 }
 
 - (void)createBuffers{
@@ -917,7 +917,7 @@
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
 
     //不在Touch发生时马上开始绘制，不修改paintView.state
     if (self.firstTouch == NULL) {
@@ -967,7 +967,7 @@
 // Handles the continuation of a touch.
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
+//    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
     
     //只接受在touchesBegan注册的UITouch事件处理
     if (![touches containsObject:self.firstTouch]) {
@@ -1129,7 +1129,7 @@
 //有手指结束按住状态，不能用来判断操作的完成
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"[ touchesEnded! touches count:%d ]", [touches count]);
+//    DebugLogSystem(@"[ touchesEnded! touches count:%d ]", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }
@@ -1140,7 +1140,7 @@
 {
 	// If appropriate, add code necessary to save the state of the application.
 	// This application is not saving state.
-    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
     
     [self handleTouchesEnded:touches withEvent:event];
 }
@@ -1215,9 +1215,16 @@
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
 //    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
+#if DEBUG
+    glPushGroupMarkerEXT(0, "copyCurLayerToCurPaintedLayer");
+#endif
 	[[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
+    
+#if DEBUG
+    glPopGroupMarkerEXT();
+#endif
 }
 
 - (void)copyCurPaintedLayerToCurLayer{
@@ -1619,6 +1626,10 @@
 
 - (void) willEndWrapUndoBaseCommand{
     DebugLog(@"willWrapUndoBaseCommand draw _curPaintedLayerTexture to _undoBaseFramebuffer");
+#if DEBUG
+    glPushGroupMarkerEXT(0, "willWrapUndoBaseCommand");
+#endif
+    
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
     [[GLWrapper current] bindFramebufferOES: _undoBaseFramebuffer discardHint:true clear:true];
 
@@ -1631,6 +1642,10 @@
     [self copyCurLayerToCurPaintedLayer];
     
     [self setVBOBrushForImmediate];
+    
+#if DEBUG
+    glPopGroupMarkerEXT();
+#endif
 }
 
 #pragma mark- Undo Redo
@@ -2126,11 +2141,14 @@
     NSNumber* numTex = [self.layerTextures objectAtIndex:_curLayerIndex];
     _curLayerTexture = numTex.intValue;
     
-    DebugLog(@"Set _curLayerIndex: %d _curLayerFramebuffer: %d _curLayerTexture: %d ", _curLayerIndex, _curLayerFramebuffer, _curLayerTexture);
+    NSString *string = [NSString stringWithFormat:@"Set _curLayerIndex: %d _curLayerFramebuffer: %d _curLayerTexture: %d ", _curLayerIndex, _curLayerFramebuffer, _curLayerTexture];
+    DebugLog(@"%@", string);
+
     
     //将当前层内容拷贝到临时绘制层种
     [self copyCurLayerToCurPaintedLayer];
-    
+
+
 }
 
 //插入图层
@@ -2400,7 +2418,10 @@
     //隐藏层不绘制
     if(!layer.visible) return;
     
-    
+#if DEBUG
+    NSString *glString = [NSString stringWithFormat:@"Draw layer %d", index];
+    glPushGroupMarkerEXT(0, [glString UTF8String]);
+#endif
     //如果是当前绘图层
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
@@ -2412,7 +2433,9 @@
 //        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, numTex.intValue,  layer.blendMode, layer.opacity);
         [self drawLayerWithTex:numTex.intValue blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
-    
+#if DEBUG
+    glPopGroupMarkerEXT();
+#endif
 }
 
 //- (void) drawBackgroundLayerWithRed:(GLfloat)red green:(GLfloat)green blue:(GLfloat)blue alpha:(GLfloat)alpha{

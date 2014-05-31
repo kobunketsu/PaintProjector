@@ -1232,11 +1232,11 @@
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="9Qu-66-uty" appends="YES" id="0VT-eW-cDH"/>
                                     <outletCollection property="gestureRecognizers" destination="UHa-tB-uQ7" appends="YES" id="kVt-xX-3qI"/>
-                                    <outletCollection property="gestureRecognizers" destination="zQY-1r-Dfz" appends="YES" id="44v-Gh-HJg"/>
                                     <outletCollection property="gestureRecognizers" destination="kXl-ig-bRM" appends="YES" id="Bxz-Bc-t79"/>
                                     <outletCollection property="gestureRecognizers" destination="btS-GN-p3J" appends="YES" id="F4L-ti-mih"/>
                                     <outletCollection property="gestureRecognizers" destination="p8M-Ll-zAa" appends="YES" id="1Nf-9e-GZb"/>
                                     <outletCollection property="gestureRecognizers" destination="nal-JO-dWr" appends="YES" id="kMR-em-YtH"/>
+                                    <outletCollection property="gestureRecognizers" destination="zQY-1r-Dfz" appends="YES" id="44v-Gh-HJg"/>
                                 </connections>
                             </view>
                             <view hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" id="DaP-yC-9nA" customClass="BrushView">

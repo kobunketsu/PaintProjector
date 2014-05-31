@@ -242,6 +242,7 @@
             sliderValue = self.brush.brushState.radius;
             minValue = 1;
             maxValue = 100;
+            isSwitch = NO;
             break;
         case 1:
             label = NSLocalizedString(@"Noise", nil);
@@ -249,6 +250,7 @@
             sliderValue = self.brush.brushState.radiusJitter;
             minValue = 0;
             maxValue = 1;
+            isSwitch = NO;
             break;
         case 2:
             label = NSLocalizedString(@"Fade", nil);
@@ -256,18 +258,21 @@
             sliderValue = self.brush.brushState.radiusFade;
             minValue = 0;
             maxValue = 1000;
+            isSwitch = NO;
             break;
         case 3:
             label = NSLocalizedString(@"Opacity", nil);
             sliderValue = self.brush.brushState.opacity;
-            break;
             minValue = 0;
             maxValue = 1.0;
+            isSwitch = NO;
+            break;
         case 4:
             label = NSLocalizedString(@"Flow", nil);
             sliderValue = self.brush.brushState.flow;
             minValue = 0;
             maxValue = 1;
+            isSwitch = NO;
             break;
         case 5:
             label = NSLocalizedString(@"Noise", nil);
@@ -275,6 +280,7 @@
             minValue = 0;
             maxValue = 1;
             isSmall = YES;
+            isSwitch = NO;
             break;
         case 6:
             label = NSLocalizedString(@"Fade", nil);
@@ -282,12 +288,14 @@
             minValue = 0;
             maxValue = 1000;
             isSmall = YES;
+            isSwitch = NO;
             break;
         case 7:
             label = NSLocalizedString(@"Angle", nil);
             sliderValue = self.brush.brushState.angle;
             minValue = 0;
             maxValue = 360;
+            isSwitch = NO;
             break;
         case 8:
             label = NSLocalizedString(@"Noise", nil);
@@ -295,6 +303,7 @@
             minValue = 0;
             maxValue = 1;
             isSmall = YES;
+            isSwitch = NO;
             break;
         case 9:
             label = NSLocalizedString(@"Fade", nil);
@@ -302,40 +311,47 @@
             minValue = 0;
             maxValue = 1000;
             isSmall = YES;
+            isSwitch = NO;
             break;
         case 10:
             label = NSLocalizedString(@"Round", nil);
             sliderValue = self.brush.brushState.roundness;
             minValue = 0;
             maxValue = 1;
+            isSwitch = NO;
             break;
         case 11:
             label = NSLocalizedString(@"Hard", nil);
             sliderValue = self.brush.brushState.hardness;
             minValue = 0;
             maxValue  =1;
+            isSwitch = NO;
             break;
         case 12:
             label = NSLocalizedString(@"Spacing", nil);
             sliderValue = self.brush.brushState.spacing;
-            break;
             minValue = 0.05;
             maxValue = 5;
+            isSwitch = NO;
+            break;
         case 13:
             label = NSLocalizedString(@"Scatter", nil);
             sliderValue = self.brush.brushState.scattering;
             minValue = 0;
             maxValue = 10;
+            isSwitch = NO;
             break;
         case 14:
             label = NSLocalizedString(@"Wet", nil);
             sliderValue = self.brush.brushState.wet;
             minValue = 0;
             maxValue = 1;
+            isSwitch = NO;
             break;
         case 15:
             label = NSLocalizedString(@"Dither", nil);
             switchValue = self.brush.brushState.isDissolve;
+            isSwitch = YES;
             break;
         case 16:
             label = NSLocalizedString(@"AirBrush", nil);
@@ -365,13 +381,18 @@
     if (isSwitch) {
         cell.propertyValueSwitch.hidden = false;
         cell.propertyValueSlider.hidden = true;
+        cell.propertyValueSwitch.on = switchValue;
+        cell.propertyValueSwitch.tag = indexPath.row;
     }
-    cell.propertyValueSwitch.on = switchValue;
-    cell.propertyValueSwitch.tag = indexPath.row;
-    cell.propertyValueSlider.value = sliderValue;
-    cell.propertyValueSlider.minimumValue = minValue;
-    cell.propertyValueSlider.maximumValue = maxValue;
-    cell.propertyValueSlider.tag = indexPath.row;
+    else{
+        cell.propertyValueSwitch.hidden = true;
+        cell.propertyValueSlider.hidden = false;
+        cell.propertyValueSlider.value = sliderValue;
+        cell.propertyValueSlider.minimumValue = minValue;
+        cell.propertyValueSlider.maximumValue = maxValue;
+        cell.propertyValueSlider.tag = indexPath.row;
+    }
+   
     return cell;
 }
 #pragma mark- UITableViewDelegate

@@ -162,21 +162,21 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesBegan! touches count:%d", [touches count]);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesMoved! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesMoved! touches count:%d", [touches count]);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesEnded! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesEnded! touches count:%d", [touches count]);
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
+//    DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
 }
 @end

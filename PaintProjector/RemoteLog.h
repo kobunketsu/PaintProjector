@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Crashlytics/Crashlytics.h>
+#import "TestFlight.h"
+#import "Flurry.h"
 
-@interface IBActionReport : NSObject
+@interface RemoteLog : NSObject
 + (void)logAction:(NSString *)name identifier:(id)sender;
-+ (void)logCrash:(NSString *)name;
++ (void)log:(NSString *)name;
 @end

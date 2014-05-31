@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger, ScaleMode) {
 
 @protocol PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup;
-- (void) closePaintDoc:(PaintDoc*)paintDoc;
+- (void) closePaintDoc:(PaintDoc*)paintDoc completionBlock:(void (^) (void)) block;
 //- (void) paintBGChanged:(NSString*)bgImageName;
 //- (void) stopDetectCameraMotion;
 

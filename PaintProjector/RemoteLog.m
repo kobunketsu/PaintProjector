@@ -6,14 +6,11 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "IBActionReport.h"
+#import "RemoteLog.h"
 
-@implementation IBActionReport
+@implementation RemoteLog
 + (void)logAction:(NSString *)name identifier:(id)sender{
-#if DEBUG
-//    DebugLogIBAction(name,nil);
-#endif
-    
+
     if ([sender isKindOfClass:[UISlider class]]) {
         return;
     }
@@ -27,12 +24,20 @@
         }
     }
     
+#if DEBUG
+    DebugLogIBAction(@"%@",name);
+#else
     [Flurry logEvent:name];
     [TestFlight passCheckpoint:name];
+#endif
 }
 
-+ (void)logCrash:(NSString *)name{
++ (void)log:(NSString *)name{
+#if DEBUG
+//    NSLog(@"%@", name);
+#else
     CLSLog(name, nil);
     TFLog(name, nil);
+#endif
 }
 @end

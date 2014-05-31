@@ -24,7 +24,7 @@
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete{
-    DebugLogFuncStart(@"updateInteractiveTransition percentComplete:%.2f", percentComplete);
+    DebugLogFuncUpdate(@"updateInteractiveTransition percentComplete:%.2f", percentComplete);
     self.percentComplete = percentComplete;
     
     [self.delegate willUpdatingInteractiveTransition:self];

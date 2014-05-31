@@ -139,12 +139,12 @@
 
 #pragma mark - UI
 - (IBAction)doneButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"IAPDoneButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAPDoneButtonTouchUp" identifier:sender];
     [self.delegate willPurchaseDone];
 }
 
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender {
-    [IBActionReport logAction:@"IAPRestoreButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAPRestoreButtonTouchUp" identifier:sender];
     if ([[AnaDrawIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
