@@ -393,6 +393,12 @@
         [self presentViewController:controller animated:YES completion:^{
         }];
     }
+    else{
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"FacebookNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 -(void) didSelectPostToTwitter{
@@ -414,6 +420,12 @@
         [self presentViewController:controller animated:YES completion:^{
         }];
     }
+    else{
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"TwitterNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 -(void) didSelectPostToSinaWeibo {
@@ -434,6 +446,12 @@
         [self presentViewController:controller animated:YES completion:^{
             
         }];
+    }
+    else{
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SinaWeiboNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 

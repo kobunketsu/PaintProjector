@@ -124,22 +124,31 @@
     paintCollectionVC.downToolBar.hidden = true;
     UIView *toView = paintCollectionVC.view;
     
-    //更新scroll位置
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:paintCollectionVC.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
-    [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
-
-    UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
-    [transitionImageView removeFromSuperview];
+    DebugLog(@"indexPath row %d", indexPath.row);
     
     //得到新的当前PaintFrameView
-    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC collectionView:paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+    
+    UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
+    [transitionImageView removeFromSuperview];
     UIButton *paintFrameView = cell.paintFrameView;
     [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
     CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
+    
+    //更新scroll位置
+    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+    [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    
     //patch:处理奇怪的偏移
     destRect.origin.x -= 5;
     destRect.origin.y -= 5;
-    
+
+//    DebugLogWarn(@"destRect %@", NSStringFromCGRect(destRect));
+//    DebugLogWarn(@"contentOffset %@", NSStringFromCGPoint(paintCollectionVC.collectionView.contentOffset));
+    destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
+    destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
+
     [containerView addSubview:toView];
     [containerView addSubview:fromVC.view];
     [containerView addSubview:transitionImageView];

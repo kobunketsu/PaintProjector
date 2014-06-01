@@ -4715,25 +4715,29 @@
 
 #pragma mark- 观察对象数值变化
 - (void)willClearColorChanged:(UIColor *)color{
-//        DebugLog(@"backgroundLayer.clearColor changed");
-        CGFloat colorRGBA[4];
-        [color getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+//    DebugLog(@"backgroundLayer.clearColor changed");
+    CGFloat colorRGBA[4];
+    [color getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    
+    for (AutoRotateButton *button in self.topToolBarButtons) {
+        ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+        ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+        ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
         
-        for (AutoRotateButton *button in self.topToolBarButtons) {
-            ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
-            ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
-            ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
-            
-            [button.layer setNeedsDisplay];
-        }
-        
-        //calculate reflect color for UI
-        CGFloat r = colorRGBA[0] * 0.1 + 0.9 * 0.85;
-        CGFloat g = colorRGBA[1] * 0.1 + 0.9 * 0.85;
-        CGFloat b = colorRGBA[2] * 0.1 + 0.9 * 0.85;
-        [PaintUIKitStyle setGlobalRefelectColor:[UIColor colorWithRed:r green:g blue:b alpha:1.0]];
-       
-        // send out a reflect color changed notification for the uis which use crystalGradient style
+        [button.layer setNeedsDisplay];
+    }
+    
+    if(self.layerTableViewController){
+        [self.layerTableViewController updateIconColors];
+    }
+    
+    //calculate reflect color for UI
+    CGFloat r = colorRGBA[0] * 0.1 + 0.9 * 0.85;
+    CGFloat g = colorRGBA[1] * 0.1 + 0.9 * 0.85;
+    CGFloat b = colorRGBA[2] * 0.1 + 0.9 * 0.85;
+    [PaintUIKitStyle setGlobalRefelectColor:[UIColor colorWithRed:r green:g blue:b alpha:1.0]];
+    
+    // send out a reflect color changed notification for the uis which use crystalGradient style
 //        dispatch_async(dispatch_get_main_queue(),^{
 //            [[NSNotificationCenter defaultCenter] postNotificationName:BackgroundLayerClearColorChangedNotification object:self userInfo:nil];
 //        });

@@ -72,6 +72,7 @@ UIAlertViewDelegate
 - (int)rowForLayerIndex:(int)layerIndex;
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)selectRowForCurLayer;
+- (void)updateIconColors;
 //添加图层按钮
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender;
 //复制图层按钮
