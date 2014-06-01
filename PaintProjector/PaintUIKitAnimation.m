@@ -16,12 +16,15 @@
 
 + (void)view:(UIView*)view switchDownToolBarFromView:(DownToolBar*)fromView completion: (void (^) (void))block1 toView:(DownToolBar*)toView completion: (void (^) (void)) block2{
     DebugLogFuncStart(@"switchDownToolBarFromView fromView:%@ toView:%@", fromView, toView);
-    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration animations:^{
+    //如果存在另一个相同的动画，则需要等另一个动画结束之后才开始。加上一定延迟
+    CGFloat delay = 0;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (fromView) {
             fromView.center = CGPointMake(fromView.center.x, view.bounds.size.height + fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
-        DebugLog(@"animateWithDuration finished fromView:%@ toView:%@", fromView, toView);
+        DebugLog(@"switchDownToolBar completion fromView:%@", fromView);
         if (fromView) {
             fromView.hidden = true;
         }
@@ -42,6 +45,7 @@
                 toView.center = CGPointMake(toView.center.x, view.bounds.size.height - toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
+            DebugLog(@"switchDownToolBar completion toView:%@", toView);
             if (block2) {
                 block2();
             }
@@ -52,12 +56,14 @@
 
 + (void)view:(UIView*)view switchTopToolBarFromView:(TopToolBar*)fromView completion: (void (^) (void))block1 toView:(TopToolBar*)toView completion: (void (^) (void)) block2{
     DebugLogFuncStart(@"switchTopToolBarFromView fromView:%@ toView:%@", fromView, toView);
-    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration animations:^{
+    CGFloat delay = 0;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
         if (fromView) {
             fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
-        DebugLog(@"animateWithDuration finished fromView:%@ toView:%@", fromView, toView);
+        DebugLog(@"switchTopToolBar completion fromView:%@", fromView);
         if (fromView) {
             fromView.hidden = true;
         }
@@ -78,6 +84,7 @@
                 toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
+            DebugLog(@"switchTopToolBar completion toView:%@", toView);
             if (block2) {
                 block2();
             }

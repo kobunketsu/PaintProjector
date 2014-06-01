@@ -182,6 +182,7 @@ typedef struct {
 @property (retain, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic) size_t	vertexBrushMaxCount;
+@property (assign, nonatomic) size_t	curVertexBrushCount;
 @property (assign, nonatomic) GLuint VAOBrush;
 @property (assign, nonatomic) GLuint VAOBrushBack;
 @property (assign, nonatomic) GLuint VBOBrush;

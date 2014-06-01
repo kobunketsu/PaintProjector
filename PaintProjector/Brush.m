@@ -613,7 +613,12 @@
         int index = self.allDrawSpriteCount + i;
         
         //TODO:是否需要在点模式下开启捕捉像素点功能
-//        CLSLog(@"self.vertexBuffer index %d", index);
+        
+        //检查越界导致的crash
+        if (index >= self.paintView.curVertexBrushCount) {
+            [RemoteLog log:[NSString stringWithFormat:@"self.vertexBuffer alloc count %zu index %d", self.paintView.curVertexBrushCount, index]];
+        }
+
         self.vertexBuffer[index].Position[0] = x;
         self.vertexBuffer[index].Position[1] = y;
         self.vertexBuffer[index].Position[2] = radius * 2;

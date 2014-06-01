@@ -16,6 +16,7 @@
         _visible = true;
         _dirty = true;
         [self addObserver:self forKeyPath:@"clearColor" options:NSKeyValueObservingOptionOld context:nil];
+        [self addObserver:self forKeyPath:@"visible" options:NSKeyValueObservingOptionOld context:nil];
         return self;
     }
     return nil;
@@ -23,6 +24,7 @@
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
     [self removeObserver:self forKeyPath:@"clearColor"];
+    [self removeObserver:self forKeyPath:@"visible"];
 }
 -(id)initWithClearColor:(UIColor*)clearColor visible:(BOOL)visible{
     if ((self = [super init])) {
@@ -30,6 +32,7 @@
         _visible = visible;
         _dirty = true;
         [self addObserver:self forKeyPath:@"clearColor" options:NSKeyValueObservingOptionOld context:nil];
+        [self addObserver:self forKeyPath:@"visible" options:NSKeyValueObservingOptionOld context:nil];
         return self;
     }
     return nil;
@@ -58,8 +61,13 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    if ([keyPath isEqualToString:@"clearColor"]) {
-        [self.delegate willClearColorChanged:[self.clearColor copy]];
+    if ([keyPath isEqualToString:@"visible"] || [keyPath isEqualToString:@"clearColor"]) {
+        if (!((BackgroundLayer*)object).visible) {
+            [self.delegate willClearColorChanged:[UIColor blackColor]];
+        }
+        else{
+            [self.delegate willClearColorChanged:[self.clearColor copy]];
+        }
     }
 }
 @end

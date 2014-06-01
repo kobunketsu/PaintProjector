@@ -1161,8 +1161,10 @@
 //    [self showZoomCanvasUI:true];
 //    [self showRotateCanvasUI:[sender isEqual:self.lpgrTwoTouchesPaintView]];
 //    [self showLockRotateCanvasUI:![sender isEqual:self.lpgrTwoTouchesPaintView]];
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
-    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+    
+
+//    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+//    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
 }
 
 - (void)handle2TouchesTransformCanvasEnded:(UIGestureRecognizer *)sender{
@@ -1204,11 +1206,11 @@
 //    [self showZoomCanvasUI:false];
 //    [self showLockRotateCanvasUI:false];
     
-    if (!self.isPaintFullScreen) {
-        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
-    }
-
+//    if (!self.isPaintFullScreen) {
+//        //在handle2TouchesTransformCanvasBegan的动画结束之后才开始触发
+//        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+//        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+//    }
 }
 
 - (void)handle2TouchesTransformCanvas:(UIGestureRecognizer *)sender{
@@ -2510,7 +2512,14 @@
     [self.paintView setOpenData:[self.paintDoc open]];
     
     self.paintView.paintData.backgroundLayer.delegate = self;
-    [self willClearColorChanged:[self.paintView.paintData.backgroundLayer.clearColor copy]];
+    
+    if (self.paintView.paintData.backgroundLayer.visible) {
+        [self willClearColorChanged:[self.paintView.paintData.backgroundLayer.clearColor copy]];
+    }
+    else{
+        [self willClearColorChanged:[UIColor blackColor]];
+    }
+    
 }
 
 - (void)saveDoc{
@@ -2600,7 +2609,7 @@
     //保存当前调色板到默认调色板
     [self saveUserSwatch];
 }
-#pragma mark- 导出 Export
+
 //TODO:实现代理
 //- (void)exportToAirPrint{
 //    UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:self.view.frame.size];
@@ -2635,35 +2644,6 @@
 //    }
 //}
 
-- (void)exportToEmail{
-    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-    picker.mailComposeDelegate = self;
-    [picker setSubject:@"write your subject here"];
-    
-    UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:self.view.frame.size];
-    //convert UIImage to NSData to add it as attachment
-    NSData *imageData = UIImagePNGRepresentation(image);
-    
-    //this is how to attach any data in mail, remember mimeType will be different
-    //for other data type attachment.
-    
-    [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
-    
-    //showing MFMailComposerView here
-    [self presentViewController:picker animated:true completion:^{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-    }];
-}
-
--(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    if(result == MFMailComposeResultCancelled)
-        DebugLog(@"Mail has cancelled");
-    if(result == MFMailComposeResultSaved)
-        DebugLog(@"Mail has saved");
-    
-    [self dismissViewControllerAnimated:true completion:nil];
-}
 
 
 #pragma mark- 导入 Import
@@ -2911,6 +2891,16 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 #pragma mark- 导出 Export
+-(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    if(result == MFMailComposeResultCancelled)
+        DebugLog(@"Mail has cancelled");
+    if(result == MFMailComposeResultSaved)
+        DebugLog(@"Mail has saved");
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 - (IBAction)exportButtonTapped:(UIButton *)sender {
     [RemoteLog logAction:@"exportButtonTapped" identifier:sender];
     sender.selected = true;
@@ -2931,7 +2921,26 @@
     [RemoteLog logAction:@"didSelectExportToEmail" identifier:nil];
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
-    [self exportToEmail];
+    
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    NSString *postText = NSLocalizedString(@"EmailMessageSubject", nil);
+    [picker setSubject:postText];
+    [picker setMessageBody:NSLocalizedString(@"EmailMessageBody", nil) isHTML:YES];
+    
+    UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:self.view.frame.size];
+    //convert UIImage to NSData to add it as attachment
+    NSData *imageData = UIImagePNGRepresentation(image);
+    
+    //this is how to attach any data in mail, remember mimeType will be different
+    //for other data type attachment.
+    
+    [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
+    
+    //showing MFMailComposerView here
+    [self.sharedPopoverController dismissPopoverAnimated:true];
+    [self presentViewController:picker animated:true completion:^{
+    }];
 }
 
 - (void) savedPhotoImage:(UIImage*)image didFinishSavingWithError: (NSError *)error contextInfo: (void *)contextInfo{
@@ -2968,13 +2977,17 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
+        [controller setInitialText:postText];
+        
         UIImage *image = [self paintImageForPostInSocial];
-
         [controller addImage:image];
         
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
+        [controller addURL:appURL];
+
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];            
         }];
     }
     else{
@@ -2989,12 +3002,17 @@
     {
         SLComposeViewController *controller = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
-//        UIImage *image = [self paintImageForPostInSocial];
-//        [controller addImage:image];
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
+        [controller setInitialText:postText];
         
+        UIImage *image = [self paintImageForPostInSocial];
+        [controller addImage:image];
+
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
+        [controller addURL:appURL];
+        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
     else{
@@ -3008,12 +3026,17 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
         
-        [controller setInitialText:@"Paint amazing 3D Street Painting is nothing with ProjectPaint!"];
+        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
+        [controller setInitialText:postText];
+        
         UIImage *image = [self paintImageForPostInSocial];
         [controller addImage:image];
-        
+
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
+        [controller addURL:appURL];
+
+        [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
-            [self.sharedPopoverController dismissPopoverAnimated:true];
         }];
     }
     else{
@@ -3755,7 +3778,6 @@
     }
     
     [self.paintView uploadLayerDatas];
-
 }
 
 - (void)willSetBackgroundLayerVisible:(bool)visible {
@@ -3790,7 +3812,7 @@
     }
 }
 
-- (int) willGetLayerIndex{
+- (int) willGetCurLayerIndex{
     return self.paintView.curLayerIndex;
 }
 - (void) willUpdateRender{

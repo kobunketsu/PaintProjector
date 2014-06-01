@@ -21,18 +21,13 @@
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
 
-#define PRODUCT_INFO_INTRODUCTION @"http://115.28.22.180/anadraw/"
-#define PRODUCT_INFO_USERMANUAL @"http://115.28.22.180/anadraw/?topic=official-user-manaul"
-#define PRODUCT_INFO_GALLERY @"http://115.28.22.180/anadraw/?page_id=43"
-#define PRODUCT_INFO_COMMUNITY @"http://115.28.22.180/anadraw/?page_id=45"
-
 #define ToSeeCylinderTopPixelOffset 70
 #define ToSeeCylinderTopViewportPixelOffsetY -160
 #define TransitionToPaintPixelOffsetY -30.5
 
-#define CylinerFadeInOutDuration 0.4
-#define CylinerResetParamDuration 0.2
-#define CylinerViewChangeDuration 1
+#define CylinderFadeInOutDuration 0.4
+#define CylinderResetParamDuration 0.2
+#define CylinderViewChangeDuration 1
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
 
@@ -390,10 +385,11 @@
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
-        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
 
         [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
         [self presentViewController:controller animated:YES completion:^{
         }];
     }
@@ -410,10 +406,11 @@
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
-        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
         
         [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
         [self presentViewController:controller animated:YES completion:^{
         }];
     }
@@ -429,10 +426,11 @@
         UIImage *image = [self.projectView snapshot];
         [controller addImage:image];
         
-        NSURL *appURL = [NSURL URLWithString:@"http://115.28.22.180/anadraw/"];
+        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
         
         [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.shareButton.selected = false;
         [self presentViewController:controller animated:YES completion:^{
             
         }];
@@ -458,6 +456,7 @@
     
     //showing MFMailComposerView here
     [self.sharedPopoverController dismissPopoverAnimated:true];
+    self.shareButton.selected = false;
     [self presentViewController:picker animated:true completion:^{
     }];
 }
@@ -594,7 +593,7 @@
         TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:(NSString*)key];
         propAnim.fromValue = [self valueForKeyPath:(NSString*)key];
         propAnim.toValue = num;
-        propAnim.duration = CylinerResetParamDuration;
+        propAnim.duration = CylinderResetParamDuration;
         propAnim.target = self;
         propAnim.timing = TPPropertyAnimationTimingEaseOut;
         [animClip addPropertyAnimation:propAnim];
@@ -870,7 +869,7 @@
     topToBottomPropAnim.delegate = self;
     topToBottomPropAnim.fromValue = [NSNumber numberWithFloat:1];
     topToBottomPropAnim.toValue = [NSNumber numberWithFloat:0];
-    topToBottomPropAnim.duration = CylinerViewChangeDuration;
+    topToBottomPropAnim.duration = CylinderViewChangeDuration;
     topToBottomPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
     animClip.name = @"topToBottomAnimClip";
@@ -880,7 +879,7 @@
     bottomToTopPropAnim.delegate = self;
     bottomToTopPropAnim.fromValue = [NSNumber numberWithFloat:0];
     bottomToTopPropAnim.toValue = [NSNumber numberWithFloat:1];
-    bottomToTopPropAnim.duration = CylinerViewChangeDuration;
+    bottomToTopPropAnim.duration = CylinderViewChangeDuration;
     bottomToTopPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     animClip = [AnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
     animClip.name = @"bottomToTopAnimClip";
@@ -965,7 +964,7 @@
     fadeInPropAnim.delegate = self;
     fadeInPropAnim.toValue = [NSNumber numberWithFloat:1];
     fadeInPropAnim.fromValue = [NSNumber numberWithFloat:0];
-    fadeInPropAnim.duration = CylinerFadeInOutDuration;
+    fadeInPropAnim.duration = CylinderFadeInOutDuration;
     fadeInPropAnim.timing = TPPropertyAnimationTimingEaseOut;
 
     AnimationClip *fadeInAnimClip = [AnimationClip animationClipWithPropertyAnimation:fadeInPropAnim];
@@ -978,7 +977,7 @@
     fadeOutPropAnim.delegate = self;
     fadeOutPropAnim.toValue = [NSNumber numberWithFloat:0];
     fadeOutPropAnim.fromValue = [NSNumber numberWithFloat:1];
-    fadeOutPropAnim.duration = CylinerFadeInOutDuration;
+    fadeOutPropAnim.duration = CylinderFadeInOutDuration;
     fadeOutPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     [fadeOutPropAnim setCompletionBlock:^{
         [self.delegate willTransitionToGallery];
@@ -1850,13 +1849,13 @@
         self.cylinder.reflectionStrength = 0;
         AnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
         TPPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-        propAnim.duration = CylinerFadeInOutDuration;
+        propAnim.duration = CylinderFadeInOutDuration;
         propAnim.fromValue = [NSNumber numberWithFloat:0];
         propAnim.toValue = [NSNumber numberWithFloat:1];
         [self.cylinder.animation play];
         
 
-        [UIView animateWithDuration:CylinerFadeInOutDuration animations:^{
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
             transitionImageView.alpha = 0;
         }completion:^(BOOL finished) {
         }];
@@ -1866,7 +1865,7 @@
         CGFloat scale = self.view.frame.size.width / rect.size.width;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
         
-        [UIView animateWithDuration:CylinerFadeInOutDuration animations:^{
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
             [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         } completion:^(BOOL finished) {
         }];

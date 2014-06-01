@@ -81,6 +81,11 @@
 #endif
 
 
+#define PRODUCT_INFO_INTRODUCTION @"http://115.28.22.180/anadraw/"
+#define PRODUCT_INFO_USERMANUAL @"http://115.28.22.180/anadraw/?topic=official-user-manaul"
+#define PRODUCT_INFO_GALLERY @"http://115.28.22.180/anadraw/?page_id=43"
+#define PRODUCT_INFO_COMMUNITY @"http://115.28.22.180/anadraw/?page_id=45"
+
 #define TEST 0
 #define UndoMaxCount 10
 //#define UndoImageSize 1024

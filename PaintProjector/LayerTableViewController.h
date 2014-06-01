@@ -30,7 +30,7 @@
 - (void) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index;
 - (void) willSetLayerAtIndex:(int)index opacity:(float)opacity;
 - (void) willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock;
-- (int) willGetLayerIndex;
+- (int) willGetCurLayerIndex;
 - (void) willUpdateRender;
 - (void) willSetBackgroundLayerVisible:(bool)visible;
 - (void) willSetBackgroundLayerClearColor:(UIButton*)button colorPickerControllerDelegate:(LayerTableViewController*)controllerDelegate;

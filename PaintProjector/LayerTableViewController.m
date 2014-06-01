@@ -47,9 +47,15 @@ const float LayerTableViewWidth = 256;
 
 - (void)backgroundLayerClearColorChanged{
     CGFloat colorRGBA[4];
-    [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    if (self.backgroundLayer.visible) {
+        [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    }
+    else{
+        colorRGBA[0] = colorRGBA[1] = colorRGBA[2] = 0;
+        colorRGBA[3] = 1.0;
+    }
+    
     for (UIButton *button in self.layerToolButtons) {
-        
         ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
         ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
         ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
@@ -95,7 +101,7 @@ const float LayerTableViewWidth = 256;
 
 
 - (void)selectRowForCurLayer{
-    int layerIndex = [self.delegate willGetLayerIndex];
+    int layerIndex = [self.delegate willGetCurLayerIndex];
     int row = [self rowForLayerIndex:layerIndex];
     self.curLayerIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
     [self selectRowAtIndexPath:self.curLayerIndexPath];
@@ -275,10 +281,14 @@ const float LayerTableViewWidth = 256;
     //交换数据
     [self.delegate willMoveLayerFromIndex:[self layerIndexForRow:fromIndexPath.row] toIndex:[self layerIndexForRow:toIndexPath.row]];
     
+    //更新过愿数据内容之后重新刷新ui内容
     [self.tableView reloadData];
 
     //刷新后选择cell
     [self selectRowForCurLayer];
+    
+    //解决在iPad Air上不能更新的问题
+    [self.delegate willUpdateRender];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -671,7 +681,15 @@ const float LayerTableViewWidth = 256;
 }
 - (void)updateIconColors{
     CGFloat colorRGBA[4];
-    [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    if (self.backgroundLayer.visible) {
+        [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    }
+    else{
+        colorRGBA[0] = colorRGBA[1] = colorRGBA[2] = 0;
+        colorRGBA[3] = 1.0;
+    }
+    
+    
     for (AutoRotateButton *button in self.layerToolButtons) {
         ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
         ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
@@ -697,7 +715,6 @@ const float LayerTableViewWidth = 256;
     ((CustomLayer*)cell.visibleButton.layer).baseColorG = colorRGBA[1];
     ((CustomLayer*)cell.visibleButton.layer).baseColorB = colorRGBA[2];
     [cell.visibleButton.layer setNeedsDisplay];
-
 
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object

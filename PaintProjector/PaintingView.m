@@ -573,6 +573,9 @@
     [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
     
+    //测试
+    self.curVertexBrushCount = _vertexBrushMaxCount;
+    
     DebugLog(@"glBufferData vertex count %zu", _vertexBrushMaxCount);
 }
 
@@ -843,7 +846,7 @@
 
 - (void)prewarmShaders{
     for (Brush *brush in self.brushTypes) {
-//        CLSLog(@"prewarmShaders brushState %d", brush.brushState.classId);
+        [RemoteLog log:[NSString stringWithFormat:@"prewarmShaders brushState %d", brush.brushState.classId]];
         PaintCommand *paintCommand = [[PaintCommand alloc]initWithBrushState:brush.brushState];
         paintCommand.delegate = self;
         [paintCommand prewarm];
@@ -1457,6 +1460,9 @@
         count += countSegment;
     }
 
+    //测试记录一共需要多少点
+    self.curVertexBrushCount = count;
+    
     //重新分配_VBOBrush用于undo data的缓冲区的大小
     [[GLWrapper current] bindBuffer: _VBOBrushBack];
     //TODO:GL_INVALID_VALUE
@@ -1464,8 +1470,7 @@
     
     [[GLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
-//    CLSLog(@"glBufferData realloc count %lu", count);
-    
+    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
 //    self.allocVertexCount = count;
 #if DEBUG
     NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
@@ -1766,7 +1771,7 @@
     [self resetUndoRedo];
 
     //预编译部分Shader
-    [self prewarmShaders];
+//    [self prewarmShaders];
     
     //第一次presentRenderbuffer,在此之前prewarm所有的shader
     [self _updateRender];

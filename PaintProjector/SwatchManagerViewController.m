@@ -70,7 +70,7 @@
         url = self.swatchURLs[index];
     }
     
-    NSString *string = [NSString stringWithFormat:@"swatchChartButtonTouchUp url:%@", url.absoluteString];
+    NSString *string = [NSString stringWithFormat:@"swatchChartButtonTouchUp url:%@", [url.absoluteString lastPathComponent]];
     [RemoteLog logAction:string identifier:sender];
     
     //交互动画
