@@ -294,10 +294,25 @@ const float LayerTableViewWidth = 256;
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 //    DebugLog(@"willDisplayCell layer index %d", [self layerIndexForRow:indexPath.row]);
     
+    CGFloat colorRGBA[4];
+    if (self.backgroundLayer.visible) {
+        [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+    }
+    else{
+        colorRGBA[0] = colorRGBA[1] = colorRGBA[2] = 0;
+        colorRGBA[3] = 1.0;
+    }
+    
     
     if (indexPath.row == [self rowForBackgroundLayer]) {
         BackgroundLayerTableViewCell *layerTableViewCell = (BackgroundLayerTableViewCell *)cell;
         layerTableViewCell.layerImageButton.backgroundColor = [self.backgroundLayer.clearColor copy];
+        
+        //更新图标色
+        ((CustomLayer*)layerTableViewCell.visibleButton.layer).baseColorR = colorRGBA[0];
+        ((CustomLayer*)layerTableViewCell.visibleButton.layer).baseColorG = colorRGBA[1];
+        ((CustomLayer*)layerTableViewCell.visibleButton.layer).baseColorB = colorRGBA[2];
+        [layerTableViewCell.visibleButton.layer setNeedsDisplay];
     }
     else{
         LayerTableViewCell *layerTableViewCell = (LayerTableViewCell *)cell;
@@ -310,10 +325,18 @@ const float LayerTableViewWidth = 256;
         CGFloat scale = layerTableViewCell.layerImageView.bounds.size.width / DefaultScreenWidth;
         UIImage *layerImage = [UIImage imageWithData:layer.data];
         layerTableViewCell.layerImageView.image = [layerImage resizeImage:CGSizeMake(layerImage.size.width * scale, layerImage.size.height * scale)];
+        
+        //更新图标色
+        for (IconColorPermeateButton *button in layerTableViewCell.layerHelpButtons) {
+            ((CustomLayer*)button.layer).baseColorR = colorRGBA[0];
+            ((CustomLayer*)button.layer).baseColorG = colorRGBA[1];
+            ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
+            [button.layer setNeedsDisplay];
+        }
     }
-
+    
     //alpha 0.1用来透出毛玻璃效果
-    cell.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.1];
+//    cell.backgroundColor = [UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.1];
 }
 
 
