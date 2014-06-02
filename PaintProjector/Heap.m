@@ -40,11 +40,7 @@
     //    DebugLog(@"push object:%@ inStack:%@", object, self);
 }
 
-- (void)push:(id)object {
-    if (object == nil) {
-        CLSLog(@"Command heap push nil");
-    }
-    
+- (void)push:(id)object {  
     if(self.capacity == 0)return;
     
     NSUInteger count = [self.contents count];

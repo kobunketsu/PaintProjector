@@ -49,6 +49,12 @@
     if (!self.isLaunchTransitioned) {
         [self startLaunchTransitionToCylinderProject];
     }
+    
+    //修正viewDidDisappear unloadPaintFrameView后闪的问题
+    for (int i =0; i < self.collectionView.visibleCells.count; ++i) {
+        PaintFrameView *view = ((PaintCollectionViewCell *)self.collectionView.visibleCells[i]).paintFrameView;
+        [PaintFrameManager loadPaintFrameView:view byIndex:i];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -70,8 +76,6 @@
     for (PaintCollectionViewCell *cell in self.collectionView.visibleCells) {
         [PaintFrameManager unloadPaintFrameView:cell.paintFrameView];
     }
-//    NSArray *array = self.collectionView.indexPathsForVisibleItems;
-//    [self.collectionView deleteItemsAtIndexPaths:array];
 }
 
 

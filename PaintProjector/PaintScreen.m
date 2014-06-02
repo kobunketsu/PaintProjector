@@ -4207,6 +4207,39 @@
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
 }
 
+//not used
+- (CGPoint)eyeDropLocation:(CGPoint)locationInRootView byOffset:(CGFloat)offset{
+    CGPoint eyeDropLocationInRootView = CGPointZero;
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    if (!UIDeviceOrientationIsValidInterfaceOrientation(deviceOrientation)) {
+        deviceOrientation = self.lastDeviceAppOrientation;
+    }
+    
+    if (UIDeviceOrientationIsPortrait(deviceOrientation)){
+        eyeDropLocationInRootView = CGPointMake(locationInRootView.x, locationInRootView.y + offset);
+    }
+    else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
+        if (self.isInterfacePortraitUpsideDown) {
+            eyeDropLocationInRootView = CGPointMake(locationInRootView.x - offset, locationInRootView.y);
+        }
+        else{
+            eyeDropLocationInRootView = CGPointMake(locationInRootView.x + offset, locationInRootView.y);
+        }
+        
+    }
+    else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+        if (self.isInterfacePortraitUpsideDown) {
+            eyeDropLocationInRootView = CGPointMake(locationInRootView.x + offset, locationInRootView.y);
+        }
+        else{
+            eyeDropLocationInRootView = CGPointMake(locationInRootView.x - offset, locationInRootView.y);
+        }
+        
+    }
+    
+    return eyeDropLocationInRootView;
+}
+
 - (CGPoint) willGetEyeDropLocation{
     //更新触摸点
     CGPoint location = [self.paintView.firstTouch locationInView:self.paintView];
@@ -4217,33 +4250,7 @@
         CGPoint locationInRootView = [self.paintView convertPoint:location toView:self.rootCanvasView];
         
         CGPoint eyeDropLocationInRootView = CGPointZero; float offset = 40;
-
-        UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-        if (!UIDeviceOrientationIsValidInterfaceOrientation(deviceOrientation)) {
-            deviceOrientation = self.lastDeviceAppOrientation;
-        }
-        
-        if (UIDeviceOrientationIsPortrait(deviceOrientation)){
-            eyeDropLocationInRootView = CGPointMake(locationInRootView.x, locationInRootView.y + offset);
-        }
-        else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
-            if (self.isInterfacePortraitUpsideDown) {
-                eyeDropLocationInRootView = CGPointMake(locationInRootView.x - offset, locationInRootView.y);
-            }
-            else{
-                eyeDropLocationInRootView = CGPointMake(locationInRootView.x + offset, locationInRootView.y);
-            }
-            
-        }
-        else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
-            if (self.isInterfacePortraitUpsideDown) {
-                eyeDropLocationInRootView = CGPointMake(locationInRootView.x + offset, locationInRootView.y);
-            }
-            else{
-                eyeDropLocationInRootView = CGPointMake(locationInRootView.x - offset, locationInRootView.y);                
-            }
-
-        }
+        eyeDropLocationInRootView = CGPointMake(locationInRootView.x, locationInRootView.y + offset);
         
         eyeDropLocation = [self.paintView convertPoint:eyeDropLocationInRootView fromView:self.rootCanvasView];
     }

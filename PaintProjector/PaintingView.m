@@ -1358,6 +1358,13 @@
 }
 
 - (void)endDraw{
+    //Fixme: curPaintCommand可能导致爆，需要找到具体原因
+    if (self.curPaintCommand == nil) {
+//        [RemoteLog log:@"self.curPaintCommand nil"];
+//        DebugLogError(@"self.curPaintCommand nil");
+        return;
+    };
+    
     [self.curPaintCommand drawImmediateEnd];
     
     //绘制命令完成后加入命令处理队列
