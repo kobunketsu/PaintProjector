@@ -47,7 +47,7 @@
 #import "DownToolBar.h"
 
 #import "PaintFrameView.h"
-#import "PaintFrameViewGroup.h"
+#import "PaintFrameManager.h"
 #import "PaintDoc.h"
 #import "PaintDocManager.h"
 
@@ -118,7 +118,6 @@ InAppPurchaseTableViewControllerDelegate
 @property (assign, nonatomic) id delegate;
 
 #pragma mark- File
-@property (weak, nonatomic) PaintFrameViewGroup *paintFrameViewGroup;
 
 #pragma mark- User Input
 @property (retain, nonatomic) CylinderProjectUserInputParams *userInputParams;

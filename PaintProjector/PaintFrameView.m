@@ -96,36 +96,28 @@
 -(void)setPaintDoc:(PaintDoc *)paintDoc{
     _paintDoc = paintDoc;
 
-    NSUInteger length = [paintDoc.docPath length];
-    NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
-    self.isAccessibilityElement = true;
-    self.accessibilityLabel = accLabel;
+    if (paintDoc) {
+        NSUInteger length = [paintDoc.docPath length];
+        NSString *accLabel = [paintDoc.docPath substringToIndex:(length - 4)];
+        self.isAccessibilityElement = true;
+        self.accessibilityLabel = accLabel;
+    }
+
 }
 
 -(void)loadForDisplay{
-    //清楚前一张画面
-//    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        self.alpha = 0;
-//    } completion:^(BOOL finished) {
-//        if (self.paintDoc != NULL)
-//        {
-//            NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintDoc.thumbImagePath];
-//            [self setImage:[UIImage imageWithContentsOfFile:thumbImagePath] forState:UIControlStateNormal];
-//            
-//            [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//                self.alpha = 1;
-//            }completion:^(BOOL finished) {
-//            }];
-//        }
-//    }];
-    
     if (self.paintDoc != NULL)
     {
         NSString *thumbImagePath = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintDoc.thumbImagePath];
         
-        [self setImage:[UIImage imageWithContentsOfFile:thumbImagePath] forState:UIControlStateNormal];
+        //不cache
+        [self setImage:[[UIImage alloc]initWithContentsOfFile:thumbImagePath] forState:UIControlStateNormal];
         DebugLog(@"DocThumbImage: %@", self.paintDoc.thumbImagePath);
     }
+}
 
+-(void)unloadForDisplay{
+    [self setImage:nil forState:UIControlStateNormal];
+    self.imageView.image = nil;
 }
 @end

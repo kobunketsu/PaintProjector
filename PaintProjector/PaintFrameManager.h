@@ -7,28 +7,37 @@
 //
 
 #import <Foundation/Foundation.h>
-@class PaintFrameView;
-@class PaintFrameViewGroup;
-@class PaintDoc;
+#import "PaintDocManager.h"
+#import "PaintFrameViewGroup.h"
+#import "PaintFrameView.h"
+
+static PaintFrameViewGroup *curGroup = nil;
 
 @interface PaintFrameManager : NSObject
-@property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
-@property (weak, nonatomic) PaintFrameView *curPaintFrameView;
+//@property (retain, nonatomic) PaintFrameViewGroup* curPaintFrameGroup;
 
--(void)insertNewPaintDocAtCurIndex;
++ (PaintFrameViewGroup*)curGroup;
++ (void)initDataByGroupIndex:(int)groupIndex;
 
--(void)insertNewPaintDocAtIndex:(NSInteger)index;
++ (void)destroy;
 
--(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc;
++ (void)loadPaintDocs;
 
--(void)insertCopyPaintDocAtIndices:(NSArray *)indices;
++ (void)unloadPaintDocs;
 
--(void)deletePaintDocAtCurIndex;
++(void)insertNewPaintDocAtCurIndex;
 
--(void)deletePaintDocAtIndices:(NSArray *)indices;
++(void)insertNewPaintDocAtIndex:(NSInteger)index;
 
-- (void)setCurPaintFrameGroupByIndex:(int)groupIndex;
++(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc;
 
-- (void)loadPaintFrameView:(PaintFrameView*)paintFrameView byIndex:(int)index;
-- (void)openPaintFrameViewsWithAnimation;
++(void)insertCopyPaintDocAtIndices:(NSArray *)indices;
+
++(void)deletePaintDocAtCurIndex;
+
++(void)deletePaintDocAtIndices:(NSArray *)indices;
+
++ (void)loadPaintFrameView:(PaintFrameView*)paintFrameView byIndex:(int)index;
++ (void)unloadPaintFrameView:(PaintFrameView*)paintFrameView;
++ (void)openPaintFrameViewsWithAnimation;
 @end

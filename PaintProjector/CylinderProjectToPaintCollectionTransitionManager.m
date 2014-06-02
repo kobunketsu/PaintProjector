@@ -48,7 +48,7 @@
     UIView *toView = paintCollectionVC.view;
     
     //更新scroll位置
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:paintCollectionVC.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex inSection:0];
 
 //    [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
     
@@ -80,7 +80,7 @@
             toView.alpha = 1;
             fromVC.view.alpha = 0;
             //变换paintCollectionVC的Cell
-            for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+            for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
                 [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];

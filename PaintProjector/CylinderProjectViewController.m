@@ -18,6 +18,7 @@
 #import "AssetDatabase.h"
 #import "CylinderProjectVirtualDeviceCollectionViewController.h"
 
+
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
 
@@ -311,7 +312,7 @@
     UIImageView *tempView = (UIImageView *)[self.view subViewWithTag:100];
     if (tempView) {
         //刷新的当前图片
-        NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
+        NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:[[PaintFrameManager curGroup] curPaintDoc].thumbImagePath];
         tempView.image = [UIImage imageWithContentsOfFile:path];
         [UIView animateWithDuration:TempPaintFrameToGalleryFadeInDuration animations:^{
             tempView.alpha = 1;
@@ -339,7 +340,7 @@
     
     //变换动画
     //更新临时view
-    NSString *path = [self.paintFrameViewGroup curPaintDoc].thumbImagePath;
+    NSString *path = [[PaintFrameManager curGroup] curPaintDoc].thumbImagePath;
     path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = nil;
@@ -359,7 +360,7 @@
         transitionImageView.alpha = 1;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
-        [self openPaintDoc:self.paintFrameViewGroup.curPaintDoc];
+        [self openPaintDoc:[[PaintFrameManager curGroup] curPaintDoc]];
     }];
 }
 #pragma mark- 分享Share
@@ -958,7 +959,7 @@
     ShaderCylinderProject *shaderCylinderProject = [[ShaderCylinderProject alloc]init];
     Material *matCylinderProject = [[Material alloc]initWithShader:shaderCylinderProject];
     
-    NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
+    NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:[[PaintFrameManager curGroup] curPaintDoc].thumbImagePath];
     matCylinderProject.mainTexture = [Texture textureFromImagePath:path reload:true];
     PlaneMesh *planeMesh = [[PlaneMesh alloc]initWithRow:100 column:100];
     [planeMesh create];
@@ -1049,8 +1050,8 @@
     [self initSceneCameras];
     
     //设定输入图片参数
-//    if (self.paintFrameViewGroup.curPaintDoc != nil) {
-//        NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
+//    if ([PaintFrameManager curGroup] curPaintDoc != nil) {
+//        NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:[PaintFrameManager curGroup] curPaintDoc.thumbImagePath];
 //        self.paintTexture = [Texture textureFromImagePath:path reload:true];
 //    }
     
@@ -1161,7 +1162,7 @@
 //                DebugLog(@"end browse last");
                 percent = [self getPercent:sender];
                 if (percent > self.browseLastAction.completeThresold) {
-                    if ([self.paintFrameViewGroup lastPaintDoc]) {
+                    if ([[PaintFrameManager curGroup] lastPaintDoc]) {
                         [self.browseLastAction finishInteractiveTransition];
                     }
                     else{
@@ -1176,7 +1177,7 @@
 //                DebugLog(@"end browse next");
                 percent = [self getPercent:sender];
                 if (percent > self.browseNextAction.completeThresold) {
-                    if ([self.paintFrameViewGroup nextPaintDoc]) {
+                    if ([[PaintFrameManager curGroup] nextPaintDoc]) {
                         [self.browseNextAction finishInteractiveTransition];
                     }
                     else{
@@ -1645,7 +1646,7 @@
         CGFloat x = transition.percentComplete * self.cylinderProjectCur.imageWidth;
         [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         //查询是否有下一张图片
-        if ([self.paintFrameViewGroup nextPaintDoc]) {
+        if ([[PaintFrameManager curGroup] nextPaintDoc]) {
             //清空上一张图片资源
             self.cylinderProjectLast.active = false;
             self.cylinderProjectLast = nil;
@@ -1661,7 +1662,7 @@
                 [self.cylinderProjectNext.animation addClip:animclip];
                 
                 
-                NSString *path = [self.paintFrameViewGroup nextPaintDoc].thumbImagePath;
+                NSString *path = [[PaintFrameManager curGroup] nextPaintDoc].thumbImagePath;
                 path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
                 self.cylinderProjectNext.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
             }
@@ -1678,7 +1679,7 @@
         [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         
         //查询是否有上一张图片
-        if ([self.paintFrameViewGroup lastPaintDoc]) {
+        if ([[PaintFrameManager curGroup] lastPaintDoc]) {
             //清空下一张图片资源
             self.cylinderProjectNext.active = false;
             self.cylinderProjectNext = nil;
@@ -1694,7 +1695,7 @@
                 [self.cylinderProjectLast.animation addClip:animclip];
                 
                 
-                NSString *path = [self.paintFrameViewGroup lastPaintDoc].thumbImagePath;
+                NSString *path = [[PaintFrameManager curGroup] lastPaintDoc].thumbImagePath;
                 path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
                 self.cylinderProjectLast.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
                 
@@ -1721,7 +1722,7 @@
             self.cylinderProjectCur = self.cylinderProjectNext;
             self.cylinderProjectNext = nil;
             self.cylinderProjectLast = nil;
-            self.paintFrameViewGroup.curPaintIndex ++;
+            [PaintFrameManager curGroup].curPaintIndex ++;
             
             completion();
         }];
@@ -1747,7 +1748,7 @@
             self.cylinderProjectCur = self.cylinderProjectLast;
             self.cylinderProjectNext = nil;
             self.cylinderProjectLast = nil;
-            self.paintFrameViewGroup.curPaintIndex --;
+            [PaintFrameManager curGroup].curPaintIndex --;
             
             completion();
         }];
@@ -1847,7 +1848,7 @@
 
 - (void) closePaintDoc:(PaintDoc *)paintDoc completionBlock:(void (^) (void)) block{
     //刷新当前画框内容
-    NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:self.paintFrameViewGroup.curPaintDoc.thumbImagePath];
+    NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     
     self.cylinderProjectDefaultAlphaBlend = 1;
     //变换动画
@@ -1890,6 +1891,7 @@
         
     }];
 }
+
 -(void)openPaintDoc:(PaintDoc*)paintDoc {
     //    self.curPaintDoc = paintDoc;
     self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
@@ -1903,6 +1905,7 @@
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         [self.paintScreenVC openDoc:paintDoc];
         [self.paintScreenVC afterPresentation];
+        
     }];
 }
 
@@ -2059,7 +2062,7 @@
 //    virtualDeviceCollectionViewController.delegate = self;
     
     
-    virtualDeviceCollectionViewController.preferredContentSize = CGSizeMake(768, 150);
+    virtualDeviceCollectionViewController.preferredContentSize = CGSizeMake(DefaultScreenWidth, 150);
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:virtualDeviceCollectionViewController];
     CGRect rect = CGRectMake(self.virtualDeviceButton.bounds.origin.x, self.virtualDeviceButton.bounds.origin.y, self.virtualDeviceButton.bounds.size.width, self.virtualDeviceButton.bounds.size.height);

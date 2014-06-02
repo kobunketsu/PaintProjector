@@ -51,6 +51,10 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    DebugLogSystem(@"viewWillDisappear");
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
     if (!self.isLaunchTransitioned) {
@@ -61,7 +65,15 @@
 - (void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
     [self.selectedIndices removeAllObjects];
+    
+    //移除显示用的Image
+    for (PaintCollectionViewCell *cell in self.collectionView.visibleCells) {
+        [PaintFrameManager unloadPaintFrameView:cell.paintFrameView];
+    }
+//    NSArray *array = self.collectionView.indexPathsForVisibleItems;
+//    [self.collectionView deleteItemsAtIndexPaths:array];
 }
+
 
 - (void)viewDidLoad
 {
@@ -80,8 +92,7 @@
     }
 
     //设置当前PaintFrameGroup PaintFrame
-    self.paintFrameManager = [[PaintFrameManager alloc]init];
-    [self.paintFrameManager setCurPaintFrameGroupByIndex:0];
+    [PaintFrameManager initDataByGroupIndex:0];
     
     self.transitionManager = [[PaintFrameTransitionManager alloc]init];
     self.transitionManager.delegate = self;
@@ -113,7 +124,7 @@
             button.hidden = false;
         }
         
-        for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
             if (cell.selectedBackgroundView) {
@@ -128,7 +139,7 @@
             button.hidden = true;
         }
         
-        for (int i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
             if (cell.selectedBackgroundView) {
@@ -140,15 +151,15 @@
 
 #pragma mark- LaunchTransition
 -(NSInteger)indexForRecentPaintDoc{
-    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
+    if ([PaintFrameManager curGroup].paintDocs.count > 0) {
         NSString *recentDocPath = [[NSUserDefaults standardUserDefaults] valueForKey:@"RecentDoc"];
         
         if (!recentDocPath) {
             return 0;
         }
         
-        for (NSUInteger i = 0; i < self.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
-            PaintDoc *paintDoc = self.paintFrameManager.curPaintFrameGroup.paintDocs[i];
+        for (NSUInteger i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+            PaintDoc *paintDoc = [PaintFrameManager curGroup].paintDocs[i];
             if ([paintDoc.docPath isEqualToString:recentDocPath]) {
                 return i;
             }
@@ -169,7 +180,7 @@
 }
 
 -(void)launchTransitionToCylinderProject{
-    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count == 0) {
+    if ([PaintFrameManager curGroup].paintDocs.count == 0) {
         //没有文件，插入一个新文件
         [self newButtonTouchUp:self.editNewButton];
     }
@@ -196,7 +207,7 @@
 }
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.paintFrameManager.curPaintFrameGroup.paintDocs.count;
+    return [PaintFrameManager curGroup].paintDocs.count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -206,11 +217,12 @@
     DebugLog(@"cellForItemAtIndexPath %d", indexPath.row);
     
     PaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
-
-    [self.paintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
+    
+    [PaintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
 
     return cell;
 }
+
 
 #pragma mark- UICollectionViewDelegate
 
@@ -219,21 +231,18 @@
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     //设定当前选择的paintDoc
-    self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
-    self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
+    self.curPaintFrameView = cell.paintFrameView;
+    [PaintFrameManager curGroup].curPaintIndex = indexPath.row;
     
     if (![self.selectedIndices containsObject:indexPath]) {
         [self.selectedIndices addObject:indexPath];
     }
-//    CGRect rect = [self.paintFrameManager.curPaintFrameView convertRect:self.paintFrameManager.curPaintFrameView.frame toView:self.view];
-//    DebugLog(@"rect %@", NSStringFromCGRect(rect));
     
     //非编辑状态，打开
     if (!self.editing) {
         [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:^{
             [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
         }toView:nil completion:nil];
-        
     }
     //编辑状态
     else{
@@ -310,7 +319,7 @@
     [RemoteLog logAction:@"copyButtonTouchUp" identifier:sender];
     
     //插入拷贝paintDoc到paintDocs中，
-    if (self.paintFrameManager.curPaintFrameView.paintDoc == nil) {
+    if (self.curPaintFrameView.paintDoc == nil) {
         DebugLog(@"No PaintDoc to copy!");
         return;
     }
@@ -321,7 +330,7 @@
     }
     
     //文件和内存中插入
-    [self.paintFrameManager insertCopyPaintDocAtIndices:indices];
+    [PaintFrameManager insertCopyPaintDocAtIndices:indices];
     indices = nil;
     
     //多项插入会导致显示错误，直接reloadData
@@ -340,7 +349,7 @@
         [indices addObject: [NSNumber numberWithInteger:indexPath.row]];
     }
     
-    [self.paintFrameManager deletePaintDocAtIndices:indices];
+    [PaintFrameManager deletePaintDocAtIndices:indices];
     indices = nil;
     
     //多项插入会导致显示错误，直接reloadData
@@ -361,29 +370,29 @@
     self.editing = false;
     
     //非编辑状态下从最后一个PaintFrameView之后添加
-    if (self.paintFrameManager.curPaintFrameGroup.paintDocs.count > 0) {
-        self.paintFrameManager.curPaintFrameGroup.curPaintIndex = self.paintFrameManager.curPaintFrameGroup.paintDocs.count - 1;
+    if ([PaintFrameManager curGroup].paintDocs.count > 0) {
+        [PaintFrameManager curGroup].curPaintIndex = [PaintFrameManager curGroup].paintDocs.count - 1;
     }
     else{
-        self.paintFrameManager.curPaintFrameGroup.curPaintIndex = -1;
-        self.paintFrameManager.curPaintFrameView = nil;
+        [PaintFrameManager curGroup].curPaintIndex = -1;
+        self.curPaintFrameView = nil;
     }
 
     //插入新paintDoc到paintDocs中，
-    [self.paintFrameManager insertNewPaintDocAtCurIndex];
+    [PaintFrameManager insertNewPaintDocAtCurIndex];
     
     //插入新表单到表格
 //    [self.collectionView reloadData];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex inSection:0];
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     
     //更新当前PaintFrame
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    self.paintFrameManager.curPaintFrameView = cell.paintFrameView;
-    self.paintFrameManager.curPaintFrameGroup.curPaintIndex = indexPath.row;
+    self.curPaintFrameView = cell.paintFrameView;
+    [PaintFrameManager curGroup].curPaintIndex = indexPath.row;
     
     //放大画框开始绘制
-    [self viewPaintFrame:self.paintFrameManager.curPaintFrameView paintDirectly:true];
+    [self viewPaintFrame:self.curPaintFrameView paintDirectly:true];
 }
 
 #pragma mark-
@@ -394,12 +403,13 @@
     self.cylinderProjectVC.transitioningDelegate = self;
     
     //prepare to present
-    self.cylinderProjectVC.paintFrameViewGroup = self.paintFrameManager.curPaintFrameGroup;
     self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
     
     self.cylinderProjectVC.downToolBar.hidden = true;
     [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
         self.editNewButton.userInteractionEnabled = true;
+        
+        
         DebugLog(@"Fade in cylinderProjcet");
         [self.cylinderProjectVC.cylinderProjectCur.animation play];
         

@@ -106,5 +106,6 @@ static bool IsQuickEyeDropper = true;
 static bool IsOffsetEyeDropper = true;
 
 #define InchScale 3.28
-
 #define DeviceWidth 0.154
+#define DefaultScreenWidth 768
+#define DefaultScreenHeight 1024

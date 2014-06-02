@@ -31,14 +31,14 @@ PaintFrameTransitionManagerDelegate
 @property (weak, nonatomic) IBOutlet DownToolBar *downToolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
 @property (weak, nonatomic) IBOutlet UIButton *editNewButton;
-
 //是否启动自动转换
 @property (assign, nonatomic) BOOL isLaunchTransitioned;
 @property (retain, nonatomic) UIImageView *launchImageView;
 -(void)launchTransitionToCylinderProjectCompleted;
     
 //显示作品管理器
-@property (retain, nonatomic) PaintFrameManager *paintFrameManager;
+@property (weak, nonatomic) PaintFrameView *curPaintFrameView;
+
 #pragma mark- Tool Bar
 - (IBAction)fileButtonTouchUp:(id)sender;
 

@@ -12,6 +12,7 @@
 #import <DBChooser/DBChooser.h>
 #import "AnaDrawIAPManager.h"
 //File
+#import "PaintFrameManager.h"
 #import "PaintDoc.h"
 #import "PaintData.h"
 #import "PaintLayer.h"
@@ -130,7 +131,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"viewWillAppear");
 //    [self prepareForPresentation];
-    
+
     //如果transition target viewController 是一个临时的vc, 为了保证流畅性, 则不创建任何资源
     if(self.swatchManagerVC != nil){
         return;
@@ -139,6 +140,8 @@
         return;
     }
 
+    [PaintFrameManager unloadPaintDocs];
+    
     [self.paintView initGL];
     for (Brush *brush in self.brushTypeScrollView.brushTypes) {
         [brush initGL];
@@ -166,6 +169,8 @@
     [GLWrapper destroy];
     
     [self.paintView destroy];
+    
+    [PaintFrameManager loadPaintDocs];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");

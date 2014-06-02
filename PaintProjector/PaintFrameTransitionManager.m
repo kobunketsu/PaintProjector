@@ -40,7 +40,7 @@
     
     //将paintFrameView层级从cell转移根节点
     PaintCollectionViewController *paintCollectionVC = (PaintCollectionViewController*)fromVC;
-    UIButton *view = paintCollectionVC.paintFrameManager.curPaintFrameView;
+    UIButton *view = paintCollectionVC.curPaintFrameView;
     UIImage *image = [view imageForState:UIControlStateNormal];
     CGRect srcRect = [view convertRect:view.frame toView:containerView];
     //patch:处理奇怪的偏移
@@ -66,7 +66,7 @@
     [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
         paintCollectionVC.view.alpha = 0;
         
-        for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
             [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
@@ -103,7 +103,7 @@
                 //                [imageView removeFromSuperview];
                 //                imageView.alpha = 1;
                 paintCollectionVC.view.alpha = 1;
-                [paintCollectionVC.paintFrameManager.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+                [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
             }
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
             DebugLog(@"transitionContext completed");
@@ -124,12 +124,13 @@
     paintCollectionVC.downToolBar.hidden = true;
     UIView *toView = paintCollectionVC.view;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:paintCollectionVC.paintFrameManager.curPaintFrameGroup.curPaintIndex inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex inSection:0];
     DebugLog(@"indexPath row %d", indexPath.row);
     
     //得到新的当前PaintFrameView
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC collectionView:paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
     
+    //将paintFrameView转换到CylinderProject rootView
     UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
     [transitionImageView removeFromSuperview];
     UIButton *paintFrameView = cell.paintFrameView;
@@ -137,17 +138,22 @@
     CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
     
     //更新scroll位置
-    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
-    [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:false];
+    [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionNone];
     
     //patch:处理奇怪的偏移
     destRect.origin.x -= 5;
     destRect.origin.y -= 5;
 
-//    DebugLogWarn(@"destRect %@", NSStringFromCGRect(destRect));
+//    DebugLogWarn(@"paintFrameView.frame %@", NSStringFromCGRect(paintFrameView.frame));
+//    DebugLogWarn(@"destRect rootView %@", NSStringFromCGRect(destRect));
 //    DebugLogWarn(@"contentOffset %@", NSStringFromCGPoint(paintCollectionVC.collectionView.contentOffset));
-    destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
-    destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
+    
+    //解决scroll过paintCollection之后返回位置不对的显示问题
+    if (destRect.origin.y > toView.bounds.size.height) {
+        destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
+        destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
+    }
 
     [containerView addSubview:toView];
     [containerView addSubview:fromVC.view];
@@ -164,7 +170,7 @@
             toView.alpha = 1;
             fromVC.view.alpha = 0;
             
-            for (int i = 0; i < paintCollectionVC.paintFrameManager.curPaintFrameGroup.paintDocs.count; ++i) {
+            for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 PaintCollectionViewCell *cell = (PaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
                 [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];

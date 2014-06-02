@@ -62,8 +62,8 @@
     glPushGroupMarkerEXT(0, "PaintCommand execute");
 #endif
     //有可能造成transform时候出现错误像素
-    CGPoint startPoint = CGPointMake(384, 512);
-    CGPoint endPoint = CGPointMake(768, 1024);
+    CGPoint startPoint = CGPointMake(DefaultScreenWidth * 0.5, DefaultScreenHeight * 0.5);
+    CGPoint endPoint = CGPointMake(DefaultScreenWidth, DefaultScreenHeight);
 
     [self addPathPointStart:startPoint End:endPoint];
 

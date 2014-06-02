@@ -21,7 +21,7 @@
 - (id)init {
     if ((self = [super init])) {
         //TODO: define defaultSize
-        _defaultSize = CGSizeMake(768, 1024);
+        _defaultSize = CGSizeMake(DefaultScreenWidth, DefaultScreenHeight);
     }
     return self;
 }
@@ -31,7 +31,7 @@
 //        _data = [[PaintData alloc]init];
         _docPath = docPath;
         _thumbImagePath = [[self.docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"];
-        _defaultSize = CGSizeMake(768, 1024);
+        _defaultSize = CGSizeMake(DefaultScreenWidth, DefaultScreenHeight);
     }
     return self;
 }
@@ -49,7 +49,7 @@
     NSError *error;
     BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:self.docPath withIntermediateDirectories:YES attributes:nil error:&error];
     if (!success) {
-        DebugLog(@"Error creating data path: %@", [error localizedDescription]);
+        DebugLogError(@"Error creating data path: %@", [error localizedDescription]);
     }
     return success;
     
@@ -195,7 +195,7 @@
     NSError *error;
     BOOL success = [[NSFileManager defaultManager] removeItemAtPath:self.docPath error:&error];
     if (!success) {
-        DebugLog(@"Error removing document path: %@", error.localizedDescription);
+        DebugLogError(@"Error removing document path: %@", error.localizedDescription);
     }
     
 }
@@ -256,7 +256,7 @@
 //    NSData *unzippedData = [zippedData gzipInflate];
     NSFileWrapper *dirWrapper = [[NSFileWrapper alloc] initWithSerializedRepresentation:unzippedData];
     if (dirWrapper == nil) {
-        DebugLog(@"Error creating dir wrapper from unzipped data");
+        DebugLogError(@"Error creating dir wrapper from unzipped data");
         return FALSE;
     }
     
@@ -266,7 +266,7 @@
     NSError *error;
     BOOL success = [dirWrapper writeToURL:dirUrl options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&error];
     if (!success) {
-        DebugLog(@"Error importing file: %@", error.localizedDescription);
+        DebugLogError(@"Error importing file: %@", error.localizedDescription);
         return FALSE;
     }
     

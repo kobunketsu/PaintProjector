@@ -13,7 +13,6 @@
 -(id) initWithCapacity:(int)capacity{
     self = [super init];
     if(self!=NULL){
-        _paintFrameHeap = [[Heap alloc] initWithCapacity:capacity];
         _paintDocs = [[NSMutableArray alloc]init];
     }
     return self;
@@ -89,11 +88,4 @@
     return paintDoc;
 }
 
--(void)push:(PaintFrameView*)pf{
-    [self.paintFrameHeap push:pf];
-}
-
--(void)push_reverse:(PaintFrameView*)pf{
-    [self.paintFrameHeap push_reverse:pf];
-}
 @end
