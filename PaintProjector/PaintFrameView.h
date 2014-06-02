@@ -14,4 +14,5 @@
 @property (weak, nonatomic)PaintDoc* paintDoc;
 - (id)initWithFrame:(CGRect)frame paintDoc:(PaintDoc*)paintDoc;
 -(void)loadForDisplay;
+-(void)unloadForDisplay;
 @end
