@@ -289,7 +289,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
         
         DebugLog(@"专业版提供16层图层");
-        [[NSUserDefaults standardUserDefaults] setInteger:16 forKey:@"LayerQuantityLimitation"];
+        [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
         
         DebugLog(@"专业版提供额外笔刷包");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];

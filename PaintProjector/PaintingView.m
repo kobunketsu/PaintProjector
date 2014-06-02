@@ -2205,13 +2205,11 @@
 
     [self.layerFramebuffers insertObject:[NSNumber numberWithInt:layerFramebuffer] atIndex:index+1];
     [self.layerTextures insertObject:[NSNumber numberWithInt:layerTexture] atIndex:index+1];
-
     
     //显示
     if (isImmediate) {
         [self _updateRender];
     }
-
 }
 
 - (void)insertBlankLayerAtIndex:(int)index transparent:(bool)transparent immediate:(BOOL)isImmediate{

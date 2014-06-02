@@ -304,7 +304,12 @@ const float LayerTableViewWidth = 256;
         layerTableViewCell.layerImageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"checkerUnit.png"]];
         //反过来显示
         PaintLayer *layer = [self.layers objectAtIndex:[self layerIndexForRow:indexPath.row]];
-        layerTableViewCell.layerImageView.image = [UIImage imageWithData:layer.data];
+
+        //UIImage imageWithData scale 在内存中会留下ImageIO_PND_Data，不能有效去除内存，改用resizeImage
+        layerTableViewCell.layerImageView.image = nil;
+        CGFloat scale = layerTableViewCell.layerImageView.bounds.size.width / DefaultScreenWidth;
+        UIImage *layerImage = [UIImage imageWithData:layer.data];
+        layerTableViewCell.layerImageView.image = [layerImage resizeImage:CGSizeMake(layerImage.size.width * scale, layerImage.size.height * scale)];
     }
 
     //alpha 0.1用来透出毛玻璃效果
