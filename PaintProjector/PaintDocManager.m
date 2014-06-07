@@ -69,12 +69,35 @@ static PaintDocManager* sharedInstance = nil;
     while (file = [fileEnum nextObject]) {
         if ([[file pathExtension] isEqualToString: @"psf"]) {
             NSString* docPath = [dir stringByAppendingPathComponent:file];
+            //获得文件属性
+            NSError *error = nil;
+            NSString *fullDocPath = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:docPath];
+            NSDictionary *dic = [[NSFileManager defaultManager]attributesOfItemAtPath:fullDocPath error:&error];
+            NSDate *date = [dic fileCreationDate];
+            DebugLog(@"paintDoc date %@", date);
+            
             PaintDoc* paintDoc =[[PaintDoc alloc]initWithDocPath:docPath];
             [paintDocs addObject:paintDoc];
         }
     }
+    
+    //对paintDocs按照时间进行排序
+//    NSArray *sortedPaintDocs = [paintDocs sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        NSError *error = nil;
+//        PaintDoc *doc1 = (PaintDoc *)obj1;
+//        NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:doc1.docPath];
+//        NSDictionary *dic = [[NSFileManager defaultManager]attributesOfItemAtPath:path error:&error];
+//        NSDate *date1 = [dic fileCreationDate];
+//        
+//        PaintDoc *doc2 = (PaintDoc *)obj2;
+//        path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:doc2.docPath];
+//        dic = [[NSFileManager defaultManager]attributesOfItemAtPath:path error:&error];
+//        NSDate *date2 = [dic fileCreationDate];
+//        
+//        return [date1 compare:date2];
+//    }];
 
-    return paintDocs;
+    return [NSMutableArray arrayWithArray:paintDocs];
 }
 
 - (int)directoryCount{
@@ -136,7 +159,7 @@ static PaintDocManager* sharedInstance = nil;
     }
     
     // Get available name
-    NSString *availableName = [NSString stringWithFormat:@"%d.psf", maxNumber+1];
+    NSString *availableName = [NSString stringWithFormat:@"%04d.psf", maxNumber+1];
     return [dirName stringByAppendingPathComponent:availableName];
 }
 

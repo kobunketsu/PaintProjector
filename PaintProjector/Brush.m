@@ -617,6 +617,8 @@
         //检查越界导致的crash
         if (index >= self.paintView.curVertexBrushCount) {
             [RemoteLog log:[NSString stringWithFormat:@"self.vertexBuffer alloc count %zu index %d", self.paintView.curVertexBrushCount, index]];
+            //FIXME: 暂时跳过
+            continue;
         }
 
         self.vertexBuffer[index].Position[0] = x;

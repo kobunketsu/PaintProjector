@@ -51,10 +51,7 @@
     }
     
     //修正viewDidDisappear unloadPaintFrameView后闪的问题
-    for (int i =0; i < self.collectionView.visibleCells.count; ++i) {
-        PaintFrameView *view = ((PaintCollectionViewCell *)self.collectionView.visibleCells[i]).paintFrameView;
-        [PaintFrameManager loadPaintFrameView:view byIndex:i];
-    }
+    [self.collectionView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -386,8 +383,17 @@
     [PaintFrameManager insertNewPaintDocAtCurIndex];
     
     //插入新表单到表格
+    //FIXME:需要确保insertNewPaintDocAtCurIndex 完成之后,否则回crash attempt to insert item 0 into section 0, but there are only 0 items in section 0 after the update
 //    [self.collectionView reloadData];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex inSection:0];
+    
+    //滚到最后一张图的位置上
+    if ([PaintFrameManager curGroup].paintDocs.count > 0) {
+        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex-1 inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:lastIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+    }
+
+    
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     
     //更新当前PaintFrame

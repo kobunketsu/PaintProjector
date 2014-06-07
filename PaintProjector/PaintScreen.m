@@ -2376,10 +2376,10 @@
         }];
     }
     else{
-        
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-        alertView.tag = 1;
-        [alertView show];
+        [self openIAP];
+//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+//        alertView.tag = 1;
+//        [alertView show];
     }
 }
 #pragma mark-
@@ -3152,6 +3152,12 @@
     self.transformAnchorViews = nil;
 }
 
+//根据transform的内容在屏幕上的大小更新矛点的大小
+- (void)updateTransformAnchorViewSize:(CGRect)rect{
+    CGRect rectInCanvas = [self.rootCanvasView convertRect:rect fromView:self.paintView];
+    CGFloat minSize = MIN(rectInCanvas.size.width, rectInCanvas.size.height) * 0.2;
+    self.transformAnchorViewSize = MAX(10, MIN(minSize, 30));
+}
 - (void)createTransformHelperViews:(CGRect)rect{
    
     [self createTransformContentViewWithRect:rect];
@@ -3164,7 +3170,7 @@
     CGFloat midY = CGRectGetMidY(rect);
     CGFloat maxY = CGRectGetMaxY(rect);
     
-    self.transformAnchorViewSize = 30;
+    [self updateTransformAnchorViewSize:rect];
 
     self.transformAnchorViews = [[NSMutableArray alloc]init];
     
@@ -3256,6 +3262,8 @@
     CGFloat minY = CGRectGetMinY(layerContentRect);
     CGFloat midY = CGRectGetMidY(layerContentRect);
     CGFloat maxY = CGRectGetMaxY(layerContentRect);
+    
+    [self updateTransformAnchorViewSize:layerContentRect];
     CGFloat size = self.transformAnchorViewSize;
     CGFloat offset = size * 0.5;
     CGAffineTransform transform = self.transformContentView.layer.affineTransform;
@@ -3729,7 +3737,7 @@
 //检查是否可以插入图层
 -(BOOL)checkInsertAvailable{
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"ProVersionPackage"]){
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnaDrawProVersionPackage"]){
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
             NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersIAP", nil)];
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
@@ -3740,10 +3748,11 @@
     }
     else{
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersFree", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-            alertView.tag = 5;
-            [alertView show];
+            [self openIAP];
+//            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersFree", nil)];
+//            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+//            alertView.tag = 5;
+//            [alertView show];
             return false;
         }
     }
@@ -3830,7 +3839,7 @@
     self.infColorPickerController.delegate = controllerDelegate;
     self.infColorPickerController.sourceColor = button.backgroundColor;//覆盖当前笔刷色
     self.subPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
-    [self.subPopoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+    [self.subPopoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
     
 //    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
@@ -4090,11 +4099,13 @@
     if (!brush.available) {
         [self willSelectBrushCanceled:sender];
         
+        [self openIAP];
+        
         //笔刷不可用，询问购买
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"BrushIAP", nil)];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-        alertView.tag = 5;
-        [alertView show];
+//        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"BrushIAP", nil)];
+//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
+//        alertView.tag = 5;
+//        [alertView show];
         
         return;
     }
@@ -4690,6 +4701,15 @@
 //- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
 //    return UIInterfaceOrientationPortrait;
 //}
+#pragma mark-IAP
+- (void)openIAP{
+    DebugLogFuncStart(@"openIAP");
+    [RemoteLog logAction:@"Open IAP" identifier:nil];
+    self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+    self.iapVC.delegate = self;
+    [self presentViewController:self.iapVC animated:true completion:^{
+    }];
+}
 
 #pragma mark- 处理警告 UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -4704,12 +4724,7 @@
     else if (alertView.tag == 5) {
         switch (buttonIndex) {
             case 1:
-                DebugLog(@"打开商店");
-                [RemoteLog logAction:@"Open IAP" identifier:nil];
-                self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
-                self.iapVC.delegate = self;
-                [self presentViewController:self.iapVC animated:true completion:^{
-                }];
+                [self openIAP];
                 break;
                 
             default:

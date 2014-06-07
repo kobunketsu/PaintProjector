@@ -22,7 +22,7 @@
 + (void)initialize
 {
     //configure iRate
-    [iRate sharedInstance].appStoreID = 825620171;
+    [iRate sharedInstance].appStoreID = 885877961;
     [iRate sharedInstance].daysUntilPrompt = 5;
     [iRate sharedInstance].usesUntilPrompt = 15;
 //    [iRate sharedInstance].previewMode = true;

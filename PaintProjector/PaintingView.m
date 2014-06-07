@@ -22,6 +22,7 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
+#define CanvasScaleMinimum 0.2
 
 // A class extension to declare private methods
 @interface PaintingView ()
@@ -1308,6 +1309,7 @@
     //设置renderbuffer
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
     
+    CGFloat scale = self.contentScaleFactor;
     glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
     
     //保证切换到当前canvase的大小
@@ -2733,6 +2735,9 @@
     
     _canvasScale = scale * _canvasSrcScale;
     
+    //FIXME:根据屏幕的尺寸大小来设定，暂时按照一个百分比设定
+    _canvasScale = MAX(CanvasScaleMinimum, _canvasScale);
+    
     _canvasTranslate = CGPointMake(translation.x + _canvasSrcTranslate.x, translation.y + _canvasSrcTranslate.y);
     
     [self.layer setValue:[NSNumber numberWithFloat:_canvasScale] forKeyPath:@"transform.scale"];
@@ -2742,7 +2747,7 @@
     [self.layer setValue:[NSNumber numberWithFloat:_canvasTranslate.x] forKeyPath:@"transform.translation.x"];
     [self.layer setValue:[NSNumber numberWithFloat:_canvasTranslate.y] forKeyPath:@"transform.translation.y"];
     
-    [self snapFitScreen];
+//    [self snapFitScreen];
     
     [self.delegate willUpdateUITransformTranslate:_canvasTranslate rotate:_canvasRotate scale:_canvasScale];
 }

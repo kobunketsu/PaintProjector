@@ -80,9 +80,23 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"productFeatureCollectionViewCell";
+    NSString *productFeatureDescription = nil;
     ProductFeatureCollectionViewCell *cell = (ProductFeatureCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     // Configure the cell...
-    NSString *productFeatureDescription = (NSString *)[self.productFeatures objectAtIndex:indexPath.row];
+    //配置features的图片,说明
+    switch (indexPath.row) {
+        case 0:
+            cell.imageView.image = [UIImage imageNamed:@"extraBrushes.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription0", nil);
+            break;
+        case 1:
+            cell.imageView.image = [UIImage imageNamed:@"FactorsWhichDistortEffect.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription1", nil);
+            break;
+        default:
+            break;
+    }
+//    NSString *productFeatureDescription = (NSString *)[self.productFeatures objectAtIndex:indexPath.row];
     cell.descriptionLabel.text = productFeatureDescription;
     cell.descriptionLabel.numberOfLines = 3;
     return cell;

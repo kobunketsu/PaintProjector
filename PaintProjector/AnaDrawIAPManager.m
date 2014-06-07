@@ -8,7 +8,7 @@
 
 #import "AnaDrawIAPManager.h"
 
-//#define kInAppPurchaseProUpgradeProductId @"ProVersionPackage"
+//#define kInAppPurchaseProUpgradeProductId @"AnaDrawProVersionPackage"
 
 @implementation AnaDrawIAPManager
 static AnaDrawIAPManager* sharedInstance = nil;

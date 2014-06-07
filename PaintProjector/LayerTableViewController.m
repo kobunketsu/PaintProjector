@@ -201,6 +201,7 @@ const float LayerTableViewWidth = 256;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         DebugLog(@"deleteLayerDataAtRow %d index %d", indexPath.row, [self layerIndexForRow:indexPath.row]);
+       
         //数据 & 显示
         int layerIndex = [self layerIndexForRow:indexPath.row];
         
@@ -211,6 +212,11 @@ const float LayerTableViewWidth = 256;
         }
         //删除图层
         else{
+            //立即释放图片资源
+            LayerTableViewCell *cell = (LayerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+            cell.layerImageView.image = nil;
+            cell.layerImageView.backgroundColor = nil;
+            
             [self.delegate willDeleteLayerDataAtIndex:layerIndex];
             
             //UI

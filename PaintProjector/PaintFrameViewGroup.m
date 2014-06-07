@@ -32,6 +32,7 @@
 }
 
 - (PaintDoc*)curPaintDoc{
+    DebugLogWarn(@"curPaintDoc index %d", self.curPaintIndex);
     if (!self.paintDocs) {
         return nil;
     }

@@ -104,6 +104,7 @@
                 //                imageView.alpha = 1;
                 paintCollectionVC.view.alpha = 1;
                 [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+//                DebugLog(@"paintCollectionVC.curPaintFrameView frame %@", NSStringFromCGRect(paintCollectionVC.curPaintFrameView.frame));
             }
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
             DebugLog(@"transitionContext completed");
@@ -135,15 +136,18 @@
     [transitionImageView removeFromSuperview];
     UIButton *paintFrameView = cell.paintFrameView;
     [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
+
+    CGSize defaultSize = paintCollectionVC.curPaintFrameView.frame.size;
     CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
+    destRect.size = defaultSize;
     
     //更新scroll位置
     [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:false];
     [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionNone];
     
     //patch:处理奇怪的偏移
-    destRect.origin.x -= 5;
-    destRect.origin.y -= 5;
+    destRect.origin.x -= 15;
+    destRect.origin.y -= 20;
 
 //    DebugLogWarn(@"paintFrameView.frame %@", NSStringFromCGRect(paintFrameView.frame));
 //    DebugLogWarn(@"destRect rootView %@", NSStringFromCGRect(destRect));

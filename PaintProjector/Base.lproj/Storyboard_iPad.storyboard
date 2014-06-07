@@ -98,7 +98,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kt2-vx-Hrw" userLabel="CopyButton" customClass="LayerCopyButton">
-                                        <rect key="frame" x="65" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="56" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="CopyLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -114,7 +114,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3kp-Bf-Pp2" userLabel="MergeButton" customClass="LayerMergeButton">
-                                        <rect key="frame" x="130" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="112" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="MergeLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -130,7 +130,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gYK-6m-KN5" userLabel="ClearButton" customClass="LayerClearButton">
-                                        <rect key="frame" x="195" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="168" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="ClearLayer"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -336,10 +336,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PWz-9E-omm" customClass="PaintCollectionView">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PWz-9E-omm" customClass="PaintCollectionView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="Wg5-3D-iTn">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="bDx-eb-2i8">
                                     <size key="itemSize" width="220" height="305"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -368,6 +368,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <size key="customSize" width="220" height="305"/>
                                         <connections>
                                             <outlet property="paintFrameView" destination="3Rs-q3-ZDJ" id="NpT-cQ-fQq"/>
                                         </connections>
@@ -1052,7 +1053,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Draw Package" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Ux-Cz-bnn">
-                                                    <rect key="frame" x="15" y="11" width="135" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="377" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
@@ -1095,14 +1096,14 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tes-J0-1eR">
-                            <rect key="frame" x="230" y="0.0" width="87" height="28"/>
+                            <rect key="frame" x="206.5" y="0.0" width="87" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Arial-ItalicMT" family="Arial" pointSize="32"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oqr-Kp-EJS">
-                            <rect key="frame" x="390" y="0.0" width="100" height="30"/>
+                            <rect key="frame" x="400" y="0.0" width="100" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Restore">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1112,7 +1113,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="geC-fO-fTo">
-                            <rect key="frame" x="10" y="0.0" width="100" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Done">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1577,7 +1578,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="LayerButton" customClass="LayerButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="672" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Layer"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1596,7 +1597,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="TransformButton">
-                                                <rect key="frame" x="96" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="576" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Transform"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1612,7 +1613,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ClearButton">
-                                                <rect key="frame" x="192" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="480" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Clear"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1649,7 +1650,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="ImportButton" customClass="ImportButton">
-                                                <rect key="frame" x="480" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="96" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Import"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1668,7 +1669,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ExportButton">
-                                                <rect key="frame" x="576" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="192" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Export"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1687,11 +1688,11 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="AnamorphicButton">
-                                                <rect key="frame" x="672" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Close"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Close">
+                                                <state key="normal" title="Browse">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2637,7 +2638,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Setup">
+                                        <state key="normal" title="Advanced">
                                             <color key="titleColor" red="0.2805156707" green="0.42989894810000001" blue="0.87804878050000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

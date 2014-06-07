@@ -81,21 +81,15 @@
     switch(indexPath.row) { // assuming there is only one section
         case 0:
             cell.textLabel.text = NSLocalizedString(@"ProductIntroduction", nil);
-//            cell.imageView.image = [UIImage imageNamed:@"FB-f-Logo__blue_50.png"];
             break;
         case 1:
             cell.textLabel.text = NSLocalizedString(@"ProductUserManual", nil);
-            //            cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
         case 2:
             cell.textLabel.text = NSLocalizedString(@"ProductSupport", nil);
-//            cell.imageView.image = [UIImage imageNamed:@"twitter50x50.png"];
             break;
         case 3:
             cell.textLabel.text = NSLocalizedString(@"ProductFanArts", nil);
-//            cell.imageView.image = [UIImage imageNamed:@"sinaWeibo48x48.png"];
-            
-            //            cell.textLabel.text = @"Dropbox";
             break;
         default:
             break;

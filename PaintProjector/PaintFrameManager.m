@@ -77,10 +77,10 @@
     else{
         [curGroup.paintDocs insertObject:paintDoc atIndex:index];
         
-        if (index <= curGroup.curPaintIndex) {
+//        if (index <= curGroup.curPaintIndex) {
 //            curPaintFrameGroup.curPaintIndex ++;
             curGroup.curPaintIndex = index;
-        }
+//        }
     }
     
     DebugLog(@"curPaintIndex %d", curGroup.curPaintIndex);
@@ -88,7 +88,7 @@
 }
 
 +(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
-    return [self insertPaintDoc:paintDoc atIndex:curGroup.curPaintIndex];
+    return [self insertPaintDoc:paintDoc atIndex:curGroup.curPaintIndex + 1];//insert after
 }
 
 +(void)insertNewPaintDocAtCurIndex{

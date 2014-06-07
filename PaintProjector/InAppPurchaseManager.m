@@ -283,7 +283,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     [_purchasedProductIdentifiers addObject:productIdentifier];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
     
-    if ([productIdentifier isEqualToString:@"ProVersionPackage"]) {
+    if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
         
         DebugLog(@"专业版提供Anamorphosis参数调整");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];

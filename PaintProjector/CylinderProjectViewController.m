@@ -251,8 +251,14 @@
         }
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"AnamorphosisSetupUnavailabe", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"BuyProVersion", nil), nil];
-        [alertView show];
+        //禁止操作
+        self.topToolBar.userInteractionEnabled = false;
+        [self setupAnamorphParamsCompletion:^{
+        }];
+        [self openIAP];
+        
+//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"AnamorphosisSetupUnavailabe", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"BuyProVersion", nil), nil];
+//        [alertView show];
     }
 }
 
@@ -1840,6 +1846,13 @@
     [self.iapVC dismissViewControllerAnimated:true completion:^{
         DebugLog(@"willPurchaseDone");
     }];
+    
+    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
+        self.topToolBar.userInteractionEnabled = true;
+    }
+    else{
+        [self setupAnamorphParamsDoneCompletion:nil];        
+    }
 }
 #pragma mark- 绘画代理PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup{
@@ -2028,16 +2041,20 @@
     }
 }
 
+- (void)openIAP{
+    DebugLogFuncStart(@"openIAP");
+    [RemoteLog logAction:@"Open IAP" identifier:nil];
+    self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+    self.iapVC.delegate = self;
+    [self presentViewController:self.iapVC animated:true completion:^{
+    }];
+}
+
 #pragma mark- 处理警告 UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
         case 1:
-            DebugLog(@"打开商店");
-            [RemoteLog logAction:@"Open IAP" identifier:nil];
-            self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
-            self.iapVC.delegate = self;
-            [self presentViewController:self.iapVC animated:true completion:^{
-            }];
+            [self openIAP];
             break;
             
         default:

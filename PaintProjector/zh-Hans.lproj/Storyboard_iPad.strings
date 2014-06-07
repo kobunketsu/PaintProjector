@@ -78,8 +78,8 @@
 "AOV-WF-NGc.text" = "抖动";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Close"; ObjectID = "AdD-j2-c1b"; */
-"AdD-j2-c1b.accessibilityLabel" = "Close";
-"AdD-j2-c1b.normalTitle" = "保存关闭";
+"AdD-j2-c1b.accessibilityLabel" = "Browse";
+"AdD-j2-c1b.normalTitle" = "浏览";
 
 /* Class = "IBUIView"; accessibilityLabel = "DrawingPad"; ObjectID = "Bfe-fw-T22"; */
 "Bfe-fw-T22.accessibilityLabel" = "DrawingPad";
@@ -272,7 +272,7 @@
 "edV-eN-YWW.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Setup"; ObjectID = "edV-eN-YWW"; */
-"edV-eN-YWW.normalTitle" = "调 整";
+"edV-eN-YWW.normalTitle" = "高 级";
 
 /* Class = "IBUIButton"; accessibilityLabel = "New"; ObjectID = "egz-LW-xJQ"; */
 "egz-LW-xJQ.accessibilityLabel" = "New";
@@ -313,7 +313,7 @@
 "6dc-Q8-cDV.normalTitle" = "纸 篓";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "geC-fO-fTo"; */
-"geC-fO-fTo.normalTitle" = "Done";
+"geC-fO-fTo.normalTitle" = "完成";
 
 /* Class = "IBUIView"; accessibilityLabel = "CylinderRootView"; ObjectID = "h4g-78-CMY"; */
 "h4g-78-CMY.accessibilityLabel" = "CylinderRootView";
@@ -349,7 +349,7 @@
 "oQ8-o8-i0F.text" = "渐隐";
 
 /* Class = "IBUIButton"; normalTitle = "Restore"; ObjectID = "oqr-Kp-EJS"; */
-"oqr-Kp-EJS.normalTitle" = "Restore";
+"oqr-Kp-EJS.normalTitle" = "恢复";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "q9m-wd-BDj"; */
 "q9m-wd-BDj.accessibilityLabel" = "Print";
@@ -364,7 +364,7 @@
 "tc4-j6-Ww5.accessibilityLabel" = "PaintToolBar";
 
 /* Class = "IBUILabel"; text = "Store"; ObjectID = "tes-J0-1eR"; */
-"tes-J0-1eR.text" = "Store";
+"tes-J0-1eR.text" = "商店";
 
 /* Class = "IBUILabel"; text = "Warning"; ObjectID = "v7y-QT-zde"; */
 "v7y-QT-zde.text" = "Warning";
@@ -389,13 +389,13 @@
 "wsl-mY-TBP.normalTitle" = "-";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "xbC-rz-2Gi"; */
-"xbC-rz-2Gi.normalTitle" = "Done";
+"xbC-rz-2Gi.normalTitle" = "完成";
 
 /* Class = "IBUILabel"; text = "Far"; ObjectID = "xbP-Iu-EtB"; */
 "xbP-Iu-EtB.text" = "Far";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "yaV-Fc-hN7"; */
-"yaV-Fc-hN7.normalTitle" = "Done";
+"yaV-Fc-hN7.normalTitle" = "完成";
 
 /* Class = "IBUIButton"; accessibilityLabel = "swatchManagerBackButton"; ObjectID = "yqS-gO-sCG"; */
 "yqS-gO-sCG.accessibilityLabel" = "swatchManagerBackButton";

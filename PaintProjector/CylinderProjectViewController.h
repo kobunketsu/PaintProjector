@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
+
+//GPUImage
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
 #import <CoreMotion/CoreMotion.h>
-
+#import "GPUImage.h"
 
 #import "PaintScreen.h"
 #import "ShareTableViewController.h"

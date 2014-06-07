@@ -58,7 +58,7 @@
     CGFloat shadow2BlurRadius = 2;
     
     //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 7, 248, 20) cornerRadius: 10];
+    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 9, 248, 16) cornerRadius: 10];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
 
@@ -69,9 +69,9 @@
     [roundedRectanglePath fill];
     
     UIBezierPath* sizePath = [UIBezierPath bezierPath];
-    [sizePath moveToPoint:CGPointMake(0, self.bounds.size.height * 0.5)];
-    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 0)];
-    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, self.bounds.size.height)];
+    [sizePath moveToPoint:CGPointMake(0, 25)];
+    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 9)];
+    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 25)];
     [sizePath closePath];
     [radiusColor setFill];
     [sizePath fill];
