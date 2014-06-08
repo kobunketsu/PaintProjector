@@ -66,7 +66,7 @@
 "853-Ud-5W7.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Top"; ObjectID = "853-Ud-5W7"; */
-"853-Ud-5W7.normalTitle" = "顶 视";
+"853-Ud-5W7.normalTitle" = "道 具";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "9SY-4H-8aQ"; */
 "9SY-4H-8aQ.text" = "圆柱高度";
@@ -355,7 +355,7 @@
 "q9m-wd-BDj.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Eye"; ObjectID = "q9m-wd-BDj"; */
-"q9m-wd-BDj.normalTitle" = "视 点";
+"q9m-wd-BDj.normalTitle" = "虚 拟";
 
 /* Class = "IBUIButton"; normalTitle = "Print"; ObjectID = "riP-s0-rbr"; */
 "riP-s0-rbr.normalTitle" = "Print";

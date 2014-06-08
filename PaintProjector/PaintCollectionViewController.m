@@ -82,6 +82,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.numberOfPaintPerPage = 9;
+    
     self.selectedIndices = [[NSMutableArray alloc]init];
     
     self.collectionView.backgroundColor = [UIColor clearColor];
@@ -208,7 +210,9 @@
 }
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [PaintFrameManager curGroup].paintDocs.count;
+    NSInteger count = [PaintFrameManager curGroup].paintDocs.count;
+    self.pageControl.numberOfPages =  ceilf((float)count / (float)self.numberOfPaintPerPage);
+    return count;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
@@ -241,9 +245,8 @@
     
     //非编辑状态，打开
     if (!self.editing) {
-        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:^{
-            [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
-        }toView:nil completion:nil];
+        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
+        [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
     }
     //编辑状态
     else{
@@ -389,8 +392,7 @@
     
     //滚到最后一张图的位置上
     if ([PaintFrameManager curGroup].paintDocs.count > 0) {
-        NSIndexPath *lastIndexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex-1 inSection:0];
-        [self.collectionView scrollToItemAtIndexPath:lastIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:false];
+        self.pageControl.currentPage = floorf((float)[PaintFrameManager curGroup].curPaintIndex / (float)[self.collectionView numberOfItemsInSection:0]);
     }
 
     
@@ -445,4 +447,13 @@
 
 }
 
+#pragma mark- Scroll
+- (IBAction)pageControlValueChanged:(UIPageControl *)sender {
+    self.collectionView.contentOffset = CGPointMake(sender.currentPage * self.collectionView.frame.size.width, 0);
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //    DebugLog(@"[scrollViewDidScroll] contentOffset %@", NSStringFromCGPoint(scrollView.contentOffset));
+    self.pageControl.currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
+    
+}
 @end

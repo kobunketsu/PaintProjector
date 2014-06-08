@@ -10,28 +10,29 @@
 
 @implementation PaintCollectionViewFlowLayout
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds
-{
-    return YES;
-}
+//- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds
+//{
+//    return YES;
+//}
 
 
 -(NSArray*)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSLog(@"layoutAttributesForElementsInRect rect %@", NSStringFromCGRect(rect));
+//    NSLog(@"layoutAttributesForElementsInRect rect %@", NSStringFromCGRect(rect));
     
     //修正layout的rect,保证纵向转横向后不缺少元素
+    //FIXME: + 1是补丁做法
     CGRect fixedRect = rect;
-    fixedRect.size.width = ceilf(rect.size.width / self.collectionView.bounds.size.width) * self.collectionView.bounds.size.width;
+    fixedRect.size.width = (ceilf(rect.size.width / self.collectionView.bounds.size.width) + 1) * self.collectionView.bounds.size.width;
     fixedRect.origin.x = floorf(rect.origin.x / self.collectionView.bounds.size.width) * self.collectionView.bounds.size.width;
-    //    NSLog(@"fixedRect %@", NSStringFromCGRect(fixedRect));
+    DebugLog(@"fixedRect %@", NSStringFromCGRect(fixedRect));
     
     NSArray* array = [super layoutAttributesForElementsInRect:fixedRect];
     if (array.count == 0) {
         return array;
     }
     
-    //    NSLog(@"array.count %lu", (unsigned long)array.count);
+    DebugLog(@"array.count %lu", (unsigned long)array.count);
     UICollectionViewLayoutAttributes* attributes = (UICollectionViewLayoutAttributes*)array[0];
     NSUInteger countRow = (NSUInteger)self.collectionView.bounds.size.width / attributes.size.width;
     NSUInteger countColumn = (NSUInteger)self.collectionView.bounds.size.height / attributes.size.height;

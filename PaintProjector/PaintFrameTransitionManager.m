@@ -125,49 +125,53 @@
     paintCollectionVC.downToolBar.hidden = true;
     UIView *toView = paintCollectionVC.view;
     
+
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[PaintFrameManager curGroup].curPaintIndex inSection:0];
     DebugLog(@"indexPath row %d", indexPath.row);
     
+    paintCollectionVC.pageControl.currentPage = (NSInteger)floorf((float)indexPath.row / (float)paintCollectionVC.numberOfPaintPerPage);
+    
     //得到新的当前PaintFrameView
-    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC collectionView:paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+//    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC collectionView:paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
     
     //将paintFrameView转换到CylinderProject rootView
     UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
     [transitionImageView removeFromSuperview];
-    UIButton *paintFrameView = cell.paintFrameView;
-    [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
+//    UIButton *paintFrameView = cell.paintFrameView;
+//    [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
 
-    CGSize defaultSize = paintCollectionVC.curPaintFrameView.frame.size;
-    CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
-    destRect.size = defaultSize;
+//    CGSize defaultSize = paintCollectionVC.curPaintFrameView.frame.size;
+//    CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
+//    destRect.size = defaultSize;
     
     //更新scroll位置
-    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:false];
+//    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:false];
     [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionNone];
     
     //patch:处理奇怪的偏移
-    destRect.origin.x -= 15;
-    destRect.origin.y -= 20;
+//    destRect.origin.x -= 15;
+//    destRect.origin.y -= 20;
 
 //    DebugLogWarn(@"paintFrameView.frame %@", NSStringFromCGRect(paintFrameView.frame));
 //    DebugLogWarn(@"destRect rootView %@", NSStringFromCGRect(destRect));
 //    DebugLogWarn(@"contentOffset %@", NSStringFromCGPoint(paintCollectionVC.collectionView.contentOffset));
     
     //解决scroll过paintCollection之后返回位置不对的显示问题
-    if (destRect.origin.y > toView.bounds.size.height) {
-        destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
-        destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
-    }
+//    if (destRect.origin.y > toView.bounds.size.height) {
+//        destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
+//        destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
+//    }
 
     [containerView addSubview:toView];
     [containerView addSubview:fromVC.view];
-    [containerView addSubview:transitionImageView];
+//    [containerView addSubview:transitionImageView];
     
     //动画
     toView.alpha = 0;
     
-    [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
-        transitionImageView.frame = destRect;
+    [UIView animateWithDuration:0 animations:^{
+//        transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {
         //渐入cylinderProjectView
         [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
@@ -186,8 +190,8 @@
                 
             } else {
                 // reset from- view to its original state
-                [transitionImageView removeFromSuperview];
-                transitionImageView.alpha = 1;
+//                [transitionImageView removeFromSuperview];
+//                transitionImageView.alpha = 1;
             }
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];

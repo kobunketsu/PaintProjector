@@ -315,20 +315,23 @@
 #pragma mark- 转换Transition
 - (void)transitionToGallery{
     //打开从paintCollectionVC transition 时添加的view
-    UIImageView *tempView = (UIImageView *)[self.view subViewWithTag:100];
-    if (tempView) {
-        //刷新的当前图片
-        NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:[[PaintFrameManager curGroup] curPaintDoc].thumbImagePath];
-        tempView.image = [UIImage imageWithContentsOfFile:path];
-        [UIView animateWithDuration:TempPaintFrameToGalleryFadeInDuration animations:^{
-            tempView.alpha = 1;
-        }completion:^(BOOL finished) {
-        }];
-    }
+//    UIImageView *tempView = (UIImageView *)[self.view subViewWithTag:100];
+//    if (tempView) {
+//        //刷新的当前图片
+//        NSString *path = [[Ultility applicationDocumentDirectory]stringByAppendingPathComponent:[[PaintFrameManager curGroup] curPaintDoc].thumbImagePath];
+//        tempView.image = [UIImage imageWithContentsOfFile:path];
+//        [UIView animateWithDuration:TempPaintFrameToGalleryFadeInDuration animations:^{
+//            tempView.alpha = 1;
+//        }completion:^(BOOL finished) {
+//        }];
+//    }
     
-    AnimationClip *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"fadeOutAnimClip"];
-    self.cylinderProjectCur.animation.clip = animClip;
-    [self.cylinderProjectCur.animation play];
+    //取消动画
+//    AnimationClip *animClip = [self.cylinderProjectCur.animation.clips valueForKey:@"fadeOutAnimClip"];
+//    self.cylinderProjectCur.animation.clip = animClip;
+//    [self.cylinderProjectCur.animation play];
+    
+    [self.delegate willTransitionToGallery];
     
     //ToolBar动画
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];

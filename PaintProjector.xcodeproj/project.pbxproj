@@ -128,6 +128,10 @@
 		080BD0D91645FDC000B37C01 /* SelectBrushButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0D81645FDC000B37C01 /* SelectBrushButton.m */; };
 		080BD0DD164601B400B37C01 /* EyeDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0DC164601B400B37C01 /* EyeDropper.m */; };
 		080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080D245D18B6E5C400161756 /* StoreKit.framework */; };
+		080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */; };
+		080FBABB1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */; };
+		080FBABC1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */; };
+		080FBABD1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */; };
 		0813AA1F19167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
 		0813AA2019167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
 		0813AA2519167C07000C4D00 /* ModelEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2419167C07000C4D00 /* ModelEntity.m */; };
@@ -140,8 +144,6 @@
 		0814743D18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0815334817D3809300A45B54 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
 		0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B38F163C38ED00BD52B2 /* PaintScreen.m */; };
-		0817CE611941FC4F0003FD83 /* PaintCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817CE601941FC4F0003FD83 /* PaintCollectionViewLayout.m */; };
-		0817CE621941FC4F0003FD83 /* PaintCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817CE601941FC4F0003FD83 /* PaintCollectionViewLayout.m */; };
 		0818DC2D18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
 		0818DC2E18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
 		081A228A16D8555C00F39468 /* TextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A228916D8555C00F39468 /* TextureManager.m */; };
@@ -850,6 +852,8 @@
 		080BD0DB164601B400B37C01 /* EyeDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyeDropper.h; sourceTree = "<group>"; };
 		080BD0DC164601B400B37C01 /* EyeDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EyeDropper.m; sourceTree = "<group>"; };
 		080D245D18B6E5C400161756 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_4@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_4@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
+		080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_4~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_4~ipad.png"; sourceTree = SOURCE_ROOT; };
 		0813AA1E19167BD4000C4D00 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = PaintProjector/Models; sourceTree = "<group>"; };
 		0813AA2319167C07000C4D00 /* ModelEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelEntity.h; path = PaintProjector/ModelEntity.h; sourceTree = "<group>"; };
 		0813AA2419167C07000C4D00 /* ModelEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelEntity.m; path = PaintProjector/ModelEntity.m; sourceTree = "<group>"; };
@@ -862,8 +866,6 @@
 		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
 		0817B38E163C38ED00BD52B2 /* PaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0817B38F163C38ED00BD52B2 /* PaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		0817CE5F1941FC4F0003FD83 /* PaintCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintCollectionViewLayout.h; path = PaintProjector/PaintCollectionViewLayout.h; sourceTree = "<group>"; };
-		0817CE601941FC4F0003FD83 /* PaintCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintCollectionViewLayout.m; path = PaintProjector/PaintCollectionViewLayout.m; sourceTree = "<group>"; };
 		0818DC2B18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		081A228816D8555C00F39468 /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureManager.h; path = PaintProjector/TextureManager.h; sourceTree = "<group>"; };
@@ -1525,6 +1527,8 @@
 		082439D716CCAE2100FC12BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */,
+				080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */,
 				08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */,
 				08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */,
 				08E06122193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png */,
@@ -2011,8 +2015,6 @@
 				08B9104718AF544D00BEA0D3 /* PaintCollectionViewCellFrame.m */,
 				08FF70C6189003AC00A7A09B /* PaintCollectionViewController.h */,
 				08FF70C7189003AC00A7A09B /* PaintCollectionViewController.m */,
-				0817CE5F1941FC4F0003FD83 /* PaintCollectionViewLayout.h */,
-				0817CE601941FC4F0003FD83 /* PaintCollectionViewLayout.m */,
 				08FB9B0F1942C91A002E71A5 /* PaintCollectionViewFlowLayout.h */,
 				08FB9B101942C91A002E71A5 /* PaintCollectionViewFlowLayout.m */,
 				08B444BC175B00E500787C18 /* PaintFrameView.h */,
@@ -2565,6 +2567,7 @@
 				08086E4118DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
 				08086E7318DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
 				08E06125193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */,
+				080FBABB1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
 				08086E9918DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08086E6D18DC8BA300F03EB4 /* camera_48.png in Resources */,
 				e37029de4c7956b2bb121e3c /* SharedTableViewCell.xib in Resources */,
@@ -2572,6 +2575,7 @@
 				44c3a468a4bf3475a7a36dc9 /* LayerToolView.xib in Resources */,
 				08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
+				080FBABD1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */,
@@ -2607,6 +2611,7 @@
 				08FB9B161942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */,
 				08E06126193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */,
 				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
+				080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
 				08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08FB9B191942C94F002E71A5 /* extraBrushes.png in Resources */,
 				08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */,
@@ -2618,6 +2623,7 @@
 				08086EF018DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
 				08086E4218DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
 				0808D9DD164559870000DF40 /* InfColorPickerView.xib in Resources */,
+				080FBABC1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */,
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				08BD36E81932D097000B14EF /* bgRootView.png in Resources */,
@@ -2936,7 +2942,6 @@
 				d44a0eace57255f8a4bbf0af /* ColorSaveToSlotView.m in Sources */,
 				0808118418C4A89C004D53F6 /* SwatchChartButton.m in Sources */,
 				2719eb9b9adf1c84b219ee53 /* Bucket.m in Sources */,
-				0817CE621941FC4F0003FD83 /* PaintCollectionViewLayout.m in Sources */,
 				0818DC2E18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */,
 				082060D2189D38E40027247C /* Renderer.m in Sources */,
 				08B9104D18AF6ACF00BEA0D3 /* ShareTableViewController.m in Sources */,
@@ -3226,7 +3231,6 @@
 				08FE79FA17C8FF9900D1EEBD /* PaintButton.m in Sources */,
 				081EFBFD17CA1F3500D4FE46 /* AnamorphicButton.m in Sources */,
 				081EFC0217CA253000D4FE46 /* AnamorphicSideViewButton.m in Sources */,
-				0817CE611941FC4F0003FD83 /* PaintCollectionViewLayout.m in Sources */,
 				081EFC0517CA28EA00D4FE46 /* AnamorphicTopViewButton.m in Sources */,
 				08B131B117D24F01004FDF1D /* PrintButton.m in Sources */,
 				0860668B17D2D8FB002EE42A /* NewButton.m in Sources */,

@@ -31,6 +31,8 @@ PaintFrameTransitionManagerDelegate
 @property (weak, nonatomic) IBOutlet DownToolBar *downToolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;
 @property (weak, nonatomic) IBOutlet UIButton *editNewButton;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (assign, nonatomic) NSInteger numberOfPaintPerPage;
 //是否启动自动转换
 @property (assign, nonatomic) BOOL isLaunchTransitioned;
 @property (retain, nonatomic) UIImageView *launchImageView;
@@ -39,6 +41,7 @@ PaintFrameTransitionManagerDelegate
 //显示作品管理器
 @property (weak, nonatomic) PaintFrameView *curPaintFrameView;
 
+- (IBAction)pageControlValueChanged:(UIPageControl *)sender;
 #pragma mark- Tool Bar
 - (IBAction)fileButtonTouchUp:(id)sender;
 
