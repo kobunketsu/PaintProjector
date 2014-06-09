@@ -144,6 +144,8 @@
 		0814743D18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0815334817D3809300A45B54 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
 		0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B38F163C38ED00BD52B2 /* PaintScreen.m */; };
+		0818339A1944C438002AA5D0 /* Pro_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 081833991944C438002AA5D0 /* Pro_pallete.png */; };
+		0818339B1944C438002AA5D0 /* Pro_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 081833991944C438002AA5D0 /* Pro_pallete.png */; };
 		0818DC2D18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
 		0818DC2E18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
 		081A228A16D8555C00F39468 /* TextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A228916D8555C00F39468 /* TextureManager.m */; };
@@ -485,8 +487,8 @@
 		08FB9B121942C91A002E71A5 /* PaintCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB9B101942C91A002E71A5 /* PaintCollectionViewFlowLayout.m */; };
 		08FB9B161942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B151942C948002E71A5 /* FactorsWhichDistortEffect.png */; };
 		08FB9B171942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B151942C948002E71A5 /* FactorsWhichDistortEffect.png */; };
-		08FB9B191942C94F002E71A5 /* extraBrushes.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B181942C94F002E71A5 /* extraBrushes.png */; };
-		08FB9B1A1942C94F002E71A5 /* extraBrushes.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B181942C94F002E71A5 /* extraBrushes.png */; };
+		08FB9B191942C94F002E71A5 /* Pro_extraBrushes.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B181942C94F002E71A5 /* Pro_extraBrushes.png */; };
+		08FB9B1A1942C94F002E71A5 /* Pro_extraBrushes.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FB9B181942C94F002E71A5 /* Pro_extraBrushes.png */; };
 		08FD1F99164DF509003738FC /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
 		08FD1F9D164E13F4003738FC /* CustomTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F9C164E13F4003738FC /* CustomTouchUIView.m */; };
 		08FD2DC4179B8864006B0EB8 /* CylinderProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD2DC3179B8864006B0EB8 /* CylinderProjectViewController.m */; };
@@ -866,6 +868,7 @@
 		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
 		0817B38E163C38ED00BD52B2 /* PaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0817B38F163C38ED00BD52B2 /* PaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		081833991944C438002AA5D0 /* Pro_pallete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pro_pallete.png; sourceTree = "<group>"; };
 		0818DC2B18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		081A228816D8555C00F39468 /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureManager.h; path = PaintProjector/TextureManager.h; sourceTree = "<group>"; };
@@ -1335,7 +1338,7 @@
 		08FB9B0F1942C91A002E71A5 /* PaintCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintCollectionViewFlowLayout.h; path = PaintProjector/PaintCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		08FB9B101942C91A002E71A5 /* PaintCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintCollectionViewFlowLayout.m; path = PaintProjector/PaintCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		08FB9B151942C948002E71A5 /* FactorsWhichDistortEffect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FactorsWhichDistortEffect.png; path = PaintProjector/Images/FactorsWhichDistortEffect.png; sourceTree = "<group>"; };
-		08FB9B181942C94F002E71A5 /* extraBrushes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = extraBrushes.png; path = PaintProjector/Images/extraBrushes.png; sourceTree = "<group>"; };
+		08FB9B181942C94F002E71A5 /* Pro_extraBrushes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pro_extraBrushes.png; path = PaintProjector/Images/Pro_extraBrushes.png; sourceTree = "<group>"; };
 		08FD1F97164DF509003738FC /* RedoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedoButton.h; sourceTree = "<group>"; };
 		08FD1F98164DF509003738FC /* RedoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedoButton.m; sourceTree = "<group>"; };
 		08FD1F9B164E13F3003738FC /* CustomTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTouchUIView.h; sourceTree = "<group>"; };
@@ -2106,7 +2109,8 @@
 			isa = PBXGroup;
 			children = (
 				08FB9B151942C948002E71A5 /* FactorsWhichDistortEffect.png */,
-				08FB9B181942C94F002E71A5 /* extraBrushes.png */,
+				08FB9B181942C94F002E71A5 /* Pro_extraBrushes.png */,
+				081833991944C438002AA5D0 /* Pro_pallete.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -2532,6 +2536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
+				0818339B1944C438002AA5D0 /* Pro_pallete.png in Resources */,
 				08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
 				08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
@@ -2541,7 +2546,7 @@
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
-				08FB9B1A1942C94F002E71A5 /* extraBrushes.png in Resources */,
+				08FB9B1A1942C94F002E71A5 /* Pro_extraBrushes.png in Resources */,
 				08086E6B18DC8BA300F03EB4 /* brushSquare.png in Resources */,
 				08086E7918DC8BA300F03EB4 /* checkCircle.png in Resources */,
 				2bd9b4e63efc55eb48214f7c /* InfoPlist.strings in Resources */,
@@ -2613,7 +2618,7 @@
 				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
 				080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
 				08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
-				08FB9B191942C94F002E71A5 /* extraBrushes.png in Resources */,
+				08FB9B191942C94F002E71A5 /* Pro_extraBrushes.png in Resources */,
 				08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */,
 				08086E3218DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
 				08086E8C18DC8BA300F03EB4 /* cylinderMain.png in Resources */,
@@ -2660,6 +2665,7 @@
 				08E0612A193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				08086E4018DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
+				0818339A1944C438002AA5D0 /* Pro_pallete.png in Resources */,
 				08EDD50E17AD296B0023E08A /* cylinderMain.png in Resources */,
 				08086E9818DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */,
@@ -3367,8 +3373,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
+				PROVISIONING_PROFILE = "B3A39007-134B-4020-AC35-042223BD99B3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3A39007-134B-4020-AC35-042223BD99B3";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3538,8 +3544,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3582,8 +3588,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

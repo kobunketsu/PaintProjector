@@ -56,10 +56,10 @@
     
 #if DEBUG
     //设置用户参数
-    [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"LayerQuantityLimitation"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
     
 #else
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {

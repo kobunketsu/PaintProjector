@@ -32,59 +32,62 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* color = [UIColor colorWithRed: 0.285 green: 0.652 blue: 0.243 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.205 green: 0.589 blue: 0.189 alpha: 1];
     CGFloat colorRGBA[4];
     [color getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
     
     UIColor* color4 = [UIColor colorWithRed: (colorRGBA[0] * 0.8 + 0.2) green: (colorRGBA[1] * 0.8 + 0.2) blue: (colorRGBA[2] * 0.8 + 0.2) alpha: (colorRGBA[3] * 0.8 + 0.2)];
     UIColor* color5 = [UIColor colorWithRed: (colorRGBA[0] * 0.4) green: (colorRGBA[1] * 0.4) blue: (colorRGBA[2] * 0.4) alpha: (colorRGBA[3] * 0.4 + 0.6)];
     UIColor* color6 = [UIColor colorWithRed: (colorRGBA[0] * 0.2 + 0.8) green: (colorRGBA[1] * 0.2 + 0.8) blue: (colorRGBA[2] * 0.2 + 0.8) alpha: (colorRGBA[3] * 0.2 + 0.8)];
+    UIColor* fillColor2 = [UIColor colorWithRed: 0.5 green: 0.5 blue: 0.5 alpha: 1];
     
     //// Shadow Declarations
-    UIColor* shadow = color;
-    CGSize shadowOffset = CGSizeMake(0.1, 25.1);
-    CGFloat shadowBlurRadius = 20;
+    UIColor* glow = color;
+    CGSize glowOffset = CGSizeMake(0.1, 25.1);
+    CGFloat glowBlurRadius = 50;
     
     //// Pencil
     {
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
-        
+        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, glow.CGColor);
         CGContextBeginTransparencyLayer(context, NULL);
         
         
         //// Rounded Rectangle Drawing
-        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(25, 54.5, 14, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(25, 56.5, 14, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        [roundedRectanglePath closePath];
         [color setFill];
         [roundedRectanglePath fill];
         
         
         //// Rounded Rectangle 2 Drawing
-        UIBezierPath* roundedRectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(39, 54.5, 10, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        UIBezierPath* roundedRectangle2Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(39, 56.5, 10, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        [roundedRectangle2Path closePath];
         [color4 setFill];
         [roundedRectangle2Path fill];
         
         
         //// Rounded Rectangle 3 Drawing
-        UIBezierPath* roundedRectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(15, 54, 10, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        UIBezierPath* roundedRectangle3Path = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(15, 56, 10, 72) byRoundingCorners: UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii: CGSizeMake(4, 4)];
+        [roundedRectangle3Path closePath];
         [color4 setFill];
         [roundedRectangle3Path fill];
         
         
         //// Bezier 5 Drawing
         UIBezierPath* bezier5Path = [UIBezierPath bezierPath];
-        [bezier5Path moveToPoint: CGPointMake(47.56, 53.11)];
-        [bezier5Path addCurveToPoint: CGPointMake(44.24, 51.77) controlPoint1: CGPointMake(46.7, 52.28) controlPoint2: CGPointMake(45.53, 51.77)];
-        [bezier5Path addCurveToPoint: CGPointMake(40.08, 54.21) controlPoint1: CGPointMake(42.45, 51.77) controlPoint2: CGPointMake(40.89, 52.75)];
-        [bezier5Path addCurveToPoint: CGPointMake(34.04, 51.09) controlPoint1: CGPointMake(38.77, 52.34) controlPoint2: CGPointMake(36.2, 51.09)];
-        [bezier5Path addLineToPoint: CGPointMake(29.96, 51.09)];
-        [bezier5Path addCurveToPoint: CGPointMake(24.12, 53.94) controlPoint1: CGPointMake(27.89, 51.09) controlPoint2: CGPointMake(25.45, 52.24)];
-        [bezier5Path addCurveToPoint: CGPointMake(19.76, 51.09) controlPoint1: CGPointMake(23.39, 52.26) controlPoint2: CGPointMake(21.71, 51.09)];
-        [bezier5Path addCurveToPoint: CGPointMake(15.11, 54.82) controlPoint1: CGPointMake(17.48, 51.09) controlPoint2: CGPointMake(15.58, 52.68)];
-        [bezier5Path addLineToPoint: CGPointMake(15, 54.82)];
-        [bezier5Path addLineToPoint: CGPointMake(24.52, 23.3)];
-        [bezier5Path addLineToPoint: CGPointMake(37.65, 23.3)];
-        [bezier5Path addLineToPoint: CGPointMake(47.56, 53.11)];
+        [bezier5Path moveToPoint: CGPointMake(47.56, 58.11)];
+        [bezier5Path addCurveToPoint: CGPointMake(44.24, 56.77) controlPoint1: CGPointMake(46.7, 57.28) controlPoint2: CGPointMake(45.53, 56.77)];
+        [bezier5Path addCurveToPoint: CGPointMake(40.08, 59.21) controlPoint1: CGPointMake(42.45, 56.77) controlPoint2: CGPointMake(40.89, 57.75)];
+        [bezier5Path addCurveToPoint: CGPointMake(34.04, 56.09) controlPoint1: CGPointMake(38.77, 57.34) controlPoint2: CGPointMake(36.2, 56.09)];
+        [bezier5Path addLineToPoint: CGPointMake(29.96, 56.09)];
+        [bezier5Path addCurveToPoint: CGPointMake(24.12, 58.94) controlPoint1: CGPointMake(27.89, 56.09) controlPoint2: CGPointMake(25.45, 57.24)];
+        [bezier5Path addCurveToPoint: CGPointMake(19.76, 56.09) controlPoint1: CGPointMake(23.39, 57.26) controlPoint2: CGPointMake(21.71, 56.09)];
+        [bezier5Path addCurveToPoint: CGPointMake(15.11, 59.82) controlPoint1: CGPointMake(17.48, 56.09) controlPoint2: CGPointMake(15.58, 57.68)];
+        [bezier5Path addLineToPoint: CGPointMake(15, 59.82)];
+        [bezier5Path addLineToPoint: CGPointMake(26, 26)];
+        [bezier5Path addLineToPoint: CGPointMake(36, 26)];
+        [bezier5Path addLineToPoint: CGPointMake(47.56, 58.11)];
         [bezier5Path closePath];
         [color6 setFill];
         [bezier5Path fill];
@@ -92,19 +95,57 @@
         
         //// Bezier 2 Drawing
         UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
-        [bezier2Path moveToPoint: CGPointMake(35.83, 20.59)];
-        [bezier2Path addLineToPoint: CGPointMake(25.88, 20.59)];
-        [bezier2Path addLineToPoint: CGPointMake(30.86, 5)];
-        [bezier2Path addLineToPoint: CGPointMake(35.83, 20.59)];
+        [bezier2Path moveToPoint: CGPointMake(36, 26)];
+        [bezier2Path addLineToPoint: CGPointMake(26, 26)];
+        [bezier2Path addLineToPoint: CGPointMake(31, 10)];
+        [bezier2Path addLineToPoint: CGPointMake(36, 26)];
         [bezier2Path closePath];
         [color5 setFill];
         [bezier2Path fill];
         
         
+        //// Highlight
+        {
+            CGContextSaveGState(context);
+            CGContextSetBlendMode(context, kCGBlendModeScreen);
+            CGContextBeginTransparencyLayer(context, NULL);
+            
+            
+            //// Bezier Drawing
+            UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+            [bezierPath moveToPoint: CGPointMake(31, 10)];
+            [bezierPath addLineToPoint: CGPointMake(15.5, 59.5)];
+            [bezierPath addCurveToPoint: CGPointMake(20, 57) controlPoint1: CGPointMake(15.5, 59.5) controlPoint2: CGPointMake(17.07, 57)];
+            [bezierPath addCurveToPoint: CGPointMake(25, 59) controlPoint1: CGPointMake(22.93, 57) controlPoint2: CGPointMake(25, 59)];
+            [bezierPath addLineToPoint: CGPointMake(31, 10)];
+            [bezierPath closePath];
+            [fillColor2 setFill];
+            [bezierPath fill];
+            
+            
+            //// Bezier 3 Drawing
+            UIBezierPath* bezier3Path = [UIBezierPath bezierPath];
+            [bezier3Path moveToPoint: CGPointMake(31, 10)];
+            [bezier3Path addLineToPoint: CGPointMake(48, 59)];
+            [bezier3Path addCurveToPoint: CGPointMake(44, 57) controlPoint1: CGPointMake(48, 59) controlPoint2: CGPointMake(46.93, 57)];
+            [bezier3Path addCurveToPoint: CGPointMake(39, 59) controlPoint1: CGPointMake(41.07, 57) controlPoint2: CGPointMake(39, 59)];
+            [bezier3Path addLineToPoint: CGPointMake(31, 10)];
+            [bezier3Path closePath];
+            [fillColor2 setFill];
+            [bezier3Path fill];
+            
+            
+            CGContextEndTransparencyLayer(context);
+            CGContextRestoreGState(context);
+        }
+        
+        
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
     }
-   
+    
+    
+
 }
 
 - (void)drawPen{

@@ -76,7 +76,7 @@
 
 #pragma mark- Collection View Data Source
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 2;
+    return 3;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"productFeatureCollectionViewCell";
@@ -86,12 +86,16 @@
     //配置features的图片,说明
     switch (indexPath.row) {
         case 0:
-            cell.imageView.image = [UIImage imageNamed:@"extraBrushes.png"];
+            cell.imageView.image = [UIImage imageNamed:@"Pro_extraBrushes.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription0", nil);
             break;
         case 1:
             cell.imageView.image = [UIImage imageNamed:@"FactorsWhichDistortEffect.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription1", nil);
+            break;
+        case 2:
+            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
             break;
         default:
             break;
