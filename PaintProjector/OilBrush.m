@@ -63,4 +63,8 @@
 - (BOOL)free{
     return false;
 }
+
+- (NSInteger)iapBrushId{
+    return 5;
+}
 @end

@@ -68,7 +68,7 @@
 //函数开始的log
     #define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
     #else
-    #define DebugLogFuncStart(s, ...)
+    #define DebugLogFuncStart(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:s]];[RemoteLog log:str];
     #endif
 
     #ifdef DEBUG

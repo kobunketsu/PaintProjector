@@ -49,13 +49,14 @@
 */
 
 - (void)tearDownGL{
+    DebugLogFuncStart(@"tearDownGL");
     [self deleteBrushFramebuffer];
     
     [self deletePreviewFramebuffer];
 }
 
 - (void)setupGL{
-//    self.context = [self.delegate willGetBrushPreviewContext];
+    DebugLogFuncStart(@"setupGL");
     [EAGLContext setCurrentContext:[GLWrapper current].context];
 
     [self createBrushFramebuffer];
@@ -185,7 +186,25 @@
 #endif
 }
 
+- (void)refresh{
+    DebugLogFuncUpdate(@"refresh");
+    self.paintCommand.brushState = self.brush.brushState;
+    
+    //不显示brushState Smudge特性
+    self.paintCommand.brushState.wet = 0;
+    
+    [self.paintCommand execute];
+}
+
+- (void)prepareBrush:(Brush *)brush{
+    DebugLogFuncStart(@"prepareBrush");
+    self.brush = brush;
+    self.brush.canvasSize = self.bounds.size;//设置临时Canvas,需要恢复paintView的设置
+}
+
+#pragma mark- Auto Draw
 - (void)createStroke:(Brush*)brush{
+    DebugLogFuncStart(@"createStroke");
 #if DEBUG
     glPushGroupMarkerEXT(0, "createStroke");
 #endif
@@ -215,13 +234,78 @@
 #endif
 }
 
-- (void)refresh{
-    self.paintCommand.brushState = self.brush.brushState;
-    
-    //不显示brushState Smudge特性
-    self.paintCommand.brushState.wet = 0;
+- (void)deleteStroke{
+    DebugLogFuncStart(@"deleteStroke");
+    self.brush = nil;
+    self.paintCommand = nil;
+}
+#pragma mark- Action Draw
+- (void)startDraw:(CGPoint)startPoint{
+    DebugLogFuncStart(@"startDraw %@", NSStringFromCGPoint(startPoint));
+    self.paintCommand = [[PaintCommand alloc]initWithBrushState:self.brush.brushState];
+    self.paintCommand.delegate = self;
+    [self.paintCommand drawImmediateStart:startPoint];
+}
 
-    [self.paintCommand execute];
+- (void) drawFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint isTapDraw:(BOOL)isTapDraw{
+    DebugLogFuncStart(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+    if (!self.paintCommand) {
+        DebugLogError(@"self.paintCommand nil!");
+        return;
+    }
+    //记录绘图信息
+    [self.paintCommand addPathPointStart:startPoint End:endPoint];
+    
+    //立即绘制
+    [self.paintCommand drawImmediateFrom:startPoint to:endPoint];
+}
+
+- (void)endDraw{
+    DebugLogFuncStart(@"endDraw");
+    //Fixme: paintCommand可能导致爆，需要找到具体原因
+    if (!self.paintCommand) {
+        DebugLogError(@"self.paintCommand nil!");
+        return;
+    };
+    
+    [self.paintCommand drawImmediateEnd];
+    self.paintCommand = nil;
+}
+
+#pragma mark- Action
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogSystem(@"touchesBegan %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    location.y = self.bounds.size.height - location.y;
+    [self startDraw:location];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogSystem(@"touchesMoved %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
+    UITouch *touch = [touches anyObject];
+    //更新触摸点
+    CGPoint location = [touch locationInView:self];
+    location.y = self.bounds.size.height - location.y;
+    CGPoint previousLocation = [touch previousLocationInView:self];
+    previousLocation.y = self.bounds.size.height - previousLocation.y;
+    //将previousLocation加入到drawPath中，用来连接previousLocation到drawPath.lastObject，绘制完清空path
+    
+    [self drawFromPoint:previousLocation toPoint:location isTapDraw:false];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogSystem(@"touchesEnded %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
+    [self endDraw];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    DebugLogSystem(@"touchesCancelled %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
+    [self endDraw];
 }
 
 #pragma mark- PaintCommand Delegate

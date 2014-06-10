@@ -61,26 +61,28 @@
 
 #pragma mark- 从磁盘载入文件
 +(PaintDoc*)insertPaintDoc:(PaintDoc*)paintDoc atIndex:(NSInteger)index{
-    DebugLog(@"insertPaintDoc atIndex %d", index);
+    DebugLogFuncStart(@"insertPaintDoc atIndex %d", index);
     NSInteger count = curGroup.paintDocs.count;
     if (index > count) {
-        DebugLog(@"index %d over count %d", index, count);
+        DebugLogError(@"index %d over count %d", index, count);
         return nil;
     }
     
     if (index < 0) {
-        DebugLog(@"Can't insert paintDoc at negative index, insert at index 0");
+        DebugLogWarn(@"Can't insert paintDoc at negative index, insert at index 0");
         [curGroup.paintDocs insertObject:paintDoc atIndex:0];
 
         curGroup.curPaintIndex = 0;
+        DebugLogSuccess(@"curGroup.paintDocs insertObject atIndex 0");
     }
     else{
         [curGroup.paintDocs insertObject:paintDoc atIndex:index];
-        
+
 //        if (index <= curGroup.curPaintIndex) {
 //            curPaintFrameGroup.curPaintIndex ++;
             curGroup.curPaintIndex = index;
 //        }
+        DebugLogSuccess(@"curGroup.paintDocs insertObject atIndex:%d", index);
     }
     
     DebugLog(@"curPaintIndex %d", curGroup.curPaintIndex);
@@ -88,25 +90,30 @@
 }
 
 +(PaintDoc*)insertPaintDocAtCurIndex:(PaintDoc*)paintDoc{
+    DebugLogFuncStart(@"insertPaintDocAtCurIndex");
     return [self insertPaintDoc:paintDoc atIndex:curGroup.curPaintIndex + 1];//insert after
 }
 
 +(void)insertNewPaintDocAtCurIndex{
+    DebugLogFuncStart(@"insertNewPaintDocAtCurIndex");
     PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:curGroup.dirPath];
     [self insertPaintDocAtCurIndex:paintDoc];
 }
 
 +(void)insertNewPaintDocAtIndex:(NSInteger)index{
+    DebugLogFuncStart(@"insertNewPaintDocAtIndex %d", index);
     PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:curGroup.dirPath];
     [self insertPaintDoc:paintDoc atIndex:index];
 }
 
 +(void)insertCopyPaintDocAtCurIndex:(PaintDoc*)paintDoc{
+    DebugLogFuncStart(@"insertCopyPaintDocAtCurIndex");
     PaintDoc *newPaintDoc = [[PaintDocManager sharedInstance] clonePaintDoc:paintDoc];
     [self insertPaintDocAtCurIndex:newPaintDoc];
 }
 
 +(void)insertCopyPaintDocAtIndices:(NSArray *)indices{
+    DebugLogFuncStart(@"insertCopyPaintDocAtIndices");
     //对indices进行从小到大的排序
     NSArray *sortedIndices = [indices sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSNumber *p1 = (NSNumber *)obj1;
@@ -128,12 +135,13 @@
 }
 
 +(void)deletePaintDocAtCurIndex{
+    DebugLogFuncStart(@"deletePaintDocAtCurIndex");
     if (curGroup.curPaintIndex < 0) {
-        DebugLog(@"Nothing to delete");
+        DebugLogError(@"Nothing to delete");
         return;
     }
     if (curGroup.curPaintIndex >= curGroup.paintDocs.count) {
-        DebugLog(@"curPaintIndex over count");
+        DebugLogError(@"curPaintIndex over count");
         return;
     }
     
@@ -154,16 +162,17 @@
 }
 
 +(void)deletePaintDocAtIndices:(NSArray *)indices{
+    DebugLogFuncStart(@"deletePaintDocAtIndices");
     NSMutableArray *paintDocsToRemove = [[NSMutableArray alloc]init];
     
     for (NSNumber *num in indices) {
         NSInteger index = num.intValue;
         if (index < 0) {
-            DebugLog(@"Nothing to delete");
+            DebugLogError(@"Nothing to delete");
             continue;
         }
         if (index >= curGroup.paintDocs.count) {
-            DebugLog(@"Index %d over count %d", index, curGroup.paintDocs.count);
+            DebugLogError(@"Index %d over count %d", index, curGroup.paintDocs.count);
             continue;
         }
         //更改当前索引号
@@ -199,39 +208,15 @@
 
 //显示的图片
 + (void)loadPaintFrameView:(PaintFrameView*)paintFrameView byIndex:(int)index{
+    DebugLogFuncStart(@"loadPaintFrameView index:%d", index);
     PaintDoc *paintDoc = [curGroup.paintDocs objectAtIndex:index];
     [paintFrameView setPaintDoc:paintDoc];
     [paintFrameView loadForDisplay];
 }
 
 + (void)unloadPaintFrameView:(PaintFrameView*)paintFrameView{
+    DebugLogFuncStart(@"unloadPaintFrameView");
     [paintFrameView setPaintDoc:nil];
     [paintFrameView unloadForDisplay];
-}
-
-+ (void)openPaintFrameViewsWithAnimation{
-    /*
-     self.paintFrameTableView.hidden = false;
-     [self.paintFrameTableView reloadData];
-     
-     //    DebugLog(@"openPaintFrameViewsWithAnimation visibleCells count %d", self.paintFrameTableView.visibleCells.count);
-     for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-     //        DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell %@", cell);
-     UIView *view = [cell.contentView.subviews objectAtIndex:0];
-     view.bounds = CGRectMake(0, 0, 0, PaintFrameViewHeight);
-     }
-     
-     [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-     self.paintFrameTableView.alpha = 1;
-     for (UITableViewCell *cell in self.paintFrameTableView.visibleCells) {
-     //            DebugLog(@"openPaintFrameViewsWithAnimation PaintFrameTableView Cell After Anim %@", cell);
-     UIView *view = [cell.contentView.subviews objectAtIndex:0];
-     view.bounds = CGRectMake(0, 0, PaintFrameViewWidth, PaintFrameViewHeight);
-     }
-     
-     }completion:^(BOOL finished){
-     
-     }];
-     */
 }
 @end

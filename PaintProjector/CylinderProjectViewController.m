@@ -1845,9 +1845,9 @@
 }
 
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
-- (void)willPurchaseDone{
+- (void)willIAPPurchaseDone{
     [self.iapVC dismissViewControllerAnimated:true completion:^{
-        DebugLog(@"willPurchaseDone");
+        DebugLog(@"willIAPPurchaseDone");
     }];
     
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){

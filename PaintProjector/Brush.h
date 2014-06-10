@@ -118,6 +118,7 @@ typedef struct {
 
 @property (assign, nonatomic, readonly) BOOL free;
 @property (assign, nonatomic, readonly) BOOL available;
+@property (assign, nonatomic, readonly) NSInteger iapBrushId;
 
 #pragma mark- Common
 @property (assign, nonatomic) id delegate;

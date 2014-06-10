@@ -7,18 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InAppPurchaseTableViewCell.h"
 
 @interface InAppPurchaseTableViewController : UITableViewController
-<UIAlertViewDelegate>
+<UIAlertViewDelegate,
+InAppPurchaseTableViewCellDelegate>
 @property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (assign, nonatomic) CGRect superViewBounds;
+@property (assign, nonatomic) id brushPreviewDelegate;
 - (IBAction)doneButtonTouchUp:(UIButton *)sender;
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender;
-
-
+//产品特点索引号
+@property (assign, nonatomic) NSInteger iapProductProPackageFeatureIndex;
 @end
 
 @protocol InAppPurchaseTableViewControllerDelegate
-- (void) willPurchaseDone;
+- (void) willIAPPurchaseDone;
+- (Brush*) willIAPGetBrushById:(NSInteger)brushId;
 @end

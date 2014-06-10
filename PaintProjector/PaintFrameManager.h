@@ -39,5 +39,5 @@ static PaintFrameViewGroup *curGroup = nil;
 
 + (void)loadPaintFrameView:(PaintFrameView*)paintFrameView byIndex:(int)index;
 + (void)unloadPaintFrameView:(PaintFrameView*)paintFrameView;
-+ (void)openPaintFrameViewsWithAnimation;
+
 @end

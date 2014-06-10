@@ -45,7 +45,6 @@
     return state;
 }
 
-
 @end
 
 @class Brush;
@@ -54,7 +53,6 @@
 
 
 //绘制笔刷
-
 - (id)initWithPaintView:(PaintingView*)paintView{
     self = [super init];
     if (self !=nil) {
@@ -74,7 +72,6 @@
 
     return self;
 }
-
 - (void)initGL{
     //Shader
     _shaderPreDefines = @"";
@@ -170,8 +167,6 @@
     self.brushState.seed  = (int)(absTime*5);//0.2s min time interval between paint commands
     //    DebugLog(@"startDraw _brushState.seed %d", self.brush.brushState.seed);
 }
-
-
 
 -(BOOL)compareBrushState:(BrushState*)bs1 withBrushState:(BrushState*)bs2{
     if (bs1 == NULL || bs2 == NULL) {

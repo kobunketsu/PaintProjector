@@ -55,6 +55,7 @@
 }
 
 - (void)dealloc{
+    DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
@@ -140,7 +141,7 @@
 #pragma mark - UI
 - (IBAction)doneButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"IAPDoneButtonTouchUp" identifier:sender];
-    [self.delegate willPurchaseDone];
+    [self.delegate willIAPPurchaseDone];
 }
 
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender {
@@ -194,15 +195,18 @@
 
     static NSString *CellIdentifier = @"inAppPurchaseTableViewCell";
     InAppPurchaseTableViewCell *cell = (InAppPurchaseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
+    cell.delegate = self;
+    
     SKProduct *product = [[[AnaDrawIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
     
     if (!product) {
+        DebugLogError(@"no product available!");
         return nil;
     }
-    
+    //产品名字
     cell.productName.text = product.localizedTitle;
     
+    //产品价格
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -219,9 +223,27 @@
         [cell.buyProductButton setTitle:formattedString forState:UIControlStateNormal];
     }
 
-    
+    //产品特性
     cell.productFeatures = [product.localizedDescription componentsSeparatedByString:@"."];
-    
+
+    //特殊产品内容
+    if(indexPath.row == 0){//ProPackage
+        //显示产品特性页
+        cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
+        
+        if(self.brushPreviewDelegate){
+            cell.brushPreview.delegate = self.brushPreviewDelegate;
+            
+            //初始化brushPreview的绘制
+            [cell destroyBrush];
+            [cell.brushPreview tearDownGL];
+
+            [cell.brushPreview setupGL];
+            NSInteger iapBrushId = [self iapBrushIdFromProductFeatureIndex:self.iapProductProPackageFeatureIndex];
+            [cell prepareBrushIAPBrushId:iapBrushId];
+        }
+    }
+
     return cell;
 }
 
@@ -290,6 +312,16 @@
 
 #pragma mark- UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    [self.delegate willPurchaseDone];
+    [self.delegate willIAPPurchaseDone];
+}
+
+#pragma mark- InAppPurchaseTableViewCellDelegate
+- (Brush *)willGetIAPBrushWithId:(NSInteger)brushId{
+    return [self.delegate willIAPGetBrushById:brushId];
+}
+#pragma mark- 产品描述 IAPProductFeature
+//从产品列表索引转换到笔刷索引
+-(NSInteger)iapBrushIdFromProductFeatureIndex:(NSInteger)productIndex{
+    return productIndex;
 }
 @end

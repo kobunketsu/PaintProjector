@@ -483,7 +483,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="i7X-Oy-0Bg" userLabel="BrushPreview" customClass="BrushPreview">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" id="i7X-Oy-0Bg" userLabel="BrushPreview" customClass="BrushPreview">
                                 <rect key="frame" x="0.0" y="675" width="256" height="256"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.49019607843137253" green="0.50980392156862742" blue="0.54117647058823526" alpha="1" colorSpace="calibratedRGB"/>
@@ -1031,17 +1031,32 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ye5-cO-kbK">
-                                                                <rect key="frame" x="0.0" y="0.0" width="500" height="180"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="356" height="245"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </imageView>
-                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="exi-9z-UfO">
-                                                                <rect key="frame" x="10" y="180" width="480" height="65"/>
+                                                            <view contentMode="scaleToFill" id="xlG-hp-GlH" userLabel="IntroView">
+                                                                <rect key="frame" x="356" y="0.0" width="144" height="245"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                                <subviews>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="exi-9z-UfO">
+                                                                        <rect key="frame" x="5" y="5" width="135" height="230"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <attributedString key="attributedText">
+                                                                            <fragment>
+                                                                                <string key="content">LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel</string>
+                                                                                <attributes>
+                                                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                                                </attributes>
+                                                                            </fragment>
+                                                                        </attributedString>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
@@ -1082,10 +1097,25 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
+                                        <view contentMode="scaleToFill" id="KOO-6F-V59" userLabel="BrushPreview" customClass="BrushPreview">
+                                            <rect key="frame" x="100" y="45" width="256" height="256"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="die-be-WBV">
+                                            <rect key="frame" x="231" y="263" width="39" height="37"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="pageControlValueChanged:" destination="qly-wV-BSN" eventType="valueChanged" id="hu1-Zt-6ef"/>
+                                            </connections>
+                                        </pageControl>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="brushPreview" destination="KOO-6F-V59" id="b17-Y3-USz"/>
                                     <outlet property="buyProductButton" destination="ebH-3z-m7T" id="e4g-14-L0A"/>
+                                    <outlet property="pageControl" destination="die-be-WBV" id="dK7-ow-QZR"/>
+                                    <outlet property="productFeatureCollectionView" destination="CV7-nP-a9f" id="Ryk-4E-wcP"/>
                                     <outlet property="productName" destination="7Ux-Cz-bnn" id="IwK-Nn-fX5"/>
                                 </connections>
                             </tableViewCell>
@@ -1100,7 +1130,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2By-ZW-pua" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="iR5-85-hqm" userLabel="TitleView">
+                <view contentMode="scaleToFill" id="iR5-85-hqm" userLabel="TitleView" customClass="CrystalGradientStyleView">
                     <rect key="frame" x="0.0" y="36" width="768" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -1108,7 +1138,7 @@
                             <rect key="frame" x="206.5" y="0.0" width="87" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oqr-Kp-EJS">

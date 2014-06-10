@@ -24,7 +24,6 @@
 {
 }
 @property (assign, nonatomic) id delegate;
-@property (weak, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) GLuint renderbuffer;
 @property (assign, nonatomic) GLuint framebuffer;
 @property (assign, nonatomic) GLuint brushFramebuffer;
@@ -33,9 +32,14 @@
 @property (retain, nonatomic) PaintCommand *paintCommand;
 @property (assign, nonatomic) GLuint lastProgram;
 
+ //GL设置
 - (void)setupGL;
 - (void)tearDownGL;
-- (void)createStroke:(Brush*)brush;
-- (void)refresh;
 
+//使用一个画笔创建绘制路径
+- (void)createStroke:(Brush*)brush;
+- (void)deleteStroke;
+
+- (void)refresh;
+- (void)prepareBrush:(Brush *)brush;
 @end

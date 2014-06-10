@@ -2376,7 +2376,7 @@
         }];
     }
     else{
-        [self openIAP];
+        [self openIAPWithProductFeatureIndex:6];
 //        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
 //        alertView.tag = 1;
 //        [alertView show];
@@ -3748,7 +3748,7 @@
     }
     else{
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            [self openIAP];
+            [self openIAPWithProductFeatureIndex:7];
 //            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersFree", nil)];
 //            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
 //            alertView.tag = 5;
@@ -4099,13 +4099,7 @@
     if (!brush.available) {
         [self willSelectBrushCanceled:sender];
         
-        [self openIAP];
-        
-        //笔刷不可用，询问购买
-//        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"BrushIAP", nil)];
-//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-//        alertView.tag = 5;
-//        [alertView show];
+        [self openIAPWithProductFeatureIndex:brush.iapBrushId];
         
         return;
     }
@@ -4702,11 +4696,14 @@
 //    return UIInterfaceOrientationPortrait;
 //}
 #pragma mark-IAP
-- (void)openIAP{
+- (void)openIAPWithProductFeatureIndex:(NSInteger)index{
     DebugLogFuncStart(@"openIAP");
     [RemoteLog logAction:@"Open IAP" identifier:nil];
     self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
+    self.iapVC.brushPreviewDelegate = self.paintView;
+    self.iapVC.iapProductProPackageFeatureIndex = index;
+    
     [self presentViewController:self.iapVC animated:true completion:^{
     }];
 }
@@ -4724,7 +4721,7 @@
     else if (alertView.tag == 5) {
         switch (buttonIndex) {
             case 1:
-                [self openIAP];
+                [self openIAPWithProductFeatureIndex:7];
                 break;
                 
             default:
@@ -4734,12 +4731,40 @@
 }
 
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
-- (void)willPurchaseDone{
+- (void)willIAPPurchaseDone{
+    DebugLogFuncStart(@"willIAPPurchaseDone");
     [self.iapVC dismissViewControllerAnimated:true completion:^{
-        DebugLog(@"willPurchaseDone");
+        DebugLog(@"self.iapVC dismissViewControllerAnimated release");
+        self.iapVC = nil;
     }];
 }
 
+- (Brush*)willIAPGetBrushById:(NSInteger)brushId{
+    DebugLogFuncStart(@"willIAPGetBrushById %d", brushId);
+    //创建一个全新的笔刷，然后在关闭IAP使用后释放掉
+    Brush *brush = nil;
+    if (brushId == 0) {
+        brush = [[Crayons alloc]initWithPaintView:self.paintView];
+    }
+    else if (brushId == 1) {
+        brush = [[Finger alloc]initWithPaintView:self.paintView];
+    }
+    else if (brushId == 2) {
+        brush = [[MarkerSquare alloc]initWithPaintView:self.paintView];
+    }
+    else if (brushId == 3) {
+        brush = [[AirBrush alloc]initWithPaintView:self.paintView];
+    }
+    else if (brushId == 4) {
+        brush = [[ChineseBrush alloc]initWithPaintView:self.paintView];
+    }
+    else if (brushId == 5) {
+        brush = [[OilBrush alloc]initWithPaintView:self.paintView];
+    }
+
+    [brush initGL];
+    return brush;
+}
 #pragma mark- 观察对象数值变化
 - (void)willClearColorChanged:(UIColor *)color{
 //    DebugLog(@"backgroundLayer.clearColor changed");

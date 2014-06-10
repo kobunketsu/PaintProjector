@@ -15,7 +15,7 @@
 @implementation PaintUIKitAnimation
 
 + (void)view:(UIView*)view switchDownToolBarFromView:(DownToolBar*)fromView completion: (void (^) (void))block1 toView:(DownToolBar*)toView completion: (void (^) (void)) block2{
-    DebugLogFuncStart(@"switchDownToolBarFromView fromView:%@ toView:%@", fromView, toView);
+    DebugLogFuncStart(@"switchDownToolBarFromView fromView toView");
     //如果存在另一个相同的动画，则需要等另一个动画结束之后才开始。加上一定延迟
     CGFloat delay = 0;
     
@@ -55,7 +55,7 @@
 }
 
 + (void)view:(UIView*)view switchTopToolBarFromView:(TopToolBar*)fromView completion: (void (^) (void))block1 toView:(TopToolBar*)toView completion: (void (^) (void)) block2{
-    DebugLogFuncStart(@"switchTopToolBarFromView fromView:%@ toView:%@", fromView, toView);
+    DebugLogFuncStart(@"switchTopToolBarFromView fromView toView");
     CGFloat delay = 0;
     
     [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
