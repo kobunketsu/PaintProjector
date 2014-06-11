@@ -165,7 +165,6 @@ BackgroundLayerDelegate
 @property (retain, nonatomic) PaintDoc *paintDoc;
 
 //Interface Builder
-@property (weak, nonatomic) IBOutlet UIView *testOpenGLView;
 @property (weak, nonatomic) IBOutlet ColorPickerView *colorPickerView;
 @property (weak, nonatomic) IBOutlet PaintColorButton *paintColorButton;
 //@property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchGRPaintView;
@@ -194,9 +193,6 @@ BackgroundLayerDelegate
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr2TouchesRootCanvasView;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr3TouchesRootCanvasView;
 @property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgrBrushView;
-@property (weak, nonatomic) IBOutletCollection(UILongPressGestureRecognizer) NSArray *lpgrColorSlots;
-@property (weak, nonatomic) IBOutlet BrushToolBar *pencilBrushToolBar;
-@property (weak, nonatomic) IBOutlet BrushToolBar *airBrushToolBar;
 @property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUISecCollection;
 @property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUIDefaultCollection;
 
@@ -206,9 +202,7 @@ BackgroundLayerDelegate
 @property( weak, nonatomic ) IBOutlet InfColorBarPicker* barPicker;
 @property( weak, nonatomic ) IBOutlet InfColorSquarePicker* squarePicker;
 //paintViewRef
-@property (weak, nonatomic) IBOutlet UIButton *btnPaint;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet ColorSaveToSlotView *colorSaveToSlotView;
 @property (weak, nonatomic) IBOutlet UIView *brushOpacityView;
 @property (weak, nonatomic) IBOutlet UIView *paintColorView;
@@ -232,23 +226,14 @@ BackgroundLayerDelegate
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *fullScreenButtons;
 
 @property (weak, nonatomic) IBOutlet UIButton *transformButton;
-@property (weak, nonatomic) IBOutlet UIButton *projectButton;
 @property (weak, nonatomic) IBOutlet UIButton *importButton;
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UIButton *cancelTransformButton;
-@property (weak, nonatomic) IBOutlet UIButton *freeTransformButton;
-@property (weak, nonatomic) IBOutlet UIButton *moveTransformButton;
-@property (weak, nonatomic) IBOutlet UIButton *rotateTransformButton;
-@property (weak, nonatomic) IBOutlet UIButton *scaleTransformButton;
-@property (weak, nonatomic) IBOutlet UIButton *transformDoneButton;
-@property (weak, nonatomic) IBOutletCollection(UIButton) NSArray *transformToolButtons;
 @property (weak, nonatomic) IBOutlet UIView *lockCanvasRotationView;
 @property (weak, nonatomic) IBOutlet UIView *zoomCanvasView;
 @property (weak, nonatomic) IBOutlet UILabel *zoomCanvasLabel;
 @property (weak, nonatomic) IBOutlet UIView *rotateCanvasView;
 @property (weak, nonatomic) IBOutlet UILabel *rotateCanvasLabel;
-@property (weak, nonatomic) IBOutlet TopToolBar *transformToolBar;
 @property (weak, nonatomic) IBOutlet TopToolBar *mainToolBar;
 @property (weak, nonatomic) IBOutlet AnchorView *anchorView;
 //@property (weak, nonatomic) IBOutlet UIScrollView *radiusScrollView;
@@ -306,26 +291,16 @@ BackgroundLayerDelegate
 - (IBAction)takeSquareValue: (InfColorSquarePicker*) sender;
 
 - (IBAction)debugButtonTapped:(UIButton *)sender;
-- (IBAction)takePhotoButtonTapped:(id)sender;
-- (IBAction)pickPhotoButtonTapped:(id)sender;
 - (IBAction)clearButtonTouchUp:(ClearButton *)sender;
 - (IBAction)clearButtonTouchDown:(ClearButton *)sender;
 //- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender;
-- (IBAction)saveToDocButtonTapped:(UIButton *)sender;
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender;
-- (IBAction)projectPaintButtonTapped:(UIButton *)sender;
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender;
 - (IBAction)layerButtonTapped:(UIButton *)sender;
 - (IBAction)transformButtonTapped:(id)sender;
-- (IBAction)transformDoneButtonTapped:(UIButton *)sender;
-- (IBAction)tranformCancelButtonTapped:(UIButton *)sender;
-- (IBAction)freeTransformButtonTapped:(UIButton *)sender;
-- (IBAction)moveButtonTapped:(UIButton *)sender;
-- (IBAction)rotateButtonTapped:(UIButton *)sender;
-- (IBAction)scaleButtonTapped:(UIButton *)sender;
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender;
 
 #pragma mark- 

@@ -186,6 +186,7 @@
 
 #pragma mark- 工具栏
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
+//    DebugLogIBAction(sender, @"galleryButtonTouchUp");
     [RemoteLog logAction:@"galleryButtonTouchUp" identifier:sender];
     
     sender.selected = true;
@@ -235,7 +236,7 @@
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
+//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
         sender.userInteractionEnabled = false;
         
@@ -249,17 +250,14 @@
                 sender.userInteractionEnabled = true;
             }];
         }
-    }
-    else{
-        //禁止操作
-        self.topToolBar.userInteractionEnabled = false;
-        [self setupAnamorphParamsCompletion:^{
-        }];
-        [self openIAP];
-        
-//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"AnamorphosisSetupUnavailabe", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"BuyProVersion", nil), nil];
-//        [alertView show];
-    }
+//    }
+//    else{
+//        //禁止操作
+//        self.topToolBar.userInteractionEnabled = false;
+//        [self setupAnamorphParamsCompletion:^{
+//        }];
+//        [self openIAP];
+//    }
 }
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {

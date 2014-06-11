@@ -477,7 +477,6 @@
 		08F3A6901736089C002E063A /* TopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A68F1736089C002E063A /* TopToolBar.m */; };
 		08F3A695173613A6002E063A /* TransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A694173613A6002E063A /* TransformButton.m */; };
 		08F3A69817362A43002E063A /* LayerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69717362A43002E063A /* LayerButton.m */; };
-		08F3A69B17363261002E063A /* ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69A17363260002E063A /* ProjectButton.m */; };
 		08F5F3F118B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */; };
 		08F5F3F218B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */; };
 		08F5F3F718B868160009AD0C /* InAppPurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F618B868160009AD0C /* InAppPurchaseTableViewCell.m */; };
@@ -676,7 +675,6 @@
 		c4c4076e6f190f58cf0e49f3 /* BrushTypeSmallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0853818D173E97FB00069C27 /* BrushTypeSmallButton.m */; };
 		c584a8d6513e6bd51a92a182 /* OpenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F6A1766FCFF00276B15 /* OpenCommand.m */; };
 		c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1814E4579F00DB003E /* Foundation.framework */; };
-		c8a2f215f9e96fca3c54cf0b /* ProjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69A17363260002E063A /* ProjectButton.m */; };
 		ca53a460052690d799e70353 /* UndoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0809EA44164946DF0061233D /* UndoButton.m */; };
 		cbbf0dc46bdbbadad4735fba /* BrushTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* BrushTypeScrollView.m */; };
 		ccb3eb9ece33921ac23aff70 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F7DF0318596DD100BFA2D5 /* calabash.framework */; };
@@ -1326,8 +1324,6 @@
 		08F3A694173613A6002E063A /* TransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransformButton.m; sourceTree = "<group>"; };
 		08F3A69617362A43002E063A /* LayerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerButton.h; sourceTree = "<group>"; };
 		08F3A69717362A43002E063A /* LayerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerButton.m; sourceTree = "<group>"; };
-		08F3A69917363260002E063A /* ProjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectButton.h; sourceTree = "<group>"; };
-		08F3A69A17363260002E063A /* ProjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectButton.m; sourceTree = "<group>"; };
 		08F5F3EF18B861200009AD0C /* InAppPurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseTableViewController.h; path = PaintProjector/InAppPurchaseTableViewController.h; sourceTree = "<group>"; };
 		08F5F3F018B861200009AD0C /* InAppPurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InAppPurchaseTableViewController.m; path = PaintProjector/InAppPurchaseTableViewController.m; sourceTree = "<group>"; };
 		08F5F3F518B868160009AD0C /* InAppPurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InAppPurchaseTableViewCell.h; path = PaintProjector/InAppPurchaseTableViewCell.h; sourceTree = "<group>"; };
@@ -2242,8 +2238,6 @@
 				08F3A68F1736089C002E063A /* TopToolBar.m */,
 				087FE744173E0EED009B34A2 /* DownToolBar.h */,
 				087FE745173E0EED009B34A2 /* DownToolBar.m */,
-				08F3A69917363260002E063A /* ProjectButton.h */,
-				08F3A69A17363260002E063A /* ProjectButton.m */,
 				0802D11217368D8A003259E6 /* GalleryButton.h */,
 				0802D11317368D8A003259E6 /* GalleryButton.m */,
 				08D836A31737FF5D00B68990 /* ClearButton.h */,
@@ -2868,7 +2862,6 @@
 				d7f10ceb9e5af08d1e7ae126 /* TransformButton.m in Sources */,
 				0871A831192A56E200BB8558 /* BrushPropertyTableViewCell.m in Sources */,
 				6f8aadcd898535ad254b5933 /* LayerButton.m in Sources */,
-				c8a2f215f9e96fca3c54cf0b /* ProjectButton.m in Sources */,
 				392ff0f8f3dc9f836cfa4064 /* RotateCanvasView.m in Sources */,
 				78de4268fcc15d5b14c9bd04 /* ImportButton.m in Sources */,
 				ac9c2f2536b4c665eb857130 /* ExportButton.m in Sources */,
@@ -3143,7 +3136,6 @@
 				08CE4BFA18D7D2C1008C4904 /* InfoButton.m in Sources */,
 				082060DD189D455C0027247C /* CylinderProject.m in Sources */,
 				08E33F5718C61148007A26F2 /* SwatchManagerButton.m in Sources */,
-				08F3A69B17363261002E063A /* ProjectButton.m in Sources */,
 				0898765A19138514009CEB3D /* AutoRotateView.m in Sources */,
 				088505C217F724EF00E460CA /* RotateCanvasView.m in Sources */,
 				0802D10C17367ACA003259E6 /* ImportButton.m in Sources */,

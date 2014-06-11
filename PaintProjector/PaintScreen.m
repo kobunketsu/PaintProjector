@@ -252,7 +252,6 @@
 //    self.brushTypeBar.center = CGPointMake(self.brushTypeBar.center.x, self.view.bounds.size.height + self.brushTypeBar.bounds.size.height * 0.5);
     self.mainToolBar.center = CGPointMake( self.mainToolBar.center.x, - self.mainToolBar.bounds.size.height * 0.5);
     self.mainToolBar.delegate = self;
-//    self.transformToolBar.center = CGPointMake(self.transformToolBar.center.x, -self.transformToolBar.bounds.size.height * 0.5);
     
 
     //主要工具
@@ -390,15 +389,9 @@
     [self setLblBrushRadius:nil];
     [self setLblBrushOpacity:nil];
     [self setBrushTypeScrollView:nil];
-    [self setLpgrColorSlots:nil];
     [self setLpgrBrushView:nil];
     [self setColorButtons:nil];
-    [self setPencilBrushToolBar:nil];
-    [self setAirBrushToolBar:nil];
-    [self setBtnPaint:nil];
-    [self setTestOpenGLView:nil];
     [self setActivityIndicator:nil];
-    [self setImageView:nil];
     [self setColorPickerView:nil];
     [self setPaintColorButton:nil];
     [self setBrushOpacityView:nil];
@@ -417,19 +410,10 @@
     [self setLayerButton:nil];
     [self setColorSlotsScrollView:nil];
     [self setImportButton:nil];
-    [self setProjectButton:nil];
     [self setExportButton:nil];
     [self setCloseButton:nil];
-    [self setTransformToolBar:nil];
     [self setMainToolBar:nil];
-    [self setTransformToolButtons:nil];
     [self setAnchorView:nil];
-    [self setFreeTransformButton:nil];
-    [self setMoveTransformButton:nil];
-    [self setRotateTransformButton:nil];
-    [self setScaleTransformButton:nil];
-    [self setTransformDoneButton:nil];
-    [self setCancelTransformButton:nil];
     [self setTransformButton:nil];
     [self setOpacitySlider:nil];
     [self setRadiusIndicatorView:nil];
@@ -462,25 +446,25 @@
 }
 
 - (void)applicationDidEnterBackground:(id)sender{
-    DebugLogFuncStart(@"applicationDidEnterBackground sender:%@", sender);
+    DebugLogFuncStart(@"applicationDidEnterBackground");
     //TODO:删除一些OpenGL资源,让其他App可以使用OpenGLES资源,使用glFinish 保证直接删除
     [self.paintView applicationDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
-    DebugLogFuncStart(@"applicationWillEnterForeground note:%@", note);
+    DebugLogFuncStart(@"applicationWillEnterForeground");
     [self.paintView applicationWillEnterForeground];
 }
 
 -(void)applicationWillResignActive:(id)sender{
-    DebugLogFuncStart(@"applicationWillResignActive sender:%@", sender);
+    DebugLogFuncStart(@"applicationWillResignActive");
     [self saveDoc];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
 }
 
 -(void)applicationWillTerminate:(id)sender{
-    DebugLogFuncStart(@"applicationWillTerminate sender:%@", sender);
+    DebugLogFuncStart(@"applicationWillTerminate");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -2668,15 +2652,6 @@
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (IBAction)takePhotoButtonTapped:(id)sender {
-    [RemoteLog logAction:@"takePhotoButtonTapped" identifier:sender];
-    [self startCameraControllerFromViewController:self usingDelegate:self];
-}
-
-- (IBAction)pickPhotoButtonTapped:(id)sender {
-    [RemoteLog logAction:@"pickPhotoButtonTapped" identifier:sender];
-    [self startMediaBrowserFromViewController:self usingDelegate:self];
-}
 -(void) didSelectImportPhoto{
     [RemoteLog logAction:@"didSelectImportPhoto" identifier:nil];
     [self.sharedPopoverController dismissPopoverAnimated:true];    
@@ -3432,18 +3407,6 @@
 - (void)leaveTransformState{
     _state = PaintScreen_Normal;
     
-    //UI
-//    for (UIButton* button in _transformToolButtons) {
-        //        button.backgroundColor = [UIColor lightGrayColor];
-//    }
-    //    sender.backgroundColor = [UIColor greenColor];
-    
-    //隐藏TransformBar
-//    [self switchTopToolBarFrom:self.transformToolBar completion:nil to:self.mainToolBar completion:^{
-//        self.anchorView.hidden = true;
-//        _state = PaintScreen_Normal;
-//    }];
-    
     self.transformButton.selected = false;
     [self.transformButton.layer setNeedsDisplay];
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
@@ -3486,63 +3449,6 @@
 
     }
 
-}
-
-- (IBAction)transformDoneButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"transformDoneButtonTapped" identifier:sender];
-    [self.paintView transformImageDone];
-    
-    //UI
-    [self leaveTransformState];
-//    [self updateFuzzyTransparentViews];
-}
-
-- (IBAction)tranformCancelButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"tranformCancelButtonTapped" identifier:sender];
-    [self.paintView cancelInsertUIImageAtCurLayer];
-    
-    //UI
-    [self leaveTransformState];
-}
-
-- (IBAction)freeTransformButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"freeTransformButtonTapped" identifier:sender];
-//    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-//    }
-//    sender.backgroundColor = [UIColor greenColor];
-    
-    _transformImageState = TransformImage_Free;
-}
-
-- (IBAction)moveButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"moveButtonTapped" identifier:sender];
-//    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-//    }
-//    sender.backgroundColor = [UIColor greenColor];
-    
-    _transformImageState = TransformImage_Move;
-}
-
-- (IBAction)rotateButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"rotateButtonTapped" identifier:sender];
-//    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-//    }
-//    sender.backgroundColor = [UIColor greenColor];
-    
-    _transformImageState = TransformImage_Rotate;
-}
-
-- (IBAction)scaleButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"scaleButtonTapped" identifier:sender];
-//    for (UIButton* button in _transformToolButtons) {
-//        button.backgroundColor = [UIColor lightGrayColor];
-//    }
-//    sender.backgroundColor = [UIColor greenColor];
-    
-    _transformImageState = TransformImage_Scale;
 }
 
 - (IBAction)customLayerButtonTouchCancel:(AutoRotateButton *)sender {
@@ -3711,16 +3617,6 @@
     PaintLayer* layer = [self.paintView.paintData.layers objectAtIndex:index];
     layer.dirty = true;
     
-    //只有在图层View打开时起作用
-//    if(!_layersView.hidden){
-//        //更新数据
-//        [self.paintView uploadLayerDataAtIndex:index];
-//        layer.dirty = false;
-//        
-//        UIImageView* imageView = [_layerImageViews objectAtIndex:index];
-//        UIButton* imageButton = [imageView.subviews objectAtIndex:0];
-//        [imageButton setImage:[UIImage imageWithData:layer.data] forState:UIControlStateNormal];
-//    }
 }
 
 #pragma mark- 图层代理 LayerTableViewControllerDelegate
@@ -3893,10 +3789,6 @@
 //    }];
 //}
 
-//- (IBAction)projectPaintButtonTapped:(UIButton *)sender {
-//    [self projectCylinder];
-//}
-
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"fullScreenButtonTouchUp" identifier:sender];
 //    [(AutoRotateButton*)sender setHighlighted:false];
@@ -3912,11 +3804,6 @@
 }
 
 #pragma mark- 退出 SaveClose
-- (IBAction)saveToDocButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"saveToDocButtonTapped" identifier:sender];
-    [self saveDoc];
-}
-
 - (IBAction)saveAndCloseButtonTapped:(UIButton *)sender {
     [RemoteLog logAction:@"saveAndCloseButtonTapped" identifier:sender];
     
@@ -4697,13 +4584,13 @@
 //}
 #pragma mark-IAP
 - (void)openIAPWithProductFeatureIndex:(NSInteger)index{
-    DebugLogFuncStart(@"openIAP");
-    [RemoteLog logAction:@"Open IAP" identifier:nil];
+    DebugLogFuncStart(@"openIAPWithProductFeatureIndex %d",index);
+    [RemoteLog logAction:[NSString stringWithFormat:@"openIAPWithProductFeatureIndex %d",index] identifier:nil];
     self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
     self.iapVC.brushPreviewDelegate = self.paintView;
     self.iapVC.iapProductProPackageFeatureIndex = index;
-    
+
     [self presentViewController:self.iapVC animated:true completion:^{
     }];
 }
@@ -4736,6 +4623,8 @@
     [self.iapVC dismissViewControllerAnimated:true completion:^{
         DebugLog(@"self.iapVC dismissViewControllerAnimated release");
         self.iapVC = nil;
+        self.iapVC.delegate = nil;
+        self.iapVC.brushPreviewDelegate = nil;
     }];
 }
 

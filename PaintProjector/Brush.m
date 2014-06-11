@@ -85,7 +85,7 @@
     
 }
 - (void)tearDownGL{
-    DebugLogFuncStart(@"%@ tearDownGL", [self class]);
+    DebugLogFuncStart(@"tearDownGL");
 //    EAGLContext* context = [EAGLContext currentContext];
     [EAGLContext setCurrentContext:[GLWrapper current].context];
     

@@ -178,14 +178,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [[AnaDrawIAPManager sharedInstance] products].count;
 }
@@ -217,7 +215,7 @@
     
     //TODO:语言显示
     if ([[AnaDrawIAPManager sharedInstance]productPurchased:product.productIdentifier]) {
-        [cell.buyProductButton setTitle:@"Purchased" forState:UIControlStateNormal];
+        [cell.buyProductButton setTitle:NSLocalizedString(@"Purchased", nil) forState:UIControlStateNormal];
     }
     else{
         [cell.buyProductButton setTitle:formattedString forState:UIControlStateNormal];

@@ -76,9 +76,10 @@
 
     [self.brushPreview deleteStroke];
 }
+
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
-    [self destroyBrushStroke];
+    [self destroyBrush];
     [self.brushPreview tearDownGL];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
