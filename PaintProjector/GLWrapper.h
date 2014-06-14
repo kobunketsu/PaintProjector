@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
+#import "Shader.h"
 
 typedef NS_ENUM(NSInteger, BlendFuncType) {
     BlendFuncOpaque,
@@ -46,6 +47,7 @@ static GLWrapper* glWrapper = nil;
 @property (assign, nonatomic) BlendFuncType lastBlendFuncType;
 //@property (assign, nonatomic) InterpolationType lastInterpolationType;
 @property (retain, nonatomic) NSMutableDictionary *activeSlotTex;
+@property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader
 
 +(GLWrapper*)current;
 +(void)setCurrent:(GLWrapper*)current;
@@ -79,6 +81,8 @@ static GLWrapper* glWrapper = nil;
 -(void)activeTexSlot:(GLuint)activeTex bindTexture:(GLuint)bindTex;
 
 -(void)deleteTexture:(GLuint)tex;
+
+-(Shader*)createShader:(NSString*)name;
 
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block;
 

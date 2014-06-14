@@ -16,7 +16,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        self.layer.borderColor = [UIColor cyanColor].CGColor;
+        self.layer.borderColor = [UIColor colorWithRed: 0.498 green: 0.661 blue: 1 alpha: 1].CGColor;
         self.layer.borderWidth = 5;
         self.clipsToBounds = YES;
         self.layer.cornerRadius = 0;

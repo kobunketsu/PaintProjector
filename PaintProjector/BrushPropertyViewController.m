@@ -91,7 +91,7 @@
     self.velocitySensorSwitch.on = self.brush.brushState.isVelocitySensor;
     
     [self.basicPropertyTableView reloadData];
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.view setNeedsDisplay];
 }
 
@@ -101,83 +101,83 @@
 
 - (IBAction)onRadiusSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.radius = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onRadiusJitterSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.radiusJitter = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onRadiusFadeSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.radiusFade = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onOpacitySliderValueChanged:(UISlider *)sender {
     self.brush.brushState.opacity = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 
 - (IBAction)onFlowSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.flow = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onFlowJitterSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.flowJitter = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onFlowFadeSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.flowFade = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onRoundSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.roundness = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onRoundJitterSliderValueChanged:(UISlider *)sender {
 //    self.brush.brushState.radius = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onAngleSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.angle = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onAngleJitterSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.angleJitter = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onAngleFadeSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.angleFade = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onHardnessSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.hardness = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onSpacingSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.spacing = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onScatteringSliderValueChanged:(UISlider *)sender {
     self.brush.brushState.scattering = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onDissolveSwitchValueChanged:(UISwitch *)sender {
     self.brush.brushState.isDissolve = sender.isOn;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
     [self.delegate willBrushShaderChanged:self.brush.brushState];
 }
@@ -187,18 +187,18 @@
         [self.delegate willBrushShaderChanged:self.brush.brushState];
     }
     self.brush.brushState.wet = sender.value;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 
 }
 - (IBAction)onAirBrushModeSwitchValueChanged:(UISwitch *)sender {
     self.brush.brushState.isAirbrush = sender.isOn;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onVelocitySensorSwitchValueChanged:(UISwitch *)sender {
     self.brush.brushState.isVelocitySensor = sender.isOn;
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
 - (IBAction)onCancelButtonTouchUpInside:(UIButton *)sender {
@@ -461,7 +461,7 @@
     self.brush.brushState.radius = size * 0.5;
     
     [self flushUI];
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
 }
 
 -(float)brushPatternSizeFromFileName:(NSString*)name{

@@ -29,13 +29,69 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+    DebugLogSystem(@"viewWillAppear");
+    if([self.tableView numberOfSections] == 0){
+        return;
+    }
 
+    if([self.tableView numberOfRowsInSection:0] == 0){
+        return;
+    }
+    
+    InAppPurchaseTableViewCell *cell = (InAppPurchaseTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    if(self.brushPreviewDelegate){
+        cell.brushPreview.delegate = self.brushPreviewDelegate;
+        
+        //初始化brushPreview的绘制
+        [cell destroyBrush];
+        [cell.brushPreview tearDownGL];
+        
+        [cell.brushPreview setupGL];
+        NSInteger iapBrushId = [self iapBrushIdFromProductFeatureIndex:self.iapProductProPackageFeatureIndex];
+        [cell prepareBrushIAPBrushId:iapBrushId];
+        
+        cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
+    }
+}
+
+- (void)viewWillLayoutSubviews{
+    DebugLogSystem(@"viewWillLayoutSubviews");
+    self.view.superview.bounds = self.superViewBounds;
+
+    if([self.tableView numberOfSections] == 0){
+        return;
+    }
+    
+    if([self.tableView numberOfRowsInSection:0] == 0){
+        return;
+    }
+    
+    InAppPurchaseTableViewCell *cell = (InAppPurchaseTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    if([cell.productFeatureCollectionView numberOfItemsInSection:0] == 0){
+        return;
+    }
+
+    cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
+    CGPoint offset = cell.productFeatureCollectionView.contentOffset;
+    offset.x = cell.productFeatureCollectionView.bounds.size.width * self.iapProductProPackageFeatureIndex;
+    cell.productFeatureCollectionView.contentOffset = offset;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    DebugLogSystem(@"viewWillDisappear");
+    if([self.tableView numberOfSections] == 0){
+        return;
+    }
     
-    
+    if([self.tableView numberOfRowsInSection:0] == 0){
+        return;
+    }
+    InAppPurchaseTableViewCell *cell = (InAppPurchaseTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+
+    [cell destroyBrush];
+    [cell.brushPreview tearDownGL];
 }
 
 - (void)viewDidLoad
@@ -48,7 +104,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.superViewBounds = CGRectMake(0, 0, 500, 320);
+    self.superViewBounds = CGRectMake(0, 0, 500, 350);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
  
     [self reload];
@@ -124,12 +180,6 @@
         self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [self.alertView show];
     }
-}
-
-//改变form sheet大小
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    self.view.superview.bounds = self.superViewBounds;
 }
 
 - (void)didReceiveMemoryWarning
@@ -224,24 +274,8 @@
     //产品特性
     cell.productFeatures = [product.localizedDescription componentsSeparatedByString:@"."];
 
-    //特殊产品内容
-    if(indexPath.row == 0){//ProPackage
-        //显示产品特性页
-        cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
-        
-        if(self.brushPreviewDelegate){
-            cell.brushPreview.delegate = self.brushPreviewDelegate;
-            
-            //初始化brushPreview的绘制
-            [cell destroyBrush];
-            [cell.brushPreview tearDownGL];
 
-            [cell.brushPreview setupGL];
-            NSInteger iapBrushId = [self iapBrushIdFromProductFeatureIndex:self.iapProductProPackageFeatureIndex];
-            [cell prepareBrushIAPBrushId:iapBrushId];
-        }
-    }
-
+    
     return cell;
 }
 

@@ -33,4 +33,8 @@
 //    DebugLog(@"rect %@", NSStringFromCGRect(self.frame));
 //}
 
+- (IBAction)resetButtonTouchUp:(UIButton *)sender {
+    DebugLogIBAction(@"resetButtonTouchUp");
+    
+}
 @end

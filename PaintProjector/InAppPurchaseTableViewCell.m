@@ -11,8 +11,11 @@
 #import "ProductFeatureCollectionViewCell.h"
 #import "AnaDrawIAPManager.h"
 #import "Reachability.h"
+#import "UILabel+VerticalAlign.h"
+#import "UIView+VisibilityAnimation.h"
 
 #define IAP_Brush_Count 6
+#define BrushPreviewFadeAnimationDuration 0.1
 
 @interface InAppPurchaseTableViewCell()
 {
@@ -47,14 +50,18 @@
 - (void)prepareBrushIAPBrushId:(NSInteger)brushId{
     DebugLogFuncStart(@"prepareBrushIAPBrushId %d", brushId);
     Brush *brush = [self.delegate willGetIAPBrushWithId:brushId];
+    brush.delegate = self.brushPreview;
     self.brush = brush;
+    [self.brushPreview clear];
     [self.brushPreview prepareBrush:brush];
 }
 
 - (void)destroyBrush{
     DebugLogFuncStart(@"destroyBrush");
-    [self.brush tearDownGL];
-    self.brush = nil;
+    if (self.brush) {
+        [self.brush tearDownGL];
+        self.brush = nil;
+    }
 }
 
 - (void)createBrushStrokeWithIAPBrushId:(NSInteger)brushId{
@@ -66,13 +73,15 @@
     
     //使用新的brush来刷新笔刷预览面板
     [self.brushPreview createStroke:brush];
-    [self.brushPreview refresh];
+    [self.brushPreview refreshStroke];
 }
 
 - (void)destroyBrushStroke{
     DebugLogFuncStart(@"destroy");
-    [self.brush tearDownGL];
-    self.brush = nil;
+    if (self.brush) {
+        [self.brush tearDownGL];
+        self.brush = nil;
+    }
 
     [self.brushPreview deleteStroke];
 }
@@ -92,7 +101,7 @@
 
 #pragma mark- Collection View Data Source
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    NSInteger count = 8;
+    NSInteger count = 7;
     self.pageControl.numberOfPages = count;
     return count;
 }
@@ -100,47 +109,59 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"productFeatureCollectionViewCell";
     NSString *productFeatureDescription = nil;
+    NSString *productFeatureTitle = nil;
     ProductFeatureCollectionViewCell *cell = (ProductFeatureCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     // Configure the cell...
     //配置features的图片,说明
+    cell.resetButton.hidden = false;
+    cell.tryLabel.hidden = false;
+
+    cell.titleLabel.textColor = [UIColor colorWithRed:50/255.0 green:50 / 255.0 blue:50 / 255.0 alpha:1];
     switch (indexPath.row) {
         case 0:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_extraBrushes.png"];
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushCrayons.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription0", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle0", nil);
+//            cell.titleLabel.textColor = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
             break;
         case 1:
-            cell.imageView.image = [UIImage imageNamed:@"FactorsWhichDistortEffect.png"];
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushFinger.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription1", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle1", nil);
             break;
         case 2:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushMarkerHard.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle2", nil);
             break;
         case 3:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
-            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushAirbrush.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription3", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle3", nil);
             break;
         case 4:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
-            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushChineseBrush.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription4", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle4", nil);
             break;
         case 5:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
-            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
+            cell.imageView.image = [UIImage imageNamed:@"iap_brushOilBrush.png"];
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription5", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle5", nil);
             break;
         case 6:
             cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
-            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
-            break;
-        case 7:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
-            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
+            productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription6", nil);
+            productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle6", nil);
+            cell.resetButton.hidden = true;
+            cell.tryLabel.hidden = true;
             break;
         default:
             break;
     }
-
+    cell.titleLabel.text = productFeatureTitle;
     cell.descriptionLabel.text = productFeatureDescription;
+    [cell.descriptionLabel alignTop];
     cell.descriptionLabel.numberOfLines = 10;
 
     return cell;
@@ -184,6 +205,17 @@
     
 }
 #pragma mark- Scroll
+- (BOOL)isBrushPage:(UIScrollView *)scrollView{
+    CGFloat offset = scrollView.contentOffset.x / scrollView.frame.size.width;
+    NSInteger currentPage = (NSInteger)(floorf(offset));
+    if (currentPage >= IAP_Brush_Count) {
+        self.brushPreview.hidden = true;
+        return false;
+    }
+    else{
+        return true;
+    }
+}
 - (IBAction)pageControlValueChanged:(UIPageControl *)sender {
 }
 
@@ -195,16 +227,18 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     DebugLogFuncStart(@"scrollViewDidEndDragging");
     if (!decelerate) {
-        self.brushPreview.hidden = false;
+        if ([self isBrushPage:scrollView]) {
+            [self.brushPreview unhiddenAnimationWithDuration:BrushPreviewFadeAnimationDuration completion:nil];
+        }
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     DebugLogFuncStart(@"scrollViewDidEndDecelerating");
-    self.brushPreview.hidden = false;
 
     CGFloat offset = scrollView.contentOffset.x / scrollView.frame.size.width;
     NSInteger currentPage = (NSInteger)(floorf(offset));
+   
     if (self.pageControl.currentPage != currentPage) {
         DebugLog(@"self.pageControl.currentPage changed!");
         self.pageControl.currentPage = currentPage;
@@ -212,8 +246,16 @@
             self.brushPreview.hidden = true;
         }
         else{
-            self.brushPreview.hidden = false;
+            [self.brushPreview unhiddenAnimationWithDuration:BrushPreviewFadeAnimationDuration completion:nil];
             [self prepareBrushIAPBrushId:self.pageControl.currentPage];
+        }
+    }
+    else{
+        if (self.pageControl.currentPage >= IAP_Brush_Count) {
+            self.brushPreview.hidden = true;
+        }
+        else{
+            [self.brushPreview unhiddenAnimationWithDuration:BrushPreviewFadeAnimationDuration completion:nil];
         }
     }
 }
@@ -222,6 +264,11 @@
 //    DebugLogFuncUpdate(@"scrollViewDidScroll");
 }
 
+#pragma mark- Reset
+- (IBAction)brushResetButtonTouchUp:(id)sender {
+    DebugLogIBAction(@"brushResetButtonTouchUp");
+    [self.brushPreview reset];
+}
 @end
 
 

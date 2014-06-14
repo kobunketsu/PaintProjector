@@ -12,6 +12,8 @@
 #import "Ultility.h"
 #import "ShaderManager.h"
 #import "TextureManager.h"
+#import "ShaderBrush.h"
+#import "Material.h"
 
 @class PaintingView;
 @class GLWrapper;
@@ -150,9 +152,10 @@ typedef struct {
 @property (assign, nonatomic) GLuint smudgeBackFramebuffer;
 @property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
 @property (retain, nonatomic) NSString *shaderPreDefines;
-@property (retain, nonatomic) NSDictionary *vertShaderCaches;
-@property (retain, nonatomic) NSDictionary *fragShaderCaches;
 
+//用来删除所有Shader uniform中用到的GLuint 还要创建Texture对象，太复杂
+//@property (retain, nonatomic) ShaderBrush *shader;
+//@property (retain, nonatomic) Material *material;
 #pragma mark- UI
 @property (assign, nonatomic) float radiusSliderMaxValue;
 @property (assign, nonatomic) float radiusSliderMinValue;

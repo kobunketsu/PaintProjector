@@ -28,6 +28,7 @@
 - (IBAction)pageControlValueChanged:(UIPageControl *)sender;
 
 //当前页面的笔刷产品
+- (IBAction)brushResetButtonTouchUp:(id)sender;
 @property (weak, nonatomic) IBOutlet BrushPreview *brushPreview;
 @property (retain, nonatomic) Brush *brush;
 - (void)createBrushStrokeWithIAPBrushId:(NSInteger)brushId;

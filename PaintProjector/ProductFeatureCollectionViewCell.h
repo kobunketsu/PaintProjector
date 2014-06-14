@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductFeatureCollectionViewCell : UICollectionViewCell
+//@property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *resetButton;
+@property (weak, nonatomic) IBOutlet UILabel *tryLabel;
+- (IBAction)resetButtonTouchUp:(UIButton *)sender;
 
 @end
+
+//@protocol ProductFeatureCollectionViewCellDelegate
+//@end

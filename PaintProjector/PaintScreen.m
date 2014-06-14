@@ -2059,22 +2059,15 @@
     
     //使用切换ToolBar方式
     if(_state == PaintScreen_Normal){
-//        [self switchDownToolBarFrom:self.paintToolBar completion:^{
-//        }to:self.brushTypeBar completion:^{
-//            _state = PaintScreen_SelectBrush;
-//            //笔刷面板禁止绘图
-//            self.paintView.userInteractionEnabled = false;
-//        }];
-//        
-//        [self switchTopToolBarFrom:self.mainToolBar completion:nil to:nil completion:nil];
+        //笔刷面板禁止绘图
+        self.rootCanvasView.userInteractionEnabled = false;
+        
+        [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
         
         //切换成横移动画
         [PaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
             _state = PaintScreen_SelectBrush;
-            //笔刷面板禁止绘图
-            self.rootCanvasView.userInteractionEnabled = false;
         }];
-
     }
 }
 
@@ -3518,7 +3511,13 @@
     self.layerTableViewController.tableView.editing = true;
     
     //屏幕尺寸减上下工具栏高度
-    self.layerTableViewController.tableViewHeightMax = self.view.bounds.size.height - self.mainToolBar.bounds.size.height - self.paintToolBar.bounds.size.height;
+    if (self.isPaintFullScreen) {
+        self.layerTableViewController.tableViewHeightMax = self.view.bounds.size.height;
+    }
+    else{
+        self.layerTableViewController.tableViewHeightMax = self.view.bounds.size.height - self.mainToolBar.bounds.size.height - self.paintToolBar.bounds.size.height;
+    }
+
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.layerTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -3631,27 +3630,36 @@
 }
 
 //检查是否可以插入图层
+//-(BOOL)checkInsertAvailable{
+//    NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
+//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnaDrawProVersionPackage"]){
+//        if (self.paintDoc.data.layers.count >= layerMaxCount) {
+//            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersIAP", nil)];
+//            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
+//            alertView.tag = 4;
+//            [alertView show];
+//            return false;
+//        }
+//    }
+//    else{
+//        if (self.paintDoc.data.layers.count >= layerMaxCount) {
+//            [self openIAPWithProductFeatureIndex:7];
+//            return false;
+//        }
+//    }
+//    return  true;
+//}
 -(BOOL)checkInsertAvailable{
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
-    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnaDrawProVersionPackage"]){
-        if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersIAP", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
-            alertView.tag = 4;
-            [alertView show];
-            return false;
-        }
+
+    if (self.paintDoc.data.layers.count >= layerMaxCount) {
+        NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersAvailable", nil)];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        alertView.tag = 5;
+        [alertView show];
+        return false;
     }
-    else{
-        if (self.paintDoc.data.layers.count >= layerMaxCount) {
-            [self openIAPWithProductFeatureIndex:7];
-//            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersFree", nil)];
-//            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-//            alertView.tag = 5;
-//            [alertView show];
-            return false;
-        }
-    }
+
     return  true;
 }
 
@@ -3994,7 +4002,8 @@
     //UI
     [self.paintView setBrush:brush];
     [self.paintView.brush setColor:self.paintColorButton.color];
-   
+
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
     [PaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
         _state = PaintScreen_Normal;
         //笔刷面板打开绘图
@@ -4592,6 +4601,8 @@
     self.iapVC.iapProductProPackageFeatureIndex = index;
 
     [self presentViewController:self.iapVC animated:true completion:^{
+//        DebugLog(@"presentViewController:self.iapVC completed");
+       
     }];
 }
 
@@ -4625,6 +4636,9 @@
         self.iapVC = nil;
         self.iapVC.delegate = nil;
         self.iapVC.brushPreviewDelegate = nil;
+        
+        //切换到原来的renderbuffer
+        [self.paintView prepareDrawEnv];
     }];
 }
 
@@ -4634,23 +4648,29 @@
     Brush *brush = nil;
     if (brushId == 0) {
         brush = [[Crayons alloc]initWithPaintView:self.paintView];
+        brush.brushState.color = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
     }
     else if (brushId == 1) {
         brush = [[Finger alloc]initWithPaintView:self.paintView];
+        brush.brushState.color = [UIColor colorWithRed:248.0/255.0 green:163.0 / 255.0 blue:138.0 / 255.0 alpha:1];
     }
     else if (brushId == 2) {
         brush = [[MarkerSquare alloc]initWithPaintView:self.paintView];
+        brush.brushState.color = [UIColor colorWithRed:216.0/255.0 green:255.0 / 255.0 blue:56.0 / 255.0 alpha:1];
     }
     else if (brushId == 3) {
         brush = [[AirBrush alloc]initWithPaintView:self.paintView];
     }
     else if (brushId == 4) {
         brush = [[ChineseBrush alloc]initWithPaintView:self.paintView];
+        brush.brushState.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
     }
     else if (brushId == 5) {
         brush = [[OilBrush alloc]initWithPaintView:self.paintView];
+        brush.brushState.color = [UIColor colorWithRed:255.0/255.0 green:216.0 / 255.0 blue:120.0 / 255.0 alpha:1];
     }
 
+    //will duplicate brush shader
     [brush initGL];
     return brush;
 }

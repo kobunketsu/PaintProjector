@@ -53,7 +53,7 @@
     self.brushState.isAirbrush = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;
-    self.brushState.wet = 1.0;
+    self.brushState.wet = 0.95;
 }
 
 - (BOOL)free{

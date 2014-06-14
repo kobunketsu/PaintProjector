@@ -39,6 +39,7 @@
 - (id)init{
     DebugLogSystem(@"init");
     if ((self = [super init])) {
+        _shaderCaches = [[NSMutableDictionary alloc]init];
         _activeSlotTex = [[NSMutableDictionary alloc]init];
         _context = [self createBestEAGLContext];
         [EAGLContext setCurrentContext:_context];
@@ -48,8 +49,11 @@
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
+    _shaderCaches = nil;
+    _activeSlotTex = nil;
     [EAGLContext setCurrentContext:nil];
     self.context = nil;
+
 }
 
 -(EAGLContext *)createBestEAGLContext{
@@ -170,6 +174,24 @@
         self.lastTexture = 0;
     }
     RELEASE_TEXTURE(tex);
+}
+
+-(Shader*)createShader:(NSString*)name{
+    Shader *shader = (Shader *)[self.shaderCaches valueForKey:name];
+    if(shader){
+        return shader;
+    }
+    else{
+        Shader *shader = [[NSClassFromString(name) alloc] init];
+        if (!shader) {
+            DebugLogError(@"createShader %@ failed", name);
+            return nil;
+        }
+
+        [self.shaderCaches setValue:shader forKey:name];
+        
+        return shader;
+    }
 }
 
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block1{

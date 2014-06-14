@@ -1412,6 +1412,56 @@
 #endif
 }
 
+- (void) willAllocUndoVertexBufferWithPaintCommand:(PaintCommand*)cmd{
+#if DEBUG
+    glPushGroupMarkerEXT(0, "paintView willAllocUndoVertexBuffer");
+#endif
+    
+    Brush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
+    
+    size_t count = 0;
+    //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
+    brush.curDrawPoint = brush.lastDrawPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
+    for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
+        
+        NSUInteger endIndex = (cmd.paintPaths.count == 1 ? i : (i+1));
+        CGPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGPointValue];
+        CGPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGPointValue];
+        
+        //        DebugLog(@"calculateDrawCountFromPointToPoint segment %d", i);
+        size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
+        
+        brush.lastDrawPoint = brush.curDrawPoint;
+        //重置累积距离
+        if (countSegment > 0) {
+            brush.curDrawAccumDeltaLength = 0;
+        }
+        
+        count += countSegment;
+    }
+    
+    //测试记录一共需要多少点
+    self.curVertexBrushCount = count;
+    
+    //重新分配_VBOBrush用于undo data的缓冲区的大小
+    [[GLWrapper current] bindBuffer: _VBOBrushBack];
+    //TODO:GL_INVALID_VALUE
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
+    
+    [[GLWrapper current] bindBuffer: _VBOBrush];
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
+    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
+    //    self.allocVertexCount = count;
+#if DEBUG
+    NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
+    glPushGroupMarkerEXT(0, [label UTF8String]);
+    glPopGroupMarkerEXT();
+    
+    glPopGroupMarkerEXT();
+#endif
+}
+
+
 //执行周期为一个移动单位
 - (void) willBeforeDrawBrushState:(BrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willBeforeDraw ]");
@@ -1440,56 +1490,6 @@
     glPopGroupMarkerEXT();
 #endif
 }
-
-- (void) willAllocUndoVertexBufferWithPaintCommand:(PaintCommand*)cmd{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willAllocUndoVertexBuffer");
-#endif
-    
-    Brush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
-    
-    size_t count = 0;
-//    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
-    brush.curDrawPoint = brush.lastDrawPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
-    for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
-        
-        NSUInteger endIndex = (cmd.paintPaths.count == 1 ? i : (i+1));
-        CGPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGPointValue];
-        CGPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGPointValue];
-        
-//        DebugLog(@"calculateDrawCountFromPointToPoint segment %d", i);
-        size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
-        
-        brush.lastDrawPoint = brush.curDrawPoint;
-        //重置累积距离
-        if (countSegment > 0) {
-            brush.curDrawAccumDeltaLength = 0;
-        }
-        
-        count += countSegment;
-    }
-
-    //测试记录一共需要多少点
-    self.curVertexBrushCount = count;
-    
-    //重新分配_VBOBrush用于undo data的缓冲区的大小
-    [[GLWrapper current] bindBuffer: _VBOBrushBack];
-    //TODO:GL_INVALID_VALUE
-    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
-    
-    [[GLWrapper current] bindBuffer: _VBOBrush];
-    glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
-    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
-//    self.allocVertexCount = count;
-#if DEBUG
-    NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
-    glPushGroupMarkerEXT(0, [label UTF8String]);
-    glPopGroupMarkerEXT();
-    
-    glPopGroupMarkerEXT();
-#endif
-}
-
 
 - (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(BrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willRenderLineFromPoint ]");
@@ -1541,10 +1541,9 @@
         
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
-        
         PaintLayer *layer = self.paintData.layers[_curLayerIndex];
         CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
-        [self drawQuadBrush:brushState texture2D:_brushTexture alpha:opacity];
+        [self drawQuad:_VAOQuad brush:brushState texture2D:_brushTexture alpha:opacity];
     }
     
     if (refresh) {
@@ -1571,11 +1570,6 @@
     [self.delegate willLayerDirtyAtIndex:_curLayerIndex];
     
     [self.delegate willEnableDirectEyeDropper:true];
-    
-    Brush *brush = [self.brushTypes objectAtIndex:brushState.classId];
-    if ([brush isKindOfClass:[Bucket class]]) {
-        [self.delegate willUpdateUIToolBars];
-    }
     
 #if DEBUG
     glPopGroupMarkerEXT();
@@ -1820,38 +1814,41 @@
     [self.delegate willChangeUIPaintColor:color];
 }
 
-- (void) willUpdateSmudgeTextureWithBrushState:(BrushState*)brushState location:(CGPoint)point{
+- (void) willUpdateSmudgeTextureWithBrushState:(BrushState *)brushState location:(CGPoint)point{
 //    DebugLog(@"willUpdateSmudgeTextureWithBrush location %@", NSStringFromCGPoint(point));
-    
+    [self willUpdateSmudgeTextureWithBrushState:brushState location:point inRect:self.bounds ofFBO:_curPaintedLayerFramebuffer ofTexture:_curPaintedLayerTexture ofVAO:_VAOQuad];
+}
+
+- (void) willUpdateSmudgeTextureWithBrushState:(BrushState*)brushState location:(CGPoint)point inRect:(CGRect)rect ofFBO:(GLuint)fbo ofTexture:(GLuint)texture ofVAO:(GLuint)vao{
     Brush *brush = [self.brushTypes objectAtIndex:brushState.classId];
     
     if (brush.smudgeTexture == 0) {
         [brush createSmudgeFramebuffers];
     }
     
-//    [brush swapSmudgeFramebuffers];
+    //    [brush swapSmudgeFramebuffers];
     
     NSUInteger copyRadius = (NSUInteger)brushState.radius;
-
+    
 #if DEBUG
     glPushGroupMarkerEXT(0, "Get BrushSmudgeTexture From CurrentLayer");
 #endif
-
-//    使用DrawQuad的方式代替glCopyTexSubImage2D
-//    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer];
-//
-//    [[GLWrapper current] bindTexture:brush.smudgeTexture];
-//
-//    //如果笔刷涂抹半径发生变化，重置贴图空间
-////    if (brush.lastSmudgeTextureSize != copyRadius * 2) {
-////        DebugLog(@"brush lastSmudgeTextureSize %d to %d", brush.lastSmudgeTextureSize, copyRadius * 2);
-////        brush.lastSmudgeTextureSize = copyRadius * 2;
-//    
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-////    }
-//    int locationX = point.x - copyRadius;
-//    int locationY = point.y - copyRadius;
-//    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, locationX, locationY, copyRadius*2, copyRadius*2);
+    
+    //    使用DrawQuad的方式代替glCopyTexSubImage2D
+    //    [[GLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer];
+    //
+    //    [[GLWrapper current] bindTexture:brush.smudgeTexture];
+    //
+    //    //如果笔刷涂抹半径发生变化，重置贴图空间
+    ////    if (brush.lastSmudgeTextureSize != copyRadius * 2) {
+    ////        DebugLog(@"brush lastSmudgeTextureSize %d to %d", brush.lastSmudgeTextureSize, copyRadius * 2);
+    ////        brush.lastSmudgeTextureSize = copyRadius * 2;
+    //
+    //        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+    ////    }
+    //    int locationX = point.x - copyRadius;
+    //    int locationY = point.y - copyRadius;
+    //    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, locationX, locationY, copyRadius*2, copyRadius*2);
     
     
     
@@ -1859,6 +1856,7 @@
     
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
     
+    //save last state
     GLuint lastVAO = [GLWrapper current].lastVAO;
     GLuint lastProgram = [GLWrapper current].lastProgram;
     BlendFuncType lastBlendFuncType = [GLWrapper current].lastBlendFuncType;
@@ -1866,14 +1864,14 @@
     glViewport(0, 0, copyRadius*2, copyRadius*2);
     [[GLWrapper current] bindFramebufferOES:brush.smudgeFramebuffer discardHint:true clear:true];
     
-    [[GLWrapper current] bindVertexArrayOES:_VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES:vao];
     
     [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
-    GLKMatrix4 transform = GLKMatrix4MakeScale((float)self.bounds.size.width / (float)(copyRadius*2), (float)self.bounds.size.height / (float)(copyRadius*2), 1.0);
+    GLKMatrix4 transform = GLKMatrix4MakeScale((float)rect.size.width / (float)(copyRadius*2), (float)rect.size.height / (float)(copyRadius*2), 1.0);
     
-    float x =  -(float)(point.x - self.bounds.size.width * 0.5) / (float)(self.bounds.size.width * 0.5);
-    float y =  -(float)(point.y - self.bounds.size.height * 0.5) / (float)(self.bounds.size.height * 0.5);
+    float x =  -(float)(point.x - rect.size.width * 0.5) / (float)(rect.size.width * 0.5);
+    float y =  -(float)(point.y - rect.size.height * 0.5) / (float)(rect.size.height * 0.5);
     transform = GLKMatrix4Translate(transform, x, y, 0);
     
     glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transform.m);
@@ -1889,16 +1887,16 @@
         self.lastProgramQuadAlpha = 1;
     }
     
-    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:_curPaintedLayerTexture];
+    [[GLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
     [[GLWrapper current] blendFunc:BlendFuncAlphaBlendPremultiplied];
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     //恢复到之前的状态
-    glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
+    glViewport(0, 0, rect.size.width, rect.size.height);
     
-    [[GLWrapper current] bindFramebufferOES:_curPaintedLayerFramebuffer discardHint:true clear:false];
+    [[GLWrapper current] bindFramebufferOES:fbo discardHint:true clear:false];
     
     [[GLWrapper current] bindVertexArrayOES:lastVAO];
     
@@ -1912,7 +1910,6 @@
     glPopGroupMarkerEXT();
 #endif
 }
-
 
 //?
 -(void)willUpdateSmudgeSubPoint{
@@ -2001,6 +1998,17 @@
 #endif
 
 #pragma mark- BrushPreview Delegate
+- (void) willPreviewUpdateSmudgeTextureWithBrushState:(BrushState*)brushState location:(CGPoint)point inRect:(CGRect)rect ofFBO:(GLuint)fbo ofTexture:(GLuint)texture{
+    [self willUpdateSmudgeTextureWithBrushState:brushState location:point inRect:rect ofFBO:fbo ofTexture:texture ofVAO:_VAOScreenQuad];
+}
+
+- (void) willDrawQuadBrush:(BrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
+    [self drawQuad:_VAOScreenQuad brush:brushState texture2D:texture alpha:alpha];
+}
+- (void) willDrawSquareQuadWithTexture2DPremultiplied:(GLuint)texture{
+    //brushPreview bound is square
+    [self drawQuad:_VAOScreenQuad texture2D:texture premultiplied:true alpha:1.0];
+}
 - (void) willDrawScreenQuadWithTexture2D:(GLuint)texture Alpha:(GLfloat)alpha{
     [self drawQuad:_VAOScreenQuad texture2D:texture premultiplied:false alpha:alpha];
 }
@@ -3038,7 +3046,7 @@
 
 
 
-- (void) drawQuadBrush:(BrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
+- (void) drawQuad:(GLuint)quad brush:(BrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
     [[GLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     if (!_lastProgramQuadTransformIdentity) {
@@ -3062,7 +3070,7 @@
     Brush *brush = [self.brushTypes objectAtIndex:brushState.classId];
     [brush setBlendMode];
 
-    [[GLWrapper current] bindVertexArrayOES: _VAOQuad];
+    [[GLWrapper current] bindVertexArrayOES: quad];
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

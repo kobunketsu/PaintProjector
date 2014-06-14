@@ -29,7 +29,7 @@
 }
 
 - (void)setRadiusSliderValue{
-    self.radiusSliderMinValue = 32;
+    self.radiusSliderMinValue = 16;
     self.radiusSliderMaxValue = 64;
 }
 
@@ -38,7 +38,7 @@
     self.brushState.flow = 0.1;
     self.brushState.flowJitter = 1.0;
     self.brushState.flowFade = 0.0;
-    self.brushState.radius = 32;
+    self.brushState.radius = 16;
     self.brushState.radiusJitter = 0.5;
     self.brushState.radiusFade = 0.0;
     self.brushState.hardness = 0.2;

@@ -34,7 +34,7 @@
 
 - (void)resetDefaultBrushState{
     self.brushState.opacity = 1;
-    self.brushState.flow = 0.05;
+    self.brushState.flow = 0.1;
     self.brushState.flowJitter = 0.0;
     self.brushState.flowFade = 0.0;
     self.brushState.radius = 15;
