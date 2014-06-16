@@ -10,6 +10,8 @@
 #import "CylinderProjectViewController.h"
 #import "PaintFrameManager.h"
 #import "PaintFrameTransitionManager.h"
+#import "TutorialStep.h"
+
 @protocol PaintScreenDelegate;
 
 @class PaintDoc;
@@ -22,7 +24,8 @@
 UICollectionViewDelegate,
 UIViewControllerTransitioningDelegate,
 CylinderProjectViewControllerDelegate,
-PaintFrameTransitionManagerDelegate
+PaintFrameTransitionManagerDelegate,
+TutorialStepDelegate
 >
 
 @property (assign, nonatomic) id delegate;

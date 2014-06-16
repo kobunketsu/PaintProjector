@@ -17,7 +17,7 @@
 #import "NSString+Unit.h"
 #import "AssetDatabase.h"
 #import "CylinderProjectVirtualDeviceCollectionViewController.h"
-
+#import "TutorialManager.h"
 
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
@@ -90,6 +90,8 @@
     [self.delegate willCompleteLaunchTransitionToCylinderProject];
     
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
+    
+    [self tutorialStartFromStepName:@"PutDevice"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -152,7 +154,8 @@
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
     
-    
+    [self tutorialSetup];
+
 }
 
 - (void)viewDidUnload{
@@ -236,6 +239,8 @@
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
+    [self tutorialStepNext];
+    
 //    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
         sender.userInteractionEnabled = false;
@@ -243,6 +248,7 @@
         if (sender.selected) {
             [self setupAnamorphParamsCompletion:^{
                 sender.userInteractionEnabled = true;
+                [self tutorialStartFromStepName:@"SetupCylinderDiameter"];
             }];
         }
         else{
@@ -536,6 +542,8 @@
 
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"userInputParamButtonTouchUp" identifier:sender];
+    
+    [self tutorialStepNext];
     
     for (UIButton *button in self.allUserInputParamButtons) {
         if (![button isEqual:sender]) {
@@ -897,6 +905,9 @@
     topToBottomPropAnim.toValue = [NSNumber numberWithFloat:0];
     topToBottomPropAnim.duration = CylinderViewChangeDuration;
     topToBottomPropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    [topToBottomPropAnim setCompletionBlock:^{
+        [self tutorialStartFromStepName:@"Setup"];
+    }];
     AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
     animClip.name = @"topToBottomAnimClip";
     Camera.mainCamera.animation = [Animation animationWithAnimClip:animClip];
@@ -907,6 +918,9 @@
     bottomToTopPropAnim.toValue = [NSNumber numberWithFloat:1];
     bottomToTopPropAnim.duration = CylinderViewChangeDuration;
     bottomToTopPropAnim.timing = TPPropertyAnimationTimingEaseOut;
+    [bottomToTopPropAnim setCompletionBlock:^{
+        [self tutorialStartFromStepName:@"ViewDevice"];
+    }];
     animClip = [AnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
     animClip.name = @"bottomToTopAnimClip";
     [Camera.mainCamera.animation addClip:animClip];
@@ -1029,7 +1043,7 @@
 
 - (void)createTestObj{
     //test
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/macPro" ofType:@"obj"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cube" ofType:@"obj"];
     Entity *entity = (Entity *)[AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
     entity.transform.scale = GLKVector3Make(0.01, 0.01, 0.01);
     
@@ -1040,7 +1054,7 @@
 //    matMain.mainTexture = texMain;
 //    entity.renderer.sharedMaterial = matMain;
     
-    path = [[NSBundle mainBundle] pathForResource:@"testIOS7Color" ofType:@"png"];
+    path = [[NSBundle mainBundle] pathForResource:@"AnaDraw76x76_4@2x~ipad" ofType:@"png"];
     entity.renderer.sharedMaterial.mainTexture = [Texture textureFromImagePath:path reload:NO];
     
     
@@ -1923,7 +1937,7 @@
     }];
 }
 
-#pragma mark- View
+#pragma mark- 调整视角View
 - (BOOL)isTopViewMode{
     return self.topPerspectiveView.hidden;
 }
@@ -1931,6 +1945,7 @@
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"sideViewButtonTouchUp" identifier:sender];
     
+    [self tutorialStepNext];    
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
     
@@ -1950,6 +1965,8 @@
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"topViewButtonTouchUp" identifier:sender];
+    
+    [self tutorialStepNext];
     
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
@@ -2086,5 +2103,121 @@
     CGRect rect = CGRectMake(self.virtualDeviceButton.bounds.origin.x, self.virtualDeviceButton.bounds.origin.y, self.virtualDeviceButton.bounds.size.width, self.virtualDeviceButton.bounds.size.height);
     [self.sharedPopoverController presentPopoverFromRect:rect inView:self.virtualDeviceButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
+}
+
+#pragma mark- 教程 Tutorial
+//主教程入口设置
+- (void)tutorialSetup{
+    DebugLogFuncStart(@"tutorialSetup");
+    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    if (tutorial) {
+        for (TutorialStep *step in tutorial.steps) {
+            if ([step.name isEqualToString:@"PutDevice"] ||
+                [step.name isEqualToString:@"ViewDevice"]||
+                [step.name isEqualToString:@"Setup"]||
+                [step.name isEqualToString:@"SetupCylinderDiameter"]){
+                step.delegate = self;
+            }
+        }
+    }
+}
+
+//在排版等准备完成以后,检查是否需要开始教程
+- (void)tutorialStartFromStepName:(NSString *)name{
+    DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[TutorialManager current].curTutorial startFromStepName:name];
+    }
+}
+
+- (void)tutorialStepNext{
+    DebugLogFuncStart(@"tutorialStepNext");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    if (!([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"PutDevice"] ||
+        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"ViewDevice"] ||
+        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"Setup"] ||
+        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"SetupCylinderDiameter"])){
+        return;
+    }
+    
+    //isCheckTutorialStep
+    [[TutorialManager current].curTutorial stepNext:nil];
+}
+#pragma mark- 教程步骤代理 TutorialStepDelegate
+- (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willTutorialEnableUserInteraction");
+    //只要是教程,就需要关闭所有其他工具
+    for (UIButton *button in self.downTooBarButtons) {
+        button.userInteractionEnabled = enable;
+    }
+    self.topToolBar.userInteractionEnabled = enable;
+    self.projectView.userInteractionEnabled = enable;
+    
+    if ([step.name isEqualToString:@"PutDevice"]) {
+        self.topPerspectiveView.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"ViewDevice"]) {
+        self.eyePerspectiveView.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"Setup"]) {
+        self.setupButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"SetupCylinderDiameter"]) {
+        for (UIButton *button in self.allUserInputParamButtons) {
+            button.userInteractionEnabled = enable;
+        }
+        self.cylinderDiameterButton.userInteractionEnabled = true;
+    }
+}
+
+- (void)willTutorialLayoutWithStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willLayoutWithStep");
+
+    if ([step.name isEqualToString:@"PutDevice"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake(500, 672);
+        step.contentView.frame = rect;
+        
+        CGRect frame = [self.topPerspectiveView convertRect:self.topPerspectiveView.bounds toView:self.view];
+        [step targetViewFrame:frame];
+        
+        [self.view addSubview:step.indicatorView];
+        [self.view addSubview:step.contentView];
+    }
+    else if ([step.name isEqualToString:@"ViewDevice"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake(500, 728);
+        step.contentView.frame = rect;
+        
+        CGRect frame = [self.eyePerspectiveView convertRect:self.eyePerspectiveView.bounds toView:self.view];
+        [step targetViewFrame:frame];
+        
+        [self.view addSubview:step.indicatorView];
+        [self.view addSubview:step.contentView];
+    }
+    else if ([step.name isEqualToString:@"Setup"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake(580, 700);
+        step.contentView.frame = rect;
+        
+        CGRect frame = [self.setupButton convertRect:self.setupButton.bounds toView:self.view];
+        [step targetViewFrame:frame];
+        
+        [self.view addSubview:step.indicatorView];
+        [self.view addSubview:step.contentView];
+    }
+    else if ([step.name isEqualToString:@"SetupCylinderDiameter"]) {
+        CGRect frame = [self.cylinderDiameterButton convertRect:self.cylinderDiameterButton.bounds toView:self.view];
+        [step targetViewFrame:frame];
+        
+        [self.view addSubview:step.indicatorView];
+    }
 }
 @end

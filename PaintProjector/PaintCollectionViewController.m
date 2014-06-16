@@ -15,6 +15,7 @@
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
 #import "UIView+Tag.h"
+#import "TutorialManager.h"
 
 
 #define launchImageViewToCylinderFadeOutDuration 0.3
@@ -63,6 +64,9 @@
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
     }
+    
+    [self tutorialStartFromStepName:@"Welcome"];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -101,10 +105,12 @@
     self.transitionManager.delegate = self;
     
     self.isLaunchTransitioned = false;
+    
+    [self tutorialSetup];
 }
 
 - (void)viewDidUnload{
-    DebugLogSystem(@"[ viewDidUnload ]");
+    DebugLogSystem(@"viewDidUnload");
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,7 +120,7 @@
 }
 
 -(void)dealloc{
-    DebugLogSystem(@"[ dealloc ]");
+    DebugLogSystem(@"dealloc");
     self.selectedIndices = nil;
 }
 
@@ -177,22 +183,22 @@
 
 -(void)startLaunchTransitionToCylinderProject{
     //launchImage遮盖主屏幕
-    UIImage *image = [UIImage imageNamed:@"bgRootView.png"];
-    self.launchImageView = [[UIImageView alloc]initWithImage:image];
-    [self.view addSubview:self.launchImageView];
+//    UIImage *image = [UIImage imageNamed:@"bgRootView.png"];
+//    self.launchImageView = [[UIImageView alloc]initWithImage:image];
+//    [self.view addSubview:self.launchImageView];
 }
 
 -(void)launchTransitionToCylinderProject{
-    if ([PaintFrameManager curGroup].paintDocs.count == 0) {
-        //没有文件，插入一个新文件
-        [self newButtonTouchUp:self.editNewButton];
-    }
-    else{
-        //TODO:载入保存的recentFiles
-        NSInteger index = [self indexForRecentPaintDoc];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
-    }
+//    if ([PaintFrameManager curGroup].paintDocs.count == 0) {
+//        //没有文件，插入一个新文件
+//        [self newButtonTouchUp:self.editNewButton];
+//    }
+//    else{
+//        //TODO:载入保存的recentFiles
+//        NSInteger index = [self indexForRecentPaintDoc];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+//    }
 }
 
 -(void)launchTransitionToCylinderProjectCompleted{
@@ -229,10 +235,13 @@
 }
 
 
+
 #pragma mark- UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DebugLog(@"didSelectItemAtIndexPath");
+    //教程
+    [self tutorialStepNext];
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     //设定当前选择的paintDoc
@@ -441,10 +450,8 @@
                 }
                 
             }];
-            
         }
     }];
-
 }
 
 #pragma mark- Scroll
@@ -455,5 +462,96 @@
     //    DebugLog(@"[scrollViewDidScroll] contentOffset %@", NSStringFromCGPoint(scrollView.contentOffset));
     self.pageControl.currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
     
+}
+
+#pragma mark- 教程 Tutorial
+//主教程入口设置
+- (void)tutorialSetup{
+    DebugLogFuncStart(@"tutorialSetup");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    if (tutorial) {
+        for (TutorialStep *step in tutorial.steps) {
+            if ([step.name isEqualToString:@"Welcome"] ||
+                [step.name isEqualToString:@"PickImage"]){
+                step.delegate = self;
+            }
+        }
+    }
+}
+
+//在排版等准备完成以后,检查是否需要开始教程
+- (void)tutorialStartFromStepName:(NSString *)name{
+    DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[TutorialManager current].curTutorial startFromStepName:name];
+    }
+}
+
+- (void)tutorialStepNext{
+    DebugLogFuncStart(@"checkTutorialStep");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    if (![[TutorialManager current].curTutorial.curStep.name isEqualToString:@"PickImage"]){
+        return;
+    }
+    
+    //isCheckTutorialStep
+    if (!self.editing) {
+        [[TutorialManager current].curTutorial stepNext:nil];
+    }
+}
+
+#pragma mark- 教程步骤代理 TutorialStepDelegate
+- (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willTutorialEnableUserInteraction");
+    //只要是教程,就需要关闭所有其他工具
+    self.downToolBar.userInteractionEnabled = enable;
+
+    
+    if ([step.name isEqualToString:@"Welcome"]) {
+        //打开关闭第一个作品的交互
+        if ([self.collectionView numberOfItemsInSection:0] != 1) {
+            return;
+        }
+        
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        cell.userInteractionEnabled = enable;
+    }
+    else if ([step.name isEqualToString:@"PickImage"]) {
+    }
+}
+
+- (void)willTutorialLayoutWithStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willLayoutWithStep");
+
+    if ([step.name isEqualToString:@"Welcome"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake(50, 400);
+        
+        step.contentView.frame = rect;
+        [self.rootView addSubview:step.contentView];
+    }
+    else if ([step.name isEqualToString:@"PickImage"]) {
+        //对齐第一个image的底面
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        CGRect cellRect = [cell convertRect:cell.bounds toView:self.rootView];
+
+        CGRect rect = step.indicatorView.frame;
+        rect.size.width = cell.frame.size.width;
+        step.indicatorView.frame = rect;
+        [step targetViewFrame:cellRect];
+
+        [self.rootView addSubview:step.indicatorView];
+    }
 }
 @end
