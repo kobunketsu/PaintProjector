@@ -11,8 +11,11 @@
 
 @interface TutorialView : UIView
 @property (assign, nonatomic) id delegate;
+//显示教程信息
+@property(retain, nonatomic) UILabel *textLabel;
+//显示教程背景图片
 @property (retain, nonatomic) UIImageView *imageView;
-- (void)initWithTutorial:(Tutorial*)tutorial bgImage:(UIImage*)image;
+- (void)initWithTutorial:(Tutorial*)tutorial description:(NSString *)desc bgImage:(UIImage*)image;
 @end
 
 @protocol TutorialViewDelegate

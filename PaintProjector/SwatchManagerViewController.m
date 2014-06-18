@@ -9,7 +9,6 @@
 #import "SwatchManagerViewController.h"
 #import "SwatchManagerTableViewCell.h"
 #import "SwatchCollectionViewCell.h"
-#import "UIColor+String.h"
 
 @interface SwatchManagerViewController ()
 @property(retain, nonatomic) NSArray *swatchURLs;

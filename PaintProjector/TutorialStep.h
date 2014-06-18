@@ -14,12 +14,21 @@
 @property(copy, nonatomic)NSString *name;
 @property(assign, nonatomic) id delegate;
 @property(retain, nonatomic)TutorialView *contentView;
-@property(weak, nonatomic)UIView *targetView;
-
-@property(retain, nonatomic)TutorialIndicatorView *indicatorView;
+@property(retain, nonatomic)TutorialIndicatorView *indicatorView;//主指示器
+@property(retain, nonatomic)NSMutableArray *indicatorViews;
 - (void)start;
 - (void)end;
-- (void)targetViewFrame:(CGRect)frame;
+//指示器指向一个区域
+- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetViewFrame:(CGRect)frame;
+//指示器指向一个UIView
+- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetView:(UIView *)targetView inRootView:(UIView*)rootView;
+//加入到教程内容的根UIView下
+- (void)addToRootView:(UIView *)rootView;
+- (void)removeFromRootView;
+//加入指示器
+- (void)addIndicatorView:(TutorialIndicatorView*)view;
+- (void)removeIndicatorView:(TutorialIndicatorView*)view;
+- (void)removeAllIndicatorViews;
 @end
 
 @protocol TutorialStepDelegate

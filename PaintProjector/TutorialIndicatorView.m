@@ -18,9 +18,6 @@
         self.opaque = false;
         self.arrowDirection = UIPopoverArrowDirectionUp;
         
-        _textLabel = [[UILabel alloc]init];
-        [self.textLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:self.textLabel];
     }
     return self;
 }
@@ -30,17 +27,16 @@
     //重新设置label的位置
     CGRect frame = self.bounds;
     if (self.arrowDirection == UIPopoverArrowDirectionUp) {
-        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + floor(CGRectGetWidth(frame) * 0.03516 + 0.5), CGRectGetMinY(frame) + floor(CGRectGetHeight(frame) * 0.18750 + 0.5), floor(CGRectGetWidth(frame) * 0.96484 + 0.5) - floor(CGRectGetWidth(frame) * 0.03516 + 0.5), floor(CGRectGetHeight(frame) * 0.92969 + 0.5) - floor(CGRectGetHeight(frame) * 0.18750 + 0.5));
-
+        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 19, CGRectGetMinY(frame) + 29, CGRectGetWidth(frame) - 38, CGRectGetHeight(frame) - 42);
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionDown) {
-        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + floor(CGRectGetWidth(frame) * 0.03125 + 0.5), CGRectGetMinY(frame) + floor(CGRectGetHeight(frame) * 0.07031 + 0.5), floor(CGRectGetWidth(frame) * 0.96875 + 0.5) - floor(CGRectGetWidth(frame) * 0.03125 + 0.5), floor(CGRectGetHeight(frame) * 0.82812 + 0.5) - floor(CGRectGetHeight(frame) * 0.07031 + 0.5));
+        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 19, CGRectGetMinY(frame) + 15, CGRectGetWidth(frame) - 38, CGRectGetHeight(frame) - 42);
+        
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionLeft) {
-        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + floor(CGRectGetWidth(frame) * 0.09375 + 0.5), CGRectGetMinY(frame) + floor(CGRectGetHeight(frame) * 0.07031 + 0.5), floor(CGRectGetWidth(frame) * 0.96484 + 0.5) - floor(CGRectGetWidth(frame) * 0.09375 + 0.5), floor(CGRectGetHeight(frame) * 0.94531 + 0.5) - floor(CGRectGetHeight(frame) * 0.07031 + 0.5));
-    }
+        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 13, CGRectGetWidth(frame) - 52, CGRectGetHeight(frame) - 23);    }
     else if (self.arrowDirection == UIPopoverArrowDirectionRight) {
-        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + floor(CGRectGetWidth(frame) * 0.03906 + 0.5), CGRectGetMinY(frame) + floor(CGRectGetHeight(frame) * 0.07031 + 0.5), floor(CGRectGetWidth(frame) * 0.91016 + 0.5) - floor(CGRectGetWidth(frame) * 0.03906 + 0.5), floor(CGRectGetHeight(frame) * 0.94531 + 0.5) - floor(CGRectGetHeight(frame) * 0.07031 + 0.5));
+        self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 19, CGRectGetMinY(frame) + 13, CGRectGetWidth(frame) - 52, CGRectGetHeight(frame) - 23);
     }
 
    
@@ -148,7 +144,8 @@
     
     
     //// Subframes
-    CGRect frame2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 53) * 0.50246 + 0.5), CGRectGetMinY(frame) + 90, 53, 38);
+    CGRect frame3 = CGRectMake(CGRectGetMinX(frame) + 19, CGRectGetMinY(frame) + 21, CGRectGetWidth(frame) - 38, CGRectGetHeight(frame) - 54);
+    CGRect frame2 = CGRectMake(CGRectGetMinX(frame3) + floor((CGRectGetWidth(frame3) - 53) * 0.50303 + 0.5), CGRectGetMinY(frame3) + CGRectGetHeight(frame3) - 5, 53, 38);
     
     
     //// Bezier Drawing

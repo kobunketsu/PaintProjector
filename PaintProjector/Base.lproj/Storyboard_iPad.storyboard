@@ -2463,6 +2463,8 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <action selector="userInputParamSliderTouchDown:" destination="Ykg-qI-0AR" eventType="touchDown" id="9kM-VA-gvX"/>
+                                            <action selector="userInputParamSliderTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="sOS-Rl-szS"/>
                                             <action selector="userInputParamSliderValueChanged:" destination="Ykg-qI-0AR" eventType="valueChanged" id="xi7-ey-P8f"/>
                                         </connections>
                                     </slider>

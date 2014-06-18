@@ -9,15 +9,14 @@
 #import "CylinderProjectViewController.h"
 #import <Social/Social.h>
 #import "Resources.h"
-#import "UIView+Tag.h"
 #import "SharedPopoverController.h"
 #import "UnitConverter.h"
 #import "AnaDrawIAPManager.h"
 #import "PaintUIKitAnimation.h"
-#import "NSString+Unit.h"
 #import "AssetDatabase.h"
 #import "CylinderProjectVirtualDeviceCollectionViewController.h"
 #import "TutorialManager.h"
+
 
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
@@ -37,7 +36,7 @@
 @property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
 @property (assign, nonatomic)GLKVector2 touchDirectionBegin;
 //@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
-@property(nonatomic, retain) NSString *keyPath;
+@property(nonatomic, retain) NSString *userInputParamkeyPath;
 @property (retain, nonatomic) Animation *resetAnimation;
 //VC切换动画效果管理器
 @property (nonatomic) PaintScreenTransitionManager *transitionManager;
@@ -91,7 +90,7 @@
     
     [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
     
-    [self tutorialStartFromStepName:@"PutDevice"];
+    [self tutorialStartFromStepName:@"CylinderProjectPutDevice"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -239,7 +238,7 @@
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
-    [self tutorialStepNext];
+    [self tutorialStepNextImmediate:false];
     
 //    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         sender.selected = !sender.selected;
@@ -248,12 +247,19 @@
         if (sender.selected) {
             [self setupAnamorphParamsCompletion:^{
                 sender.userInteractionEnabled = true;
-                [self tutorialStartFromStepName:@"SetupCylinderDiameter"];
+                
+                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
+                    [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
+                }
             }];
         }
         else{
             [self setupAnamorphParamsDoneCompletion:^{
                 sender.userInteractionEnabled = true;
+                
+                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
+                    [self tutorialStartFromStepName:@"CylinderProjectPaint"];
+                }
             }];
         }
 //    }
@@ -283,6 +289,8 @@
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"paintButtonTouchUp" identifier:sender];
+    
+    [self tutorialStepNextImmediate:false];
     
     sender.selected = true;
     self.setupButton.selected = false;
@@ -533,7 +541,7 @@
     self.valueSlider.maximumValue = maxValue;
     NSNumber *num = [self valueForKeyPath:keyPath];
     self.valueSlider.value = num.floatValue;
-    self.keyPath = keyPath;
+    self.userInputParamkeyPath = keyPath;
 }
 
 - (void)closeUserInputParamValueSlider{
@@ -542,8 +550,6 @@
 
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"userInputParamButtonTouchUp" identifier:sender];
-    
-    [self tutorialStepNext];
     
     for (UIButton *button in self.allUserInputParamButtons) {
         if (![button isEqual:sender]) {
@@ -599,13 +605,27 @@
         [self closeUserInputParamValueSlider];
     }
     
+    //在确定排版之后确定教程
+    [self tutorialStepNextImmediate:true];
+
 }
 
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderValueChanged" identifier:sender];
+
     
-    [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.keyPath];
+    [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.userInputParamkeyPath];
     [self flushUIUserInputParams];
+}
+
+- (IBAction)userInputParamSliderTouchUp:(UISlider *)sender {
+    [RemoteLog logAction:@"userInputParamSliderTouchUp" identifier:sender];
+    [self tutorialStartCurrentStep];
+}
+
+- (IBAction)userInputParamSliderTouchDown:(UISlider *)sender {
+    [RemoteLog logAction:@"userInputParamSliderTouchDown" identifier:sender];
+    [self tutorialStepNextImmediate:false];
 }
 
 -(void)resetInputParams{
@@ -906,7 +926,12 @@
     topToBottomPropAnim.duration = CylinderViewChangeDuration;
     topToBottomPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     [topToBottomPropAnim setCompletionBlock:^{
-        [self tutorialStartFromStepName:@"Setup"];
+        if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
+            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeDistance"];
+        }
+        else if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
+            [self tutorialStartFromStepName:@"CylinderProjectSetup"];
+        }
     }];
     AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
     animClip.name = @"topToBottomAnimClip";
@@ -919,7 +944,12 @@
     bottomToTopPropAnim.duration = CylinderViewChangeDuration;
     bottomToTopPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     [bottomToTopPropAnim setCompletionBlock:^{
-        [self tutorialStartFromStepName:@"ViewDevice"];
+        if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
+            [self tutorialStartFromStepName:@"CylinderProjectSetupZoom"];
+        }
+        else if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
+            [self tutorialStartFromStepName:@"CylinderProjectViewDevice"];
+        }
     }];
     animClip = [AnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
     animClip.name = @"bottomToTopAnimClip";
@@ -1945,7 +1975,7 @@
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"sideViewButtonTouchUp" identifier:sender];
     
-    [self tutorialStepNext];    
+    [self tutorialStepNextImmediate:false];
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
     
@@ -1966,7 +1996,7 @@
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"topViewButtonTouchUp" identifier:sender];
     
-    [self tutorialStepNext];
+    [self tutorialStepNextImmediate:false];
     
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
@@ -2112,10 +2142,7 @@
     Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
-            if ([step.name isEqualToString:@"PutDevice"] ||
-                [step.name isEqualToString:@"ViewDevice"]||
-                [step.name isEqualToString:@"Setup"]||
-                [step.name isEqualToString:@"SetupCylinderDiameter"]){
+            if ([step.name rangeOfString:@"CylinderProject"].length > 0) {
                 step.delegate = self;
             }
         }
@@ -2123,6 +2150,15 @@
 }
 
 //在排版等准备完成以后,检查是否需要开始教程
+- (void)tutorialStartCurrentStep{
+    DebugLogFuncStart(@"tutorialStartCurrentStep");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    [[TutorialManager current].curTutorial startCurrentStep];
+}
+
 - (void)tutorialStartFromStepName:(NSString *)name{
     DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
     if (![[TutorialManager current] isActive]) {
@@ -2134,90 +2170,176 @@
     }
 }
 
-- (void)tutorialStepNext{
+- (void)tutorialStepNextImmediate:(BOOL)immediate{
     DebugLogFuncStart(@"tutorialStepNext");
     if (![[TutorialManager current] isActive]) {
         return;
     }
     
-    if (!([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"PutDevice"] ||
-        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"ViewDevice"] ||
-        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"Setup"] ||
-        [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"SetupCylinderDiameter"])){
-        return;
+   //isCheckTutorialStep
+    if (immediate) {
+        [[TutorialManager current].curTutorial stepNextImmediate];
     }
-    
-    //isCheckTutorialStep
-    [[TutorialManager current].curTutorial stepNext:nil];
+    else{
+        [[TutorialManager current].curTutorial stepNext:nil];
+    }
+
 }
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(TutorialStep *)step{
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
-    //只要是教程,就需要关闭所有其他工具
+    //需要关闭所有其他工具交互
     for (UIButton *button in self.downTooBarButtons) {
         button.userInteractionEnabled = enable;
     }
-    self.topToolBar.userInteractionEnabled = enable;
+    for (UIButton *button in self.allUserInputParamButtons) {
+        button.userInteractionEnabled = enable;
+    }
+    self.valueSlider.userInteractionEnabled = enable;
     self.projectView.userInteractionEnabled = enable;
     
-    if ([step.name isEqualToString:@"PutDevice"]) {
+    //打开制定按钮交互
+    if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
         self.topPerspectiveView.userInteractionEnabled = true;
     }
-    else if ([step.name isEqualToString:@"ViewDevice"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectViewDevice"]) {
         self.eyePerspectiveView.userInteractionEnabled = true;
     }
-    else if ([step.name isEqualToString:@"Setup"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
         self.setupButton.userInteractionEnabled = true;
     }
-    else if ([step.name isEqualToString:@"SetupCylinderDiameter"]) {
-        for (UIButton *button in self.allUserInputParamButtons) {
-            button.userInteractionEnabled = enable;
-        }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         self.cylinderDiameterButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderHeight"]) {
+        self.cylinderHeightButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageWidth"]) {
+        self.imageWidthButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenter"]) {
+        self.imageHeightButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
+        self.eyeDistanceButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
+        self.eyeHeightButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupZoom"]) {
+        self.projectZoomButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectTopViewForZoom"]) {
+        self.topPerspectiveView.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"]) {
+        self.eyePerspectiveView.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectCloseSetup"]) {
+        self.setupButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectPaint"]) {
+        self.paintButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameterValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupCylinderHeightValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupImageWidthValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupImageCenterValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupZoomValue"])
+    {
+        self.valueSlider.userInteractionEnabled = true;
     }
 }
 
 - (void)willTutorialLayoutWithStep:(TutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
 
-    if ([step.name isEqualToString:@"PutDevice"]) {
+    if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
         CGRect rect = step.contentView.frame;
         rect.origin = CGPointMake(500, 672);
         step.contentView.frame = rect;
         
-        CGRect frame = [self.topPerspectiveView convertRect:self.topPerspectiveView.bounds toView:self.view];
-        [step targetViewFrame:frame];
-        
-        [self.view addSubview:step.indicatorView];
-        [self.view addSubview:step.contentView];
+        [step indicatorView:step.indicatorView targetView:self.topPerspectiveView inRootView:self.view];
     }
-    else if ([step.name isEqualToString:@"ViewDevice"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectViewDevice"]) {
         CGRect rect = step.contentView.frame;
         rect.origin = CGPointMake(500, 728);
         step.contentView.frame = rect;
-        
-        CGRect frame = [self.eyePerspectiveView convertRect:self.eyePerspectiveView.bounds toView:self.view];
-        [step targetViewFrame:frame];
-        
-        [self.view addSubview:step.indicatorView];
-        [self.view addSubview:step.contentView];
+        [step indicatorView:step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
+        CGRect mirrorRect = [self willGetCylinderMirrorFrame];
+        [step indicatorView:step.indicatorViews[1] targetViewFrame:mirrorRect];
     }
-    else if ([step.name isEqualToString:@"Setup"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
         CGRect rect = step.contentView.frame;
         rect.origin = CGPointMake(580, 700);
         step.contentView.frame = rect;
         
-        CGRect frame = [self.setupButton convertRect:self.setupButton.bounds toView:self.view];
-        [step targetViewFrame:frame];
-        
-        [self.view addSubview:step.indicatorView];
-        [self.view addSubview:step.contentView];
+        [step indicatorView:step.indicatorView targetView:self.setupButton inRootView:self.view];
     }
-    else if ([step.name isEqualToString:@"SetupCylinderDiameter"]) {
-        CGRect frame = [self.cylinderDiameterButton convertRect:self.cylinderDiameterButton.bounds toView:self.view];
-        [step targetViewFrame:frame];
-        
-        [self.view addSubview:step.indicatorView];
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
+        [step indicatorView:step.indicatorView targetView:self.cylinderDiameterButton inRootView:self.view];
     }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameterValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderHeight"]) {
+        [step indicatorView:step.indicatorView targetView:self.cylinderHeightButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderHeightValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageWidth"]) {
+        [step indicatorView:step.indicatorView targetView:self.imageWidthButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageWidthValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenter"]) {
+        [step indicatorView:step.indicatorView targetView:self.imageHeightButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenterValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
+        [step indicatorView:step.indicatorView targetView:self.eyeDistanceButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
+        [step indicatorView:step.indicatorView targetView:self.eyeHeightButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupZoom"]) {
+        [step indicatorView:step.indicatorView targetView:self.projectZoomButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupZoomValue"]) {
+        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+        [step indicatorView:step.indicatorView targetViewFrame:thumbRect];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"]) {
+        [step indicatorView:step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectTopViewForZoom"]) {
+        [step indicatorView:step.indicatorView targetView:self.topPerspectiveView inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectCloseSetup"]) {
+        [step indicatorView:step.indicatorView targetView:self.setupButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectPaint"]) {
+        [step indicatorView:step.indicatorView targetView:self.paintButton inRootView:self.view];
+    }
+    
+    [step addToRootView:self.view];
 }
 @end

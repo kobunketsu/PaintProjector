@@ -5,8 +5,8 @@
 /* Class = "IBUIButton"; normalTitle = "adf"; ObjectID = "1On-Dl-NSe"; */
 "1On-Dl-NSe.normalTitle" = "adf";
 
-/* Class = "IBUINavigationItem"; title = "Paint"; ObjectID = "1Oo-c7-eki"; */
-"1Oo-c7-eki.title" = "Paint";
+/* Class = "IBUINavigationItem"; title = "CylinderProjectPaint"; ObjectID = "1Oo-c7-eki"; */
+"1Oo-c7-eki.title" = "CylinderProjectPaint";
 
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "1Rz-7A-MxU"; */
 "1Rz-7A-MxU.text" = "抖动";
@@ -271,7 +271,7 @@
 /* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "edV-eN-YWW"; */
 "edV-eN-YWW.accessibilityLabel" = "Print";
 
-/* Class = "IBUIButton"; normalTitle = "Setup"; ObjectID = "edV-eN-YWW"; */
+/* Class = "IBUIButton"; normalTitle = "CylinderProjectSetup"; ObjectID = "edV-eN-YWW"; */
 "edV-eN-YWW.normalTitle" = "高 级";
 
 /* Class = "IBUIButton"; accessibilityLabel = "New"; ObjectID = "egz-LW-xJQ"; */

@@ -9,7 +9,6 @@
 #import "CylinderProjectToPaintCollectionTransitionManager.h"
 #import "PaintCollectionViewController.h"
 #import "PaintCollectionViewCell.h"
-#import "UIView+Tag.h"
 
 #define TempPaintFrameToGalleryTranslateDuration 0.6
 #define TempPaintFrameToGalleryFadeOutDuration 0.5

@@ -14,9 +14,7 @@
 #import "iRate.h"
 
 #import "TutorialManager.h"
-#import "TutorialPageButtonView.h"
-#import "TutorialPageView.h"
-#import "TutorialIndicatorView.h"
+#import "AnaDrawTutorial.h"
 
 //#define DEBUG 1
 @implementation AppDelegate
@@ -63,7 +61,7 @@
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
     
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
     [self initTutorial];
@@ -183,126 +181,85 @@
 //初始化教程的四个步骤，具体步骤的排版信息在切换到具体步骤并加载对应页面后使用页面排版代理进行排版
 - (void)initTutorial{
     [TutorialManager initialize];
-    Tutorial *tutorial = [[TutorialManager current] addTutorial:@"TutorialMain"];
+    AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[TutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
     
-    //欢迎界面
-    TutorialStep *step = [tutorial addStep:@"Welcome"];
-    step.contentView = [[TutorialPageButtonView alloc]initWithFrame:CGRectMake(0, 0, 670, 500)];
-    [step.contentView initWithTutorial:tutorial bgImage:[UIImage imageNamed:@"Anamorphosis.png"]];
+    //欢迎界面];
+    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"Anamorphosis.png" withNextButton:true];
     tutorial.curStep = step;
     
     //选中图片
-    step = [tutorial addStep:@"PickImage"];
-    TutorialIndicatorView *step1View = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step1View.arrowDirection = UIPopoverArrowDirectionUp;
-    [step1View initWithTutorial:tutorial bgImage:nil];
-    step1View.textLabel.text = @"Click Here";
-    step.indicatorView = step1View;
+    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //放置设备
-    step = [tutorial addStep:@"PutDevice"];
-    TutorialPageView *step2View = [[TutorialPageView alloc]initWithFrame:CGRectMake(0, 0, 256, 256)];
-    [step2View initWithTutorial:tutorial bgImage:[UIImage imageNamed:@"tutorial_putDevice.png"]];
-    step.contentView = step2View;
-    TutorialIndicatorView *step2InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step2InidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
-    [step2InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step2InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step2InidcatorView;
+    step = [tutorial addPageStep:@"CylinderProjectPutDevice" description:nil pageBounds:CGRectMake(0, 0, 256, 256) pageImage:@"tutorial_putDevice.png" withNextButton:false];
+    
+    TutorialIndicatorView *inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectPutDevice", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
     
     //调整视线
-    step = [tutorial addStep:@"ViewDevice"];
-    TutorialPageView *step3View = [[TutorialPageView alloc]initWithFrame:CGRectMake(0, 0, 256, 198)];
-    [step3View initWithTutorial:tutorial bgImage:[UIImage imageNamed:@"tutorial_viewDevice.png"]];
-    step.contentView = step3View;
-    TutorialIndicatorView *step3InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step3InidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
-    [step3InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step3InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step3InidcatorView;
+    step = [tutorial addPageStep:@"CylinderProjectViewDevice" description:nil pageBounds:CGRectMake(0, 0, 256, 198) pageImage:@"tutorial_viewDevice.png" withNextButton:false];
+    
+    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectViewDeviceDone", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
+    
+    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectViewDevice", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
     
     //高级设置
-    step = [tutorial addStep:@"Setup"];
-    TutorialPageView *step4View = [[TutorialPageView alloc]initWithFrame:CGRectMake(0, 0, 197, 223)];
-    [step4View initWithTutorial:tutorial bgImage:[UIImage imageNamed:@"tutorial_setup.png"]];
-    step.contentView = step4View;
-    TutorialIndicatorView *step4InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step4InidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
-    [step4InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step4InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step4InidcatorView;
+    step = [tutorial addPageStep:@"CylinderProjectSetup" description:nil pageBounds:CGRectMake(0, 0, 197, 223) pageImage:@"tutorial_setup.png" withNextButton:false];
+    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectSetup", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
     
     //调整圆柱体半径
-    step = [tutorial addStep:@"SetupCylinderDiameter"];
-    TutorialIndicatorView *step5InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step5InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step5InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step5InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step5InidcatorView;
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameter" description:NSLocalizedString(@"CylinderProjectSetupCylinderDiameter", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整图片宽度
-    step = [tutorial addStep:@"SetupImageWidth"];
-    TutorialIndicatorView *step6InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step6InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step6InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step6InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step6InidcatorView;
+    [tutorial addActionStep:@"CylinderProjectSetupImageWidth" description:NSLocalizedString(@"CylinderProjectSetupImageWidth", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupImageWidthValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整圆柱体高度
-    step = [tutorial addStep:@"SetupCylinderHeight"];
-    TutorialIndicatorView *step7InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step7InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step7InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step7InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step7InidcatorView;
-
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderHeight" description:NSLocalizedString(@"CylinderProjectSetupCylinderHeight", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderHeightValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    
     //调整图片高度
-    step = [tutorial addStep:@"SetupImageCenter"];
-    TutorialIndicatorView *step8InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step8InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step8InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step8InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step8InidcatorView;
-    
-    //调整视角水平距离
-    step = [tutorial addStep:@"SetupEyeDistance"];
-    TutorialIndicatorView *step9InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step9InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step9InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step9InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step9InidcatorView;
+    [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupImageCenterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
 
-    //调整视角垂直距离
-    step = [tutorial addStep:@"SetupEyeHeight"];
-    TutorialIndicatorView *step10InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step10InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step10InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step10InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step10InidcatorView;
-    
     //调整到顶视图
-    step = [tutorial addStep:@"TopViewForZoom"];
-    TutorialIndicatorView *step11InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step11InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step11InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step11InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step11InidcatorView;
+    [tutorial addActionStep:@"CylinderProjectTopViewForZoom" description:NSLocalizedString(@"CylinderProjectTopViewForZoom", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
     //调整缩放比例
-    step = [tutorial addStep:@"SetupZoom"];
-    TutorialIndicatorView *step12InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step12InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step12InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step12InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step12InidcatorView;
-
+    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoom", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoomValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    
+    //调整到视角视图
+    [tutorial addActionStep:@"CylinderProjectSideViewForEye" description:NSLocalizedString(@"CylinderProjectSideViewForEye", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
+    
+    //调整视角水平距离
+    [tutorial addActionStep:@"CylinderProjectSetupEyeDistance" description:NSLocalizedString(@"CylinderProjectSetupEyeDistance", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupEyeDistanceValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    
+    //调整视角垂直距离
+    [tutorial addActionStep:@"CylinderProjectSetupEyeHeight" description:NSLocalizedString(@"CylinderProjectSetupEyeHeight", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupEyeHeightValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    
+    //关闭参数设置
+    [tutorial addActionStep:@"CylinderProjectCloseSetup" description:NSLocalizedString(@"CylinderProjectCloseSetup", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
+    
     //开始绘制图片
-    step = [tutorial addStep:@"Paint"];
-    TutorialIndicatorView *step13InidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
-    step13InidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
-    [step13InidcatorView initWithTutorial:tutorial bgImage:nil];
-    step13InidcatorView.textLabel.text = @"Click Here";
-    step.indicatorView = step13InidcatorView;
+    [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
+    
+    //完成教程
+    [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"Anamorphosis.png" withNextButton:true];
     
     [[TutorialManager current] activeTutorial:@"TutorialMain"];
 }

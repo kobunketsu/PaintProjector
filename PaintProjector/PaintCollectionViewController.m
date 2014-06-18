@@ -14,7 +14,6 @@
 #import "PaintFrameManager.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
-#import "UIView+Tag.h"
 #import "TutorialManager.h"
 
 
@@ -65,7 +64,7 @@
         [self launchTransitionToCylinderProject];
     }
     
-    [self tutorialStartFromStepName:@"Welcome"];
+    [self tutorialStartFromStepName:@"PaintCollectionWelcome"];
 
 }
 
@@ -241,7 +240,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     DebugLog(@"didSelectItemAtIndexPath");
     //教程
-    [self tutorialStepNext];
+    [self tutorialStepNextImmediate:false];
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     //设定当前选择的paintDoc
@@ -475,8 +474,8 @@
     Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
-            if ([step.name isEqualToString:@"Welcome"] ||
-                [step.name isEqualToString:@"PickImage"]){
+            if ([step.name isEqualToString:@"PaintCollectionWelcome"] ||
+                [step.name isEqualToString:@"PaintCollectionPickImage"]){
                 step.delegate = self;
             }
         }
@@ -495,19 +494,20 @@
     }
 }
 
-- (void)tutorialStepNext{
+- (void)tutorialStepNextImmediate:(BOOL)immediate{
     DebugLogFuncStart(@"checkTutorialStep");
     if (![[TutorialManager current] isActive]) {
         return;
     }
-    
-    if (![[TutorialManager current].curTutorial.curStep.name isEqualToString:@"PickImage"]){
-        return;
-    }
-    
+
     //isCheckTutorialStep
     if (!self.editing) {
-        [[TutorialManager current].curTutorial stepNext:nil];
+        if (immediate) {
+            [[TutorialManager current].curTutorial stepNextImmediate];
+        }
+        else{
+            [[TutorialManager current].curTutorial stepNext:nil];
+        }
     }
 }
 
@@ -518,7 +518,7 @@
     self.downToolBar.userInteractionEnabled = enable;
 
     
-    if ([step.name isEqualToString:@"Welcome"]) {
+    if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         //打开关闭第一个作品的交互
         if ([self.collectionView numberOfItemsInSection:0] != 1) {
             return;
@@ -527,31 +527,28 @@
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         cell.userInteractionEnabled = enable;
     }
-    else if ([step.name isEqualToString:@"PickImage"]) {
+    else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
     }
 }
 
 - (void)willTutorialLayoutWithStep:(TutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
 
-    if ([step.name isEqualToString:@"Welcome"]) {
+    if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         CGRect rect = step.contentView.frame;
         rect.origin = CGPointMake(50, 400);
         
         step.contentView.frame = rect;
-        [self.rootView addSubview:step.contentView];
     }
-    else if ([step.name isEqualToString:@"PickImage"]) {
+    else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
         //对齐第一个image的底面
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        CGRect cellRect = [cell convertRect:cell.bounds toView:self.rootView];
-
+        [step indicatorView:step.indicatorView targetView:cell inRootView:self.rootView];
+        
         CGRect rect = step.indicatorView.frame;
         rect.size.width = cell.frame.size.width;
         step.indicatorView.frame = rect;
-        [step targetViewFrame:cellRect];
-
-        [self.rootView addSubview:step.indicatorView];
     }
+    [step addToRootView:self.rootView];
 }
 @end

@@ -17,6 +17,24 @@
     [self.steps addObject:step];
     return step;
 }
+
+- (TutorialStep *)addStep:(NSString *)name ofClass:(NSString *)className{
+    if (className == nil) {
+        return [self addStep:name];
+    }
+    
+    Class class = NSClassFromString(className);
+    if (class == nil) {
+        DebugLogError(@"addStep of class, class not exist");
+        return nil;
+    }
+    
+    TutorialStep *step = [[class alloc]init];
+    step.name = name;
+    [self.steps addObject:step];
+    return step;
+}
+
 - (void)removeStep:(TutorialStep*)step{
     [self.steps removeObject:step];
 }
@@ -36,9 +54,19 @@
 }
 -(void)setCurStepIndex:(NSInteger)curStepIndex{
     _curStepIndex = curStepIndex;
-    self.curStep = self.steps[_curStepIndex];
+    
+    if (curStepIndex < 0 || curStepIndex >= self.steps.count) {
+        DebugLogError(@"startFromStepIndex out of array bound");
+        self.curStep = nil;
+    }
+    else{
+        self.curStep = self.steps[_curStepIndex];
+    }
 }
 #pragma mark- process
+- (void)startCurrentStep{
+    [self startFromStepIndex:self.curStepIndex];
+}
 - (void)startFromStepName:(NSString *)name{
     NSInteger index = -1;
     for (NSInteger i = 0; i < self.steps.count; ++i) {
@@ -74,6 +102,12 @@
     if (block) {
         block();
     }
+}
+
+- (void)stepNextImmediate{
+    [self stepNext:^{
+        [self.curStep start];
+    }];
 }
 
 - (void)end{

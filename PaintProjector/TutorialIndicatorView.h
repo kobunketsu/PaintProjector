@@ -9,7 +9,5 @@
 #import "TutorialView.h"
 
 @interface TutorialIndicatorView : TutorialView
-@property(retain, nonatomic)UILabel *textLabel;
-//@property(assign, nonatomic)CGRect labelRect;
 @property(assign, nonatomic)UIPopoverArrowDirection arrowDirection;
 @end

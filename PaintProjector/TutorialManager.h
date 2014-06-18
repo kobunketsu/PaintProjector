@@ -22,6 +22,7 @@ static TutorialManager *tutorialManager = nil;
 - (BOOL)isActive;
 
 - (Tutorial *)addTutorial:(NSString *)name;
+- (Tutorial *)addTutorial:(NSString *)name ofClass:(NSString *)className;
 - (void)removeTutorial:(NSString *)name;
 
 @property (weak, nonatomic) Tutorial *curTutorial;

@@ -9,7 +9,6 @@
 #import "PaintFrameTransitionManager.h"
 #import "PaintCollectionViewController.h"
 #import "PaintCollectionViewCell.h"
-#import "UIView+Tag.h"
 
 #define PaintFrameMoveAnimationDuration 0.6
 #define PaintFrameFadeAnimationDuration 0.3

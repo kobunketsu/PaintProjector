@@ -10,5 +10,6 @@
 
 
 @interface TutorialPageButtonView : TutorialView
+//进入下一步的按钮
 @property (retain, nonatomic) UIButton *nextButton;
 @end

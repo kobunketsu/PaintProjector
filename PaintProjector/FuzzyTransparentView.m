@@ -7,7 +7,6 @@
 //
 
 #import "FuzzyTransparentView.h"
-#import "UIImage+ImageEffects.h"
 #import "Ultility.h"
 @implementation FuzzyTransparentView
 

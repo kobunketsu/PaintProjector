@@ -30,9 +30,18 @@
 
 //决定tutorialView下的nextButton是内置的button，还是界面上的某个button,
 //如果是界面上的某个button,加上事件后,在dealloc tutorialView后需要移除这个事件
-- (void)initWithTutorial:(Tutorial*)tutorial bgImage:(UIImage*)image{
+- (void)initWithTutorial:(Tutorial*)tutorial description:(NSString *)desc bgImage:(UIImage*)image{
     self.delegate = tutorial;
     
+    if (desc) {
+        UILabel *label = [[UILabel alloc]init];
+        self.textLabel = label;
+        label.text = desc;
+        [label setNumberOfLines:10];
+        [label setLineBreakMode:NSLineBreakByTruncatingTail];
+        
+        [self addSubview:label];
+    }
     if (image) {
         UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
         self.imageView = imageView;

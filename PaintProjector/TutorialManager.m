@@ -78,6 +78,23 @@
     return tutorial;
 }
 
+- (Tutorial *)addTutorial:(NSString *)name ofClass:(NSString *)className{
+    if (className == nil) {
+        return [self addTutorial:name];
+    }
+    
+    Class class = NSClassFromString(className);
+    if (class == nil) {
+        DebugLogError(@"addTutorial of class, class not exist");
+        return nil;
+    }
+    
+    Tutorial *tutorial = [[class alloc]init];
+    tutorial.name = name;
+    [self.tutorials setValue:tutorial forKey:name];
+    return tutorial;
+}
+
 - (void)removeTutorial:(NSString *)name{
     DebugLogFuncStart(@"removeTutorial %@", name);
     

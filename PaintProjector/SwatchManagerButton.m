@@ -7,7 +7,6 @@
 //
 
 #import "SwatchManagerButton.h"
-#import "UIColor+String.h"
 
 @implementation SwatchManagerButton
 

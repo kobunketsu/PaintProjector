@@ -18,8 +18,8 @@
     return self;
 }
 
-- (void)initWithTutorial:(Tutorial*)tutorial bgImage:(UIImage*)image{
-    [super initWithTutorial:tutorial bgImage:image];
+- (void)initWithTutorial:(Tutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image{
+    [super initWithTutorial:tutorial description:desc bgImage:image];
     
     _nextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 88, 44)];
     [self addSubview:self.nextButton];

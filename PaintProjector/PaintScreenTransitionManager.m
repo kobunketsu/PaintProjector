@@ -9,7 +9,7 @@
 #import "PaintScreenTransitionManager.h"
 #import "PaintScreen.h"
 #import "CylinderProjectViewController.h"
-#import "UIView+Tag.h"
+
 @interface PaintScreenTransitionManager()
 @property (assign, nonatomic) CGFloat scale;
 @end

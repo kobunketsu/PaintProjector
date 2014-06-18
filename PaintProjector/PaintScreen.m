@@ -21,16 +21,13 @@
 #import "LayerBlendModeTableViewController.h"
 #import "LayerTableViewController.h"
 #import "LayerBlendModePopoverController.h"
-#import "UIImage+ImageEffects.h"
-#import "UIImage+Resize.h"
-#import "UIColor+String.h"
 #import <pthread.h>
 #import "TransformContentView.h"
 #import "TransformContentViewLayer.h"
 #import "TransformAnchorView.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintUIKitStyle.h"
-
+#import "TutorialManager.h"
 
 
 #define EditBrushSizeConfirmPixels 5
@@ -149,6 +146,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
+    [self tutorialStartFromStepName:@"PaintScreenTutorialDone"];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"viewWillDisappear");
@@ -370,6 +368,8 @@
     //多线程,最好的方式是给_uploadDataQueque创建独立的context
     _uploadDataQueque = dispatch_queue_create("com.WenjieHu.ProjectPaint.uploadDataQueue", NULL);
     
+    //教程
+    [self tutorialSetup];
     
     //从viewController启动主程序测试
 //    PaintDoc *paintDoc = [[PaintDocManager sharedInstance] createPaintDocInDirectory:@"test"];
@@ -4704,6 +4704,70 @@
 //        });
 
     return;
+}
+
+#pragma mark- 教程 Tutorial
+//主教程入口设置
+- (void)tutorialSetup{
+    DebugLogFuncStart(@"tutorialSetup");
+    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    if (tutorial) {
+        for (TutorialStep *step in tutorial.steps) {
+            if ([step.name rangeOfString:@"PaintScreen"].length > 0) {
+                step.delegate = self;
+            }
+        }
+    }
+}
+
+//在排版等准备完成以后,检查是否需要开始教程
+- (void)tutorialStartFromStepName:(NSString *)name{
+    DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[TutorialManager current].curTutorial startFromStepName:name];
+    }
+}
+
+- (void)tutorialStepNextImmediate:(BOOL)immediate{
+    DebugLogFuncStart(@"tutorialStepNext");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
+    //isCheckTutorialStep
+    if (immediate) {
+        [[TutorialManager current].curTutorial stepNextImmediate];
+    }
+    else{
+        [[TutorialManager current].curTutorial stepNext:nil];
+    }
+    
+}
+#pragma mark- 教程步骤代理 TutorialStepDelegate
+- (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willTutorialEnableUserInteraction");
+    //需要关闭所有其他工具交互
+    
+    self.mainToolBar.userInteractionEnabled = enable;
+    self.paintToolBar.userInteractionEnabled = enable;
+    self.rootCanvasView.userInteractionEnabled = enable;
+    
+    //打开制定按钮交互
+}
+
+- (void)willTutorialLayoutWithStep:(TutorialStep *)step{
+    DebugLogFuncStart(@"willLayoutWithStep");
+    
+    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
+        step.contentView.frame = rect;
+    }
+    [step addToRootView:self.view];
 }
 
 @end

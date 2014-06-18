@@ -8,12 +8,9 @@
 
 #import "BrushPreview.h"
 #import "PaintingView.h"
-#import "UIView+GLCoord.h"
 
 #import "Finger.h"
 #import "OilBrush.h"
-
-//#import "UIColor+String.h"
 
 @implementation BrushPreview
 

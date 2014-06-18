@@ -11,8 +11,6 @@
 #import "ProductFeatureCollectionViewCell.h"
 #import "AnaDrawIAPManager.h"
 #import "Reachability.h"
-#import "UILabel+VerticalAlign.h"
-#import "UIView+VisibilityAnimation.h"
 
 #define IAP_Brush_Count 6
 #define BrushPreviewFadeAnimationDuration 0.1
