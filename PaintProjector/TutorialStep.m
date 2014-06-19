@@ -8,7 +8,7 @@
 
 #import "TutorialStep.h"
 
-#define TargetViewFrameOffset 10
+
 
 @implementation TutorialStep
 - (id)init{
@@ -38,38 +38,6 @@
         [self removeFromRootView];
     }
 }
-
-- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetViewFrame:(CGRect)frame{
-    if (!indicatorView) {
-        return;
-    }
-
-    CGRect finalFrame = self.indicatorView.frame;
-    if (indicatorView.arrowDirection == UIPopoverArrowDirectionUp) {
-        finalFrame.origin.x = frame.origin.x + frame.size.width * 0.5 - indicatorView.bounds.size.width * 0.5;
-        finalFrame.origin.y = frame.origin.y + frame.size.height - TargetViewFrameOffset;
-    }
-    else if (indicatorView.arrowDirection == UIPopoverArrowDirectionDown) {
-        finalFrame.origin.x = frame.origin.x + frame.size.width * 0.5 - indicatorView.bounds.size.width * 0.5;
-        finalFrame.origin.y = frame.origin.y - indicatorView.bounds.size.height + TargetViewFrameOffset;
-    }
-    else if (indicatorView.arrowDirection == UIPopoverArrowDirectionLeft) {
-        finalFrame.origin.x = frame.origin.x + frame.size.width - TargetViewFrameOffset;
-        finalFrame.origin.y = frame.origin.y + frame.size.height * 0.5 - indicatorView.bounds.size.height * 0.5;
-    }
-    else if (indicatorView.arrowDirection == UIPopoverArrowDirectionRight) {
-        finalFrame.origin.x = frame.origin.x - indicatorView.bounds.size.width + TargetViewFrameOffset;
-        finalFrame.origin.y = frame.origin.y + frame.size.height * 0.5 - indicatorView.bounds.size.height * 0.5;
-    }
-    
-    indicatorView.frame = finalFrame;
-}
-
-- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetView:(UIView *)targetView inRootView:(UIView*)rootView{
-    CGRect frame = [targetView convertRect:targetView.bounds toView:rootView];
-    [self indicatorView:indicatorView targetViewFrame:frame];
-}
-
 
 - (void)addToRootView:(UIView *)rootView{
     for (TutorialIndicatorView *view in self.indicatorViews) {

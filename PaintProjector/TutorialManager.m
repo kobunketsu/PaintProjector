@@ -73,6 +73,7 @@
     DebugLogFuncStart(@"addTutorial %@", name);
     
     Tutorial *tutorial = [[Tutorial alloc]init];
+    tutorial.delegate = self;
     tutorial.name = name;
     [self.tutorials setValue:tutorial forKey:name];
     return tutorial;
@@ -90,6 +91,7 @@
     }
     
     Tutorial *tutorial = [[class alloc]init];
+    tutorial.delegate = self;    
     tutorial.name = name;
     [self.tutorials setValue:tutorial forKey:name];
     return tutorial;
@@ -99,5 +101,11 @@
     DebugLogFuncStart(@"removeTutorial %@", name);
     
     [self.tutorials removeObjectForKey:name];
+}
+
+- (void)willTutorialEnd:(Tutorial *)tutorial{
+    DebugLogFuncStart(@"willTutorialEnd %@", tutorial.name);
+    tutorial = nil;
+    self.curTutorial = nil;
 }
 @end

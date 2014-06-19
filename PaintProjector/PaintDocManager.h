@@ -3,7 +3,7 @@
 //  PaintProjector
 //
 //  Created by 胡 文杰 on 13-3-27.
-//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
+//  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 //名称:绘图文件管理器
 //描述:用于管理应用的文件

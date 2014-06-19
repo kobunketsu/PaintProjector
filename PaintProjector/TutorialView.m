@@ -36,11 +36,14 @@
     if (desc) {
         UILabel *label = [[UILabel alloc]init];
         self.textLabel = label;
+        label.textColor = [UIColor darkGrayColor];
         label.text = desc;
         [label setNumberOfLines:10];
         [label setLineBreakMode:NSLineBreakByTruncatingTail];
-        
+
         [self addSubview:label];
+        [self setNeedsLayout];
+        
     }
     if (image) {
         UIImageView *imageView = [[UIImageView alloc]initWithImage:image];

@@ -7,6 +7,7 @@
 //
 
 #import "TutorialPageButtonView.h"
+#import "TutorialNextButton.h"
 @implementation TutorialPageButtonView
 
 - (id)initWithFrame:(CGRect)frame
@@ -21,9 +22,11 @@
 - (void)initWithTutorial:(Tutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image{
     [super initWithTutorial:tutorial description:desc bgImage:image];
     
-    _nextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 88, 44)];
+    CGFloat width = 128;CGFloat height = 64; CGFloat offset = 20;
+    _nextButton = [[TutorialNextButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - width - offset, self.bounds.size.height - height - offset, width, height)];
+
     [self addSubview:self.nextButton];
-    self.nextButton.backgroundColor = [UIColor redColor];
+    [self.nextButton setTitle:NSLocalizedString(@"TutorialNext", nil) forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
 }
 /*

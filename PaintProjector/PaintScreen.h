@@ -1,6 +1,6 @@
 //
 //  PaintScreen.h
-//  PaintProjector
+//  AnaDraw
 //
 //  Created by 文杰 胡 on 12-10-20.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.

@@ -2321,7 +2321,7 @@
                                         </subviews>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" id="LB6-9v-gmY" userLabel="EyeParams">
-                                        <rect key="frame" x="384" y="0.0" width="192" height="88"/>
+                                        <rect key="frame" x="576" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" id="WRY-Wu-9lD" userLabel="SetupCylinderView" customClass="SetupEyeView">
@@ -2378,7 +2378,7 @@
                                         </subviews>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" id="ymr-xf-1aF" userLabel="ProjectParams">
-                                        <rect key="frame" x="576" y="0.0" width="192" height="88"/>
+                                        <rect key="frame" x="384" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <view opaque="NO" contentMode="scaleToFill" id="jXJ-f2-MLj" userLabel="SetupUnitZoomView" customClass="SetupUnitZoomView">
@@ -2445,7 +2445,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22v-i6-tDY" userLabel="UnitZoomButton">
-                                                        <rect key="frame" x="0.0" y="12" width="118" height="21"/>
+                                                        <rect key="frame" x="59" y="12" width="59" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2463,8 +2463,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <action selector="userInputParamSliderTouchCancel:" destination="Ykg-qI-0AR" eventType="touchCancel" id="68b-cB-fI7"/>
                                             <action selector="userInputParamSliderTouchDown:" destination="Ykg-qI-0AR" eventType="touchDown" id="9kM-VA-gvX"/>
                                             <action selector="userInputParamSliderTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="sOS-Rl-szS"/>
+                                            <action selector="userInputParamSliderTouchUpOutside:" destination="Ykg-qI-0AR" eventType="touchUpOutside" id="1TK-WV-fh6"/>
                                             <action selector="userInputParamSliderValueChanged:" destination="Ykg-qI-0AR" eventType="valueChanged" id="xi7-ey-P8f"/>
                                         </connections>
                                     </slider>

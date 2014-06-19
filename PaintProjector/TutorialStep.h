@@ -18,10 +18,6 @@
 @property(retain, nonatomic)NSMutableArray *indicatorViews;
 - (void)start;
 - (void)end;
-//指示器指向一个区域
-- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetViewFrame:(CGRect)frame;
-//指示器指向一个UIView
-- (void)indicatorView:(TutorialIndicatorView*)indicatorView targetView:(UIView *)targetView inRootView:(UIView*)rootView;
 //加入到教程内容的根UIView下
 - (void)addToRootView:(UIView *)rootView;
 - (void)removeFromRootView;

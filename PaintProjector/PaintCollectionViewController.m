@@ -541,13 +541,15 @@
         step.contentView.frame = rect;
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
+        
         //对齐第一个image的底面
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        [step indicatorView:step.indicatorView targetView:cell inRootView:self.rootView];
-        
         CGRect rect = step.indicatorView.frame;
         rect.size.width = cell.frame.size.width;
         step.indicatorView.frame = rect;
+        
+        [step.indicatorView targetView:cell inRootView:self.rootView];
+
     }
     [step addToRootView:self.rootView];
 }

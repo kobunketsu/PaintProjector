@@ -27,9 +27,13 @@
 - (TutorialStep *)addStep:(NSString *)name ofClass:(NSString *)className;
 //删除步骤
 - (void)removeStep:(NSString *)name;
-
+@property (assign, nonatomic) id delegate;
 @property (copy, nonatomic) NSString *name;
 @property (assign, nonatomic) NSInteger curStepIndex;
 @property (weak, nonatomic) TutorialStep *curStep;
 @property (retain, nonatomic) NSMutableArray *steps;
+@end
+
+@protocol TutorialDelegate
+- (void)willTutorialEnd:(Tutorial *)tutorial;
 @end

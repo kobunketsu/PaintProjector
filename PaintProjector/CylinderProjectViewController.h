@@ -193,6 +193,8 @@ InAppPurchaseTableViewControllerDelegate
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender;
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender;
 - (IBAction)userInputParamSliderTouchUp:(UISlider *)sender;
+- (IBAction)userInputParamSliderTouchUpOutside:(UISlider *)sender;
+- (IBAction)userInputParamSliderTouchCancel:(UISlider *)sender;
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender;
 - (void)resetInputParams;
 

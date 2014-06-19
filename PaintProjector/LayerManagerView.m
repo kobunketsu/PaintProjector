@@ -3,7 +3,7 @@
 //  PaintProjector
 //
 //  Created by kobunketsu on 13-4-13.
-//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
+//  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 
 #import "LayerManagerView.h"

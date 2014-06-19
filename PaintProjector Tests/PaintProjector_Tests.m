@@ -1,5 +1,5 @@
 //
-//  PaintProjector_Tests.m
+//  AnaDraw_Tests.m
 //  PaintProjector Tests
 //
 //  Created by 胡 文杰 on 14-1-7.

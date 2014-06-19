@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Tutorial.h"
 #import "TutorialView.h"
+#import "TutorialPageView.h"
+#import "TutorialPageButtonView.h"
 
 @class TutorialManager;
 static TutorialManager *tutorialManager = nil;
 @interface TutorialManager : NSObject
+<TutorialDelegate>
 + (void)initialize;
 + (void)destroy;
 + (TutorialManager *)current;

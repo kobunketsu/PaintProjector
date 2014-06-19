@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "TutorialView.h"
+#import "TutorialPageView.h"
 
 
-@interface TutorialPageButtonView : TutorialView
+@interface TutorialPageButtonView : TutorialPageView
 //进入下一步的按钮
 @property (retain, nonatomic) UIButton *nextButton;
 @end

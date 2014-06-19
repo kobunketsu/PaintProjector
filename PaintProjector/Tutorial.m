@@ -112,6 +112,10 @@
 
 - (void)end{
     self.curStepIndex = -1;
+    
+    if (self.delegate) {
+        [self.delegate willTutorialEnd:self];
+    }
 }
 
 

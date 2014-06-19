@@ -2,8 +2,8 @@
 //  AppDelegate.m
 //  PaintProjector
 //
-//  Created by Marin Todorov on 09/02/2012.
-//  Copyright (c) 2012 Marin Todorov. All rights reserved.
+//  Created by 胡 文杰 on 09/02/2012.
+//  Copyright (c) 2012 Hu Wenjie. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -48,6 +48,14 @@
 //    [DBAccountManager setSharedManager:accountMgr];
 //
 
+#if DEBUG
+    //设置用户参数
+    [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+    [self initTutorial];
+#else
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
@@ -56,17 +64,6 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
     }
     
-#if DEBUG
-    //设置用户参数
-    [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
-    
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
-    [self initTutorial];
-//    }
-#else
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
         //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
         [self copyCollectionFromMainBundleToUserDocument];
@@ -76,8 +73,8 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
-
-        // 這裡判斷是否第一次,初始化教程
+        
+//      這裡判斷是否第一次,初始化教程
         [self initTutorial];
     }
 #endif
@@ -134,6 +131,17 @@
      */
 //    NSLog(@"applicationWillEnterForeground");
     DebugLogSystem(@"applicationWillEnterForeground");
+    
+    //恢复所有动画的播放
+    //恢复教程动画的播放
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    for (TutorialStep *step in [TutorialManager current].curTutorial.steps) {
+        for (TutorialIndicatorView *view in step.indicatorViews) {
+            [view setNeedsLayout];
+        }
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -157,24 +165,52 @@
 }
 
 - (void)copyCollectionFromMainBundleToUserDocument{
-    BOOL success;
+    DebugLogFuncStart(@"copyCollectionFromMainBundleToUserDocument");
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
+    NSError *error = nil;
     NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *documentImagesFolderPath = [documentsDirectory stringByAppendingPathComponent:@"Collection"];
-    success = [fileManager fileExistsAtPath:documentImagesFolderPath];
-    
-    if (success){
-        return;
-    }else{
-        NSString *resourceDBFolderPath = [[[NSBundle mainBundle] resourcePath]
-                                          stringByAppendingPathComponent:@"Collection"];
+    NSString *documentImagesFolderPath = [documentsDirectory stringByAppendingPathComponent:@"Folder_0"];
 
-        [fileManager createDirectoryAtPath:documentImagesFolderPath withIntermediateDirectories:true attributes:nil error:nil];
-        [fileManager copyItemAtPath:resourceDBFolderPath toPath:documentImagesFolderPath
-                              error:&error];
+    if (![fileManager fileExistsAtPath:documentImagesFolderPath]){
+        //不存在，则拷贝app bundle内Collection内的文件到Documents/Folder_0中
+        [fileManager createDirectoryAtPath:documentImagesFolderPath withIntermediateDirectories:true attributes:nil error:&error];
+        if (error) {
+            DebugLogError(@"Error fileManager createDirectoryAtPath: %@", [error localizedDescription]);
+        }
     }
+
+    NSString *resourceDBFolderPath = [[[NSBundle mainBundle] resourcePath]
+                                      stringByAppendingPathComponent:@"Collection"];
+    NSArray *sourceFiles = [fileManager contentsOfDirectoryAtPath:resourceDBFolderPath error:NULL];
+
+    for (NSString *fileName in sourceFiles) {
+        NSString *srcPath = [resourceDBFolderPath stringByAppendingPathComponent:fileName];
+        NSString *destPath = [documentImagesFolderPath stringByAppendingPathComponent:fileName];
+        if ([fileManager fileExistsAtPath:destPath isDirectory:NO]) {
+            //removing file
+            if (![fileManager removeItemAtPath:destPath error:&error])
+            {
+                DebugLogError(@"could not remove old files from user documents/Folder_0. Error:%@",[error description]);
+            }
+        }
+        BOOL success = [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:destPath error:&error];
+        if (success == YES)
+        {
+            DebugLogSuccess(@"file %@ copied from app bundle to user documents/Folder_0.", fileName);
+        }
+        else
+        {
+            DebugLogError(@"Error file %@ copied from app bundle to user documents/Folder_0 :%@", fileName, [error description]);
+        }
+    }
+
+//        error = nil;
+//        [fileManager copyItemAtPath:resourceDBFolderPath toPath:documentImagesFolderPath
+//                              error:&error];
+//        if (error) {
+//            DebugLogError(@"Error fileManager copyItemAtPath:toPath: %@", [error localizedDescription]);
+//        }
 }
 
 #pragma mark- 教程Tutorial
@@ -184,11 +220,18 @@
     AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[TutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
     
     //欢迎界面];
-    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"Anamorphosis.png" withNextButton:true];
+    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"tutorial_main.png" withNextButton:true];
     tutorial.curStep = step;
+    [((TutorialPageButtonView*)tutorial.curStep.contentView).nextButton setTitle:NSLocalizedString(@"TutorialStart", nil) forState:UIControlStateNormal];
     
     //选中图片
     [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+
+    //向后翻页
+    [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionLeft];
+    
+    //向前翻页
+    [tutorial addActionStep:@"CylinderProjectPreviousImage" description:NSLocalizedString(@"CylinderProjectPreviousImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionRight];
     
     //放置设备
     step = [tutorial addPageStep:@"CylinderProjectPutDevice" description:nil pageBounds:CGRectMake(0, 0, 256, 256) pageImage:@"tutorial_putDevice.png" withNextButton:false];
@@ -234,11 +277,15 @@
     [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupImageCenterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
 
+    //调整缩放比例修正显示
+    [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplay" description:NSLocalizedString(@"CylinderProjectSetupZoomFixDisplay", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplayValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    
     //调整到顶视图
     [tutorial addActionStep:@"CylinderProjectTopViewForZoom" description:NSLocalizedString(@"CylinderProjectTopViewForZoom", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
     //调整缩放比例
-    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoom", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoom", nil) bounds:CGRectMake(0, 0, 256, 192) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupZoomValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整到视角视图
@@ -259,7 +306,8 @@
     [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
     //完成教程
-    [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"Anamorphosis.png" withNextButton:true];
+    step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"tutorial_main.png" withNextButton:true];
+    [((TutorialPageButtonView*)step.contentView).nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
     
     [[TutorialManager current] activeTutorial:@"TutorialMain"];
 }

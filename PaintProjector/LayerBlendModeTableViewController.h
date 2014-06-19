@@ -3,7 +3,7 @@
 //  PaintProjector
 //
 //  Created by 胡 文杰 on 13-4-16.
-//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
+//  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

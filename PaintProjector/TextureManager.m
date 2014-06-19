@@ -3,7 +3,7 @@
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 13-2-23.
-//  Copyright (c) 2013年 Marin Todorov. All rights reserved.
+//  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 
 #import "TextureManager.h"

@@ -40,4 +40,8 @@
 }
 */
 
+- (void)setUserInteractionEnabled:(BOOL)userInteractionEnabled{
+    DebugLogWarn(@"setUserInteractionEnabled %i", userInteractionEnabled);
+    [super setUserInteractionEnabled:userInteractionEnabled];
+}
 @end
