@@ -19,7 +19,7 @@
         // Initialization code
         self.opaque = false;
         self.arrowDirection = UIPopoverArrowDirectionUp;
-        
+//        self.targetFrame = CGRectZero;
     }
     return self;
 }
@@ -53,25 +53,31 @@
     label.frame = labelFrame;
 //    DebugLog(@"final textLabel name %@ frame %@", label.text, NSStringFromCGRect(label.frame));
    
+    
     //增加整体动画
+    //保存源frame，在EnterBackgroundh后退出动画时归位
+    CGRect srcframe = self.frame;
+    CGRect destframe = self.frame;
+    
     CGFloat swing = 20;
-    frame = self.frame;
     if (self.arrowDirection == UIPopoverArrowDirectionUp) {
-        frame.origin.y += swing;
+        destframe.origin.y += swing;
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionDown) {
-        frame.origin.y -= swing;
+        destframe.origin.y -= swing;
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionLeft) {
-        frame.origin.x += swing;
+        destframe.origin.x += swing;
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionRight) {
-        frame.origin.x -= swing;
+        destframe.origin.x -= swing;
     }
 
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
-        self.frame = frame;
-    } completion:nil];
+        self.frame = destframe;
+    } completion:^(BOOL finished) {
+        self.frame = srcframe;
+    }];
 }
 
 - (void)setArrowDirection:(UIPopoverArrowDirection)arrowDirection{

@@ -15,7 +15,7 @@
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
 #import "TutorialManager.h"
-
+#import "AppDelegate.h"
 
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
@@ -49,6 +49,9 @@
     if (!self.isLaunchTransitioned) {
         [self startLaunchTransitionToCylinderProject];
     }
+
+    //在教程调整完毕后需要重新加载
+    [self tutorialSetup];
     
     //修正viewDidDisappear unloadPaintFrameView后闪的问题
     [self.collectionView reloadData];
@@ -105,7 +108,6 @@
     
     self.isLaunchTransitioned = false;
     
-    [self tutorialSetup];
 }
 
 - (void)viewDidUnload{
@@ -474,11 +476,18 @@
     Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
-            if ([step.name isEqualToString:@"PaintCollectionWelcome"] ||
-                [step.name isEqualToString:@"PaintCollectionPickImage"]){
+            if ([step.name rangeOfString:@"PaintCollection"].length > 0) {
                 step.delegate = self;
             }
         }
+    }
+    
+    //教程基本要素，需要两张图片来说明操作, 如果文件数量少于两个, 则从app中拷贝两份到用户目录中,重新加载PaintFrameManager
+    if ([self.collectionView numberOfItemsInSection:0] < 2) {
+        AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+        [appDelegate copyCollectionFromMainBundleToUserDocument];
+        [PaintFrameManager destroy];
+        [PaintFrameManager initDataByGroupIndex:0];
     }
 }
 
@@ -516,18 +525,29 @@
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
     //只要是教程,就需要关闭所有其他工具
     self.downToolBar.userInteractionEnabled = enable;
-
     
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         //打开关闭第一个作品的交互
-        if ([self.collectionView numberOfItemsInSection:0] != 1) {
+        if ([self.collectionView numberOfItemsInSection:0] == 0) {
             return;
         }
-        
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        cell.userInteractionEnabled = enable;
+        for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
+            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            cell.userInteractionEnabled = enable;
+        }
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
+        //打开关闭第一个作品的交互
+        if ([self.collectionView numberOfItemsInSection:0] == 0) {
+            return;
+        }
+        for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
+            if (i == 0) {
+                continue;
+            }
+            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            cell.userInteractionEnabled = enable;
+        }
     }
 }
 
@@ -539,6 +559,8 @@
         rect.origin = CGPointMake(50, 400);
         
         step.contentView.frame = rect;
+        [step.contentView bringSubviewToFront:((TutorialPageButtonView*)step.contentView).nextButton];
+        
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
         

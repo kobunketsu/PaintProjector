@@ -414,3 +414,9 @@
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "RgY-E0-Q0o"; */
 "RgY-E0-Q0o.text" = "顶视深度";
+
+/* Class = "IBUILabel"; text = "Try here"; ObjectID = "jJd-6j-mPn"; */
+"jJd-6j-mPn.text" = "在这里试用";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "BXU-rT-2Pa"; */
+"BXU-rT-2Pa.normalTitle" = "重置";

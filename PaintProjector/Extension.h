@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
+#import "NGAParallaxMotion.h"
 #import "NSString+Unit.h"
 #import "UIAlertView+error.h"
 #import "UIColor+String.h"

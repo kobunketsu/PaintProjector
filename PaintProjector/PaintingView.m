@@ -1774,7 +1774,7 @@
     [self resetUndoRedo];
 
     //预编译部分Shader
-//    [self prewarmShaders];
+    [self prewarmShaders];
     
     //第一次presentRenderbuffer,在此之前prewarm所有的shader
     [self _updateRender];

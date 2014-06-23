@@ -27,6 +27,7 @@
 }
 
 - (id)initWithDocPath:(NSString *)docPath{
+    DebugLogSystem(@"initWithDocPath %@", docPath);
     if ((self = [super init])) {
 //        _data = [[PaintData alloc]init];
         _docPath = docPath;
@@ -37,7 +38,7 @@
 }
 
 - (void)dealloc{
-    DebugLogSystem(@"dealloc");
+    DebugLogSystem(@"dealloc docPath %@", self.docPath);
 }
 //创建数据目录
 - (BOOL)createDataPath {

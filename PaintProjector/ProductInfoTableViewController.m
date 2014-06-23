@@ -165,7 +165,8 @@
             [self.delegate willOpenWelcomGuideURL];
             break;
         case 1:
-            [self.delegate willOpenUserManualURL];
+//            [self.delegate willOpenUserManualURL];
+            [self.delegate willOpenTutorial];
             break;
         case 2:
             [self.delegate willOpenSupportURL];

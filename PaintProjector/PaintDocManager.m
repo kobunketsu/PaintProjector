@@ -97,7 +97,14 @@ static PaintDocManager* sharedInstance = nil;
 //        return [date1 compare:date2];
 //    }];
 
-    return [NSMutableArray arrayWithArray:paintDocs];
+    NSArray *sortedPaintDocs = [paintDocs sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        PaintDoc *doc1 = (PaintDoc *)obj1;
+        PaintDoc *doc2 = (PaintDoc *)obj2;
+        
+        return [doc1.docPath compare:doc2.docPath];
+    }];
+    
+    return [NSMutableArray arrayWithArray:sortedPaintDocs];
 }
 
 - (int)directoryCount{
@@ -159,7 +166,8 @@ static PaintDocManager* sharedInstance = nil;
     }
     
     // Get available name
-    NSString *availableName = [NSString stringWithFormat:@"%04d.psf", maxNumber+1];
+    //图片命名规则100x的形式，首字母以1开头, 0留给系统教程图片使用(保证教程的图片可以始终排在最前)
+    NSString *availableName = [NSString stringWithFormat:@"1%03d.psf", maxNumber+1];
     return [dirName stringByAppendingPathComponent:availableName];
 }
 

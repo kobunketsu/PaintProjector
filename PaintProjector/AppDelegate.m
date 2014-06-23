@@ -50,11 +50,12 @@
 
 #if DEBUG
     //设置用户参数
+    [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
-    [self initTutorial];
+//    [self initTutorial];
 #else
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
@@ -219,10 +220,55 @@
     [TutorialManager initialize];
     AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[TutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
     
-    //欢迎界面];
-    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"tutorial_main.png" withNextButton:true];
+    //欢迎界面
+    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];
     tutorial.curStep = step;
     [((TutorialPageButtonView*)tutorial.curStep.contentView).nextButton setTitle:NSLocalizedString(@"TutorialStart", nil) forState:UIControlStateNormal];
+
+    //添加3d 多层次效果
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_main.png"]];
+    imageView.parallaxIntensity = 30;
+    [step.contentView addSubview:imageView];
+
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_bookBG.png"]];
+    imageView.frame = CGRectMake(0, 0, 670, 500);
+    imageView.parallaxIntensity = 25;
+    [step.contentView addSubview:imageView];
+    
+//    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_booklet.png"]];
+//    imageView.frame = CGRectMake(520, 280, 113, 138);
+//    imageView.parallaxIntensity = 25;
+//    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup2.png"]];
+    imageView.frame = CGRectMake(245, 375, 199, 102);
+    imageView.parallaxIntensity = 20;
+    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup3.png"]];
+    imageView.frame = CGRectMake(485, 285, 142, 194);
+    imageView.parallaxIntensity = 10;
+    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup.png"]];
+    imageView.frame = CGRectMake(10, 30, 197, 223);
+    imageView.parallaxIntensity = 10;
+    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_pickImage.png"]];
+    imageView.frame = CGRectMake(460, 15, 191, 251);
+    imageView.parallaxIntensity = 10;
+    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_viewDevice.png"]];
+    imageView.frame = CGRectMake(20, 280, 254, 198);
+    imageView.parallaxIntensity = 10;
+    [step.contentView addSubview:imageView];
+    
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_putDevice.png"]];
+    imageView.frame = CGRectMake(135, 0, 388, 388);
+    imageView.parallaxIntensity = 0;
+    [step.contentView addSubview:imageView];
     
     //选中图片
     [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
@@ -306,9 +352,102 @@
     [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
     //完成教程
-    step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, 670, 500) pageImage:@"tutorial_main.png" withNextButton:true];
-    [((TutorialPageButtonView*)step.contentView).nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
+    CGFloat height = 440;
+    CGFloat width = 670;
+    CGFloat offsetX = 10;
+    step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, width, height) pageImage:nil withNextButton:true];
+    
+    //背景图层
+    TutorialBackgroundView *view = [[TutorialBackgroundView alloc]initWithFrame:step.contentView.bounds];
+    view.opaque = false;
+    [step.contentView addSubview:view];
+    
+    //标题图层
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 100)];
+    label.textColor = [UIColor darkGrayColor];
+    label.text = NSLocalizedString(@"QuickGestures", nil);
+    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 40]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [step.contentView  addSubview:label];
+    
+    //添加tutorial collection view
+    UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
+    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.itemSize=CGSizeMake(180,230);
+    flowLayout.minimumInteritemSpacing = 10;
+    flowLayout.minimumLineSpacing = 10;
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    TutorialPaintScreenGestureCollectionView *collectionView = [[TutorialPaintScreenGestureCollectionView alloc] initWithFrame:CGRectMake(offsetX, 0, width - offsetX * 2, height - 10) collectionViewLayout:flowLayout];
+    collectionView.opaque = false;
+    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.dataSource=self;
+    [collectionView registerClass:[TutorialPaintScreenGestureCollectionViewCell class] forCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"];
+    [step.contentView addSubview:collectionView];
+    
+    //添加遮盖效果层
+    TutorialBackgroundLeftEdgeView *leftEdgeView = [[TutorialBackgroundLeftEdgeView alloc]initWithFrame:CGRectMake(0, 0, offsetX + 20, height)];
+    [step.contentView addSubview:leftEdgeView];
+    TutorialBackgroundRightEdgeView *rightEdgeView = [[TutorialBackgroundRightEdgeView alloc]initWithFrame:CGRectMake(width - 20 - offsetX, 0, offsetX + 20, height)];
+    [step.contentView addSubview:rightEdgeView];
+    
+    UIButton *nextButton = ((TutorialPageButtonView*)step.contentView).nextButton;
+    [((TutorialPageButtonView*)step.contentView) bringSubviewToFront:nextButton];
+    [nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
     
     [[TutorialManager current] activeTutorial:@"TutorialMain"];
+}
+
+#pragma mark- 教程代理
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 11;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    TutorialPaintScreenGestureCollectionViewCell *cell = (TutorialPaintScreenGestureCollectionViewCell*) [collectionView dequeueReusableCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"
+                                                                                                   forIndexPath:indexPath];
+    
+    cell.userInteractionEnabled = false;
+    NSString *imageName = nil;
+    switch (indexPath.row) {
+        case 0:
+            imageName = @"tutorial_gesture1FingerTapHold";
+            break;
+        case 1:
+            imageName = @"tutorial_gesture2FingerDrag";
+            break;
+        case 2:
+            imageName = @"tutorial_gesture2FingerRotate";
+            break;
+        case 3:
+            imageName = @"tutorial_gesture2FingerPinch";
+            break;
+        case 4:
+            imageName = @"tutorial_gesture2FingerSpread";
+            break;
+        case 5:
+            imageName = @"tutorial_gesture2FingerDoubleTap";
+            break;
+        case 6:
+            imageName = @"tutorial_gesture3FingerUp";
+            break;
+        case 7:
+            imageName = @"tutorial_gesture3FingerDown";
+            break;
+        case 8:
+            imageName = @"tutorial_gesture3FingerLeft";
+            break;
+        case 9:
+            imageName = @"tutorial_gesture3FingerRight";
+            break;
+        case 10:
+            imageName = @"tutorial_gesture3FingerZ";
+            break;
+        default:
+            break;
+    }
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+    cell.label.text = NSLocalizedString(imageName, nil);
+    
+    return cell;
 }
 @end

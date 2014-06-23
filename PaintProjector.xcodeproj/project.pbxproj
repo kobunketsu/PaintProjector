@@ -215,6 +215,8 @@
 		08402CB41701E1F000DE952A /* PaintData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08402CB31701E1F000DE952A /* PaintData.m */; };
 		084228A618A7CADA0046BA61 /* UIView+Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 084228A518A7CADA0046BA61 /* UIView+Tag.m */; };
 		084228A718A7CADA0046BA61 /* UIView+Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 084228A518A7CADA0046BA61 /* UIView+Tag.m */; };
+		08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
+		08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
 		084691031747C80300E50554 /* LayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691021747C80200E50554 /* LayerTableViewCell.m */; };
 		084691061748917000E50554 /* LayerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691051748917000E50554 /* LayerImageView.m */; };
 		084691411748C4CA00E50554 /* LayerToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691401748C4C800E50554 /* LayerToolView.m */; };
@@ -294,6 +296,12 @@
 		086CF49F1919E6EB000F1FBB /* RenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RenderSettings.m */; };
 		086CF4A01919E6EB000F1FBB /* RenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RenderSettings.m */; };
 		086F8EDE1728AE2F0024289C /* ExportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ExportTableViewController.m */; };
+		086FBF071953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */; };
+		086FBF081953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */; };
+		086FBF0A1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF091953E2AD00BCD4E5 /* tutorial_setup2.png */; };
+		086FBF0B1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF091953E2AD00BCD4E5 /* tutorial_setup2.png */; };
+		086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
+		086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
 		08701169177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m */; };
 		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		087103091914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
@@ -316,6 +324,30 @@
 		0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */; };
 		0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
+		087512B31957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087512B21957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m */; };
+		087512B41957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087512B21957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m */; };
+		087512FE1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087512FD1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m */; };
+		087512FF1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087512FD1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m */; };
+		08751304195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */; };
+		08751305195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */; };
+		08751306195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */; };
+		08751307195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */; };
+		08751308195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751302195806BC00FC03CC /* tutorial_gesture2FingerRotate.png */; };
+		08751309195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751302195806BC00FC03CC /* tutorial_gesture2FingerRotate.png */; };
+		0875130A195806BC00FC03CC /* tutorial_gesture2FingerSpread.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751303195806BC00FC03CC /* tutorial_gesture2FingerSpread.png */; };
+		0875130B195806BC00FC03CC /* tutorial_gesture2FingerSpread.png in Resources */ = {isa = PBXBuildFile; fileRef = 08751303195806BC00FC03CC /* tutorial_gesture2FingerSpread.png */; };
+		0875131119580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130C19580D4700FC03CC /* tutorial_gesture3FingerDown.png */; };
+		0875131219580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130C19580D4700FC03CC /* tutorial_gesture3FingerDown.png */; };
+		0875131319580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130D19580D4700FC03CC /* tutorial_gesture3FingerLeft.png */; };
+		0875131419580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130D19580D4700FC03CC /* tutorial_gesture3FingerLeft.png */; };
+		0875131519580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130E19580D4700FC03CC /* tutorial_gesture3FingerRight.png */; };
+		0875131619580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130E19580D4700FC03CC /* tutorial_gesture3FingerRight.png */; };
+		0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130F19580D4700FC03CC /* tutorial_gesture3FingerUp.png */; };
+		0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875130F19580D4700FC03CC /* tutorial_gesture3FingerUp.png */; };
+		0875131919580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131019580D4700FC03CC /* tutorial_gesture3FingerZ.png */; };
+		0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131019580D4700FC03CC /* tutorial_gesture3FingerZ.png */; };
+		0875131C1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */; };
+		0875131D1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
 		0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
 		0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
@@ -337,8 +369,6 @@
 		087FE74A173E2F9C009B34A2 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE749173E2F9B009B34A2 /* Marker.m */; };
 		08802F601766A4BF00276B15 /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F5F1766A4BF00276B15 /* Command.m */; };
 		08802F6B1766FCFF00276B15 /* OpenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F6A1766FCFF00276B15 /* OpenCommand.m */; };
-		08829D0A194CB6420072284F /* Anamorphosis.png in Resources */ = {isa = PBXBuildFile; fileRef = 08829D09194CB6420072284F /* Anamorphosis.png */; };
-		08829D0B194CB6420072284F /* Anamorphosis.png in Resources */ = {isa = PBXBuildFile; fileRef = 08829D09194CB6420072284F /* Anamorphosis.png */; };
 		088505BA17F718DF00E460CA /* LockCanvasRotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505B917F718DF00E460CA /* LockCanvasRotationView.m */; };
 		088505BF17F720FF00E460CA /* ZoomCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505BE17F720FF00E460CA /* ZoomCanvasView.m */; };
 		088505C217F724EF00E460CA /* RotateCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505C117F724EF00E460CA /* RotateCanvasView.m */; };
@@ -492,6 +522,16 @@
 		08E4E7771951C23C003C77DB /* AnaDrawStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* AnaDrawStyleKit.m */; };
 		08E4E77E1951E9B4003C77DB /* TutorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* TutorialNextButton.m */; };
 		08E4E77F1951E9B4003C77DB /* TutorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* TutorialNextButton.m */; };
+		08E505D91956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m */; };
+		08E505DA1956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m */; };
+		08E505DD1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505DC1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m */; };
+		08E505DE1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505DC1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m */; };
+		08E505E11956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505E01956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m */; };
+		08E505E21956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505E01956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m */; };
+		08E505EB19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E505EA19570D3400ED86BF /* tutorial_gesture2FingerDrag.png */; };
+		08E505EC19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E505EA19570D3400ED86BF /* tutorial_gesture2FingerDrag.png */; };
+		08E505F2195722D900ED86BF /* TutorialBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505F1195722D900ED86BF /* TutorialBackgroundView.m */; };
+		08E505F3195722D900ED86BF /* TutorialBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505F1195722D900ED86BF /* TutorialBackgroundView.m */; };
 		08E5857C1913D8DB002DBF68 /* SetupEyeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5857B1913D8DB002DBF68 /* SetupEyeView.m */; };
 		08E5857D1913D8DB002DBF68 /* SetupEyeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5857B1913D8DB002DBF68 /* SetupEyeView.m */; };
 		08E585821913E791002DBF68 /* SetupUnitZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E585811913E791002DBF68 /* SetupUnitZoomView.m */; };
@@ -986,6 +1026,7 @@
 		0842289F18A7A4F50046BA61 /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animation.m; path = PaintProjector/Animation.m; sourceTree = "<group>"; };
 		084228A418A7CADA0046BA61 /* UIView+Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Tag.h"; sourceTree = "<group>"; };
 		084228A518A7CADA0046BA61 /* UIView+Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Tag.m"; sourceTree = "<group>"; };
+		08439D24195405EF0022E2A7 /* tutorial_bookBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_bookBG.png; path = PaintProjector/Images/tutorial_bookBG.png; sourceTree = "<group>"; };
 		084691011747C80200E50554 /* LayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerTableViewCell.h; sourceTree = "<group>"; };
 		084691021747C80200E50554 /* LayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerTableViewCell.m; sourceTree = "<group>"; };
 		084691041748916E00E50554 /* LayerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerImageView.h; sourceTree = "<group>"; };
@@ -1095,6 +1136,10 @@
 		086CF49E1919E6EB000F1FBB /* RenderSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderSettings.m; path = PaintProjector/RenderSettings.m; sourceTree = "<group>"; };
 		086F8EDC1728AE2F0024289C /* ExportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportTableViewController.h; sourceTree = "<group>"; };
 		086F8EDD1728AE2F0024289C /* ExportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportTableViewController.m; sourceTree = "<group>"; };
+		086FBF051953D8D700BCD4E5 /* NGAParallaxMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGAParallaxMotion.h; sourceTree = "<group>"; };
+		086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGAParallaxMotion.m; sourceTree = "<group>"; };
+		086FBF091953E2AD00BCD4E5 /* tutorial_setup2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_setup2.png; path = PaintProjector/Images/tutorial_setup2.png; sourceTree = "<group>"; };
+		086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_setup3.png; path = PaintProjector/Images/tutorial_setup3.png; sourceTree = "<group>"; };
 		08701167177B2C0000C2EE66 /* LayerBlendModeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerBlendModeTableViewCell.h; sourceTree = "<group>"; };
 		08701168177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
 		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
@@ -1127,6 +1172,20 @@
 		0872BA441915C80700559E96 /* OpenGLWaveFrontObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontObject.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.h; sourceTree = "<group>"; };
 		0872BA451915C80700559E96 /* OpenGLWaveFrontObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontObject.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontObject.m; sourceTree = "<group>"; };
 		0872BA4E1915CCA600559E96 /* ConstantsAndMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstantsAndMacros.h; path = OpenGLWaveFrontObj/ConstantsAndMacros.h; sourceTree = "<group>"; };
+		087512B11957D67600FC03CC /* TutorialBackgroundLeftEdgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialBackgroundLeftEdgeView.h; path = PaintProjector/TutorialBackgroundLeftEdgeView.h; sourceTree = "<group>"; };
+		087512B21957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialBackgroundLeftEdgeView.m; path = PaintProjector/TutorialBackgroundLeftEdgeView.m; sourceTree = "<group>"; };
+		087512FC1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialBackgroundRightEdgeView.h; path = PaintProjector/TutorialBackgroundRightEdgeView.h; sourceTree = "<group>"; };
+		087512FD1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialBackgroundRightEdgeView.m; path = PaintProjector/TutorialBackgroundRightEdgeView.m; sourceTree = "<group>"; };
+		08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture2FingerDoubleTap.png; path = PaintProjector/Images/tutorial_gesture2FingerDoubleTap.png; sourceTree = "<group>"; };
+		08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture2FingerPinch.png; path = PaintProjector/Images/tutorial_gesture2FingerPinch.png; sourceTree = "<group>"; };
+		08751302195806BC00FC03CC /* tutorial_gesture2FingerRotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture2FingerRotate.png; path = PaintProjector/Images/tutorial_gesture2FingerRotate.png; sourceTree = "<group>"; };
+		08751303195806BC00FC03CC /* tutorial_gesture2FingerSpread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture2FingerSpread.png; path = PaintProjector/Images/tutorial_gesture2FingerSpread.png; sourceTree = "<group>"; };
+		0875130C19580D4700FC03CC /* tutorial_gesture3FingerDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture3FingerDown.png; path = PaintProjector/Images/tutorial_gesture3FingerDown.png; sourceTree = "<group>"; };
+		0875130D19580D4700FC03CC /* tutorial_gesture3FingerLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture3FingerLeft.png; path = PaintProjector/Images/tutorial_gesture3FingerLeft.png; sourceTree = "<group>"; };
+		0875130E19580D4700FC03CC /* tutorial_gesture3FingerRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture3FingerRight.png; path = PaintProjector/Images/tutorial_gesture3FingerRight.png; sourceTree = "<group>"; };
+		0875130F19580D4700FC03CC /* tutorial_gesture3FingerUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture3FingerUp.png; path = PaintProjector/Images/tutorial_gesture3FingerUp.png; sourceTree = "<group>"; };
+		0875131019580D4700FC03CC /* tutorial_gesture3FingerZ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture3FingerZ.png; path = PaintProjector/Images/tutorial_gesture3FingerZ.png; sourceTree = "<group>"; };
+		0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture1FingerTapHold.png; path = PaintProjector/Images/tutorial_gesture1FingerTapHold.png; sourceTree = "<group>"; };
 		0875605A17676CD8002B806D /* ClearCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCommand.h; sourceTree = "<group>"; };
 		0875605B17676CD8002B806D /* ClearCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCommand.m; sourceTree = "<group>"; };
 		0876F491193215E600E7906B /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
@@ -1161,7 +1220,6 @@
 		08802F5F1766A4BF00276B15 /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Command.m; sourceTree = "<group>"; };
 		08802F691766FCFE00276B15 /* OpenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCommand.h; sourceTree = "<group>"; };
 		08802F6A1766FCFF00276B15 /* OpenCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenCommand.m; sourceTree = "<group>"; };
-		08829D09194CB6420072284F /* Anamorphosis.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Anamorphosis.png; path = PaintProjector/Images/Anamorphosis.png; sourceTree = SOURCE_ROOT; };
 		088505B817F718DF00E460CA /* LockCanvasRotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockCanvasRotationView.h; sourceTree = "<group>"; };
 		088505B917F718DF00E460CA /* LockCanvasRotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockCanvasRotationView.m; sourceTree = "<group>"; };
 		088505BD17F720FF00E460CA /* ZoomCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomCanvasView.h; sourceTree = "<group>"; };
@@ -1359,6 +1417,15 @@
 		08E4E7751951C23C003C77DB /* AnaDrawStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnaDrawStyleKit.m; path = PaintProjector/AnaDrawStyleKit.m; sourceTree = "<group>"; };
 		08E4E77C1951E9B4003C77DB /* TutorialNextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialNextButton.h; path = PaintProjector/TutorialNextButton.h; sourceTree = "<group>"; };
 		08E4E77D1951E9B4003C77DB /* TutorialNextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialNextButton.m; path = PaintProjector/TutorialNextButton.m; sourceTree = "<group>"; };
+		08E505D71956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPaintScreenGestureCollectionView.h; path = PaintProjector/TutorialPaintScreenGestureCollectionView.h; sourceTree = "<group>"; };
+		08E505D81956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPaintScreenGestureCollectionView.m; path = PaintProjector/TutorialPaintScreenGestureCollectionView.m; sourceTree = "<group>"; };
+		08E505DB1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPaintScreenGestureCollectionViewController.h; path = PaintProjector/TutorialPaintScreenGestureCollectionViewController.h; sourceTree = "<group>"; };
+		08E505DC1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPaintScreenGestureCollectionViewController.m; path = PaintProjector/TutorialPaintScreenGestureCollectionViewController.m; sourceTree = "<group>"; };
+		08E505DF1956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialPaintScreenGestureCollectionViewCell.h; path = PaintProjector/TutorialPaintScreenGestureCollectionViewCell.h; sourceTree = "<group>"; };
+		08E505E01956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialPaintScreenGestureCollectionViewCell.m; path = PaintProjector/TutorialPaintScreenGestureCollectionViewCell.m; sourceTree = "<group>"; };
+		08E505EA19570D3400ED86BF /* tutorial_gesture2FingerDrag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture2FingerDrag.png; path = PaintProjector/Images/tutorial_gesture2FingerDrag.png; sourceTree = "<group>"; };
+		08E505F0195722D900ED86BF /* TutorialBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialBackgroundView.h; path = PaintProjector/TutorialBackgroundView.h; sourceTree = "<group>"; };
+		08E505F1195722D900ED86BF /* TutorialBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialBackgroundView.m; path = PaintProjector/TutorialBackgroundView.m; sourceTree = "<group>"; };
 		08E5857A1913D8DA002DBF68 /* SetupEyeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupEyeView.h; sourceTree = "<group>"; };
 		08E5857B1913D8DB002DBF68 /* SetupEyeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupEyeView.m; sourceTree = "<group>"; };
 		08E585801913E791002DBF68 /* SetupUnitZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupUnitZoomView.h; sourceTree = "<group>"; };
@@ -1850,12 +1917,25 @@
 		08525114194D852F0087F4AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				08439D24195405EF0022E2A7 /* tutorial_bookBG.png */,
 				08FD0A1E1952EF0500643DC3 /* tutorial_main.png */,
 				081B5EAC194F3AF80035CD58 /* tutorial_setup.png */,
+				086FBF091953E2AD00BCD4E5 /* tutorial_setup2.png */,
+				086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */,
 				08525115194D853D0087F4AF /* tutorial_pickImage.png */,
 				08525116194D853D0087F4AF /* tutorial_putDevice.png */,
 				08525118194D853D0087F4AF /* tutorial_viewDevice.png */,
-				08829D09194CB6420072284F /* Anamorphosis.png */,
+				0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */,
+				08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */,
+				08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */,
+				08751302195806BC00FC03CC /* tutorial_gesture2FingerRotate.png */,
+				08751303195806BC00FC03CC /* tutorial_gesture2FingerSpread.png */,
+				08E505EA19570D3400ED86BF /* tutorial_gesture2FingerDrag.png */,
+				0875130C19580D4700FC03CC /* tutorial_gesture3FingerDown.png */,
+				0875130D19580D4700FC03CC /* tutorial_gesture3FingerLeft.png */,
+				0875130E19580D4700FC03CC /* tutorial_gesture3FingerRight.png */,
+				0875130F19580D4700FC03CC /* tutorial_gesture3FingerUp.png */,
+				0875131019580D4700FC03CC /* tutorial_gesture3FingerZ.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1981,6 +2061,18 @@
 				08E4E77D1951E9B4003C77DB /* TutorialNextButton.m */,
 				08C65E7B1950124500961551 /* AnaDrawTutorial.h */,
 				08C65E7C1950124500961551 /* AnaDrawTutorial.m */,
+				08E505F0195722D900ED86BF /* TutorialBackgroundView.h */,
+				08E505F1195722D900ED86BF /* TutorialBackgroundView.m */,
+				087512B11957D67600FC03CC /* TutorialBackgroundLeftEdgeView.h */,
+				087512B21957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m */,
+				087512FC1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.h */,
+				087512FD1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m */,
+				08E505D71956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.h */,
+				08E505D81956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m */,
+				08E505DF1956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.h */,
+				08E505E01956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m */,
+				08E505DB1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.h */,
+				08E505DC1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m */,
 			);
 			name = TutorialScreen;
 			sourceTree = "<group>";
@@ -2532,6 +2624,8 @@
 				084228A518A7CADA0046BA61 /* UIView+Tag.m */,
 				08DEDCC1194B4C2600155A91 /* UIView+VisibilityAnimation.h */,
 				08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */,
+				086FBF051953D8D700BCD4E5 /* NGAParallaxMotion.h */,
+				086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -2632,12 +2726,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
+				08751305195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
+				0875131419580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
 				08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
 				08086E3918DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
 				08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08086E4318DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
+				08E505EC19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
@@ -2655,23 +2752,27 @@
 				08D4B8BB18C56611008F5293 /* Default.swatch in Resources */,
 				08086E9B18DC8BA300F03EB4 /* email_48.png in Resources */,
 				08086F0E18DC95A800F03EB4 /* iRate.bundle in Resources */,
+				08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08086E3518DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
 				364524c221467b3b1a347142 /* Images.xcassets in Resources */,
 				08086E4518DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
+				0875131D1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */,
+				08751307195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */,
 				08086E4718DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */,
 				08F905D4194AC982002918AA /* iap_brushAirbrush.png in Resources */,
 				08086E8D18DC8BA300F03EB4 /* cylinderMain.png in Resources */,
 				08E8AB07194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */,
 				08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */,
+				0875131619580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */,
 				08086E3718DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */,
 				08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
 				08B2CFA918C0CA9E00D34C1E /* Swatches in Resources */,
-				08829D0B194CB6420072284F /* Anamorphosis.png in Resources */,
 				08086E5B18DC8BA300F03EB4 /* brush_square_64.png in Resources */,
 				baeee30903f0ac5ba28684ff /* Shaders in Resources */,
 				08086E4118DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
 				08086E7318DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
 				08F905D0194AC982002918AA /* iap_brushMarkerHard.png in Resources */,
+				0875130B195806BC00FC03CC /* tutorial_gesture2FingerSpread.png in Resources */,
 				08F905D8194AC982002918AA /* iap_brushFinger.png in Resources */,
 				08E06125193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */,
 				080FBABB1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
@@ -2692,21 +2793,27 @@
 				08F905D2194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
+				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */,
+				086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				a6559ed589dcc0977b6e52e4 /* cylinderCap.png in Resources */,
 				08E06127193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */,
 				08E0612D193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */,
+				0875131219580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
+				0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
 				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
 				08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08086E5F18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */,
 				08FB9B171942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */,
 				08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
+				08751309195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				08086E7D18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E2F18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */,
 				08086EF118DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
 				08BD36E91932D097000B14EF /* bgRootView.png in Resources */,
 				08086E7118DC8BA300F03EB4 /* chalkStroke.png in Resources */,
+				086FBF0B1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
 				08086ED318DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				08F905D6194AC982002918AA /* iap_brushCrayons.png in Resources */,
 				08DEDCCC194B55FE00155A91 /* Pro_pallete.png in Resources */,
@@ -2718,12 +2825,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
+				08751304195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
+				0875131319580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
 				08086E4818DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */,
 				08FB9B161942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */,
 				08E06126193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */,
 				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
 				080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
+				08E505EB19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08FD0A1F1952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */,
@@ -2741,23 +2851,27 @@
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				08BD36E81932D097000B14EF /* bgRootView.png in Resources */,
+				08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08086EFE18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				0832E27E1933A7EA004BD986 /* release_notes.md in Resources */,
 				08E06124193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */,
+				0875131C1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */,
+				08751306195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */,
 				08086E7018DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				08086EA418DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08F905D3194AC982002918AA /* iap_brushAirbrush.png in Resources */,
 				08E8AB06194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */,
 				08086E7818DC8BA300F03EB4 /* checkCircle.png in Resources */,
+				0875131519580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */,
 				08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */,
 				08086E5A18DC8BA300F03EB4 /* brush_square_64.png in Resources */,
 				08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */,
-				08829D0A194CB6420072284F /* Anamorphosis.png in Resources */,
 				0897D7D9187C43CF00A7ECD2 /* Shaders in Resources */,
 				08086EB418DC8BA300F03EB4 /* noise.png in Resources */,
 				08086E9A18DC8BA300F03EB4 /* email_48.png in Resources */,
 				0860059417466C6B004BF021 /* SharedTableViewCell.xib in Resources */,
 				084691431748C4F700E50554 /* LayerToolView.xib in Resources */,
+				0875130A195806BC00FC03CC /* tutorial_gesture2FingerSpread.png in Resources */,
 				08F905CF194AC982002918AA /* iap_brushMarkerHard.png in Resources */,
 				08F905D7194AC982002918AA /* iap_brushFinger.png in Resources */,
 				08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */,
@@ -2778,21 +2892,27 @@
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
 				08F905D1194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				0832E27C1933A7EA004BD986 /* README.md in Resources */,
+				0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
+				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				08E0612A193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				08086E4018DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
+				0875131119580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
+				0875131919580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				08086E9818DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */,
 				08086E3418DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
 				08086E3818DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
 				08086E7C18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
+				08751308195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				0815334817D3809300A45B54 /* cylinderShadow.png in Resources */,
 				08086E4A18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
 				08086EC618DC8BA300F03EB4 /* PhotoLibrary.png in Resources */,
 				08086E2E18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */,
 				08086F0D18DC95A800F03EB4 /* iRate.bundle in Resources */,
+				086FBF0A1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
 				08086E4618DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */,
 				08F905D5194AC982002918AA /* iap_brushCrayons.png in Resources */,
 				08DEDCCB194B55FE00155A91 /* Pro_pallete.png in Resources */,
@@ -2852,6 +2972,7 @@
 				08F5F3F218B861200009AD0C /* InAppPurchaseTableViewController.m in Sources */,
 				0826776018E1E1BC004DA2F4 /* LayerTableViewCellBackgroundView.m in Sources */,
 				64f24f107f9afdcf43baf8ef /* UIImage+Pixel.m in Sources */,
+				08E505F3195722D900ED86BF /* TutorialBackgroundView.m in Sources */,
 				0826EE8A18B98A230074FC9F /* ProductFeatureCollectionView.m in Sources */,
 				882033cbd8efa1050a5d6091 /* main.m in Sources */,
 				7006733dd0f628190d42e0b3 /* AppDelegate.m in Sources */,
@@ -2867,6 +2988,7 @@
 				08A79C161925A58D00E4EA6E /* LayerOpacityLockButton.m in Sources */,
 				6381e8b40ffe2d3a97f2793f /* Brush.m in Sources */,
 				08F51712195164D6007E921B /* UISlider+Extension.m in Sources */,
+				08E505DE1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m in Sources */,
 				4a7f4d3e26dbcdd05e7ad0ee /* FullScreenButton.m in Sources */,
 				08E251B9189CC10E0039AAC2 /* ShaderCylinderProject.m in Sources */,
 				fc02174cda07eb7d780993b2 /* EraserSoft.m in Sources */,
@@ -2921,6 +3043,7 @@
 				1ca44ed5ff6f0be437e9f414 /* PaintCommand.m in Sources */,
 				0898765F1913897B009CEB3D /* SetupCylinderImageView.m in Sources */,
 				ec38f479ccf9e1931b167ef3 /* CommandStack.m in Sources */,
+				086FBF081953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */,
 				cbbf0dc46bdbbadad4735fba /* BrushTypeScrollView.m in Sources */,
 				0872BA4D1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */,
 				7d294f94056ab44ed9d1c266 /* ChineseBrush.m in Sources */,
@@ -3030,6 +3153,7 @@
 				c4c4076e6f190f58cf0e49f3 /* BrushTypeSmallButton.m in Sources */,
 				08FF70C9189003AC00A7A09B /* PaintCollectionViewController.m in Sources */,
 				097a24bfe38a93ccf92d0a2b /* EyeDropperIndicatorView.m in Sources */,
+				08E505DA1956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m in Sources */,
 				08771E651927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				3c475975e807db0d73ebe205 /* SharedTableViewCell.m in Sources */,
 				08E4E7771951C23C003C77DB /* AnaDrawStyleKit.m in Sources */,
@@ -3052,6 +3176,7 @@
 				08B2A07D18A0930B003C888F /* Display.m in Sources */,
 				ae562571891c95d007ed289c /* LayerOpacitySlider.m in Sources */,
 				bf4c2ea3f33c32c54f09c908 /* LayerBlendModeButton.m in Sources */,
+				087512FF1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m in Sources */,
 				05630e6029267a567a7cabf6 /* LayerBlendModePopoverController.m in Sources */,
 				087103091914B1390030A5BF /* NSString+Unit.m in Sources */,
 				214927804934d810791d2b43 /* LayerMergeButton.m in Sources */,
@@ -3092,6 +3217,7 @@
 				d8bdff304e0f79a9f54c168b /* Grid.m in Sources */,
 				5a5db63ef5b4e6fc338c0164 /* LayerTableView.m in Sources */,
 				5870b9c890bac2d4959be73c /* PlayerView.m in Sources */,
+				08E505E21956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m in Sources */,
 				08234EC318915F32008B4189 /* FileButton.m in Sources */,
 				8d64d8874378c84411e6a59e /* CylinderProjectView.m in Sources */,
 				08525111194D62200087F4AF /* TutorialManager.m in Sources */,
@@ -3115,6 +3241,7 @@
 				e21b4e595f0fb5cfb4d67bfc /* Crayons.m in Sources */,
 				b9c7be3996399a503583fba3 /* DeleteButton.m in Sources */,
 				082060D6189D40090027247C /* Texture.m in Sources */,
+				087512B41957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m in Sources */,
 				08CE4BFB18D7D2C1008C4904 /* InfoButton.m in Sources */,
 				1963f0d7ee62b31500050c89 /* CopyButton.m in Sources */,
 				eb691b221ae1cb3c95f2e4e5 /* BackButton.m in Sources */,
@@ -3143,6 +3270,7 @@
 				0826EE8D18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */,
 				9CFE0B9814E5B12B00408F86 /* UIImage+Alpha.m in Sources */,
 				9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */,
+				08E505E11956FD4200ED86BF /* TutorialPaintScreenGestureCollectionViewCell.m in Sources */,
 				088E1D8418A26F700059002C /* ShaderCylinder.m in Sources */,
 				9CFE0B9A14E5B12B00408F86 /* UIImage+RoundedCorner.m in Sources */,
 				0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */,
@@ -3158,6 +3286,7 @@
 				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
 				086BF05B18A12B2500948175 /* CylinderMesh.m in Sources */,
 				0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */,
+				08E505F2195722D900ED86BF /* TutorialBackgroundView.m in Sources */,
 				088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */,
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
 				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
@@ -3174,6 +3303,7 @@
 				08383D421931C06900EA3647 /* BrushSwapButton.m in Sources */,
 				0809EA45164946E00061233D /* UndoButton.m in Sources */,
 				0809EA49164970D70061233D /* Heap.m in Sources */,
+				08E505DD1956F68700ED86BF /* TutorialPaintScreenGestureCollectionViewController.m in Sources */,
 				08F9B518164C0691001B3D3D /* BrushToolBar.m in Sources */,
 				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* CylinderProjectRootView.m in Sources */,
@@ -3314,6 +3444,7 @@
 				0853818E173E97FC00069C27 /* BrushTypeSmallButton.m in Sources */,
 				0808118318C4A89C004D53F6 /* SwatchChartButton.m in Sources */,
 				08FF70C8189003AC00A7A09B /* PaintCollectionViewController.m in Sources */,
+				086FBF071953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */,
 				0803D1F6189FCCDB0068B14B /* RenderTexture.m in Sources */,
 				08E16DC917412581000B211D /* EyeDropperIndicatorView.m in Sources */,
 				0860059717466DEC004BF021 /* SharedTableViewCell.m in Sources */,
@@ -3342,12 +3473,14 @@
 				08A0315A18DE8896006EE308 /* IconColorPermeateButton.m in Sources */,
 				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
+				087512B31957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
 				0861490218D7442900661AD6 /* SetupButton.m in Sources */,
 				08E5857C1913D8DB002DBF68 /* SetupEyeView.m in Sources */,
 				08624EFF18D3EBC400FD971E /* CylinderProjectToPaintCollectionTransitionManager.m in Sources */,
 				08802F6B1766FCFF00276B15 /* OpenCommand.m in Sources */,
 				0875605C17676CD8002B806D /* ClearCommand.m in Sources */,
+				087512FE1957FC3E00FC03CC /* TutorialBackgroundRightEdgeView.m in Sources */,
 				08E585821913E791002DBF68 /* SetupUnitZoomView.m in Sources */,
 				08E0584F17683621007955BB /* UndoBaseCommand.m in Sources */,
 				08701169177B2C0000C2EE66 /* LayerBlendModeTableViewCell.m in Sources */,
@@ -3392,6 +3525,7 @@
 				08AB75C5188F5A5A007DA20B /* PaintCollectionView.m in Sources */,
 				0871D02A1812A27400A0D037 /* Crayons.m in Sources */,
 				0860669017D2DB60002EE42A /* DeleteButton.m in Sources */,
+				08E505D91956F57400ED86BF /* TutorialPaintScreenGestureCollectionView.m in Sources */,
 				08AE475818C8C126008940E8 /* SwatchManagerViewController.m in Sources */,
 				08956DC518976F5B00EAB16C /* PaintFrameTransitionManager.m in Sources */,
 				08F51711195164D6007E921B /* UISlider+Extension.m in Sources */,

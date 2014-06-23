@@ -102,7 +102,7 @@
     
     [self.tutorials removeObjectForKey:name];
 }
-
+#pragma mark- 教程代理 TutorialDelegate
 - (void)willTutorialEnd:(Tutorial *)tutorial{
     DebugLogFuncStart(@"willTutorialEnd %@", tutorial.name);
     tutorial = nil;

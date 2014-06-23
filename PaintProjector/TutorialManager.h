@@ -11,6 +11,11 @@
 #import "TutorialView.h"
 #import "TutorialPageView.h"
 #import "TutorialPageButtonView.h"
+#import "TutorialPaintScreenGestureCollectionView.h"
+#import "TutorialPaintScreenGestureCollectionViewCell.h"
+#import "TutorialBackgroundView.h"
+#import "TutorialBackgroundLeftEdgeView.h"
+#import "TutorialBackgroundRightEdgeView.h"
 
 @class TutorialManager;
 static TutorialManager *tutorialManager = nil;

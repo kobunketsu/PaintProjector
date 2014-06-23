@@ -16,7 +16,7 @@
 #import "AssetDatabase.h"
 #import "CylinderProjectVirtualDeviceCollectionViewController.h"
 #import "TutorialManager.h"
-
+#import "AppDelegate.h"
 
 #define FarClipDistance 10
 #define NearClipDistance 0.0001
@@ -80,7 +80,7 @@
     //run completion block
     [self allViewUserInteractionEnable:true];
     
-    
+    [self tutorialSetup];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -153,8 +153,7 @@
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
     
-    [self tutorialSetup];
-
+   
 }
 
 - (void)viewDidUnload{
@@ -732,7 +731,22 @@
         [[UIApplication sharedApplication] openURL:url];
     }
 }
+- (void)willOpenTutorial{
+    [RemoteLog logAction:@"willOpenTutorial" identifier:nil];
 
+    [self.sharedPopoverController dismissPopoverAnimated:true];
+    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+    [appDelegate initTutorial];
+    
+    //测试
+//#if DEBUG
+//    [self tutorialSetup];
+//    [[TutorialManager current].curTutorial startFromStepName:@"CylinderProjectPaint"];
+//#else
+    [self galleryButtonTouchUp:self.galleryButton];
+//#endif
+    
+}
 #pragma mark- 内容CylinderProject View
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
@@ -1793,7 +1807,11 @@
             [PaintFrameManager curGroup].curPaintIndex ++;
             
             //结束教程
-            [self tutorialStepNextImmediate:true];
+            if([[TutorialManager current] isActive]){
+                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"]) {
+                    [self tutorialStepNextImmediate:YES];
+                }
+            }
             
             completion();
         }];
@@ -1822,7 +1840,11 @@
             [PaintFrameManager curGroup].curPaintIndex --;
             
             //结束教程
-            [self tutorialStepNextImmediate:true];
+            if([[TutorialManager current] isActive]){
+                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"]) {
+                    [self tutorialStepNextImmediate:YES];
+                }
+            }
             
             completion();
         }];
@@ -2175,6 +2197,10 @@
 //主教程入口设置
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
+    if (![[TutorialManager current] isActive]) {
+        return;
+    }
+    
     Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
@@ -2300,6 +2326,7 @@
     if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
         [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
+        mirrorRect.origin.y += 200;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
@@ -2319,7 +2346,7 @@
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
         CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(580, 700);
+        rect.origin = CGPointMake(560, 700);
         step.contentView.frame = rect;
         
         [step.indicatorView targetView:self.setupButton inRootView:self.view];

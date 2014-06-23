@@ -22,7 +22,7 @@
 - (void)initWithTutorial:(Tutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image{
     [super initWithTutorial:tutorial description:desc bgImage:image];
     
-    CGFloat width = 128;CGFloat height = 64; CGFloat offset = 20;
+    CGFloat width = 128;CGFloat height = 64; CGFloat offset = 30;
     _nextButton = [[TutorialNextButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - width - offset, self.bounds.size.height - height - offset, width, height)];
 
     [self addSubview:self.nextButton];

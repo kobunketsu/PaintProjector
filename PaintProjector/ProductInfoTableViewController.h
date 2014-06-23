@@ -12,6 +12,7 @@
 - (void) willOpenUserManualURL;
 - (void) willOpenSupportURL;
 - (void) willOpenGalleryURL;
+- (void) willOpenTutorial;
 @end
 
 @interface ProductInfoTableViewController : UITableViewController

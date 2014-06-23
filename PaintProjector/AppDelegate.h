@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) UIWindow *window;
-
+- (void)initTutorial;
+- (void)copyCollectionFromMainBundleToUserDocument;
 @end

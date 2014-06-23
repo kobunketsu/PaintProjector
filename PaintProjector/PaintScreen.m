@@ -1573,6 +1573,7 @@
             CGPoint centerInRootView = [self.rootView convertPoint:self.paintColorButton.center fromView:self.paintColorView];
             self.colorSaveToSlotView.center = centerInRootView;
             
+            //UI显示动画
             [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.colorSaveToSlotView.center = CGPointMake(centerInRootView.x, self.paintToolBar.frame.origin.y - 10);
             } completion:^(BOOL finished) {
@@ -1582,6 +1583,18 @@
                 }];
                 
             }];
+            
+            //所有颜色槽放缩动画
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat  animations:^{
+                for (ColorButton* button in self.colorButtons) {
+                    [button.layer setValue:[NSNumber numberWithFloat:0.9] forKeyPath:@"transform.scale"];
+                }
+            } completion:^(BOOL finished) {
+                for (ColorButton* button in self.colorButtons) {
+                    [button.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
+                }
+            }];
+            
             break;
         }
         case UIGestureRecognizerStateChanged:{
@@ -1637,6 +1650,12 @@
             break;
         }
         case UIGestureRecognizerStateEnded: {
+            //取消颜色槽提示动画
+            for (ColorButton* button in self.colorButtons) {
+                [button.layer removeAllAnimations];
+            }
+            
+            //保存到颜色槽动画
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 CGPoint targetCenterInRootView = [self.rootView convertPoint:self.colorSaveTargetButton.center fromView:self.colorSaveTargetButton.superview];
                 self.colorSaveToSlotView.center = targetCenterInRootView;
@@ -1645,25 +1664,29 @@
                     self.colorSaveToSlotView.bounds = self.colorSaveTargetButton.bounds;
                     self.colorSaveToSlotView.alpha = 0;
                     self.colorSaveTargetButton.color = self.colorSaveToSlotView.color;
-                    self.colorSaveTargetButton.isEmpty = false;
+//                    self.colorSaveTargetButton.isEmpty = false;
                 }completion:^(BOOL finished) {
                     self.colorSaveToSlotView.hidden = true;
                     //检查所有颜色按钮，如果没有Empty的颜色按钮了，添加10个新的颜色按钮
-                    bool colorButtonIsFull = true;
-                    for (ColorButton *colorButton in self.colorButtons) {
-                        if (colorButton.isEmpty) {
-                            colorButtonIsFull = false;
-                            break;
-                        }
-                    }
-                    if (colorButtonIsFull) {
-                        [self newSwatch];
-                    }
+//                    bool colorButtonIsFull = true;
+//                    for (ColorButton *colorButton in self.colorButtons) {
+//                        if (colorButton.isEmpty) {
+//                            colorButtonIsFull = false;
+//                            break;
+//                        }
+//                    }
+//                    if (colorButtonIsFull) {
+//                        [self newSwatch];
+//                    }
                 }];
             }];
             break;
         }
         case UIGestureRecognizerStateCancelled:{
+            //取消颜色槽提示动画
+            for (ColorButton* button in self.colorButtons) {
+                [button.layer removeAllAnimations];
+            }
             break;
         }
         default:
@@ -2197,7 +2220,7 @@
     }
 
     [self.swatchManagerVC dismissViewControllerAnimated:YES completion:^{
-       
+        self.swatchManagerVC = nil;
     }];
 }
 #pragma mark-
@@ -2572,7 +2595,8 @@
     NSString *plistFilePath = [documentsDirectory stringByAppendingPathComponent:@"Workspace.plist"];
 
     if([[NSFileManager defaultManager] fileExistsAtPath:plistFilePath])
-    {//already exits
+    {
+        //already exits
 //        NSMutableArray *swatchArray = [self.workspace mutableArrayValueForKey:@"swatchs"];
 //        [swatchArray removeAllObjects];
 //        for (int i = 0; i < self.colorButtons.count; ++i) {
@@ -2582,6 +2606,7 @@
 //                [swatchArray addObject:swatchData];
 //            }
 //        }
+        
         [self.workspace writeToFile:plistFilePath atomically: YES];
     }
     else{
@@ -2747,7 +2772,9 @@
 #pragma mark- 取图片 UIImagePickerControllerDelegate
 // For responding to the user tapping Cancel.
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:true completion:^{
+        self.cameraImagePickerVC = nil;
+    }];
 }
 
 // For responding to the user accepting a newly-captured picture or movie
@@ -2802,7 +2829,9 @@
                 }
             }];
             library = nil;
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self dismissViewControllerAnimated:true completion:^{
+                self.cameraImagePickerVC = nil;
+            }];
         }
         else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
             finalImage = imageToSave;
@@ -4767,6 +4796,7 @@
         rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
         step.contentView.frame = rect;
     }
+
     [step addToRootView:self.view];
 }
 

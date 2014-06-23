@@ -51,8 +51,11 @@
     for (TutorialIndicatorView *view in self.indicatorViews) {
         [view removeFromSuperview];
     }
+    self.indicatorViews = nil;
+    
     if (self.contentView) {
         [self.contentView removeFromSuperview];
+        self.contentView = nil;
     }
 }
 
