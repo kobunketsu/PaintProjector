@@ -15,7 +15,7 @@
     #import "AnaDrawStyleKit.h"
     #import "Extension.h"
     #import "RemoteLog.h"
-
+    #import "MathHelper.h"
 //debug color
     #define XCODE_COLORS_ESCAPE @"\033["
 

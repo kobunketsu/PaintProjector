@@ -44,12 +44,20 @@
 #import "Object.h"
 
 // Animation timing types
-typedef enum {
-    TPPropertyAnimationTimingLinear,
-    TPPropertyAnimationTimingEaseIn,
-    TPPropertyAnimationTimingEaseOut,
-    TPPropertyAnimationTimingEaseInEaseOut
-} TPPropertyAnimationTiming;
+//typedef enum {
+//    TPPropertyAnimationTimingLinear,
+//    TPPropertyAnimationTimingEaseIn,
+//    TPPropertyAnimationTimingEaseOut,
+//    TPPropertyAnimationTimingEaseInEaseOut
+//} TPPropertyAnimationTiming;
+
+typedef NS_ENUM(NSUInteger, TPPropertyAnimationTiming) {
+    TPPropertyAnimationTimingLinear        = 1 <<  0,
+    TPPropertyAnimationTimingEaseIn        = 1 <<  1,
+    TPPropertyAnimationTimingEaseOut       = 1 <<  2,
+    TPPropertyAnimationTimingEaseInEaseOut = 1 <<  3,
+    TPPropertyAnimationOptionRepeat         = 1 << 4,
+};
 
 typedef void(^MyCompletionBlock)(void);
 

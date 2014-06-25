@@ -39,13 +39,21 @@ void main()
     if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
         cRefl.rgb = vec3(0,0,0);
     }
-
+    
+    //clamp pixel projected behind
+    cRefl.rgb *= max(0.0, sign(-worldPos.z));
 
     lowp float reflStrength = eye.w;
     gl_FragColor.rgb = (cBase.rgb * 0.7 + cRefl.rgb * cRefl.a * 0.8);
 //    gl_FragColor.rgb =  cBase.rgb * (1.0 - cRefl.a) + cRefl.rgb * cRefl.a;
-    gl_FragColor.rgb *= reflStrength;
+//    gl_FragColor.rgb *= reflStrength;
 //    gl_FragColor.rgb *= color0.rgb;
 
+    
+    //debug
+//    gl_FragColor.rgb = texture2D(reflectionTex, texcoord0).rgb;
+    
+//    gl_FragColor.rgb = cRefl.rgb;
+    
     gl_FragColor.a = 1.0;
 }

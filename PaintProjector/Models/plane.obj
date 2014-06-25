@@ -1,0 +1,21 @@
+mtllib ./_1.mtl
+g pPlane1
+v -0.5 0 0.5
+v -0.5 0 -0.5
+v 0.5 0 0.5
+v 0.5 0 -0.5
+
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+
+vt 0 0
+vt 0 1
+vt 1 0
+vt 1 1
+
+usemtl initialShadingGroup
+usemap initialShadingGroup
+f 2/2/2 1/1/1 3/3/3
+f 4/4/4 2/2/2 3/3/3

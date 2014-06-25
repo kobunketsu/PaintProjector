@@ -133,6 +133,8 @@ InAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) CylinderProject *cylinderProjectNext;
 @property (retain, nonatomic) CylinderProject *cylinderProjectLast;
 @property (retain, nonatomic) Cylinder *cylinder;//圆柱体
+@property (retain, nonatomic) ModelEntity *cylinderTopLight;//圆柱体光效
+
 @property (assign, nonatomic) CGFloat cylinderProjectDefaultAlphaBlend;
 
 #pragma mark- 交互

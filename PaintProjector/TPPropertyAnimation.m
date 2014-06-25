@@ -175,22 +175,25 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
         
         // Calculate proportion of time through animation, and the corresponding position given the timing function
         CGFloat time = (now - (animation.startTime+animation.startDelay)) / animation.duration;
-        if ( time > 1.0 ) time = 1.0;
+        if ((animation.timing & TPPropertyAnimationOptionRepeat) == TPPropertyAnimationOptionRepeat) {
+            time = fmodf(now - (animation.startTime+animation.startDelay), animation.duration);
+            time /= animation.duration;
+        }
+        else{
+            if ( time > 1.0 ) time = 1.0;
+        }
         
         CGFloat position = time;
-        switch ( animation.timing ) {
-            case TPPropertyAnimationTimingEaseIn:
-                position = funcQuad(time, 0.0, 1.0);
-                break;
-            case TPPropertyAnimationTimingEaseOut:
-                position = funcQuadOut(time, 0.0, 1.0);
-                break;
-            case TPPropertyAnimationTimingEaseInEaseOut:
-                position = funcQuadInOut(time, 0.0, 1.0);
-                break;                
-            case TPPropertyAnimationTimingLinear:
-            default:
-                break;
+        if ((animation.timing & TPPropertyAnimationTimingEaseIn) == TPPropertyAnimationTimingEaseIn) {
+            position = funcQuad(time, 0.0, 1.0);
+        }
+        else if ((animation.timing & TPPropertyAnimationTimingEaseOut) == TPPropertyAnimationTimingEaseOut) {
+            position = funcQuadOut(time, 0.0, 1.0);
+        }
+        else if ((animation.timing & TPPropertyAnimationTimingEaseInEaseOut) == TPPropertyAnimationTimingEaseInEaseOut) {
+            position = funcQuadInOut(time, 0.0, 1.0);
+        }
+        else if ((animation.timing & TPPropertyAnimationTimingLinear) == TPPropertyAnimationTimingLinear) {
         }
         
         // Determine interpolation between values given position

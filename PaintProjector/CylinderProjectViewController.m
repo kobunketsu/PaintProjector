@@ -95,12 +95,14 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillDisappear ]");
+    [self destroyScene];
     
     [self tearDownGL];
     
     [self destroyInputParams];
     
     [self destroyBaseParams];
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -152,8 +154,6 @@
     
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
-    
-   
 }
 
 - (void)viewDidUnload{
@@ -903,7 +903,15 @@
     [self.projectHeightButton setTitle:[NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom] forState:UIControlStateSelected];
 }
 
+-(void)destroySceneCameras{
+    DebugLogFuncStart(@"destroySceneCameras");
+    Camera.mainCamera.animation = nil;
+    Camera.mainCamera = nil;
+    self.topCamera = nil;
+    
+}
 -(void)initSceneCameras{
+    DebugLogFuncStart(@"initSceneCameras");
     //eyeBottom should be output of userInputParams
     
     Camera.mainCamera.name = @"mainCamera";
@@ -986,6 +994,19 @@
     [Camera.mainCamera.animation addClip:animClip];
 }
 
+- (void)createCylinderBackup{
+    
+}
+
+- (void)destroyCylinder{
+    TPPropertyAnimation* propAnim = (TPPropertyAnimation*)(self.cylinderTopLight.animation.clip.propertyAnimations[0]);
+    [propAnim cancel];
+    
+    self.cylinder = nil;
+    self.cylinderTopLight = nil;
+    
+}
+
 - (void)createCylinder{
     //create cylinder
     ShaderCylinder *shaderCylinder = [[ShaderCylinder alloc]init];
@@ -993,24 +1014,29 @@
     Texture *texMain = [[Texture alloc]init];
     texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
     matMain.mainTexture = texMain;
-    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
-    [mesh create];
-    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
-    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
-    meshRenderer.sharedMaterial = matMain;
+    
+//    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
+//    [mesh create];
+//    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
+//    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
+//    meshRenderer.sharedMaterial = matMain;
     
     //cap
     //    BaseEffect *effect = [[BaseEffect alloc]init];
-    ShaderNoLitTexture *shaderNoLitTex = [[ShaderNoLitTexture alloc]init];
-    Material *matCap = [[Material alloc]initWithShader:shaderNoLitTex];
-    Texture *texCap = [[Texture alloc]init];
-    texCap.texID = [TextureManager textureInfoFromImageName:@"cylinderCap.png" reload:false].name;
-    matCap.mainTexture = texCap;
-    [meshRenderer.sharedMaterials addObject:matCap];
+//    ShaderNoLitTexture *shaderNoLitTex = [[ShaderNoLitTexture alloc]init];
+//    Material *matCap = [[Material alloc]initWithShader:shaderNoLitTex];
+//    Texture *texCap = [[Texture alloc]init];
+//    texCap.texID = [TextureManager textureInfoFromImageName:@"cylinderCap.png" reload:false].name;
+//    matCap.mainTexture = texCap;
+//    [meshRenderer.sharedMaterials addObject:matCap];
     
-    Cylinder *cylinder = [[Cylinder alloc]init];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinder" ofType:@"obj"];
+    Cylinder *cylinder = (Cylinder *)[AssetDatabase LoadAssetAtPath:path ofType:[Cylinder class]];
+    
+//    Cylinder *cylinder = [[Cylinder alloc]init];
     cylinder.name = @"cylinder";
-    cylinder.renderer = meshRenderer;
+    cylinder.renderer.sharedMaterial = matMain;
+//    cylinder.renderer = meshRenderer;
     cylinder.layerMask = Layer_Default;
     cylinder.eye = Camera.mainCamera.position;
     cylinder.reflectionTex = self.topCamera.targetTexture;
@@ -1019,7 +1045,6 @@
                                                    self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
                                                    self.topCamera.orthoWidth,
                                                    self.topCamera.orthoHeight);
-    meshRenderer.delegate = cylinder;
     
     TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"reflectionStrength"];
     propAnim.delegate = self;
@@ -1029,12 +1054,38 @@
     animClip.name = @"reflectionFadeInOutAnimClip";
     Animation *anim = [Animation animationWithAnimClip:animClip];
     cylinder.animation = anim;
-    
     self.cylinder = cylinder;
     [self.curScene addEntity:cylinder];
     
+
+    [self createCylinderTopLight];
 }
 
+- (void)createCylinderTopLight{
+    //加入圆柱体的顶部光效
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderTopLight" ofType:@"obj"];
+    ModelEntity *cylinderTopLight = [AssetDatabase LoadAssetAtPath:path ofType:[Cylinder class]];
+    cylinderTopLight.transform.parent = self.cylinder.transform;
+    
+    TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.eulerAngles.y"];
+    propAnim.delegate = self;
+    propAnim.timing = TPPropertyAnimationTimingLinear | TPPropertyAnimationOptionRepeat;
+    propAnim.fromValue = [NSNumber numberWithFloat:0];
+    propAnim.toValue = [NSNumber numberWithFloat:360];
+    propAnim.duration = 5;
+    propAnim.target = cylinderTopLight;
+    AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:propAnim];
+    animClip.name = @"cylinderTopLightRotation";
+    Animation *anim = [Animation animationWithAnimClip:animClip];
+    cylinderTopLight.animation = anim;
+    [cylinderTopLight.animation play];
+    self.cylinderTopLight = cylinderTopLight;
+    [self.curScene addEntity:cylinderTopLight];
+}
+
+- (void)destroyCylinderProject{
+    self.cylinderProjectCur = nil;
+}
 - (void)createCylinderProject{
     
     ShaderCylinderProject *shaderCylinderProject = [[ShaderCylinderProject alloc]init];
@@ -1104,7 +1155,7 @@
 
 - (void)createTestObj{
     //test
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cube" ofType:@"obj"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinder" ofType:@"obj"];
     Entity *entity = (Entity *)[AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
     entity.transform.scale = GLKVector3Make(0.01, 0.01, 0.01);
     
@@ -1115,20 +1166,18 @@
 //    matMain.mainTexture = texMain;
 //    entity.renderer.sharedMaterial = matMain;
     
-    path = [[NSBundle mainBundle] pathForResource:@"AnaDraw76x76_4@2x~ipad" ofType:@"png"];
-    entity.renderer.sharedMaterial.mainTexture = [Texture textureFromImagePath:path reload:NO];
+//    path = [[NSBundle mainBundle] pathForResource:@"AnaDraw76x76_4@2x~ipad" ofType:@"png"];
+//    entity.renderer.sharedMaterial.mainTexture = [Texture textureFromImagePath:path reload:NO];
     
     
     [self.curScene addEntity:entity];
 }
 
 - (void)setupScene {
-    
-    DebugLog(@"init Scene");
+    DebugLogFuncStart(@"setupScene");
     Scene *scene = [[Scene alloc]init];
     self.curScene = scene;
     
-    DebugLog(@"init Scene Cameras");
     [self initSceneCameras];
     
     //设定输入图片参数
@@ -1142,8 +1191,6 @@
     
     [self createCylinder];
     
-//    [self createTestObj];
-    
     [self initOtherParams];
     
     [self.curScene flushAll];
@@ -1152,6 +1199,18 @@
     [self updateRenderViewParams];
 }
 
+- (void)destroyScene{
+    DebugLogFuncStart(@"destroyScene");
+    self.curScene = nil;
+    
+    [self destroySceneCameras];
+    
+    [self destroyCylinderProject];
+    
+    [self destroyCylinder];
+    
+
+}
 -(void)initOtherParams{
 
 }

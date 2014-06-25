@@ -39,10 +39,10 @@
 - (void)update{
     [super update];
     
-    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.transform.scale.x, self.transform.scale.y, self.transform.scale.z);
-    GLKMatrix4 rotateMatrix = GLKMatrix4MakeWithQuaternion(self.transform.rotate);
-    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(self.transform.translate.x, self.transform.translate.y, self.transform.translate.z);
-    
-    self.transform.worldMatrix = GLKMatrix4Multiply(translateMatrix, GLKMatrix4Multiply(rotateMatrix, scaleMatrix));
+//    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.transform.scale.x, self.transform.scale.y, self.transform.scale.z);
+//    GLKMatrix4 rotateMatrix = GLKMatrix4MakeWithQuaternion(self.transform.rotate);
+//    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(self.transform.translate.x, self.transform.translate.y, self.transform.translate.z);
+//    
+//    self.transform.worldMatrix = GLKMatrix4Multiply(translateMatrix, GLKMatrix4Multiply(rotateMatrix, scaleMatrix));
 }
 @end

@@ -12,5 +12,5 @@
 
 @interface AssetDatabase : NSObject
 
-+(Object*)LoadAssetAtPath:(NSString*)assetPath ofType:(Class)aClass;
++(id)LoadAssetAtPath:(NSString*)assetPath ofType:(Class)aClass;
 @end

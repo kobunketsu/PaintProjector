@@ -12,26 +12,27 @@
 
 @implementation AssetDatabase
 
-+(Object*)LoadAssetAtPath:(NSString*)assetPath ofType:(Class)aClass{
-    if ([[aClass description] isEqualToString:@"Entity"]) {
-        Entity *entity = nil;
-        
++(id)LoadAssetAtPath:(NSString*)assetPath ofType:(Class)aClass{
+    if ([aClass isSubclassOfClass:[ModelEntity class]]) {
         //使用WaveFrontObj导入中间格式，转换成自己的格式
         if ([[[assetPath lastPathComponent]pathExtension] isEqualToString:@"obj"]) {
             __block OpenGLWaveFrontObject *obj;
+#if DEBUG
                 BNRTimeBlock (^{//测试运行速度
                     obj = [[OpenGLWaveFrontObject alloc]initWithPath:assetPath];
                 });
+#else
+                    obj = [[OpenGLWaveFrontObject alloc]initWithPath:assetPath];
+#endif
             
             if (obj == nil) {
                 DebugLog(@"Load wavefront obj file at path %@ failed.", assetPath);
                 return nil;
             }
-            
-            entity = [[ModelEntity alloc]initWithWaveFrontObj:obj];
+            return [[aClass alloc]initWithWaveFrontObj:obj];
        }
 
-        return entity;
+        return nil;
     }
     else{
         return nil;

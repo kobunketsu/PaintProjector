@@ -349,6 +349,8 @@
 		0875131C1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */; };
 		0875131D1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */ = {isa = PBXBuildFile; fileRef = 0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */; };
 		0875605C17676CD8002B806D /* ClearCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0875605B17676CD8002B806D /* ClearCommand.m */; };
+		087615621959BDBC007EE0C0 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 087615611959BDBC007EE0C0 /* MathHelper.m */; };
+		087615631959BDBC007EE0C0 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 087615611959BDBC007EE0C0 /* MathHelper.m */; };
 		0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
 		0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0876F492193215E600E7906B /* UIImage+Extensions.m */; };
 		08771E641927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08771E611927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.m */; };
@@ -1188,6 +1190,8 @@
 		0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture1FingerTapHold.png; path = PaintProjector/Images/tutorial_gesture1FingerTapHold.png; sourceTree = "<group>"; };
 		0875605A17676CD8002B806D /* ClearCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearCommand.h; sourceTree = "<group>"; };
 		0875605B17676CD8002B806D /* ClearCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearCommand.m; sourceTree = "<group>"; };
+		087615601959BDBC007EE0C0 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathHelper.h; path = PaintProjector/MathHelper.h; sourceTree = "<group>"; };
+		087615611959BDBC007EE0C0 /* MathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MathHelper.m; path = PaintProjector/MathHelper.m; sourceTree = "<group>"; };
 		0876F491193215E600E7906B /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		0876F492193215E600E7906B /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		08771E601927C3C100CBF7B3 /* CylinderProjectVirtualDeviceCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CylinderProjectVirtualDeviceCollectionViewController.h; sourceTree = "<group>"; };
@@ -2101,6 +2105,15 @@
 			name = WaveFrontObj;
 			sourceTree = "<group>";
 		};
+		0876155F1959BD9C007EE0C0 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				087615601959BDBC007EE0C0 /* MathHelper.h */,
+				087615611959BDBC007EE0C0 /* MathHelper.m */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
 		087C5AB616B2DC91005F954A /* Brush */ = {
 			isa = PBXGroup;
 			children = (
@@ -2498,6 +2511,7 @@
 		9C21AF0714E4579F00DB003E = {
 			isa = PBXGroup;
 			children = (
+				0876155F1959BD9C007EE0C0 /* Math */,
 				08CBF66219362DC7002934F6 /* Flurry */,
 				08983D9218BCCCE00001C334 /* ProductList.plist */,
 				088B40171792FB7F002750EA /* DBChooser.bundle */,
@@ -3049,6 +3063,7 @@
 				7d294f94056ab44ed9d1c266 /* ChineseBrush.m in Sources */,
 				39ffcb7043b23fa8536d2aeb /* BrushTypeButton.m in Sources */,
 				0826EE8E18B9920B0074FC9F /* ProductFeatureCollectionViewCell.m in Sources */,
+				087615631959BDBC007EE0C0 /* MathHelper.m in Sources */,
 				a88bba2809784674fa9e73c0 /* ColorPickerView.m in Sources */,
 				46ab3c9aa9c71c15c6a8d514 /* Chalk.m in Sources */,
 				eb5cc21ea712daf8ae8cba4c /* InfColorPickerIndicatorMagnify.m in Sources */,
@@ -3391,6 +3406,7 @@
 				084003581706830500CB952C /* MovableObject.m in Sources */,
 				08B24FED170EC0E7007CA9D2 /* PaintLayer.m in Sources */,
 				08B24FF0170ECA6E007CA9D2 /* PaintLayerManager.m in Sources */,
+				087615621959BDBC007EE0C0 /* MathHelper.m in Sources */,
 				94926EBE17193375008C645A /* LayerManagerView.m in Sources */,
 				08E4E7761951C23C003C77DB /* AnaDrawStyleKit.m in Sources */,
 				08E251B4189CBC5C0039AAC2 /* Shader.m in Sources */,
@@ -3609,7 +3625,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "DB6EACAC-7E10-412E-80C4-948CAFDF98E0";
+				PROVISIONING_PROFILE = "6BBACF1C-DD00-4466-BAD2-076D50578588";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3648,8 +3664,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "B3A39007-134B-4020-AC35-042223BD99B3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3A39007-134B-4020-AC35-042223BD99B3";
+				PROVISIONING_PROFILE = "6BBACF1C-DD00-4466-BAD2-076D50578588";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6BBACF1C-DD00-4466-BAD2-076D50578588";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3706,8 +3722,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3747,7 +3763,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7283054F-F67C-4CAF-B99D-1B890480BF78";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3779,7 +3795,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "7283054F-F67C-4CAF-B99D-1B890480BF78";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3920,8 +3936,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0B672CF6-9977-48C1-ABE2-E78CD4C94E2F";
+				PROVISIONING_PROFILE = "6BBACF1C-DD00-4466-BAD2-076D50578588";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6BBACF1C-DD00-4466-BAD2-076D50578588";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3976,8 +3992,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D47C7CD0-6447-4BB9-81D7-08160EACE7C1";
+				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

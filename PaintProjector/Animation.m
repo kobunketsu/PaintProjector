@@ -81,6 +81,10 @@
     self.clips = nil;
 }
 
+- (void)dealloc{
+    [self destroy];
+}
+
 - (void)setTarget:(id)target{
     _target = target;
 }

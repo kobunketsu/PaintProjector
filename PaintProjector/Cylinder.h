@@ -6,9 +6,10 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "Entity.h"
+//#import "Entity.h"
+#import "ModelEntity.h"
 
-@interface Cylinder : Entity
+@interface Cylinder : ModelEntity
 @property (assign, nonatomic) GLKVector3 eye;
 @property(weak, nonatomic)Texture *reflectionTex;
 @property(assign, nonatomic)GLKVector4 reflectionTexUVSpace;

@@ -14,8 +14,11 @@
     if (self) {
         _translate = GLKVector3Make(0, 0, 0);
         _rotate = GLKQuaternionIdentity;
+        _eulerAngles = GLKVector3Make(0, 0, 0);
         _scale = GLKVector3Make(1, 1, 1);
         _worldMatrix = GLKMatrix4Identity;
+        _childs = [[NSMutableArray alloc]init];
+        _dirty = true;
     }
     return self;
 }
@@ -25,6 +28,7 @@
     transform.translate = self.translate;
     transform.scale = self.scale;
     transform.rotate = self.rotate;
+    transform.eulerAngles = self.eulerAngles;
     return transform;
 }
 
@@ -56,6 +60,18 @@
     else if ([keyPath isEqualToString:@"rotate.w"]) {
         NSNumber *num = (NSNumber *)value;
         self.rotate = GLKQuaternionMake(self.rotate.x, self.rotate.y, self.rotate.z, num.floatValue);
+    }
+    else if ([keyPath isEqualToString:@"eulerAngles.x"]) {
+        NSNumber *num = (NSNumber *)value;
+        self.eulerAngles = GLKVector3Make(num.floatValue, self.eulerAngles.y, self.eulerAngles.z);
+    }
+    else if ([keyPath isEqualToString:@"eulerAngles.y"]) {
+        NSNumber *num = (NSNumber *)value;
+        self.eulerAngles = GLKVector3Make(self.eulerAngles.x, num.floatValue, self.eulerAngles.z);
+    }
+    else if ([keyPath isEqualToString:@"eulerAngles.z"]) {
+        NSNumber *num = (NSNumber *)value;
+        self.eulerAngles = GLKVector3Make(self.eulerAngles.x, self.eulerAngles.y, num.floatValue);
     }
     else if ([keyPath isEqualToString:@"scale.x"]) {
         NSNumber *num = (NSNumber *)value;
@@ -93,6 +109,15 @@
     else if ([keyPath isEqualToString:@"rotate.w"]) {
         return [NSNumber numberWithFloat:self.rotate.w];
     }
+    else if ([keyPath isEqualToString:@"eulerAngles.x"]) {
+        return [NSNumber numberWithFloat:self.eulerAngles.x];
+    }
+    else if ([keyPath isEqualToString:@"eulerAngles.y"]) {
+        return [NSNumber numberWithFloat:self.eulerAngles.y];
+    }
+    else if ([keyPath isEqualToString:@"eulerAngles.z"]) {
+        return [NSNumber numberWithFloat:self.eulerAngles.z];
+    }
     else if ([keyPath isEqualToString:@"scale.x"]) {
         return [NSNumber numberWithFloat:self.scale.x];
     }
@@ -103,5 +128,70 @@
         return [NSNumber numberWithFloat:self.scale.z];
     }
     return nil;
+}
+
+- (void)setEulerAngles:(GLKVector3)eulerAngles{
+    _eulerAngles = eulerAngles;
+    
+    _rotate = [MathHelper quatFromEulerAngles:eulerAngles];
+    
+    self.dirty = true;
+}
+
+- (void)setParent:(Transform *)parent{
+    _parent = parent;
+    
+    if (![self isChildOf:parent]) {
+        [parent.childs addObject:self];
+    }
+}
+
+- (void)setDirty:(BOOL)dirty{
+    _dirty = dirty;
+    
+    if (self.parent) {
+        self.parent.dirty = dirty;
+    }
+}
+
+- (void)update{
+    if(self.dirty){
+        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.scale.x, self.scale.y, self.scale.z);
+        GLKMatrix4 rotateMatrix = GLKMatrix4MakeWithQuaternion(self.rotate);
+        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(self.translate.x, self.translate.y, self.translate.z);
+        
+        GLKMatrix4 localMatrix = GLKMatrix4Multiply(translateMatrix, GLKMatrix4Multiply(rotateMatrix, scaleMatrix));
+        
+        if (self.parent) {
+            self.worldMatrix = GLKMatrix4Multiply(self.parent.worldMatrix, localMatrix);
+        }
+        else{
+            self.worldMatrix = localMatrix;
+        }
+        
+        //更新完自己的worldMatrix之后更新子transform
+        for (Transform *transform in self.childs) {
+            [transform update];
+        }
+        self.dirty = false;
+    }
+}
+
+- (Transform*)getChild:(NSInteger)index{
+    if (index < 0) {
+        DebugLogError(@"getChild at negative num index");
+        return nil;
+    }
+    if (index >= self.childs.count) {
+        DebugLogError(@"getChild beyond num counts");
+        return nil;
+    }
+    return self.childs[index];
+}
+- (BOOL)isChildOf:(Transform*)transform{
+    return [self.childs containsObject:transform];
+}
+- (NSUInteger)childCount{
+    return self.childs.count;
 }
 @end

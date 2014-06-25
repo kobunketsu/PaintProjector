@@ -22,7 +22,9 @@
     }
     return self;
 }
-
+- (void)dealloc{
+    [self destroy];
+}
 - (void)destroy{
     [self.propertyAnimations removeAllObjects];
 }
