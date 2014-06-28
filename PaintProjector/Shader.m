@@ -23,6 +23,10 @@
     [self.uniformPropertyDic setObject:[NSNumber numberWithInt:uniform] forKey:key];
 }
 
+- (void)setBlendMode{
+    [[GLWrapper current]blendFunc:BlendFuncOpaque];
+}
+
 - (void)destroy{
     [super destroy];
     

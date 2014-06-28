@@ -107,5 +107,9 @@
     DebugLogFuncStart(@"willTutorialEnd %@", tutorial.name);
     tutorial = nil;
     self.curTutorial = nil;
+    
+    if (self.delegate) {
+        [self.delegate willTutorialEnd:tutorial];
+    }
 }
 @end

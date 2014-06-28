@@ -129,10 +129,32 @@
     }
     return nil;
 }
-
+- (void)setRotate:(GLKQuaternion)rotate{
+    if (GLKVector4AllEqualToVector4(GLKVector4Make(_rotate.x, _rotate.y, _rotate.z, _rotate.w), GLKVector4Make(rotate.x, rotate.y, rotate.z, rotate.w))) {
+        return;
+    }
+    _rotate = rotate;
+    self.dirty = true;
+}
+- (void)setTranslate:(GLKVector3)translate{
+    if (GLKVector3AllEqualToVector3(_translate, translate)) {
+        return;
+    }
+    _translate = translate;
+    self.dirty = true;
+}
+- (void)setScale:(GLKVector3)scale{
+    if (GLKVector3AllEqualToVector3(_scale, scale)) {
+        return;
+    }
+    _scale = scale;
+    self.dirty = true;
+}
 - (void)setEulerAngles:(GLKVector3)eulerAngles{
+    if (GLKVector3AllEqualToVector3(_eulerAngles, eulerAngles)) {
+        return;
+    }
     _eulerAngles = eulerAngles;
-    
     _rotate = [MathHelper quatFromEulerAngles:eulerAngles];
     
     self.dirty = true;
@@ -148,12 +170,13 @@
 
 - (void)setDirty:(BOOL)dirty{
     _dirty = dirty;
-    
-    if (self.parent) {
-        self.parent.dirty = dirty;
+
+    for (Transform *transform in self.childs) {
+        transform.dirty = dirty;
     }
 }
 
+//如果本节点dirty,所有子节点标记dirty
 - (void)update{
     if(self.dirty){
         GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(self.scale.x, self.scale.y, self.scale.z);
@@ -173,6 +196,8 @@
         for (Transform *transform in self.childs) {
             [transform update];
         }
+        
+        //子节点全部更新完毕后标记自己dirty false
         self.dirty = false;
     }
 }

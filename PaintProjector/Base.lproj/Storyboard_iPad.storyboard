@@ -1449,7 +1449,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="paintColorButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="el0-cQ-7Lv"/>
+                                                            <action selector="paintColorButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="T99-an-7cS"/>
                                                             <outletCollection property="gestureRecognizers" destination="coZ-Bp-hE7" appends="YES" id="LdR-gu-aji"/>
                                                             <outletCollection property="gestureRecognizers" destination="mEb-l9-iaP" appends="YES" id="2wq-RX-Fzj"/>
                                                         </connections>
@@ -1535,7 +1535,7 @@
                                                     <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="D2M-g4-AyG"/>
                                                     <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="k1d-Rt-hcX"/>
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="eJ3-mR-2vW"/>
-                                                    <action selector="layerButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="aKJ-6q-s2D"/>
+                                                    <action selector="layerButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="hgQ-cb-eFN"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="TransformButton">
@@ -1551,7 +1551,7 @@
                                                     <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="FJa-23-PPW"/>
                                                     <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="R0K-58-gKd"/>
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="smg-bw-VoY"/>
-                                                    <action selector="transformButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="DGZ-lM-LAo"/>
+                                                    <action selector="transformButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="mAV-V6-udZ"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ClearButton">
@@ -1589,7 +1589,7 @@
                                                     <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="z7n-PD-YKb"/>
                                                     <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="bqx-jG-Zp6"/>
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="VNa-rs-IUJ"/>
-                                                    <action selector="importButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="UEm-g4-ete"/>
+                                                    <action selector="importButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="GGx-5d-XAT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ExportButton">
@@ -1608,7 +1608,7 @@
                                                     <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="lJ7-eY-CdS"/>
                                                     <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="IDc-gx-Woz"/>
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="KzY-SK-SX0"/>
-                                                    <action selector="exportButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="tgy-Ly-3mE"/>
+                                                    <action selector="exportButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="X86-WX-EUY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="AnamorphicButton">
@@ -1627,7 +1627,7 @@
                                                     <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="Bj3-BG-BNo"/>
                                                     <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="5zF-Zo-KRn"/>
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="lqE-sR-6j3"/>
-                                                    <action selector="saveAndCloseButtonTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="dN4-e8-ZrF"/>
+                                                    <action selector="saveAndCloseButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="KRB-EA-U80"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" userLabel="UndoButton" customClass="UndoButton">
@@ -1742,7 +1742,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="colorPickerSwitchTapped:" destination="NUX-zI-YbL" eventType="touchUpInside" id="S2U-Xp-nlK"/>
+                                            <action selector="colorPickerSwitchTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="RGl-fc-wyS"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="bpZ-JE-hQy" userLabel="ColorPickerLock">

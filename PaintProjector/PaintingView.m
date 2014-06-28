@@ -14,7 +14,6 @@
 #import "BackgroundLayer.h"
 
 #import "Ultility.h"
-#import "ShaderManager.h"
 #import "TextureManager.h"
 
 #import "Finger.h"
@@ -3231,14 +3230,14 @@
 //    
 //    // Create and compile vertex shader.
 //    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-//    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+//    if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
 //        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
 //        return NO;
 //    }
 //    
 //    // Create and compile fragment shader.
 //    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBackgroundLayer" ofType:@"fsh"];
-//    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+//    if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
 //        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
 //        return NO;
 //    }
@@ -3253,7 +3252,7 @@
 //    // This needs to be done prior to linking.
 //    glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
 //    // Link program.
-//    if (![[ShaderManager sharedInstance] linkProgram:program]) {
+//    if (![[GLWrapper current] linkProgram:program]) {
 //        DebugLog(@"Failed to link program: %d", program);
 //        
 //        if (vertShader) {
@@ -3303,7 +3302,7 @@
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
@@ -3311,7 +3310,7 @@
     // Create and compile fragment shader.
     fragShaderName = [@"Shaders/" stringByAppendingString:fragShaderName];
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:fragShaderName ofType:@"fsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
     }
@@ -3327,7 +3326,7 @@
     glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
     glBindAttribLocation(program, GLKVertexAttribTexCoord0, "Texcoord");
     // Link program.
-    if (![[ShaderManager sharedInstance] linkProgram:program]) {
+    if (![[GLWrapper current] linkProgram:program]) {
         DebugLog(@"Failed to link program: %d", program);
         
         if (vertShader) {
@@ -3378,14 +3377,14 @@
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"fsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
     }
@@ -3401,7 +3400,7 @@
     glBindAttribLocation(_programQuad, GLKVertexAttribPosition, "Position");
     glBindAttribLocation(_programQuad, GLKVertexAttribTexCoord0, "Texcoord");
     // Link program.
-    if (![[ShaderManager sharedInstance] linkProgram:_programQuad]) {
+    if (![[GLWrapper current] linkProgram:_programQuad]) {
         DebugLog(@"Failed to link program: %d", _programQuad);
         
         if (vertShader) {
@@ -3451,14 +3450,14 @@
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebug" ofType:@"vsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebugAlpha" ofType:@"fsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
     }
@@ -3474,7 +3473,7 @@
     glBindAttribLocation(_programQuadDebugAlpha, GLKVertexAttribPosition, "Position");
     glBindAttribLocation(_programQuadDebugAlpha, GLKVertexAttribTexCoord0, "Texcoord");
     // Link program.
-    if (![[ShaderManager sharedInstance] linkProgram:_programQuadDebugAlpha]) {
+    if (![[GLWrapper current] linkProgram:_programQuadDebugAlpha]) {
         DebugLog(@"Failed to link program: %d", _programQuadDebugAlpha);
         
         if (vertShader) {
@@ -3520,14 +3519,14 @@
     
     // Create and compile vertex shader.
     vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebug" ofType:@"vsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuadDebugColor" ofType:@"fsh"];
-    if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+    if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
         DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
         return NO;
     }
@@ -3543,7 +3542,7 @@
     glBindAttribLocation(_programQuadDebugColor, GLKVertexAttribPosition, "Position");
     glBindAttribLocation(_programQuadDebugColor, GLKVertexAttribTexCoord0, "Texcoord");
     // Link program.
-    if (![[ShaderManager sharedInstance] linkProgram:_programQuadDebugColor]) {
+    if (![[GLWrapper current] linkProgram:_programQuadDebugColor]) {
         DebugLog(@"Failed to link program: %d", _programQuadDebugColor);
         
         if (vertShader) {

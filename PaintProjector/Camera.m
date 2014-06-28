@@ -52,7 +52,7 @@
         _aspect = 1.0;
         _fov = GLKMathDegreesToRadians(45);
         _nearClip = 0.01;
-        _farClip = 1000;
+        _farClip = 100;
         _orthoWidth = 0;
         _orthoHeight = 0;
         

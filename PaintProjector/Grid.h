@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
-#import "ShaderManager.h"
 
 typedef struct {
     float Position[3];

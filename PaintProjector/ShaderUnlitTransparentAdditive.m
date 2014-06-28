@@ -1,14 +1,14 @@
 //
-//  ShaderDiffuse.m
+//  ShaderUnlitTransparentAdditive.m
 //  PaintProjector
 //
-//  Created by 胡 文杰 on 2/6/14.
+//  Created by 胡 文杰 on 6/25/14.
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ShaderDiffuse.h"
+#import "ShaderUnlitTransparentAdditive.h"
 
-@implementation ShaderDiffuse
+@implementation ShaderUnlitTransparentAdditive
 - (id)init{
     self = [super init];
     if(self){
@@ -21,14 +21,14 @@
         self.program = glCreateProgram();
         
         // Create and compile vertex shader.
-        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderDiffuse" ofType:@"vsh"];
+        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderCommonObject" ofType:@"vsh"];
         if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
             DebugLog(@"Failed to compile vertex shader");
             return NO;
         }
         
         // Create and compile fragment shader.
-        fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderDiffuse" ofType:@"fsh"];
+        fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderCommonObject" ofType:@"fsh"];
         if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
             DebugLog(@"Failed to compile fragment shader");
             return NO;
@@ -46,7 +46,7 @@
         
         glBindAttribLocation(self.program, GLKVertexAttribTexCoord0, "texcoord");
         
-        glBindAttribLocation(self.program, GLKVertexAttribNormal, "normal");
+        glBindAttribLocation(self.program, GLKVertexAttribColor, "color");
         
         
         // Link program.
@@ -72,8 +72,6 @@
         [self setUniformForKey:@"worldMatrix"];
         [self setUniformForKey:@"viewProjMatrix"];
         [self setUniformForKey:@"mainTexture"];
-        [self setUniformForKey:@"vLightPos"];
-        [self setUniformForKey:@"cAmbient"];
         
         // Release vertex and fragment shaders.
         if (vertShader) {
@@ -85,9 +83,14 @@
             glDeleteShader(fragShader);
         }
 #if DEBUG
-        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programDiffuse" UTF8String]);
+        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programUnlitTransparentAdditvie" UTF8String]);
 #endif
     }
     return self;
 }
+
+- (void)setBlendMode{
+    [[GLWrapper current]blendFunc:BlendFuncAdditive];
+}
+
 @end

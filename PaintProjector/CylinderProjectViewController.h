@@ -23,7 +23,6 @@
 #import "GLWrapper.h"
 #import "Ultility.h"
 #import "TextureManager.h"
-#import "ShaderManager.h"
 #import "TPPropertyAnimation.h"
 //object
 #import "Display.h"
@@ -31,12 +30,10 @@
 #import "Grid.h"
 #import "Cylinder.h"
 #import "CylinderProject.h"
-#import "ShaderCylinderProject.h"
-#import "ShaderCylinder.h"
-#import "ShaderNoLitTexture.h"
 #import "Scene.h"
 #import "PlaneMesh.h"
 #import "CylinderMesh.h"
+
 //component
 #import "MeshFilter.h"
 #import "MeshRenderer.h"
@@ -59,6 +56,7 @@
 #import "CylinderProjectUserInputParams.h"
 #import "InAppPurchaseManager.h"
 #import "InAppPurchaseTableViewController.h"
+
 
 static const NSString *ItemStatusContext;
 
@@ -118,7 +116,7 @@ InAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (assign, nonatomic) id delegate;
-
+@property (assign, nonatomic)BOOL paintDirectly;
 #pragma mark- File
 
 #pragma mark- User Input
@@ -134,6 +132,7 @@ InAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) CylinderProject *cylinderProjectLast;
 @property (retain, nonatomic) Cylinder *cylinder;//圆柱体
 @property (retain, nonatomic) ModelEntity *cylinderTopLight;//圆柱体光效
+@property (retain, nonatomic) ModelEntity *cylinderInterLight;//圆柱体光效
 
 @property (assign, nonatomic) CGFloat cylinderProjectDefaultAlphaBlend;
 
@@ -213,6 +212,9 @@ InAppPurchaseTableViewControllerDelegate
 -(void)viewPaintDoc:(PaintDoc*)paintDoc;
 - (void)openPaintDoc:(PaintDoc*)paintDoc;
 - (void)transitionToPaint;
+
+#pragma mark- 交互控制 UserInteraction
+- (void)lockInteraction:(BOOL)lock;
 
 #pragma mark- file action
 @property (weak, nonatomic) IBOutlet UIButton *galleryButton;

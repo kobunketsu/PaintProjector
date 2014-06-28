@@ -57,6 +57,7 @@
     self = [super init];
     if (self !=nil) {
         _paintView = paintView;
+        self.delegate = paintView;
 //        _context = paintView.context;
       
         //Param
@@ -66,7 +67,7 @@
         _lastDrawPoint = _lastDrawSubPoint = CGPointZero;
         
         //UI
-        [self setColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0]];
+        [self setColor: [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
         [self setRadiusSliderValue];
     }
 
@@ -739,14 +740,14 @@
         
         // Create and compile vertex shader.
         vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
-        if (![[ShaderManager sharedInstance] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:self.shaderPreDefines]) {
+        if (![[GLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:self.shaderPreDefines]) {
             DebugLog(@"Failed to compile vertex shader");
             return NO;
         }
         
         // Create and compile fragment shader.
         fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
-        if (![[ShaderManager sharedInstance] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:self.shaderPreDefines]) {
+        if (![[GLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:self.shaderPreDefines]) {
             DebugLog(@"Failed to compile fragment shader");
             return NO;
         }
@@ -763,7 +764,7 @@
         glBindAttribLocation(program, GLKVertexAttribColor, "SourceColor");
         
         // Link program.
-        if (![[ShaderManager sharedInstance] linkProgram:program]) {
+        if (![[GLWrapper current] linkProgram:program]) {
             DebugLog(@"Failed to link program: %d", program);
             
             if (vertShader) {

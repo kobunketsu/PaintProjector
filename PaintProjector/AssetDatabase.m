@@ -29,7 +29,11 @@
                 DebugLog(@"Load wavefront obj file at path %@ failed.", assetPath);
                 return nil;
             }
-            return [[aClass alloc]initWithWaveFrontObj:obj];
+            
+            ModelEntity *entity = [[aClass alloc]initWithWaveFrontObj:obj];
+            NSArray *strings = [[assetPath stringByDeletingPathExtension] componentsSeparatedByString:@"/"];
+            entity.name = (NSString*)[strings lastObject];
+            return entity;
        }
 
         return nil;

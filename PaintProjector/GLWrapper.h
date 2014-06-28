@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
-#import "Shader.h"
+@class Shader;
 
 typedef NS_ENUM(NSInteger, BlendFuncType) {
+    BlendFuncAdditive,
     BlendFuncOpaque,
     BlendFuncOpaqueAlphaBlend,
     BlendFuncAlphaBlend,
@@ -47,7 +48,7 @@ static GLWrapper* glWrapper = nil;
 @property (assign, nonatomic) BlendFuncType lastBlendFuncType;
 //@property (assign, nonatomic) InterpolationType lastInterpolationType;
 @property (retain, nonatomic) NSMutableDictionary *activeSlotTex;
-@property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader
+
 
 +(GLWrapper*)current;
 +(void)setCurrent:(GLWrapper*)current;
@@ -91,4 +92,11 @@ static GLWrapper* glWrapper = nil;
 -(void)setImageInterpolation:(InterpolationType)type;
 
 -(void)setImageInterpolationFinished;
+
+#pragma mark- compile shader
+@property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader
++ (id)sharedInstance;
+- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSString*)preDefines;
+- (BOOL)linkProgram:(GLuint)prog;
+- (BOOL)validateProgram:(GLuint)prog;
 @end

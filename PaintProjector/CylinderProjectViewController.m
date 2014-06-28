@@ -15,11 +15,17 @@
 #import "PaintUIKitAnimation.h"
 #import "AssetDatabase.h"
 #import "CylinderProjectVirtualDeviceCollectionViewController.h"
-#import "TutorialManager.h"
+#import "AnaDrawTutorialManager.h"
 #import "AppDelegate.h"
+#import "ShaderCylinderProject.h"
+#import "ShaderCylinder.h"
+#import "ShaderNoLitTexture.h"
+#import "ShaderUnlitTransparentAdditive.h"
+#import "UIDeviceHardware.h"
 
+//avoid z fighting
 #define FarClipDistance 10
-#define NearClipDistance 0.0001
+#define NearClipDistance 0.001
 
 #define ToSeeCylinderTopPixelOffset 70
 #define ToSeeCylinderTopViewportPixelOffsetY -160
@@ -30,6 +36,8 @@
 #define CylinderViewChangeDuration 1
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
+
+static float DeviceWidth = 0.154;
 
 @interface CylinderProjectViewController ()
 //TODO: deprecated
@@ -51,6 +59,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self initWithCustom];
     }
     return self;
 }
@@ -60,11 +69,21 @@
     DebugLogSystem(@"initWithCoder");
     self = [super initWithCoder:aDecoder];
     if (self) {
-        
+        [self initWithCustom];
     }
     return self;
 }
 
+- (void)initWithCustom{
+    UIDeviceHardware *h = [[UIDeviceHardware alloc]init];
+    if ([[h platformString] rangeOfString:@"iPad Mini"].location != NSNotFound) {
+        //FIXME:调查参数
+        DeviceWidth = 0.12;
+    }
+    else{
+        DeviceWidth = 0.154;
+    }
+}
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillAppear ]");
     //用于解决启动闪黑屏的问题
@@ -78,7 +97,7 @@
     [self setupScene];
     
     //run completion block
-    [self allViewUserInteractionEnable:true];
+//    [self allViewUserInteractionEnable:true];
     
     [self tutorialSetup];
 }
@@ -125,7 +144,7 @@
     
     self.projectView.opaque = NO;
     
-    [self allViewUserInteractionEnable:true];
+//    [self allViewUserInteractionEnable:true];
     
     self.transitionManager = [[PaintScreenTransitionManager alloc]init];
     self.transitionManager.delegate = self;
@@ -185,17 +204,34 @@
     DebugLogFuncStart(@"didEnterBackgroundNotification");
 }
 
+#pragma mark- 交互控制 UserInteraction
+- (void)lockInteraction:(BOOL)lock{
+    self.projectView.userInteractionEnabled = !lock;
+    self.downToolBar.userInteractionEnabled = !lock;
+    self.topToolBar.userInteractionEnabled = !lock;
+}
+
+#pragma mark- UI动画
+- (void)allViewUserInteractionEnable:(BOOL)enable{
+    for (UIView* view in self.allViews) {
+        view.userInteractionEnabled = enable;
+    }
+}
+
 #pragma mark- 工具栏
+
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
 //    DebugLogIBAction(sender, @"galleryButtonTouchUp");
     [RemoteLog logAction:@"galleryButtonTouchUp" identifier:sender];
     
     sender.selected = true;
-    
-    //重置cylinder参数
-    [self resetInputParams];
-    
+    [self lockInteraction:true];
+
     //do some work
+    if (self.setupButton.selected) {
+        [self setupAnamorphParamsDoneCompletion:nil];
+    }
+    
     if (self.topPerspectiveView.hidden) {
         self.topPerspectiveView.hidden = false;
         self.eyePerspectiveView.hidden = true;
@@ -238,37 +274,29 @@
     [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
+
+    sender.selected = !sender.selected;
+    [self lockInteraction:true];
     
-//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
-        sender.selected = !sender.selected;
-        sender.userInteractionEnabled = false;
-        
-        if (sender.selected) {
-            [self setupAnamorphParamsCompletion:^{
-                sender.userInteractionEnabled = true;
-                
-                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
-                    [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
-                }
-            }];
-        }
-        else{
-            [self setupAnamorphParamsDoneCompletion:^{
-                sender.userInteractionEnabled = true;
-                
-                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
-                    [self tutorialStartFromStepName:@"CylinderProjectPaint"];
-                }
-            }];
-        }
-//    }
-//    else{
-//        //禁止操作
-//        self.topToolBar.userInteractionEnabled = false;
-//        [self setupAnamorphParamsCompletion:^{
-//        }];
-//        [self openIAP];
-//    }
+    if (sender.selected) {
+        [self setupAnamorphParamsCompletion:^{
+            [self lockInteraction:false];
+            
+            if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
+                [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
+            }
+        }];
+    }
+    else{
+        [self setupAnamorphParamsDoneCompletion:^{
+            [self lockInteraction:false];
+            
+            if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
+                [self tutorialStartFromStepName:@"CylinderProjectPaint"];
+            }
+        }];
+    }
+
 }
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
@@ -290,7 +318,8 @@
     [RemoteLog logAction:@"paintButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
-    
+
+    [self lockInteraction:true];
     sender.selected = true;
     self.setupButton.selected = false;
     
@@ -347,7 +376,9 @@
     //ToolBar动画
     [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
     
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
+        [self lockInteraction:false];
+    }];
 }
 
 - (void)transitionToPaint{
@@ -574,8 +605,8 @@
     }
     else if ([sender isEqual:self.cylinderHeightButton]) {
         userInputParamKey = @"userInputParams.cylinderHeight";
-        minValue = 0.068;
-        maxValue = 0.68;
+        minValue = 0.07;
+        maxValue = 0.7;
     }
     else if ([sender isEqual:self.imageWidthButton]) {
         userInputParamKey = @"userInputParams.imageWidth";
@@ -646,7 +677,7 @@
 -(void)resetInputParams{
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
-    [dic setObject:[NSNumber numberWithFloat:0.068] forKey:@"userInputParams.cylinderHeight"];
+    [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
     [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
     [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
     [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
@@ -741,7 +772,7 @@
     //测试
 //#if DEBUG
 //    [self tutorialSetup];
-//    [[TutorialManager current].curTutorial startFromStepName:@"CylinderProjectPaint"];
+//    [[AnaDrawTutorialManager current].curTutorial startFromStepName:@"CylinderProjectPaint"];
 //#else
     [self galleryButtonTouchUp:self.galleryButton];
 //#endif
@@ -840,7 +871,7 @@
     CylinderProjectUserInputParams *userInputParams = [[CylinderProjectUserInputParams alloc]init];
     
     userInputParams.cylinderDiameter = 0.038;
-    userInputParams.cylinderHeight = 0.068;
+    userInputParams.cylinderHeight = 0.07;
     //设定虚拟平面
     userInputParams.imageWidth = 0.037;
     userInputParams.imageCenterOnSurfHeight = 0.035; //default 0.035
@@ -964,10 +995,13 @@
     topToBottomPropAnim.duration = CylinderViewChangeDuration;
     topToBottomPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     [topToBottomPropAnim setCompletionBlock:^{
-        if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
+        
+        [self lockInteraction:false];
+        
+        if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
             [self tutorialStartFromStepName:@"CylinderProjectSetupEyeDistance"];
         }
-        else if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
+        else if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
             [self tutorialStartFromStepName:@"CylinderProjectSetup"];
         }
     }];
@@ -982,10 +1016,13 @@
     bottomToTopPropAnim.duration = CylinderViewChangeDuration;
     bottomToTopPropAnim.timing = TPPropertyAnimationTimingEaseOut;
     [bottomToTopPropAnim setCompletionBlock:^{
-        if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
+        
+        [self lockInteraction:false];
+        
+        if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
             [self tutorialStartFromStepName:@"CylinderProjectSetupZoom"];
         }
-        else if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
+        else if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
             [self tutorialStartFromStepName:@"CylinderProjectViewDevice"];
         }
     }];
@@ -998,15 +1035,6 @@
     
 }
 
-- (void)destroyCylinder{
-    TPPropertyAnimation* propAnim = (TPPropertyAnimation*)(self.cylinderTopLight.animation.clip.propertyAnimations[0]);
-    [propAnim cancel];
-    
-    self.cylinder = nil;
-    self.cylinderTopLight = nil;
-    
-}
-
 - (void)createCylinder{
     //create cylinder
     ShaderCylinder *shaderCylinder = [[ShaderCylinder alloc]init];
@@ -1015,28 +1043,12 @@
     texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
     matMain.mainTexture = texMain;
     
-//    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
-//    [mesh create];
-//    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
-//    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
-//    meshRenderer.sharedMaterial = matMain;
-    
-    //cap
-    //    BaseEffect *effect = [[BaseEffect alloc]init];
-//    ShaderNoLitTexture *shaderNoLitTex = [[ShaderNoLitTexture alloc]init];
-//    Material *matCap = [[Material alloc]initWithShader:shaderNoLitTex];
-//    Texture *texCap = [[Texture alloc]init];
-//    texCap.texID = [TextureManager textureInfoFromImageName:@"cylinderCap.png" reload:false].name;
-//    matCap.mainTexture = texCap;
-//    [meshRenderer.sharedMaterials addObject:matCap];
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinder" ofType:@"obj"];
     Cylinder *cylinder = (Cylinder *)[AssetDatabase LoadAssetAtPath:path ofType:[Cylinder class]];
     
-//    Cylinder *cylinder = [[Cylinder alloc]init];
+
     cylinder.name = @"cylinder";
     cylinder.renderer.sharedMaterial = matMain;
-//    cylinder.renderer = meshRenderer;
     cylinder.layerMask = Layer_Default;
     cylinder.eye = Camera.mainCamera.position;
     cylinder.reflectionTex = self.topCamera.targetTexture;
@@ -1059,13 +1071,35 @@
     
 
     [self createCylinderTopLight];
+    [self createCylinderBottom];
+    [self createCylinderInterLight];
+}
+
+- (void)destroyCylinder{
+    TPPropertyAnimation* propAnim = (TPPropertyAnimation*)(self.cylinderTopLight.animation.clip.propertyAnimations[0]);
+    [propAnim cancel];
+    
+    propAnim = (TPPropertyAnimation*)(self.cylinderInterLight.animation.clip.propertyAnimations[0]);
+    [propAnim cancel];
+    
+    self.cylinder = nil;
+    self.cylinderTopLight = nil;
+    self.cylinderInterLight = nil;
 }
 
 - (void)createCylinderTopLight{
     //加入圆柱体的顶部光效
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderTopLight" ofType:@"obj"];
-    ModelEntity *cylinderTopLight = [AssetDatabase LoadAssetAtPath:path ofType:[Cylinder class]];
+    ModelEntity *cylinderTopLight = [AssetDatabase LoadAssetAtPath:path ofType:[ModelEntity class]];
     cylinderTopLight.transform.parent = self.cylinder.transform;
+    
+    ShaderUnlitTransparentAdditive *shader = [[ShaderUnlitTransparentAdditive alloc]init];
+    Material *mat = [[Material alloc]initWithShader:shader];
+    mat.transparent = true;
+    Texture *texMain = [[Texture alloc]init];
+    texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderTopLight.png" reload:false].name;
+    mat.mainTexture = texMain;
+    cylinderTopLight.renderer.material = mat;
     
     TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.eulerAngles.y"];
     propAnim.delegate = self;
@@ -1082,7 +1116,46 @@
     self.cylinderTopLight = cylinderTopLight;
     [self.curScene addEntity:cylinderTopLight];
 }
+- (void)createCylinderBottom{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderBottom" ofType:@"obj"];
+    ModelEntity *cylinderBottom = [AssetDatabase LoadAssetAtPath:path ofType:[ModelEntity class]];
+    cylinderBottom.transform.parent = self.cylinder.transform;
+    ShaderNoLitTexture *shader = [[ShaderNoLitTexture alloc]init];
+    Material *mat = [[Material alloc]initWithShader:shader];
+    Texture *texMain = [[Texture alloc]init];
+    texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderBottom.png" reload:false].name;
+    mat.mainTexture = texMain;
+    cylinderBottom.renderer.material = mat;
+    
+    [self.curScene addEntity:cylinderBottom];
+}
 
+- (void)createCylinderInterLight{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderInterLight" ofType:@"obj"];
+    ModelEntity *cylinderInterLight = [AssetDatabase LoadAssetAtPath:path ofType:[ModelEntity class]];
+    cylinderInterLight.transform.parent = self.cylinder.transform;
+    ShaderUnlitTransparentAdditive *shader = [[ShaderUnlitTransparentAdditive alloc]init];
+    Material *mat = [[Material alloc]initWithShader:shader];
+    Texture *texMain = [[Texture alloc]init];
+    texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderInterLight.png" reload:false].name;
+    mat.mainTexture = texMain;
+    cylinderInterLight.renderer.material = mat;
+    
+    TPPropertyAnimation *propAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.eulerAngles.y"];
+    propAnim.delegate = self;
+    propAnim.timing = TPPropertyAnimationTimingLinear | TPPropertyAnimationOptionRepeat;
+    propAnim.fromValue = [NSNumber numberWithFloat:0];
+    propAnim.toValue = [NSNumber numberWithFloat:360];
+    propAnim.duration = 5;
+    propAnim.target = cylinderInterLight;
+    AnimationClip *animClip = [AnimationClip animationClipWithPropertyAnimation:propAnim];
+    animClip.name = @"cylinderInterLightRotation";
+    Animation *anim = [Animation animationWithAnimClip:animClip];
+    cylinderInterLight.animation = anim;
+    [cylinderInterLight.animation play];
+    self.cylinderInterLight = cylinderInterLight;
+    [self.curScene addEntity:cylinderInterLight];
+}
 - (void)destroyCylinderProject{
     self.cylinderProjectCur = nil;
 }
@@ -1100,7 +1173,6 @@
     meshRenderer.sharedMaterial = matCylinderProject;
     
     CylinderProject *cylinderProject = [[CylinderProject alloc]init];
-
     cylinderProject.name = @"cylinderProject";
     cylinderProject.renderer = meshRenderer;
     cylinderProject.radius = self.userInputParams.cylinderDiameter * 0.5;
@@ -1154,23 +1226,23 @@
 }
 
 - (void)createTestObj{
-    //test
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinder" ofType:@"obj"];
-    Entity *entity = (Entity *)[AssetDatabase LoadAssetAtPath:path ofType:[Entity class]];
-    entity.transform.scale = GLKVector3Make(0.01, 0.01, 0.01);
-    
-//    ShaderCylinder *shaderCylinder = [[ShaderCylinder alloc]init];
-//    Material *matMain = [[Material alloc]initWithShader:shaderCylinder];
-//    Texture *texMain = [[Texture alloc]init];
-//    texMain.texID = [TextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
-//    matMain.mainTexture = texMain;
-//    entity.renderer.sharedMaterial = matMain;
-    
-//    path = [[NSBundle mainBundle] pathForResource:@"AnaDraw76x76_4@2x~ipad" ofType:@"png"];
-//    entity.renderer.sharedMaterial.mainTexture = [Texture textureFromImagePath:path reload:NO];
-    
-    
-    [self.curScene addEntity:entity];
+//    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
+//    [mesh create];
+//    MeshFilter *meshFilter = [[MeshFilter alloc]initWithMesh:mesh];
+//    MeshRenderer *meshRenderer = [[MeshRenderer alloc]initWithMeshFilter:meshFilter];
+//    meshRenderer.sharedMaterial = matMain;
+//    
+//    //cap
+//    BaseEffect *effect = [[BaseEffect alloc]init];
+//    ShaderNoLitTexture *shaderNoLitTex = [[ShaderNoLitTexture alloc]init];
+//    Material *matCap = [[Material alloc]initWithShader:shaderNoLitTex];
+//    Texture *texCap = [[Texture alloc]init];
+//    texCap.texID = [TextureManager textureInfoFromImageName:@"cylinderCap.png" reload:false].name;
+//    matCap.mainTexture = texCap;
+//    [meshRenderer.sharedMaterials addObject:matCap];
+//    Cylinder *cylinder = [[Cylinder alloc]init];
+//    cylinder.renderer = meshRenderer;
+
 }
 
 - (void)setupScene {
@@ -1280,16 +1352,24 @@
             CGPoint translation = [sender translationInView:sender.view];
             CGFloat percent = 0.0;
             if (translation.x > 0){
+                if (self.browseNextAction.interactionEnable) {
+                    [self.browseNextAction updateInteractiveTransition:0];
+                }
                 if (self.browseLastAction.interactionEnable) {
 //                    DebugLog(@"browse last");
+                    //FIXME:保证pecent能走到％0
                     percent = [self getPercent:sender];
                     [self.browseLastAction updateInteractiveTransition:percent];
                 }
  
             }
             else if(translation.x < 0){
-                     if (self.browseNextAction.interactionEnable) {
-//                    DebugLog(@"browse next");
+                if (self.browseLastAction.interactionEnable) {
+                    [self.browseLastAction updateInteractiveTransition:0];
+                }
+                if (self.browseNextAction.interactionEnable) {
+                    //                    DebugLog(@"browse next");
+                    //FIXME:保证pecent能走到％0
                     percent = [self getPercent:sender];
                     [self.browseNextAction updateInteractiveTransition:percent];
                 }
@@ -1431,12 +1511,6 @@
     [GLWrapper destroy];
 }
 
-#pragma mark- UI动画
-- (void)allViewUserInteractionEnable:(BOOL)enable{
-    for (UIView* view in self.allViews) {
-        view.userInteractionEnabled = enable;
-    }
-}
 
 #pragma mark- 核心变换
 //-(void)viewPaintDoc:(PaintDoc*)paintDoc{
@@ -1786,30 +1860,35 @@
 //        DebugLog(@"browsing Next");
         CGFloat x = transition.percentComplete * self.cylinderProjectCur.imageWidth;
         [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
+        
+        
         //查询是否有下一张图片
-        if ([[PaintFrameManager curGroup] nextPaintDoc]) {
-            //清空上一张图片资源
-            self.cylinderProjectLast.active = false;
-            self.cylinderProjectLast = nil;
-            
-            if (!self.cylinderProjectNext) {
-                self.cylinderProjectNext = [self dequeueReusableCylinderProject];
-                TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
-                browsePropAnim.delegate = self;
-                browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
-                AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
-                animclip.name = @"browseAnimClip";
-                [self.cylinderProjectNext.animation removeClip:@"browseAnimClip"];
-                [self.cylinderProjectNext.animation addClip:animclip];
+        if (transition.percentComplete > 0) {
+            if ([[PaintFrameManager curGroup] nextPaintDoc]) {
+                //清空上一张图片资源
+                self.cylinderProjectLast.active = false;
+                self.cylinderProjectLast = nil;
                 
-                
-                NSString *path = [[PaintFrameManager curGroup] nextPaintDoc].thumbImagePath;
-                path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
-                self.cylinderProjectNext.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
+                if (!self.cylinderProjectNext) {
+                    self.cylinderProjectNext = [self dequeueReusableCylinderProject];
+                    TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
+                    browsePropAnim.delegate = self;
+                    browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
+                    AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
+                    animclip.name = @"browseAnimClip";
+                    [self.cylinderProjectNext.animation removeClip:@"browseAnimClip"];
+                    [self.cylinderProjectNext.animation addClip:animclip];
+                    
+                    
+                    NSString *path = [[PaintFrameManager curGroup] nextPaintDoc].thumbImagePath;
+                    path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
+                    self.cylinderProjectNext.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
+                }
             }
-            
-            CGFloat x = (transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
-//            DebugLogWarn(@"browseNext %.2f", x);
+        }
+        
+        x = (transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+        if (self.cylinderProjectNext) {
             [self.cylinderProjectNext setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         }
         
@@ -1819,30 +1898,34 @@
         CGFloat x = -transition.percentComplete * self.cylinderProjectCur.imageWidth;
         [self.cylinderProjectCur setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         
-        //查询是否有上一张图片
-        if ([[PaintFrameManager curGroup] lastPaintDoc]) {
-            //清空下一张图片资源
-            self.cylinderProjectNext.active = false;
-            self.cylinderProjectNext = nil;
-            
-            if (!self.cylinderProjectLast) {
-                self.cylinderProjectLast = [self dequeueReusableCylinderProject];
-                TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
-                browsePropAnim.delegate = self;
-                browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
-                AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
-                animclip.name = @"browseAnimClip";
-                [self.cylinderProjectLast.animation removeClip:@"browseAnimClip"];
-                [self.cylinderProjectLast.animation addClip:animclip];
+        if (transition.percentComplete > 0) {
+            //查询是否有上一张图片
+            if ([[PaintFrameManager curGroup] lastPaintDoc]) {
+                //清空下一张图片资源
+                self.cylinderProjectNext.active = false;
+                self.cylinderProjectNext = nil;
                 
-                
-                NSString *path = [[PaintFrameManager curGroup] lastPaintDoc].thumbImagePath;
-                path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
-                self.cylinderProjectLast.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
-                
+                if (!self.cylinderProjectLast) {
+                    self.cylinderProjectLast = [self dequeueReusableCylinderProject];
+                    TPPropertyAnimation *browsePropAnim = [TPPropertyAnimation propertyAnimationWithKeyPath:@"transform.translate.x"];
+                    browsePropAnim.delegate = self;
+                    browsePropAnim.timing = TPPropertyAnimationTimingEaseOut;
+                    AnimationClip *animclip = [AnimationClip animationClipWithPropertyAnimation:browsePropAnim];
+                    animclip.name = @"browseAnimClip";
+                    [self.cylinderProjectLast.animation removeClip:@"browseAnimClip"];
+                    [self.cylinderProjectLast.animation addClip:animclip];
+
+                    
+                    NSString *path = [[PaintFrameManager curGroup] lastPaintDoc].thumbImagePath;
+                    path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:path];
+                    self.cylinderProjectLast.renderer.material.mainTexture = [Texture textureFromImagePath:path reload:false];
+                    
+                }
             }
-            CGFloat x = -(transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
-//            DebugLogWarn(@"browseLast %.2f", x);            
+        }
+
+        x = -(transition.percentComplete - 1) * self.cylinderProjectCur.imageWidth;
+        if (self.cylinderProjectLast) {
             [self.cylinderProjectLast setValue:[NSNumber numberWithFloat:x] forKeyPath:@"transform.translate.x"];
         }
     }
@@ -1866,8 +1949,8 @@
             [PaintFrameManager curGroup].curPaintIndex ++;
             
             //结束教程
-            if([[TutorialManager current] isActive]){
-                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"]) {
+            if([[AnaDrawTutorialManager current] isActive]){
+                if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"]) {
                     [self tutorialStepNextImmediate:YES];
                 }
             }
@@ -1899,8 +1982,8 @@
             [PaintFrameManager curGroup].curPaintIndex --;
             
             //结束教程
-            if([[TutorialManager current] isActive]){
-                if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"]) {
+            if([[AnaDrawTutorialManager current] isActive]){
+                if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"]) {
                     [self tutorialStepNextImmediate:YES];
                 }
             }
@@ -1966,17 +2049,23 @@
 #pragma mark- TPPropertyAnimationDelegate
 -(void)willBeginPropertyAnimation:(TPPropertyAnimation *)propertyAnimation{
     DebugLogFuncStart(@"willBeginPropertyAnimation keyPath:%@ target:%@", propertyAnimation.keyPath, propertyAnimation.target);
-    [self allViewUserInteractionEnable:false];
+    [self lockInteraction:true];
 }
 
 -(void)propertyAnimationDidFinish:(TPPropertyAnimation *)propertyAnimation{
     DebugLogFuncStart(@"propertyAnimationDidFinish keyPath:%@ target:%@", propertyAnimation.keyPath, propertyAnimation.target);
-    [self allViewUserInteractionEnable:true];
+    if (!self.paintDirectly) {
+        [self lockInteraction:false];
+    }
+    else{
+        [self lockInteraction:true];
+        self.paintDirectly = false;
+    }
     
     //FIXME:教程操作问题打补丁
-    if ([[TutorialManager current] isActive]) {
-        if(!([[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"] ||
-             [[TutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"])){
+    if ([[AnaDrawTutorialManager current] isActive]) {
+        if(!([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"] ||
+             [[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"])){
             self.projectView.userInteractionEnabled = false;
         }
     }
@@ -2073,9 +2162,10 @@
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
+        [self lockInteraction:false];
+        
         [self.paintScreenVC openDoc:paintDoc];
         [self.paintScreenVC afterPresentation];
-        
     }];
 }
 
@@ -2091,9 +2181,14 @@
     
     [self diselectUserInputParams];
     
+    //visibility
     self.eyePerspectiveView.hidden = true;
     self.topPerspectiveView.hidden = false;
     
+    //interaction
+    [self lockInteraction:true];
+    
+    //animation
     AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
     Camera.mainCamera.animation.target = self;
@@ -2115,9 +2210,14 @@
     
     [self diselectUserInputParams];
     
+    //visibility
     self.topPerspectiveView.hidden = true;
     self.eyePerspectiveView.hidden = false;
     
+    //interaction
+    [self lockInteraction:true];
+    
+    //animation
     AnimationClip *animClip = [Camera.mainCamera.animation.clips valueForKey:@"bottomToTopAnimClip"];
     Camera.mainCamera.animation.clip = animClip;
     Camera.mainCamera.animation.target = self;
@@ -2256,11 +2356,11 @@
 //主教程入口设置
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    Tutorial *tutorial = (Tutorial *)[[AnaDrawTutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"CylinderProject"].length > 0) {
@@ -2273,36 +2373,36 @@
 //在排版等准备完成以后,检查是否需要开始教程
 - (void)tutorialStartCurrentStep{
     DebugLogFuncStart(@"tutorialStartCurrentStep");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    [[TutorialManager current].curTutorial startCurrentStep];
+    [[AnaDrawTutorialManager current].curTutorial startCurrentStep];
 }
 
 - (void)tutorialStartFromStepName:(NSString *)name{
     DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
-        [[TutorialManager current].curTutorial startFromStepName:name];
+    if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[AnaDrawTutorialManager current].curTutorial startFromStepName:name];
     }
 }
 
 - (void)tutorialStepNextImmediate:(BOOL)immediate{
     DebugLogFuncStart(@"tutorialStepNext");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
    //isCheckTutorialStep
     if (immediate) {
-        [[TutorialManager current].curTutorial stepNextImmediate];
+        [[AnaDrawTutorialManager current].curTutorial stepNextImmediate];
     }
     else{
-        [[TutorialManager current].curTutorial stepNext:nil];
+        [[AnaDrawTutorialManager current].curTutorial stepNext:nil];
     }
 
 }

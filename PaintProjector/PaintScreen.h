@@ -65,7 +65,6 @@
 #import "EyeDropper.h"
 //help method
 #import "Ultility.h"
-#import "ShaderManager.h"
 @class CustomTouchUIView;
 //File
 @class PaintDoc;
@@ -264,8 +263,8 @@ BackgroundLayerDelegate
 //- (IBAction)handlePanBrushToolBar:(UIPanGestureRecognizer *)sender;
 - (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender;
 - (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender;
-- (IBAction)importButtonTapped:(UIButton *)sender;
-- (IBAction)exportButtonTapped:(UIButton *)sender;
+- (IBAction)importButtonTouchUp:(UIButton *)sender;
+- (IBAction)exportButtonTouchUp:(UIButton *)sender;
 - (IBAction)selectColor:(ColorButton *)sender;
 - (IBAction)selectColorConfirmed:(ColorButton *)sender;
 - (IBAction)selectBrushRadius:(RadiusButton *)sender;
@@ -282,25 +281,25 @@ BackgroundLayerDelegate
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender;
 - (IBAction)syncBrushView:(id)sender;
 - (IBAction)showPaint:(id)sender;
-- (IBAction)colorSlotsSwitchTapped:(UIButton *)sender;
-- (IBAction)colorPickerSwitchTapped:(UIButton *)sender;
+- (IBAction)colorSlotsSwitchTouchUp:(UIButton *)sender;
+- (IBAction)colorPickerSwitchTouchUp:(UIButton *)sender;
 - (IBAction)paintColorButtonTouchUp:(UIButton *)sender;
 
 //InfColorPicker
 - (IBAction)takeBarValue: (InfColorBarPicker*) sender;
 - (IBAction)takeSquareValue: (InfColorSquarePicker*) sender;
 
-- (IBAction)debugButtonTapped:(UIButton *)sender;
+- (IBAction)debugButtonTouchUp:(UIButton *)sender;
 - (IBAction)clearButtonTouchUp:(ClearButton *)sender;
 - (IBAction)clearButtonTouchDown:(ClearButton *)sender;
 //- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender;
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender;
-- (IBAction)saveAndCloseButtonTapped:(UIButton *)sender;
+- (IBAction)saveAndCloseButtonTouchUp:(UIButton *)sender;
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender;
-- (IBAction)layerButtonTapped:(UIButton *)sender;
-- (IBAction)transformButtonTapped:(id)sender;
+- (IBAction)layerButtonTouchUp:(UIButton *)sender;
+- (IBAction)transformButtonTouchUp:(id)sender;
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender;
 
 #pragma mark- 

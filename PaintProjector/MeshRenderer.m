@@ -40,10 +40,15 @@
         if (!subMeshTriCount) {
             continue;
         }
-        
+
         if (material.transparent) {
             glDepthMask(GL_FALSE);
         }
+        else{
+            glDepthMask(GL_TRUE);
+        }
+        
+        [material.shader setBlendMode];
         
 //        if (material.effect != nil) {
 //            [material.effect prepareToDraw];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Object : NSObject <NSCopying>
-@property(assign, nonatomic)NSString *name;
+@property(copy, nonatomic)NSString *name;
 
 +(void)destroy:(Object*)object;
 

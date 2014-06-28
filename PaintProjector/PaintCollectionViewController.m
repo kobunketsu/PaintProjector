@@ -14,7 +14,7 @@
 #import "PaintFrameManager.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintScreen.h"
-#import "TutorialManager.h"
+#import "AnaDrawTutorialManager.h"
 #import "AppDelegate.h"
 
 #define launchImageViewToCylinderFadeOutDuration 0.3
@@ -321,6 +321,10 @@
     }];
 }
 
+#pragma mark- 交互控制 UserInteraction
+- (void)lockInteraction:(BOOL)lock{
+    self.downToolBar.userInteractionEnabled = !lock;
+}
 #pragma mark- Tool Bar
 
 - (IBAction)fileButtonTouchUp:(id)sender{
@@ -378,8 +382,7 @@
     [RemoteLog logAction:@"newButtonTouchUp" identifier:sender];
     
     //在present到cylinderProject之后恢复userInteractionEnable
-    UIButton *button = (UIButton *)sender;
-    button.userInteractionEnabled = false;
+    [self lockInteraction:true];
     
     self.editing = false;
     
@@ -405,7 +408,6 @@
         self.pageControl.currentPage = floorf((float)[PaintFrameManager curGroup].curPaintIndex / (float)[self.collectionView numberOfItemsInSection:0]);
     }
 
-    
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     
     //更新当前PaintFrame
@@ -426,13 +428,15 @@
     
     //prepare to present
     self.cylinderProjectVC.cylinderProjectDefaultAlphaBlend = 0;
-    
     self.cylinderProjectVC.downToolBar.hidden = true;
+    [self.cylinderProjectVC lockInteraction:true];
+    self.cylinderProjectVC.paintDirectly = paintDirectly;
+    
     [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
-        self.editNewButton.userInteractionEnabled = true;
-        
+        [self lockInteraction:false];
         
         DebugLog(@"Fade in cylinderProjcet");
+        
         [self.cylinderProjectVC.cylinderProjectCur.animation play];
         
         //隐藏从paintCollectionVC transition 时添加的view
@@ -444,12 +448,13 @@
                 if (self.isLaunchTransitioned) {
                     [self launchTransitionToCylinderProjectCompleted];
                 }
-                
+
                 if (paintDirectly) {
                     [self.cylinderProjectVC transitionToPaint];
-                    //                    [self.cylinderProjectVC openPaintDoc:paintFrameView.paintDoc];
                 }
-                
+                else{
+                    [self.cylinderProjectVC lockInteraction:false];
+                }
             }];
         }
     }];
@@ -469,11 +474,11 @@
 //主教程入口设置
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    Tutorial *tutorial = (Tutorial *)[[AnaDrawTutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"PaintCollection"].length > 0) {
@@ -494,28 +499,28 @@
 //在排版等准备完成以后,检查是否需要开始教程
 - (void)tutorialStartFromStepName:(NSString *)name{
     DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
-        [[TutorialManager current].curTutorial startFromStepName:name];
+    if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[AnaDrawTutorialManager current].curTutorial startFromStepName:name];
     }
 }
 
 - (void)tutorialStepNextImmediate:(BOOL)immediate{
     DebugLogFuncStart(@"checkTutorialStep");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
 
     //isCheckTutorialStep
     if (!self.editing) {
         if (immediate) {
-            [[TutorialManager current].curTutorial stepNextImmediate];
+            [[AnaDrawTutorialManager current].curTutorial stepNextImmediate];
         }
         else{
-            [[TutorialManager current].curTutorial stepNext:nil];
+            [[AnaDrawTutorialManager current].curTutorial stepNext:nil];
         }
     }
 }

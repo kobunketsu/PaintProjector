@@ -99,14 +99,10 @@
 #define PaintPixelOffsetThresold 0.1 //确定触摸时多大的距离会记录成一个绘制点
 #define UISliderDefaultHeight 31
 //全局设置
-//使用米还是
-//static NSString* version = @"version_0.1";
-static bool useFeet = false;
 static bool useQuickTool = true;//所有快捷手势的总开关
 static bool IsQuickEyeDropper = true;
 static bool IsOffsetEyeDropper = true;
 
 #define InchScale 3.28
-#define DeviceWidth 0.154
 #define DefaultScreenWidth 768
 #define DefaultScreenHeight 1024

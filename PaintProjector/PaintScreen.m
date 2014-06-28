@@ -27,7 +27,7 @@
 #import "TransformAnchorView.h"
 #import "PaintUIKitAnimation.h"
 #import "PaintUIKitStyle.h"
-#import "TutorialManager.h"
+#import "AnaDrawTutorialManager.h"
 
 
 #define EditBrushSizeConfirmPixels 5
@@ -256,40 +256,28 @@
 
     //初始化各种笔刷
     Pencil *pencil = [[Pencil alloc]initWithPaintView:self.paintView];
-    pencil.delegate = self.paintView;
     
     Eraser *eraser = [[Eraser alloc]initWithPaintView:self.paintView];
-    eraser.delegate = self.paintView;
     
     Pen *pen = [[Pen alloc]initWithPaintView:self.paintView];
-    pen.delegate = self.paintView;
     
     Marker *marker = [[Marker alloc]initWithPaintView:self.paintView];
-    marker.delegate = self.paintView;
     
     Finger *finger = [[Finger alloc]initWithPaintView:self.paintView];
-    finger.delegate = self.paintView;
     
     ChineseBrush *chineseBrush = [[ChineseBrush alloc]initWithPaintView:self.paintView];
-    chineseBrush.delegate = self.paintView;
     
     Crayons *crayons = [[Crayons alloc]initWithPaintView:self.paintView];
-    crayons.delegate = self.paintView;
     
     Bucket *bucket = [[Bucket alloc]initWithPaintView:self.paintView];
-    bucket.delegate = self.paintView;
     
     InkPen *inkPen = [[InkPen alloc]initWithPaintView:self.paintView];
-    inkPen.delegate = self.paintView;
     
     MarkerSquare *markerSquare = [[MarkerSquare alloc]initWithPaintView:self.paintView];
-    markerSquare.delegate = self.paintView;
     
     OilBrush *oilBrush = [[OilBrush alloc]initWithPaintView:self.paintView];
-    oilBrush.delegate = self.paintView;
     
     AirBrush *airBrush = [[AirBrush alloc]initWithPaintView:self.paintView];
-    airBrush.delegate = self.paintView;
     
     //将笔刷加入笔刷类型视图
     UIScrollView *scrollView = (UIScrollView *)self.brushTypeScrollView;
@@ -470,6 +458,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
 }
+
+#pragma mark- 交互控制 UserInteraction
+- (void)lockInteraction:(BOOL)lock{
+    self.rootView.userInteractionEnabled = !lock;
+    self.mainToolBar.userInteractionEnabled = !lock;
+    self.paintToolBar.userInteractionEnabled = !lock;
+}
+
 #pragma mark- 手势 Gestures 绘图
 - (IBAction)handlePan1TouchesPaintView:(UIPanGestureRecognizer *)sender {
     [RemoteLog logAction:@"handlePan1TouchesPaintView" identifier:sender];
@@ -1267,11 +1263,11 @@
     }
     else if (translation.y > 0 && abs(translation.x / translation.y) < 1.0){
         //打开取色器快捷方式
-        [self paintColorButtonTapped:nil];
+        [self paintColorButtonTouchUp:nil];
     }
     else if (translation.y < 0 && abs(translation.x / translation.y) < 1.0){
         //打开图层快捷方式
-        [self layerButtonTapped:nil];
+        [self layerButtonTouchUp:nil];
     }
 
 }
@@ -2555,7 +2551,7 @@
         [self.delegate closePaintDoc:self.paintDoc completionBlock:^{
             //恢复之前禁止的功能
             [self.paintDoc close];
-            self.rootView.userInteractionEnabled = true;
+            [self lockInteraction:false];
         }];
     }];
 }
@@ -2654,7 +2650,7 @@
 
 
 #pragma mark- 导入 Import
-- (IBAction)importButtonTapped:(UIButton *)sender {
+- (IBAction)importButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"importButtonTapped" identifier:sender];
     sender.selected = true;
     
@@ -2903,7 +2899,7 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (IBAction)exportButtonTapped:(UIButton *)sender {
+- (IBAction)exportButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"exportButtonTapped" identifier:sender];
     sender.selected = true;
     
@@ -3381,6 +3377,13 @@
     [CATransaction commit];
 }
 
+//- (void)startChangeTransformState:(BOOL)enter{
+//    self.mainToolBar.userInteractionEnabled = true;
+//}
+//- (void)endChangeTransformState{
+//    self.mainToolBar.userInteractionEnabled = true;
+//}
+
 - (void)enterTransformLayerState:(CGRect)rect{
     _state = PaintScreen_Transform;
     
@@ -3390,7 +3393,9 @@
     self.transformButton.selected = true;
     [self.transformButton.layer setNeedsDisplay];
     
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+        [self lockInteraction:false];
+    }];
 
     //交互
     UIView* mainToolView = [self.mainToolBar.subviews objectAtIndex:0];
@@ -3414,7 +3419,9 @@
     //隐藏MainToolBar PaintToolBar
     self.transformButton.selected = true;
     [self.transformButton.layer setNeedsDisplay];
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+        self.mainToolBar.userInteractionEnabled = true;
+    }];
 
     //交互
     UIView* mainToolView = [self.mainToolBar.subviews objectAtIndex:0];
@@ -3431,7 +3438,9 @@
     
     self.transformButton.selected = false;
     [self.transformButton.layer setNeedsDisplay];
-    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+    [PaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+        [self lockInteraction:false];
+    }];
     
     [self removeTransformHelperViews];
     
@@ -3445,8 +3454,9 @@
     [self.paintView resetUndoRedo];
 }
 
-- (IBAction)transformButtonTapped:(id)sender {
+- (IBAction)transformButtonTouchUp:(id)sender {
     [RemoteLog logAction:@"transformButtonTapped" identifier:sender];
+    [self lockInteraction:true];
     
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
@@ -3526,7 +3536,7 @@
 }
 #pragma mark- 图层 Layer
 
-- (IBAction)layerButtonTapped:(UIButton *)sender {
+- (IBAction)layerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"layerButtonTapped" identifier:sender];
     sender.selected = true;
     
@@ -3841,11 +3851,11 @@
 }
 
 #pragma mark- 退出 SaveClose
-- (IBAction)saveAndCloseButtonTapped:(UIButton *)sender {
+- (IBAction)saveAndCloseButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"saveAndCloseButtonTapped" identifier:sender];
     
     //禁止所有屏幕上的操作
-    self.rootView.userInteractionEnabled = false;
+    [self lockInteraction:true];
     
     [self saveDoc];
     [self closeDoc];
@@ -3859,13 +3869,13 @@
         return;
     }
     
-    //在undoDraw未结束之前，关闭undoDraw
-    self.undoButton.userInteractionEnabled = false;
+    //在undoDraw未结束之前，关闭所有UI交互
+    [self lockInteraction:true];
     
     [self.paintView undoDraw];
     
-    //在最后一个undoDraw glFinished之后恢复UI响应
-    self.undoButton.userInteractionEnabled = true;
+    //在最后一个undoDraw glFinished之后恢复UI交互
+    [self lockInteraction:false];
 }
 
 - (void)playUndoDrawAnim{
@@ -3891,12 +3901,12 @@
         return;
     }
     
-    self.redoButton.userInteractionEnabled = false;
+    [self lockInteraction:true];
 
     [self.paintView redoDraw];
     
     //在最后一个undoDraw glFinished之后恢复UI响应
-    self.redoButton.userInteractionEnabled = true;
+    [self lockInteraction:false];
 }
 
 - (void)playRedoDrawAnim{
@@ -4058,23 +4068,15 @@
 }
 
 -(void)willEnableUIRedo:(BOOL)enable{
-    [self.redoButton.layer setNeedsDisplay];
+    self.redoButton.alpha = enable ? 1 : 0;
+//    [self.redoButton.layer setNeedsDisplay];
     self.redoButton.enabled = enable;
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        self.redoButton.alpha = enable ? 1 : 0;
-//    } completion:^(BOOL finished) {
-//        self.redoButton.hidden = !enable;
-//    }];
 }
 
 -(void)willEnableUIUndo:(BOOL)enable{
-    [self.undoButton.layer setNeedsDisplay];
+    self.undoButton.alpha = enable ? 1 : 0;
+//    [self.undoButton.layer setNeedsDisplay];
     self.undoButton.enabled = enable;
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        self.undoButton.alpha = enable ? 1 : 0;
-//    } completion:^(BOOL finished) {
-//        self.undoButton.hidden = !enable;
-//    }];
 }
 
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{
@@ -4269,13 +4271,13 @@
 
 }
 #pragma mark- 取色界面 Pick Color UI Operation
-- (IBAction)colorSlotsSwitchTapped:(UIButton *)sender {
+- (IBAction)colorSlotsSwitchTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"colorSlotsSwitchTapped" identifier:sender];
     [self.brushOpacityView setHidden:![self.brushOpacityView isHidden]];
     _colorSlotsViewHidden = [self.brushOpacityView isHidden];
 }
 
-- (IBAction)colorPickerSwitchTapped:(UIButton *)sender {
+- (IBAction)colorPickerSwitchTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"colorPickerSwitchTapped" identifier:sender];
     if(self.colorPickerView.sourceView!=NULL){
         self.colorPickerView.sourceView.backgroundColor = self.infColorPickerController.resultColor;
@@ -4309,7 +4311,7 @@
 //    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
-- (IBAction)paintColorButtonTapped:(UIButton *)sender {
+- (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"paintColorButtonTapped" identifier:sender];
 //    if (colorPickerView.hidden) {
 //        colorPickerView.hidden = false;
@@ -4364,7 +4366,7 @@
 }
 
 #pragma mark- 工具栏
-- (IBAction)debugButtonTapped:(UIButton *)sender {
+- (IBAction)debugButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"debugButtonTapped" identifier:sender];
     [self.debugView layer].contents = (__bridge id)(self.paintView.brushingImage.CGImage);
     [self.debugView2 layer].contents = (__bridge id)(self.paintView.paintingImage.CGImage);
@@ -4739,7 +4741,7 @@
 //主教程入口设置
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
-    Tutorial *tutorial = (Tutorial *)[[TutorialManager current].tutorials valueForKey:@"TutorialMain"];
+    Tutorial *tutorial = (Tutorial *)[[AnaDrawTutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (TutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"PaintScreen"].length > 0) {
@@ -4752,27 +4754,27 @@
 //在排版等准备完成以后,检查是否需要开始教程
 - (void)tutorialStartFromStepName:(NSString *)name{
     DebugLogFuncStart(@"tutorialStartFromStepName %@", name);
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
-    if ([[TutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
-        [[TutorialManager current].curTutorial startFromStepName:name];
+    if ([[AnaDrawTutorialManager current].curTutorial.curStep.name isEqualToString:name]) {
+        [[AnaDrawTutorialManager current].curTutorial startFromStepName:name];
     }
 }
 
 - (void)tutorialStepNextImmediate:(BOOL)immediate{
     DebugLogFuncStart(@"tutorialStepNext");
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
     
     //isCheckTutorialStep
     if (immediate) {
-        [[TutorialManager current].curTutorial stepNextImmediate];
+        [[AnaDrawTutorialManager current].curTutorial stepNextImmediate];
     }
     else{
-        [[TutorialManager current].curTutorial stepNext:nil];
+        [[AnaDrawTutorialManager current].curTutorial stepNext:nil];
     }
     
 }

@@ -24,31 +24,31 @@
 }
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete{
-    DebugLogFuncUpdate(@"updateInteractiveTransition percentComplete:%.2f", percentComplete);
+    DebugLogFuncUpdate(@"%@ updateInteractiveTransition percentComplete:%.2f", self.name, percentComplete);
     self.percentComplete = percentComplete;
     
     [self.delegate willUpdatingInteractiveTransition:self];
 }
 
 - (void)cancelInteractiveTransition{
-    DebugLogFuncStart(@"canceling InteractiveTransition");
+    DebugLogFuncStart(@"%@ canceling InteractiveTransition", self.name);
     self.interactionEnable = false;
 
     [self.delegate willCancelInteractiveTransition:self completion:^{
         self.percentComplete = 0;
         self.interactionEnable = true;
-        DebugLog(@"interactiveTransition canceled");
+        DebugLog(@"%@ interactiveTransition canceled", self.name);
     }];
 }
 
 - (void)finishInteractiveTransition{
-    DebugLogFuncStart(@"finishing InteractiveTransition");
+    DebugLogFuncStart(@"%@ finishing InteractiveTransition", self.name);
     self.interactionEnable = false;
 
     [self.delegate willFinishInteractiveTransition:self completion:^{
         self.percentComplete = 1;
         self.interactionEnable = true;
-        DebugLog(@"interactiveTransition finished");
+        DebugLog(@"%@ interactiveTransition finished", self.name);
     }];
     
 }

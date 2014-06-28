@@ -10,7 +10,6 @@
 #import <GLKit/GLKit.h>
 #import "BrushTypeButton.h"
 #import "Ultility.h"
-#import "ShaderManager.h"
 #import "TextureManager.h"
 #import "ShaderBrush.h"
 #import "Material.h"

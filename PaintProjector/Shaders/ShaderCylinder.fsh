@@ -44,7 +44,7 @@ void main()
     cRefl.rgb *= max(0.0, sign(-worldPos.z));
 
     lowp float reflStrength = eye.w;
-    gl_FragColor.rgb = (cBase.rgb * 0.7 + cRefl.rgb * cRefl.a * 0.8);
+    gl_FragColor.rgb = (cBase.rgb + cRefl.rgb * cRefl.a * 0.8);
 //    gl_FragColor.rgb =  cBase.rgb * (1.0 - cRefl.a) + cRefl.rgb * cRefl.a;
 //    gl_FragColor.rgb *= reflStrength;
 //    gl_FragColor.rgb *= color0.rgb;

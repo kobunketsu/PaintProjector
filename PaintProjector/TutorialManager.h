@@ -33,8 +33,12 @@ static TutorialManager *tutorialManager = nil;
 - (Tutorial *)addTutorial:(NSString *)name ofClass:(NSString *)className;
 - (void)removeTutorial:(NSString *)name;
 
+@property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) Tutorial *curTutorial;
 @property (retain, nonatomic) NSMutableDictionary *tutorials;
 
+@end
 
+@protocol TutorialManagerDelegate
+- (void)willTutorialEnd:(Tutorial *)tutorial;
 @end

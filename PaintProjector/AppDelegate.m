@@ -13,8 +13,6 @@
 #import "BBXBeeblex.h"
 #import "iRate.h"
 
-#import "TutorialManager.h"
-#import "AnaDrawTutorial.h"
 
 //#define DEBUG 1
 @implementation AppDelegate
@@ -135,10 +133,10 @@
     
     //恢复所有动画的播放
     //恢复教程动画的播放
-    if (![[TutorialManager current] isActive]) {
+    if (![[AnaDrawTutorialManager current] isActive]) {
         return;
     }
-    for (TutorialStep *step in [TutorialManager current].curTutorial.steps) {
+    for (TutorialStep *step in [AnaDrawTutorialManager current].curTutorial.steps) {
         for (TutorialIndicatorView *view in step.indicatorViews) {
             [view setNeedsLayout];
         }
@@ -214,11 +212,11 @@
 //        }
 }
 
-#pragma mark- 教程Tutorial
 //初始化教程的四个步骤，具体步骤的排版信息在切换到具体步骤并加载对应页面后使用页面排版代理进行排版
 - (void)initTutorial{
-    [TutorialManager initialize];
-    AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[TutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
+    [AnaDrawTutorialManager initialize];
+    [AnaDrawTutorialManager current].delegate = self;
+    AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[AnaDrawTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
     
     //欢迎界面
     TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];
@@ -394,7 +392,13 @@
     [((TutorialPageButtonView*)step.contentView) bringSubviewToFront:nextButton];
     [nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
     
-    [[TutorialManager current] activeTutorial:@"TutorialMain"];
+    [[AnaDrawTutorialManager current] activeTutorial:@"TutorialMain"];
+}
+
+- (void)willTutorialEnd:(Tutorial *)tutorial{
+    if ([tutorial.name isEqualToString:@"TutorialMain"]) {
+        [AnaDrawTutorialManager destroy];
+    }
 }
 
 #pragma mark- 教程代理

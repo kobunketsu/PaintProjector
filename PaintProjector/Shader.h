@@ -7,11 +7,12 @@
 //
 
 #import "Object.h"
-#import "ShaderManager.h"
+#import "GLWrapper.h"
 
 @interface Shader : Object
 @property (assign, nonatomic) GLuint program;
 @property (retain, nonatomic) NSMutableDictionary* uniformPropertyDic;
 
 - (void)setUniformForKey:(NSString*)key;
+- (void)setBlendMode;
 @end
