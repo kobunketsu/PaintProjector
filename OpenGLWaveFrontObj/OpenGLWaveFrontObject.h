@@ -38,8 +38,8 @@
 	Vertex3D			currentPosition;
 	Rotation3D			currentRotation;
 }
-@property (nonatomic, retain) NSString *sourceObjFilePath;
-@property (nonatomic, retain) NSString *sourceMtlFilePath;
+@property (nonatomic, copy) NSString *sourceObjFilePath;
+@property (nonatomic, copy) NSString *sourceMtlFilePath;
 @property (nonatomic, assign) GLuint numberOfVertices;
 @property (nonatomic, assign) GLuint numberOfFaces;
 @property (nonatomic, assign) Vertex3D *vertexNormals;

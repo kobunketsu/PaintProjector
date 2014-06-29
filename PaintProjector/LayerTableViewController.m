@@ -7,7 +7,6 @@
 //
 
 #import "LayerTableViewController.h"
-#import "LayerTableViewCell.h"
 #import "BackgroundLayerTableViewCell.h"
 #import "LayerTableViewCellBackgroundView.h"
 #import "LayerToolView.h"

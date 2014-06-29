@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LayerBlendModeTableViewController.h"
+#import "LayerTableViewCell.h"
+#import "LayerTableView.h"
 #import "BackgroundLayer.h"
-
 #import "LayerDeleteDoneButton.h"
 #import "AutoRotateButton.h"
 #import "SharedPopoverController.h"
@@ -90,4 +91,8 @@ UIAlertViewDelegate
 //设置图层可见性
 - (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender;
 - (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender;
+
+#pragma mark- Layer Display
+//@property (weak, nonatomic) UIImage *tempImageForLayerTableViewCellDisplay;
+//- (void)updateDisplayCell:(LayerTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 @end

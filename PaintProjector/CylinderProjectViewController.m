@@ -44,7 +44,7 @@ static float DeviceWidth = 0.154;
 @property (retain, nonatomic) SharedPopoverController *sharedPopoverController;
 @property (assign, nonatomic)GLKVector2 touchDirectionBegin;
 //@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
-@property(nonatomic, retain) NSString *userInputParamkeyPath;
+@property(nonatomic, copy) NSString *userInputParamkeyPath;
 @property (retain, nonatomic) Animation *resetAnimation;
 //VC切换动画效果管理器
 @property (nonatomic) PaintScreenTransitionManager *transitionManager;

@@ -21,6 +21,7 @@
 #import "LayerBlendModeTableViewController.h"
 #import "LayerTableViewController.h"
 #import "LayerBlendModePopoverController.h"
+#import "LayerTableView.h"
 #import <pthread.h>
 #import "TransformContentView.h"
 #import "TransformContentViewLayer.h"
@@ -2866,7 +2867,7 @@
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, (NSString *) kUTTypeMovie, nil];
+        imagePicker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
         imagePicker.allowsEditing = NO;
         imagePicker.delegate = self;
         SharedPopoverController *popover = [[SharedPopoverController alloc] initWithContentViewController:imagePicker];
@@ -3073,7 +3074,7 @@
     CGFloat rotate = 0;
     CGPoint scale = CGPointMake(1, 1);
     CGPoint translate = CGPointZero;
-    CGPoint anchorPoint = CGPointZero;
+//    CGPoint anchorPoint = CGPointZero;
     
     if (enableTranslate) {
         CGPoint center = CGPointMake((p0.x + p1.x) * 0.5, (p0.y + p1.y) * 0.5);
@@ -3456,7 +3457,6 @@
 
 - (IBAction)transformButtonTouchUp:(id)sender {
     [RemoteLog logAction:@"transformButtonTapped" identifier:sender];
-    [self lockInteraction:true];
     
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
@@ -3465,6 +3465,8 @@
         if(CGSizeEqualToSize(rect.size, CGSizeZero)){
             return;
         }
+
+        [self lockInteraction:true];
         
         [self.paintView beforeTransformLayer];
 
@@ -3473,6 +3475,8 @@
         [self enterTransformLayerState:rect];
     }
     else if (_state == PaintScreen_Transform){
+        [self lockInteraction:true];
+        
         [self.paintView transformImageDone];
         
         //UI
@@ -3484,15 +3488,15 @@
 }
 
 - (IBAction)customLayerButtonTouchCancel:(AutoRotateButton *)sender {
-    [RemoteLog logAction:@"customLayerButtonTouchCancel" identifier:sender];
+//    [RemoteLog logAction:@"customLayerButtonTouchCancel" identifier:sender];
 //    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchUpOutside:(AutoRotateButton *)sender {
-    [RemoteLog logAction:@"customLayerButtonTouchUpOutside" identifier:sender];
+//    [RemoteLog logAction:@"customLayerButtonTouchUpOutside" identifier:sender];
 //    [(AutoRotateButton*)sender setHighlighted:false];
 }
 - (IBAction)customLayerButtonTouchDown:(AutoRotateButton *)sender {
-    [RemoteLog logAction:@"customLayerButtonTouchDown" identifier:sender];
+//    [RemoteLog logAction:@"customLayerButtonTouchDown" identifier:sender];
 //    [(AutoRotateButton*)sender setHighlighted:true];
 }
 
@@ -3566,16 +3570,18 @@
 //    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.layerTableViewController.view;
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 
-    for (AutoRotateButton* button in self.layerTableViewController.autoRotateButtons) {
-        button.isInterfacePortraitUpsideDown = self.isInterfacePortraitUpsideDown;
-        button.orientation = [UIDevice currentDevice].orientation;
-    }
+//    for (AutoRotateButton* button in self.layerTableViewController.autoRotateButtons) {
+//        button.isInterfacePortraitUpsideDown = self.isInterfacePortraitUpsideDown;
+//        button.orientation = [UIDevice currentDevice].orientation;
+//    }
     
     //在并行线程更新数据(需要保证其他线程也在使用opengles context进行操作)
     dispatch_async(_uploadDataQueque, ^{
-        [self.paintView uploadLayerDatas];
+//        BNRTimeBlock (^{//测试运行速度
+            [self.paintView uploadLayerDatas];
+//        });
         dispatch_async(dispatch_get_main_queue(), ^{
-            DebugLog(@"uploadLayerDatas completed!");
+            DebugLog(@"update tableView on main thread");
             //载入层缩略图
             [self.layerTableViewController.tableView reloadData];
 

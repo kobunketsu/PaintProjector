@@ -113,7 +113,7 @@
     else {
         NSError * error;         
         texInfo = [GLKTextureLoader textureWithContentsOfFile:imagePath options:options error:&error];     
-        if (texInfo == nil) {
+        if (!texInfo) {
             DebugLogError(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
@@ -154,7 +154,7 @@
 
     NSError * error;
     GLKTextureInfo *texInfo = [GLKTextureLoader textureWithCGImage:image options:options error:&error];
-    if (texInfo == nil) {
+    if (!texInfo) {
         DebugLog(@"Error loading file: %@", [error localizedDescription]);
         return NULL;
     }
@@ -183,7 +183,7 @@
     else {
         NSError * error;         
         texInfo = [GLKTextureLoader textureWithCGImage:uiImage.CGImage options:options error:&error];     
-        if (texInfo == nil) {
+        if (!texInfo) {
             DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
@@ -208,7 +208,7 @@
                                   nil];
         NSError * error;
         texInfo = [GLKTextureLoader textureWithContentsOfData:data options:options error:&error];
-        if (texInfo == nil) {
+        if (!texInfo) {
             DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {

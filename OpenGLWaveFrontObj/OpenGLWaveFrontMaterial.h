@@ -22,7 +22,7 @@
 	GLfloat				shininess;
 	OpenGLTexture3D		*texture;
 }
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property Color3D diffuse;
 @property Color3D ambient;
 @property Color3D specular;

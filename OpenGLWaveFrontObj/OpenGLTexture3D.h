@@ -15,7 +15,7 @@
 	GLuint		texture[1];  
 	NSString	*filename;
 }
-@property (nonatomic, retain) NSString *filename;
+@property (nonatomic, copy) NSString *filename;
 - (id)initWithFilename:(NSString *)inFilename width:(GLuint)inWidth height:(GLuint)inHeight;
 - (void)bind;
 @end

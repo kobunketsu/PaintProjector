@@ -1744,6 +1744,7 @@
             layer.dirty = false;
         }
     }
+    DebugLog(@"uploadLayerDatas completed!");
 }
 
 - (void)setOpenData:(PaintData*)data{
@@ -2782,7 +2783,7 @@
     _anchorInverseTranslate = CGPointZero;
     
     //将导入的图片作为绘制来描画
-    [self drawImageTransformed:_toTransformImageTex];
+    [self drawImageTransformedStart:_toTransformImageTex];
     
     [self resetUndoRedo];
 }
@@ -2839,7 +2840,7 @@
     CGFloat h = (float)(self.bounds.size.height*0.5);
     GLKMatrix4 imageTransformMatrixT = GLKMatrix4MakeTranslation(_imageTranslate.x / w, -_imageTranslate.y / w, 0);
     GLKMatrix4 imageTransformMatrixR = GLKMatrix4MakeWithQuaternion(GLKQuaternionMakeWithAngleAndAxis(_imageRotate, 0, 0, 1));
-    GLKMatrix4 imageTransformMatrixS = GLKMatrix4MakeScale(_imageScale.x, _imageScale.y, 0);
+    GLKMatrix4 imageTransformMatrixS = GLKMatrix4MakeScale(_imageScale.x, _imageScale.y, 1);
     GLKMatrix4 anchorTransformMatrixT = GLKMatrix4MakeTranslation(_anchorTranslate.x / w, -_anchorTranslate.y / w, 0);
     GLKMatrix4 anchorInverseTransformMatrixT = GLKMatrix4MakeTranslation(_anchorInverseTranslate.x / w, -_anchorInverseTranslate.y / h, 0);
     
@@ -2864,13 +2865,18 @@
     
 }
 
+- (void)drawImageTransformedStart:(GLuint)texture{
+    [self drawImageTransformed:texture];
+
+    [self copyCurPaintedLayerToCurLayer];
+}
 //将图片描画到笔刷Framebuffer中，然后进行正常图层合成。
 - (void)drawImageTransformed:(GLuint)texture{
     CGFloat w = (float)(self.bounds.size.width*0.5);
     CGFloat h = (float)(self.bounds.size.height*0.5);
     GLKMatrix4 imageTransformMatrixT = GLKMatrix4MakeTranslation(_imageTranslate.x / w, -_imageTranslate.y / w, 0);
     GLKMatrix4 imageTransformMatrixR = GLKMatrix4MakeWithQuaternion(GLKQuaternionMakeWithAngleAndAxis(_imageRotate, 0, 0, 1));
-    GLKMatrix4 imageTransformMatrixS = GLKMatrix4MakeScale(_imageScale.x, _imageScale.y, 0);
+    GLKMatrix4 imageTransformMatrixS = GLKMatrix4MakeScale(_imageScale.x, _imageScale.y, 1);
     GLKMatrix4 anchorTransformMatrixT = GLKMatrix4MakeTranslation(_anchorTranslate.x / w, -_anchorTranslate.y / w, 0);
     GLKMatrix4 anchorInverseTransformMatrixT = GLKMatrix4MakeTranslation(_anchorInverseTranslate.x / w, -_anchorInverseTranslate.y / h, 0);
     
@@ -2892,8 +2898,6 @@
     
     //更新渲染
     [self _updateRender];
-    
-    [self copyCurPaintedLayerToCurLayer];
 }
 
 - (TransformInfo)freeTransformImageTranslate:(CGPoint)translation rotate:(float)rotate scale:(CGPoint)scale anchorPoint:(CGPoint)anchorPoint{

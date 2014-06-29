@@ -104,5 +104,5 @@ static bool IsQuickEyeDropper = true;
 static bool IsOffsetEyeDropper = true;
 
 #define InchScale 3.28
-#define DefaultScreenWidth 768
-#define DefaultScreenHeight 1024
+#define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
+#define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height

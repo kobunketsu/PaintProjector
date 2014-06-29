@@ -124,7 +124,7 @@ typedef struct {
 #pragma mark- Common
 @property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) PaintingView* paintView;
-@property (retain, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *name;
 @property (assign, nonatomic, readonly) BOOL isEditable;
 @property (assign, nonatomic) CGSize canvasSize;
 @property (retain, nonatomic) UIImage* iconImage;
@@ -150,7 +150,7 @@ typedef struct {
 @property (assign, nonatomic) GLuint smudgeFramebuffer;
 @property (assign, nonatomic) GLuint smudgeBackFramebuffer;
 @property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
-@property (retain, nonatomic) NSString *shaderPreDefines;
+@property (copy, nonatomic) NSString *shaderPreDefines;
 
 //用来删除所有Shader uniform中用到的GLuint 还要创建Texture对象，太复杂
 //@property (retain, nonatomic) ShaderBrush *shader;

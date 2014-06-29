@@ -34,8 +34,8 @@ typedef enum LayerBlendMode LayerBlendMode;
 @interface PaintLayer : Layer
 {
 }
-@property (retain, nonatomic) NSString *name;
-@property (retain, nonatomic) NSString *identifier;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *identifier;
 @property (retain, nonatomic) NSData *data;
 @property (assign, nonatomic) LayerBlendMode blendMode;
 @property (assign, nonatomic) bool dirty;

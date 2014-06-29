@@ -75,11 +75,11 @@
     [self _updateFuzzyTransparent];
 }
 
--(void)layoutSubviews{
-    [super layoutSubviews];
-    if (self.sourceView != nil) {
-        [self _updateFuzzyTransparent];
-    }
-    
-}
+//-(void)layoutSubviews{
+//    [super layoutSubviews];
+//    if (self.sourceView != nil) {
+//        [self _updateFuzzyTransparent];
+//    }
+//    
+//}
 @end

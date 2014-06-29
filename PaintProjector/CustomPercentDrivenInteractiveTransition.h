@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface CustomPercentDrivenInteractiveTransition : NSObject
-@property(assign, nonatomic)NSString *name;
+@property(copy, nonatomic)NSString *name;
 @property(assign, nonatomic)id delegate;
 @property(assign, nonatomic)CGFloat duration;
 @property(assign, nonatomic)CGFloat percentComplete;

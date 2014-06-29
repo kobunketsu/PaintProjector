@@ -22,7 +22,7 @@
 
 	OpenGLWaveFrontMaterial	*material;
 }
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property GLuint numberOfFaces;
 @property Face3D *faces;
 @property (nonatomic, retain) OpenGLWaveFrontMaterial *material;

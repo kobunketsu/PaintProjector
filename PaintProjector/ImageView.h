@@ -22,7 +22,7 @@
 {
 }
 @property (retain, nonatomic) UIImage* image;
-@property (assign, nonatomic) NSString *imageName;
+@property (copy, nonatomic) NSString *imageName;
 @property (assign, nonatomic) id<ImageViewDelegate> delegate;
 -(id)initWithIndex:(int)i andData:(NSDictionary*)data;
 @end
