@@ -50,7 +50,7 @@
     //设置用户参数
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
 //    [self initTutorial];

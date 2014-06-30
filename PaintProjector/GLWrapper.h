@@ -24,6 +24,10 @@ typedef NS_ENUM(NSInteger, InterpolationType) {
     Interpolation_Linear,
 };
 
+typedef NS_ENUM(NSInteger, WrapMode) {
+    WrapMode_Clamp,
+    WrapMode_Repeat,
+};
 #define SwapGL(a,b){GLuint temp = a; a = b; b = temp;}
 
 #define RELEASE_FRAMEBUFFER(fb) if(fb){glDeleteFramebuffersOES(1, &fb);fb = 0;}
@@ -92,6 +96,8 @@ static GLWrapper* glWrapper = nil;
 -(void)setImageInterpolation:(InterpolationType)type;
 
 -(void)setImageInterpolationFinished;
+
+- (void)setImageWrapMode:(WrapMode)wrapMode;
 
 #pragma mark- compile shader
 @property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader

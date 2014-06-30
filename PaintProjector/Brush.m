@@ -325,7 +325,7 @@
         brushState.isShapeTexture != lastBrushState.isShapeTexture ||
         brushState.isDissolve != lastBrushState.isDissolve ||
         brushState.wet != lastBrushState.wet) {
-        glUniform4f(_params2Uniform, (float)brushState.isShapeTexture, (float)brushState.isDissolve, brushState.wet, 0);
+        glUniform4f(_params2Uniform, (float)brushState.isShapeTexture, (float)brushState.isDissolve, brushState.wet, self.patternTextureSize);
     }
 
     
@@ -373,7 +373,8 @@
             glUniform1i(_noiseTextureUniform, 2);
             
             [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
-            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Linear];
+            [[GLWrapper current] setImageWrapMode:WrapMode_Repeat];
             
         }
     }
@@ -418,11 +419,12 @@
 -(void) setBrushCommonTextures
 {
     _maskTexture = [TextureManager textureInfoFromImageName:@"brushSoftFallOff.png" reload:false].name;
-    
-    _noiseTexture = [TextureManager textureInfoFromImageName:@"noise.png" reload:false].name;
 }
+
 - (void)setPatternTextureWithImage: (NSString*)patterName{
-    
+    GLKTextureInfo *texInfo = [TextureManager textureInfoFromImageName:patterName reload:false];
+    self.patternTextureSize = texInfo.width;
+    _noiseTexture = texInfo.name;
 }
 
 -(void)dealloc{

@@ -43,7 +43,7 @@
     self.brushState.radiusFade = 0.0;
     self.brushState.hardness = 0.2;
     self.brushState.roundness = 1.0;
-    self.brushState.angle = 180;
+    self.brushState.angle = 360;
     self.brushState.angleJitter = 1.0;
     self.brushState.angleFade = 0.0;
     self.brushState.spacing = 0.05;

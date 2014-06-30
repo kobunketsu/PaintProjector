@@ -6,7 +6,7 @@ uniform vec4 Params; //x: y:硬度 z:圆度 w:涂抹强度
 
 varying lowp vec4 DestinationColor;//颜色
 varying highp vec4 oBrushParam; //x:角度 y:硬度 z:圆度 w:涂抹强度
-varying highp vec4 oBrushParam2;//x:大小
+varying highp vec4 oBrushParam2;//x:大小 yz:grain texture uv
 
 void main(void) {
     gl_Position =  vec4(Position.xy,0,1) * Projection;
@@ -21,5 +21,6 @@ void main(void) {
     oBrushParam.z = Params.z;//圆度
     oBrushParam.w = Params.w;//涂抹强度
     oBrushParam2.x = gl_PointSize;
+    oBrushParam2.yz = Position.xy;
 
 }

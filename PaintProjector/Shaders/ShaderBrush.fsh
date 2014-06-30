@@ -2,7 +2,7 @@
 uniform sampler2D smudgeTexture;
 uniform sampler2D maskTexture;
 uniform sampler2D noiseTexture;
-uniform highp vec4 ParamsExtend;//x:使用pattern y:使用杂色 z:使用涂抹
+uniform highp vec4 ParamsExtend;//x:使用图形 y:杂点 z:使用涂抹 w:使用图章大小
 
 varying lowp vec4 DestinationColor; 
 varying highp vec4 oBrushParam;
@@ -34,9 +34,9 @@ void main ( )
    
     //blend with curPaintedLayer src_alpha src_alpha_inv
     lowp float shape = 1.0;
-//#ifdef Pattern
+//#ifdef Shape
     if (ParamsExtend.x > 0.0){
-        //pattern
+        //shape
         shape = texture2D(maskTexture, finalTexcoord).a;
     }
 //#else
@@ -54,8 +54,17 @@ void main ( )
         shape = hardAlpha * hardness + softAlpha * (1.0 - hardness);
     }
 //#endif
+    
+//pattern
+    //convert texcoord into texcoord space
+    lowp float patternAlpha = 1.0;
+    if (ParamsExtend.w > 0.0){
+        highp vec2 patternCoord = (oBrushParam2.yz + vec2(gl_PointCoord.x - 0.5, 0.5 - gl_PointCoord.y) * oBrushParam2.x) / ParamsExtend.w;
+        patternAlpha = texture2D(noiseTexture, patternCoord).r;
+    }
+    shape *= patternAlpha;
     finalAlpha *= shape;
-
+    
     //smudge
 //#ifdef Smudge
     if (ParamsExtend.z > 0.0){
@@ -72,14 +81,14 @@ void main ( )
 //#endif
     
 //#ifdef Dissolve
-    if (ParamsExtend.y > 0.0){
-        highp float dissolve = 1.0;
-//        finalTexcoord = finalTexcoord * noiseScale + noiseOffset;
-        dissolve = texture2D(noiseTexture, finalTexcoord).r;
-        if (finalAlpha < dissolve) {
-            finalAlpha = 0.0;
-        }
-    }
+//    if (ParamsExtend.y > 0.0){
+//        highp float dissolve = 1.0;
+////        finalTexcoord = finalTexcoord * noiseScale + noiseOffset;
+//        dissolve = texture2D(noiseTexture, finalTexcoord).r;
+//        if (finalAlpha < dissolve) {
+//            finalAlpha = 0.0;
+//        }
+//    }
 //#endif
     
     //debug

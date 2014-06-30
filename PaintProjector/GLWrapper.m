@@ -266,6 +266,23 @@
 
 }
 
+- (void)setImageWrapMode:(WrapMode)wrapMode{
+    switch (wrapMode) {
+        case WrapMode_Clamp:{
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            break;
+        }
+        case WrapMode_Repeat:{
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark- compile shader
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSString*)preDefines
 {

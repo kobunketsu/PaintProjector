@@ -71,12 +71,8 @@
 		08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */; };
 		08086E5A18DC8BA300F03EB4 /* brush_square_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD618DC8BA200F03EB4 /* brush_square_64.png */; };
 		08086E5B18DC8BA300F03EB4 /* brush_square_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD618DC8BA200F03EB4 /* brush_square_64.png */; };
-		08086E5E18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD818DC8BA200F03EB4 /* brushPencil_r05.png */; };
-		08086E5F18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD818DC8BA200F03EB4 /* brushPencil_r05.png */; };
 		08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */; };
 		08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */; };
-		08086E6A18DC8BA300F03EB4 /* brushSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDE18DC8BA200F03EB4 /* brushSquare.png */; };
-		08086E6B18DC8BA300F03EB4 /* brushSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDE18DC8BA200F03EB4 /* brushSquare.png */; };
 		08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDF18DC8BA200F03EB4 /* camera_48.png */; };
 		08086E6D18DC8BA300F03EB4 /* camera_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDF18DC8BA200F03EB4 /* camera_48.png */; };
 		08086E7018DC8BA300F03EB4 /* chalkStroke.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DE118DC8BA200F03EB4 /* chalkStroke.png */; };
@@ -143,6 +139,12 @@
 		0814743C18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0814743D18B19A5C00BBC25A /* AnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* AnimationClip.m */; };
 		0815334817D3809300A45B54 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
+		0815818719614F1C00AB1645 /* brushPencilShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818619614F1C00AB1645 /* brushPencilShape_r64.png */; };
+		0815818819614F1C00AB1645 /* brushPencilShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818619614F1C00AB1645 /* brushPencilShape_r64.png */; };
+		0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */; };
+		0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */; };
+		0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */; };
+		0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */; };
 		0817B392163C38ED00BD52B2 /* PaintScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B38F163C38ED00BD52B2 /* PaintScreen.m */; };
 		0818DC2D18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
 		0818DC2E18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.m */; };
@@ -471,6 +473,8 @@
 		08BD5CAE180102FA00F0FF67 /* FullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* FullScreenButton.m */; };
 		08BD5CB61801094200F0FF67 /* FullScreenReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */; };
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
+		08BFC0D41961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BFC0D31961A4A000E4CE22 /* brushPencilGrain_r64.png */; };
+		08BFC0D51961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BFC0D31961A4A000E4CE22 /* brushPencilGrain_r64.png */; };
 		08C0F6C41917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		08C0F6C51917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */; };
 		08C65E7D1950124500961551 /* AnaDrawTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* AnaDrawTutorial.m */; };
@@ -882,9 +886,7 @@
 		08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawLaunch@2x.png"; path = "PaintProjector/Images/AnaDrawLaunch@2x.png"; sourceTree = SOURCE_ROOT; };
 		08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_dryTip_64.png; path = PaintProjector/Images/brush_dryTip_64.png; sourceTree = SOURCE_ROOT; };
 		08086DD618DC8BA200F03EB4 /* brush_square_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_square_64.png; path = PaintProjector/Images/brush_square_64.png; sourceTree = SOURCE_ROOT; };
-		08086DD818DC8BA200F03EB4 /* brushPencil_r05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushPencil_r05.png; path = PaintProjector/Images/brushPencil_r05.png; sourceTree = SOURCE_ROOT; };
 		08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushSoftFallOff.png; path = PaintProjector/Images/brushSoftFallOff.png; sourceTree = SOURCE_ROOT; };
-		08086DDE18DC8BA200F03EB4 /* brushSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushSquare.png; path = PaintProjector/Images/brushSquare.png; sourceTree = SOURCE_ROOT; };
 		08086DDF18DC8BA200F03EB4 /* camera_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_48.png; path = PaintProjector/Images/camera_48.png; sourceTree = SOURCE_ROOT; };
 		08086DE118DC8BA200F03EB4 /* chalkStroke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chalkStroke.png; path = PaintProjector/Images/chalkStroke.png; sourceTree = SOURCE_ROOT; };
 		08086DE218DC8BA200F03EB4 /* chalkStroke02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chalkStroke02.png; path = PaintProjector/Images/chalkStroke02.png; sourceTree = SOURCE_ROOT; };
@@ -946,6 +948,9 @@
 		0814743A18B19A5C00BBC25A /* AnimationClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimationClip.h; path = PaintProjector/AnimationClip.h; sourceTree = "<group>"; };
 		0814743B18B19A5C00BBC25A /* AnimationClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimationClip.m; path = PaintProjector/AnimationClip.m; sourceTree = "<group>"; };
 		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
+		0815818619614F1C00AB1645 /* brushPencilShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushPencilShape_r64.png; path = PaintProjector/Images/brushPencilShape_r64.png; sourceTree = SOURCE_ROOT; };
+		08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushCrayonsGrain_r64.png; path = PaintProjector/Images/brushCrayonsGrain_r64.png; sourceTree = SOURCE_ROOT; };
+		0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushCrayonsShape_r64.png; path = PaintProjector/Images/brushCrayonsShape_r64.png; sourceTree = SOURCE_ROOT; };
 		0817B38E163C38ED00BD52B2 /* PaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0817B38F163C38ED00BD52B2 /* PaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		0818DC2B18A9B39D009A997C /* CustomPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
@@ -1368,6 +1373,7 @@
 		08BD5CB41801094200F0FF67 /* FullScreenReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreenReverseButton.h; sourceTree = "<group>"; };
 		08BD5CB51801094200F0FF67 /* FullScreenReverseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreenReverseButton.m; sourceTree = "<group>"; };
 		08BDEA0017E54C3700803D6F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PaintProjector/Images.xcassets; sourceTree = "<group>"; };
+		08BFC0D31961A4A000E4CE22 /* brushPencilGrain_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushPencilGrain_r64.png; path = PaintProjector/Images/brushPencilGrain_r64.png; sourceTree = SOURCE_ROOT; };
 		08C0F6C21917EDEA00AF3687 /* OpenGLWaveFrontGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLWaveFrontGroup.h; path = OpenGLWaveFrontObj/OpenGLWaveFrontGroup.h; sourceTree = "<group>"; };
 		08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontGroup.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontGroup.m; sourceTree = "<group>"; };
 		08C65E7B1950124500961551 /* AnaDrawTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnaDrawTutorial.h; path = PaintProjector/AnaDrawTutorial.h; sourceTree = "<group>"; };
@@ -2047,11 +2053,13 @@
 		085539851751E15C00DECF41 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				08BFC0D31961A4A000E4CE22 /* brushPencilGrain_r64.png */,
+				0815818619614F1C00AB1645 /* brushPencilShape_r64.png */,
+				08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */,
+				0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */,
 				08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */,
 				08086DD618DC8BA200F03EB4 /* brush_square_64.png */,
-				08086DD818DC8BA200F03EB4 /* brushPencil_r05.png */,
 				08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */,
-				08086DDE18DC8BA200F03EB4 /* brushSquare.png */,
 				08086E0318DC8BA300F03EB4 /* noise.png */,
 			);
 			name = Textures;
@@ -2776,7 +2784,6 @@
 				08E53A02195B0D64006EDCFC /* cylinderMain.png in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
-				08086E6B18DC8BA300F03EB4 /* brushSquare.png in Resources */,
 				08086E7918DC8BA300F03EB4 /* checkCircle.png in Resources */,
 				2bd9b4e63efc55eb48214f7c /* InfoPlist.strings in Resources */,
 				1730f73413c9164df5673fd7 /* InfColorPickerView.xib in Resources */,
@@ -2788,6 +2795,7 @@
 				08086E3B18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
 				08D4B8BB18C56611008F5293 /* Default.swatch in Resources */,
 				08086E9B18DC8BA300F03EB4 /* email_48.png in Resources */,
+				0815818819614F1C00AB1645 /* brushPencilShape_r64.png in Resources */,
 				08086F0E18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08E53A00195AF849006EDCFC /* cylinderTopLight.png in Resources */,
@@ -2822,7 +2830,9 @@
 				e37029de4c7956b2bb121e3c /* SharedTableViewCell.xib in Resources */,
 				08086E3318DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
 				44c3a468a4bf3475a7a36dc9 /* LayerToolView.xib in Resources */,
+				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
+				0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				080FBABD1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
@@ -2831,6 +2841,7 @@
 				08F905D2194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
+				08BFC0D51961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */,
 				086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
@@ -2843,7 +2854,6 @@
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
 				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
 				08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */,
-				08086E5F18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */,
 				08FB9B171942C948002E71A5 /* FactorsWhichDistortEffect.png in Resources */,
 				08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
 				08751309195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
@@ -2890,6 +2900,7 @@
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				08BD36E81932D097000B14EF /* bgRootView.png in Resources */,
+				0815818719614F1C00AB1645 /* brushPencilShape_r64.png in Resources */,
 				08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08086EFE18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				08E539FF195AF849006EDCFC /* cylinderTopLight.png in Resources */,
@@ -2922,9 +2933,9 @@
 				08525119194D853D0087F4AF /* tutorial_pickImage.png in Resources */,
 				0852511B194D853D0087F4AF /* tutorial_putDevice.png in Resources */,
 				0813AA1F19167BD4000C4D00 /* Models in Resources */,
-				08086E5E18DC8BA300F03EB4 /* brushPencil_r05.png in Resources */,
 				08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */,
-				08086E6A18DC8BA300F03EB4 /* brushSquare.png in Resources */,
+				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
+				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				08086E3A18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
 				08086E3618DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */,
@@ -2933,6 +2944,7 @@
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
 				08F905D1194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				0832E27C1933A7EA004BD986 /* README.md in Resources */,
+				08BFC0D41961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
 				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,

@@ -33,23 +33,29 @@
 - (void)resetDefaultBrushState{
     self.brushState.radius = 8;
     self.brushState.radiusFade = 0;
-    self.brushState.radiusJitter = 0.2;
-    self.brushState.opacity = 0.8;
-    self.brushState.flow = 0.35;
+    self.brushState.radiusJitter = 0;
+    self.brushState.opacity = 1.0;
+    self.brushState.flow = 0.5;
     self.brushState.flowFade = 0;
     self.brushState.flowJitter = 0;
-    self.brushState.angle = 0;
+    self.brushState.angle = 360;
     self.brushState.angleFade = 0;
-    self.brushState.angleJitter = 0;
+    self.brushState.angleJitter = 1.0;
     self.brushState.roundness = 1.0;
     self.brushState.hardness = 1.0;
     self.brushState.spacing = 0.1;
-    self.brushState.scattering = 0.5;
+    self.brushState.scattering = 0;
     self.brushState.isDissolve = true;
     self.brushState.isAirbrush = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
     self.brushState.wet = 0;
+}
+
+- (void)resetDefaultTextures{
+    [super resetDefaultTextures];
+    [self setBrushShapeTexture:@"brushCrayonsShape_r64.png"];
+    [self setPatternTextureWithImage:@"brushCrayonsGrain_r64.png"];
 }
 
 - (BOOL)free{

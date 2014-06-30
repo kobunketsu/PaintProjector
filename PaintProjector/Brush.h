@@ -47,7 +47,6 @@
 @property (assign, nonatomic)bool isVelocitySensor;
 @property (assign, nonatomic)bool isRadiusMagnifySensor;
 
-
 @end
 
 typedef enum
@@ -159,6 +158,7 @@ typedef struct {
 @property (assign, nonatomic) float radiusSliderMaxValue;
 @property (assign, nonatomic) float radiusSliderMinValue;
 
+@property (assign, nonatomic)float patternTextureSize;
 
 - (id)initWithPaintView:(PaintingView*)paintView;
 - (void)initGL;
