@@ -287,8 +287,8 @@
 /* Class = "IBUILabel"; text = "Airbrush"; ObjectID = "fEf-by-4YH"; */
 "fEf-by-4YH.text" = "喷枪模式";
 
-/* Class = "IBUILabel"; text = "Dissolve"; ObjectID = "fT3-TN-s92"; */
-"fT3-TN-s92.text" = "杂色";
+/* Class = "IBUILabel"; text = "Pattern"; ObjectID = "fT3-TN-s92"; */
+"fT3-TN-s92.text" = "纹理";
 
 /* Class = "IBUILabel"; text = "Zoom"; ObjectID = "fZE-q2-4Qc"; */
 "fZE-q2-4Qc.text" = "顶视缩放";

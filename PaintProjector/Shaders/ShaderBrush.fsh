@@ -1,7 +1,7 @@
 #extension GL_EXT_shader_framebuffer_fetch : require
 uniform sampler2D smudgeTexture;
 uniform sampler2D maskTexture;
-uniform sampler2D noiseTexture;
+uniform sampler2D patternTexture;
 uniform highp vec4 ParamsExtend;//x:使用图形 y:杂点 z:使用涂抹 w:使用图章大小
 
 varying lowp vec4 DestinationColor; 
@@ -60,7 +60,7 @@ void main ( )
     lowp float patternAlpha = 1.0;
     if (ParamsExtend.w > 0.0){
         highp vec2 patternCoord = (oBrushParam2.yz + vec2(gl_PointCoord.x - 0.5, 0.5 - gl_PointCoord.y) * oBrushParam2.x) / ParamsExtend.w;
-        patternAlpha = texture2D(noiseTexture, patternCoord).r;
+        patternAlpha = texture2D(patternTexture, patternCoord).r;
     }
     shape *= patternAlpha;
     finalAlpha *= shape;
@@ -84,7 +84,7 @@ void main ( )
 //    if (ParamsExtend.y > 0.0){
 //        highp float dissolve = 1.0;
 ////        finalTexcoord = finalTexcoord * noiseScale + noiseOffset;
-//        dissolve = texture2D(noiseTexture, finalTexcoord).r;
+//        dissolve = texture2D(patternTexture, finalTexcoord).r;
 //        if (finalAlpha < dissolve) {
 //            finalAlpha = 0.0;
 //        }

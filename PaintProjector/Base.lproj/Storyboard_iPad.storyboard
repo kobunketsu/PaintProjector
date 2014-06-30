@@ -810,7 +810,7 @@
                                                 <rect key="frame" x="10" y="640" width="226" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dissolve" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fT3-TN-s92">
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pattern" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fT3-TN-s92">
                                                         <rect key="frame" x="0.0" y="14" width="145" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -821,7 +821,7 @@
                                                         <rect key="frame" x="177" y="4" width="51" height="31"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <connections>
-                                                            <action selector="onDissolveSwitchValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="C3y-c1-9gZ"/>
+                                                            <action selector="onPatternSwitchValueChanged:" destination="KgQ-jx-DYl" eventType="valueChanged" id="eig-EP-P2Z"/>
                                                         </connections>
                                                     </switch>
                                                 </subviews>

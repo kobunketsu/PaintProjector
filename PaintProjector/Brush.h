@@ -42,7 +42,7 @@
 @property (assign, nonatomic)float scattering;
 @property (assign, nonatomic)float wet;
 @property (assign, nonatomic)bool isShapeTexture;
-@property (assign, nonatomic)bool isDissolve;
+@property (assign, nonatomic)bool isPatternTexture;
 @property (assign, nonatomic)bool isAirbrush;
 @property (assign, nonatomic)bool isVelocitySensor;
 @property (assign, nonatomic)bool isRadiusMagnifySensor;
@@ -90,8 +90,8 @@ typedef struct {
     GLuint _maskTexture;
     GLuint _shapeTexture;
     GLuint _maskTextureUniform;
-    GLuint _noiseTexture;
-    GLuint _noiseTextureUniform;
+    GLuint _patternTexture;
+    GLuint _patternTextureUniform;
     GLuint _paramsUniform;
     GLuint _params2Uniform;
     GLuint _projectionUniform;

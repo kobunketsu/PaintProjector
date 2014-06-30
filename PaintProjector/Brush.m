@@ -35,7 +35,7 @@
     state.seed = self.seed;
     state.spacing = self.spacing;
     state.scattering = self.scattering;
-    state.isDissolve = self.isDissolve;
+    state.isPatternTexture = self.isPatternTexture;
     state.isAirbrush = self.isAirbrush;
     state.isShapeTexture = self.isShapeTexture;
     state.isVelocitySensor = self.isVelocitySensor;
@@ -185,7 +185,7 @@
     if (bs1.isShapeTexture != bs2.isShapeTexture) {
         return false;
     }
-    if (bs1.isDissolve != bs2.isDissolve) {
+    if (bs1.isPatternTexture != bs2.isPatternTexture) {
         return false;
     }
     if (bs1.isAirbrush != bs2.isAirbrush) {
@@ -323,9 +323,9 @@
     if (lastBrushState == NULL ||
         brushState.classId != lastBrushState.classId ||
         brushState.isShapeTexture != lastBrushState.isShapeTexture ||
-        brushState.isDissolve != lastBrushState.isDissolve ||
+        brushState.isPatternTexture != lastBrushState.isPatternTexture ||
         brushState.wet != lastBrushState.wet) {
-        glUniform4f(_params2Uniform, (float)brushState.isShapeTexture, (float)brushState.isDissolve, brushState.wet, self.patternTextureSize);
+        glUniform4f(_params2Uniform, (float)brushState.isShapeTexture, (float)brushState.isPatternTexture, brushState.wet, self.patternTextureSize);
     }
 
     
@@ -366,13 +366,13 @@
     }
     
     
-    if (brushState.isDissolve) {
+    if (brushState.isPatternTexture) {
 
         //设置发生了改变
-        if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || !lastBrushState.isDissolve) {
-            glUniform1i(_noiseTextureUniform, 2);
+        if (lastBrushState == NULL || brushState.classId != lastBrushState.classId || !lastBrushState.isPatternTexture) {
+            glUniform1i(_patternTextureUniform, 2);
             
-            [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_noiseTexture];
+            [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_patternTexture];
             [[GLWrapper current] setImageInterpolation:Interpolation_Linear];
             [[GLWrapper current] setImageWrapMode:WrapMode_Repeat];
             
@@ -424,7 +424,7 @@
 - (void)setPatternTextureWithImage: (NSString*)patterName{
     GLKTextureInfo *texInfo = [TextureManager textureInfoFromImageName:patterName reload:false];
     self.patternTextureSize = texInfo.width;
-    _noiseTexture = texInfo.name;
+    _patternTexture = texInfo.name;
 }
 
 -(void)dealloc{
@@ -788,7 +788,7 @@
         // Get uniform locations.
         _smudgeTextureUniform = glGetUniformLocation(program, "smudgeTexture");
         _maskTextureUniform = glGetUniformLocation(program, "maskTexture");
-        _noiseTextureUniform = glGetUniformLocation(program, "noiseTexture");
+        _patternTextureUniform = glGetUniformLocation(program, "patternTexture");
         _paramsUniform = glGetUniformLocation(program, "Params");
         _params2Uniform = glGetUniformLocation(program, "ParamsExtend");
         _projectionUniform = glGetUniformLocation(program, "Projection");
@@ -830,7 +830,7 @@
     self.brushState.spacing = 0.2;
     self.brushState.scattering = 0.0;
     self.brushState.isAirbrush = true;
-    self.brushState.isDissolve = false;
+    self.brushState.isPatternTexture = false;
     self.brushState.isShapeTexture = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;

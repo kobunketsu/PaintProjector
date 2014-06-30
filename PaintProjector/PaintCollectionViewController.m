@@ -265,10 +265,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
     DebugLogSystem(@"didHighlightItemAtIndexPath");
-    
+    //保证动画不受影响
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-     
+        
         [cell.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
         
     }completion:nil];
@@ -279,10 +279,11 @@
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        
         [cell.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         
-    }completion:nil];
+    }completion:^(BOOL finished) {
+//        DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
+    }];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath{

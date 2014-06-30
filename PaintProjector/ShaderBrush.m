@@ -85,7 +85,7 @@
         // Get uniform locations.
         [self setUniformForKey:@"smudgeTexture"];
         [self setUniformForKey:@"maskTexture"];
-        [self setUniformForKey:@"noiseTexture"];
+        [self setUniformForKey:@"patternTexture"];
         [self setUniformForKey:@"Params"];
         [self setUniformForKey:@"ParamsExtend"];
         [self setUniformForKey:@"Projection"];

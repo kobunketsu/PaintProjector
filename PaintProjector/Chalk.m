@@ -49,7 +49,7 @@
     self.brushState.hardness = 1.0;
     self.brushState.spacing = 0.25;
     self.brushState.scattering = 0.5;
-    self.brushState.isDissolve = true;
+    self.brushState.isPatternTexture = true;
     self.brushState.isAirbrush = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    

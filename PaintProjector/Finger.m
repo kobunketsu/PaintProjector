@@ -49,7 +49,7 @@
     self.brushState.spacing = 0.1;
     //    self.brushState.spacing = 1.0 / self.brushState.radius;
     self.brushState.scattering = 0;
-    self.brushState.isDissolve = false;
+    self.brushState.isPatternTexture = false;
     self.brushState.isAirbrush = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;

@@ -513,7 +513,14 @@ static float DeviceWidth = 0.154;
     picker.mailComposeDelegate = self;
     NSString *postText = NSLocalizedString(@"EmailMessageSubject", nil);
     [picker setSubject:postText];
-    [picker setMessageBody:NSLocalizedString(@"EmailMessageBody", nil) isHTML:YES];
+    NSString *messageBody = NSLocalizedString(@"EmailMessageBody", nil);
+    
+    NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
+    NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
+    NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@",
+    NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight];
+    messageBody = [messageBody stringByAppendingString:messageDetail];
+    [picker setMessageBody:messageBody isHTML:YES];
     
     UIImage *image = [self.projectView snapshot];
     //convert UIImage to NSData to add it as attachment

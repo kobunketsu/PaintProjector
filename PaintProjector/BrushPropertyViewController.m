@@ -86,7 +86,7 @@
     self.spacingSlider.value = self.brush.brushState.spacing;
     self.scatteringSlider.value = self.brush.brushState.scattering;
     self.wetSlider.value = self.brush.brushState.wet;
-    self.dissolveSwitch.on = self.brush.brushState.isDissolve;
+    self.dissolveSwitch.on = self.brush.brushState.isPatternTexture;
     self.airbrushModeSwitch.on = self.brush.brushState.isAirbrush;
     self.velocitySensorSwitch.on = self.brush.brushState.isVelocitySensor;
     
@@ -175,8 +175,8 @@
     [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
 }
-- (IBAction)onDissolveSwitchValueChanged:(UISwitch *)sender {
-    self.brush.brushState.isDissolve = sender.isOn;
+- (IBAction)onPatternSwitchValueChanged:(UISwitch *)sender {
+    self.brush.brushState.isPatternTexture = sender.isOn;
     [self.brushPreview refreshStroke];
     [self.delegate willBrushPropertyValueChanged:self.brush.brushState];
     [self.delegate willBrushShaderChanged:self.brush.brushState];
@@ -350,7 +350,7 @@
             break;
         case 15:
             label = NSLocalizedString(@"Dither", nil);
-            switchValue = self.brush.brushState.isDissolve;
+            switchValue = self.brush.brushState.isPatternTexture;
             isSwitch = YES;
             break;
         case 16:
@@ -523,7 +523,7 @@
 - (IBAction)propertyValueSwitchValueChanged:(UISwitch *)sender {
     switch (sender.tag) {
         case 15:
-            [self onDissolveSwitchValueChanged:sender];
+            [self onPatternSwitchValueChanged:sender];
             break;
         case 16:
             [self onAirBrushModeSwitchValueChanged:sender];
