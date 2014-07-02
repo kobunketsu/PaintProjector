@@ -740,6 +740,8 @@ const float LayerTableViewWidth = 256;
             ((CustomLayer*)button.layer).baseColorB = colorRGBA[2];
             [button.layer setNeedsDisplay];
         }
+        
+        [cell setSelectedState:cell.isSelected];
     }
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:num-1 inSection:0];

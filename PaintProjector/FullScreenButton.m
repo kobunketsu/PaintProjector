@@ -31,12 +31,17 @@
 
 //-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
 - (void)drawRect:(CGRect)rect{
+    [self drawCanvas1WithFrame:rect];
+}
+
+- (void)drawCanvas1WithFrame: (CGRect)frame;
+{
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* iconColor = [UIColor colorWithRed: 0.991 green: 0.744 blue: 0.281 alpha: 1];
+    UIColor* iconColor = [UIColor colorWithRed: 0.679 green: 0.679 blue: 0.679 alpha: 1];
     CGFloat iconColorRGBA[4];
     [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
     
@@ -47,13 +52,8 @@
     UIColor* shadow3Color = [UIColor colorWithRed: 0.347 green: 0.347 blue: 0.347 alpha: 0.542];
     
     //// Gradient Declarations
-    NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)gradientColor2.CGColor,
-                               (id)[UIColor colorWithRed: 0.955 green: 0.788 blue: 0.375 alpha: 1].CGColor,
-                               (id)gradientColor.CGColor,
-                               (id)gradientColor2.CGColor, nil];
     CGFloat gradientLocations[] = {0, 0.27, 0.54, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColor2.CGColor, (id)[UIColor colorWithRed: 0.955 green: 0.788 blue: 0.375 alpha: 1].CGColor, (id)gradientColor.CGColor, (id)gradientColor2.CGColor], gradientLocations);
     
     //// Shadow Declarations
     UIColor* shadow4 = shadow4Color;
@@ -63,20 +63,13 @@
     CGSize shadow3Offset = CGSizeMake(0.1, 2.1);
     CGFloat shadow3BlurRadius = 1;
     
-    //// Frames
-    CGRect frame = CGRectMake(0, 0, 50, 33);
-    
-    //// Subframes
-    CGRect group = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 21) * 0.51724 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 21) * 0.50000 + 0.5), 21, 21);
-    
-    
     //// Group
     {
         //// Oval 2 Drawing
-        CGRect oval2Rect = CGRectMake(CGRectGetMinX(group), CGRectGetMinY(group) + CGRectGetHeight(group) - 21, 21, 21);
+        CGRect oval2Rect = CGRectMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 6, 27, 27);
         UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: oval2Rect];
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, shadow4.CGColor);
+        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
         CGContextBeginTransparencyLayer(context, NULL);
         [oval2Path addClip];
         CGContextDrawLinearGradient(context, gradient,
@@ -86,29 +79,24 @@
         CGContextEndTransparencyLayer(context);
         
         ////// Oval 2 Inner Shadow
-        CGRect oval2BorderRect = CGRectInset([oval2Path bounds], -shadow3BlurRadius, -shadow3BlurRadius);
-        oval2BorderRect = CGRectOffset(oval2BorderRect, -shadow3Offset.width, -shadow3Offset.height);
-        oval2BorderRect = CGRectInset(CGRectUnion(oval2BorderRect, [oval2Path bounds]), -1, -1);
-        
-        UIBezierPath* oval2NegativePath = [UIBezierPath bezierPathWithRect: oval2BorderRect];
-        [oval2NegativePath appendPath: oval2Path];
-        oval2NegativePath.usesEvenOddFillRule = YES;
-        
         CGContextSaveGState(context);
+        UIRectClip(oval2Path.bounds);
+        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+        
+        CGContextSetAlpha(context, CGColorGetAlpha([shadow3 CGColor]));
+        CGContextBeginTransparencyLayer(context, NULL);
         {
-            CGFloat xOffset = shadow3Offset.width + round(oval2BorderRect.size.width);
-            CGFloat yOffset = shadow3Offset.height;
-            CGContextSetShadowWithColor(context,
-                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                        shadow3BlurRadius,
-                                        shadow3.CGColor);
+            UIColor* opaqueShadow = [shadow3 colorWithAlphaComponent: 1];
+            CGContextSetShadowWithColor(context, shadow3Offset, shadow3BlurRadius, [opaqueShadow CGColor]);
+            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+            CGContextBeginTransparencyLayer(context, NULL);
             
-            [oval2Path addClip];
-            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(oval2BorderRect.size.width), 0);
-            [oval2NegativePath applyTransform: transform];
-            [[UIColor grayColor] setFill];
-            [oval2NegativePath fill];
+            [opaqueShadow setFill];
+            [oval2Path fill];
+            
+            CGContextEndTransparencyLayer(context);
         }
+        CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
         
         CGContextRestoreGState(context);
@@ -116,36 +104,31 @@
         
         
         //// Rectangle Drawing
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(CGRectGetMinX(group) + 4, CGRectGetMinY(group) + CGRectGetHeight(group) - 11, 13, 1)];
+        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 19, 15, 1)];
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, shadow4.CGColor);
+        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
         [iconShadowColorColor setFill];
         [rectanglePath fill];
         
         ////// Rectangle Inner Shadow
-        CGRect rectangleBorderRect = CGRectInset([rectanglePath bounds], -shadow3BlurRadius, -shadow3BlurRadius);
-        rectangleBorderRect = CGRectOffset(rectangleBorderRect, -shadow3Offset.width, -shadow3Offset.height);
-        rectangleBorderRect = CGRectInset(CGRectUnion(rectangleBorderRect, [rectanglePath bounds]), -1, -1);
-        
-        UIBezierPath* rectangleNegativePath = [UIBezierPath bezierPathWithRect: rectangleBorderRect];
-        [rectangleNegativePath appendPath: rectanglePath];
-        rectangleNegativePath.usesEvenOddFillRule = YES;
-        
         CGContextSaveGState(context);
+        UIRectClip(rectanglePath.bounds);
+        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+        
+        CGContextSetAlpha(context, CGColorGetAlpha([shadow3 CGColor]));
+        CGContextBeginTransparencyLayer(context, NULL);
         {
-            CGFloat xOffset = shadow3Offset.width + round(rectangleBorderRect.size.width);
-            CGFloat yOffset = shadow3Offset.height;
-            CGContextSetShadowWithColor(context,
-                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                        shadow3BlurRadius,
-                                        shadow3.CGColor);
+            UIColor* opaqueShadow = [shadow3 colorWithAlphaComponent: 1];
+            CGContextSetShadowWithColor(context, shadow3Offset, shadow3BlurRadius, [opaqueShadow CGColor]);
+            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+            CGContextBeginTransparencyLayer(context, NULL);
             
-            [rectanglePath addClip];
-            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(rectangleBorderRect.size.width), 0);
-            [rectangleNegativePath applyTransform: transform];
-            [[UIColor grayColor] setFill];
-            [rectangleNegativePath fill];
+            [opaqueShadow setFill];
+            [rectanglePath fill];
+            
+            CGContextEndTransparencyLayer(context);
         }
+        CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
         
         CGContextRestoreGState(context);
@@ -156,9 +139,6 @@
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
-    
-  
-
 }
 
 /*

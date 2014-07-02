@@ -36,6 +36,10 @@
     return self;
 }
 
+- (void)setFrame:(CGRect)frame{
+    super.frame = frame;
+    self.label.frame = CGRectMake(frame.size.width * 0.5 - 10, frame.size.height * 0.5 - 10, 40, 20);
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -47,8 +51,8 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* gradientColor = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 1];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 1];
+    UIColor* gradientColor = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 0.1];
+    UIColor* gradientColor2 = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 0.1];
     UIColor* shadow2Color = [UIColor colorWithRed: 0.877 green: 0.877 blue: 0.877 alpha: 1];
     UIColor* shadowColor2 = [UIColor colorWithRed: 0.434 green: 0.434 blue: 0.434 alpha: 1];
     
@@ -68,7 +72,7 @@
     CGFloat shadow2BlurRadius = 2;
     
     //// Oval Drawing
-    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(3, 3, 44, 44)];
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: self.bounds];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
     CGContextBeginTransparencyLayer(context, NULL);
@@ -127,7 +131,7 @@
 
 - (void)setRadius:(float)newValue {
     _radius = newValue;
-    if(_radius > 22){
+    if(_radius > 32){
         _label.hidden = false;
         _label.text = [NSString stringWithFormat:@"%.0f",_radius];
     }

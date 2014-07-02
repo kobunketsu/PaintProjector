@@ -30,7 +30,7 @@
 
 - (void)setRadiusSliderValue{
     self.radiusSliderMinValue = 5;
-    self.radiusSliderMaxValue = 10;
+    self.radiusSliderMaxValue = 30;
 }
 
 - (void)resetDefaultBrushState{

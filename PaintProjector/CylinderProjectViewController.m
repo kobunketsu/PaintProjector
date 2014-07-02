@@ -24,8 +24,8 @@
 #import "UIDeviceHardware.h"
 
 //avoid z fighting
-#define FarClipDistance 10
-#define NearClipDistance 0.001
+#define FarClipDistance 5
+#define NearClipDistance 0.005
 
 #define ToSeeCylinderTopPixelOffset 70
 #define ToSeeCylinderTopViewportPixelOffsetY -160
@@ -206,7 +206,14 @@ static float DeviceWidth = 0.154;
 
 #pragma mark- 交互控制 UserInteraction
 - (void)lockInteraction:(BOOL)lock{
-    self.projectView.userInteractionEnabled = !lock;
+    
+    if (self.setupButton.selected) {
+        self.projectView.userInteractionEnabled = false;
+    }
+    else{
+        self.projectView.userInteractionEnabled = !lock;
+    }
+
     self.downToolBar.userInteractionEnabled = !lock;
     self.topToolBar.userInteractionEnabled = !lock;
 }
@@ -423,8 +430,7 @@ static float DeviceWidth = 0.154;
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:shareTableViewController];
     self.sharedPopoverController.delegate = self;
-    CGRect rect = CGRectMake(self.shareButton.bounds.origin.x, self.shareButton.bounds.origin.y, self.shareButton.bounds.size.width, self.shareButton.bounds.size.height);
-    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:self.shareButton.bounds inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 #pragma mark- 分享 share Delegate
 -(void) didSelectPostToFacebook {
@@ -515,11 +521,16 @@ static float DeviceWidth = 0.154;
     [picker setSubject:postText];
     NSString *messageBody = NSLocalizedString(@"EmailMessageBody", nil);
     
-    NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
-    NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
-    NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@",
-    NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight];
-    messageBody = [messageBody stringByAppendingString:messageDetail];
+    //在顶视图状态下加入图片实际尺寸，方便于打印
+    if (self.topPerspectiveView.hidden) {
+        NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
+        NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
+        NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@",
+                                   NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight];
+        
+        messageBody = [messageBody stringByAppendingString:messageDetail];
+    }
+
     [picker setMessageBody:messageBody isHTML:YES];
     
     UIImage *image = [self.projectView snapshot];
@@ -735,7 +746,7 @@ static float DeviceWidth = 0.154;
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:productInfoTableViewController];
     self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:self.infoButton.bounds inView:self.infoButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:self.infoButton.bounds inView:self.infoButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
 #pragma mark- 产品信息代理 info Delegate
@@ -2355,7 +2366,7 @@ static float DeviceWidth = 0.154;
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:virtualDeviceCollectionViewController];
     CGRect rect = CGRectMake(self.virtualDeviceButton.bounds.origin.x, self.virtualDeviceButton.bounds.origin.y, self.virtualDeviceButton.bounds.size.width, self.virtualDeviceButton.bounds.size.height);
-    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.virtualDeviceButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.virtualDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
 }
 

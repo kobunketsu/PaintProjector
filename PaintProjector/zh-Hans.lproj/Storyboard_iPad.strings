@@ -276,7 +276,7 @@
 
 /* Class = "IBUIButton"; accessibilityLabel = "New"; ObjectID = "egz-LW-xJQ"; */
 "egz-LW-xJQ.accessibilityLabel" = "New";
-"egz-LW-xJQ.normalTitle" = "新建";
+"egz-LW-xJQ.normalTitle" = "新作";
 
 /* Class = "IBUIView"; accessibilityLabel = "MainToolBar"; ObjectID = "erO-nK-SuU"; */
 "erO-nK-SuU.accessibilityLabel" = "MainToolBar";

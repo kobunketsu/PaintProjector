@@ -172,7 +172,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="GiR-79-oU6" userLabel="LayerImageViewFrame">
-                                                    <rect key="frame" x="3" y="3" width="111" height="145"/>
+                                                    <rect key="frame" x="3" y="4" width="111" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WBe-Io-Mjp" customClass="LayerImageView">
@@ -249,7 +249,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" id="DA5-Gp-Zch" userLabel="LayerImageViewFrame">
-                                                    <rect key="frame" x="40" y="3" width="111" height="65"/>
+                                                    <rect key="frame" x="40" y="4" width="111" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="jOR-Y2-h3h" customClass="LayerImageView">
@@ -353,7 +353,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkCircle.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
                                                     <rect key="frame" x="3" y="3" width="214" height="298"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -1266,7 +1266,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="AJ4-6O-LyP" userLabel="FullScreenReverseButton" customClass="FullScreenReverseButton">
-                                        <rect key="frame" x="637" y="990" width="50" height="33"/>
+                                        <rect key="frame" x="725" y="986" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
@@ -1274,7 +1274,7 @@
                                         </connections>
                                     </view>
                                     <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Olc-1G-d92" userLabel="BrushSwapButton" customClass="BrushSwapButton">
-                                        <rect key="frame" x="80" y="990" width="50" height="33"/>
+                                        <rect key="frame" x="3" y="986" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
@@ -1397,7 +1397,7 @@
                                                 </connections>
                                             </button>
                                             <view opaque="NO" contentMode="scaleToFill" id="arx-c9-s41" userLabel="BrushRadiusView">
-                                                <rect key="frame" x="130" y="60" width="250" height="29"/>
+                                                <rect key="frame" x="130" y="57" width="250" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="100" id="BfJ-tE-xFg" userLabel="RadiusSlider" customClass="RadiusSlider">
@@ -1432,7 +1432,7 @@
                                                 </connections>
                                             </button>
                                             <view opaque="NO" contentMode="scaleToFill" id="IfY-J3-aSP" userLabel="PaintColorView">
-                                                <rect key="frame" x="696" y="6" width="72" height="72"/>
+                                                <rect key="frame" x="643" y="8" width="72" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XFa-Ld-xa1" userLabel="PaintColorButton" customClass="PaintColorButton">
@@ -1460,12 +1460,12 @@
                                                     </view>
                                                 </subviews>
                                             </view>
-                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" id="T99-J2-dLj" userLabel="colorSlotsScrollView">
+                                            <scrollView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" bouncesZoom="NO" id="T99-J2-dLj" userLabel="colorSlotsScrollView">
                                                 <rect key="frame" x="130" y="5" width="500" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </scrollView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="087-uT-cxg" userLabel="swatchMangerButton" customClass="SwatchManagerButton">
-                                                <rect key="frame" x="637" y="5" width="50" height="50"/>
+                                                <rect key="frame" x="727" y="3" width="38" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal">
@@ -1476,7 +1476,7 @@
                                                 </connections>
                                             </button>
                                             <view opaque="NO" contentMode="scaleToFill" id="1Aq-H8-fVk" userLabel="FullScreenButton" customClass="FullScreenButton">
-                                                <rect key="frame" x="637" y="55" width="50" height="33"/>
+                                                <rect key="frame" x="725" y="50" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -1487,7 +1487,7 @@
                                                 </connections>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" id="eYo-IH-5HX" userLabel="BrushOpacityView">
-                                                <rect key="frame" x="380" y="60" width="250" height="29"/>
+                                                <rect key="frame" x="380" y="57" width="250" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="SRt-Fr-rjv" userLabel="Opacity Slider" customClass="OpacitySlider">
@@ -2652,7 +2652,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checkCircle.png" width="210" height="295"/>
+        <image name="paintFrame.png" width="210" height="295"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

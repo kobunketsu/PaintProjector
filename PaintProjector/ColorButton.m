@@ -96,9 +96,9 @@
     CGColorSpaceRelease(colorSpace);
     
 
-    if(self.isHighlighted){
-        [self showHightlight];
-    }
+//    if(self.isHighlighted){
+//        [self showHightlight];
+//    }
 }
 
 - (void)showHightlight{

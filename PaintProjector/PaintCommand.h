@@ -18,6 +18,7 @@
 
 - (void) willBeforeDrawBrushState:(BrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate;
 
+//为在Undo过程中的描绘分配顶点描画的内存
 - (void) willAllocUndoVertexBufferWithPaintCommand:(PaintCommand*)cmd;
 
 - (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(BrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;

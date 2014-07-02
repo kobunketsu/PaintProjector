@@ -34,7 +34,7 @@
 
 + (void)log:(NSString *)name{
 #if DEBUG
-//    NSLog(@"%@", name);
+    NSLog(@"%@", name);
 #else
     CLSLog(name, nil);
     TFLog(name, nil);

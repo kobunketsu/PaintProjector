@@ -50,7 +50,6 @@
 @property (assign, nonatomic) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
 @property (retain, nonatomic) LayerTableViewController *layerTableViewController;
 @property (retain, nonatomic) NSDictionary *workspace;
-@property (retain, nonatomic) Brush   *curBrush;
 @property (retain, nonatomic) EyeDropper *eyeDropper;
 @property (retain, nonatomic) InfColorPickerController *infColorPickerController;
 @property (weak, nonatomic) ColorButton *colorPickerSrcButton;//记录打开取色器的源按钮
@@ -306,7 +305,16 @@
     
     //指定当前笔刷
     self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
-    [self.paintView setBrush:pencil];
+    NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"BrushId"];
+    NSInteger brushId = -1;
+    if (!num) {
+        brushId = 0;//pencil
+    }
+    else{
+        brushId = num.integerValue;
+    }
+    Brush *brush = self.brushTypeScrollView.brushTypes[brushId];
+    [self.paintView setBrush:brush];
     
     [self.brushButton addGestureRecognizer:self.lpgrBrushButton];
     self.brushBackButton.brush = eraser;
@@ -2083,6 +2091,17 @@
         self.rootCanvasView.userInteractionEnabled = false;
         
         [PaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+
+        //突出当前选择的笔刷
+        for (UIView *brushTypeView in self.brushTypeScrollView.subviews) {
+            brushTypeView.frame = CGRectMake(brushTypeView.frame.origin.x, 20, brushTypeView.frame.size.width, brushTypeView.frame.size.height);
+        }
+        UIView *selBrushTypeView = (UIView *)(self.brushTypeScrollView.subviews[self.paintView.brush.brushState.classId]);
+        selBrushTypeView.frame = CGRectMake(selBrushTypeView.frame.origin.x, 0, selBrushTypeView.frame.size.width, selBrushTypeView.frame.size.height);
+        
+        //切换到相应的page
+        self.brushTypePageControl.currentPage = (NSInteger)(floorf((float)self.paintView.brush.brushState.classId / 6.0));
+        self.brushTypeScrollView.contentOffset = CGPointMake(self.brushTypePageControl.currentPage * self.brushTypeScrollView.frame.size.width, 0);
         
         //切换成横移动画
         [PaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
@@ -2341,7 +2360,8 @@
         [self.colorButtons addObject:colorButton];
         [self.colorSlotsScrollView addSubview:colorButton];
     }
-    self.colorSlotsScrollView.contentSize = CGSizeMake(size*(colorDatas.count), 44);
+    
+    self.colorSlotsScrollView.contentSize = CGSizeMake(size*ceilf((float)colorDatas.count / 10.0)*10, 44);
 }
 
 - (void)setSwatchFile:(NSURL*)url{
@@ -2424,6 +2444,7 @@
     //UI
     if (self.radiusIndicatorView.hidden) {
         self.radiusIndicatorView.hidden = false;
+        
         [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
@@ -2452,11 +2473,17 @@
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender {
     [RemoteLog logAction:@"radiusSliderTouchUp" identifier:sender];
     if (!self.radiusIndicatorView.hidden) {
-        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
-        } completion:^(BOOL finished) {
-            self.radiusIndicatorView.hidden = true;
-        }];
+        [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+        
+        [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+        self.radiusIndicatorView.hidden = true;
+//        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+////            self.radiusIndicatorView.frame = frame;
+//            
+//        } completion:^(BOOL finished) {
+//            self.radiusIndicatorView.hidden = true;
+//        }];
     }
 }
 
@@ -2612,6 +2639,10 @@
     
     //保存当前调色板到默认调色板
     [self saveUserSwatch];
+    
+    //保存当前笔刷
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:self.paintView.brush.brushState.classId] forKey:@"BrushId"];
+    
 }
 
 //TODO:实现代理
@@ -2663,8 +2694,7 @@
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:importTableViewController];
     self.sharedPopoverController.delegate = self;
-    CGRect rect = CGRectMake(self.importButton.bounds.origin.x, self.importButton.bounds.origin.y, self.importButton.bounds.size.width, self.importButton.bounds.size.height);
-    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:self.importButton.bounds inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void) didSelectImportPhoto{
@@ -2912,8 +2942,7 @@
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:exportTableViewController];
     self.sharedPopoverController.delegate = self;
-    CGRect rect = CGRectMake(self.exportButton.bounds.origin.x, self.exportButton.bounds.origin.y, self.exportButton.bounds.size.width, self.exportButton.bounds.size.height);
-    [self.sharedPopoverController presentPopoverFromRect:rect inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:self.exportButton.bounds inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void) didSelectExportToEmail{
@@ -2990,7 +3019,10 @@
         }];
     }
     else{
-        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.exportButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"FacebookNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 -(void) didSelectPostToTwitter{
@@ -3015,7 +3047,10 @@
         }];
     }
     else{
-        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.exportButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"TwitterNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 -(void) didSelectPostToSinaWeibo {
@@ -3039,7 +3074,10 @@
         }];
     }
     else{
-        
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        self.exportButton.selected = false;
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SinaWeiboNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 
@@ -3564,7 +3602,8 @@
     
     self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.layerTableViewController];
     self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:_layerButton.bounds inView:_layerButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+
+    [self.sharedPopoverController presentPopoverFromRect:self.layerButton.bounds inView:_layerButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
     //半透明
 //    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.layerTableViewController.view;
@@ -3964,7 +4003,7 @@
     CGRect frame = self.brushButtonTempRect;
     frame.origin.x += 3;
     frame.origin.y += 10;
-    [self.sharedPopoverController presentPopoverFromRect:frame inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.sharedPopoverController presentPopoverFromRect:frame inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
 //    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
@@ -4096,6 +4135,11 @@
     self.radiusSlider.value = brush.radius;
     
     [self setOpacitySliderValueWithBrushState:brush.brushState];
+    
+    CGFloat boundWidth = self.paintColorButton.frame.size.width;
+    CGFloat radius = MIN(brush.radiusSliderMaxValue + 2, boundWidth * 0.5 - 4);
+    self.radiusIndicatorView.frame = CGRectMake(boundWidth * 0.5 - radius, boundWidth * 0.5 - radius, radius*2, radius*2);
+    [self.radiusIndicatorView setNeedsDisplay];
     
     //更新笔刷UI
     self.brushButton.brush = brush;

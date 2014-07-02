@@ -57,7 +57,7 @@
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"brush_square_64.png"];
+    [self setBrushShapeTexture:@"brushMarkerSquareShape_r64.png"];
 }
 
 - (BOOL)free{

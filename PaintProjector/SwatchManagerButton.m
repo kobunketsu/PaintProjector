@@ -28,6 +28,11 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    [self drawCanvas1WithFrame:rect];
+}
+
+- (void)drawCanvas1WithFrame:(CGRect)rect
+    {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -52,10 +57,12 @@
     CGSize highlightedOffset = CGSizeMake(0.1, 2.1);
     CGFloat highlightedBlurRadius = 4;
     
+    CGFloat edgeInset = 4;
+    CGFloat innerEdgeInset = 15;
     //// Group 2
     {
         //// Oval Drawing
-        CGRect ovalRect = CGRectMake(4, 4, 42, 42);
+        CGRect ovalRect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* ovalPath = [UIBezierPath bezierPath];
         [ovalPath addArcWithCenter: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect)) radius: CGRectGetWidth(ovalRect) / 2 startAngle: 334 * M_PI/180 endAngle: 26 * M_PI/180 clockwise: YES];
         [ovalPath addLineToPoint: CGPointMake(CGRectGetMidX(ovalRect), CGRectGetMidY(ovalRect))];
@@ -66,7 +73,7 @@
         
         
         //// Oval 1 Drawing
-        CGRect oval1Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval1Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval1Path = [UIBezierPath bezierPath];
         [oval1Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval1Rect), CGRectGetMidY(oval1Rect)) radius: CGRectGetWidth(oval1Rect) / 2 startAngle: 26 * M_PI/180 endAngle: 78 * M_PI/180 clockwise: YES];
         [oval1Path addLineToPoint: CGPointMake(CGRectGetMidX(oval1Rect), CGRectGetMidY(oval1Rect))];
@@ -77,7 +84,7 @@
         
         
         //// Oval 2 Drawing
-        CGRect oval2Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval2Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval2Path = [UIBezierPath bezierPath];
         [oval2Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval2Rect), CGRectGetMidY(oval2Rect)) radius: CGRectGetWidth(oval2Rect) / 2 startAngle: 78 * M_PI/180 endAngle: 130 * M_PI/180 clockwise: YES];
         [oval2Path addLineToPoint: CGPointMake(CGRectGetMidX(oval2Rect), CGRectGetMidY(oval2Rect))];
@@ -88,7 +95,7 @@
         
         
         //// Oval 3 Drawing
-        CGRect oval3Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval3Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval3Path = [UIBezierPath bezierPath];
         [oval3Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval3Rect), CGRectGetMidY(oval3Rect)) radius: CGRectGetWidth(oval3Rect) / 2 startAngle: 130 * M_PI/180 endAngle: 182 * M_PI/180 clockwise: YES];
         [oval3Path addLineToPoint: CGPointMake(CGRectGetMidX(oval3Rect), CGRectGetMidY(oval3Rect))];
@@ -99,7 +106,7 @@
         
         
         //// Oval 4 Drawing
-        CGRect oval4Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval4Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval4Path = [UIBezierPath bezierPath];
         [oval4Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval4Rect), CGRectGetMidY(oval4Rect)) radius: CGRectGetWidth(oval4Rect) / 2 startAngle: 182 * M_PI/180 endAngle: 234 * M_PI/180 clockwise: YES];
         [oval4Path addLineToPoint: CGPointMake(CGRectGetMidX(oval4Rect), CGRectGetMidY(oval4Rect))];
@@ -110,7 +117,7 @@
         
         
         //// Oval 5 Drawing
-        CGRect oval5Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval5Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval5Path = [UIBezierPath bezierPath];
         [oval5Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval5Rect), CGRectGetMidY(oval5Rect)) radius: CGRectGetWidth(oval5Rect) / 2 startAngle: 234 * M_PI/180 endAngle: 286 * M_PI/180 clockwise: YES];
         [oval5Path addLineToPoint: CGPointMake(CGRectGetMidX(oval5Rect), CGRectGetMidY(oval5Rect))];
@@ -121,7 +128,7 @@
         
         
         //// Oval 6 Drawing
-        CGRect oval6Rect = CGRectMake(4, 4, 42, 42);
+        CGRect oval6Rect = CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2);
         UIBezierPath* oval6Path = [UIBezierPath bezierPath];
         [oval6Path addArcWithCenter: CGPointMake(CGRectGetMidX(oval6Rect), CGRectGetMidY(oval6Rect)) radius: CGRectGetWidth(oval6Rect) / 2 startAngle: 286 * M_PI/180 endAngle: 338 * M_PI/180 clockwise: YES];
         [oval6Path addLineToPoint: CGPointMake(CGRectGetMidX(oval6Rect), CGRectGetMidY(oval6Rect))];
@@ -140,7 +147,7 @@
         
         
         //// Oval Background Drawing
-        UIBezierPath* ovalBackgroundPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(3, 3, 44, 44)];
+        UIBezierPath* ovalBackgroundPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2)];
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
         [gradientColor setFill];
@@ -182,7 +189,7 @@
     
     
     //// Oval 7 Drawing
-    UIBezierPath* oval7Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(15, 15, 20, 20)];
+    UIBezierPath* oval7Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(innerEdgeInset, innerEdgeInset, rect.size.width - innerEdgeInset * 2, rect.size.height - innerEdgeInset * 2)];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
     [highlightedColor setFill];

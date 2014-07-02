@@ -373,7 +373,7 @@
             glUniform1i(_patternTextureUniform, 2);
             
             [[GLWrapper current] activeTexSlot:GL_TEXTURE2 bindTexture:_patternTexture];
-            [[GLWrapper current] setImageInterpolation:Interpolation_Linear];
+            [[GLWrapper current] setImageInterpolation:Interpolation_Nearest];
             [[GLWrapper current] setImageWrapMode:WrapMode_Repeat];
             
         }
@@ -441,6 +441,7 @@
 
 //计算一次点到点绘制需要的数量
 - (size_t) calculateDrawCountFromPoint:(CGPoint)start toPoint:(CGPoint)end brushState:(BrushState*)brushState isTapDraw:(BOOL)isTapDraw{
+    DebugLogFuncUpdate(@"calculateDrawCountFromPointToPoint from %@ to %@ isTapDraw %i", NSStringFromCGPoint(start), NSStringFromCGPoint(end), isTapDraw);
 	// Convert locations from Points to Pixels
 	CGFloat scale = 1.0;
     //	CGFloat scale = self.contentScaleFactor;
@@ -475,6 +476,7 @@
         else{
             //累积距离小于间隔空间时，不描画
             if(self.curDrawAccumDeltaLength < spaceThresold){
+                DebugLog(@"curDrawAccumDeltaLength < spaceThresold count 0");
                 return 0;
             }
             else{
@@ -482,7 +484,7 @@
             }
         }
     }
-//    DebugLog(@"calculateDrawCountFromPointToPoint count %lu", count);
+    DebugLog(@"calculateDrawCountFromPointToPoint count %lu", count);
     return count;
 }
 

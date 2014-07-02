@@ -34,7 +34,7 @@
 }
 
 - (void)resetDefaultBrushState{
-    self.brushState.radius = 30;
+    self.brushState.radius = 20;
     self.brushState.radiusFade = 0;
     self.brushState.radiusJitter = 0;
     self.brushState.opacity = 1.0;

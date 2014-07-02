@@ -1416,20 +1416,20 @@
     glPushGroupMarkerEXT(0, "paintView willAllocUndoVertexBuffer");
 #endif
     
-    Brush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
+    if (cmd.paintPaths.count==0) {
+        return;
+    }
+//    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
     
     size_t count = 0;
-    //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
-    brush.curDrawPoint = brush.lastDrawPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
-    for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
-        
-        NSUInteger endIndex = (cmd.paintPaths.count == 1 ? i : (i+1));
-        CGPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGPointValue];
-        CGPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGPointValue];
-        
-        //        DebugLog(@"calculateDrawCountFromPointToPoint segment %d", i);
+    Brush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
+    brush.curDrawPoint = brush.lastDrawPoint = [cmd.paintPaths[0] CGPointValue];
+    
+    if (cmd.paintPaths.count == 1) {
+//        DebugLogWarn(@"cmd.paintPaths.count == 1");
+        CGPoint startPoint = [cmd.paintPaths[0] CGPointValue];
+        CGPoint endPoint = [cmd.paintPaths[0] CGPointValue];
         size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
-        
         brush.lastDrawPoint = brush.curDrawPoint;
         //重置累积距离
         if (countSegment > 0) {
@@ -1437,6 +1437,26 @@
         }
         
         count += countSegment;
+    }
+    else{
+//        DebugLogWarn(@"cmd.paintPaths.count %d", cmd.paintPaths.count);
+        for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
+            CGPoint startPoint = [cmd.paintPaths[i] CGPointValue];
+            CGPoint endPoint = [cmd.paintPaths[i+1] CGPointValue];
+            size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
+            brush.lastDrawPoint = brush.curDrawPoint;
+            //重置累积距离
+            if (countSegment > 0) {
+                brush.curDrawAccumDeltaLength = 0;
+            }
+            
+            count += countSegment;
+        }
+    }
+    
+    //不需要描画，退出内存分配
+    if (count == 0) {
+        return;
     }
     
     //测试记录一共需要多少点

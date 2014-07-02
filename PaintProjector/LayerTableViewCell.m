@@ -23,7 +23,11 @@ const float LayerTableViewWidth = 256;
 
 - (void)setSelectedState:(BOOL)selected{
     if (selected) {
-        self.layerImageViewFrame.backgroundColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:1.0];
+        CustomLayer* layer = (CustomLayer*)self.visibleButton.layer;
+        CGFloat r = ((CustomLayer*)layer).baseColorR * 0.675;
+        CGFloat g = ((CustomLayer*)layer).baseColorG * 0.675;
+        CGFloat b = ((CustomLayer*)layer).baseColorB * 0.675;
+        self.layerImageViewFrame.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
     }
     else{
         self.layerImageViewFrame.backgroundColor = [UIColor clearColor];

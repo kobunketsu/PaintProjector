@@ -27,7 +27,7 @@
 }
 
 - (void)setRadiusSliderValue{
-    self.radiusSliderMinValue = 1;
+    self.radiusSliderMinValue = 2;
     self.radiusSliderMaxValue = 5;
 }
 

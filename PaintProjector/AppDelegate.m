@@ -364,7 +364,7 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 100)];
     label.textColor = [UIColor darkGrayColor];
     label.text = NSLocalizedString(@"QuickGestures", nil);
-    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 40]];
+    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 30]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [step.contentView  addSubview:label];
     

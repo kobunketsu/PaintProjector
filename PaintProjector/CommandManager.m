@@ -32,6 +32,7 @@
     [self.delegate willEnableUndo:false];
     [self.delegate willEnableRedo:false];
 }
+
 - (void)addCommand:(Command *)cmd{
     [self.redoStack clear];
     [self.delegate willEnableRedo:false];
@@ -48,25 +49,8 @@
         //todo: 根据Command的不同类型对Stack进行处理
         if (self.undoStack.size == UndoMaxCount * 2) {
             //更新记录点
-            DebugLog(@"Update UndoBaseTexture");
-            
-            //1.得到绘制历史的临时层，使用curPaintedLayer作为临时层，从undoBasebuffer取得初始数据
-            glFinish();
-            [self.delegate willBeginWrapUndoBaseCommand];
-            
-            //2.在curPaintedLayer上绘制历史记录
-            for (int i = 0; i < UndoMaxCount+1; ++i) {
-                glFlush();
-                Command *wrapCmd = [self.undoStack pop_reverse];
-                wrapCmd.isUndoBaseWrapped = true;
-                //afterDraw中self copyCurLayerToCurPaintedLayer -> do nothing
-                [wrapCmd execute];
-            }
-            
-            //3.将curPaintLayerbuffer画到undobase buffer
-            //完成更新undoBasebuffer后从curLayerFramebuffer得到当前绘制数据
-            [self.delegate willEndWrapUndoBaseCommand];
-            glFinish();
+            DebugLog(@"Wrap UndoBaseTexture");
+            [self wrapUndoBaseTexture];
         }
     }
 
@@ -130,6 +114,26 @@
     [self.delegate willFinishRedo];
     
     [self.delegate willEnableUndo:true];
+}
+
+- (void)wrapUndoBaseTexture{
+    //1.得到绘制历史的临时层，使用curPaintedLayer作为临时层，从undoBasebuffer取得初始数据
+    glFinish();
+    [self.delegate willBeginWrapUndoBaseCommand];
+    
+    //2.在curPaintedLayer上绘制历史记录
+    for (int i = 0; i < UndoMaxCount+1; ++i) {
+        glFlush();
+        Command *wrapCmd = [self.undoStack pop_reverse];
+        wrapCmd.isUndoBaseWrapped = true;
+        //afterDraw中self copyCurLayerToCurPaintedLayer -> do nothing
+        [wrapCmd execute];
+    }
+    
+    //3.将curPaintLayerbuffer画到undobase buffer
+    //完成更新undoBasebuffer后从curLayerFramebuffer得到当前绘制数据
+    [self.delegate willEndWrapUndoBaseCommand];
+    glFinish();
 }
 
 //#pragma mark Command

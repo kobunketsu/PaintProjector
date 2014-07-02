@@ -9,8 +9,8 @@
 #import "LayerOpacitySlider.h"
 #import "QuartzCore/QuartzCore.h"
 
-#define kPatternWidth 16
-#define kPatternHeight 16
+#define kPatternWidth 14
+#define kPatternHeight 14
 @implementation LayerOpacitySlider
 
 - (id)initWithFrame:(CGRect)frame
@@ -77,7 +77,7 @@ void DrawPatternCellCallback1(void *info, CGContextRef cgContext)
     CGFloat shadow2BlurRadius = 2;
     
     //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 4, self.bounds.size.width - 2, 20) cornerRadius: 10];
+    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 6, self.bounds.size.width - 2, 16) cornerRadius: 10];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
     //draw
