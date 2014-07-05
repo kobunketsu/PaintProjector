@@ -125,10 +125,6 @@
     CGColorSpaceRelease(colorSpace);
 }
 
-- (float)radius {
-    return _radius;
-}
-
 - (void)setRadius:(float)newValue {
     _radius = newValue;
     if(_radius > 32){
@@ -140,4 +136,5 @@
     }
     [self setNeedsDisplay];
 }
+
 @end

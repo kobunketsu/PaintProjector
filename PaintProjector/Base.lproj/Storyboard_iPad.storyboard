@@ -353,7 +353,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
                                                     <rect key="frame" x="3" y="3" width="214" height="298"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -365,12 +365,18 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
+                                                <view opaque="NO" contentMode="scaleToFill" id="TYD-xi-mP3" customClass="PinView">
+                                                    <rect key="frame" x="195" y="-5" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <size key="customSize" width="220" height="305"/>
                                         <connections>
+                                            <outlet property="cellFrame" destination="uRi-Lg-wHo" id="rpI-jC-7q7"/>
                                             <outlet property="paintFrameView" destination="3Rs-q3-ZDJ" id="NpT-cQ-fQq"/>
+                                            <outlet property="pinView" destination="TYD-xi-mP3" id="yIH-hz-v0F"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1458,6 +1464,10 @@
                                                         <rect key="frame" x="11" y="11" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </view>
+                                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="C41-sP-OY9" userLabel="OpacityIndicatorView" customClass="OpacityIndicatorView">
+                                                        <rect key="frame" x="11" y="11" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </view>
                                                 </subviews>
                                             </view>
                                             <scrollView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" bouncesZoom="NO" id="T99-J2-dLj" userLabel="colorSlotsScrollView">
@@ -1495,6 +1505,9 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <accessibility key="accessibilityConfiguration" label="OpacitySlider"/>
                                                         <connections>
+                                                            <action selector="opacitySliderTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="nKd-4p-3lE"/>
+                                                            <action selector="opacitySliderTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="bfQ-Uc-sAA"/>
+                                                            <action selector="opacitySliderTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="ZTt-Y3-7go"/>
                                                             <action selector="slideBrushOpacity:" destination="NUX-zI-YbL" eventType="valueChanged" id="BPj-EZ-2nL"/>
                                                         </connections>
                                                     </slider>
@@ -1852,6 +1865,7 @@
                         <outlet property="lpgrBrushView" destination="f8T-0D-6Im" id="Jbc-fZ-CMt"/>
                         <outlet property="lpgrPaintView" destination="oTk-me-Tqm" id="k5m-IJ-7kH"/>
                         <outlet property="mainToolBar" destination="erO-nK-SuU" id="hEa-UN-jr2"/>
+                        <outlet property="opacityIndicatorView" destination="C41-sP-OY9" id="ubR-2n-n2a"/>
                         <outlet property="opacitySlider" destination="SRt-Fr-rjv" id="cH4-TL-KEh"/>
                         <outlet property="paintColorButton" destination="XFa-Ld-xa1" id="OzL-Yw-Cuy"/>
                         <outlet property="paintColorView" destination="IfY-J3-aSP" id="kXw-OI-4rY"/>

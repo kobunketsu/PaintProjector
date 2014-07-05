@@ -25,6 +25,7 @@
 #import "TopToolBar.h"
 #import "DownToolBar.h"
 #import "RadiusIndicatorView.h"
+#import "OpacityIndicatorView.h"
 #import "EyeDropperButton.h"
 #import "SelectBrushButton.h"
 #import "InfColorPickerController.h"
@@ -237,6 +238,7 @@ BackgroundLayerDelegate
 @property (weak, nonatomic) IBOutlet AnchorView *anchorView;
 //@property (weak, nonatomic) IBOutlet UIScrollView *radiusScrollView;
 @property (weak, nonatomic) IBOutlet RadiusIndicatorView *radiusIndicatorView;
+@property (weak, nonatomic) IBOutlet OpacityIndicatorView *opacityIndicatorView;
 @property (weak, nonatomic) IBOutlet RedoButton *redoButton;
 @property (weak, nonatomic) IBOutlet UndoButton *undoButton;
 @property (strong, nonatomic) IBOutletCollection(AutoRotateButton) NSArray *autoRotateButtons;
@@ -273,6 +275,9 @@ BackgroundLayerDelegate
 - (IBAction)radiusSliderTouchDown:(RadiusSlider *)sender;
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender;
 - (IBAction)slideBrushOpacity:(UISlider *)sender;
+- (IBAction)opacitySliderTouchUpOutside:(OpacitySlider *)sender;
+- (IBAction)opacitySliderTouchDown:(OpacitySlider *)sender;
+- (IBAction)opacitySliderTouchUp:(OpacitySlider *)sender;
 - (IBAction)brushTypeButtonTouchUp:(UIButton *)sender;
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender;
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender;

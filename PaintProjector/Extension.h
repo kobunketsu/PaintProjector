@@ -18,7 +18,7 @@
 #import "UIImage+RoundedCorner.h"
 #import "UISlider+Extension.h"
 #import "UIView+GLCoord.h"
-#import "UILabel+VerticalAlign.h"
+#import "UILabel+Align.h"
 #import "UIView+Extensions.h"
 #import "UIView+Tag.h"
 #import "UIView+VisibilityAnimation.h"

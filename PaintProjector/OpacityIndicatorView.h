@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "QuartzCore/QuartzCore.h"
 
-@interface RadiusIndicatorView : UIView
+@interface OpacityIndicatorView : UIView
 
 @property (retain, nonatomic)UILabel* label;
-@property (assign, nonatomic)CGFloat radius;
-
-
+@property (assign, nonatomic)CGFloat opacity;
 @end

@@ -229,7 +229,7 @@
     [step.contentView addSubview:imageView];
 
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_bookBG.png"]];
-    imageView.frame = CGRectMake(0, 0, 670, 500);
+    imageView.frame = CGRectMake(0, 0, 700, 500);
     imageView.parallaxIntensity = 25;
     [step.contentView addSubview:imageView];
     
@@ -351,7 +351,7 @@
     
     //完成教程
     CGFloat height = 440;
-    CGFloat width = 670;
+    CGFloat width = 768;
     CGFloat offsetX = 10;
     step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, width, height) pageImage:nil withNextButton:true];
     

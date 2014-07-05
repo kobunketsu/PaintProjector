@@ -41,19 +41,8 @@
     }
 
     //通过计算字长宽重新设置label位置
-//    DebugLog(@"frame %@", NSStringFromCGRect(self.frame));
-//    DebugLog(@"textLabel frame %@", NSStringFromCGRect(self.textLabel.frame));
-    UILabel *label = self.textLabel;
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
-    CGSize titleSize = [label.text boundingRectWithSize:label.frame.size options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
-//    DebugLog(@"titleSize frame %@", NSStringFromCGSize(titleSize));
-    CGFloat offsetX = label.frame.origin.x + (label.frame.size.width - titleSize.width) * 0.5;
-    CGRect labelFrame = label.frame;
-    labelFrame.origin.x = offsetX;
-    label.frame = labelFrame;
-//    DebugLog(@"final textLabel name %@ frame %@", label.text, NSStringFromCGRect(label.frame));
-   
-    
+    [self.textLabel alignTextHorizonCenterWithFontSize:[UIFont labelFontSize]];
+ 
     //增加整体动画
     //保存源frame，在EnterBackgroundh后退出动画时归位
     CGRect srcframe = self.frame;

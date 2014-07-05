@@ -12,6 +12,8 @@
 		039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0808D9D7164559870000DF40 /* InfHSBSupport.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		05630e6029267a567a7cabf6 /* LayerBlendModePopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08621341174D1A9E006704C8 /* LayerBlendModePopoverController.m */; };
 		06508361ba7abe7b677c01a5 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
+		080276741967139C0022FD56 /* OpacityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080276731967139C0022FD56 /* OpacityIndicatorView.m */; };
+		080276751967139C0022FD56 /* OpacityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080276731967139C0022FD56 /* OpacityIndicatorView.m */; };
 		0802D10C17367ACA003259E6 /* ImportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D10B17367ACA003259E6 /* ImportButton.m */; };
 		0802D11117368411003259E6 /* ExportButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D11017368411003259E6 /* ExportButton.m */; };
 		0802D11417368D8A003259E6 /* GalleryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0802D11317368D8A003259E6 /* GalleryButton.m */; };
@@ -378,8 +380,8 @@
 		088505BF17F720FF00E460CA /* ZoomCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505BE17F720FF00E460CA /* ZoomCanvasView.m */; };
 		088505C217F724EF00E460CA /* RotateCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505C117F724EF00E460CA /* RotateCanvasView.m */; };
 		08869AD0177DE9660010E0AA /* ColorSaveToSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */; };
-		0888F8B8194A177500CB71D2 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+VerticalAlign.m */; };
-		0888F8B9194A177500CB71D2 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+VerticalAlign.m */; };
+		0888F8B8194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
+		0888F8B9194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
 		088B073A183EE9980099C6A9 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B0739183EE9980099C6A9 /* Layer.m */; };
 		088B073F183EEBA80099C6A9 /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B073E183EEBA80099C6A9 /* BackgroundLayer.m */; };
 		088B40191792FB7F002750EA /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 088B40171792FB7F002750EA /* DBChooser.bundle */; };
@@ -514,6 +516,10 @@
 		08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */; };
 		08E0612C193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */; };
 		08E0612D193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */; };
+		08E06CB71965A6AF00A63017 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06CB61965A6AF00A63017 /* pin.png */; };
+		08E06CB81965A6AF00A63017 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06CB61965A6AF00A63017 /* pin.png */; };
+		08E06CBB1965BDD800A63017 /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* PinView.m */; };
+		08E06CBC1965BDD800A63017 /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* PinView.m */; };
 		08E104C418E31F3B00B777FB /* SharedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E104C318E31F3B00B777FB /* SharedTableView.m */; };
 		08E104C518E31F3B00B777FB /* SharedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E104C318E31F3B00B777FB /* SharedTableView.m */; };
 		08E104C818E326A100B777FB /* SharedPopoverArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E104C718E326A100B777FB /* SharedPopoverArrowView.m */; };
@@ -835,6 +841,8 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		080276721967139C0022FD56 /* OpacityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpacityIndicatorView.h; sourceTree = "<group>"; };
+		080276731967139C0022FD56 /* OpacityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpacityIndicatorView.m; sourceTree = "<group>"; };
 		0802D10A17367ACA003259E6 /* ImportButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportButton.h; sourceTree = "<group>"; };
 		0802D10B17367ACA003259E6 /* ImportButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportButton.m; sourceTree = "<group>"; };
 		0802D10F17368411003259E6 /* ExportButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportButton.h; sourceTree = "<group>"; };
@@ -1245,8 +1253,8 @@
 		088505C117F724EF00E460CA /* RotateCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateCanvasView.m; sourceTree = "<group>"; };
 		08869ACE177DE9650010E0AA /* ColorSaveToSlotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorSaveToSlotView.h; sourceTree = "<group>"; };
 		08869ACF177DE9660010E0AA /* ColorSaveToSlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorSaveToSlotView.m; sourceTree = "<group>"; };
-		0888F8B6194A177500CB71D2 /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
-		0888F8B7194A177500CB71D2 /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		0888F8B6194A177500CB71D2 /* UILabel+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Align.h"; sourceTree = "<group>"; };
+		0888F8B7194A177500CB71D2 /* UILabel+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Align.m"; sourceTree = "<group>"; };
 		088B0738183EE9980099C6A9 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
 		088B0739183EE9980099C6A9 /* Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layer.m; sourceTree = "<group>"; };
 		088B073D183EEBA80099C6A9 /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
@@ -1418,6 +1426,9 @@
 		08E06123193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2~ipad.png"; sourceTree = SOURCE_ROOT; };
 		08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_3~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_3~ipad.png"; sourceTree = SOURCE_ROOT; };
 		08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_3@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_3@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
+		08E06CB61965A6AF00A63017 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pin.png; path = PaintProjector/Images/pin.png; sourceTree = SOURCE_ROOT; };
+		08E06CB91965BDD800A63017 /* PinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PinView.h; path = PaintProjector/PinView.h; sourceTree = "<group>"; };
+		08E06CBA1965BDD800A63017 /* PinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PinView.m; path = PaintProjector/PinView.m; sourceTree = "<group>"; };
 		08E104C218E31F3B00B777FB /* SharedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedTableView.h; path = PaintProjector/SharedTableView.h; sourceTree = "<group>"; };
 		08E104C318E31F3B00B777FB /* SharedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedTableView.m; path = PaintProjector/SharedTableView.m; sourceTree = "<group>"; };
 		08E104C618E326A100B777FB /* SharedPopoverArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPopoverArrowView.h; path = PaintProjector/SharedPopoverArrowView.h; sourceTree = "<group>"; };
@@ -1689,6 +1700,7 @@
 		082439D716CCAE2100FC12BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				08E06CB61965A6AF00A63017 /* pin.png */,
 				080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */,
 				080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */,
 				08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */,
@@ -2281,6 +2293,8 @@
 				0860668F17D2DB60002EE42A /* DeleteButton.m */,
 				0860668917D2D8FB002EE42A /* NewButton.h */,
 				0860668A17D2D8FB002EE42A /* NewButton.m */,
+				08E06CB91965BDD800A63017 /* PinView.h */,
+				08E06CBA1965BDD800A63017 /* PinView.m */,
 			);
 			name = CollectionScreen;
 			sourceTree = "<group>";
@@ -2494,6 +2508,8 @@
 				083F862D1734AF7B00DDE6BC /* RadiusButton.m */,
 				0849CEA61735503C004B30C6 /* RadiusIndicatorView.h */,
 				0849CEA71735503D004B30C6 /* RadiusIndicatorView.m */,
+				080276721967139C0022FD56 /* OpacityIndicatorView.h */,
+				080276731967139C0022FD56 /* OpacityIndicatorView.m */,
 				080BD0DB164601B400B37C01 /* EyeDropper.h */,
 				080BD0DC164601B400B37C01 /* EyeDropper.m */,
 				0802D11517369821003259E6 /* EyeDropperButton.h */,
@@ -2656,8 +2672,8 @@
 				08F51710195164D6007E921B /* UISlider+Extension.m */,
 				08E2EBB519495923003E9881 /* UIView+GLCoord.h */,
 				08E2EBB619495923003E9881 /* UIView+GLCoord.m */,
-				0888F8B6194A177500CB71D2 /* UILabel+VerticalAlign.h */,
-				0888F8B7194A177500CB71D2 /* UILabel+VerticalAlign.m */,
+				0888F8B6194A177500CB71D2 /* UILabel+Align.h */,
+				0888F8B7194A177500CB71D2 /* UILabel+Align.m */,
 				08F5175F195184DF007E921B /* UIView+Extensions.h */,
 				08F51760195184DF007E921B /* UIView+Extensions.m */,
 				084228A418A7CADA0046BA61 /* UIView+Tag.h */,
@@ -2848,6 +2864,7 @@
 				0879B3A2195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
+				08E06CB81965A6AF00A63017 /* pin.png in Resources */,
 				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
 				08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
@@ -2951,6 +2968,7 @@
 				08086E9818DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */,
 				08086E3418DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
+				08E06CB71965A6AF00A63017 /* pin.png in Resources */,
 				08086E3818DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
 				08086E7C18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
@@ -3222,6 +3240,7 @@
 				0847F53418B0945E0038869A /* CylinderProjectUserInputParams.m in Sources */,
 				a8ccf61af24ca4caa5d33924 /* LockCanvasRotationView.m in Sources */,
 				0cf76288bbdc25a1349b5c70 /* LayerToolView.m in Sources */,
+				080276751967139C0022FD56 /* OpacityIndicatorView.m in Sources */,
 				291bfba0df1cd723a5c24dfc /* LayerVisibleButton.m in Sources */,
 				0861490318D7442900661AD6 /* SetupButton.m in Sources */,
 				08B2A07D18A0930B003C888F /* Display.m in Sources */,
@@ -3274,8 +3293,9 @@
 				08525111194D62200087F4AF /* TutorialManager.m in Sources */,
 				50d5f2ae5019950e2af27b0b /* fishhook.c in Sources */,
 				908eb62bd1bbda2ebb3316a5 /* PlayButton.m in Sources */,
+				08E06CBC1965BDD800A63017 /* PinView.m in Sources */,
 				6fd8e0e48c4bdc8fec755009 /* MediaFrameView.m in Sources */,
-				0888F8B9194A177500CB71D2 /* UILabel+VerticalAlign.m in Sources */,
+				0888F8B9194A177500CB71D2 /* UILabel+Align.m in Sources */,
 				9fb688efbc3c80d3142c59fb /* VideoFrameView.m in Sources */,
 				08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */,
 				08F68F77194DCC5400470A3D /* TutorialPageButtonView.m in Sources */,
@@ -3405,7 +3425,7 @@
 				0872BA4C1915C80700559E96 /* OpenGLWaveFrontObject.m in Sources */,
 				082060D1189D38E40027247C /* Renderer.m in Sources */,
 				0898765419137FA1009CEB3D /* SetupCylinderView.m in Sources */,
-				0888F8B8194A177500CB71D2 /* UILabel+VerticalAlign.m in Sources */,
+				0888F8B8194A177500CB71D2 /* UILabel+Align.m in Sources */,
 				08EF8E6C18478E230027F305 /* ColorPickModeButton.m in Sources */,
 				08F68F73194DC6D200470A3D /* TutorialPageButtonView.m in Sources */,
 				08CE1A6718968A350019A1AB /* PaintHighlightedFrameView.m in Sources */,
@@ -3525,6 +3545,7 @@
 				08B444C1175B145F00787C18 /* PaintFrameViewGroup.m in Sources */,
 				08A0315A18DE8896006EE308 /* IconColorPermeateButton.m in Sources */,
 				080706E018B78F4800D9385F /* InAppPurchaseTableView.m in Sources */,
+				080276741967139C0022FD56 /* OpacityIndicatorView.m in Sources */,
 				0871E937176621450046D505 /* CommandManager.m in Sources */,
 				087512B31957D67600FC03CC /* TutorialBackgroundLeftEdgeView.m in Sources */,
 				08802F601766A4BF00276B15 /* Command.m in Sources */,
@@ -3587,6 +3608,7 @@
 				0860669617D2E235002EE42A /* BackButton.m in Sources */,
 				0898765E1913897B009CEB3D /* SetupCylinderImageView.m in Sources */,
 				086BF7C6189E3D730066C1F2 /* MeshRenderer.m in Sources */,
+				08E06CBB1965BDD800A63017 /* PinView.m in Sources */,
 				0899C43B18575299006E5DEE /* TransformAnchorView.m in Sources */,
 				080679A717DB72D000FED08D /* QuietAssertMacros.c in Sources */,
 				08C0F6C41917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */,

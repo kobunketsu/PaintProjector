@@ -18,15 +18,20 @@
 
 -(NSArray*)layoutAttributesForElementsInRect:(CGRect)rect
 {
-//    NSLog(@"layoutAttributesForElementsInRect rect %@", NSStringFromCGRect(rect));
+    DebugLogFuncStart(@"layoutAttributesForElementsInRect rect %@", NSStringFromCGRect(rect));
     
     //修正layout的rect,保证纵向转横向后不缺少元素
     //FIXME: + 1是补丁做法
     CGRect fixedRect = rect;
-    fixedRect.size.width = (ceilf(rect.size.width / self.collectionView.bounds.size.width) + 1) * self.collectionView.bounds.size.width;
-    fixedRect.origin.x = floorf(rect.origin.x / self.collectionView.bounds.size.width) * self.collectionView.bounds.size.width;
+//    fixedRect.size.width = (ceilf(rect.size.width / self.collectionView.bounds.size.width) + floorf(rect.origin.x / self.collectionView.bounds.size.width)) * self.collectionView.bounds.size.width;
+//    fixedRect.origin.x = floorf(rect.origin.x / self.collectionView.bounds.size.width) * self.collectionView.bounds.size.width;
+    DebugLog(@"numberOfItemsInSection %i", [self.collectionView numberOfItemsInSection:0]);
+    CGFloat width = ceilf((float)[self.collectionView numberOfItemsInSection:0] / 9.0) * 1024;
+//    width = ceilf(width / 1024.0) * 1024;
+    fixedRect.size.width = width;
+    fixedRect.origin.x = 0;
     DebugLog(@"fixedRect %@", NSStringFromCGRect(fixedRect));
-    
+
     NSArray* array = [super layoutAttributesForElementsInRect:fixedRect];
     if (array.count == 0) {
         return array;
@@ -75,6 +80,7 @@
 
 
 - (CGSize)collectionViewContentSize{
+//    DebugLogFuncStart(@"collectionViewContentSize")
     NSUInteger countRow = (NSUInteger)self.collectionView.bounds.size.width / self.itemSize.width;
     NSUInteger countColumn = (NSUInteger)self.collectionView.bounds.size.height / self.itemSize.height;
     NSUInteger countPage = ceilf((float)[self.collectionView numberOfItemsInSection:0] / (float)(countRow * countColumn));

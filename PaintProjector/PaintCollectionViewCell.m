@@ -24,8 +24,8 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
-        self.selectedBackgroundView = [[PaintHighlightedFrameView alloc]initWithFrame:self.bounds];
-        self.selectedBackgroundView.hidden = YES;
+//        self.selectedBackgroundView = [[PaintHighlightedFrameView alloc]initWithFrame:self.bounds];
+//        self.selectedBackgroundView.hidden = YES;
         
     }
     return self;

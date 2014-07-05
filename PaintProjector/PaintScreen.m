@@ -2399,7 +2399,8 @@
 //        [alertView show];
     }
 }
-#pragma mark-
+
+#pragma mark- 笔刷颜色Color
 - (IBAction)selectColor:(ColorButton *)sender {
     [RemoteLog logAction:@"selectColor" identifier:sender];
     [sender enableHighlighted:true];
@@ -2428,7 +2429,7 @@
     [RemoteLog logAction:@"selectColorCancel" identifier:sender];
     [sender enableHighlighted:false];
 }
-#pragma mark-
+#pragma mark- 笔刷半径Radius
 - (IBAction)selectBrushRadius:(RadiusButton *)sender {
     [RemoteLog logAction:@"selectBrushRadius" identifier:sender];
     self.paintView.brush.brushState.radius = sender.radius;
@@ -2473,31 +2474,19 @@
 - (IBAction)radiusSliderTouchUp:(RadiusSlider *)sender {
     [RemoteLog logAction:@"radiusSliderTouchUp" identifier:sender];
     if (!self.radiusIndicatorView.hidden) {
-        [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
-        
         [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         self.radiusIndicatorView.hidden = true;
-//        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//            [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
-////            self.radiusIndicatorView.frame = frame;
-//            
-//        } completion:^(BOOL finished) {
-//            self.radiusIndicatorView.hidden = true;
-//        }];
     }
 }
 
 - (IBAction)radiusSliderTouchUpOutside:(RadiusSlider *)sender {
     [RemoteLog logAction:@"radiusSliderTouchUpOutside" identifier:sender];
     if (!self.radiusIndicatorView.hidden) {
-        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
-        } completion:^(BOOL finished) {
-            self.radiusIndicatorView.hidden = true;
-        }];
+        [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+        self.radiusIndicatorView.hidden = true;
     }
 }
-#pragma mark-
+#pragma mark- 笔刷透明Opacity
 - (IBAction)slideBrushOpacity:(UISlider *)sender {
     [RemoteLog logAction:@"slideBrushOpacity" identifier:sender];
     //根据不同的brush，设置不同的参数
@@ -2507,6 +2496,40 @@
     }
     else{
         self.paintView.brush.brushState.opacity = (float)sender.value;
+    }
+    
+    //UI
+    if (self.opacityIndicatorView.hidden) {
+        self.opacityIndicatorView.hidden = false;
+        
+        [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+        } completion:^(BOOL finished) {
+        }];
+    }
+    
+    [self.opacityIndicatorView setOpacity:self.paintView.brush.brushState.opacity];
+}
+
+- (IBAction)opacitySliderTouchDown:(OpacitySlider *)sender {
+    [RemoteLog logAction:@"opacitySliderTouchDown" identifier:sender];
+    self.opacityIndicatorView.hidden = false;
+}
+
+- (IBAction)opacitySliderTouchUp:(OpacitySlider *)sender {
+    [RemoteLog logAction:@"opacitySliderTouchUp" identifier:sender];
+    if (!self.opacityIndicatorView.hidden) {
+        [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+        self.opacityIndicatorView.hidden = true;
+    }
+}
+
+- (IBAction)opacitySliderTouchUpOutside:(OpacitySlider *)sender {
+    [RemoteLog logAction:@"opacitySliderTouchUpOutside" identifier:sender];
+    if (!self.opacityIndicatorView.hidden) {
+        [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
+        self.opacityIndicatorView.hidden = true;
     }
 }
 
@@ -2519,6 +2542,129 @@
     else{
         self.opacitySlider.value = brushState.opacity;
     }
+}
+#pragma mark- 笔刷属性Property
+//编辑笔刷属性
+-(void)editBrush:(Brush *)brush{
+    if (!brush.isEditable) {
+        return;
+    }
+    
+    if([self.sharedPopoverController isPopoverVisible]) return; //已经打开
+    
+    self.brushPropertyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"BrushPropertyViewController"];
+    self.brushPropertyViewController.delegate = self;
+    self.brushPropertyViewController.brushPreviewDelegate = self.paintView;
+    CGFloat height = self.view.bounds.size.height - 90 * 2;
+    self.brushPropertyViewController.preferredContentSize = CGSizeMake(256, height);
+    self.brushPropertyViewController.brush = brush;
+    
+    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.brushPropertyViewController];
+    self.sharedPopoverController.delegate = self;
+    CGRect frame = self.brushButtonTempRect;
+    frame.origin.x += 3;
+    frame.origin.y += 10;
+    [self.sharedPopoverController presentPopoverFromRect:frame inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+    //    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
+    //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
+    
+}
+#pragma mark- 笔刷属性代理 BrushPropertyViewController Delegate (Refresh UI)
+-(void)willDismissBrushPropertyViewController{
+    [self.sharedPopoverController dismissPopoverAnimated:true];
+    
+    UIView *brushButton = self.brushButton;
+    self.radiusSlider.value = self.brushButton.brush.brushState.radius;
+    [self setOpacitySliderValueWithBrushState:self.brushButton.brush.brushState];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        brushButton.frame = CGRectMake(brushButton.frame.origin.x, 0, brushButton.frame.size.width, brushButton.frame.size.height);
+    }completion:nil];
+    
+    //    [self.paintView.brush setCanvas:self.paintView]; //do in startDraw
+}
+
+//-(EAGLContext*)willGetBrushPreviewContext{
+//    return self.paintView.context;
+//}
+
+-(void)willBrushShaderChanged:(BrushState*)brushState{
+    Brush *brush = [self.paintView.brushTypes objectAtIndex:brushState.classId];
+    if([brush loadShader]){
+        
+    }
+}
+
+-(void)willBrushPropertyValueChanged:(BrushState*)brushState{
+    //UI
+    self.radiusSlider.value = brushState.radius;
+    
+    [self setOpacitySliderValueWithBrushState:brushState];
+}
+
+#pragma mark- 笔刷种类代理 BrushTypeScrollView Delegate (Refresh UI)
+-(void)willBrushTypeScrollViewDidScroll:(UIScrollView *)scrollView{
+    //    DebugLog(@"willBrushTypeScrollViewDidScroll");
+    
+    self.brushTypePageControl.currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
+}
+
+-(void)willSelectBrush:(id)sender{
+    DebugLogFuncStart(@"willSelectBrush");
+    
+    BrushTypeButton* selButton = (BrushTypeButton*)sender;
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        for (BrushTypeButton* button in self.brushTypeScrollView.subviews) {
+            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
+        }
+        
+        selButton.frame = CGRectMake(selButton.frame.origin.x, 0, selButton.frame.size.width, selButton.frame.size.height);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)willSelectBrushDone:(id)sender{
+    DebugLogFuncStart(@"willSelectBrushDone");
+    
+    BrushTypeButton* button = (BrushTypeButton*)sender;
+    NSString *string = [NSString stringWithFormat:@"selectBrushDone BrushId %d", button.brush.brushState.classId];
+    [RemoteLog logAction:string identifier:sender];
+    
+    Brush *brush = button.brush;
+    
+    //检查笔刷是否可用
+    if (!brush.available) {
+        [self willSelectBrushCanceled:sender];
+        
+        [self openIAPWithProductFeatureIndex:brush.iapBrushId];
+        
+        return;
+    }
+    
+    //UI
+    [self.paintView setBrush:brush];
+    [self.paintView.brush setColor:self.paintColorButton.color];
+    
+    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+    [PaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
+        _state = PaintScreen_Normal;
+        //笔刷面板打开绘图
+        self.rootCanvasView.userInteractionEnabled = true;
+    }];
+}
+
+-(void)willSelectBrushCanceled:(id)sender{
+    DebugLogFuncStart(@"willSelectBrushCanceled");
+    
+    //UI
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        for (BrushTypeButton* button in self.brushTypeScrollView.subviews) {
+            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
+        }
+    } completion:^(BOOL finished) {
+    }];
 }
 #pragma mark-
 - (IBAction)syncBrushView:(id)sender {
@@ -3980,131 +4126,6 @@
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender {
     [RemoteLog logAction:@"touchUpInsideRedoButton" identifier:sender];
     [self redoDraw];
-}
-
-#pragma mark- 笔刷
-//编辑笔刷属性
--(void)editBrush:(Brush *)brush{
-    if (!brush.isEditable) {
-        return;
-    }
-    
-    if([self.sharedPopoverController isPopoverVisible]) return; //已经打开
-    
-    self.brushPropertyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"BrushPropertyViewController"];
-    self.brushPropertyViewController.delegate = self;
-    self.brushPropertyViewController.brushPreviewDelegate = self.paintView;
-    CGFloat height = self.view.bounds.size.height - 90 * 2;
-    self.brushPropertyViewController.preferredContentSize = CGSizeMake(256, height);
-    self.brushPropertyViewController.brush = brush;
-    
-    self.sharedPopoverController = [[SharedPopoverController alloc]initWithContentViewController:self.brushPropertyViewController];
-    self.sharedPopoverController.delegate = self;
-    CGRect frame = self.brushButtonTempRect;
-    frame.origin.x += 3;
-    frame.origin.y += 10;
-    [self.sharedPopoverController presentPopoverFromRect:frame inView:self.paintToolView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
-//    FuzzyTransparentView *rootView = (FuzzyTransparentView *)self.brushPropertyViewController.rootView;
-//    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
-    
-}
-
-#pragma mark- 笔刷属性代理 BrushPropertyViewController Delegate (Refresh UI)
--(void)willDismissBrushPropertyViewController{
-    [self.sharedPopoverController dismissPopoverAnimated:true];
-    
-    UIView *brushButton = self.brushButton;
-    self.radiusSlider.value = self.brushButton.brush.brushState.radius;
-    [self setOpacitySliderValueWithBrushState:self.brushButton.brush.brushState];
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        brushButton.frame = CGRectMake(brushButton.frame.origin.x, 0, brushButton.frame.size.width, brushButton.frame.size.height);
-    }completion:nil];
-    
-//    [self.paintView.brush setCanvas:self.paintView]; //do in startDraw
-}
-
-//-(EAGLContext*)willGetBrushPreviewContext{
-//    return self.paintView.context;
-//}
-
--(void)willBrushShaderChanged:(BrushState*)brushState{
-    Brush *brush = [self.paintView.brushTypes objectAtIndex:brushState.classId];
-    if([brush loadShader]){
-        
-    }
-}
-
--(void)willBrushPropertyValueChanged:(BrushState*)brushState{
-    //UI
-    self.radiusSlider.value = brushState.radius;
-    
-    [self setOpacitySliderValueWithBrushState:brushState];
-}
-
-#pragma mark- 笔刷种类代理 BrushTypeScrollView Delegate (Refresh UI)
--(void)willBrushTypeScrollViewDidScroll:(UIScrollView *)scrollView{
-//    DebugLog(@"willBrushTypeScrollViewDidScroll");
-    
-    self.brushTypePageControl.currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
-}
-
--(void)willSelectBrush:(id)sender{
-    DebugLogFuncStart(@"willSelectBrush");
-
-    BrushTypeButton* selButton = (BrushTypeButton*)sender;
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        for (BrushTypeButton* button in self.brushTypeScrollView.subviews) {
-            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
-        }
-
-        selButton.frame = CGRectMake(selButton.frame.origin.x, 0, selButton.frame.size.width, selButton.frame.size.height);
-    } completion:^(BOOL finished) {
-
-    }];
-}
-
--(void)willSelectBrushDone:(id)sender{
-    DebugLogFuncStart(@"willSelectBrushDone");
-    
-    BrushTypeButton* button = (BrushTypeButton*)sender;
-    NSString *string = [NSString stringWithFormat:@"selectBrushDone BrushId %d", button.brush.brushState.classId];
-    [RemoteLog logAction:string identifier:sender];
-    
-    Brush *brush = button.brush;
-
-    //检查笔刷是否可用
-    if (!brush.available) {
-        [self willSelectBrushCanceled:sender];
-        
-        [self openIAPWithProductFeatureIndex:brush.iapBrushId];
-        
-        return;
-    }
-    
-    //UI
-    [self.paintView setBrush:brush];
-    [self.paintView.brush setColor:self.paintColorButton.color];
-
-    [PaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-    [PaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
-        _state = PaintScreen_Normal;
-        //笔刷面板打开绘图
-        self.rootCanvasView.userInteractionEnabled = true;
-    }];
-}
-
--(void)willSelectBrushCanceled:(id)sender{
-    DebugLogFuncStart(@"willSelectBrushCanceled");
-    
-    //UI
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        for (BrushTypeButton* button in self.brushTypeScrollView.subviews) {
-            button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
-        }
-    } completion:^(BOOL finished) {
-    }];
 }
 
 #pragma mark- 绘图界面代理 PaintingView Delegate (Refresh UI)

@@ -29,7 +29,7 @@
 //记录选择的图片索引号
 @property (retain, nonatomic) NSMutableArray *selectedIndices;
 //是否编辑状态
-@property (assign, nonatomic) BOOL editing;
+@property (assign, nonatomic) BOOL editMode;
 
 @end
 
@@ -76,8 +76,10 @@
     [self.selectedIndices removeAllObjects];
     
     //移除显示用的Image
-    for (PaintCollectionViewCell *cell in self.collectionView.visibleCells) {
-        [PaintFrameManager unloadPaintFrameView:cell.paintFrameView];
+    for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        [self cell:cell markSelected:false];
     }
 }
 
@@ -95,7 +97,7 @@
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.allowsMultipleSelection = true;
     
-    self.editing = false;
+    self.editMode = false;
     for (UIButton *button in self.editButtons) {
         button.hidden = true;
     }
@@ -125,37 +127,44 @@
     self.selectedIndices = nil;
 }
 
-- (void)setEditing:(BOOL)editing{
-    self.fileButton.selected = editing;
-    _editing = editing;
+- (void)setEditMode:(BOOL)editMode{
+    self.fileButton.selected = editMode;
+    _editMode = editMode;
     
-    if (editing) {
+    if (editMode) {
         for (UIButton *button in self.editButtons) {
             button.hidden = false;
         }
         
-        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-            if (cell.selectedBackgroundView) {
-                cell.selectedBackgroundView.hidden = NO;
-            }
-        }
+//        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//            if (cell.selectedBackgroundView) {
+//                cell.selectedBackgroundView.hidden = NO;
+//            }
+//        }
     }
     else{
         [self.selectedIndices removeAllObjects];
+        
+        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+            [self cell:cell markSelected:false];
+        }
+
         
         for (UIButton *button in self.editButtons) {
             button.hidden = true;
         }
         
-        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-            if (cell.selectedBackgroundView) {
-                cell.selectedBackgroundView.hidden = YES;
-            }
-        }
+//        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//            if (cell.selectedBackgroundView) {
+//                cell.selectedBackgroundView.hidden = YES;
+//            }
+//        }
     }
 }
 
@@ -215,6 +224,10 @@
 - (void)willCompleteLaunchTransitionToCylinderProject{
     [self launchTransitionToCylinderProjectCompleted];
 }
+#pragma mark- Edit
+- (void)cell:(PaintCollectionViewCell*)cell markSelected:(BOOL)selected{
+    cell.pinView.hidden = !selected;
+}
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     NSInteger count = [PaintFrameManager curGroup].paintDocs.count;
@@ -230,6 +243,13 @@
     
     PaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
     
+    if (!self.editMode) {
+        [self cell:cell markSelected:false];
+    }
+    else{
+        [self cell:cell markSelected:cell.isSelected];
+    }
+    
     [PaintFrameManager loadPaintFrameView:cell.paintFrameView byIndex:indexPath.row];
 
     return cell;
@@ -240,7 +260,7 @@
 #pragma mark- UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLog(@"didSelectItemAtIndexPath");
+    DebugLog(@"didSelectItemAtIndexPath row %i", indexPath.row);
     //教程
     [self tutorialStepNextImmediate:false];
     
@@ -249,38 +269,43 @@
     self.curPaintFrameView = cell.paintFrameView;
     [PaintFrameManager curGroup].curPaintIndex = indexPath.row;
     
-    if (![self.selectedIndices containsObject:indexPath]) {
-        [self.selectedIndices addObject:indexPath];
-    }
-    
     //非编辑状态，打开
-    if (!self.editing) {
+    if (!self.editMode) {
         [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
         [PaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
     }
     //编辑状态
     else{
+        if (![self.selectedIndices containsObject:indexPath]) {
+            [self.selectedIndices addObject:indexPath];
+            [self cell:cell markSelected:true];
+        }
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLogSystem(@"didHighlightItemAtIndexPath");
+    DebugLogSystem(@"didHighlightItemAtIndexPath row %i", indexPath.row);
     //保证动画不受影响
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         
         [cell.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
-        
+        cell.cellFrame.layer.shadowRadius = 3;
+        cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 2);
     }completion:nil];
+
+//    [cell.layer setNeedsDisplay];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLogSystem(@"didUnHighlightItemAtIndexPath");
+    DebugLogSystem(@"didUnHighlightItemAtIndexPath row %i", indexPath.row);
     
     PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [cell.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         
+        cell.cellFrame.layer.shadowRadius = 10;
+        cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 5);
     }completion:^(BOOL finished) {
 //        DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
     }];
@@ -291,10 +316,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
-    DebugLog(@"didDeSelectItemAtIndexPath");
- 
-    if ([self.selectedIndices containsObject:indexPath]) {
-        [self.selectedIndices removeObject:indexPath];
+    DebugLog(@"didDeSelectItemAtIndexPath row %i", indexPath.row);
+    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    if (self.editMode) {
+        if ([self.selectedIndices containsObject:indexPath]) {
+            [self.selectedIndices removeObject:indexPath];
+            [self cell:cell markSelected:false];
+        }
     }
 }
 #pragma mark- PaintFrameTransitionManagerDelegate
@@ -331,7 +359,7 @@
 - (IBAction)fileButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"fileButtonTouchUp" identifier:sender];
     
-    self.editing = !self.editing;
+    self.editMode = !self.editMode;
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {
@@ -357,7 +385,7 @@
     
     [self.collectionView reloadData];
     
-    self.editing = false;
+    self.editMode = false;
 }
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
@@ -376,7 +404,7 @@
 
     [self.collectionView reloadData];
     
-    self.editing = false;
+    self.editMode = false;
 }
 
 - (IBAction)newButtonTouchUp:(id)sender {
@@ -385,7 +413,7 @@
     //在present到cylinderProject之后恢复userInteractionEnable
     [self lockInteraction:true];
     
-    self.editing = false;
+    self.editMode = false;
     
     //非编辑状态下从最后一个PaintFrameView之后添加
     if ([PaintFrameManager curGroup].paintDocs.count > 0) {
@@ -516,7 +544,7 @@
     }
 
     //isCheckTutorialStep
-    if (!self.editing) {
+    if (!self.editMode) {
         if (immediate) {
             [[AnaDrawTutorialManager current].curTutorial stepNextImmediate];
         }
@@ -562,7 +590,7 @@
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(50, 400);
+        rect.origin = CGPointMake(35, 262);
         
         step.contentView.frame = rect;
         [step.contentView bringSubviewToFront:((TutorialPageButtonView*)step.contentView).nextButton];

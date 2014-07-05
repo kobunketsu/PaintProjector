@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+static char FrameOriginXKey;
 @interface UILabel (VerticalAlign)
+
 - (void)alignTop;
 - (void)alignBottom;
+
+- (void)alignTextHorizonCenterWithFontSize:(CGFloat)size;
 @end
