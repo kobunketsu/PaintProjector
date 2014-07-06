@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AnaDrawTutorialManager.h"
+#import "ADSimpleTutorialManager.h"
 
 @interface AppDelegate : UIResponder
 <UIApplicationDelegate, UICollectionViewDataSource,
-TutorialManagerDelegate>
+ADTutorialManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 - (void)initTutorial;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 Hu Wenjie. All rights reserved.
 //
 
-#import "IconColorPermeateButton.h"
-@interface RedoButton : IconColorPermeateButton
+#import "ADIconColorPermeateButton.h"
+@interface RedoButton : ADIconColorPermeateButton
 
 @end

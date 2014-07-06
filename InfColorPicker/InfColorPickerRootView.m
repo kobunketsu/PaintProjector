@@ -7,7 +7,7 @@
 //
 
 #import "InfColorPickerRootView.h"
-#import "PaintUIKitStyle.h"
+#import "ADPaintUIKitStyle.h"
 
 @implementation InfColorPickerRootView
 
@@ -56,7 +56,7 @@
 //     [color setFill];
 //     [rectanglePath fill];
      
-     [PaintUIKitStyle drawCrystalGradientInView:self];
+     [ADPaintUIKitStyle drawCrystalGradientInView:self];
  }
 
 @end

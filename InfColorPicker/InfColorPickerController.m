@@ -15,9 +15,9 @@
 #import "InfColorBarPicker.h"
 #import "InfColorSquarePicker.h"
 #import "InfHSBSupport.h"
-#import "ColorPickModeButton.h"
+#import "ADColorPickModeButton.h"
 
-#import "FuzzyTransparentView.h"
+#import "ADFuzzyTransparentView.h"
 //------------------------------------------------------------------------------
 
 static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )

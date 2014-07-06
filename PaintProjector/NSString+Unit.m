@@ -7,7 +7,7 @@
 //
 
 #import "NSString+Unit.h"
-#import "UnitConverter.h"
+#import "ADUnitConverter.h"
 
 @implementation NSString (Unit)
 +(NSString*)unitStringFromFloat:(CGFloat)value{
@@ -16,7 +16,7 @@
         return [NSString stringWithFormat:@"%.3f M", value];
     }
     else{
-        USUnit unit = [UnitConverter usUnitFromMeter:value];
+        USUnit unit = [ADUnitConverter usUnitFromMeter:value];
         return [NSString stringWithFormat:@"'%.f ''%.1f", unit.feet, unit.inch];
     }
 }

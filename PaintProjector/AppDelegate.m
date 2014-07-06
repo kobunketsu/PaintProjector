@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import <DBChooser/DBChooser.h>
-#import "AnaDrawIAPManager.h"
+#import "ADIAPManager.h"
 #import "BBXBeeblex.h"
 #import "iRate.h"
 
@@ -79,7 +79,7 @@
 #endif
     
     //初始化IAP商店
-    [[AnaDrawIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
+    [[ADIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
 
 
     return YES;
@@ -133,11 +133,11 @@
     
     //恢复所有动画的播放
     //恢复教程动画的播放
-    if (![[AnaDrawTutorialManager current] isActive]) {
+    if (![[ADSimpleTutorialManager current] isActive]) {
         return;
     }
-    for (TutorialStep *step in [AnaDrawTutorialManager current].curTutorial.steps) {
-        for (TutorialIndicatorView *view in step.indicatorViews) {
+    for (ADTutorialStep *step in [ADSimpleTutorialManager current].curTutorial.steps) {
+        for (ADTutorialIndicatorView *view in step.indicatorViews) {
             [view setNeedsLayout];
         }
     }
@@ -214,14 +214,14 @@
 
 //初始化教程的四个步骤，具体步骤的排版信息在切换到具体步骤并加载对应页面后使用页面排版代理进行排版
 - (void)initTutorial{
-    [AnaDrawTutorialManager initialize];
-    [AnaDrawTutorialManager current].delegate = self;
-    AnaDrawTutorial *tutorial = (AnaDrawTutorial*)[[AnaDrawTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
+    [ADSimpleTutorialManager initialize];
+    [ADSimpleTutorialManager current].delegate = self;
+    ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
     
     //欢迎界面
-    TutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];
+    ADTutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];
     tutorial.curStep = step;
-    [((TutorialPageButtonView*)tutorial.curStep.contentView).nextButton setTitle:NSLocalizedString(@"TutorialStart", nil) forState:UIControlStateNormal];
+    [((ADTutorialPageButtonView*)tutorial.curStep.contentView).nextButton setTitle:NSLocalizedString(@"TutorialStart", nil) forState:UIControlStateNormal];
 
     //添加3d 多层次效果
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_main.png"]];
@@ -280,7 +280,7 @@
     //放置设备
     step = [tutorial addPageStep:@"CylinderProjectPutDevice" description:nil pageBounds:CGRectMake(0, 0, 256, 256) pageImage:@"tutorial_putDevice.png" withNextButton:false];
     
-    TutorialIndicatorView *inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
     inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectPutDevice", nil) bgImage:nil];
     [step addIndicatorView:inidcatorView];
@@ -288,19 +288,19 @@
     //调整视线
     step = [tutorial addPageStep:@"CylinderProjectViewDevice" description:nil pageBounds:CGRectMake(0, 0, 256, 198) pageImage:@"tutorial_viewDevice.png" withNextButton:false];
     
-    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
     inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectViewDeviceDone", nil) bgImage:nil];
     [step addIndicatorView:inidcatorView];
     
-    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
     inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectViewDevice", nil) bgImage:nil];
     [step addIndicatorView:inidcatorView];
     
     //高级设置
     step = [tutorial addPageStep:@"CylinderProjectSetup" description:nil pageBounds:CGRectMake(0, 0, 197, 223) pageImage:@"tutorial_setup.png" withNextButton:false];
-    inidcatorView = [[TutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
+    inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 256, 128)];
     inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectSetup", nil) bgImage:nil];
     [step addIndicatorView:inidcatorView];
@@ -356,7 +356,7 @@
     step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, width, height) pageImage:nil withNextButton:true];
     
     //背景图层
-    TutorialBackgroundView *view = [[TutorialBackgroundView alloc]initWithFrame:step.contentView.bounds];
+    ADTutorialBackgroundView *view = [[ADTutorialBackgroundView alloc]initWithFrame:step.contentView.bounds];
     view.opaque = false;
     [step.contentView addSubview:view];
     
@@ -375,29 +375,29 @@
     flowLayout.minimumInteritemSpacing = 10;
     flowLayout.minimumLineSpacing = 10;
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    TutorialPaintScreenGestureCollectionView *collectionView = [[TutorialPaintScreenGestureCollectionView alloc] initWithFrame:CGRectMake(offsetX, 0, width - offsetX * 2, height - 10) collectionViewLayout:flowLayout];
+    ADTutorialPaintScreenGestureCollectionView *collectionView = [[ADTutorialPaintScreenGestureCollectionView alloc] initWithFrame:CGRectMake(offsetX, 0, width - offsetX * 2, height - 10) collectionViewLayout:flowLayout];
     collectionView.opaque = false;
     collectionView.backgroundColor = [UIColor clearColor];
     collectionView.dataSource=self;
-    [collectionView registerClass:[TutorialPaintScreenGestureCollectionViewCell class] forCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"];
+    [collectionView registerClass:[ADTutorialPaintScreenGestureCollectionViewCell class] forCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"];
     [step.contentView addSubview:collectionView];
     
     //添加遮盖效果层
-    TutorialBackgroundLeftEdgeView *leftEdgeView = [[TutorialBackgroundLeftEdgeView alloc]initWithFrame:CGRectMake(0, 0, offsetX + 20, height)];
+    ADTutorialBackgroundLeftEdgeView *leftEdgeView = [[ADTutorialBackgroundLeftEdgeView alloc]initWithFrame:CGRectMake(0, 0, offsetX + 20, height)];
     [step.contentView addSubview:leftEdgeView];
-    TutorialBackgroundRightEdgeView *rightEdgeView = [[TutorialBackgroundRightEdgeView alloc]initWithFrame:CGRectMake(width - 20 - offsetX, 0, offsetX + 20, height)];
+    ADTutorialBackgroundRightEdgeView *rightEdgeView = [[ADTutorialBackgroundRightEdgeView alloc]initWithFrame:CGRectMake(width - 20 - offsetX, 0, offsetX + 20, height)];
     [step.contentView addSubview:rightEdgeView];
     
-    UIButton *nextButton = ((TutorialPageButtonView*)step.contentView).nextButton;
-    [((TutorialPageButtonView*)step.contentView) bringSubviewToFront:nextButton];
+    UIButton *nextButton = ((ADTutorialPageButtonView*)step.contentView).nextButton;
+    [((ADTutorialPageButtonView*)step.contentView) bringSubviewToFront:nextButton];
     [nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
     
-    [[AnaDrawTutorialManager current] activeTutorial:@"TutorialMain"];
+    [[ADSimpleTutorialManager current] activeTutorial:@"TutorialMain"];
 }
 
-- (void)willTutorialEnd:(Tutorial *)tutorial{
+- (void)willTutorialEnd:(ADTutorial *)tutorial{
     if ([tutorial.name isEqualToString:@"TutorialMain"]) {
-        [AnaDrawTutorialManager destroy];
+        [ADSimpleTutorialManager destroy];
     }
 }
 
@@ -407,7 +407,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    TutorialPaintScreenGestureCollectionViewCell *cell = (TutorialPaintScreenGestureCollectionViewCell*) [collectionView dequeueReusableCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"
+    ADTutorialPaintScreenGestureCollectionViewCell *cell = (ADTutorialPaintScreenGestureCollectionViewCell*) [collectionView dequeueReusableCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"
                                                                                                    forIndexPath:indexPath];
     
     cell.userInteractionEnabled = false;

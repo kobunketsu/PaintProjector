@@ -8,7 +8,7 @@
         <!--Cylinder Project Virtual Device Collection View Controller-->
         <scene sceneID="bt3-8e-fST">
             <objects>
-                <collectionViewController storyboardIdentifier="CylinderProjectVirtualDeviceCollectionViewController" autoresizesArchivedViewToFullSize="NO" id="gsm-sb-uCy" customClass="CylinderProjectVirtualDeviceCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="CylinderProjectVirtualDeviceCollectionViewController" autoresizesArchivedViewToFullSize="NO" id="gsm-sb-uCy" customClass="ADCylinderProjectVirtualDeviceCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="LdZ-qk-Xkx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,8 +43,8 @@
         <!--Layer Blend Mode Table View Controller-->
         <scene sceneID="Pb2-bz-3Df">
             <objects>
-                <tableViewController storyboardIdentifier="LayerBlendModeTableViewController" id="Mzv-Kz-0xD" customClass="LayerBlendModeTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Def-n1-5H8" customClass="LayerBlendModeTableView">
+                <tableViewController storyboardIdentifier="LayerBlendModeTableViewController" id="Mzv-Kz-0xD" customClass="ADLayerBlendModeTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Def-n1-5H8" customClass="ADLayerBlendModeTableView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -72,16 +72,16 @@
         <!--Layer Table View Controller-->
         <scene sceneID="Cn7-8u-ZKA">
             <objects>
-                <viewController storyboardIdentifier="LayerTableViewController" id="6Bu-8d-dY7" customClass="LayerTableViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ZS3-UO-Ns9" userLabel="RootView" customClass="FuzzyTransparentView">
+                <viewController storyboardIdentifier="LayerTableViewController" id="6Bu-8d-dY7" customClass="ADLayerTableViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ZS3-UO-Ns9" userLabel="RootView" customClass="ADFuzzyTransparentView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="nzL-f8-E4W" userLabel="ToolBar" customClass="CrystalGradientStyleView">
+                            <view contentMode="scaleToFill" id="nzL-f8-E4W" userLabel="ToolBar" customClass="ADCrystalGradientStyleView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VBy-iT-Q2P" userLabel="AddButton" customClass="LayerAddButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VBy-iT-Q2P" userLabel="AddButton" customClass="ADLayerAddButton">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="NewLayer"/>
@@ -97,7 +97,7 @@
                                             <action selector="addLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="Oyh-U7-wxs"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kt2-vx-Hrw" userLabel="CopyButton" customClass="LayerCopyButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kt2-vx-Hrw" userLabel="CopyButton" customClass="ADLayerCopyButton">
                                         <rect key="frame" x="56" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="CopyLayer"/>
@@ -113,7 +113,7 @@
                                             <action selector="copyLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="TSg-2C-grN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3kp-Bf-Pp2" userLabel="MergeButton" customClass="LayerMergeButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3kp-Bf-Pp2" userLabel="MergeButton" customClass="ADLayerMergeButton">
                                         <rect key="frame" x="112" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="MergeLayer"/>
@@ -129,7 +129,7 @@
                                             <action selector="mergeLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="RLy-2E-zeT"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gYK-6m-KN5" userLabel="ClearButton" customClass="LayerClearButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gYK-6m-KN5" userLabel="ClearButton" customClass="ADLayerClearButton">
                                         <rect key="frame" x="168" y="0.0" width="44" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="ClearLayer"/>
@@ -159,12 +159,12 @@
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="624" id="Jqh-lA-4Xi" userLabel="LayerTableView" customClass="LayerTableView">
+                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="624" id="Jqh-lA-4Xi" userLabel="LayerTableView" customClass="ADLayerTableView">
                                 <rect key="frame" x="0.0" y="44" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LayerTableViewCell" rowHeight="155" id="VIS-3A-lU4" userLabel="LayerTableViewCell" customClass="LayerTableViewCell">
+                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LayerTableViewCell" rowHeight="155" id="VIS-3A-lU4" userLabel="LayerTableViewCell" customClass="ADLayerTableViewCell">
                                         <rect key="frame" x="0.0" y="44" width="768" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VIS-3A-lU4" id="USp-gZ-WdY">
@@ -175,14 +175,14 @@
                                                     <rect key="frame" x="3" y="4" width="111" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WBe-Io-Mjp" customClass="LayerImageView">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WBe-Io-Mjp" customClass="ADLayerImageView">
                                                             <rect key="frame" x="5" y="5" width="102" height="136"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                     </subviews>
                                                 </view>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="urM-Fp-7UF" userLabel="OpacityLockButton" customClass="LayerOpacityLockButton">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="urM-Fp-7UF" userLabel="OpacityLockButton" customClass="ADLayerOpacityLockButton">
                                                     <rect key="frame" x="130" y="55" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -197,7 +197,7 @@
                                                         <action selector="layerOpacityLockButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="uoL-yj-OPh"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qQh-uO-E1O" userLabel="VisibleButton" customClass="LayerVisibleButton">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qQh-uO-E1O" userLabel="VisibleButton" customClass="ADLayerVisibleButton">
                                                     <rect key="frame" x="130" y="10" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -212,7 +212,7 @@
                                                         <action selector="layerVisibleButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="ahq-bO-FcQ"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fuU-1o-IoM" userLabel="BlendButton" customClass="LayerBlendModeButton">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fuU-1o-IoM" userLabel="BlendButton" customClass="ADLayerBlendModeButton">
                                                     <rect key="frame" x="130" y="100" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -241,7 +241,7 @@
                                             <outletCollection property="layerHelpButtons" destination="fuU-1o-IoM" id="xqk-pN-e1C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BackgroundLayerTableViewCell" rowHeight="75" id="oOv-D9-SWL" userLabel="BackgroundLayerTableViewCell" customClass="BackgroundLayerTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BackgroundLayerTableViewCell" rowHeight="75" id="oOv-D9-SWL" userLabel="BackgroundLayerTableViewCell" customClass="ADBackgroundLayerTableViewCell">
                                         <rect key="frame" x="0.0" y="199" width="768" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oOv-D9-SWL" id="Ifw-1q-Ik2">
@@ -252,7 +252,7 @@
                                                     <rect key="frame" x="40" y="4" width="111" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="jOR-Y2-h3h" customClass="LayerImageView">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" id="jOR-Y2-h3h" customClass="ADLayerImageView">
                                                             <rect key="frame" x="5" y="5" width="102" height="55"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -272,7 +272,7 @@
                                                         </button>
                                                     </subviews>
                                                 </view>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i67-uz-blJ" userLabel="Visible Button" customClass="LayerVisibleButton">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="i67-uz-blJ" userLabel="Visible Button" customClass="ADLayerVisibleButton">
                                                     <rect key="frame" x="170" y="16" width="44" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -331,33 +331,33 @@
         <!--Paint Collection View Controller-->
         <scene sceneID="guk-3z-txW">
             <objects>
-                <viewController storyboardIdentifier="PaintCollectionViewController" id="ZXj-eQ-u2Q" userLabel="Paint Collection View Controller" customClass="PaintCollectionViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LAI-hU-cYN" userLabel="RootView" customClass="CylinderProjectRootView">
+                <viewController storyboardIdentifier="PaintCollectionViewController" id="ZXj-eQ-u2Q" userLabel="Paint Collection View Controller" customClass="ADPaintCollectionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LAI-hU-cYN" userLabel="RootView" customClass="ADCylinderProjectRootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PWz-9E-omm" customClass="PaintCollectionView">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PWz-9E-omm" customClass="ADPaintCollectionView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="bDx-eb-2i8" customClass="PaintCollectionViewFlowLayout">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="bDx-eb-2i8" customClass="ADPaintCollectionViewFlowLayout">
                                     <size key="itemSize" width="220" height="305"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="45" minY="8" maxX="45" maxY="100"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PaintCollectionViewCell" reuseIdentifier="PaintCollectionViewCell" id="x3E-rr-5gw" customClass="PaintCollectionViewCell">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PaintCollectionViewCell" reuseIdentifier="PaintCollectionViewCell" id="x3E-rr-5gw" customClass="ADPaintCollectionViewCell">
                                         <rect key="frame" x="45" y="8" width="220" height="305"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="PaintCollectionViewCellFrame">
+                                                <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="ADPaintCollectionViewCellFrame">
                                                     <rect key="frame" x="3" y="3" width="214" height="298"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Rs-q3-ZDJ" userLabel="Paint Frame View" customClass="PaintFrameView">
+                                                <button userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Rs-q3-ZDJ" userLabel="Paint Frame View" customClass="ADPaintFrameView">
                                                     <rect key="frame" x="5" y="5" width="210" height="280"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -365,7 +365,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                 </button>
-                                                <view opaque="NO" contentMode="scaleToFill" id="TYD-xi-mP3" customClass="PinView">
+                                                <view opaque="NO" contentMode="scaleToFill" id="TYD-xi-mP3" customClass="ADPinView">
                                                     <rect key="frame" x="195" y="-5" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </view>
@@ -385,11 +385,11 @@
                                     <outlet property="delegate" destination="ZXj-eQ-u2Q" id="jn7-lS-5ZY"/>
                                 </connections>
                             </collectionView>
-                            <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="xPS-Ji-MBZ" userLabel="DownToolBar" customClass="DownToolBar">
+                            <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="xPS-Ji-MBZ" userLabel="DownToolBar" customClass="ADDownToolBar">
                                 <rect key="frame" x="0.0" y="936" width="768" height="88"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dBk-v9-lg0" userLabel="FileButton" customClass="FileButton" colorLabel="IBBuiltInLabel-Red">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dBk-v9-lg0" userLabel="FileButton" customClass="ADFileButton" colorLabel="IBBuiltInLabel-Red">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="File"/>
@@ -405,7 +405,7 @@
                                             <action selector="fileButtonTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="msf-KX-yll"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5W3-Hm-oJT" userLabel="CopyButton" customClass="CopyButton" colorLabel="IBBuiltInLabel-Red">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5W3-Hm-oJT" userLabel="CopyButton" customClass="ADCopyButton" colorLabel="IBBuiltInLabel-Red">
                                         <rect key="frame" x="128" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Copy"/>
@@ -421,7 +421,7 @@
                                             <action selector="copyButtonTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="jFf-Uq-JNS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7O8-IH-qsp" userLabel="DeleteButton" customClass="DeleteButton" colorLabel="IBBuiltInLabel-Red">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7O8-IH-qsp" userLabel="DeleteButton" customClass="ADDeleteButton" colorLabel="IBBuiltInLabel-Red">
                                         <rect key="frame" x="256" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Delete"/>
@@ -437,7 +437,7 @@
                                             <action selector="deleteButtonTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="LKk-s0-4WX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="egz-LW-xJQ" userLabel="NewButton" customClass="NewButton" colorLabel="IBBuiltInLabel-Red">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="egz-LW-xJQ" userLabel="NewButton" customClass="ADNewButton" colorLabel="IBBuiltInLabel-Red">
                                         <rect key="frame" x="640" y="0.0" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="New"/>
@@ -484,17 +484,17 @@
         <!--Brush Property View Controller-->
         <scene sceneID="E4m-zX-tnT">
             <objects>
-                <viewController storyboardIdentifier="BrushPropertyViewController" id="KgQ-jx-DYl" customClass="BrushPropertyViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="N3k-pB-f8l" customClass="BrushPropertyView">
+                <viewController storyboardIdentifier="BrushPropertyViewController" id="KgQ-jx-DYl" customClass="ADBrushPropertyViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="N3k-pB-f8l" customClass="ADBrushPropertyView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" id="i7X-Oy-0Bg" userLabel="BrushPreview" customClass="BrushPreview">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" id="i7X-Oy-0Bg" userLabel="BrushPreview" customClass="ADBrushPreview">
                                 <rect key="frame" x="0.0" y="675" width="256" height="256"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.49019607843137253" green="0.50980392156862742" blue="0.54117647058823526" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" id="mBH-Tz-rdn" userLabel="ConfirmBar" customClass="CrystalGradientStyleView">
+                            <view contentMode="scaleToFill" id="mBH-Tz-rdn" userLabel="ConfirmBar" customClass="ADCrystalGradientStyleView">
                                 <rect key="frame" x="0.0" y="797" width="256" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -901,7 +901,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BrushPropertyTableViewCell" id="qBm-qg-Cc5" customClass="BrushPropertyTableViewCell">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BrushPropertyTableViewCell" id="qBm-qg-Cc5" customClass="ADBrushPropertyTableViewCell">
                                                 <rect key="frame" x="0.0" y="37" width="256" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qBm-qg-Cc5" id="yHJ-aX-7mV">
@@ -1006,20 +1006,20 @@
         <!--In App Purchase Table View Controller-->
         <scene sceneID="Lue-Ap-Qtt">
             <objects>
-                <tableViewController storyboardIdentifier="inAppPurchaseTableViewController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="wte-jo-21G" customClass="InAppPurchaseTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="320" sectionHeaderHeight="30" sectionFooterHeight="22" id="r39-tl-ia0" customClass="InAppPurchaseTableView">
+                <tableViewController storyboardIdentifier="inAppPurchaseTableViewController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="wte-jo-21G" customClass="ADInAppPurchaseTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="320" sectionHeaderHeight="30" sectionFooterHeight="22" id="r39-tl-ia0" customClass="ADInAppPurchaseTableView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inAppPurchaseTableViewCell" id="qly-wV-BSN" customClass="InAppPurchaseTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inAppPurchaseTableViewCell" id="qly-wV-BSN" customClass="ADInAppPurchaseTableViewCell">
                                 <rect key="frame" x="0.0" y="30" width="768" height="320"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qly-wV-BSN" id="uQV-eE-hsj">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="320"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CV7-nP-a9f" customClass="ProductFeatureCollectionView">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CV7-nP-a9f" customClass="ADProductFeatureCollectionView">
                                             <rect key="frame" x="0.0" y="44" width="768" height="286"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="FTr-Tf-nix">
@@ -1029,7 +1029,7 @@
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productFeatureCollectionViewCell" id="xdW-Xc-Jla" customClass="ProductFeatureCollectionViewCell">
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productFeatureCollectionViewCell" id="xdW-Xc-Jla" customClass="ADProductFeatureCollectionViewCell">
                                                     <rect key="frame" x="0.0" y="1" width="500" height="285"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1061,7 +1061,7 @@
                                                                     </label>
                                                                 </subviews>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BXU-rT-2Pa" userLabel="ResetButton" customClass="CrystalGradientStyleButton">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BXU-rT-2Pa" userLabel="ResetButton" customClass="ADCrystalGradientStyleButton">
                                                                 <rect key="frame" x="130" y="220" width="90" height="30"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -1106,7 +1106,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ebH-3z-m7T" customClass="CrystalGradientStyleButton">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ebH-3z-m7T" customClass="ADCrystalGradientStyleButton">
                                                     <rect key="frame" x="402" y="7" width="90" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1121,7 +1121,7 @@
                                             </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         </view>
-                                        <view opaque="NO" contentMode="scaleToFill" id="KOO-6F-V59" userLabel="BrushPreview" customClass="BrushPreview">
+                                        <view opaque="NO" contentMode="scaleToFill" id="KOO-6F-V59" userLabel="BrushPreview" customClass="ADBrushPreview">
                                             <rect key="frame" x="233" y="54" width="256" height="256"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </view>
@@ -1153,7 +1153,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2By-ZW-pua" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="iR5-85-hqm" userLabel="TitleView" customClass="CrystalGradientStyleView">
+                <view contentMode="scaleToFill" id="iR5-85-hqm" userLabel="TitleView" customClass="ADCrystalGradientStyleView">
                     <rect key="frame" x="0.0" y="36" width="768" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -1193,16 +1193,16 @@
         <!--paintScreen-->
         <scene sceneID="GTS-f8-ra6">
             <objects>
-                <viewController storyboardIdentifier="paintScreen" title="paintScreen" modalTransitionStyle="crossDissolve" id="NUX-zI-YbL" userLabel="paintScreen" customClass="PaintScreen" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="paintScreen" title="paintScreen" modalTransitionStyle="crossDissolve" id="NUX-zI-YbL" userLabel="paintScreen" customClass="ADPaintScreen" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="C2z-vc-haW" userLabel="Root View">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Bfe-fw-T22" userLabel="RootCanvasView" customClass="RootCanvasView">
+                            <view contentMode="scaleToFill" id="Bfe-fw-T22" userLabel="RootCanvasView" customClass="ADRootCanvasView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="iQ2-mh-xrv" userLabel="PaintView" customClass="PaintingView">
+                                    <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="iQ2-mh-xrv" userLabel="PaintView" customClass="ADPaintView">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
@@ -1238,11 +1238,11 @@
                                             <outletCollection property="gestureRecognizers" destination="oTk-me-Tqm" appends="YES" id="qNT-y2-p1w"/>
                                         </connections>
                                     </view>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="1U1-UR-ry1" userLabel="LockCanvasRotationView" customClass="LockCanvasRotationView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="1U1-UR-ry1" userLabel="LockCanvasRotationView" customClass="ADLockCanvasRotationView">
                                         <rect key="frame" x="290" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="8Hs-7h-sFJ" userLabel="RotateCanvasView" customClass="RotateCanvasView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="8Hs-7h-sFJ" userLabel="RotateCanvasView" customClass="ADRotateCanvasView">
                                         <rect key="frame" x="290" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
@@ -1257,7 +1257,7 @@
                                         <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="hTx-tv-WMO" userLabel="ZoomCanvasView" customClass="ZoomCanvasView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="hTx-tv-WMO" userLabel="ZoomCanvasView" customClass="ADZoomCanvasView">
                                         <rect key="frame" x="429" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
@@ -1271,7 +1271,7 @@
                                         <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="AJ4-6O-LyP" userLabel="FullScreenReverseButton" customClass="FullScreenReverseButton">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="AJ4-6O-LyP" userLabel="FullScreenReverseButton" customClass="ADFullScreenReverseButton">
                                         <rect key="frame" x="725" y="986" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -1279,7 +1279,7 @@
                                             <action selector="fullScreenButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="doN-eg-6pO"/>
                                         </connections>
                                     </view>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Olc-1G-d92" userLabel="BrushSwapButton" customClass="BrushSwapButton">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Olc-1G-d92" userLabel="BrushSwapButton" customClass="ADBrushSwapButton">
                                         <rect key="frame" x="3" y="986" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -1302,39 +1302,7 @@
                                     <outletCollection property="gestureRecognizers" destination="zQY-1r-Dfz" appends="YES" id="44v-Gh-HJg"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" id="DaP-yC-9nA" customClass="BrushView">
-                                <rect key="frame" x="225" y="417" width="318" height="190"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Radius : 10" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="5gW-bx-Ggp">
-                                        <rect key="frame" x="40" y="-5" width="110" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <bool key="isElement" value="NO"/>
-                                        </accessibility>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Opacity : 1" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="e4z-wS-yaC">
-                                        <rect key="frame" x="180" y="-5" width="110" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <bool key="isElement" value="NO"/>
-                                        </accessibility>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="f8T-0D-6Im" appends="YES" id="rNB-DQ-nyk"/>
-                                    <outletCollection property="gestureRecognizers" destination="SYU-Pv-PeP" appends="YES" id="8oi-IM-gVT"/>
-                                    <outletCollection property="gestureRecognizers" destination="dxG-yv-OaI" appends="YES" id="qX2-o9-zhj"/>
-                                </connections>
-                            </view>
-                            <view opaque="NO" contentMode="scaleToFill" id="4vr-ew-gM4" userLabel="PaintToolBar" customClass="DownToolBar">
+                            <view opaque="NO" contentMode="scaleToFill" id="4vr-ew-gM4" userLabel="PaintToolBar" customClass="ADDownToolBar">
                                 <rect key="frame" x="0.0" y="936" width="768" height="88"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1342,7 +1310,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="ss0-3e-NKH" userLabel="BrushTypeScrollView" customClass="BrushTypeScrollView">
+                                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="ss0-3e-NKH" userLabel="BrushTypeScrollView" customClass="ADBrushTypeScrollView">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <connections>
@@ -1365,7 +1333,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="BrushTypeButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="ADBrushTypeButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="UsingBrush"/>
@@ -1384,7 +1352,7 @@
                                                     <action selector="brushTypeButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="kB3-9u-9pj"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="BrushTypeButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="ADBrushTypeButton">
                                                 <rect key="frame" x="66" y="40" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="BackupBrush"/>
@@ -1406,7 +1374,7 @@
                                                 <rect key="frame" x="130" y="57" width="250" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="100" id="BfJ-tE-xFg" userLabel="RadiusSlider" customClass="RadiusSlider">
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="100" id="BfJ-tE-xFg" userLabel="RadiusSlider" customClass="ADRadiusSlider">
                                                         <rect key="frame" x="0.0" y="-2" width="250" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <connections>
@@ -1418,16 +1386,12 @@
                                                     </slider>
                                                 </subviews>
                                             </view>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="EyeDropperButton">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JFh-1z-AJ1" userLabel="EyeDropperButton" customClass="ADEyeDropperButton">
                                                 <rect key="frame" x="630" y="20" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="EyeDropper"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal">
-                                                    <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
                                                 <state key="highlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1441,14 +1405,13 @@
                                                 <rect key="frame" x="643" y="8" width="72" height="72"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XFa-Ld-xa1" userLabel="PaintColorButton" customClass="PaintColorButton">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XFa-Ld-xa1" userLabel="PaintColorButton" customClass="ADPaintColorButton">
                                                         <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <accessibility key="accessibilityConfiguration" label="UsingColor"/>
                                                         <gestureRecognizers/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal">
-                                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <state key="highlighted">
@@ -1460,11 +1423,11 @@
                                                             <outletCollection property="gestureRecognizers" destination="mEb-l9-iaP" appends="YES" id="2wq-RX-Fzj"/>
                                                         </connections>
                                                     </button>
-                                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Vl4-eP-tzn" userLabel="RadiusIndicatorView" customClass="RadiusIndicatorView">
+                                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Vl4-eP-tzn" userLabel="RadiusIndicatorView" customClass="ADRadiusIndicatorView">
                                                         <rect key="frame" x="11" y="11" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </view>
-                                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="C41-sP-OY9" userLabel="OpacityIndicatorView" customClass="OpacityIndicatorView">
+                                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="C41-sP-OY9" userLabel="OpacityIndicatorView" customClass="ADOpacityIndicatorView">
                                                         <rect key="frame" x="11" y="11" width="50" height="50"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </view>
@@ -1474,7 +1437,7 @@
                                                 <rect key="frame" x="130" y="5" width="500" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             </scrollView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="087-uT-cxg" userLabel="swatchMangerButton" customClass="SwatchManagerButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="087-uT-cxg" userLabel="swatchMangerButton" customClass="ADSwatchManagerButton">
                                                 <rect key="frame" x="727" y="3" width="38" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1485,7 +1448,7 @@
                                                     <action selector="swatchManagerButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="60j-Pv-7GS"/>
                                                 </connections>
                                             </button>
-                                            <view opaque="NO" contentMode="scaleToFill" id="1Aq-H8-fVk" userLabel="FullScreenButton" customClass="FullScreenButton">
+                                            <view opaque="NO" contentMode="scaleToFill" id="1Aq-H8-fVk" userLabel="FullScreenButton" customClass="ADFullScreenButton">
                                                 <rect key="frame" x="725" y="50" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <gestureRecognizers/>
@@ -1500,7 +1463,7 @@
                                                 <rect key="frame" x="380" y="57" width="250" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                 <subviews>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="SRt-Fr-rjv" userLabel="Opacity Slider" customClass="OpacitySlider">
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="SRt-Fr-rjv" userLabel="Opacity Slider" customClass="ADOpacitySlider">
                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="29"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <accessibility key="accessibilityConfiguration" label="OpacitySlider"/>
@@ -1524,7 +1487,7 @@
                                 </accessibility>
                                 <gestureRecognizers/>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" id="erO-nK-SuU" userLabel="MainToolBar" customClass="TopToolBar">
+                            <view opaque="NO" contentMode="scaleToFill" id="erO-nK-SuU" userLabel="MainToolBar" customClass="ADTopToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -1532,7 +1495,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="LayerButton" customClass="LayerButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="LayerButton" customClass="ADLayerButton">
                                                 <rect key="frame" x="672" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Layer"/>
@@ -1551,7 +1514,7 @@
                                                     <action selector="layerButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="hgQ-cb-eFN"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="TransformButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="ADTransformButton">
                                                 <rect key="frame" x="576" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Transform"/>
@@ -1567,7 +1530,7 @@
                                                     <action selector="transformButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="mAV-V6-udZ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ClearButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ADClearButton">
                                                 <rect key="frame" x="480" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Clear"/>
@@ -1586,7 +1549,7 @@
                                                     <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="eT9-oA-uqi"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="ImportButton" customClass="ImportButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="ImportButton" customClass="ADImportButton">
                                                 <rect key="frame" x="96" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Import"/>
@@ -1605,7 +1568,7 @@
                                                     <action selector="importButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="GGx-5d-XAT"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ExportButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ADExportButton">
                                                 <rect key="frame" x="192" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Export"/>
@@ -1624,7 +1587,7 @@
                                                     <action selector="exportButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="X86-WX-EUY"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="AnamorphicButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="ADAnamorphicButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Close"/>
@@ -1643,7 +1606,7 @@
                                                     <action selector="saveAndCloseButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="KRB-EA-U80"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" userLabel="UndoButton" customClass="UndoButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" userLabel="UndoButton" customClass="ADUndoButton">
                                                 <rect key="frame" x="288" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Undo"/>
@@ -1683,12 +1646,7 @@
                                 </accessibility>
                                 <gestureRecognizers/>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="1lJ-Bb-8Ii">
-                                <rect key="frame" x="365" y="494" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
-                            <view hidden="YES" contentMode="scaleToFill" id="t8W-76-5EB" userLabel="ColorPickerView" customClass="ColorPickerView">
+                            <view hidden="YES" contentMode="scaleToFill" id="t8W-76-5EB" userLabel="ColorPickerView" customClass="ADColorPickerView">
                                 <rect key="frame" x="512" y="572" width="256" height="256"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -1789,18 +1747,18 @@
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="EyeDropperIndicatorView">
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="ADEyeDropperIndicatorView">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Magnifier">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="5VV-Rf-eND" userLabel="AnchorView" customClass="AnchorView">
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="5VV-Rf-eND" userLabel="AnchorView" customClass="ADAnchorView">
                                 <rect key="frame" x="354" y="482" width="70" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="dc1-z6-4cm" userLabel="ColorSaveToSlotView" customClass="ColorSaveToSlotView">
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="dc1-z6-4cm" userLabel="ColorSaveToSlotView" customClass="ADColorSaveToSlotView">
                                 <rect key="frame" x="678" y="878" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
@@ -1830,7 +1788,6 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="1lJ-Bb-8Ii" id="B3F-Lu-Fl0"/>
                         <outlet property="anchorView" destination="5VV-Rf-eND" id="LiC-UI-8KT"/>
                         <outlet property="barPicker" destination="c96-9C-IYf" id="2o0-oU-P1z"/>
                         <outlet property="barView" destination="Qb6-Rs-9pi" id="DHg-rL-CbP"/>
@@ -1841,7 +1798,6 @@
                         <outlet property="brushTypePageControl" destination="kbv-IO-pfA" id="3IP-Th-NUR"/>
                         <outlet property="brushTypeScrollView" destination="ss0-3e-NKH" id="PW4-8W-Nql"/>
                         <outlet property="brushTypeView" destination="Juz-4R-WxS" id="zbq-Oe-D56"/>
-                        <outlet property="brushView" destination="DaP-yC-9nA" id="C87-Rl-d88"/>
                         <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
                         <outlet property="clearButton" destination="6dc-Q8-cDV" id="dVE-Jq-KSK"/>
                         <outlet property="clearEffectView" destination="UZ5-WS-IWn" id="laM-z2-tRw"/>
@@ -1857,12 +1813,9 @@
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
                         <outlet property="importButton" destination="Rmw-ah-joO" id="CQ1-lc-GMw"/>
                         <outlet property="layerButton" destination="HXT-bj-iEv" id="Xg9-7T-g2z"/>
-                        <outlet property="lblBrushOpacity" destination="e4z-wS-yaC" id="wqt-SO-3mo"/>
-                        <outlet property="lblBrushRadius" destination="5gW-bx-Ggp" id="gnZ-iy-ZfT"/>
                         <outlet property="lockCanvasRotationView" destination="1U1-UR-ry1" id="NHj-pc-j9i"/>
                         <outlet property="lpgr2TouchesRootCanvasView" destination="kXl-ig-bRM" id="YQC-Lg-TRk"/>
                         <outlet property="lpgrBrushButton" destination="7jA-nm-TSI" id="Wdn-Mx-ega"/>
-                        <outlet property="lpgrBrushView" destination="f8T-0D-6Im" id="Jbc-fZ-CMt"/>
                         <outlet property="lpgrPaintView" destination="oTk-me-Tqm" id="k5m-IJ-7kH"/>
                         <outlet property="mainToolBar" destination="erO-nK-SuU" id="hEa-UN-jr2"/>
                         <outlet property="opacityIndicatorView" destination="C41-sP-OY9" id="ubR-2n-n2a"/>
@@ -1918,7 +1871,7 @@
                         <outletCollection property="fullScreenButtons" destination="Olc-1G-d92" id="iEt-Jw-VCb"/>
                     </connections>
                 </viewController>
-                <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="LkA-0M-IXn" userLabel="FullScreenReverseButton" customClass="FullScreenReverseButton">
+                <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="LkA-0M-IXn" userLabel="FullScreenReverseButton" customClass="ADFullScreenReverseButton">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <gestureRecognizers/>
@@ -2012,21 +1965,6 @@
                         <action selector="handleTap1Touches1TapsPaintView:" destination="NUX-zI-YbL" id="LEf-ba-576"/>
                     </connections>
                 </tapGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="dxG-yv-OaI" userLabel="PanGR BrushView">
-                    <connections>
-                        <action selector="handlePanBrushView:" destination="NUX-zI-YbL" id="LEh-KZ-bsX"/>
-                    </connections>
-                </panGestureRecognizer>
-                <tapGestureRecognizer enabled="NO" cancelsTouchesInView="NO" id="SYU-Pv-PeP" userLabel="TapGR BrushView">
-                    <connections>
-                        <action selector="handleTapBrushView:" destination="NUX-zI-YbL" id="vg9-0W-eVu"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <pongPressGestureRecognizer enabled="NO" allowableMovement="10" minimumPressDuration="0.5" id="f8T-0D-6Im" userLabel="LongPressGR BrushView">
-                    <connections>
-                        <action selector="handleLongPressPaintView:" destination="NUX-zI-YbL" id="cMq-3R-IvN"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" id="CjD-wI-Hmu" userLabel="PanGR BrushToolBar">
                     <connections>
                         <action selector="handlePanBrushToolBar:" destination="NUX-zI-YbL" id="acm-0X-s1C"/>
@@ -2058,7 +1996,7 @@
         <!--Swatch Manager View Controller-->
         <scene sceneID="Fu9-YN-yGo">
             <objects>
-                <viewController storyboardIdentifier="SwatchManagerViewController" id="7XC-Ar-vVC" customClass="SwatchManagerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SwatchManagerViewController" id="7XC-Ar-vVC" customClass="ADSwatchManagerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ap9-H6-xeU">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2093,12 +2031,12 @@
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="980" sectionHeaderHeight="44" sectionFooterHeight="44" id="sJh-Oi-md4" customClass="SwatchManagerTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="980" sectionHeaderHeight="44" sectionFooterHeight="44" id="sJh-Oi-md4" customClass="ADSwatchManagerTableView">
                                 <rect key="frame" x="0.0" y="44" width="768" height="980"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Fnk-0A-H3S" customClass="SwatchManagerTableViewCell">
+                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Fnk-0A-H3S" customClass="ADSwatchManagerTableViewCell">
                                         <rect key="frame" x="0.0" y="44" width="768" height="980"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fnk-0A-H3S" id="vz9-QR-zUM">
@@ -2116,14 +2054,14 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="swatchCollectionViewCell" id="6xv-fc-u9v" customClass="SwatchCollectionViewCell">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="swatchCollectionViewCell" id="6xv-fc-u9v" customClass="ADSwatchCollectionViewCell">
                                                             <rect key="frame" x="0.0" y="0.0" width="256" height="240"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="256" height="240"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gpg-VE-dhQ" userLabel="SwatchChartButton" customClass="SwatchChartButton">
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Gpg-VE-dhQ" userLabel="SwatchChartButton" customClass="ADSwatchChartButton">
                                                                         <rect key="frame" x="38" y="20" width="180" height="180"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -2197,12 +2135,12 @@
         <!--Cylinder Project View Controller-->
         <scene sceneID="SXy-0H-jhd">
             <objects>
-                <viewController storyboardIdentifier="CylinderProjectViewController" id="Ykg-qI-0AR" customClass="CylinderProjectViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="h4g-78-CMY" userLabel="RootView" customClass="CylinderProjectRootView">
+                <viewController storyboardIdentifier="CylinderProjectViewController" id="Ykg-qI-0AR" customClass="ADCylinderProjectViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h4g-78-CMY" userLabel="RootView" customClass="ADCylinderProjectRootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" drawableStencilFormat="8" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="CylinderProjectView">
+                            <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" drawableStencilFormat="8" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="ADCylinderProjectView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
@@ -2220,7 +2158,7 @@
                                     <action selector="virtualDeviceButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="7KP-h2-mCC"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" opaque="NO" contentMode="top" restorationIdentifier="" id="KoF-0M-tDF" userLabel="TopToolBar" customClass="TopToolBar">
+                            <view hidden="YES" opaque="NO" contentMode="top" restorationIdentifier="" id="KoF-0M-tDF" userLabel="TopToolBar" customClass="ADTopToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -2228,7 +2166,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" id="q5V-YY-5to" userLabel="SetupCylinderView" customClass="SetupCylinderView">
+                                            <view opaque="NO" contentMode="scaleToFill" id="q5V-YY-5to" userLabel="SetupCylinderView" customClass="ADSetupCylinderView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
@@ -2282,7 +2220,7 @@
                                         <rect key="frame" x="192" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" id="wlb-3A-UXq" userLabel="SetupCylinderView" customClass="SetupCylinderImageView">
+                                            <view opaque="NO" contentMode="scaleToFill" id="wlb-3A-UXq" userLabel="SetupCylinderView" customClass="ADSetupCylinderImageView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
@@ -2338,7 +2276,7 @@
                                         <rect key="frame" x="576" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" id="WRY-Wu-9lD" userLabel="SetupCylinderView" customClass="SetupEyeView">
+                                            <view opaque="NO" contentMode="scaleToFill" id="WRY-Wu-9lD" userLabel="SetupCylinderView" customClass="ADSetupEyeView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
@@ -2395,7 +2333,7 @@
                                         <rect key="frame" x="384" y="0.0" width="192" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" id="jXJ-f2-MLj" userLabel="SetupUnitZoomView" customClass="SetupUnitZoomView">
+                                            <view opaque="NO" contentMode="scaleToFill" id="jXJ-f2-MLj" userLabel="SetupUnitZoomView" customClass="ADSetupUnitZoomView">
                                                 <rect key="frame" x="0.0" y="11" width="66" height="66"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
@@ -2486,11 +2424,11 @@
                                     </slider>
                                 </subviews>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="jlQ-I2-QJ2" userLabel="DownToolBar" customClass="DownToolBar">
+                            <view opaque="NO" contentMode="scaleToFill" restorationIdentifier="" id="jlQ-I2-QJ2" userLabel="DownToolBar" customClass="ADDownToolBar">
                                 <rect key="frame" x="0.0" y="936" width="768" height="88"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="GalleryButton" customClass="BackButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="GalleryButton" customClass="ADBackButton">
                                         <rect key="frame" x="0.0" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Gallery"/>
@@ -2506,7 +2444,7 @@
                                             <action selector="galleryButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="pkh-aD-FTM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Q2U-zg-Mkm" userLabel="ShareButton" customClass="ShareButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Q2U-zg-Mkm" userLabel="ShareButton" customClass="ADShareButton">
                                         <rect key="frame" x="128" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
@@ -2522,7 +2460,7 @@
                                             <action selector="shareButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="my4-sa-SZ8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="853-Ud-5W7" userLabel="TopPerspectiveButton" customClass="AnamorphicTopViewButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="853-Ud-5W7" userLabel="TopPerspectiveButton" customClass="ADAnamorphicTopViewButton">
                                         <rect key="frame" x="256" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
@@ -2538,7 +2476,7 @@
                                             <action selector="topViewButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="ikg-Ye-2iz"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="q9m-wd-BDj" userLabel="EyePerspectiveButton" customClass="AnamorphicSideViewButton">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="q9m-wd-BDj" userLabel="EyePerspectiveButton" customClass="ADAnamorphicSideViewButton">
                                         <rect key="frame" x="256" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
@@ -2554,7 +2492,7 @@
                                             <action selector="sideViewButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="x5h-4C-H82"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="edV-eN-YWW" userLabel="SetupButton" customClass="SetupButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="edV-eN-YWW" userLabel="SetupButton" customClass="ADSetupButton">
                                         <rect key="frame" x="384" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
@@ -2570,7 +2508,7 @@
                                             <action selector="setupButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="RHJ-eS-hqD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K8x-Wh-Rm8" userLabel="InfoButton" customClass="InfoButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K8x-Wh-Rm8" userLabel="InfoButton" customClass="ADInfoButton">
                                         <rect key="frame" x="512" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Print"/>
@@ -2586,7 +2524,7 @@
                                             <action selector="infoButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="loE-HQ-zV0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w1V-2I-Uqb" userLabel="PaintButton" customClass="PaintButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w1V-2I-Uqb" userLabel="PaintButton" customClass="ADPaintButton">
                                         <rect key="frame" x="640" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Draw"/>

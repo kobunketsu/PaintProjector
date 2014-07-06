@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "FuzzyTransparentView.h"
+#import "ADFuzzyTransparentView.h"
 
-@interface InfColorPickerRootView : FuzzyTransparentView
+@interface InfColorPickerRootView : ADFuzzyTransparentView
 
 @end

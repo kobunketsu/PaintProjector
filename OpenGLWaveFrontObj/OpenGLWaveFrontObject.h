@@ -12,7 +12,7 @@
 #import <OpenGLES/ES1/glext.h>
 #import "OpengLWaveFrontCommon.h"
 #import "OpenGLWaveFrontMaterial.h"
-#import "VertexCommon.h"
+#import "REVertexCommon.h"
 
 // This line should be uncommented to use the famous Quake / invsqrt optimization
 // If this line is commented out, normalization will happen using standard sqrtf()
