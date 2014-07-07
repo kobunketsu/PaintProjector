@@ -75,17 +75,15 @@ static float DeviceWidth = 0.154;
 }
 
 - (void)initWithCustom{
-    ADDeviceHardware *h = [[ADDeviceHardware alloc]init];
-    if ([[h platformString] rangeOfString:@"iPad Mini"].location != NSNotFound) {
-        //FIXME:调查参数
-        DeviceWidth = 0.12;
-    }
-    else{
-        DeviceWidth = 0.154;
-    }
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillAppear ]");
+    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
+    self.rootView.backgroundView = backgroundView;
+    [self.rootView addSubview:backgroundView];
+    [self.rootView sendSubviewToBack:backgroundView];
+    
     //用于解决启动闪黑屏的问题
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
     [self setupBaseParams];
@@ -121,12 +119,12 @@ static float DeviceWidth = 0.154;
     [self destroyInputParams];
     
     [self destroyBaseParams];
-
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidDisappear ]");
-
+    [self.rootView.backgroundView removeFromSuperview];
+    self.rootView.backgroundView = nil;
 }
 
 - (void)viewDidLoad
@@ -134,6 +132,7 @@ static float DeviceWidth = 0.154;
     DebugLogSystem(@"[ viewDidLoad ]");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self registerDeviceRotation];
     
     //通知注册事件对app退到后台进行响应
     [[NSNotificationCenter defaultCenter]
@@ -173,6 +172,34 @@ static float DeviceWidth = 0.154;
     
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    ADDeviceHardware *h = [[ADDeviceHardware alloc]init];
+    if ([[h platformString] rangeOfString:@"iPad Mini"].location != NSNotFound) {
+        //FIXME:调查参数
+        DeviceWidth = 0.12;
+        [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.cylinderDiameter"];
+        [dic setObject:[NSNumber numberWithFloat:0.055] forKey:@"userInputParams.cylinderHeight"];
+        [dic setObject:[NSNumber numberWithFloat:0.029] forKey:@"userInputParams.imageWidth"];
+        [dic setObject:[NSNumber numberWithFloat:0.027] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+        [dic setObject:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeHonrizontalDistance"];
+        [dic setObject:[NSNumber numberWithFloat:0.31] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+        [dic setObject:[NSNumber numberWithFloat:0.05] forKey:@"userInputParams.eyeTopZ"];
+        
+    }
+    else{
+        DeviceWidth = 0.154;
+        [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
+        [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
+        [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
+        [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+        [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
+        [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+        [dic setObject:[NSNumber numberWithFloat:0.065] forKey:@"userInputParams.eyeTopZ"];
+
+    }
+    self.srcUserInputParams = dic;
 }
 
 - (void)viewDidUnload{
@@ -189,6 +216,24 @@ static float DeviceWidth = 0.154;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 }
 
+
+
+- (void)unregisterDeviceRotation{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
+}
+- (void)registerDeviceRotation{
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(orientationChanged:)
+     name:UIDeviceOrientationDidChangeNotification
+     object:[UIDevice currentDevice]];
+}
+- (void)orientationChanged:(id)sender{
+    DebugLogFuncStart(@"orientationChanged");
+//    DebugLogWarn(@"rootView.frame %@", NSStringFromCGRect(self.rootView.frame));
+//    DebugLogWarn(@"rootView.bounds %@", NSStringFromCGRect(self.rootView.bounds));
+//    self.rootView.frame = self.rootView.bounds;
+}
 #pragma mark- 主程序
 - (BOOL)prefersStatusBarHidden
 {
@@ -412,8 +457,9 @@ static float DeviceWidth = 0.154;
     rectCenter = CGPointMake(rectCenter.x, rectCenter.y + TransitionToPaintPixelOffsetY);
     UIView *fromView = self.view;
     fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
-    fromView.layer.position = rectCenter;
     
+    fromView.layer.position = rectCenter;
+//    DebugLogWarn(@"fromView anchorPoint %@", NSStringFromCGPoint(fromView.layer.anchorPoint));
     [UIView animateWithDuration:TempPaintFrameToPaintFadeInDuration animations:^{
         transitionImageView.alpha = 1;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
@@ -693,20 +739,11 @@ static float DeviceWidth = 0.154;
 }
 
 -(void)resetInputParams{
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
-    [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
-    [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
-    [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
-    [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
-    [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
-    [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-    
     REAnimationClip *animClip = [[REAnimationClip alloc]init];
     animClip.name = @"userInputParamsResetAnimClip";
-    NSEnumerator *enumeratorKey = [dic keyEnumerator];
+    NSEnumerator *enumeratorKey = [self.srcUserInputParams keyEnumerator];
     for (NSObject *key in enumeratorKey) {
-        NSNumber *num = [dic objectForKey:key];
+        NSNumber *num = [self.srcUserInputParams objectForKey:key];
         
         REPropertyAnimation *propAnim = [REPropertyAnimation propertyAnimationWithKeyPath:(NSString*)key];
         propAnim.fromValue = [self valueForKeyPath:(NSString*)key];
@@ -886,17 +923,12 @@ static float DeviceWidth = 0.154;
 - (void)setupInputParams{
     DebugLogFuncStart(@"setupInputParams");
     //根据ipad2的尺寸进行设定
-    ADCylinderProjectUserInputParams *userInputParams = [[ADCylinderProjectUserInputParams alloc]init];
-    
-    userInputParams.cylinderDiameter = 0.038;
-    userInputParams.cylinderHeight = 0.07;
-    //设定虚拟平面
-    userInputParams.imageWidth = 0.037;
-    userInputParams.imageCenterOnSurfHeight = 0.035; //default 0.035
-    userInputParams.eyeHonrizontalDistance = 0.35;
-    userInputParams.eyeVerticalHeight = 0.4;
-    userInputParams.unitZoom = 1.0;
-    userInputParams.eyeTopZ = 0.065;
+    self.userInputParams = [[ADCylinderProjectUserInputParams alloc]init];
+     NSEnumerator *enumeratorKey = [self.srcUserInputParams keyEnumerator];
+    for (NSObject *key in enumeratorKey) {
+        NSNumber *num = [self.srcUserInputParams objectForKey:key];
+        [self setValue:num forKeyPath:(NSString*)key];
+    }
     
     [self addObserver:self forKeyPath:@"userInputParams.cylinderDiameter" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.cylinderHeight" options:NSKeyValueObservingOptionOld context:nil];
@@ -906,8 +938,6 @@ static float DeviceWidth = 0.154;
     [self addObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.unitZoom" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.eyeTopZ" options:NSKeyValueObservingOptionOld context:nil];
-    
-    self.userInputParams = userInputParams;
 
     //setup panel
     [self flushUIUserInputParams];
@@ -2168,6 +2198,8 @@ static float DeviceWidth = 0.154;
         [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
             [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         } completion:^(BOOL finished) {
+            fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+            fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
         }];
         
     }];
@@ -2185,7 +2217,6 @@ static float DeviceWidth = 0.154;
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         [self lockInteraction:false];
-        
         [self.paintScreenVC openDoc:paintDoc];
         [self.paintScreenVC afterPresentation];
     }];

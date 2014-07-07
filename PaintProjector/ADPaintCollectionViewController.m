@@ -46,6 +46,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"viewWillAppear");
+    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
+    self.rootView.backgroundView = backgroundView;
+    [self.rootView addSubview:backgroundView];
+    [self.rootView sendSubviewToBack:backgroundView];
+
+    
     if (!self.isLaunchTransitioned) {
         [self startLaunchTransitionToCylinderProject];
     }
@@ -63,6 +69,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
+    
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
     }
@@ -73,13 +80,19 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
+    [self.rootView.backgroundView removeFromSuperview];
+    self.rootView.backgroundView = nil;
+    
     [self.selectedIndices removeAllObjects];
     
     //移除显示用的Image
     for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        
+        [ADPaintFrameManager unloadPaintFrameView:cell.paintFrameView];
         [self cell:cell markSelected:false];
+
     }
 }
 
@@ -370,6 +383,11 @@
         DebugLog(@"No PaintDoc to copy!");
         return;
     }
+
+//    if (self.selectedIndices.count == 0) {
+//        DebugLog(@"No PaintDoc to copy!");
+//        return;
+//    }
     
     NSMutableArray *indices = [[NSMutableArray alloc]init];
     for (NSIndexPath *indexPath in self.selectedIndices) {
@@ -446,6 +464,7 @@
     
     //放大画框开始绘制
     [self viewPaintFrame:self.curPaintFrameView paintDirectly:true];
+//    [self viewPaintFrame:nil paintDirectly:true];
 }
 
 #pragma mark-

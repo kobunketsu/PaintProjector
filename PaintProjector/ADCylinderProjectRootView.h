@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ADRootCanvasBackgroundView.h"
 @interface ADCylinderProjectRootView : UIView
-
+@property(retain, nonatomic) UIView *backgroundView;
 @end

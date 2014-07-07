@@ -270,7 +270,7 @@ const float LayerTableViewWidth = 256;
     DebugLog(@"[ targetIndexPathForMoveFromRowAtIndexPathSection  %d toProposedIndexPathSection %d]", sourceIndexPath.row, proposedDestinationIndexPath.row);
    
     if (proposedDestinationIndexPath.row == [self rowForBackgroundLayer]) {
-        return sourceIndexPath;
+        return [NSIndexPath indexPathForRow:[self rowForBackgroundLayer]-1 inSection:0];
     }
     else{
         return proposedDestinationIndexPath;

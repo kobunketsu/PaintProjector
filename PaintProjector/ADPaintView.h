@@ -196,7 +196,7 @@ typedef struct {
 @property (assign, nonatomic) GLuint finalRenderbuffer;
 @property (assign, nonatomic) GLuint backgroundTexture;//背景内容
 @property (weak, nonatomic) ADPaintData *paintData;
-@property (weak, nonatomic)ADBrush *brush;
+@property (retain, nonatomic)ADBrush *brush;
 @property (retain, nonatomic) UIImage *paintingImage;//纪录当前的绘图内容
 @property (retain, nonatomic) UIImage *brushingImage;//纪录当前的绘图内容
 @property (retain, nonatomic) UIImage *paintRefImage;//纪录当前的绘图内容

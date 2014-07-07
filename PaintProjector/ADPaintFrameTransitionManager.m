@@ -102,7 +102,12 @@
                 //                [imageView removeFromSuperview];
                 //                imageView.alpha = 1;
                 paintCollectionVC.view.alpha = 1;
+                
+                //unload paintFrameView
                 [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+                [paintCollectionVC.curPaintFrameView setPaintDoc:nil];
+                [paintCollectionVC.curPaintFrameView unloadForDisplay];
+                
 //                DebugLog(@"paintCollectionVC.curPaintFrameView frame %@", NSStringFromCGRect(paintCollectionVC.curPaintFrameView.frame));
             }
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];

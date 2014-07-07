@@ -2567,6 +2567,7 @@
                         <outlet property="projectView" destination="nbv-5J-Y5R" id="14a-YC-o5O"/>
                         <outlet property="projectWidthButton" destination="PJU-fr-5RP" id="TVl-RQ-jbl"/>
                         <outlet property="projectZoomButton" destination="22v-i6-tDY" id="obC-8V-LLz"/>
+                        <outlet property="rootView" destination="h4g-78-CMY" id="upA-4y-y8Y"/>
                         <outlet property="setupButton" destination="edV-eN-YWW" id="eaB-n1-a57"/>
                         <outlet property="shareButton" destination="Q2U-zg-Mkm" id="F8w-Bj-Ffl"/>
                         <outlet property="topPerspectiveView" destination="853-Ud-5W7" id="1jG-6C-fMc"/>

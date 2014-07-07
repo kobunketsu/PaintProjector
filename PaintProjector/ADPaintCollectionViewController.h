@@ -11,6 +11,9 @@
 #import "ADPaintFrameManager.h"
 #import "ADPaintFrameTransitionManager.h"
 #import "ADTutorialStep.h"
+#import "ADRootCanvasView.h"
+#import "ADRootCanvasBackgroundView.h"
+
 
 @protocol ADPaintScreenDelegate;
 
@@ -29,7 +32,7 @@ ADTutorialStepDelegate
 >
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) IBOutlet UIView *rootView;
+@property (strong, nonatomic) IBOutlet ADCylinderProjectRootView *rootView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet ADDownToolBar *downToolBar;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *editButtons;

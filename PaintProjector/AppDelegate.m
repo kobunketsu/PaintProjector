@@ -216,7 +216,7 @@
 - (void)initTutorial{
     [ADSimpleTutorialManager initialize];
     [ADSimpleTutorialManager current].delegate = self;
-    ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"AnaDrawTutorial"];
+    ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"ADSimpleTutorial"];
     
     //欢迎界面
     ADTutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];

@@ -131,27 +131,8 @@ typedef struct {
 @property (assign, nonatomic) float curDrawAccumDeltaLength;//当前绘制的长度
 
 #pragma mark- OpenGLES
-@property (weak, nonatomic) EAGLContext* context;
 @property (assign, nonatomic) BrushVertex* vertexBuffer;
-//@property (assign, nonatomic) GLuint shapeTexture;
-//@property (assign, nonatomic) GLuint maskTexture;
-//@property (assign, nonatomic) GLuint maskTextureUniform;
-//@property (assign, nonatomic) GLuint patternTexture;
-//@property (assign, nonatomic) GLuint patternTextureUniform;
 @property (assign, nonatomic) float patternTextureSize;
-//@property (assign, nonatomic) GLuint smudgeFramebuffer;
-//@property (assign, nonatomic) GLuint smudgeTexture;
-//@property (assign, nonatomic) GLuint smudgeTextureUniform;
-//@property (assign, nonatomic) GLuint smudgeBackTexture;
-//@property (assign, nonatomic) GLuint smudgeBackFramebuffer;
-//@property (assign, nonatomic) NSUInteger lastSmudgeTextureSize;
-//@property (assign, nonatomic) GLuint programBrush;
-//@property (assign, nonatomic) GLuint paramsUniform;
-//@property (assign, nonatomic) GLuint params2Uniform;
-//@property (assign, nonatomic) GLuint projectionUniform;
-//@property (assign, nonatomic) GLuint colorUniform;
-
-//用来删除所有Shader uniform中用到的GLuint 还要创建Texture对象，太复杂
 @property (retain, nonatomic) ADShaderBrush *shader;
 @property (retain, nonatomic) REMaterial *material;
 @property (retain, nonatomic) RETexture *shapeTexture;

@@ -99,15 +99,19 @@
         
         
         //// Bezier Drawing
+        CGContextSaveGState(context);
+        CGContextTranslateCTM(context, CGRectGetMinX(group) + 17.5, CGRectGetMinY(group) + 11.5);
+        CGContextRotateCTM(context, 90 * M_PI / 180);
+        
         UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-        [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(group) + 13.5, CGRectGetMinY(group) + 7)];
-        [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(group) + 17.14, CGRectGetMinY(group) + 12.63) controlPoint1: CGPointMake(CGRectGetMinX(group) + 13.5, CGRectGetMinY(group) + 7) controlPoint2: CGPointMake(CGRectGetMinX(group) + 16.27, CGRectGetMinY(group) + 11.04)];
-        [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 18, CGRectGetMinY(group) + 12.63)];
-        [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 17, CGRectGetMinY(group) + 24)];
-        [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 10, CGRectGetMinY(group) + 24)];
-        [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 9, CGRectGetMinY(group) + 12.63)];
-        [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 9.86, CGRectGetMinY(group) + 12.63)];
-        [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(group) + 13.5, CGRectGetMinY(group) + 7) controlPoint1: CGPointMake(CGRectGetMinX(group) + 10.73, CGRectGetMinY(group) + 11.04) controlPoint2: CGPointMake(CGRectGetMinX(group) + 13.5, CGRectGetMinY(group) + 7)];
+        [bezierPath moveToPoint: CGPointMake(-0.5, -6.5)];
+        [bezierPath addCurveToPoint: CGPointMake(1.92, -1.53) controlPoint1: CGPointMake(-0.5, -6.5) controlPoint2: CGPointMake(1.34, -2.93)];
+        [bezierPath addLineToPoint: CGPointMake(2.5, -1.53)];
+        [bezierPath addLineToPoint: CGPointMake(2.5, 8.5)];
+        [bezierPath addLineToPoint: CGPointMake(-3.5, 8.5)];
+        [bezierPath addLineToPoint: CGPointMake(-3.5, -1.53)];
+        [bezierPath addLineToPoint: CGPointMake(-2.92, -1.53)];
+        [bezierPath addCurveToPoint: CGPointMake(-0.5, -6.5) controlPoint1: CGPointMake(-2.34, -2.93) controlPoint2: CGPointMake(-0.5, -6.5)];
         [bezierPath closePath];
         CGContextSaveGState(context);
         CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
@@ -137,6 +141,55 @@
         
         CGContextRestoreGState(context);
         
+        
+        CGContextRestoreGState(context);
+        
+        
+        //// Bezier 2 Drawing
+        CGContextSaveGState(context);
+        CGContextTranslateCTM(context, CGRectGetMinX(group) + 10.5, CGRectGetMinY(group) + 20.5);
+        CGContextRotateCTM(context, -90 * M_PI / 180);
+        
+        UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
+        [bezier2Path moveToPoint: CGPointMake(1.5, -6.5)];
+        [bezier2Path addCurveToPoint: CGPointMake(-0.92, -1.53) controlPoint1: CGPointMake(1.5, -6.5) controlPoint2: CGPointMake(-0.34, -2.93)];
+        [bezier2Path addLineToPoint: CGPointMake(-1.5, -1.53)];
+        [bezier2Path addLineToPoint: CGPointMake(-1.5, 8.5)];
+        [bezier2Path addLineToPoint: CGPointMake(4.5, 8.5)];
+        [bezier2Path addLineToPoint: CGPointMake(4.5, -1.53)];
+        [bezier2Path addLineToPoint: CGPointMake(3.92, -1.53)];
+        [bezier2Path addCurveToPoint: CGPointMake(1.5, -6.5) controlPoint1: CGPointMake(3.34, -2.93) controlPoint2: CGPointMake(1.5, -6.5)];
+        [bezier2Path closePath];
+        CGContextSaveGState(context);
+        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
+        [iconShadowColorColor setFill];
+        [bezier2Path fill];
+        
+        ////// Bezier 2 Inner Shadow
+        CGContextSaveGState(context);
+        UIRectClip(bezier2Path.bounds);
+        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+        
+        CGContextSetAlpha(context, CGColorGetAlpha([shadow3 CGColor]));
+        CGContextBeginTransparencyLayer(context, NULL);
+        {
+            UIColor* opaqueShadow = [shadow3 colorWithAlphaComponent: 1];
+            CGContextSetShadowWithColor(context, shadow3Offset, shadow3BlurRadius, [opaqueShadow CGColor]);
+            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+            CGContextBeginTransparencyLayer(context, NULL);
+            
+            [opaqueShadow setFill];
+            [bezier2Path fill];
+            
+            CGContextEndTransparencyLayer(context);
+        }
+        CGContextEndTransparencyLayer(context);
+        CGContextRestoreGState(context);
+        
+        CGContextRestoreGState(context);
+        
+        
+        CGContextRestoreGState(context);
     }
     
     
@@ -144,6 +197,7 @@
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
 }
+
 
 
 

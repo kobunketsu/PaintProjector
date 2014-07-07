@@ -19,7 +19,6 @@
 #import "ADShareTableViewController.h"
 #import "ADProductInfoTableViewController.h"
 
-#import "REDisplay.h"
 #import "REGLWrapper.h"
 #import "ADUltility.h"
 #import "RETextureManager.h"
@@ -56,7 +55,7 @@
 #import "ADCylinderProjectUserInputParams.h"
 #import "ADInAppPurchaseManager.h"
 #import "ADInAppPurchaseTableViewController.h"
-
+#import "ADCylinderProjectRootView.h"
 
 static const NSString *ItemStatusContext;
 
@@ -115,12 +114,14 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) ADInAppPurchaseTableViewController* iapVC;
 @property (retain, nonatomic) GLKViewController* glkViewController;
 @property (weak, nonatomic) IBOutlet GLKView *projectView;
+@property (strong, nonatomic) IBOutlet ADCylinderProjectRootView *rootView;
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic)BOOL paintDirectly;
 #pragma mark- File
 
 #pragma mark- User Input
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;
+@property (retain, nonatomic) NSMutableDictionary *srcUserInputParams;
 #pragma mark- GL
 @property (retain, nonatomic) EAGLContext *context;
 

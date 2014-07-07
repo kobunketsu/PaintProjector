@@ -143,6 +143,23 @@
     for (ADBrush *brush in self.brushTypeScrollView.brushTypes) {
         [brush initGL];
     }
+    
+    //指定当前笔刷
+    self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
+    NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"BrushId"];
+    NSInteger brushId = -1;
+    if (!num) {
+        brushId = 0;//pencil
+    }
+    else{
+        brushId = num.integerValue;
+    }
+    ADBrush *brush = self.brushTypeScrollView.brushTypes[brushId];
+    ADBrush *brushCopy = [brush copy];
+    [self.paintView setBrush:brushCopy];
+    
+    ADBrush *eraser = self.brushTypeScrollView.brushTypes[1];
+    self.brushBackButton.brush = [eraser copy];
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
@@ -300,24 +317,9 @@
     
     const NSInteger numOfBrushPerPage = 6;
     [self.brushTypeScrollView initSubviewsWithNumOfBrushPerPage:numOfBrushPerPage];
-    
     self.brushTypePageControl.numberOfPages = (NSInteger)ceilf((CGFloat)[self.brushTypeScrollView.brushTypes count] / numOfBrushPerPage);
     
-    //指定当前笔刷
-    self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
-    NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"BrushId"];
-    NSInteger brushId = -1;
-    if (!num) {
-        brushId = 0;//pencil
-    }
-    else{
-        brushId = num.integerValue;
-    }
-    ADBrush *brush = self.brushTypeScrollView.brushTypes[brushId];
-    [self.paintView setBrush:brush];
-    
     [self.brushButton addGestureRecognizer:self.lpgrBrushButton];
-    self.brushBackButton.brush = eraser;
     self.brushBackButton.frame = CGRectMake(self.brushBackButton.frame.origin.x, 40, self.brushBackButton.frame.size.width, self.brushBackButton.frame.size.height);
     [self.brushBackButton setNeedsDisplay];
 
@@ -2569,7 +2571,7 @@
     }
     
     //UI
-    [self.paintView setBrush:brush];
+    [self.paintView setBrush:[brush copy]];
     [self.paintView.brush setColor:self.paintColorButton.color];
     
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
@@ -4561,6 +4563,7 @@
 //}
 
 - (void)setupDeviceRotation{
+    DebugLogFuncStart(@"setupDeviceRotation");
     //旋转方向
     [self registerDeviceRotation];
     if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {

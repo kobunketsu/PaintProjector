@@ -59,39 +59,29 @@
 
 @implementation ADBrush
 // first define the pattern width and height
-//- (id)copyWithZone:(NSZone *)zone{
-//    Brush *brush = [[Brush alloc]init];
-//    brush.delegate = self.delegate;
-//    brush.name = self.name;
-//    brush.paintView = self.paintView;
-//    brush.brushState = [self.brushState copy];
-//    brush.lastDrawPoint = self.lastDrawPoint;
-//    brush.curDrawPoint = self.curDrawPoint;
-//    brush.curDrawAccumDeltaLength = self.curDrawAccumDeltaLength;
-//    brush.context = self.context;
-//    brush.vertexBuffer = self.vertexBuffer;
-//    brush.shapeTexture = self.shapeTexture;
-//    brush.maskTexture = self.maskTexture;
-//    brush.maskTextureUniform = self.maskTextureUniform;
-//    brush.patternTexture = self.patternTexture;
-//    brush.patternTextureUniform = self.patternTextureUniform;
-//    brush.patternTextureSize = self.patternTextureSize;
-//    brush.smudgeFramebuffer = self.smudgeFramebuffer;
-//    brush.smudgeTexture = self.smudgeTexture;
-//    brush.smudgeTextureUniform = self.smudgeTextureUniform;
-//    brush.smudgeBackFramebuffer = self.smudgeBackFramebuffer;
-//    brush.smudgeBackTexture = self.smudgeBackTexture;
-//    brush.programBrush = self.programBrush;
-//    brush.shaderPreDefines = self.shaderPreDefines;
-//    brush.paramsUniform = self.paramsUniform;
-//    brush.params2Uniform = self.params2Uniform;
-//    brush.projectionUniform = self.projectionUniform;
-//    brush.colorUniform = self.colorUniform;
-//    brush.radiusSliderMaxValue = self.radiusSliderMaxValue;
-//    brush.radiusSliderMinValue = self.radiusSliderMinValue;
-//    brush.canvasSize = self.canvasSize;
-//    return brush;
-//}
+- (id)copyWithZone:(NSZone *)zone{
+    ADBrush *brush = [[[self class] alloc]init];
+    brush.delegate = self.delegate;
+    brush.name = self.name;
+    brush.paintView = self.paintView;
+    brush.brushState = [self.brushState copy];
+    brush.lastDrawPoint = self.lastDrawPoint;
+    brush.curDrawPoint = self.curDrawPoint;
+    brush.curDrawAccumDeltaLength = self.curDrawAccumDeltaLength;
+    brush.vertexBuffer = self.vertexBuffer;
+    brush.shader = self.shader;
+    brush.material = self.material;
+    brush.patternTextureSize = self.patternTextureSize;
+    brush.shapeTexture = self.shapeTexture;
+    brush.maskTexture = self.maskTexture;
+    brush.patternTexture = self.patternTexture;
+    brush.smudgeTexture = self.smudgeTexture;
+    brush.smudgeBackTexture = self.smudgeBackTexture;
+    brush.radiusSliderMaxValue = self.radiusSliderMaxValue;
+    brush.radiusSliderMinValue = self.radiusSliderMinValue;
+    brush.canvasSize = self.canvasSize;
+    return brush;
+}
 
 //绘制笔刷
 - (id)initWithPaintView:(ADPaintView*)paintView{

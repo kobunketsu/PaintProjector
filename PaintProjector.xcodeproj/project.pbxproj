@@ -493,6 +493,10 @@
 		08CEBB39195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CEBB37195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m */; };
 		08D4B8BA18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4B8BB18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
+		08D639C1196A4B3600AB3390 /* rootCanvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D639C0196A4B3600AB3390 /* rootCanvas.png */; };
+		08D639C2196A4B3600AB3390 /* rootCanvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D639C0196A4B3600AB3390 /* rootCanvas.png */; };
+		08D639C5196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */; };
+		08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */; };
 		08D836911737E2E600B68990 /* ADFreeTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836901737E2E600B68990 /* ADFreeTransformButton.m */; };
 		08D836961737E4D200B68990 /* ADMoveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836951737E4D200B68990 /* ADMoveButton.m */; };
 		08D836991737E5A100B68990 /* ADRotateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836981737E5A100B68990 /* ADRotateButton.m */; };
@@ -1392,6 +1396,9 @@
 		08CEBB36195A71B400247F8B /* ADShaderUnlitTransparentAdditive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderUnlitTransparentAdditive.h; sourceTree = "<group>"; };
 		08CEBB37195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderUnlitTransparentAdditive.m; sourceTree = "<group>"; };
 		08D4B8B918C56611008F5293 /* Default.swatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Default.swatch; sourceTree = "<group>"; };
+		08D639C0196A4B3600AB3390 /* rootCanvas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rootCanvas.png; path = PaintProjector/Images/rootCanvas.png; sourceTree = SOURCE_ROOT; };
+		08D639C3196A4F7C00AB3390 /* ADRootCanvasBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRootCanvasBackgroundView.h; sourceTree = "<group>"; };
+		08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRootCanvasBackgroundView.m; sourceTree = "<group>"; };
 		08D8368F1737E2E600B68990 /* ADFreeTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFreeTransformButton.h; sourceTree = "<group>"; };
 		08D836901737E2E600B68990 /* ADFreeTransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFreeTransformButton.m; sourceTree = "<group>"; };
 		08D836941737E4D200B68990 /* ADMoveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADMoveButton.h; sourceTree = "<group>"; };
@@ -1690,6 +1697,7 @@
 		082439D716CCAE2100FC12BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				08D639C0196A4B3600AB3390 /* rootCanvas.png */,
 				08E06CB61965A6AF00A63017 /* pin.png */,
 				080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */,
 				080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */,
@@ -2474,6 +2482,8 @@
 				94997B8016819D13006E3661 /* ADPaintView.m */,
 				08A0315C18DED0C2006EE308 /* ADRootCanvasView.h */,
 				08A0315D18DED0C2006EE308 /* ADRootCanvasView.m */,
+				08D639C3196A4F7C00AB3390 /* ADRootCanvasBackgroundView.h */,
+				08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */,
 				08B11F5518A6558A00F303B5 /* ADPaintScreenTransitionManager.h */,
 				08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */,
 				0830455F166B46EC00E8E35C /* ADImageView.h */,
@@ -2838,6 +2848,7 @@
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */,
 				08F905D2194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
+				08D639C2196A4B3600AB3390 /* rootCanvas.png in Resources */,
 				08083DF319644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */,
 				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
@@ -2942,6 +2953,7 @@
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
 				08F905D1194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				08083DF219644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */,
+				08D639C1196A4B3600AB3390 /* rootCanvas.png in Resources */,
 				0832E27C1933A7EA004BD986 /* README.md in Resources */,
 				08BFC0D41961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
@@ -3230,6 +3242,7 @@
 				0861490318D7442900661AD6 /* ADSetupButton.m in Sources */,
 				08B2A07D18A0930B003C888F /* REDisplay.m in Sources */,
 				ae562571891c95d007ed289c /* ADLayerOpacitySlider.m in Sources */,
+				08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */,
 				bf4c2ea3f33c32c54f09c908 /* ADLayerBlendModeButton.m in Sources */,
 				087512FF1957FC3E00FC03CC /* ADTutorialBackgroundRightEdgeView.m in Sources */,
 				05630e6029267a567a7cabf6 /* ADLayerBlendModePopoverController.m in Sources */,
@@ -3498,6 +3511,7 @@
 				087FE746173E0EED009B34A2 /* ADDownToolBar.m in Sources */,
 				087751BB180450B20034FEA7 /* ADCustomLayer.m in Sources */,
 				087FE74A173E2F9C009B34A2 /* ADMarker.m in Sources */,
+				08D639C5196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */,
 				0853818E173E97FC00069C27 /* ADBrushTypeSmallButton.m in Sources */,
 				0808118318C4A89C004D53F6 /* ADSwatchChartButton.m in Sources */,
 				08FF70C8189003AC00A7A09B /* ADPaintCollectionViewController.m in Sources */,
@@ -3879,8 +3893,8 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				PROVISIONING_PROFILE = "255B6C52-C24A-4CF0-B3B3-FC7EE8FF071B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "255B6C52-C24A-4CF0-B3B3-FC7EE8FF071B";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -3923,8 +3937,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0632899D-60B4-473D-8C38-3ECCDBF944CC";
+				PROVISIONING_PROFILE = "255B6C52-C24A-4CF0-B3B3-FC7EE8FF071B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "255B6C52-C24A-4CF0-B3B3-FC7EE8FF071B";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

@@ -16,5 +16,5 @@
 
 @interface ADBrushTypeButton : UIButton
 
-@property (weak, nonatomic)ADBrush* brush;
+@property (retain, nonatomic)ADBrush* brush;
 @end
