@@ -13,4 +13,6 @@
 + (GLKQuaternion) quatFromEulerAngles:(GLKVector3)v;
 + (GLKQuaternion)quatFromYaw:(float)yaw pitch:(float)pitch roll:(float)roll;
 + (GLKVector3) eulerAnglesFromQuat:(GLKQuaternion) q1;
++ (CGPoint)BeizerCurveT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end;
++ (CGFloat)BeizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end;
 @end

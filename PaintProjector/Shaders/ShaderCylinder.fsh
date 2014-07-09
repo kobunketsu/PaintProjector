@@ -36,9 +36,9 @@ void main()
     
     //uv range out of (0,1) clamp to border color in code
     lowp vec4 cRefl = texture2D(reflectionTex, vec2(u, v));
-    if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
-        cRefl.rgb = vec3(0,0,0);
-    }
+//    if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
+//        cRefl.rgb = vec3(0,0,0);
+//    }
     
     //clamp pixel projected behind
     cRefl.rgb *= max(0.0, sign(-worldPos.z));

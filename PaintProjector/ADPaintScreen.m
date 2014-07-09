@@ -356,7 +356,6 @@
     self.clearGestureRecognizer = [[ADClearGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan3TouchesClearRootCanvasView:)];
     [self.rootCanvasView addGestureRecognizer:self.clearGestureRecognizer];
     [self.pgrRootCanvasView requireGestureRecognizerToFail:self.clearGestureRecognizer];
-    [self.pgr3TouchesRootCanvasView requireGestureRecognizerToFail:self.clearGestureRecognizer];
     
     //单击在双击失败之后判断
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR1Touches2TapsRootCanvasView];
@@ -1911,6 +1910,10 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
+    if (([gestureRecognizer isEqual:self.clearGestureRecognizer] && [otherGestureRecognizer isEqual:self.pgr3TouchesRootCanvasView]) ||
+        ([gestureRecognizer isEqual:self.pgr3TouchesRootCanvasView] && [otherGestureRecognizer isEqual:self.clearGestureRecognizer]))
+        return YES;
+    
     // if the gesture recognizers's view isn't one of our views, don't allow simultaneous recognition
     if (gestureRecognizer.view != self.paintView)
         return NO;
@@ -1922,6 +1925,7 @@
     // if either of the gesture recognizers is the long press, don't allow simultaneous recognition
     if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]] || [otherGestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]])
         return NO;
+    
     
     //只有Canvas操作 pinch pan可以同时进行
 //    if (
@@ -4730,7 +4734,7 @@
     ADTutorial *tutorial = (ADTutorial *)[[ADSimpleTutorialManager current].tutorials valueForKey:@"TutorialMain"];
     if (tutorial) {
         for (ADTutorialStep *step in tutorial.steps) {
-            if ([step.name rangeOfString:@"ADPaintScreen"].length > 0) {
+            if ([step.name rangeOfString:@"PaintScreen"].length > 0) {
                 step.delegate = self;
             }
         }

@@ -196,6 +196,17 @@
     }
 }
 
+- (void)deleteShader:(NSString*)name{
+    if (![self.shaderCaches valueForKey:name]) {
+        return;
+    }
+    
+    REShader *shader = (REShader *)[self.shaderCaches valueForKey:name];
+    [self.shaderCaches removeObjectForKey:name];
+    [shader destroy];
+    shader = nil;
+}
+
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block1{
     if(program != self.lastProgram){
         glUseProgram(program);

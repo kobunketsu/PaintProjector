@@ -179,7 +179,7 @@ static float DeviceWidth = 0.154;
         DeviceWidth = 0.12;
         [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.cylinderDiameter"];
         [dic setObject:[NSNumber numberWithFloat:0.055] forKey:@"userInputParams.cylinderHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.029] forKey:@"userInputParams.imageWidth"];
+        [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.imageWidth"];
         [dic setObject:[NSNumber numberWithFloat:0.027] forKey:@"userInputParams.imageCenterOnSurfHeight"];
         [dic setObject:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeHonrizontalDistance"];
         [dic setObject:[NSNumber numberWithFloat:0.31] forKey:@"userInputParams.eyeVerticalHeight"];
@@ -191,7 +191,7 @@ static float DeviceWidth = 0.154;
         DeviceWidth = 0.154;
         [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
         [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.037] forKey:@"userInputParams.imageWidth"];
+        [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.imageWidth"];
         [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
         [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
         [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
@@ -638,7 +638,7 @@ static float DeviceWidth = 0.154;
     self.userInputParamkeyPath = keyPath;
 }
 
-- (void)diselectUserInputParams{
+- (void)deselectUserInputParams{
     for (UIButton *button in self.allUserInputParamButtons) {
         button.selected = false;
     }
@@ -674,8 +674,8 @@ static float DeviceWidth = 0.154;
     }
     else if ([sender isEqual:self.imageWidthButton]) {
         userInputParamKey = @"userInputParams.imageWidth";
-        minValue = 0.037;
-        maxValue = 0.37;
+        minValue = 0.038;
+        maxValue = 0.38;
     }
     else if ([sender isEqual:self.imageHeightButton]) {
         userInputParamKey = @"userInputParams.imageCenterOnSurfHeight";
@@ -972,8 +972,8 @@ static float DeviceWidth = 0.154;
     [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateNormal];
     [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateSelected];
 
-    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateNormal];
-    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"x%.2f", self.userInputParams.unitZoom] forState:UIControlStateSelected];
+    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.unitZoom * 100] forState:UIControlStateNormal];
+    [self.projectZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.unitZoom * 100] forState:UIControlStateSelected];
     
     [self.projectWidthButton setTitle:[NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom] forState:UIControlStateNormal];
     [self.projectWidthButton setTitle:[NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom] forState:UIControlStateSelected];
@@ -1352,18 +1352,15 @@ static float DeviceWidth = 0.154;
     self.eyeBottomTopBlend = MIN(1, MAX(0, self.toEyeBottomTopBlend + percent));
 }
 
+#if DEBUG
 - (CGFloat)getPercent:(UIPanGestureRecognizer *)sender{
-//    CGFloat fullTranslation = 200;
-//    float percent = fabsf(translation.x) / fullTranslation;
-//    percent = MAX(0, MIN(percent, 1));
-//
     CGPoint center = self.view.center;
     CGPoint touchPoint =  [sender locationInView:self.view];
     GLKVector2 touchDirection = GLKVector2Make(touchPoint.x - center.x, touchPoint.y - center.y);
     touchDirection = GLKVector2Normalize(touchDirection);
     
-//    float dir = touchDirection.x - self.touchDirectionBegin.x;
-//    DebugLog(@"dir %.2f", dir);
+    //    float dir = touchDirection.x - self.touchDirectionBegin.x;
+    //    DebugLog(@"dir %.2f", dir);
     
     CGFloat angle = acosf(GLKVector2DotProduct(touchDirection, self.touchDirectionBegin));
     //移动速度过快情况下，会造成无法得到angle=0的情况
@@ -1372,6 +1369,15 @@ static float DeviceWidth = 0.154;
     
     return percent;
 }
+#else
+- (CGFloat)getPercent:(UIPanGestureRecognizer *)sender{
+    CGPoint translation = [sender translationInView:sender.view];
+    CGFloat fullTranslation = 200;
+    float percent = fabsf(translation.x) / fullTranslation;
+    percent = MAX(0, MIN(percent, 1));
+    return percent;
+}
+#endif
 
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
     [RemoteLog logAction:@"handlePanCylinderProjectView" identifier:sender];
@@ -1391,10 +1397,11 @@ static float DeviceWidth = 0.154;
         case UIGestureRecognizerStateBegan:{
             touchPoint = [sender locationInView:self.view];
             //根据区域判断
-            if ( touchPoint.y < self.view.bounds.size.height * 0.5) {
-                sender.state = UIGestureRecognizerStateFailed;
-                return;
-            }
+//            if ( touchPoint.y < self.view.bounds.size.height * 0.5) {
+//                sender.state = UIGestureRecognizerStateFailed;
+//                return;
+//            }
+            
             self.touchDirectionBegin = GLKVector2Make(touchPoint.x - self.view.center.x, touchPoint.y - self.view.center.y);
             self.touchDirectionBegin = GLKVector2Normalize(self.touchDirectionBegin);
         }
@@ -2106,12 +2113,16 @@ static float DeviceWidth = 0.154;
 
 -(void)propertyAnimationDidFinish:(REPropertyAnimation *)propertyAnimation{
     DebugLogFuncStart(@"propertyAnimationDidFinish keyPath:%@ target:%@", propertyAnimation.keyPath, propertyAnimation.target);
-    if (!self.paintDirectly) {
-        [self lockInteraction:false];
-    }
-    else{
+    if (self.paintDirectly) {
         [self lockInteraction:true];
         self.paintDirectly = false;
+    }
+    else if (self.topPerspectiveView.hidden) {
+        [self lockInteraction:false];
+        self.projectView.userInteractionEnabled = false;
+    }
+    else{
+        [self lockInteraction:false];
     }
     
     //FIXME:教程操作问题打补丁
@@ -2232,7 +2243,7 @@ static float DeviceWidth = 0.154;
     
     [self tutorialStepNextImmediate:false];
     
-    [self diselectUserInputParams];
+    [self deselectUserInputParams];
     
     //visibility
     self.eyePerspectiveView.hidden = true;
@@ -2261,7 +2272,7 @@ static float DeviceWidth = 0.154;
     
     [self tutorialStepNextImmediate:false];
     
-    [self diselectUserInputParams];
+    [self deselectUserInputParams];
     
     //visibility
     self.topPerspectiveView.hidden = true;
@@ -2538,7 +2549,7 @@ static float DeviceWidth = 0.154;
     if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
         [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
-        mirrorRect.origin.y += 200;
+//        mirrorRect.origin.y += 200;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
@@ -2554,6 +2565,7 @@ static float DeviceWidth = 0.154;
         step.contentView.frame = rect;
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
+        mirrorRect.origin.y += 20;
         [step.indicatorViews[1] targetViewFrame:mirrorRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {

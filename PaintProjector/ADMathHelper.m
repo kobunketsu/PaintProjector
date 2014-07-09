@@ -95,4 +95,14 @@ static float NormalizeAngle (float angle)
         angle += 360;
     return angle;
 }
+
++ (CGFloat)BeizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end{
+    return pow(1 - t, 2) * start + 2.0 * (1 - t) * t * control + t * t * end;
+}
++ (CGPoint)BeizerCurveT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
+    CGPoint p = CGPointZero;
+    p.x = pow(1 - t, 2) * start.x + 2.0 * (1 - t) * t * control.x + t * t * end.x;
+    p.y = pow(1 - t, 2) * start.y + 2.0 * (1 - t) * t * control.y + t * t * end.y;
+    return p;
+}
 @end

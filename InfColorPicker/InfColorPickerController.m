@@ -135,7 +135,11 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 		sourceColorView.backgroundColor = sourceColor;
 	
 	if( resultColor )
-		resultColorView.backgroundColor = resultColor;    
+		resultColorView.backgroundColor = resultColor;
+    
+    self.colorPickModeButton.color = [ UIColor colorWithHue: barPicker.value saturation: 1.0f
+                                                 brightness: 1.0f alpha: 1.0f ];
+    [self.colorPickModeButton setNeedsDisplay];
 }
 - (void) viewDidLoad
 {

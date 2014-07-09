@@ -58,12 +58,15 @@ void main ( )
 //pattern
     //convert texcoord into texcoord space
     lowp float patternAlpha = 1.0;
+    highp vec2 patternCoord = vec2(0.0, 0.0);
     if (ParamsExtend.w > 0.0){
-        highp vec2 patternCoord = (oBrushParam2.yz + vec2(gl_PointCoord.x - 0.5, 0.5 - gl_PointCoord.y) * oBrushParam2.x) / ParamsExtend.w;
+        patternCoord = (oBrushParam2.yz + vec2(gl_PointCoord.x - 0.5, 0.5 - gl_PointCoord.y) * oBrushParam2.x) / ParamsExtend.w;
         patternAlpha = texture2D(patternTexture, patternCoord).r;
     }
     shape *= patternAlpha;
     finalAlpha *= shape;
+//    finalColor = vec3(patternCoord.rg, 0.0);
+//    finalAlpha = 1.0;
     
     //smudge
 //#ifdef Smudge

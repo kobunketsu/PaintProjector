@@ -40,7 +40,7 @@
     float cosEyeXZ =  eye.x / dist;
     
     //setup image width and image height
-    self.imageWidth = MAX(0, MIN(self.imageWidth, self.radius * 2));
+//    self.imageWidth = MAX(0, MIN(self.imageWidth, self.radius * 2));
     self.imageHeight = self.imageWidth * self.imageRatio;
     
     //cylinder  x*x + z*z = r*r; --> x*x + pow((x*tan), 2)

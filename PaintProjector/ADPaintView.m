@@ -853,6 +853,10 @@
     }
     //完成prewarm之后恢复bufferData的大小
     [self setVBOBrushForImmediate];
+    
+    //清除prewarm的结果
+    [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 - (void)destroyVertexBufferObjects
@@ -1388,7 +1392,6 @@
 - (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
 //    DebugLog(@"[ willStartDraw ]");
 #if DEBUG
-
     NSString *str = [NSString stringWithFormat:@"paintView willStartDraw brushId %d", brushState.classId];
     glPushGroupMarkerEXT(0, [str cStringUsingEncoding:NSASCIIStringEncoding]);
 #endif

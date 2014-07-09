@@ -89,6 +89,8 @@ static REGLWrapper* glWrapper = nil;
 
 -(REShader*)createShader:(NSString*)name;
 
+-(void)deleteShader:(NSString*)name;
+
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block;
 
 -(void)deleteProgram:(GLuint)program;

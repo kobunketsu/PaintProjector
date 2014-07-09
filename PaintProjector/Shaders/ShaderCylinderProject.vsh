@@ -28,7 +28,7 @@ void main()
     //clip world position out of the cylinder space on x, make projected circle edge smooth
     float radiusBiased = radius - 0.001;
     worldPos.x = clamp(worldPos.x, -radiusBiased, radiusBiased);
-
+    
     // Position in screen space
 //    highp vec3 pointOnImage = worldPos.xyz;
     
@@ -55,6 +55,11 @@ void main()
     
     highp vec3 pointOnSurface = eye.xyz + vEyeToPointOnImage * t2;
     
+    if (pointOnSurface.y < -0.005) {
+        pointOnSurface.x = 0.0;
+        pointOnSurface.y = -0.005;
+    }
+    
     //6. find reflected point on the ground
     highp vec3 normOnSurface = vec3(pointOnSurface.x, 0, pointOnSurface.z);
     normOnSurface = normalize(normOnSurface);
@@ -63,6 +68,7 @@ void main()
     vecReflect = normalize(vecReflect);
     
     highp float t = -  pointOnSurface.y /  vecReflect.y;
+
     highp vec3 pointOnFloor =  pointOnSurface + vecReflect * t;
     
 //    highp vec3 finalWorlPos = worldPos.xyz * (1.0 - morphBlend) + pointOnFloor.xyz * morphBlend;

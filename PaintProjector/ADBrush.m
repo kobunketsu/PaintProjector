@@ -52,9 +52,13 @@
 #pragma mark- Core
 @property (assign, nonatomic) float curDrawLength;//当前绘制的总长度
 @property (assign, nonatomic) float curDrawFade;//当前绘制结束防缩
-@property (assign, nonatomic) float lastDrawFade;//当前绘制结束防缩
+@property (assign, nonatomic) float lastDrawFade;//上一次绘制结束防缩
 @property (assign, nonatomic) size_t allDrawSpriteCount;//当前一次绘制的数量
 @property (assign, nonatomic) CGPoint lastDrawSubPoint;
+
+//test beizer fade
+@property (assign, nonatomic) float lastlastDrawFade;//再上一次绘制结束防缩
+@property (assign, nonatomic) float lastDrawSubFade;
 @end
 
 @implementation ADBrush
@@ -110,7 +114,7 @@
 //        DebugLogError(@"Brush init loadShader failed");
 //    }
 
-    _shader = [[ADShaderBrush alloc]init];
+    _shader = (ADShaderBrush*)[[REGLWrapper current] createShader:@"ADShaderBrush"];
     _material = [[REMaterial alloc]initWithShader:_shader];
     
     [self setCanvasSize:self.paintView.bounds.size];
@@ -131,8 +135,7 @@
 
     [self deleteSmudgeFramebuffers];
     
-    [self.shader destroy];
-    self.shader = nil;
+    [[REGLWrapper current]deleteShader:@"ADShaderBrush"];
     [self.material destroy];
     self.material = nil;
     
@@ -202,7 +205,7 @@
 //    DebugLog(@"startDraw");
     self.lastDrawSubPoint = _curDrawPoint = _lastDrawPoint = startLocation;
     self.curDrawLength = 0;
-    self.lastDrawFade = self.curDrawFade = 1.0;
+    self.lastDrawSubFade = self.lastlastDrawFade = self.lastDrawFade = self.curDrawFade = 1.0;
     
     CFAbsoluteTime absTime = CFAbsoluteTimeGetCurrent();
     //    DebugLog(@"Seed %.3f", absTime);
@@ -519,6 +522,8 @@
 //    DebugLog(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
     CGPoint lastDrawPoint = self.lastDrawSubPoint;
     size_t countSegment = [self calculateDrawCountFromPoint:start toPoint:end brushState:brushState isTapDraw:isTapDraw];
+    
+//    self.lastlastDrawFade = self.lastDrawSubFade;
 
     //绘图Fade
     if (self.brushState.isVelocitySensor) {
@@ -549,6 +554,7 @@
     
     _lastDrawPoint = _curDrawPoint;
     self.lastDrawFade = self.curDrawFade;
+
     //重置累积距离
     if (countSegment > 0) {
         self.curDrawAccumDeltaLength = 0;
@@ -579,8 +585,8 @@
     for(int i = 0; i < count; i++)
     {
         //计算绘制的位置
-        x = pow(1 - t, 2) * origin.x + 2.0 * (1 - t) * t * control.x + t * t * destination.x;
-        y = pow(1 - t, 2) * origin.y + 2.0 * (1 - t) * t * control.y + t * t * destination.y;
+        x = [ADMathHelper BeizerValueT:t start:origin.x control:control.x end:destination.x];
+        y = [ADMathHelper BeizerValueT:t start:origin.y control:control.y end:destination.y];
 
         //计算绘制的距离
         float distVecX = x-self.lastDrawSubPoint.x;
@@ -604,6 +610,8 @@
             //lerp(self.lastDrawFade, self.curDrawFade, i / count)
             float lerp = (float) i / (float)count;
             radiusFade = self.curDrawFade * lerp + (1.0 - lerp) * self.lastDrawFade;
+//            radiusFade = [ADMathHelper BeizerValueT:lerp start:self.lastlastDrawFade control:self.lastDrawFade end:self.curDrawFade];
+//            DebugLogWarn(@"t %.1f start %f control %f end %f result %f", lerp, self.lastlastDrawFade, self.lastDrawFade, self.curDrawFade, radiusFade);
         }
         else{
             if (self.brushState.radiusFade > 0) {
@@ -669,7 +677,7 @@
         //lastDrawPoint使用完毕，更新lastDrawPoint,
         //更新执行的速度可能快于上一次取贴图，导致取到的数值是错误的
         self.lastDrawSubPoint = CGPointMake(x, y);
-        
+//        self.lastDrawSubFade = radiusFade;
 //        [self.delegate willUpdateLayerContentCGRectWithPoint:self.lastDrawSubPoint radius:radius];
     }
     

@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         _subMeshTriCounts = [[NSMutableArray alloc]init];
+//        _topology =  Lines;
     }
     return self;
 }

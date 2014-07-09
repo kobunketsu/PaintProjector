@@ -29,7 +29,10 @@
 
 +(id)textureFromImageName:(NSString*)imageName reload:(BOOL)reload{
     RETexture *texture = [[RETexture alloc]init];
-    texture.texID = [RETextureManager textureInfoFromImageName:imageName reload:reload].name;
+    GLKTextureInfo *texInfo = [RETextureManager textureInfoFromImageName:imageName reload:reload];
+    texture.texID = texInfo.name;
+    texture.width = texInfo.width;
+    texture.height = texInfo.height;
     return texture;
 }
 
