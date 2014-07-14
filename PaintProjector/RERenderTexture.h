@@ -14,9 +14,9 @@
 @property(assign, nonatomic)GLuint frameBuffer;
 @property(assign, nonatomic)GLuint depthBuffer;
 
-+ (id)textureWithSize:(CGFloat)size mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode;
-+ (id)textureWithWidth:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode;
++ (id)textureWithName:(NSString *)name size:(CGFloat)size mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode;
++ (id)textureWithName:(NSString *)name width:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode;
 - (void)destroy;
 - (void)active;
-
+- (UIImage*)snapshotImageToViewportSize:(CGSize)viewportSize;
 @end

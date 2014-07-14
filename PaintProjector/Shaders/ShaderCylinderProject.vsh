@@ -29,13 +29,6 @@ void main()
     float radiusBiased = radius - 0.001;
     worldPos.x = clamp(worldPos.x, -radiusBiased, radiusBiased);
     
-    // Position in screen space
-//    highp vec3 pointOnImage = worldPos.xyz;
-    
-    //from center
-//    highp vec3 pointOnImage = worldPos.xyz * morphBlend;//type1
-    
-    //frome bottom
     highp vec3 pointOnImage = worldPos.xyz;
     pointOnImage.x = worldPos.x * morphBlend;
     
@@ -50,7 +43,7 @@ void main()
     highp float c = e.x * e.x + e.z * e.z - radius * radius;
     
     //quatic equation
-    highp float t1 = (sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
+//    highp float t1 = (sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     highp float t2 = (-sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     
     highp vec3 pointOnSurface = eye.xyz + vEyeToPointOnImage * t2;

@@ -9,8 +9,8 @@
 #import "ADLayer.h"
 
 @interface ADBackgroundLayer : ADLayer
-@property (assign, nonatomic) bool dirty;
-@property (assign, nonatomic) bool visible;
+//@property (assign, nonatomic) bool dirty;
+//@property (assign, nonatomic) bool visible;
 @property (retain, nonatomic)UIColor* clearColor;
 @property (assign, nonatomic) id delegate;
 @end

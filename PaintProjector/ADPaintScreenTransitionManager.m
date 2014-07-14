@@ -28,9 +28,10 @@
     ADPaintScreen *toVC = (ADPaintScreen *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     [toVC prepareForPresentation];
     
-    
-    [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+    
+    [toVC afterPresentation];
 }
 
 //- (void)presentingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{

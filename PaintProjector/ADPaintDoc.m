@@ -152,7 +152,7 @@
 
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中
 - (void)save {
-    
+//    DebugLog(@"saveData");
     if (self.data == nil) return;
     
     NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
@@ -180,6 +180,7 @@
 }
 
 - (void)saveThumbImage:(UIImage*)image{
+//    DebugLog(@"saveThumbImage");
     NSString *thumbImagePath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
     NSData *thumbImageData = UIImagePNGRepresentation(image);
 //    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);

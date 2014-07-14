@@ -111,9 +111,37 @@
 
 - (void)destroy{
     [super destroy];
+    
     [self.cullingEntities removeAllObjects];
+    
+    [self.targetTexture destroy];
+    self.targetTexture = nil;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    RECamera *camera = (RECamera *)[super copyWithZone:zone];
+    camera.position = self.position;
+    camera.focus = self.focus;
+    camera.dir = self.dir;
+    camera.up = self.up;
+    camera.right = self.right;
+    camera.aspect = self.aspect;
+    camera.fov = self.fov;
+    camera.orthor = self.orthor;
+    camera.orthoWidth = self.orthoWidth;
+    camera.orthoHeight = self.orthoHeight;
+    camera.nearClip = self.nearClip;
+    camera.farClip = self.farClip;
+    camera.viewMatrix = self.viewMatrix;
+    camera.projMatrix = self.projMatrix;
+    camera.viewProjMatrix = self.viewProjMatrix;
+    camera.backgroundColor = self.backgroundColor;
+    camera.cullingMask = self.cullingMask;
+    camera.cullingEntities = [self.cullingEntities mutableCopy];
+    camera.targetTexture = self.targetTexture;
+    
+    return camera;
+}
 - (void)updateViewMatrix{
 //    _dir = GLKVector3Subtract(_focus, _position);
 //    _right = GLKVector3Make(-1, 0, 0);
@@ -175,13 +203,13 @@
 }
 
 - (void)setOrthoWidth:(float)orthoWidth{
-    assert(orthoWidth > 0);
+    assert(orthoWidth >= 0);
     _orthoWidth = orthoWidth;
     [self updateProjMatrix];
 }
 
 - (void)setOrthoHeight:(float)orthoHeight{
-    assert(orthoHeight > 0);
+    assert(orthoHeight >= 0);
     _orthoHeight = orthoHeight;
     [self updateProjMatrix];
 }
@@ -198,7 +226,8 @@
 }
 
 - (void)render{
-    glClearColor(self.backgroundColor.x, self.backgroundColor.y, self.backgroundColor.z, self.backgroundColor.w);
+    [self preRender];
+
     if (self.targetTexture != nil) {
         [self.targetTexture active];
     }
@@ -207,12 +236,18 @@
         [REDisplay.main active];
     }
 
-//    [self preRender];
+
     for (REEntity *entity in self.cullingEntities) {
         if (entity.active) {
             [entity render];
         }
     }
-//    [self postRender];
+    [self postRender];
+}
+- (void)preRender{
+    glClearColor(self.backgroundColor.x, self.backgroundColor.y, self.backgroundColor.z, self.backgroundColor.w);
+}
+- (void)postRender{
+    glClearColor(0,0,0,0);
 }
 @end

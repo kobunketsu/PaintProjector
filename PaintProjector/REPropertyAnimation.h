@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, REPropertyAnimationTiming) {
     REPropertyAnimationTimingEaseIn        = 1 <<  1,
     REPropertyAnimationTimingEaseOut       = 1 <<  2,
     REPropertyAnimationTimingEaseInEaseOut = 1 <<  3,
-    TPPropertyAnimationOptionRepeat         = 1 << 4,
+    REPropertyAnimationOptionRepeat         = 1 << 4,
 };
 
 typedef void(^MyCompletionBlock)(void);

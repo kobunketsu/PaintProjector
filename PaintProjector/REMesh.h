@@ -35,5 +35,4 @@ typedef NS_ENUM(NSInteger, MeshTopology) {
 - (void)clear;
 
 - (void)create;
-- (id)copyWithZone:(NSZone *)zone;
 @end

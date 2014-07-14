@@ -1,14 +1,14 @@
 //
-//  PaintButton.m
+//  ADPaintReverseButton.m
 //  PaintProjector
 //
-//  Created by 胡 文杰 on 13-8-24.
-//  Copyright (c) 2013年 WenjiHu. All rights reserved.
+//  Created by 胡 文杰 on 7/14/14.
+//  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ADPaintButton.h"
+#import "ADPaintReverseButton.h"
 
-@implementation ADPaintButton
+@implementation ADPaintReverseButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,19 +19,14 @@
     return self;
 }
 
-- (void)setIsReversePaint:(BOOL)isReversePaint{
-    _isReversePaint = isReversePaint;
-    [self setNeedsDisplay];
-}
-
 - (void)drawRect:(CGRect)rect{
     if (self.isSelected || self.isHighlighted) {
         [self drawSelected];
-//        [self setTitleColor:[UIColor colorWithRed:247/255.0 green:167/255.0 blue:211/255.0 alpha:1] forState:UIControlStateSelected];
+        //        [self setTitleColor:[UIColor colorWithRed:247/255.0 green:167/255.0 blue:211/255.0 alpha:1] forState:UIControlStateSelected];
     }
     else{
         [self drawNormal];
-//        [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        //        [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     }
 }
 // Only override drawRect: if you perform custom drawing.
@@ -263,7 +258,7 @@
     CGGradientRelease(gradient2);
     CGColorSpaceRelease(colorSpace);
     
-
+    
 }
 
 - (void)drawNormal{
@@ -492,6 +487,7 @@
     CGGradientRelease(gradient2);
     CGColorSpaceRelease(colorSpace);
     
-
+    
 }
+
 @end

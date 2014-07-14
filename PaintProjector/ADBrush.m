@@ -891,8 +891,8 @@
 - (BOOL)createSmudgeFramebuffers{
 
     //使用双贴图方式在多次拷贝贴图时减少阻塞
-    self.smudgeTexture = [RERenderTexture textureWithSize:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    self.smudgeBackTexture = [RERenderTexture textureWithSize:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    self.smudgeTexture = [RERenderTexture textureWithName:@"smudgeTex" size:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    self.smudgeBackTexture = [RERenderTexture textureWithName:@"smudgeBackTex" size:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
 //    //创建frame buffer
 //    glGenFramebuffersOES(1, &_smudgeFramebuffer);

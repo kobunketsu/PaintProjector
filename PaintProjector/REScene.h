@@ -18,6 +18,8 @@
 
 - (void)addCamera:(RECamera*)camera;
 
+- (void)insertCamera:(RECamera*)camera atIndex:(NSUInteger)index;
+
 - (void)removeEntity:(REEntity*)entity;
 
 - (void)removeCamera:(RECamera*)camera;

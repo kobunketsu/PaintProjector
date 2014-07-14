@@ -110,22 +110,28 @@ ADInAppPurchaseTableViewControllerDelegate
 {
     void * _baseAddress;
 }
+#pragma mark- 基础Base
+@property (retain, nonatomic) GLKViewController* glkViewController;
+@property (strong, nonatomic) IBOutlet ADCylinderProjectRootView *rootView;
+@property (weak, nonatomic) IBOutlet GLKView *projectView;
 @property (weak, nonatomic) ADPaintScreen* paintScreenVC;
 @property (retain, nonatomic) ADInAppPurchaseTableViewController* iapVC;
-@property (retain, nonatomic) GLKViewController* glkViewController;
-@property (weak, nonatomic) IBOutlet GLKView *projectView;
-@property (strong, nonatomic) IBOutlet ADCylinderProjectRootView *rootView;
 @property (assign, nonatomic) id delegate;
+
+#pragma mark- 主要Main
 @property (assign, nonatomic)BOOL paintDirectly;
-#pragma mark- File
+@property (assign, nonatomic) CylinderProjectViewState state;      //状态
+@property (weak, nonatomic) IBOutlet UIButton *galleryButton;
+@property (weak, nonatomic) IBOutlet ADPaintButton *paintButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
+@property (weak, nonatomic) IBOutlet UIButton *infoButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *downTooBarButtons;
+- (IBAction)galleryButtonTouchUp:(UIButton *)sender;
+- (IBAction)paintButtonTouchUp:(UIButton *)sender;
+- (IBAction)shareButtonTouchUp:(UIButton *)sender;
+- (IBAction)infoButtonTouchUp:(UIButton *)sender;
 
-#pragma mark- User Input
-@property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;
-@property (retain, nonatomic) NSMutableDictionary *srcUserInputParams;
-#pragma mark- GL
-@property (retain, nonatomic) EAGLContext *context;
-
-#pragma mark- Scene
+#pragma mark- 场景Scene
 @property (retain, nonatomic) RETexture *paintTexture;
 @property (retain, nonatomic) REScene *curScene;
 @property (retain, nonatomic) ADCylinderProject *cylinderProjectCur;
@@ -134,32 +140,28 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) ADCylinder *cylinder;//圆柱体
 @property (retain, nonatomic) REModelEntity *cylinderTopLight;//圆柱体光效
 @property (retain, nonatomic) REModelEntity *cylinderInterLight;//圆柱体光效
-
+@property (retain, nonatomic) REModelEntity *cylinderBottom;//圆柱体底部
+@property (retain, nonatomic) REModelEntity *cylinderProjectPlane;//反向绘制的内容替代cylinderProject;
 @property (assign, nonatomic) CGFloat cylinderProjectDefaultAlphaBlend;
+- (CGRect)getCylinderMirrorFrame;
+- (CGRect)getCylinderMirrorTopFrame;
 
-#pragma mark- 交互
+#pragma mark- 交互UE
 @property (retain, nonatomic) ADCustomPercentDrivenInteractiveTransition *browseNextAction;
 @property (retain, nonatomic) ADCustomPercentDrivenInteractiveTransition *browseLastAction;
-
-#pragma mark- project display helper
-@property (assign, nonatomic) BOOL showGrid;//是否显示网格
-@property (retain, nonatomic) ADGrid *grid;//网格
-
-#pragma mark- state
-@property (assign, nonatomic) CylinderProjectViewState state;      //状态
-@property (assign, nonatomic) PlayState playState;//播放状态
-@property (assign, nonatomic) BOOL dirty;//是否重新计算
-
-#pragma mark- interaction
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender;
+- (void)lockInteraction:(BOOL)lock;
 
-#pragma mark- main category
+#pragma mark- 界面UI
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
 @property (weak, nonatomic) IBOutlet ADDownToolBar *downToolBar;
 @property (weak, nonatomic) IBOutlet ADTopToolBar *topToolBar;
 
-#pragma mark- viewMode
+#pragma mark- 输入User Input
+@property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;
+@property (retain, nonatomic) NSMutableDictionary *srcUserInputParams;
 
+#pragma mark- 视角ViewMode
 @property (assign, nonatomic) BOOL isTopViewMode;
 @property (weak, nonatomic) IBOutlet UIView *eyePerspectiveView;
 @property (weak, nonatomic) IBOutlet UIView *topPerspectiveView;
@@ -174,7 +176,7 @@ ADInAppPurchaseTableViewControllerDelegate
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender;
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
-#pragma mark- setup
+#pragma mark- 设置Setup
 @property (weak, nonatomic) IBOutlet UIButton *setupButton;
 @property (weak, nonatomic) IBOutlet UISlider *valueSlider;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *allUserInputParamButtons;
@@ -200,42 +202,29 @@ ADInAppPurchaseTableViewControllerDelegate
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender;
 - (void)resetInputParams;
 
-#pragma mark- virtualDevice
+#pragma mark- 虚拟设备VirtualDevice
 @property (weak, nonatomic) IBOutlet UIButton *virtualDeviceButton;
 - (IBAction)virtualDeviceButtonTouchUp:(UIButton *)sender;
 
-#pragma mark- cylinder coordinate
-- (CGRect)getCylinderMirrorFrame;
-- (CGRect)getCylinderMirrorTopFrame;
 
-#pragma mark- paintDoc
+#pragma mark- 绘制Paint
 //@property (weak, nonatomic) PaintDoc *curPaintDoc;
 -(void)viewPaintDoc:(ADPaintDoc*)paintDoc;
 - (void)openPaintDoc:(ADPaintDoc*)paintDoc;
 - (void)transitionToPaint;
 
-#pragma mark- 交互控制 UserInteraction
-- (void)lockInteraction:(BOOL)lock;
+#pragma mark- 反向绘制Reverse Paint
+//@property (retain, nonatomic) ADCylinderImage *cylinderImage;
+//@property (retain, nonatomic) RECamera *cylinderImageCamera;
+@property (assign, nonatomic) BOOL isReversePaint;
 
-#pragma mark- file action
-@property (weak, nonatomic) IBOutlet UIButton *galleryButton;
-@property (weak, nonatomic) IBOutlet ADPlayButton *playButton;
-@property (weak, nonatomic) IBOutlet UIButton *paintButton;
-@property (weak, nonatomic) IBOutlet UIButton *shareButton;
-@property (weak, nonatomic) IBOutlet UIButton *infoButton;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *downTooBarButtons;
-
-
-- (IBAction)galleryButtonTouchUp:(UIButton *)sender;
-- (IBAction)paintButtonTouchUp:(UIButton *)sender;
-- (IBAction)shareButtonTouchUp:(UIButton *)sender;
-- (IBAction)infoButtonTouchUp:(UIButton *)sender;
-
-#pragma mark-  CoreMotion
+#pragma mark- 运动CoreMotion
 @property (retain, nonatomic)CMMotionManager *motionManager;
 @property (assign, nonatomic)float lastPitch;
 
-#pragma mark- video
+#pragma mark- 视频Video
+@property (weak, nonatomic) IBOutlet ADPlayButton *playButton;
+@property (assign, nonatomic) PlayState playState;//播放状态
 @property (retain, nonatomic)AVAsset *asset;
 @property (retain, nonatomic)AVAssetReader *assetReader;
 @property (retain, nonatomic) AVPlayer *player;
@@ -245,4 +234,11 @@ ADInAppPurchaseTableViewControllerDelegate
 - (void)syncPlayUI;
 - (IBAction)playButtonTouchUp:(UIButton *)sender;
 - (IBAction)playbackButtonTouchUp:(UIButton *)sender;
+
+#pragma mark- 帮助物体Helper
+@property (assign, nonatomic) BOOL showGrid;//是否显示网格
+@property (retain, nonatomic) ADGrid *grid;//网格
+
+#pragma mark- 测试Debug
+@property (weak, nonatomic) IBOutlet UIView *debugView;
 @end

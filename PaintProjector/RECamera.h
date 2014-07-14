@@ -23,8 +23,9 @@ typedef NS_ENUM(NSInteger, LayerMask) {
 typedef NS_ENUM(NSInteger, CullingMask) {
     Culling_Nothing       = 0,
     Culling_Everything    = 0xFF,
-    Culling_Default       = 1 <<  0,
-    Culling_Reflection    = 1 <<  1,
+    Culling_Default       = 1 << 0,
+    Culling_Reflection    = 1 << 1,
+    Culling_CylinderImage = 1 << 2,
 };
 
 @class RECamera;
@@ -54,7 +55,7 @@ static NSMutableArray *allCameras;
 @property (assign, nonatomic)GLKVector4 backgroundColor;
 @property (assign, nonatomic)CullingMask cullingMask;
 @property (retain, nonatomic)NSMutableArray *cullingEntities;
-@property (weak, nonatomic)RERenderTexture *targetTexture;
+@property (retain, nonatomic)RERenderTexture *targetTexture;
 
 
 + (RECamera*)mainCamera;

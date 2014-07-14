@@ -14,6 +14,7 @@
 - (id)init{
     self = [super init];
     if (self) {
+        [self initCustom];        
     }
     return self;
 }
@@ -21,12 +22,16 @@
 -(id)initWithShader:(REShader *)shader{
     self = [super init];
     if (self) {
+        [self initCustom];
         _shader = shader;
 //        [Resources addObject:self];
     }
     return  self;
 }
 
+- (void)initCustom{
+    _faceMode = RE_FrontFace;
+}
 //-(id)initWithEffect:(BaseEffect *)effect{
 //    self = [super init];
 //    if (self) {
@@ -78,6 +83,7 @@
     material.shader = self.shader;
     material.mainTexture = self.mainTexture;
     material.transparent = self.transparent;
+    material.faceMode = self.faceMode;
     return material;
 }
 

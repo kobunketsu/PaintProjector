@@ -28,6 +28,12 @@ typedef NS_ENUM(NSInteger, WrapMode) {
     WrapMode_Clamp,
     WrapMode_Repeat,
 };
+
+typedef NS_ENUM(NSInteger, REFaceMode) {
+    RE_FrontFace,
+    RE_BackFace,
+//    RE_DoubleFace
+};
 #define SwapGL(a,b){GLuint temp = a; a = b; b = temp;}
 
 #define RELEASE_FRAMEBUFFER(fb) if(fb){glDeleteFramebuffersOES(1, &fb);fb = 0;}
@@ -50,6 +56,7 @@ static REGLWrapper* glWrapper = nil;
 @property (assign, nonatomic) GLuint lastTexture;//记录上一次绘制使用的framebuffer
 @property (assign, nonatomic) GLuint lastActiveTexSlot;
 @property (assign, nonatomic) BlendFuncType lastBlendFuncType;
+@property (assign, nonatomic) REFaceMode lastFadeMode;
 //@property (assign, nonatomic) InterpolationType lastInterpolationType;
 @property (retain, nonatomic) NSMutableDictionary *activeSlotTex;
 
@@ -101,6 +108,7 @@ static REGLWrapper* glWrapper = nil;
 
 - (void)setImageWrapMode:(WrapMode)wrapMode;
 
+- (void)setFaceMode:(REFaceMode)faceMode;
 #pragma mark- compile shader
 @property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader
 

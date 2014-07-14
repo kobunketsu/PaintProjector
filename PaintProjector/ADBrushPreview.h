@@ -29,12 +29,11 @@
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic) GLuint renderbuffer;
 @property (assign, nonatomic) GLuint framebuffer;
-@property (assign, nonatomic) GLuint brushFramebuffer;
-@property (assign, nonatomic) GLuint curPaintedLayerFramebuffer;
-@property (assign, nonatomic) GLuint curLayerFramebuffer;
-@property (assign, nonatomic) GLuint brushTexture;
-@property (assign, nonatomic) GLuint curPaintedLayerTexture;
-@property (assign, nonatomic) GLuint curLayerTexture;
+
+@property (retain, nonatomic) RERenderTexture *curPaintedLayerTexture;
+@property (retain, nonatomic) RERenderTexture *curLayerTexture;
+@property (retain, nonatomic) RERenderTexture *brushTexture;
+
 @property (weak, nonatomic) ADBrush* brush;
 @property (retain, nonatomic) ADPaintCommand *paintCommand;
 @property (assign, nonatomic) GLuint lastProgram;

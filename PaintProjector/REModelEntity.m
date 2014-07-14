@@ -58,7 +58,8 @@
         for (OpenGLWaveFrontGroup *glObjMesh in obj.groups) {
             OpenGLWaveFrontMaterial *glObjMat = glObjMesh.material;
             //创建材质
-            ADShaderDiffuse *shaderDiffuse = [[ADShaderDiffuse alloc]init];
+            ADShaderDiffuse *shaderDiffuse = (ADShaderDiffuse *)[[REGLWrapper current]createShader:@"ADShaderDiffuse"];
+
             REMaterial *material = [[REMaterial alloc]initWithShader:shaderDiffuse];
             if (glObjMat.texture != nil) {
                 if (glObjMat.texture.filename != nil) {

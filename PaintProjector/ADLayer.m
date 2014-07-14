@@ -9,5 +9,16 @@
 #import "ADLayer.h"
 
 @implementation ADLayer
-
+- (void)setVisible:(bool)visible{
+    if (_visible != visible) {
+        _visible = visible;
+        _dirty = true;
+    }
+}
+- (id)copyWithZone:(NSZone *)zone{
+    ADLayer *layer = [[ADLayer alloc] init];
+    layer.visible = self.visible;
+    layer.dirty = self.dirty;
+    return layer;
+}
 @end

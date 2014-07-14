@@ -13,15 +13,15 @@
 - (id)initWithData:(NSData*)data name:(NSString *)name identifier:(NSString*)identifier blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity opacityLock:(BOOL)opacityLock{
     self = [super init];
     if(self!=NULL){
+        self.visible = visible;
+        self.dirty = true;
+        
         self.data = data;
         self.name = name;
         self.identifier = identifier;
         self.blendMode = blendMode;
-        self.visible = visible;
-        self.opacityLock = opacityLock;
-        self.dirty = true;
         self.opacity = 1.0;
-
+        self.opacityLock = opacityLock;
     }
     
     return self;
@@ -59,14 +59,12 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone{
-    ADPaintLayer *layer = [[ADPaintLayer alloc] init];
+    ADPaintLayer *layer = (ADPaintLayer *)[super copyWithZone:zone];
     layer.name = self.name;
+    layer.data = [self.data copyWithZone:zone];
     layer.identifier = self.identifier;
     layer.blendMode = self.blendMode;
-    layer.visible = self.visible;
     layer.opacity = self.opacity;
-    layer.dirty = self.dirty;
-    layer.data = [self.data copyWithZone:zone];
     layer.opacityLock = self.opacityLock;
     
     return layer;
@@ -97,7 +95,7 @@
     // otherwise, use kCGImageAlphaPremultipliedLast
     CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGImageRef image = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast,
+    CGImageRef image = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast,
                                     dataProvider, NULL, true, kCGRenderingIntentDefault);
     
     NSData* nsData = UIImagePNGRepresentation([UIImage imageWithCGImage:image]);
@@ -116,31 +114,39 @@
 
     return layer;
 }
-- (void)setOpacity:(float)opacity{
-    if (_opacity != opacity) {
-        _opacity = opacity;
-        _dirty = true;
-    }
+
++ (ADPaintLayer*)createLayerFormUIImage:(UIImage*)image withSize:(CGSize)size transparent:(BOOL)transparent{
+    UIImage *finalImage = [image resizedImage:image.size interpolationQuality:kCGInterpolationDefault];
+    
+    NSData* nsData = UIImagePNGRepresentation(finalImage);
+    
+    CFUUIDRef   uuidObj = CFUUIDCreate(nil);
+    NSString    *uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(nil, uuidObj);
+    CFRelease(uuidObj);
+    
+    ADPaintLayer* layer = [[ADPaintLayer alloc]initWithData:nsData name:@"NewLayer" identifier:uuidString blendMode:kLayerBlendModeNormal visible:true opacity:1.0 opacityLock:false];
+    
+    return layer;
 }
 
 - (void)setBlendMode:(LayerBlendMode)blendMode{
     if (_blendMode != blendMode) {
         _blendMode = blendMode;
-        _dirty = true;
+        self.dirty = true;
     }
 }
 
-- (void)setVisible:(bool)visible{
-    if (_visible != visible) {
-        _visible = visible;
-        _dirty = true;
+- (void)setOpacity:(float)opacity{
+    if (_opacity != opacity) {
+        _opacity = opacity;
+        self.dirty = true;
     }
 }
 
 - (void)setOpacityLock:(bool)opacityLock{
     if (_opacityLock != opacityLock) {
         _opacityLock = opacityLock;
-        _dirty = true;
+        self.dirty = true;
     }
 }
 @end

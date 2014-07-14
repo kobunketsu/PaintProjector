@@ -22,14 +22,13 @@
 #import "ADShaderNoLitTexture.h"
 #import "ADShaderUnlitTransparentAdditive.h"
 #import "ADDeviceHardware.h"
+#import "ADReversePaintInputData.h"
 
 //avoid z fighting
 #define FarClipDistance 5
 #define NearClipDistance 0.005
 
-#define ToSeeCylinderTopPixelOffset 70
-#define ToSeeCylinderTopViewportPixelOffsetY -160
-#define TransitionToPaintPixelOffsetY -30.5
+
 
 #define CylinderFadeInOutDuration 0.4
 #define CylinderResetParamDuration 0.2
@@ -85,7 +84,6 @@ static float DeviceWidth = 0.154;
     [self.rootView sendSubviewToBack:backgroundView];
     
     //用于解决启动闪黑屏的问题
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"launchImage2.png"]];
     [self setupBaseParams];
     
     [self setupInputParams];
@@ -160,7 +158,6 @@ static float DeviceWidth = 0.154;
     
 
     //创建context
-//    self.context = [self createBestEAGLContext];
     self.projectView.delegate = self;
     
     self.browseNextAction = [[ADCustomPercentDrivenInteractiveTransition alloc]init];
@@ -200,6 +197,9 @@ static float DeviceWidth = 0.154;
 
     }
     self.srcUserInputParams = dic;
+    
+    self.isReversePaint = false;
+    self.isTopViewMode = false;
 }
 
 - (void)viewDidUnload{
@@ -284,9 +284,8 @@ static float DeviceWidth = 0.154;
         [self setupAnamorphParamsDoneCompletion:nil];
     }
     
-    if (self.topPerspectiveView.hidden) {
-        self.topPerspectiveView.hidden = false;
-        self.eyePerspectiveView.hidden = true;
+    if (self.isTopViewMode) {
+        self.isTopViewMode = !self.isTopViewMode;
 
         REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
         REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
@@ -370,38 +369,64 @@ static float DeviceWidth = 0.154;
     [RemoteLog logAction:@"paintButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
-
+    
+    //UI
     [self lockInteraction:true];
     sender.selected = true;
     self.setupButton.selected = false;
     
-    //do some work
-    if (self.topPerspectiveView.hidden) {
-        self.topPerspectiveView.hidden = false;
-        self.eyePerspectiveView.hidden = true;
+    if (self.isReversePaint) {
+        //hide cylinder
+        self.cylinder.active = false;
+        self.cylinderInterLight.active = false;
+        self.cylinderTopLight.active = false;
+        self.cylinderBottom.active = false;
+        [self glkView:self.projectView drawInRect:self.projectView.frame];
+        
+        //创建临时paintDoc
+        ADPaintDoc* paintDoc =[[ADPaintDoc alloc]initWithDocPath:nil];
+        ADPaintLayer *newLayer = [ADPaintLayer createBlankLayerWithSize:self.view.bounds.size transparent:true];
+        NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
+        ADBackgroundLayer *backgroundLayer = [[ADBackgroundLayer alloc]init];
+        backgroundLayer.visible = false;
+        paintDoc.data = [[ADPaintData alloc]initWithTitle:@"reversePaintDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
         
         if (!self.setupButton.selected) {
-            [self setupAnamorphParamsDoneCompletion:^{
-                REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-                REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-                [propAnim setCompletionBlock:^{
-                    [self transitionToPaint];
-                }];
-                RECamera.mainCamera.animation.clip = animClip;
-                RECamera.mainCamera.animation.target = self;
-                [RECamera.mainCamera.animation play];
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
+                [self transitionToPaint:paintDoc];
             }];
         }
-        
-
     }
     else{
         if (!self.setupButton.selected) {
-            [self setupAnamorphParamsDoneCompletion:^{
-                [self transitionToPaint];
-            }];
+            [self transitionToPaint:[[ADPaintFrameManager curGroup] curPaintDoc]];
         }
     }
+
+    
+    //do some work
+//    if (self.isTopViewMode) {
+//        self.isTopViewMode = !self.isTopViewMode;
+//        
+//        if (!self.setupButton.selected) {
+//            [self setupAnamorphParamsDoneCompletion:^{
+//                REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+//                REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+//                [propAnim setCompletionBlock:^{
+//                    [self transitionToPaint];
+//                }];
+//                RECamera.mainCamera.animation.clip = animClip;
+//                RECamera.mainCamera.animation.target = self;
+//                [RECamera.mainCamera.animation play];
+//            }];
+//        }
+//        
+//
+//    }
+//    else{
+//
+//    }
+
 }
 
 #pragma mark- 转换Transition
@@ -433,39 +458,44 @@ static float DeviceWidth = 0.154;
     }];
 }
 
-- (void)transitionToPaint{
-    REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
-    REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-    propAnim.duration = 0.5;
-    propAnim.fromValue = [NSNumber numberWithFloat:1];
-    propAnim.toValue = [NSNumber numberWithFloat:0];
-    [self.cylinder.animation play];
-    
-    //变换动画
+- (void)transitionToPaint:(ADPaintDoc*)paintDoc{
     //更新临时view
     NSString *path = [[ADPaintFrameManager curGroup] curPaintDoc].thumbImagePath;
     path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:path];
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = nil;
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
-    transitionImageView.alpha = 0;
     
-    //确定fromView的锚点，和放大缩小的尺寸
-    CGRect rect = [self willGetCylinderMirrorFrame];
-    CGFloat scale = self.view.frame.size.width / rect.size.width;
-    CGPoint rectCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5, rect.origin.y + rect.size.height * 0.5);
-    rectCenter = CGPointMake(rectCenter.x, rectCenter.y + TransitionToPaintPixelOffsetY);
-    UIView *fromView = self.view;
-    fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
-    
-    fromView.layer.position = rectCenter;
-//    DebugLogWarn(@"fromView anchorPoint %@", NSStringFromCGPoint(fromView.layer.anchorPoint));
-    [UIView animateWithDuration:TempPaintFrameToPaintFadeInDuration animations:^{
-        transitionImageView.alpha = 1;
-        [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-    } completion:^(BOOL finished) {
-        [self openPaintDoc:[[ADPaintFrameManager curGroup] curPaintDoc]];
-    }];
+    if (self.isReversePaint) {
+        [self openPaintDoc:paintDoc];
+    }
+    else{
+        REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
+        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        propAnim.duration = 0.5;
+        propAnim.fromValue = [NSNumber numberWithFloat:1];
+        propAnim.toValue = [NSNumber numberWithFloat:0];
+        [self.cylinder.animation play];
+        
+        //确定fromView的锚点，和放大缩小的尺寸
+        CGRect rect = [self willGetCylinderMirrorFrame];
+        CGFloat scale = self.view.frame.size.width / rect.size.width;
+        CGPoint rectCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5, rect.origin.y + rect.size.height * 0.5);
+        rectCenter = CGPointMake(rectCenter.x, rectCenter.y + TransitionToPaintPixelOffsetY);
+        UIView *fromView = self.view;
+        fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
+        fromView.layer.position = rectCenter;
+        
+        //透明度动画
+        transitionImageView.alpha = 0;
+        //    DebugLogWarn(@"fromView anchorPoint %@", NSStringFromCGPoint(fromView.layer.anchorPoint));
+        [UIView animateWithDuration:TempPaintFrameToPaintFadeInDuration animations:^{
+            transitionImageView.alpha = 1;
+            [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
+        } completion:^(BOOL finished) {
+            [self openPaintDoc:paintDoc];
+        }];
+    }
 }
 #pragma mark- 分享Share
 - (void)share{
@@ -568,7 +598,7 @@ static float DeviceWidth = 0.154;
     NSString *messageBody = NSLocalizedString(@"EmailMessageBody", nil);
     
     //在顶视图状态下加入图片实际尺寸，方便于打印
-    if (self.topPerspectiveView.hidden) {
+    if (self.isTopViewMode) {
         NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
         NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
         NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@",
@@ -922,12 +952,13 @@ static float DeviceWidth = 0.154;
 
 - (void)setupInputParams{
     DebugLogFuncStart(@"setupInputParams");
-    //根据ipad2的尺寸进行设定
-    self.userInputParams = [[ADCylinderProjectUserInputParams alloc]init];
-     NSEnumerator *enumeratorKey = [self.srcUserInputParams keyEnumerator];
-    for (NSObject *key in enumeratorKey) {
-        NSNumber *num = [self.srcUserInputParams objectForKey:key];
-        [self setValue:num forKeyPath:(NSString*)key];
+    if (!self.userInputParams) {
+        self.userInputParams = [[ADCylinderProjectUserInputParams alloc]init];
+        NSEnumerator *enumeratorKey = [self.srcUserInputParams keyEnumerator];
+        for (NSObject *key in enumeratorKey) {
+            NSNumber *num = [self.srcUserInputParams objectForKey:key];
+            [self setValue:num forKeyPath:(NSString*)key];
+        }
     }
     
     [self addObserver:self forKeyPath:@"userInputParams.cylinderDiameter" options:NSKeyValueObservingOptionOld context:nil];
@@ -1012,7 +1043,7 @@ static float DeviceWidth = 0.154;
     RECamera.mainCamera.fov = GLKMathDegreesToRadians(29);
 //    RECamera.mainCamera.backgroundColor = GLKVector4Make(90.0/255.0, 230.0/255.0, 71.0 / 255.0, 1);
     RECamera.mainCamera.backgroundColor = GLKVector4Make(0/255.0, 0/255.0, 0/255.0, 0);
-    RECamera.mainCamera.cullingMask = Culling_Everything;
+    RECamera.mainCamera.cullingMask = Culling_Everything & (~Culling_CylinderImage);
     self.bottomCameraProjMatrix = RECamera.mainCamera.projMatrix;
     
     float orthoWidth = DeviceWidth * self.userInputParams.unitZoom;
@@ -1027,9 +1058,7 @@ static float DeviceWidth = 0.154;
                                                    farClip:FarClipDistance];
     
     self.topCamera.name = @"topCamera";
-//    RenderTexture *renderTex = [[RenderTexture alloc]initWithWidth:1024 height:1024];
-//    [renderTex create];
-    RERenderTexture *renderTex = [RERenderTexture textureWithWidth:1024 height:1024 mipmap:Interpolation_Linear wrapMode:WrapMode_Clamp];
+    RERenderTexture *renderTex = [RERenderTexture textureWithName:@"topCameraTex" width:1024 height:1024 mipmap:Interpolation_Linear wrapMode:WrapMode_Clamp];
     self.topCamera.targetTexture = renderTex;
     self.topCamera.cullingMask = Culling_Reflection;
     
@@ -1037,7 +1066,9 @@ static float DeviceWidth = 0.154;
     [self.curScene addCamera:self.topCamera];
     [self.curScene addCamera:RECamera.mainCamera];
     
-    self.eyeBottomTopBlend = 0.0;
+    if (!self.isReversePaint) {
+        self.eyeBottomTopBlend = 0.0;
+    }
     
     REPropertyAnimation *topToBottomPropAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
     topToBottomPropAnim.delegate = self;
@@ -1088,7 +1119,8 @@ static float DeviceWidth = 0.154;
 
 - (void)createCylinder{
     //create cylinder
-    ADShaderCylinder *shaderCylinder = [[ADShaderCylinder alloc]init];
+    
+    ADShaderCylinder *shaderCylinder = (ADShaderCylinder *)[[REGLWrapper current]createShader:@"ADShaderCylinder"];
     REMaterial *matMain = [[REMaterial alloc]initWithShader:shaderCylinder];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
@@ -1117,6 +1149,7 @@ static float DeviceWidth = 0.154;
     animClip.name = @"reflectionFadeInOutAnimClip";
     REAnimation *anim = [REAnimation animationWithAnimClip:animClip];
     cylinder.animation = anim;
+    
     self.cylinder = cylinder;
     [self.curScene addEntity:cylinder];
     
@@ -1127,15 +1160,12 @@ static float DeviceWidth = 0.154;
 }
 
 - (void)destroyCylinder{
-    REPropertyAnimation* propAnim = (REPropertyAnimation*)(self.cylinderTopLight.animation.clip.propertyAnimations[0]);
-    [propAnim cancel];
-    
-    propAnim = (REPropertyAnimation*)(self.cylinderInterLight.animation.clip.propertyAnimations[0]);
-    [propAnim cancel];
-    
+    [self.curScene removeEntity:self.cylinder];
     self.cylinder = nil;
-    self.cylinderTopLight = nil;
-    self.cylinderInterLight = nil;
+
+    [self destroyCylinderInterLight];
+    [self destroyCylinderTopLight];
+    [self destroyCylinderBottom];
 }
 
 - (void)createCylinderTopLight{
@@ -1144,7 +1174,7 @@ static float DeviceWidth = 0.154;
     REModelEntity *cylinderTopLight = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderTopLight.transform.parent = self.cylinder.transform;
     
-    ADShaderUnlitTransparentAdditive *shader = [[ADShaderUnlitTransparentAdditive alloc]init];
+    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]createShader:@"ADShaderUnlitTransparentAdditive"];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     mat.transparent = true;
     RETexture *texMain = [[RETexture alloc]init];
@@ -1154,7 +1184,7 @@ static float DeviceWidth = 0.154;
     
     REPropertyAnimation *propAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"transform.eulerAngles.y"];
     propAnim.delegate = self;
-    propAnim.timing = REPropertyAnimationTimingLinear | TPPropertyAnimationOptionRepeat;
+    propAnim.timing = REPropertyAnimationTimingLinear | REPropertyAnimationOptionRepeat;
     propAnim.fromValue = [NSNumber numberWithFloat:0];
     propAnim.toValue = [NSNumber numberWithFloat:360];
     propAnim.duration = 5;
@@ -1167,25 +1197,38 @@ static float DeviceWidth = 0.154;
     self.cylinderTopLight = cylinderTopLight;
     [self.curScene addEntity:cylinderTopLight];
 }
+
+- (void)destroyCylinderTopLight{
+    REPropertyAnimation* propAnim = (REPropertyAnimation*)(self.cylinderTopLight.animation.clip.propertyAnimations[0]);
+    [propAnim cancel];
+    [self.curScene removeEntity:self.cylinderTopLight];
+    self.cylinderTopLight = nil;
+}
+
 - (void)createCylinderBottom{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderBottom" ofType:@"obj"];
     REModelEntity *cylinderBottom = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderBottom.transform.parent = self.cylinder.transform;
-    ADShaderNoLitTexture *shader = [[ADShaderNoLitTexture alloc]init];
+    ADShaderNoLitTexture *shader = (ADShaderNoLitTexture *)[[REGLWrapper current]createShader:@"ADShaderNoLitTexture"];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderBottom.png" reload:false].name;
     mat.mainTexture = texMain;
     cylinderBottom.renderer.material = mat;
-    
+    self.cylinderBottom = cylinderBottom;
     [self.curScene addEntity:cylinderBottom];
+}
+
+- (void)destroyCylinderBottom{
+    [self.curScene removeEntity:self.cylinderBottom];
+    self.cylinderBottom = nil;
 }
 
 - (void)createCylinderInterLight{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderInterLight" ofType:@"obj"];
     REModelEntity *cylinderInterLight = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderInterLight.transform.parent = self.cylinder.transform;
-    ADShaderUnlitTransparentAdditive *shader = [[ADShaderUnlitTransparentAdditive alloc]init];
+    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]createShader:@"ADShaderUnlitTransparentAdditive"];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderInterLight.png" reload:false].name;
@@ -1194,7 +1237,7 @@ static float DeviceWidth = 0.154;
     
     REPropertyAnimation *propAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"transform.eulerAngles.y"];
     propAnim.delegate = self;
-    propAnim.timing = REPropertyAnimationTimingLinear | TPPropertyAnimationOptionRepeat;
+    propAnim.timing = REPropertyAnimationTimingLinear | REPropertyAnimationOptionRepeat;
     propAnim.fromValue = [NSNumber numberWithFloat:0];
     propAnim.toValue = [NSNumber numberWithFloat:360];
     propAnim.duration = 5;
@@ -1207,12 +1250,16 @@ static float DeviceWidth = 0.154;
     self.cylinderInterLight = cylinderInterLight;
     [self.curScene addEntity:cylinderInterLight];
 }
-- (void)destroyCylinderProject{
-    self.cylinderProjectCur = nil;
+
+- (void)destroyCylinderInterLight{
+    REPropertyAnimation* propAnim = (REPropertyAnimation*)(self.cylinderInterLight.animation.clip.propertyAnimations[0]);
+    [propAnim cancel];
+    [self.curScene removeEntity:self.cylinderInterLight];
+    self.cylinderInterLight = nil;
 }
 - (void)createCylinderProject{
     
-    ADShaderCylinderProject *shaderCylinderProject = [[ADShaderCylinderProject alloc]init];
+    ADShaderCylinderProject *shaderCylinderProject = (ADShaderCylinderProject *)[[REGLWrapper current]createShader:@"ADShaderCylinderProject"];
     REMaterial *matCylinderProject = [[REMaterial alloc]initWithShader:shaderCylinderProject];
     
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:[[ADPaintFrameManager curGroup] curPaintDoc].thumbImagePath];
@@ -1275,6 +1322,10 @@ static float DeviceWidth = 0.154;
     [self.curScene addEntity:cylinderProject];
     
 }
+- (void)destroyCylinderProject{
+    [self.curScene removeEntity:self.cylinderProjectCur];
+    self.cylinderProjectCur = nil;
+}
 
 - (void)createTestObj{
 //    CylinderMesh *mesh = [[CylinderMesh alloc]initWithRadius:0.5 sides:60 height:1];
@@ -1302,12 +1353,6 @@ static float DeviceWidth = 0.154;
     self.curScene = scene;
     
     [self initSceneCameras];
-    
-    //设定输入图片参数
-//    if ([PaintFrameManager curGroup] curPaintDoc != nil) {
-//        NSString *path = [[Ultility applicationDocumentDirectory] stringByAppendingPathComponent:[PaintFrameManager curGroup] curPaintDoc.thumbImagePath];
-//        self.paintTexture = [Texture textureFromImagePath:path reload:true];
-//    }
     
     DebugLog(@"init Scene Entities ");
     [self createCylinderProject];
@@ -1490,12 +1535,9 @@ static float DeviceWidth = 0.154;
 
 #pragma mark- 显示代理DisplayDelegate
 - (CGRect)willGetViewport{
-//    struct { GLint x, y, w, h; } rect;
-//    glGetIntegerv(GL_VIEWPORT, (GLint*)&rect);
-//    printf("%s %d %d\n", __FUNCTION__, rect.w, rect.h);
     CGFloat scale = self.projectView.contentScaleFactor;
-
-    return CGRectMake(0, ToSeeCylinderTopViewportPixelOffsetY * scale, self.view.bounds.size.width * scale, (self.view.bounds.size.height + ToSeeCylinderTopPixelOffset) * scale);
+    CGRect frame = CGRectMake(0, ToSeeCylinderTopViewportPixelOffsetY * scale, self.view.bounds.size.width * scale, (self.view.bounds.size.height + ToSeeCylinderTopPixelOffset) * scale);
+    return frame;
 }
 
 #pragma mark- 更新
@@ -1858,12 +1900,10 @@ static float DeviceWidth = 0.154;
 
 - (void)flushAllUI {
     if(self.eyeBottomTopBlend > 0.0){
-        self.topPerspectiveView.hidden = true;
-        self.eyePerspectiveView.hidden = false;
+        self.isTopViewMode = true;
     }
     else{
-        self.topPerspectiveView.hidden = false;
-        self.eyePerspectiveView.hidden = true;
+        self.isTopViewMode = false;
     }
 //    [self syncPlayUI];
 }
@@ -1878,13 +1918,12 @@ static float DeviceWidth = 0.154;
     }
 }
 
-
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     [self.player seekToTime:kCMTimeZero];
 }
-
 - (CGRect)getCylinderMirrorFrame{
     return CGRectMake(308, 286, 150, 150 / self.view.bounds.size.width * self.view.bounds.size.height);
+//    return CGRectMake(311, 270, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
 }
 
 - (CGRect)getCylinderMirrorTopFrame{
@@ -2105,10 +2144,12 @@ static float DeviceWidth = 0.154;
     }
 }
 
-#pragma mark- TPPropertyAnimationDelegate
+#pragma mark- ADPropertyAnimationDelegate
 -(void)willBeginPropertyAnimation:(REPropertyAnimation *)propertyAnimation{
     DebugLogFuncStart(@"willBeginPropertyAnimation keyPath:%@ target:%@", propertyAnimation.keyPath, propertyAnimation.target);
-    [self lockInteraction:true];
+    if ((propertyAnimation.timing & REPropertyAnimationOptionRepeat) != REPropertyAnimationOptionRepeat) {
+        [self lockInteraction:true];
+    }
 }
 
 -(void)propertyAnimationDidFinish:(REPropertyAnimation *)propertyAnimation{
@@ -2117,7 +2158,7 @@ static float DeviceWidth = 0.154;
         [self lockInteraction:true];
         self.paintDirectly = false;
     }
-    else if (self.topPerspectiveView.hidden) {
+    else if (self.isTopViewMode) {
         [self lockInteraction:false];
         self.projectView.userInteractionEnabled = false;
     }
@@ -2163,56 +2204,63 @@ static float DeviceWidth = 0.154;
         [self setupAnamorphParamsDoneCompletion:nil];        
     }
 }
+#pragma mark- 绘画Paint
+- (void)setIsReversePaint:(BOOL)isReversePaint{
+    _isReversePaint = isReversePaint;
+    self.paintButton.isReversePaint = isReversePaint;
+}
 #pragma mark- 绘画代理PaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup{
     return [self createBestEAGLContext];
 }
 
-- (void) closePaintDoc:(ADPaintDoc *)paintDoc completionBlock:(void (^) (void)) block{
+- (void) closePaintDoc:(ADPaintDoc *)paintDoc completionBlock:(void (^) (void)) completionBlock{
+    self.cylinderProjectDefaultAlphaBlend = 1;
+    
     //刷新当前画框内容
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
-    
-    self.cylinderProjectDefaultAlphaBlend = 1;
-    //变换动画
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
-    transitionImageView.alpha = 1;
     
     [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
-        if (block) {
-            block();
+        if (completionBlock) {
+            completionBlock();
         }
         
         self.paintButton.selected = false;
-        
+
         self.cylinderProjectCur.renderer.material.mainTexture = [RETexture textureFromImagePath:path reload:true];
         
-        self.cylinder.reflectionStrength = 0;
-        REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
-        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-        propAnim.duration = CylinderFadeInOutDuration;
-        propAnim.fromValue = [NSNumber numberWithFloat:0];
-        propAnim.toValue = [NSNumber numberWithFloat:1];
-        [self.cylinder.animation play];
-        
-
-        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
-            transitionImageView.alpha = 0;
-        }completion:^(BOOL finished) {
-        }];
-        
-        UIView *fromView = self.view;
-        CGRect rect = [self willGetCylinderMirrorFrame];
-        CGFloat scale = self.view.frame.size.width / rect.size.width;
-        [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-        
-        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
-            [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
-        } completion:^(BOOL finished) {
-            fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-            fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
-        }];
-        
+        if (self.isReversePaint) {
+        }
+        else{
+            //变换反射图动画
+            self.cylinder.reflectionStrength = 0;
+            REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
+            REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+            propAnim.duration = CylinderFadeInOutDuration;
+            propAnim.fromValue = [NSNumber numberWithFloat:0];
+            propAnim.toValue = [NSNumber numberWithFloat:1];
+            [self.cylinder.animation play];
+            
+            transitionImageView.alpha = 1;
+            [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+                transitionImageView.alpha = 0;
+            }completion:^(BOOL finished) {
+            }];
+            
+            UIView *fromView = self.view;
+            CGRect rect = [self willGetCylinderMirrorFrame];
+            CGFloat scale = self.view.frame.size.width / rect.size.width;
+            [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
+            
+            [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+                [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+            } completion:^(BOOL finished) {
+                fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+                fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
+            }];
+        }
     }];
 }
 
@@ -2220,22 +2268,49 @@ static float DeviceWidth = 0.154;
     //    self.curPaintDoc = paintDoc;
     self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
     self.paintScreenVC.delegate = self;
+    self.paintScreenVC.isReversePaint = self.isReversePaint;
     self.paintScreenVC.transitioningDelegate = self;
     
     //prepare for presentation
-    
+    GLKVector4 uvSpace; CGFloat imageRatio = 1;UIImage *image = nil; ADPaintDoc *reversePaintDocSrc = nil;
+    if (self.isReversePaint) {
+        uvSpace = self.cylinder.reflectionTexUVSpace;
+        imageRatio = self.projectView.bounds.size.height / self.projectView.bounds.size.width;
+
+        //截取反向绘制的底图
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
+        [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:true];
+        image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+        UIGraphicsEndImageContext();
+
+        reversePaintDocSrc = [ADPaintFrameManager curGroup].curPaintDoc;
+    }
+
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         [self lockInteraction:false];
         [self.paintScreenVC openDoc:paintDoc];
-        [self.paintScreenVC afterPresentation];
+
+        if (self.isReversePaint) {
+            self.paintScreenVC.paintView.reversePaintData = [[ADReversePaintInputData alloc]init];
+            self.paintScreenVC.paintView.reversePaintData.radius = self.userInputParams.cylinderDiameter * 0.5;
+            self.paintScreenVC.paintView.reversePaintData.eye = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
+            self.paintScreenVC.paintView.reversePaintData.imageWidth = self.userInputParams.imageWidth;
+            self.paintScreenVC.paintView.reversePaintData.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
+            self.paintScreenVC.paintView.reversePaintData.imageRatio = imageRatio;
+            self.paintScreenVC.paintView.reversePaintData.reflectionTexUVSpace = uvSpace;
+            self.paintScreenVC.paintView.backgroundColor = [UIColor colorWithPatternImage:image];
+            self.paintScreenVC.paintView.reversePaintDocSrc = reversePaintDocSrc;
+        }
     }];
 }
 
 #pragma mark- 调整视角View
-- (BOOL)isTopViewMode{
-    return self.topPerspectiveView.hidden;
+- (void)setIsTopViewMode:(BOOL)isTopViewMode{
+    _isTopViewMode = isTopViewMode;
+    self.topPerspectiveView.hidden = isTopViewMode;
+    self.eyePerspectiveView.hidden = !isTopViewMode;
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
@@ -2246,8 +2321,7 @@ static float DeviceWidth = 0.154;
     [self deselectUserInputParams];
     
     //visibility
-    self.eyePerspectiveView.hidden = true;
-    self.topPerspectiveView.hidden = false;
+    self.isTopViewMode = self.isReversePaint = false;
     
     //interaction
     [self lockInteraction:true];
@@ -2275,9 +2349,8 @@ static float DeviceWidth = 0.154;
     [self deselectUserInputParams];
     
     //visibility
-    self.topPerspectiveView.hidden = true;
-    self.eyePerspectiveView.hidden = false;
-    
+    self.isTopViewMode = self.isReversePaint = true;
+
     //interaction
     [self lockInteraction:true];
     
@@ -2641,4 +2714,5 @@ static float DeviceWidth = 0.154;
     
     [step addToRootView:self.view];
 }
+
 @end

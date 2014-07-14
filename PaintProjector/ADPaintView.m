@@ -19,6 +19,12 @@
 #import "ADFinger.h"
 #import "ADBucket.h"
 
+#import "ADCylinderImage.h"
+#import "ADShaderCylinderImage.h"
+#import "ADPlaneMesh.h"
+#import "REMeshFilter.h"
+#import "REMeshRenderer.h"
+
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
 #define CanvasScaleMinimum 0.2
@@ -28,20 +34,23 @@
 @property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
 @property (assign, nonatomic)NSInteger viewGLSize;  //用于创建framebufferTextuer的尺寸
 @property (retain, nonatomic) NSMutableArray *drawPath;  //记录路径
-//图层
-//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
-@property (retain, nonatomic)NSMutableArray *layerFramebuffers;
-@property (retain, nonatomic)NSMutableArray *layerTextures;
+
+//@property (retain, nonatomic)NSMutableArray *layerFramebuffers;
 
 @property (assign, nonatomic)int multiTouchEndCount;
 @property (retain, nonatomic) ADBrushState* lastBrushState; //记录上一次绘制使用的brushState
 @property(nonatomic, readwrite) CGPoint location;
 @property(nonatomic, readwrite) CGPoint previousLocation;
-@property (retain, nonatomic) GLKTextureInfo *paintTextureInfo;
-@property (assign, nonatomic) GLuint curPaintedLayerTexture;
-@property (assign, nonatomic) GLuint curLayerTexture;
+
+@property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
+@property (retain, nonatomic) RERenderTexture *curPaintedLayerTexture;
+@property (retain, nonatomic) RERenderTexture *curLayerTexture;
+@property (retain, nonatomic) RERenderTexture *undoBaseTexture;
+@property (retain, nonatomic) RERenderTexture *brushTexture;
+@property (retain, nonatomic) RETexture *toTransformImageTex;
 @property (assign, nonatomic) GLuint finalFramebuffer;
-@property (retain, nonatomic)ADPaintCommand *curPaintCommand;
+
+@property (retain, nonatomic) ADPaintCommand *curPaintCommand;
 @property (assign, nonatomic) BrushVertex* vertexBufferBrush;//每只笔预先分配的用于绘制的顶点数据
 @property (assign, nonatomic) BrushVertex* vertexBufferBrushUndo;//每只笔临时分配的用于undo的大内存空间
 
@@ -273,41 +282,6 @@
 //}
 
 #pragma mark- Buffer
-- (BOOL)createUndoBaseFramebufferTexture{
-    DebugLogFuncStart(@"createUndoBaseFramebufferTexture");
-    //创建frame buffer
-    glGenFramebuffersOES(1, &_undoBaseFramebuffer);
-    [[REGLWrapper current] bindFramebufferOES:_undoBaseFramebuffer discardHint:false clear:false];
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _undoBaseFramebuffer, 0, [@"undoBaseFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    glGenTextures(1, &_undoBaseTexture);
-    [[REGLWrapper current] bindTexture:_undoBaseTexture];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _undoBaseTexture, 0, [@"undoBaseTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _undoBaseTexture, 0);
-    [[REGLWrapper current] bindTexture:0];
-    
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}   
-    
-	return YES;    
-}
-- (void)deleteUndoBaseFramebufferTexture{
-    DebugLogFuncStart(@"deleteUndoBaseFramebufferTexture");
-    [[REGLWrapper current] deleteFramebufferOES:_undoBaseFramebuffer];
-    
-    [[REGLWrapper current] deleteTexture:_undoBaseTexture];
-}
 
 - (BOOL)createDebugQuadVerticesbuffer{
 //    float widthScale = (float)_brush.brushState.radius*2 / (float)self.bounds.size.height;
@@ -530,39 +504,17 @@
     
     [[REGLWrapper current] deleteRenderbufferOES:_finalRenderbuffer];
 }
-- (BOOL)createBrushFramebufferTexture{
+- (BOOL)createBrushRenderTexture{
     DebugLogFuncStart(@"createBrushFramebufferTexture");
-    //创建frame buffer
-    glGenFramebuffersOES(1, &_brushFramebuffer);
-    [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:false clear:false];
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _brushFramebuffer, 0, [@"brushFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    glGenTextures(1, &_brushTexture);
-    [[REGLWrapper current] bindTexture:_brushTexture];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _brushTexture, 0, [@"brushTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _brushTexture, 0);
-    [[REGLWrapper current] bindTexture:0];
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
+    self.brushTexture = [RERenderTexture textureWithName:@"brushTexture" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
 
 	return YES;
 }
-- (void)deleteBrushFramebufferTexture{
+- (void)deleteBrushRenderTexture{
     DebugLogFuncStart(@"deleteBrushFramebufferTexture");
-    [[REGLWrapper current] deleteFramebufferOES:_brushFramebuffer];
+    [self.brushTexture destroy];
+    self.brushTexture = nil;
     
-    [[REGLWrapper current] deleteTexture:_brushTexture];
 }
 
 - (void)setVBOBrushForImmediate{
@@ -650,16 +602,17 @@
 - (void)createFramebufferTextures
 {
     DebugLogFuncStart(@"createFramebufferTextures");
+    glClearColor(0, 0, 0, 0);
     
     [self createFinalFramebufferTexture];
     //从paintData创建显示用的layer texture
-    [self createLayerFramebufferTextures];
+    [self createLayerRenderTextures];
     //创建临时绘制层
-    [self createTempLayerFramebufferTexture];
+    [self createTempLayerRenderTexture];
     
-    [self createBrushFramebufferTexture];
+    [self createBrushRenderTexture];
     
-    [self createUndoBaseFramebufferTexture];
+    [self createUndoBaseRenderTexture];
 }
 
 - (void)destroyFrameBufferTextures{
@@ -669,16 +622,16 @@
     [self deleteFinalFramebufferTexture];
     
     //layers
-    [self deleteLayerFramebufferTextures];
+    [self deleteLayerRenderTextures];
     
     //current paint layer
-    [self deleteTempLayerFramebufferTexture];
+    [self deleteTempLayerRenderTexture];
     
     //brush temp
-    [self deleteBrushFramebufferTexture];
+    [self deleteBrushRenderTexture];
     
     //undo
-    [self deleteUndoBaseFramebufferTexture];
+    [self deleteUndoBaseRenderTexture];
 }
 
 - (void)loadPrograms{
@@ -855,7 +808,7 @@
     [self setVBOBrushForImmediate];
     
     //清除prewarm的结果
-    [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:true];
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -891,7 +844,8 @@
 
 - (void)destroyTextures{
 
-    [[REGLWrapper current] deleteTexture:_toTransformImageTex];
+    [self.toTransformImageTex destroy];
+    self.toTransformImageTex = nil;
     
     [RETextureManager destroyTextures];
 }
@@ -1225,9 +1179,9 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "copyCurLayerToCurPaintedLayer");
 #endif
-	[[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     
-    [self drawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
+    [self drawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
 #if DEBUG
     glPopGroupMarkerEXT();
@@ -1236,9 +1190,9 @@
 
 - (void)copyCurPaintedLayerToCurLayer{
 //    DebugLog(@"[ copyCurPaintedLayerToCurLayer ]");
-	[[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
+	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
     
-    [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
+    [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
 }
 
 - (void)copyScreenBufferToTexture:(GLuint)texture{
@@ -1407,7 +1361,7 @@
     else{
         //在吸取屏幕颜色的brush吸取颜色之后，切换到brushFramebuffer
         //clear brushFramebuffer
-        [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+        [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:true];
     }
     
 #if DEBUG
@@ -1501,7 +1455,7 @@
     }
     else {
         //reserve brushFramebuffer
-        [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:false];
+        [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:false];
     }
     
     
@@ -1557,7 +1511,7 @@
         }
         else{
             //do not clear!
-            [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:false];
+            [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:false];
         }
         
 //        DebugLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d Opacity %.1f", _curLayerTexture, _curPaintedLayerFramebuffer, _curPaintedLayerTexture, brushState.opacity);
@@ -1566,7 +1520,7 @@
         //图层透明度锁定
         ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
         CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
-        [self drawQuad:_VAOQuad brush:brushState texture2D:_brushTexture alpha:opacity];
+        [self drawQuad:_VAOQuad brush:brushState texture2D:self.brushTexture.texID alpha:opacity];
     }
     
     if (refresh) {
@@ -1612,7 +1566,7 @@
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     //清空实际图层，重新进行绘制
-	[[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:false clear:true];
+	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:false clear:true];
 #if DEBUG
     glPopGroupMarkerEXT();
 #endif
@@ -1673,11 +1627,11 @@
 #endif
     
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
-    [[REGLWrapper current] bindFramebufferOES: _undoBaseFramebuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.undoBaseTexture.frameBuffer discardHint:true clear:true];
 
-    [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
+    [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
 
-    ADUndoBaseCommand *cmd = [[ADUndoBaseCommand alloc]initWithTexture:_undoBaseTexture];
+    ADUndoBaseCommand *cmd = [[ADUndoBaseCommand alloc]initWithTexture:self.undoBaseTexture.texID];
     cmd.delegate = self;
     [self.commandManager wrapCommand:cmd];
     
@@ -1691,6 +1645,19 @@
 }
 
 #pragma mark- Undo Redo
+- (BOOL)createUndoBaseRenderTexture{
+    DebugLogFuncStart(@"createUndoBaseFramebufferTexture");
+    
+    self.undoBaseTexture = [RERenderTexture textureWithName:@"undoBaseTexture" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    
+    return YES;
+}
+- (void)deleteUndoBaseRenderTexture{
+    DebugLogFuncStart(@"deleteUndoBaseFramebufferTexture");
+    [self.undoBaseTexture destroy];
+    self.undoBaseTexture = nil;
+}
+
 /*机制 记录形式为: UndoMaxCount = 4
  (PaintOp)UndoBaseImage PaintOp PaintOp PaintOp PaintOp(UndoCheckPointImage<-> UndoBaseImage) PaintOp PaintOp PaintOp PaintOp(Current <->UndoCheckPointImage)
  */
@@ -1754,11 +1721,10 @@
     DebugLog(@"uploadLayerDataAtIndex %d", index);
     GLuint layerFramebuffer;
     if (_curLayerIndex == index) {
-        layerFramebuffer = _curPaintedLayerFramebuffer;
+        layerFramebuffer = self.curPaintedLayerTexture.frameBuffer;
     }
     else{
-        NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
-        layerFramebuffer = num.intValue;
+        layerFramebuffer = ((RERenderTexture*)self.layerTextures[index]).frameBuffer;
     }
 
     UIImage* image = [self snapshotFramebufferToUIImage:layerFramebuffer];
@@ -1803,7 +1769,7 @@
     //删除之前的buffer
     [self destroyFrameBufferTextures];
     [self createFramebufferTextures];
-    [self setCurLayerIndex:0];
+    [self setCurLayerIndex:self.paintData.layers.count - 1];
 
     //重置撤销
     [self resetUndoRedo];
@@ -1828,7 +1794,7 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "willExecuteUndoBaseCommand");
 #endif
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
 
     [self drawSquareQuadWithTexture2DPremultiplied:command.texture];
     
@@ -1851,7 +1817,7 @@
 
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState *)brushState location:(CGPoint)point{
 //    DebugLog(@"willUpdateSmudgeTextureWithBrush location %@", NSStringFromCGPoint(point));
-    [self willUpdateSmudgeTextureWithBrushState:brushState location:point inRect:self.bounds ofFBO:_curPaintedLayerFramebuffer ofTexture:_curPaintedLayerTexture ofVAO:_VAOQuad];
+    [self willUpdateSmudgeTextureWithBrushState:brushState location:point inRect:self.bounds ofFBO:self.curPaintedLayerTexture.frameBuffer ofTexture:self.curPaintedLayerTexture.texID ofVAO:_VAOQuad];
 }
 
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState*)brushState location:(CGPoint)point inRect:(CGRect)rect ofFBO:(GLuint)fbo ofTexture:(GLuint)texture ofVAO:(GLuint)vao{
@@ -2007,8 +1973,7 @@
     // make the cgimage
     CGImageRef imageRef2 = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider2, NULL, NO, renderingIntent);
     
-    
-    
+
     // Clean up
     free(buffer);
 //    free(buffer2);
@@ -2059,127 +2024,63 @@
 #pragma mark- Layer
 
 //创建图层
-- (BOOL)createLayerFramebufferTextures{
-    DebugLogFuncStart(@"createLayerFramebufferTextures");
+- (void)addLayerRenderTexturesFromTexture:(RETexture *)texture{
+    if(!self.layerTextures)return;
+
+    NSString *name = [NSString stringWithFormat:@"layerTexture%@", texture.name];
+    RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    [self drawQuad:_VAOScreenQuad texture2D:texture.texID premultiplied:false alpha:1.0];
+    [self.layerTextures addObject:layerTexture];
+}
+
+- (BOOL)createLayerRenderTextures{
+    DebugLogFuncStart(@"createLayerRenderTexturesFromPaintData");
     if (self.paintData == nil) {
-        DebugLog(@"createLayerFramebufferTextures failed. paintData nil");
+        DebugLog(@"createLayerRenderTexturesFromPaintData failed. paintData nil");
         return NO;
     }
     
     self.layerTextures = [[NSMutableArray alloc]init];
-    self.layerFramebuffers = [[NSMutableArray alloc]init];
     
     for (int i=0; i < self.paintData.layers.count; ++i) {
-        ADPaintLayer* layer = [self.paintData.layers objectAtIndex:i];
+        NSString *name = [NSString stringWithFormat:@"layerTexture%d", i];
+        ADPaintLayer* layer = self.paintData.layers[i];
         
-        //创建每个图层的framebuffer texture
-        GLuint layerFramebuffer = 0;
-        glGenFramebuffersOES(1, &layerFramebuffer);
-        [[REGLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
-#if DEBUG
-        NSString *layerFBOLabel = [NSString stringWithFormat:@"layerFramebuffer%d", i];
-        glLabelObjectEXT(GL_FRAMEBUFFER_OES, layerFramebuffer, 0, [layerFBOLabel UTF8String]);
-#endif
+        RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
         
-        GLuint layerTexture;
-        glGenTextures(1, &layerTexture);
-        [[REGLWrapper current] bindTexture:layerTexture];
-#if DEBUG
-        glLabelObjectEXT(GL_TEXTURE, layerTexture, 0, [@"layerFrameTexture" UTF8String]);
-#endif
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-        glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, layerTexture, 0);
-//        glGenerateMipmapOES(GL_TEXTURE_2D);
+        RETexture *dataTexture = [RETexture textureFromData:layer.data name:name];
+        [self drawQuad:_VAOScreenQuad texture2D:dataTexture.texID premultiplied:false alpha:1.0];
+        [dataTexture destroy];
         
-        const GLenum discards[] = {GL_COLOR_ATTACHMENT0};
-        glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
-        glClear(GL_COLOR_BUFFER_BIT);
-        
-        [[REGLWrapper current] bindTexture:0];
-        
-        if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-        {
-            DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-            return NO;
-        }
-        
-        GLKTextureInfo* texInfo = [RETextureManager textureInfoFromData:layer.data];
-#if DEBUG
-        glLabelObjectEXT(GL_TEXTURE, texInfo.name, 0, [[NSString stringWithFormat:@"layerDataTex%d", i]UTF8String]);
-#endif
-        [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
-        GLuint tex = texInfo.name;
-        [RETextureManager deleteTexture:tex];
-        
-        [self.layerFramebuffers addObject:[NSNumber numberWithInt:layerFramebuffer]];
-        [self.layerTextures addObject:[NSNumber numberWithInt:layerTexture]];
+        [self.layerTextures addObject:layerTexture];
     }
 
     return true;
 }
-- (void)deleteLayerFramebufferTextures{
+- (void)deleteLayerRenderTextures{
     DebugLogFuncStart(@"deleteLayerFramebufferTextures");
     for(int i = 0; i< self.layerTextures.count;++i){
-        GLuint name = (GLuint)[[self.layerTextures objectAtIndex:i] intValue];
+        RERenderTexture *texture = (RERenderTexture *)self.layerTextures[i];
+        [texture destroy];
+        texture = nil;
         
-        [[REGLWrapper current] deleteTexture:name];
-        
-        _curLayerTexture = 0;
-        
+        self.curLayerTexture = nil;
     }
     
     [self.layerTextures removeAllObjects];
-    
-    for(int i = 0; i< self.layerFramebuffers.count;++i){
-        NSNumber* number = [self.layerFramebuffers objectAtIndex:i];
-        
-        GLuint layerFramebuffer = (GLuint)number.intValue;
-        [[REGLWrapper current] deleteFramebufferOES:layerFramebuffer];
-        
-        _curLayerFramebuffer = 0;
-        
-    }
-    [self.layerFramebuffers removeAllObjects];
 }
-- (BOOL)createTempLayerFramebufferTexture{
+- (BOOL)createTempLayerRenderTexture{
     DebugLogFuncStart(@"createTempLayerFramebufferTexture");
-    //创建frame buffer
-    glGenFramebuffersOES(1, &_curPaintedLayerFramebuffer);
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _curPaintedLayerFramebuffer, 0, [@"curPaintedLayerFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    glGenTextures(1, &_curPaintedLayerTexture);
-    [[REGLWrapper current] bindTexture:_curPaintedLayerTexture];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _curPaintedLayerTexture, 0, [@"curPaintedLayerTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _curPaintedLayerTexture, 0);
-    
-    [[REGLWrapper current] bindTexture:0];
-    
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
+        self.curPaintedLayerTexture = [RERenderTexture textureWithName:@"curPaintedLayerTexture" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
 //    DebugLog(@"createTempLayerFramebuffer: %d Texture: %d", _tempLayerFramebuffer, _tempLayerTexture);
 	return YES;
 }
 
-- (void)deleteTempLayerFramebufferTexture{
+- (void)deleteTempLayerRenderTexture{
     DebugLogFuncStart(@"deleteTempLayerFramebufferTexture");
-    [[REGLWrapper current] deleteFramebufferOES:_curPaintedLayerFramebuffer];
-    
-    [[REGLWrapper current] deleteTexture:_curPaintedLayerTexture];
+    [self.curPaintedLayerTexture destroy];
+    self.curPaintedLayerTexture = nil;
 }
 
 - (int)curLayerIndex {
@@ -2192,64 +2093,32 @@
         return;
     }
     
+    if (newValue >= self.paintData.layers.count) {
+        return;
+    }
+    
     _curLayerIndex = newValue;
-    NSNumber* layerFramebuffer = [self.layerFramebuffers objectAtIndex:_curLayerIndex];
-    _curLayerFramebuffer = (GLuint)layerFramebuffer.intValue;
-    NSNumber* numTex = [self.layerTextures objectAtIndex:_curLayerIndex];
-    _curLayerTexture = numTex.intValue;
-    
-    NSString *string = [NSString stringWithFormat:@"Set _curLayerIndex: %d _curLayerFramebuffer: %d _curLayerTexture: %d ", _curLayerIndex, _curLayerFramebuffer, _curLayerTexture];
-    DebugLog(@"%@", string);
-
-    
+    self.curLayerTexture = (RERenderTexture*)self.layerTextures[newValue];
+   
     //将当前层内容拷贝到临时绘制层种
     [self copyCurLayerToCurPaintedLayer];
-
-
 }
 
 //插入图层
 - (void)insertLayer:(ADPaintLayer*)layer atIndex:(int)index immediate:(BOOL)isImmediate{
     assert(index+1 <= self.paintData.layers.count);
     //数据
-    //layer
-    [self.paintData.layers insertObject:layer atIndex:index+1];
-    
-    //framebuffer
-    GLuint layerFramebuffer = 0;
-    glGenFramebuffersOES(1, &layerFramebuffer);
-    DebugLog(@"gen layerFramebuffer %d", layerFramebuffer);
-    [[REGLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
-#if DEBUG
-    NSString *layerFBOLabel = [NSString stringWithFormat:@"layerFramebuffer%d", index];
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, layerFramebuffer, 0, [layerFBOLabel UTF8String]);
-#endif
-    GLuint layerTexture;
-    glGenTextures(1, &layerTexture);
-    [[REGLWrapper current] bindTexture:layerTexture];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, layerTexture, 0, [@"layerFrameTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.viewGLSize, self.viewGLSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, layerTexture, 0);
-    [[REGLWrapper current] bindTexture:0];
-    
-    if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-    {
-        DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-    }
-    
-    glClear(GL_COLOR_BUFFER_BIT);
-    GLKTextureInfo* texInfo = [RETextureManager textureInfoFromData:layer.data];
-    [self drawQuad:_VAOScreenQuad texture2D:texInfo.name premultiplied:false alpha:1.0];
-    GLuint tex = texInfo.name;
-    [RETextureManager deleteTexture:tex];
 
-    [self.layerFramebuffers insertObject:[NSNumber numberWithInt:layerFramebuffer] atIndex:index+1];
-    [self.layerTextures insertObject:[NSNumber numberWithInt:layerTexture] atIndex:index+1];
+    NSString *name = @"insertedlayerTexture";
+    [self.paintData.layers insertObject:layer atIndex:index+1];
+
+    RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    
+    RETexture *dataTexture = [RETexture textureFromData:layer.data name:name];
+    [self drawQuad:_VAOScreenQuad texture2D:dataTexture.texID premultiplied:false alpha:1.0];
+    [dataTexture destroy];
+
+    [self.layerTextures insertObject:layerTexture atIndex:index+1];
     
     //显示
     if (isImmediate) {
@@ -2277,21 +2146,10 @@
     //layer
     [self.paintData.layers removeObjectAtIndex:index];
     
-    //texture
-    NSNumber *numTex = [self.layerTextures objectAtIndex:index];
-    GLuint tex = (GLuint)numTex.intValue;
-    [[REGLWrapper current] deleteTexture:tex];
-    DebugLogWarn(@"self.layerTextures removeObject %d", numTex.intValue);
-    [self.layerTextures removeObject:numTex];
-
-    
-    //framebuffer
-    NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
-    GLuint layerFramebuffer = num.intValue;
-    [[REGLWrapper current] deleteFramebufferOES:layerFramebuffer];
-    DebugLogWarn(@"self.layerFramebuffer removeObject %d", num.intValue);
-    [self.layerFramebuffers removeObject:num];
-   
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index];
+    [layerTexture destroy];
+    [self.layerTextures removeObject:layerTexture];
+    layerTexture = nil;
     //在没有选定新图层之前，去除当前图层标示，保证updateRender时候bu
 //    self.curLayerIndex = -1;
 //显示
@@ -2310,7 +2168,7 @@
     }
     //清除临时绘制图层
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
-	[[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
     //插入空图层
     [self insertBlankLayerAtIndex:-1 transparent:true immediate:false];
@@ -2320,9 +2178,9 @@
     [self _updateRender];
     
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
-    [[REGLWrapper current] bindFramebufferOES: _undoBaseFramebuffer discardHint:false clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.undoBaseTexture.frameBuffer discardHint:false clear:true];
 
-    [self drawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
+    [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
     
     [self resetUndoRedo];
 }
@@ -2338,13 +2196,12 @@
 	[EAGLContext setCurrentContext:[REGLWrapper current].context];
     
 	//clear paint layer
-    NSNumber* num = [self.layerFramebuffers objectAtIndex:index];
-    GLuint layerFramebuffer = (GLuint)num.intValue;
-    [[REGLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index];
+    [[REGLWrapper current] bindFramebufferOES: layerTexture.frameBuffer discardHint:false clear:true];
     
     if (self.curLayerIndex == index) {
         // Clear the buffer
-        [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+        [[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     }
     
     [self _updateRender];
@@ -2363,15 +2220,14 @@
     
 	//clear all paint layer
     for (int i = 0; i < self.paintData.layers.count; ++i) {
-        NSNumber* num = [self.layerFramebuffers objectAtIndex:i];
-        GLuint layerFramebuffer = (GLuint)num.intValue;
-        [[REGLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:true];
+        RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[i];
+        [[REGLWrapper current] bindFramebufferOES: layerTexture.frameBuffer discardHint:false clear:true];
     }
     //	[[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer];
     //	glClear(GL_COLOR_BUFFER_BIT);
     
 	// Clear the buffer
-	[[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
     [self _updateRender];
 }
@@ -2383,13 +2239,9 @@
     [self.paintData.layers removeObject:layer];
     [self.paintData.layers insertObject:layer atIndex:toIndex];
     
-    NSNumber *numFramebuffer = [self.layerFramebuffers objectAtIndex:fromIndex];
-    [self.layerFramebuffers removeObject:numFramebuffer];
-    [self.layerFramebuffers insertObject:numFramebuffer atIndex:toIndex];
-
-    NSNumber *numTex = [self.layerTextures objectAtIndex:fromIndex];
-    [self.layerTextures removeObject:numTex];
-    [self.layerTextures insertObject:numTex atIndex:toIndex];
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[fromIndex];
+    [self.layerTextures removeObject:layerTexture];
+    [self.layerTextures insertObject:layerTexture atIndex:toIndex];
     
     if (self.curLayerIndex < toIndex) {
     }
@@ -2417,14 +2269,10 @@
     [self.paintData.layers insertObject:layer atIndex:toIndex+1];
     [self.paintData.layers removeObjectAtIndex:fromIndex];
     
-    NSNumber* num = [self.layerFramebuffers objectAtIndex:fromIndex];
-    [self.layerFramebuffers insertObject:num atIndex:toIndex+1];
-    [self.layerFramebuffers removeObjectAtIndex:fromIndex];
-
-    NSNumber* numTex = [self.layerTextures objectAtIndex:fromIndex];
-    [self.layerTextures insertObject:numTex atIndex:toIndex+1];
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[fromIndex];
+    [self.layerTextures insertObject:layerTexture atIndex:toIndex+1];
     [self.layerTextures removeObjectAtIndex:fromIndex];
-
+    
     if (self.curLayerIndex < fromIndex) {
     }
     else if(self.curLayerIndex == fromIndex){
@@ -2481,32 +2329,18 @@
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
 //        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f Current Painted!", index, _curPaintedLayerTexture, layer.blendMode, layer.opacity);
-        [self drawLayerWithTex:_curPaintedLayerTexture blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+        [self drawLayerWithTex:self.curPaintedLayerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
     else{
-        NSNumber* numTex= [self.layerTextures objectAtIndex:index];
+        RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index];
 //        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, numTex.intValue,  layer.blendMode, layer.opacity);
-        [self drawLayerWithTex:numTex.intValue blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+        [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
 #if DEBUG
     glPopGroupMarkerEXT();
 #endif
 }
 
-//- (void) drawBackgroundLayerWithRed:(GLfloat)red green:(GLfloat)green blue:(GLfloat)blue alpha:(GLfloat)alpha{
-//    GLuint program = _programBackgroundLayer;
-//    if (program != self.lastProgram) {
-//        glUseProgram(program);
-//        self.lastProgram = program;
-//    }
-//    
-//    glUniform4f(_colorQuadUniform, red, green, blue, alpha);
-//    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-//
-//    [[REGLWrapper current] bindVertexArrayOES: _vertexArrayQuad);
-//    
-//    glDrawArrays(GL_TRIANGLES, 0, 6);
-//}
 
 //混合当前图层和下个图层
 - (void) drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
@@ -2626,9 +2460,8 @@
     //仅绘制当前图层和下层图层
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
-    NSNumber* num = [self.layerFramebuffers objectAtIndex:index - 1];
-    GLuint layerFramebuffer = (GLuint)num.intValue;
-    [[REGLWrapper current] bindFramebufferOES: layerFramebuffer discardHint:false clear:false];
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index - 1];
+    [[REGLWrapper current] bindFramebufferOES: layerTexture.frameBuffer discardHint:false clear:false];
     
     //合成图层(暂时不考虑混合模式)
     [self drawPaintLayerAtIndex:index];
@@ -2647,10 +2480,8 @@
     CGFloat minY = CGFLOAT_MAX;
     CGFloat maxY = CGFLOAT_MIN;
     
-    NSNumber *num = [self.layerFramebuffers objectAtIndex:self.curLayerIndex];
-    GLuint curLayerFBO = num.intValue;
-
-    [[REGLWrapper current] bindFramebufferOES: curLayerFBO discardHint:false clear:false];
+    RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[self.curLayerIndex];
+    [[REGLWrapper current] bindFramebufferOES: layerTexture.frameBuffer discardHint:false clear:false];
     
     NSInteger w = (NSInteger)self.bounds.size.width;
     NSInteger h = (NSInteger)self.bounds.size.height;
@@ -2800,13 +2631,12 @@
 - (void)beforeTransformImage:(UIImage*)uiImage{
     _state = PaintingView_TouchTransformImage;
     
-    GLKTextureInfo* texInfo = [RETextureManager textureInfoFromUIImage:uiImage];
-    _toTransformImageTex = texInfo.name;
+    self.toTransformImageTex = [RETexture textureFromUIImage:uiImage name:nil];
     
-    float widthScale = (float)texInfo.width / (float)self.bounds.size.width;
+    float widthScale = (float)self.toTransformImageTex.width / (float)self.bounds.size.width;
     //如果图片尺寸大于屏幕尺寸，适配到屏幕大小
     widthScale = MIN(widthScale, 1);
-    float heightScale = widthScale * ((float)texInfo.height / (float)texInfo.width);
+    float heightScale = widthScale * ((float)self.toTransformImageTex.height / (float)self.toTransformImageTex.width);
     
 //    DebugLog(@"width %d height %d", texInfo.width, texInfo.height);
 //    DebugLog(@"widthScale %.1f heightScale %.1f", widthScale, heightScale);
@@ -2818,7 +2648,7 @@
     _anchorInverseTranslate = CGPointZero;
     
     //将导入的图片作为绘制来描画
-    [self drawImageTransformedStart:_toTransformImageTex];
+    [self drawImageTransformedStart:self.toTransformImageTex.texID];
     
     [self resetUndoRedo];
 }
@@ -2835,7 +2665,7 @@
     _anchorTranslate = CGPointZero;
     _anchorInverseTranslate = CGPointZero;
     
-    _toTransformImageTex = _curLayerTexture;
+    _toTransformImageTex = self.curLayerTexture;
     
     //将当前图层作为绘制来描画
     [self drawCurLayerTransformed];
@@ -2891,9 +2721,9 @@
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
     _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
     
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
-    [self drawQuad:_VAOQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:_curLayerTexture];
+    [self drawQuad:_VAOQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:self.curLayerTexture.texID];
 
     //更新渲染
     [self _updateRender];
@@ -2927,7 +2757,7 @@
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
     _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
     
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
     [self drawQuad:_VAOScreenQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:texture];
     
@@ -2951,7 +2781,7 @@
         [self drawCurLayerTransformed];
     }
     else if (_state == PaintingView_TouchTransformImage) {
-        [self drawImageTransformed:_toTransformImageTex];
+        [self drawImageTransformed:self.toTransformImageTex.texID];
     }
     
     TransformInfo transformInfo;
@@ -2971,7 +2801,7 @@
         [self drawCurLayerTransformed];
     }
     else{
-        [self drawImageTransformed:_toTransformImageTex];        
+        [self drawImageTransformed:self.toTransformImageTex.texID];
     }
 }
 
@@ -2984,7 +2814,7 @@
         [self drawCurLayerTransformed];
     }
     else{
-        [self drawImageTransformed:_toTransformImageTex];
+        [self drawImageTransformed:self.toTransformImageTex.texID];
     }
 }
 
@@ -2997,7 +2827,7 @@
         [self drawCurLayerTransformed];
     }
     else{
-        [self drawImageTransformed:_toTransformImageTex];
+        [self drawImageTransformed:self.toTransformImageTex.texID];
     }
 }
 
@@ -3005,9 +2835,9 @@
 - (void)cancelInsertUIImageAtCurLayer{
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
-    [self drawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
+    [self drawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
     //    [self copyTempLayerToCurLayer];
     //更新渲染
@@ -3038,6 +2868,130 @@
     return anchor;
 }
 
+#pragma mark- TransferReversePaint
+- (void)transferReversePaint{
+    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    //创建资源
+    [self createReversePaintResource];
+    
+    //交换图片原数据
+    ADPaintData *data = [self.reversePaintDocSrc open];
+    ADPaintData *reversePaintData = self.paintData;
+    self.paintData = data;
+    
+    //覆盖原数据
+    [self deleteLayerRenderTextures];
+    [self createLayerRenderTextures];
+    [self setCurLayerIndex:self.paintData.layers.count - 1];
+    
+    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"temp" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    //插入反向绘制的RenderTexture
+    NSUInteger srcLayerCount = self.paintData.layers.count;
+    for (ADPaintLayer *layer in reversePaintData.layers) {
+#if DEBUG
+        glPushGroupMarkerEXT(0, "layer temp renderTexture");
+#endif
+        RETexture* texture = [RETexture textureFromData:layer.data name:@"reversePaintTex"];
+        //创建一个临时renderTexture, 更改viewport后，将texture描画到临时renderTexture上，reflectionTex使用临时rt
+        CGFloat scale = self.contentScaleFactor;
+        CGFloat heightScale = (self.bounds.size.height + ToSeeCylinderTopPixelOffset) / self.bounds.size.height;
+        CGFloat height = self.bounds.size.height / heightScale;
+        CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale * scale;
+        glViewport(0, offsetY, self.bounds.size.height * scale, height * scale);
+        
+        [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
+        [self drawQuad:_VAOScreenQuad texture2D:texture.texID premultiplied:true alpha:1.0];
+        
+        self.cylinderImage.reflectionTex = tempRT;
+        [self.reversePaintCamera render];
+#if DEBUG
+        glPopGroupMarkerEXT();
+#endif
+        glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
+        [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];
+        layer.dirty = true;
+        [self.paintData.layers insertObject:layer atIndex:self.paintData.layers.count];
+    }
+
+    [[REGLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:true clear:false];
+    
+    //绘制背景层
+    [self drawBackgroundLayer];
+    
+    //合成图层(用于截图)
+    for (int i = 0; i < self.paintData.layers.count; ++i) {
+        ADPaintLayer* layer = self.paintData.layers[i];
+        //隐藏层不绘制
+        if(!layer.visible) return;
+        RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[i];
+        [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+    }
+    
+    //绘制完成上传数据
+    [self copyCurLayerToCurPaintedLayer];
+    for (int i =srcLayerCount; i < self.paintData.layers.count; ++i) {
+        ADPaintLayer* layer = [self.paintData.layers objectAtIndex:i];
+        if (layer.dirty == true) {
+            [self uploadLayerDataAtIndex:i];
+            layer.dirty = false;
+        }
+    }
+    
+    self.reversePaintDocSrc.data = self.paintData;
+    
+    //删除资源
+    [self destroyReversePaintResource];
+    
+    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
+
+- (void)createReversePaintResource{
+    ADShaderCylinderImage *shaderCylinderImage = (ADShaderCylinderImage *)[[REGLWrapper current]createShader:@"ADShaderCylinderImage"];
+    REMaterial *matCylinderImage = [[REMaterial alloc]initWithShader:shaderCylinderImage];
+    matCylinderImage.faceMode = RE_BackFace;
+    
+    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:1 column:1];
+    [planeMesh create];
+    REMeshFilter *meshFilter = [[REMeshFilter alloc]initWithMesh:planeMesh];
+    REMeshRenderer *meshRenderer = [[REMeshRenderer alloc]initWithMeshFilter:meshFilter];
+    meshRenderer.sharedMaterial = matCylinderImage;
+    
+    ADCylinderImage *cylinderImage = [[ADCylinderImage alloc]init];
+    self.cylinderImage = cylinderImage;
+    cylinderImage.name = @"cylinderImage";
+    cylinderImage.renderer = meshRenderer;
+    cylinderImage.radius = self.reversePaintData.radius;
+    cylinderImage.eye = self.reversePaintData.eye;
+    cylinderImage.imageWidth = self.reversePaintData.imageWidth;
+    cylinderImage.imageCenterOnSurfHeight = self.reversePaintData.imageCenterOnSurfHeight;
+    cylinderImage.imageRatio = self.reversePaintData.imageRatio;
+    cylinderImage.reflectionTexUVSpace = self.reversePaintData.reflectionTexUVSpace;
+    cylinderImage.layerMask = Culling_CylinderImage;
+    meshRenderer.delegate = cylinderImage;
+    [cylinderImage update];
+    
+    //add virtual camera to render cylinderImage
+    RECamera *camera = [[RECamera alloc]init];
+    self.reversePaintCamera = camera;
+    camera.name = @"reversePaintCamera";
+    RERenderTexture *renderTex = [RERenderTexture textureWithName:@"cylinderImageCameraTex" width:1024 height:1024 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    camera.targetTexture = renderTex;
+    camera.cullingMask = Culling_CylinderImage;
+    [camera.cullingEntities addObject:cylinderImage];
+}
+
+- (RETexture*)createReversePaintTextureFromLayer:(ADPaintLayer*)layer{
+
+}
+
+- (void)destroyReversePaintResource{
+    [self.cylinderImage destroy];
+    self.cylinderImage = nil;
+    
+    [self.reversePaintCamera destroy];
+    self.reversePaintCamera = nil;
+    
+}
 
 #pragma mark- Opengl Draw Tools
 
@@ -3197,7 +3151,7 @@
 - (UIImage*)snapshotPaintToUIImage
 {
 	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:false clear:false];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:false];
     UIImage *image = [ADUltility snapshot:self Context:[REGLWrapper current].context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
 
     return image;
@@ -3213,125 +3167,7 @@
 }
 
 
-//-(GLuint) createBrushWithImage: (NSString*)brushName
-//{
-//    
-//    GLuint          brushTexture = 0;
-//    CGImageRef      brushImage;
-//    CGContextRef    brushContext;
-//    GLubyte         *brushData;
-//    size_t          width, height;
-//    
-//    //initialize brush image
-//    brushImage = [UIImage imageNamed:brushName].CGImage;
-//    
-//    // Get the width and height of the image
-//    width = CGImageGetWidth(brushImage);
-//    height = CGImageGetHeight(brushImage);
-//    
-//    //make the brush texture and context
-//    if(brushImage) {
-//        // Allocate  memory needed for the bitmap context
-//        brushData = (GLubyte *) calloc(width * height, sizeof(GLubyte));
-//        // We are going to use brushData1 to make the final texture
-////        brushData1 = (GLubyte *) calloc(width * height *4, sizeof(GLubyte));
-//        // Use  the bitmatp creation function provided by the Core Graphics framework. 
-//        
-//        CGColorSpaceRef brushColorSpace = CGColorSpaceCreateDeviceGray();
-//        brushContext = CGBitmapContextCreate(brushData, width, height, 8, width , brushColorSpace, kCGImageAlphaOnly);
-//        CGColorSpaceRelease(brushColorSpace);
-//        // After you create the context, you can draw the  image to the context.
-//        CGContextDrawImage(brushContext, CGRectMake(0.0f, 0.0f, (CGFloat)width, (CGFloat)height), brushImage);
-//        // You don't need the context at this point, so you need to release it to avoid memory leaks.
-//        CGContextRelease(brushContext);
-//        
-//        // Use OpenGL ES to generate a name for the texture.
-//        glGenTextures(1, &brushTexture);
-//        // Bind the texture name. 
-//        [REGLWrapper current] bindTexture:brushTexture);
-//        // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
-//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//        // Specify a 2D texture image, providing the a pointer to the image data in memory
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, width, height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, brushData);
-//        // Release  the image data; it's no longer needed
-//        free(brushData);
-//    }
-//    return brushTexture;
-//}
-
 #pragma mark- Shader
-//- (GLuint)loadShaderBackgroundLayer{
-//    GLuint program, vertShader, fragShader;
-//    NSString *vertShaderPathname, *fragShaderPathname;
-//    
-//    // Create shader program.
-//    program = glCreateProgram();
-//    
-//    // Create and compile vertex shader.
-//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-//    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Create and compile fragment shader.
-//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBackgroundLayer" ofType:@"fsh"];
-//    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Attach vertex shader to program.
-//    glAttachShader(program, vertShader);
-//    
-//    // Attach fragment shader to program.
-//    glAttachShader(program, fragShader);
-//    
-//    // Bind attribute locations.
-//    // This needs to be done prior to linking.
-//    glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
-//    // Link program.
-//    if (![[REGLWrapper current] linkProgram:program]) {
-//        DebugLog(@"Failed to link program: %d", program);
-//        
-//        if (vertShader) {
-//            glDeleteShader(vertShader);
-//            vertShader = 0;
-//        }
-//        if (fragShader) {
-//            glDeleteShader(fragShader);
-//            fragShader = 0;
-//        }
-//        if (program) {
-//            glDeleteProgram(program);
-//            program = 0;
-//        }
-//        
-//        return NO;
-//    }
-//    
-//    // Get uniform locations.
-//    _colorQuadUniform = glGetUniformLocation(program, "color");
-//    _tranformImageMatrixUniform = glGetUniformLocation(program, "transformMatrix");
-//    
-//    // Release vertex and fragment shaders.
-//    if (vertShader) {
-//        glDetachShader(program, vertShader);
-//        glDeleteShader(vertShader);
-//    }
-//    if (fragShader) {
-//        glDetachShader(program, fragShader);
-//        glDeleteShader(fragShader);
-//    }
-//    
-//    NSString* programLabel = [NSString stringWithFormat:@"programBackgroundLayer"];
-//#if DEBUG
-//    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
-//#endif
-//    return program;
-//}
-
-
 - (GLuint)loadShaderPaintLayer:(NSString*)fragShaderName{
     GLuint program, vertShader, fragShader;
     NSString *vertShaderPathname, *fragShaderPathname;

@@ -262,7 +262,11 @@ static ADUltility* sharedInstance = nil;
         // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
         // Set the scale parameter to your OpenGL ES view's contentScaleFactor
         // so that you get a high-resolution snapshot when its value is greater than 1.0
-        CGFloat scale = eaglview.contentScaleFactor;
+        CGFloat scale = 1.0;
+        if (eaglview) {
+            scale = eaglview.contentScaleFactor;
+        }
+
 //        widthInPoints = width / scale;
 //        heightInPoints = height / scale;
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(outputSize.width, outputSize.height), NO, scale);
@@ -294,6 +298,7 @@ static ADUltility* sharedInstance = nil;
     
     return image;
 }
+
 
 + (UIImage*) maskImage:(UIImage *)image withMask:(UIImage *)maskImage {
     

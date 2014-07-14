@@ -175,7 +175,7 @@ static inline CGFloat funcQuadOut(CGFloat ft, CGFloat f0, CGFloat f1) {
         
         // Calculate proportion of time through animation, and the corresponding position given the timing function
         CGFloat time = (now - (animation.startTime+animation.startDelay)) / animation.duration;
-        if ((animation.timing & TPPropertyAnimationOptionRepeat) == TPPropertyAnimationOptionRepeat) {
+        if ((animation.timing & REPropertyAnimationOptionRepeat) == REPropertyAnimationOptionRepeat) {
             time = fmodf(now - (animation.startTime+animation.startDelay), animation.duration);
             time /= animation.duration;
         }

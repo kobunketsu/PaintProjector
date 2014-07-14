@@ -44,6 +44,7 @@
         _shaderCaches = [[NSMutableDictionary alloc]init];
         _activeSlotTex = [[NSMutableDictionary alloc]init];
         _context = [self createBestEAGLContext];
+        _lastFadeMode = RE_FrontFace;
         [EAGLContext setCurrentContext:_context];
     }
     return self;
@@ -294,6 +295,27 @@
         default:
             break;
     }
+}
+
+- (void)setFaceMode:(REFaceMode)faceMode{
+    if (self.lastFadeMode == faceMode) {
+        return;
+    }
+    self.lastFadeMode = faceMode;
+    
+    switch (faceMode) {
+        case RE_FrontFace:{
+            glFrontFace(GL_CCW);
+            break;
+        }
+        case RE_BackFace:{
+            glFrontFace(GL_CW);
+            break;
+        }
+        default:
+            break;
+    }
+
 }
 
 #pragma mark- compile shader

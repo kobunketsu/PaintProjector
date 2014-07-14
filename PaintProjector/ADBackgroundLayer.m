@@ -13,8 +13,8 @@
 -(id)init{
     if ((self = [super init])) {
         _clearColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-        _visible = true;
-        _dirty = true;
+        self.visible = true;
+        self.dirty = true;
         [self addObserver:self forKeyPath:@"clearColor" options:NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"visible" options:NSKeyValueObservingOptionOld context:nil];
         return self;
@@ -29,8 +29,8 @@
 -(id)initWithClearColor:(UIColor*)clearColor visible:(BOOL)visible{
     if ((self = [super init])) {
         _clearColor = clearColor;
-        _visible = visible;
-        _dirty = true;
+        self.visible = visible;
+        self.dirty = true;
         [self addObserver:self forKeyPath:@"clearColor" options:NSKeyValueObservingOptionOld context:nil];
         [self addObserver:self forKeyPath:@"visible" options:NSKeyValueObservingOptionOld context:nil];
         return self;
@@ -53,10 +53,8 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone{
-    ADBackgroundLayer *layer = [[ADBackgroundLayer alloc] init];
-    layer.visible = self.visible;
+    ADBackgroundLayer *layer = (ADBackgroundLayer *)[super copyWithZone:zone];
     layer.clearColor = [self.clearColor copy];
-    layer.dirty = self.dirty;
     return layer;
 }
 

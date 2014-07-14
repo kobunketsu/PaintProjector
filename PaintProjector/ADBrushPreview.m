@@ -53,11 +53,11 @@
 
 - (void)tearDownGL{
     DebugLogFuncStart(@"tearDownGL");
-    [self deleteLayerFramebufferTexture];
+    [self deleteLayerRenderTexture];
     
-    [self deleteTempLayerFramebufferTexture];
+    [self deleteTempLayerRenderTexture];
     
-    [self deleteBrushFramebuffer];
+    [self deleteBrushRenderTexture];
     
     [self deletePreviewFramebuffer];
     
@@ -68,11 +68,11 @@
     DebugLogFuncStart(@"setupGL");
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
 
-    [self createLayerFramebufferTexture];
+    [self createLayerRenderTexture];
     
-    [self createTempLayerFramebufferTexture];
+    [self createTempLayerRenderTexture];
     
-    [self createBrushFramebuffer];
+    [self createBrushRenderTexture];
     
     [self createPreviewFramebuffer];
     
@@ -133,143 +133,46 @@
 	return YES;
 }
 
-- (void)deleteBrushFramebuffer{
-
-    [[REGLWrapper current] deleteFramebufferOES:_brushFramebuffer];
-    
-    [[REGLWrapper current] deleteTexture:_brushTexture];
+- (void)deleteBrushRenderTexture{
+    DebugLogFuncStart(@"deleteBrushFramebufferTexture");
+    [self.brushTexture destroy];
+    self.brushTexture = nil;
 }
 
-- (BOOL)createBrushFramebuffer{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "createBrushFramebuffer");
-#endif
+- (BOOL)createBrushRenderTexture{
     
-    //创建frame buffer
-    if (_brushFramebuffer==0) {
-        glGenFramebuffersOES(1, &_brushFramebuffer);
-    }
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _brushFramebuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _brushFramebuffer, 0, [@"brushPreviewBrushFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    if (_brushTexture==0) {
-        glGenTextures(1, &_brushTexture);
-    }
-    glBindTexture(GL_TEXTURE_2D, _brushTexture);
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _brushTexture, 0, [@"brushPreviewBrushTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  BrushPreview_Size, BrushPreview_Size, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);        
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _brushTexture, 0);
-    glBindTexture(GL_TEXTURE_2D,0);
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
+    DebugLogFuncStart(@"createBrushFramebufferTexture");
+    self.brushTexture = [RERenderTexture textureWithName:@"brushPreviewBrushTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
 	return YES;
 }
 
 //PaintLayer
-- (void)deleteLayerFramebufferTexture{
+- (void)deleteLayerRenderTexture{
     DebugLogFuncStart(@"deleteLayerFramebufferTexture");
-    [[REGLWrapper current] deleteFramebufferOES:_curLayerFramebuffer];
-    
-    [[REGLWrapper current] deleteTexture:_curLayerTexture];
+    [self.curLayerTexture destroy];
+    self.curLayerTexture = nil;
 }
 
-- (BOOL)createLayerFramebufferTexture{
+- (BOOL)createLayerRenderTexture{
     DebugLogFuncStart(@"createLayerFramebufferTexture");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "createLayerFramebufferTexture");
-#endif
-    //创建frame buffer
-    if (_curLayerFramebuffer==0) {
-        glGenFramebuffersOES(1, &_curLayerFramebuffer);
-    }
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _curLayerFramebuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _curLayerFramebuffer, 0, [@"brushPreviewLayerFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    if (_curLayerTexture==0) {
-        glGenTextures(1, &_curLayerTexture);
-    }
-    glBindTexture(GL_TEXTURE_2D, _curLayerTexture);
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _curLayerTexture, 0, [@"brushPreviewLayerTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  BrushPreview_Size, BrushPreview_Size, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-    //    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _curLayerTexture, 0);
-    glBindTexture(GL_TEXTURE_2D,0);
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    self.curLayerTexture = [RERenderTexture textureWithName:@"brushPreviewLayerTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    
 	return YES;
 }
 
 //TempLayer
-- (void)deleteTempLayerFramebufferTexture{
+- (void)deleteTempLayerRenderTexture{
     DebugLogFuncStart(@"deleteTempLayerFramebufferTexture");
-    [[REGLWrapper current] deleteFramebufferOES:_curPaintedLayerFramebuffer];
-    
-    [[REGLWrapper current] deleteTexture:_curPaintedLayerTexture];
+    [self.curPaintedLayerTexture destroy];
+    self.curPaintedLayerTexture = nil;
 }
 
-- (BOOL)createTempLayerFramebufferTexture{
+- (BOOL)createTempLayerRenderTexture{
     DebugLogFuncStart(@"createTempLayerFramebufferTexture");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "createTempLayerFramebufferTexture");
-#endif
-    //创建frame buffer
-    if (_curPaintedLayerFramebuffer==0) {
-        glGenFramebuffersOES(1, &_curPaintedLayerFramebuffer);
-    }
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _curPaintedLayerFramebuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _curPaintedLayerFramebuffer, 0, [@"brushPreviewPaintedLayerFramebuffer" UTF8String]);
-#endif
-    //链接renderBuffer对象
-    if (_curPaintedLayerTexture==0) {
-        glGenTextures(1, &_curPaintedLayerTexture);
-    }
-    glBindTexture(GL_TEXTURE_2D, _curPaintedLayerTexture);
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, _curPaintedLayerTexture, 0, [@"brushPreviewPaintedLayerTexture" UTF8String]);
-#endif
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  BrushPreview_Size, BrushPreview_Size, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glGenerateMipmapOES(GL_TEXTURE_2D);
-    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _curPaintedLayerTexture, 0);
-    glBindTexture(GL_TEXTURE_2D,0);
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-	{
-		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
-    
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    self.curPaintedLayerTexture = [RERenderTexture textureWithName:@"brushPreviewPaintedLayerTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+
 	return YES;
 }
 
@@ -309,9 +212,9 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "clear");
 #endif
-    [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
-    [[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
-    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES: self.brushTexture.frameBuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
+    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     [[REGLWrapper current] bindFramebufferOES: _framebuffer discardHint:true clear:true];
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
 #if DEBUG
@@ -331,7 +234,7 @@
         [self deleteTextureForSmudgeBrush];
         [self createTextureForSmudgeBrush];
         
-       [[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
+       [[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
         [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.texInfo.name];
         [self copyCurLayerToCurPaintedLayer];
         [self _updateRender];
@@ -465,9 +368,9 @@
 #if DEBUG
     glPushGroupMarkerEXT(0, "copyCurLayerToCurPaintedLayer");
 #endif
-	[[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:true];
+	[[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     
-    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:_curLayerTexture];
+    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
 #if DEBUG
     glPopGroupMarkerEXT();
@@ -476,9 +379,9 @@
 
 - (void)copyCurPaintedLayerToCurLayer{
     //    DebugLog(@"[ copyCurPaintedLayerToCurLayer ]");
-	[[REGLWrapper current] bindFramebufferOES: _curLayerFramebuffer discardHint:true clear:true];
+	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
     
-    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
+    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
 }
 
 #pragma mark- PaintCommand Delegate
@@ -501,7 +404,7 @@
     else{
         //在吸取屏幕颜色的brush吸取颜色之后，切换到brushFramebuffer
         //clear brushFramebuffer
-        [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:true];
+        [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:true];
     }
     
 #if DEBUG
@@ -565,7 +468,7 @@
     }
     else {
         //reserve brushFramebuffer
-        [[REGLWrapper current] bindFramebufferOES: _brushFramebuffer discardHint:true clear:false];
+        [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:false];
     }
     
 //    Brush *brush = self.brush;
@@ -623,7 +526,7 @@
         }
         else{
             //do not clear!
-            [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer discardHint:true clear:false];
+            [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:false];
         }
         
         //
@@ -633,7 +536,7 @@
         
         //TODO: screenQuad aspect is square ratio here!
 //        [self.delegate willDrawScreenQuadWithTexture2D:_brushTexture Alpha:brushState.opacity];
-        [self.delegate willDrawQuadBrush:brushState texture2D:_brushTexture alpha:brushState.opacity];
+        [self.delegate willDrawQuadBrush:brushState texture2D:self.brushTexture.texID alpha:brushState.opacity];
     }
     
     if (refresh) {
@@ -669,7 +572,7 @@
 //    glClearColor(0.0, 0.0, 0.0, 0.0);
     [[REGLWrapper current] bindFramebufferOES: _framebuffer discardHint:true clear:true];
     
-    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:_curPaintedLayerTexture];
+    [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
     
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
     DebugLog(@"-----------------------------------Frame End-----------------------------------");
@@ -682,7 +585,7 @@
 #pragma mark- Brush Delegate
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState*)brushState location:(CGPoint)point{
     //    DebugLog(@"willUpdateSmudgeTextureWithBrush location %@", NSStringFromCGPoint(point));
-    [self.delegate willPreviewUpdateSmudgeTextureWithBrushState:brushState location:point inRect:self.bounds ofFBO:self.curPaintedLayerFramebuffer ofTexture:self.curPaintedLayerTexture];
+    [self.delegate willPreviewUpdateSmudgeTextureWithBrushState:brushState location:point inRect:self.bounds ofFBO:self.curPaintedLayerTexture.frameBuffer ofTexture:self.curPaintedLayerTexture.texID];
 }
 
 

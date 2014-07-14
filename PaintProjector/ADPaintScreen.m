@@ -449,7 +449,7 @@
 
 -(void)applicationWillResignActive:(id)sender{
     DebugLogFuncStart(@"applicationWillResignActive");
-    [self saveDoc];
+    [self uploadAndSaveDoc];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
 }
@@ -2625,18 +2625,16 @@
     }
     
 }
-
-- (void)saveDoc{
-    DebugLogFuncStart(@"saveDoc");
+- (void)uploadAndSaveDoc{
     [self.paintView uploadLayerDatas];
-    
+    [self saveDoc];
+}
+- (void)saveDoc{
     //在paintView完成上传paintData后更新到paintDoc中，并保存paintDoc到磁盘
     //将当前PaintDoc文件保存到.psf
-//    DebugLog(@"self.paintDoc saveData");        
     [self.paintDoc save];
     
     //刷新预览文件
-//    DebugLog(@"self.paintDoc saveThumbImage");            
     [self.paintDoc saveThumbImage:[self.paintView snapshotScreenToUIImageOutputSize:CGSizeMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5)]];
     
     //保存workspace
@@ -2645,6 +2643,14 @@
 
 -(void)closeDoc{
 //    DebugLog(@"self.paintView close");
+    [self.paintView uploadLayerDatas];
+    
+    //反向绘制转换并合成paintDoc
+    if (self.isReversePaint) {
+        [self.paintView transferReversePaint];
+        self.paintDoc = self.paintView.reversePaintDocSrc;
+    }
+    [self saveDoc];
     
     //UI
     [self.paintView transformCanvasReset];
@@ -3977,7 +3983,6 @@
     //禁止所有屏幕上的操作
     [self lockInteraction:true];
     
-    [self saveDoc];
     [self closeDoc];
 }
 
@@ -4792,4 +4797,9 @@
     [step addToRootView:self.view];
 }
 
+#pragma mark- 测试
+- (void)willShowTestImage:(UIImage*)image{
+    self.testImageView.image = image;
+    
+}
 @end

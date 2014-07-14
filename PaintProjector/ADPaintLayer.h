@@ -38,10 +38,11 @@ typedef enum LayerBlendMode LayerBlendMode;
 @property (copy, nonatomic) NSString *identifier;
 @property (retain, nonatomic) NSData *data;
 @property (assign, nonatomic) LayerBlendMode blendMode;
-@property (assign, nonatomic) bool dirty;
 @property (assign, nonatomic) float opacity;
 @property (assign, nonatomic) bool opacityLock;
-@property (assign, nonatomic) bool visible;
+//@property (assign, nonatomic) bool dirty;
+//@property (assign, nonatomic) bool visible;
 - (id)initWithData:(NSData*)data name:(NSString *)name blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity;
 + (ADPaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent;
++ (ADPaintLayer*)createLayerFormUIImage:(UIImage*)image withSize:(CGSize)size transparent:(BOOL)transparent;
 @end

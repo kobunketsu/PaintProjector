@@ -34,8 +34,8 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone{
-    REMesh *mesh = [[[self class] allocWithZone:zone]init];
-    mesh.vertexAttr = self.vertexAttr;    
+    REMesh *mesh = (REMesh *)[super copyWithZone:zone];
+    mesh.vertexAttr = self.vertexAttr;
     mesh.triangles = [NSData dataWithBytes:self.triangles.bytes length:self.triangles.length];
     mesh.vertices = [NSData dataWithBytes:self.vertices.bytes length:self.vertices.length];
     mesh.vertexArray = self.vertexArray;

@@ -7,6 +7,7 @@
 //
 
 #import "RERenderTexture.h"
+#import "ADUltility.h"
 
 @interface RERenderTexture()
 {
@@ -15,12 +16,13 @@
 @end
 
 @implementation RERenderTexture
-+ (id)textureWithSize:(CGFloat)size mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
-    return [RERenderTexture textureWithWidth:size height:size mipmap:interpolationType wrapMode:wrapMode];
++ (id)textureWithName:(NSString *)name size:(CGFloat)size mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
+    return [RERenderTexture textureWithName:name width:size height:size mipmap:interpolationType wrapMode:wrapMode];
 }
 
-+ (id)textureWithWidth:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
++ (id)textureWithName:(NSString *)name width:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
     RERenderTexture *texture = [[RERenderTexture alloc]init];
+    texture.name = name;
     //使用双贴图方式在多次拷贝贴图时减少阻塞
     //创建frame buffer
     GLuint rt = 0;
@@ -84,5 +86,14 @@
     [super destroy];
 
     [[REGLWrapper current] deleteFramebufferOES:_frameBuffer];
+}
+
+- (UIImage*)snapshotImageToViewportSize:(CGSize)viewportSize
+{
+	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
+    [[REGLWrapper current] bindFramebufferOES:self.frameBuffer discardHint:false clear:false];
+    UIImage *image = [ADUltility snapshot:nil Context:[REGLWrapper current].context InViewportSize:CGSizeMake(self.width, self.height) ToOutputSize:viewportSize];
+    
+    return image;
 }
 @end

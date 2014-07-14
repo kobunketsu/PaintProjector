@@ -10,7 +10,7 @@
 #import "REMesh.h"
 
 @interface REMeshFilter : REComponent
-@property(weak, nonatomic) REMesh *mesh;
-@property(weak, nonatomic) REMesh *sharedMesh;
+@property(retain, nonatomic) REMesh *mesh;
+@property(retain, nonatomic) REMesh *sharedMesh;
 - (id)initWithMesh:(REMesh*)mesh;
 @end

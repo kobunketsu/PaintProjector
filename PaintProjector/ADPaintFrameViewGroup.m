@@ -12,7 +12,7 @@
 
 -(id) initWithCapacity:(int)capacity{
     self = [super init];
-    if(self!=NULL){
+    if(self){
         _paintDocs = [[NSMutableArray alloc]init];
     }
     return self;

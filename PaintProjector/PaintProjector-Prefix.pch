@@ -88,6 +88,8 @@
 #define PRODUCT_INFO_COMMUNITY @"http://115.28.22.180/anadraw/?page_id=45"
 
 #define TEST 0
+#define TestReversePaint 1
+
 #define UndoMaxCount 10
 //#define UndoImageSize 1024
 #define ARC4RANDOM_MAX      0x100000000
@@ -106,3 +108,10 @@ static bool IsOffsetEyeDropper = true;
 #define InchScale 3.28
 #define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define ToSeeCylinderTopPixelOffset 70
+#define ToSeeCylinderTopViewportPixelOffsetY -160
+#define TransitionToPaintPixelOffsetY -30.5
+//#define ToSeeCylinderTopPixelOffset 0
+//#define ToSeeCylinderTopViewportPixelOffsetY -90
+//#define TransitionToPaintPixelOffsetY -34

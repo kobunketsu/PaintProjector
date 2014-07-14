@@ -48,6 +48,9 @@
             glDepthMask(GL_TRUE);
         }
         
+        [[REGLWrapper current]setFaceMode:material.faceMode];
+        
+        //TODO: convert to REGLWrapper
         [material.shader setBlendMode];
         
 //        if (material.effect != nil) {
@@ -80,6 +83,7 @@
 
         offset += indiceCount;
         
+        //restore
         if (material.transparent) {
             glDepthMask(GL_TRUE);
         }

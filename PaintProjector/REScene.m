@@ -34,11 +34,23 @@
     if ([self.aEntities containsObject:entity]) {
         [self.aEntities removeObject:entity];
     }
+    for (RECamera *camera in self.aCameras) {
+        if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
+            if ([camera.cullingEntities containsObject:entity]) {
+                [camera.cullingEntities removeObject:entity];
+            }
+        }
+    }
 }
 
 - (void)removeCamera:(RECamera*)camera{
     if ([self.aCameras containsObject:camera]) {
         [self.aCameras removeObject:camera];
+    }
+    for (REEntity *entity in self.aEntities) {
+        if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
+            [camera.cullingEntities removeObject:entity];
+        }
     }
 }
 - (void)flushAll{
@@ -49,6 +61,18 @@
             if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
                 [camera.cullingEntities addObject:entity];
             }
+        }
+    }
+}
+
+- (void)insertCamera:(RECamera*)camera atIndex:(NSUInteger)index{
+    assert(index <= self.aCameras.count);
+    [self.aCameras insertObject:camera atIndex:index];
+    
+    [camera.cullingEntities removeAllObjects];
+    for (REEntity *entity in self.aEntities) {
+        if ((camera.cullingMask & entity.layerMask) == entity.layerMask) {
+            [camera.cullingEntities addObject:entity];
         }
     }
 }

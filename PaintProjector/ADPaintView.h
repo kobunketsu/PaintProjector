@@ -24,6 +24,7 @@
 @class ADPaintScreen;
 #import "ADPaintLayer.h"
 #import "ADPaintData.h"
+#import "ADPaintDoc.h"
 
 #import "ADCommandManager.h"
 #import "ADPaintCommand.h"
@@ -32,6 +33,8 @@
 
 #import "ADBrushPreview.h"
 
+#import "ADReversePaintInputData.h"
+#import "ADCylinderImage.h"
 #define DEBUG_VIEW_COLORALPHA 0
 
 typedef NS_ENUM(NSInteger, PaintingViewState) {
@@ -103,23 +106,8 @@ typedef struct {
 	GLuint _finalRenderbuffer;
 //	GLuint _depthRenderbuffer;
     
-   
-    //用于存储临时renderTexture, 用于和当前图层的Texture交换绘制
-    GLuint _curPaintedLayerFramebuffer;
-    GLuint _curPaintedLayerTexture;
-
     //当前图层索引号
     int _curLayerIndex;
-    GLuint _curLayerFramebuffer;
-    GLuint _curLayerTexture;
-    
-    //用于存储导入的图片
-//    GLKTextureInfo *_toTransformImageTex;
-    GLuint _toTransformImageTex;
-    
-    //存储当前笔刷的renderTexture
-    GLuint _brushFramebuffer;
-    GLuint _brushTexture;
     
     //绘制笔刷用的显卡数据
     GLuint _VAOBrush;
@@ -129,8 +117,8 @@ typedef struct {
 	size_t	_vertexBrushMaxCount;
 	size_t	_vertexBrushUndoMaxCount;
     
-    GLuint _undoBaseFramebuffer;
-    GLuint _undoBaseTexture;
+//    GLuint _undoBaseFramebuffer;
+//    GLuint _undoBaseTexture;
     
     GLuint _VBOQuad;
     GLuint _VAOQuad;
@@ -278,6 +266,12 @@ typedef struct {
 - (void)undoDraw;
 - (void)redoDraw;
 - (void)resetUndoRedo;
+#pragma mark 反向绘制图片ReversePaint
+@property(retain, nonatomic)ADReversePaintInputData *reversePaintData;
+@property(retain, nonatomic)ADCylinderImage *cylinderImage;
+@property(retain, nonatomic)RECamera *reversePaintCamera;
+@property(retain, nonatomic)ADPaintDoc *reversePaintDocSrc;
+- (void)transferReversePaint;
 #pragma mark 其他Misc
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
 //取色

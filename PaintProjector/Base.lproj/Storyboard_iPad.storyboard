@@ -1770,6 +1770,10 @@
                                 <rect key="frame" x="10" y="874" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="R3D-1T-r5K">
+                                <rect key="frame" x="192" y="256" width="384" height="512"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label="PaintScreen">
                             <bool key="isElement" value="YES"/>
@@ -1843,6 +1847,7 @@
                         <outlet property="tapGR1Touches2TapsRootCanvasView" destination="zQY-1r-Dfz" id="pHA-hT-goY"/>
                         <outlet property="tapGR2Touches2TapsRootCanvasView" destination="btS-GN-p3J" id="0GF-dZ-8IA"/>
                         <outlet property="tapGR3Touches1TapsRootCanvasView" destination="UHa-tB-uQ7" id="kLU-b9-dTb"/>
+                        <outlet property="testImageView" destination="R3D-1T-r5K" id="KO5-s4-OSP"/>
                         <outlet property="transformButton" destination="PEc-2b-GNU" id="diM-MJ-Bso"/>
                         <outlet property="undoButton" destination="1Zl-fu-rHb" id="BEb-Jb-N4N"/>
                         <outlet property="zoomCanvasLabel" destination="eKm-9L-VCE" id="csz-HI-C3g"/>

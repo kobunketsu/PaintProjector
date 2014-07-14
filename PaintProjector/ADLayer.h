@@ -12,5 +12,7 @@
 {
     
 }
-
+@property (assign, nonatomic) bool dirty;
+@property (assign, nonatomic) bool visible;
+- (id)copyWithZone:(NSZone *)zone;
 @end

@@ -13,11 +13,14 @@
 //#import "BaseEffect.h"
 #import "RETexture.h"
 
+
+
 @interface REMaterial : REObject
 @property (weak, nonatomic) REShader *shader;
 //@property (weak, nonatomic) BaseEffect *effect;
 @property (weak, nonatomic) RETexture *mainTexture;
 @property (assign, nonatomic) BOOL transparent;
+@property (assign, nonatomic) REFaceMode faceMode;
 
 -(id)initWithShader:(REShader *)shader;
 

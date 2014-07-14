@@ -303,9 +303,11 @@ ADBackgroundLayerDelegate
 - (IBAction)customLayerButtonTouchDown:(ADAutoRotateButton *)sender;
 
 #pragma mark- 
+@property (assign, nonatomic)BOOL isReversePaint;
 - (void)prepareForPresentation;
 - (void)afterPresentation;
 - (void)openDoc:(ADPaintDoc*)paintDoc;
-#pragma test
+#pragma mark- 测试Test
+@property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 
 @end
