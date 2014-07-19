@@ -27,6 +27,7 @@
 - (void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
     [self.brushPreview tearDownGL];
+    [self.delegate willSetLastBrushState:self.brushPreview.lastBrushState];
 }
 
 - (void)initPatternTexture{
@@ -53,7 +54,8 @@
     
     //brushPreview
     self.brushPreview.delegate = self.brushPreviewDelegate;
-
+    self.brushPreview.lastBrushState = [self.brushPreview.delegate willGetLastBrushState];
+    
     [self.brushPreview setupGL];
     
     [self.brushPreview createStroke:self.brush];

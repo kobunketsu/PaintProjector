@@ -10,7 +10,7 @@
 #import <Social/Social.h>
 //#import <Dropbox/Dropbox.h>
 #import <DBChooser/DBChooser.h>
-#import "ADIAPManager.h"
+#import "ADSimpleIAPManager.h"
 //File
 #import "ADPaintFrameManager.h"
 #import "ADPaintDoc.h"
@@ -29,7 +29,7 @@
 #import "ADPaintUIKitAnimation.h"
 #import "ADPaintUIKitStyle.h"
 #import "ADSimpleTutorialManager.h"
-
+#import "ADBrushManager.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -137,6 +137,7 @@
         return;
     }
 
+    //卸载不用的paintDoc占用内存
     [ADPaintFrameManager unloadPaintDocs];
     
     [self.paintView initGL];
@@ -146,24 +147,19 @@
     
     //指定当前笔刷
     self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
-    NSNumber *num = [[NSUserDefaults standardUserDefaults] valueForKey:@"BrushId"];
-    NSInteger brushId = -1;
-    if (!num) {
-        brushId = 0;//pencil
-    }
-    else{
-        brushId = num.integerValue;
-    }
+    NSInteger brushId = [[NSUserDefaults standardUserDefaults] integerForKey:@"BrushId"];
     ADBrush *brush = self.brushTypeScrollView.brushTypes[brushId];
     ADBrush *brushCopy = [brush copy];
     [self.paintView setBrush:brushCopy];
     
     ADBrush *eraser = self.brushTypeScrollView.brushTypes[1];
     self.brushBackButton.brush = [eraser copy];
+    
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
     [self tutorialStartFromStepName:@"PaintScreenTutorialDone"];
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"viewWillDisappear");
@@ -272,6 +268,8 @@
     //主要工具
 
     //初始化各种笔刷
+    [ADBrushManager initialize];
+    
     ADPencil *pencil = [[ADPencil alloc]initWithPaintView:self.paintView];
     
     ADEraser *eraser = [[ADEraser alloc]initWithPaintView:self.paintView];
@@ -429,7 +427,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-
+    
+    [ADBrushManager destroy];
+    
 }
 
 -(void)didReceiveMemoryWarning{
@@ -2329,7 +2329,7 @@
 
 - (IBAction)swatchManagerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"swatchManagerButtonTouchUp" identifier:sender];
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:@"ExpandedSwatchManagerAvailable"]) {
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ExpandedSwatchManagerAvailable"]) {
         //调色板管理功能可用
         self.swatchManagerVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"SwatchManagerViewController"];
         self.swatchManagerVC.delegate = self;
@@ -2337,7 +2337,7 @@
         }];
     }
     else{
-        [self openIAPWithProductFeatureIndex:6];
+        [self openIAPWithProductFeatureIndex:7];
 //        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
 //        alertView.tag = 1;
 //        [alertView show];
@@ -2569,7 +2569,7 @@
     if (!brush.available) {
         [self willSelectBrushCanceled:sender];
         
-        [self openIAPWithProductFeatureIndex:brush.iapBrushId];
+        [self openIAPWithProductFeatureIndex:brush.iapProductFeatureId];
         
         return;
     }
@@ -2657,11 +2657,13 @@
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
         //    DebugLog(@"delegate closePaintDoc");
-        [self.delegate closePaintDoc:self.paintDoc completionBlock:^{
-            //恢复之前禁止的功能
+        [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
+        [self dismissViewControllerAnimated:true completion:^{
             [self.paintDoc close];
             [self lockInteraction:false];
+            [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
         }];
+
     }];
 }
 
@@ -2722,8 +2724,7 @@
     [self saveUserSwatch];
     
     //保存当前笔刷
-    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:self.paintView.brush.brushState.classId] forKey:@"BrushId"];
-    
+    [[NSUserDefaults standardUserDefaults] setInteger:self.paintView.brush.brushState.classId forKey:@"BrushId"];
 }
 
 //TODO:实现代理
@@ -4617,14 +4618,14 @@
 //- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
 //    return UIInterfaceOrientationPortrait;
 //}
-#pragma mark-IAP
+#pragma mark- 内购 IAP
 - (void)openIAPWithProductFeatureIndex:(NSInteger)index{
     DebugLogFuncStart(@"openIAPWithProductFeatureIndex %d",index);
     [RemoteLog logAction:[NSString stringWithFormat:@"openIAPWithProductFeatureIndex %d",index] identifier:nil];
     self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
     self.iapVC.brushPreviewDelegate = self.paintView;
-    self.iapVC.iapProductProPackageFeatureIndex = index;
+    self.iapVC.iapProPackageFeature = (IAPProPackageFeature)index;
 
     [self presentViewController:self.iapVC animated:true completion:^{
 //        DebugLog(@"presentViewController:self.iapVC completed");
@@ -4665,35 +4666,65 @@
         
         //切换到原来的renderbuffer
         [self.paintView prepareDrawEnv];
+        
+        //如果是反向绘制，退出到cylinderProject的sideView
+        if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+                
+                [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintView.reversePaintDocSrc];
+                [self dismissViewControllerAnimated:true completion:^{
+                    [self.paintDoc close];
+                    [self lockInteraction:false];
+                    [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintView.reversePaintDocSrc];
+                }];
+            }];
+        }
     }];
 }
 
-- (ADBrush*)willIAPGetBrushById:(NSInteger)brushId{
-    DebugLogFuncStart(@"willIAPGetBrushById %d", brushId);
+- (ADBrush*)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
+    DebugLogFuncStart(@"willGetBrushByIAPFeatureIndex %d", feature);
     //创建一个全新的笔刷，然后在关闭IAP使用后释放掉
     ADBrush *brush = nil;
-    if (brushId == 0) {
+    if (feature == Pro_Crayons) {
         brush = [[ADCrayons alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 6;
         brush.brushState.color = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
+        brush.name = @"brushPreviewCrayons";
+
     }
-    else if (brushId == 1) {
+    else if (feature == Pro_Finger) {
         brush = [[ADFinger alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 7;
         brush.brushState.color = [UIColor colorWithRed:248.0/255.0 green:163.0 / 255.0 blue:138.0 / 255.0 alpha:1];
+        brush.name = @"brushPreviewFinger";
     }
-    else if (brushId == 2) {
+    else if (feature == Pro_MarkerSquare) {
         brush = [[ADMarkerSquare alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 8;
         brush.brushState.color = [UIColor colorWithRed:216.0/255.0 green:255.0 / 255.0 blue:56.0 / 255.0 alpha:1];
+        brush.name = @"brushPreviewMarkerSquare";
     }
-    else if (brushId == 3) {
+    else if (feature == Pro_AirBrush) {
         brush = [[ADAirBrush alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 9;
+        brush.name = @"brushPreviewAirBrush";
     }
-    else if (brushId == 4) {
+    else if (feature == Pro_ChineseBrush) {
         brush = [[ADChineseBrush alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 10;
         brush.brushState.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        brush.name = @"brushPreviewChineseBrush";
     }
-    else if (brushId == 5) {
+    else if (feature == Pro_OilBrush) {
         brush = [[ADOilBrush alloc]initWithPaintView:self.paintView];
+        brush.brushState.classId = 11;
         brush.brushState.color = [UIColor colorWithRed:255.0/255.0 green:216.0 / 255.0 blue:120.0 / 255.0 alpha:1];
+        brush.name = @"brushPreviewOilBrush";
+    }
+    else{
+        return nil;
     }
 
     //will duplicate brush shader

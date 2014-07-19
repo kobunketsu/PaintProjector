@@ -115,7 +115,8 @@ typedef NS_ENUM(NSInteger, ScaleMode) {
 
 @protocol ADPaintScreenDelegate
 - (EAGLContext*) createEAGleContextWithShareGroup;
-- (void) closePaintDoc:(ADPaintDoc*)paintDoc completionBlock:(void (^) (void)) block;
+- (void) willPaintScreenDissmissWithPaintDoc:(ADPaintDoc*)paintDoc;
+- (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc*)paintDoc;
 //- (void) paintBGChanged:(NSString*)bgImageName;
 //- (void) stopDetectCameraMotion;
 
@@ -307,6 +308,7 @@ ADBackgroundLayerDelegate
 - (void)prepareForPresentation;
 - (void)afterPresentation;
 - (void)openDoc:(ADPaintDoc*)paintDoc;
+- (void)openIAPWithProductFeatureIndex:(NSInteger)index;
 #pragma mark- 测试Test
 @property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 

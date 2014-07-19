@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import <DBChooser/DBChooser.h>
-#import "ADIAPManager.h"
+#import "ADSimpleIAPManager.h"
 #import "BBXBeeblex.h"
 #import "iRate.h"
 
@@ -45,14 +45,15 @@
 //    [[DBAccountManager alloc] initWithAppKey:@"08yvvqxgb9k6jbl" secret:@"8sdk2e91z8nv2vy"];
 //    [DBAccountManager setSharedManager:accountMgr];
 //
-
 #if DEBUG
     //设置用户参数
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+    
 //    [self initTutorial];
 #else
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
@@ -69,18 +70,24 @@
 
         //设置用户参数
         [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
-        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialFinished"];
+
+    }
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialFinished"]) {
 //      這裡判斷是否第一次,初始化教程
         [self initTutorial];
     }
 #endif
+
+
     
     //初始化IAP商店
-    [[ADIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
-
+    [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
 
     return YES;
 }
@@ -397,6 +404,8 @@
 
 - (void)willTutorialEnd:(ADTutorial *)tutorial{
     if ([tutorial.name isEqualToString:@"TutorialMain"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialFinished"];
+        
         [ADSimpleTutorialManager destroy];
     }
 }

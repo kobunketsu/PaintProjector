@@ -105,13 +105,12 @@ static bool useQuickTool = true;//所有快捷手势的总开关
 static bool IsQuickEyeDropper = true;
 static bool IsOffsetEyeDropper = true;
 
-#define InchScale 3.28
 #define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height
 
 #define ToSeeCylinderTopPixelOffset 70
 #define ToSeeCylinderTopViewportPixelOffsetY -160
-#define TransitionToPaintPixelOffsetY -30.5
+#define TransitionToPaintPixelOffsetY -31
 //#define ToSeeCylinderTopPixelOffset 0
 //#define ToSeeCylinderTopViewportPixelOffsetY -90
 //#define TransitionToPaintPixelOffsetY -34

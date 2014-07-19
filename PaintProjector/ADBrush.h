@@ -68,7 +68,7 @@ typedef struct {
 
 @class ADBrush;
 @protocol ADBrushDelegate
-- (void) willBrushColorChanged:(UIColor*)color;
+- (void) willBrushColorChanged:(ADBrush*)brush;
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState*)brushState location:(CGPoint)point;
 - (void) willUpdateSmudgeSubPoint;
 //- (void) willUpdateLayerContentCGRectWithPoint:(CGPoint)point radius:(CGFloat)radius;
@@ -115,7 +115,7 @@ typedef struct {
 
 @property (assign, nonatomic, readonly) BOOL free;
 @property (assign, nonatomic, readonly) BOOL available;
-@property (assign, nonatomic, readonly) NSInteger iapBrushId;
+@property (assign, nonatomic, readonly) NSInteger iapProductFeatureId;
 
 #pragma mark- Common
 @property (assign, nonatomic) id delegate;

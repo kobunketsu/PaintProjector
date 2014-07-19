@@ -1811,8 +1811,14 @@
 
 
 #pragma mark- 笔刷代理 Brush Delegate (Refresh UI)
-- (void) willBrushColorChanged:(UIColor *)color{
-    [self.delegate willChangeUIPaintColor:color];
+- (void) willBrushColorChanged:(ADBrush *)brush{
+    //剔除brushPreview brush
+    NSRange range = [brush.name rangeOfString:@"brushPreview"];
+    if (range.location != NSNotFound) {
+        return;
+    }
+    
+    [self.delegate willChangeUIPaintColor:brush.brushState.color];
 }
 
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState *)brushState location:(CGPoint)point{
@@ -2017,6 +2023,12 @@
     return self;
 }
 
+- (ADBrushState*)willGetLastBrushState{
+    return self.lastBrushState;
+}
+- (void)willSetLastBrushState:(ADBrushState*)brushState{
+    self.lastBrushState = brushState;
+}
 //- (EAGLContext*)willGetBrushPreviewContext{
 //    return self.context;
 //}
@@ -2870,7 +2882,7 @@
 
 #pragma mark- TransferReversePaint
 - (void)transferReversePaint{
-    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
+//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
     //创建资源
     [self createReversePaintResource];
     
@@ -2942,7 +2954,7 @@
     //删除资源
     [self destroyReversePaintResource];
     
-    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
+//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
 
 - (void)createReversePaintResource{

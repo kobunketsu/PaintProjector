@@ -64,7 +64,7 @@
     return false;
 }
 
-- (NSInteger)iapBrushId{
-    return 2;
+- (NSInteger)iapProductFeatureId{
+    return 3;
 }
 @end

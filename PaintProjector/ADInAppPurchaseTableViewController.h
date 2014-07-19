@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ADInAppPurchaseTableViewCell.h"
+#import "ADSimpleIAPManager.h"
 
 @interface ADInAppPurchaseTableViewController : UITableViewController
 <UIAlertViewDelegate,
@@ -19,10 +20,10 @@ ADInAppPurchaseTableViewCellDelegate>
 - (IBAction)doneButtonTouchUp:(UIButton *)sender;
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender;
 //产品特点索引号
-@property (assign, nonatomic) NSInteger iapProductProPackageFeatureIndex;
+@property (assign, nonatomic) IAPProPackageFeature iapProPackageFeature;
 @end
 
 @protocol ADInAppPurchaseTableViewControllerDelegate
 - (void) willIAPPurchaseDone;
-- (ADBrush*) willIAPGetBrushById:(NSInteger)brushId;
+- (ADBrush*) willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
 @end

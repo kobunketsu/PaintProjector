@@ -8,7 +8,7 @@
 
 #import "ADInAppPurchaseTableViewController.h"
 #import "ADInAppPurchaseTableViewCell.h"
-#import "ADIAPManager.h"
+#import "ADSimpleIAPManager.h"
 #import "Reachability.h"
 
 @interface ADInAppPurchaseTableViewController ()
@@ -42,16 +42,16 @@
     
     if(self.brushPreviewDelegate){
         cell.brushPreview.delegate = self.brushPreviewDelegate;
+        cell.brushPreview.lastBrushState = [cell.brushPreview.delegate willGetLastBrushState];
         
         //初始化brushPreview的绘制
         [cell destroyBrush];
         [cell.brushPreview tearDownGL];
         
         [cell.brushPreview setupGL];
-        NSInteger iapBrushId = [self iapBrushIdFromProductFeatureIndex:self.iapProductProPackageFeatureIndex];
-        [cell prepareBrushIAPBrushId:iapBrushId];
+        [cell prepareBrushByIAPFeatureIndex:self.iapProPackageFeature];
         
-        cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
+        cell.pageControl.currentPage = self.iapProPackageFeature;
     }
 }
 
@@ -73,10 +73,12 @@
         return;
     }
 
-    cell.pageControl.currentPage = self.iapProductProPackageFeatureIndex;
+    cell.pageControl.currentPage = self.iapProPackageFeature;
     CGPoint offset = cell.productFeatureCollectionView.contentOffset;
-    offset.x = cell.productFeatureCollectionView.bounds.size.width * self.iapProductProPackageFeatureIndex;
+    offset.x = cell.productFeatureCollectionView.bounds.size.width * self.iapProPackageFeature;
     cell.productFeatureCollectionView.contentOffset = offset;
+    
+    [cell isBrushPage:cell.productFeatureCollectionView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -90,8 +92,10 @@
     }
     ADInAppPurchaseTableViewCell *cell = (ADInAppPurchaseTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 
+    [cell.brushPreview.delegate willSetLastBrushState:cell.brushPreview.lastBrushState];
     [cell destroyBrush];
     [cell.brushPreview tearDownGL];
+
 }
 
 - (void)viewDidLoad
@@ -115,6 +119,14 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 交易Purchase
+
 - (void)transactionSucceeded:(id)arg{
     DebugLog(@"购买产品成功,刷新产品显示");
     [self.tableView reloadData];
@@ -122,7 +134,7 @@
 
 - (void)reload{
     //如果应用启动时没有得到产品列表，则立即再次联网尝试获得产品列表
-    if (![[ADIAPManager sharedInstance] isProductsRequested]){
+    if (![[ADSimpleIAPManager sharedInstance] isProductsRequested]){
         //检查是否有网络连接
         Reachability *reach = [Reachability reachabilityForInternetConnection];
         NetworkStatus netStatus = [reach currentReachabilityStatus];
@@ -132,7 +144,7 @@
             [self.alertView show];
         }
         else{
-            [[ADIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+            [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
                 if (success) {
                     DebugLog(@"获得产品列表成功,刷新产品显示");
                     [self.tableView reloadData];
@@ -170,7 +182,7 @@
 
 - (void)requestProductsTimeOut:(id)arg{
     DebugLog(@"查询产品超时，无法得到产品列表");
-    if ([[ADIAPManager sharedInstance] isRequestingProduct]) {
+    if ([[ADSimpleIAPManager sharedInstance] isRequestingProduct]) {
         //关闭Loading指示器
         if (self.activityView) {
             [self.activityView stopAnimating];
@@ -182,11 +194,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 #pragma mark - UI
 - (IBAction)doneButtonTouchUp:(UIButton *)sender {
@@ -196,13 +204,13 @@
 
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"IAPRestoreButtonTouchUp" identifier:sender];
-    if ([[ADIAPManager sharedInstance] isDeviceJailBroken]) {
+    if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
     else{
-        if ([[ADIAPManager sharedInstance] canMakePurchases]) {
+        if ([[ADSimpleIAPManager sharedInstance] canMakePurchases]) {
             DebugLog(@"可以进行恢复");
             Reachability *reach = [Reachability reachabilityForInternetConnection];
             NetworkStatus netStatus = [reach currentReachabilityStatus];
@@ -212,7 +220,7 @@
                 [alertView show];
             }
             else{
-                [[ADIAPManager sharedInstance] restorePurchase];   
+                [[ADSimpleIAPManager sharedInstance] restorePurchase];   
             }
         }
         else{
@@ -235,7 +243,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[ADIAPManager sharedInstance] products].count;
+    return [[ADSimpleIAPManager sharedInstance] products].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -245,7 +253,7 @@
     ADInAppPurchaseTableViewCell *cell = (ADInAppPurchaseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     
-    SKProduct *product = [[[ADIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
+    SKProduct *product = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
     
     if (!product) {
         DebugLogError(@"no product available!");
@@ -264,7 +272,7 @@
     cell.buyProductButton.tag = indexPath.row;
     
     //TODO:语言显示
-    if ([[ADIAPManager sharedInstance]productPurchased:product.productIdentifier]) {
+    if ([[ADSimpleIAPManager sharedInstance]productPurchased:product.productIdentifier]) {
         [cell.buyProductButton setTitle:NSLocalizedString(@"Purchased", nil) forState:UIControlStateNormal];
     }
     else{
@@ -274,10 +282,13 @@
     //产品特性
     cell.productFeatures = [product.localizedDescription componentsSeparatedByString:@"."];
 
-
-    
     return cell;
 }
+
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    [(ADInAppPurchaseTableViewCell *)cell isBrushPage:tableView];
+//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -348,12 +359,9 @@
 }
 
 #pragma mark- InAppPurchaseTableViewCellDelegate
-- (ADBrush *)willGetIAPBrushWithId:(NSInteger)brushId{
-    return [self.delegate willIAPGetBrushById:brushId];
+- (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
+    return [self.delegate willGetBrushByIAPFeatureIndex:feature];
 }
 #pragma mark- 产品描述 IAPProductFeature
-//从产品列表索引转换到笔刷索引
--(NSInteger)iapBrushIdFromProductFeatureIndex:(NSInteger)productIndex{
-    return productIndex;
-}
+
 @end

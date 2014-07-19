@@ -16,7 +16,7 @@
     }
 }
 - (id)copyWithZone:(NSZone *)zone{
-    ADLayer *layer = [[ADLayer alloc] init];
+    ADLayer *layer = [[[self class]alloc]init];
     layer.visible = self.visible;
     layer.dirty = self.dirty;
     return layer;

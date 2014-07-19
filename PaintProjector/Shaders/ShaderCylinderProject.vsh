@@ -48,10 +48,7 @@ void main()
     
     highp vec3 pointOnSurface = eye.xyz + vEyeToPointOnImage * t2;
     
-    if (pointOnSurface.y < -0.005) {
-        pointOnSurface.x = 0.0;
-        pointOnSurface.y = -0.005;
-    }
+    pointOnSurface.y = max(-0.0001, pointOnSurface.y);
     
     //6. find reflected point on the ground
     highp vec3 normOnSurface = vec3(pointOnSurface.x, 0, pointOnSurface.z);

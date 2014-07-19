@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 WenjiHu. All rights reserved.
 //
 
-#import "ADIAPManager.h"
+#import "ADSimpleIAPManager.h"
 
 //#define kInAppPurchaseProUpgradeProductId @"AnaDrawProVersionPackage"
 
-@implementation ADIAPManager
-static ADIAPManager* sharedInstance = nil;
+@implementation ADSimpleIAPManager
+static ADSimpleIAPManager* sharedInstance = nil;
 
-+(ADIAPManager*)sharedInstance{
++(ADSimpleIAPManager*)sharedInstance{
     if(sharedInstance != nil){
         return sharedInstance;
     }

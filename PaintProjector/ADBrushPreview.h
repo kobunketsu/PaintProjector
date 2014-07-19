@@ -21,6 +21,10 @@
 //吸取颜色的描画在绘制前的准备工作，需要从paintView使用公用的资源
 - (void) willPreviewUpdateSmudgeTextureWithBrushState:(ADBrushState*)brushState location:(CGPoint)point inRect:(CGRect)rect ofFBO:(GLuint)fbo ofTexture:(GLuint)texture;
 - (id) willGetBrushPreviewDelegate;
+
+//FIXME:以后使用BrushManager整合时去除
+- (ADBrushState*)willGetLastBrushState;
+- (void)willSetLastBrushState:(ADBrushState*)brushState;
 @end
 
 @interface ADBrushPreview : UIView <ADPaintCommandDelegate>
@@ -35,6 +39,7 @@
 @property (retain, nonatomic) RERenderTexture *brushTexture;
 
 @property (weak, nonatomic) ADBrush* brush;
+@property (retain, nonatomic) ADBrushState* lastBrushState; //记录上一次绘制使用的brushState
 @property (retain, nonatomic) ADPaintCommand *paintCommand;
 @property (assign, nonatomic) GLuint lastProgram;
 
@@ -54,5 +59,6 @@
 //准备新笔刷
 - (void)prepareBrush:(ADBrush *)brush;
 
-@property (retain, nonatomic) GLKTextureInfo *texInfo;
+//@property (retain, nonatomic) GLKTextureInfo *texInfo;
+@property (retain, nonatomic) RETexture *backgroundTex;
 @end

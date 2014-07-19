@@ -41,6 +41,44 @@
     eaglLayer.opaque = NO;
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool:YES], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
+    
+    //Notification
+    //通知程序退出到后台保存数据
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationDidEnterBackground:)
+     name:UIApplicationDidEnterBackgroundNotification
+     object:nil];
+    
+    //通知程序返回激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationWillEnterForeground:)
+     name:UIApplicationWillEnterForegroundNotification
+     object:nil];
+    
+    //通知程序退出激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResignActive:)
+     name:UIApplicationWillResignActiveNotification
+     object:nil];
+    
+    //通知程序即将关闭
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillTerminate:)
+     name:UIApplicationWillTerminateNotification
+     object:nil];
+    
+}
+- (void)dealloc{
+    DebugLogSystem(@"dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -51,6 +89,44 @@
 }
 */
 
+- (void)applicationDidEnterBackground:(id)sender{
+    DebugLogFuncStart(@"applicationDidEnterBackground");
+    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+    
+    [self tearDownGL];
+    
+    glFinish();
+}
+
+- (void)applicationWillEnterForeground:(NSNotification *)note{
+    DebugLogFuncStart(@"applicationWillEnterForeground");
+    if ([REGLWrapper current].context == NULL) {
+        DebugLogWarn(@"reactiveGL context null");
+        return;
+    }
+    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+    
+    [self setupGL];
+    
+    [self prepareBrush:self.brush];
+    
+    [self _updateRender];
+    
+    glFinish();
+}
+
+-(void)applicationWillResignActive:(id)sender{
+    DebugLogFuncStart(@"applicationWillResignActive");
+    glFinish();
+}
+
+-(void)applicationWillTerminate:(id)sender{
+    DebugLogFuncStart(@"applicationWillTerminate");
+}
+
+#pragma mark- UI
+
+#pragma mark- GL
 - (void)tearDownGL{
     DebugLogFuncStart(@"tearDownGL");
     [self deleteLayerRenderTexture];
@@ -179,12 +255,12 @@
 //为涂抹笔刷试用创建初始图层
 - (void)createTextureForSmudgeBrush{
     DebugLogFuncStart(@"createTextureForSmudgeBrush");
-    self.texInfo = [RETextureManager textureInfoFromImageName:@"AnaDraw_alpha@2x.png" reload:false];
+    self.backgroundTex = [RETexture textureFromImageName:@"AnaDraw_alpha@2x.png" reload:false];
 }
 
 - (void)deleteTextureForSmudgeBrush{
     DebugLogFuncStart(@"deleteTextureForSmudgeBrush");
-    [RETextureManager deleteTexture:self.texInfo.name];
+    [self.backgroundTex destroy];
 }
 
 - (void) prepareDrawEnv{
@@ -235,7 +311,7 @@
         [self createTextureForSmudgeBrush];
         
        [[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
-        [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.texInfo.name];
+        [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.backgroundTex.texID];
         [self copyCurLayerToCurPaintedLayer];
         [self _updateRender];
 //    }
@@ -474,7 +550,8 @@
 //    Brush *brush = self.brush;
 //    UIColor *color = [brushState.color copy];
 //    brushState.color = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    [self.brush prepareWithBrushState:brushState lastBrushState:nil];
+    [self.brush prepareWithBrushState:brushState lastBrushState:self.lastBrushState];
+    self.lastBrushState = brushState;
 //    brushState.color = color;
     
 #if DEBUG

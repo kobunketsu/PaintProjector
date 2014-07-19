@@ -52,12 +52,17 @@
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
+    for (REShader *shader in self.shaderCaches) {
+        [self deleteShader:NSStringFromClass([shader class])];
+    }
     _shaderCaches = nil;
+    
     _activeSlotTex = nil;
     [EAGLContext setCurrentContext:nil];
     self.context = nil;
 
 }
+#pragma mark-
 
 -(EAGLContext *)createBestEAGLContext{
     DebugLogFuncStart(@"createBestEAGLContext");
@@ -190,7 +195,7 @@
             DebugLogError(@"createShader %@ failed", name);
             return nil;
         }
-
+        shader.name = name;
         [self.shaderCaches setValue:shader forKey:name];
         
         return shader;

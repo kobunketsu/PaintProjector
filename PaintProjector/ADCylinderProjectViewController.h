@@ -117,7 +117,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) ADPaintScreen* paintScreenVC;
 @property (retain, nonatomic) ADInAppPurchaseTableViewController* iapVC;
 @property (assign, nonatomic) id delegate;
-
+@property (assign, nonatomic) CGFloat baseBrightness;
 #pragma mark- 主要Main
 @property (assign, nonatomic)BOOL paintDirectly;
 @property (assign, nonatomic) CylinderProjectViewState state;      //状态
@@ -177,6 +177,7 @@ ADInAppPurchaseTableViewControllerDelegate
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- 设置Setup
+@property (assign, nonatomic) BOOL isSetupMode;
 @property (weak, nonatomic) IBOutlet UIButton *setupButton;
 @property (weak, nonatomic) IBOutlet UISlider *valueSlider;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *allUserInputParamButtons;
@@ -211,11 +212,9 @@ ADInAppPurchaseTableViewControllerDelegate
 //@property (weak, nonatomic) PaintDoc *curPaintDoc;
 -(void)viewPaintDoc:(ADPaintDoc*)paintDoc;
 - (void)openPaintDoc:(ADPaintDoc*)paintDoc;
-- (void)transitionToPaint;
+- (void)transitionToPaint:(ADPaintDoc*)paintDoc;
 
 #pragma mark- 反向绘制Reverse Paint
-//@property (retain, nonatomic) ADCylinderImage *cylinderImage;
-//@property (retain, nonatomic) RECamera *cylinderImageCamera;
 @property (assign, nonatomic) BOOL isReversePaint;
 
 #pragma mark- 运动CoreMotion

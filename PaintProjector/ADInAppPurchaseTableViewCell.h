@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ADBrushPreview.h"
+#import "ADSimpleIAPManager.h"
 
 @protocol ADInAppPurchaseTableViewCellDelegate
-- (ADBrush *) willGetIAPBrushWithId:(NSInteger)brushId;
+- (ADBrush *) willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
 @end
 
 @interface ADInAppPurchaseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -22,7 +23,7 @@
 @property (retain, nonatomic) NSArray *productFeatures;
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender;
 
-
+- (BOOL)isBrushPage:(UIScrollView *)scrollView;
 //控制Collection View的page属性
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 - (IBAction)pageControlValueChanged:(UIPageControl *)sender;
@@ -31,9 +32,7 @@
 - (IBAction)brushResetButtonTouchUp:(id)sender;
 @property (weak, nonatomic) IBOutlet ADBrushPreview *brushPreview;
 @property (retain, nonatomic) ADBrush *brush;
-- (void)createBrushStrokeWithIAPBrushId:(NSInteger)brushId;
-- (void)destroyBrushStroke;
 
-- (void)prepareBrushIAPBrushId:(NSInteger)brushId;
+- (void)prepareBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
 - (void)destroyBrush;
 @end

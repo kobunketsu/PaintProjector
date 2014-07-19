@@ -21,6 +21,7 @@
 }
 
 + (id)textureWithName:(NSString *)name width:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
+//    DebugLogWarn(@"textureWithName %@", name);
     RERenderTexture *texture = [[RERenderTexture alloc]init];
     texture.name = name;
     //使用双贴图方式在多次拷贝贴图时减少阻塞
@@ -70,6 +71,7 @@
     return texture;
 }
 
+
 - (void)active{
     [[REGLWrapper current] bindFramebufferOES:_frameBuffer discardHint:true clear:true];
     glViewport(0, 0, self.width, self.height);
@@ -83,6 +85,7 @@
 }
 
 - (void)destroy{
+//    DebugLogWarn(@"destroy %@", self.name);
     [super destroy];
 
     [[REGLWrapper current] deleteFramebufferOES:_frameBuffer];

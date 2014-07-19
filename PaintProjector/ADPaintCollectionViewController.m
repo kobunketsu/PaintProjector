@@ -140,47 +140,6 @@
     self.selectedIndices = nil;
 }
 
-- (void)setEditMode:(BOOL)editMode{
-    self.fileButton.selected = editMode;
-    _editMode = editMode;
-    
-    if (editMode) {
-        for (UIButton *button in self.editButtons) {
-            button.hidden = false;
-        }
-        
-//        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//            if (cell.selectedBackgroundView) {
-//                cell.selectedBackgroundView.hidden = NO;
-//            }
-//        }
-    }
-    else{
-        [self.selectedIndices removeAllObjects];
-        
-        for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-            [self cell:cell markSelected:false];
-        }
-
-        
-        for (UIButton *button in self.editButtons) {
-            button.hidden = true;
-        }
-        
-//        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-//            if (cell.selectedBackgroundView) {
-//                cell.selectedBackgroundView.hidden = YES;
-//            }
-//        }
-    }
-}
-
 #pragma mark- LaunchTransition
 -(NSInteger)indexForRecentPaintDoc{
     if ([ADPaintFrameManager curGroup].paintDocs.count > 0) {
@@ -237,7 +196,53 @@
 - (void)willCompleteLaunchTransitionToCylinderProject{
     [self launchTransitionToCylinderProjectCompleted];
 }
-#pragma mark- Edit
+#pragma mark- 编辑Edit
+- (void)setEditMode:(BOOL)editMode{
+    self.fileButton.selected = editMode;
+    [self enablePaint:!editMode];
+    
+    _editMode = editMode;
+    
+    if (editMode) {
+        for (UIButton *button in self.editButtons) {
+            button.hidden = false;
+        }
+        
+        //        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+        //            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        //            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        //            if (cell.selectedBackgroundView) {
+        //                cell.selectedBackgroundView.hidden = NO;
+        //            }
+        //        }
+    }
+    else{
+        [self.selectedIndices removeAllObjects];
+        
+        for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+            [self cell:cell markSelected:false];
+        }
+        
+        
+        for (UIButton *button in self.editButtons) {
+            button.hidden = true;
+        }
+        
+        //        for (int i = 0; i < [PaintFrameManager curGroup].paintDocs.count; ++i) {
+        //            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        //            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+        //            if (cell.selectedBackgroundView) {
+        //                cell.selectedBackgroundView.hidden = YES;
+        //            }
+        //        }
+    }
+}
+
+- (void)enablePaint:(BOOL)enable{
+    self.editNewButton.hidden = !enable;
+}
 - (void)cell:(ADPaintCollectionViewCell*)cell markSelected:(BOOL)selected{
     cell.pinView.hidden = !selected;
 }
@@ -431,8 +436,6 @@
     //在present到cylinderProject之后恢复userInteractionEnable
     [self lockInteraction:true];
     
-    self.editMode = false;
-    
     //非编辑状态下从最后一个PaintFrameView之后添加
     if ([ADPaintFrameManager curGroup].paintDocs.count > 0) {
         [ADPaintFrameManager curGroup].curPaintIndex = [ADPaintFrameManager curGroup].paintDocs.count - 1;
@@ -452,7 +455,10 @@
     
     //滚到最后一张图的位置上
     if ([ADPaintFrameManager curGroup].paintDocs.count > 0) {
-        self.pageControl.currentPage = floorf((float)[ADPaintFrameManager curGroup].curPaintIndex / (float)[self.collectionView numberOfItemsInSection:0]);
+        float index = [ADPaintFrameManager curGroup].curPaintIndex;
+        CGFloat curPage = floorf((CGFloat)index / (CGFloat)self.numberOfPaintPerPage);
+        self.collectionView.contentOffset = CGPointMake(curPage * self.collectionView.frame.size.width, 0);
+        self.pageControl.currentPage = curPage;
     }
 
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
@@ -498,7 +504,7 @@
                 }
 
                 if (paintDirectly) {
-                    [self.cylinderProjectVC transitionToPaint];
+                    [self.cylinderProjectVC transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
                 }
                 else{
                     [self.cylinderProjectVC lockInteraction:false];
@@ -542,6 +548,9 @@
         [ADPaintFrameManager destroy];
         [ADPaintFrameManager initDataByGroupIndex:0];
     }
+    
+    self.pageControl.currentPage = 0;
+    self.collectionView.contentOffset = CGPointZero;
 }
 
 //在排版等准备完成以后,检查是否需要开始教程

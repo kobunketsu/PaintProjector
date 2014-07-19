@@ -11,7 +11,7 @@
 #import "REResources.h"
 #import "ADSharedPopoverController.h"
 #import "ADUnitConverter.h"
-#import "ADIAPManager.h"
+#import "ADSimpleIAPManager.h"
 #import "ADPaintUIKitAnimation.h"
 #import "REAssetDatabase.h"
 #import "ADCylinderProjectVirtualDeviceCollectionViewController.h"
@@ -199,6 +199,7 @@ static float DeviceWidth = 0.154;
     self.srcUserInputParams = dic;
     
     self.isReversePaint = false;
+    self.isSetupMode = false;
     self.isTopViewMode = false;
 }
 
@@ -252,7 +253,7 @@ static float DeviceWidth = 0.154;
 #pragma mark- 交互控制 UserInteraction
 - (void)lockInteraction:(BOOL)lock{
     
-    if (self.setupButton.selected) {
+    if (self.isSetupMode) {
         self.projectView.userInteractionEnabled = false;
     }
     else{
@@ -280,7 +281,7 @@ static float DeviceWidth = 0.154;
     [self lockInteraction:true];
 
     //do some work
-    if (self.setupButton.selected) {
+    if (self.isSetupMode) {
         [self setupAnamorphParamsDoneCompletion:nil];
     }
     
@@ -326,10 +327,10 @@ static float DeviceWidth = 0.154;
     
     [self tutorialStepNextImmediate:false];
 
-    sender.selected = !sender.selected;
+    self.isSetupMode = !self.isSetupMode;
     [self lockInteraction:true];
     
-    if (sender.selected) {
+    if (self.isSetupMode) {
         [self setupAnamorphParamsCompletion:^{
             [self lockInteraction:false];
             
@@ -373,7 +374,6 @@ static float DeviceWidth = 0.154;
     //UI
     [self lockInteraction:true];
     sender.selected = true;
-    self.setupButton.selected = false;
     
     if (self.isReversePaint) {
         //hide cylinder
@@ -391,16 +391,19 @@ static float DeviceWidth = 0.154;
         backgroundLayer.visible = false;
         paintDoc.data = [[ADPaintData alloc]initWithTitle:@"reversePaintDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
         
-        if (!self.setupButton.selected) {
+//        if (!self.isSetupMode) {
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
             [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
                 [self transitionToPaint:paintDoc];
             }];
-        }
+//        }
     }
     else{
-        if (!self.setupButton.selected) {
-            [self transitionToPaint:[[ADPaintFrameManager curGroup] curPaintDoc]];
-        }
+        //reset userinput
+        [self setupAnamorphParamsDoneCompletion:^{
+            [self transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
+        }];
+
     }
 
     
@@ -635,6 +638,10 @@ static float DeviceWidth = 0.154;
     [self dismissViewControllerAnimated:true completion:nil];
 }
 #pragma mark- 设置Setup
+- (void)setIsSetupMode:(BOOL)isSetupMode{
+    _isSetupMode = isSetupMode;
+    self.setupButton.selected = isSetupMode;
+}
 
 - (void)setupAnamorphParamsCompletion: (void (^) (void)) block{
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
@@ -1384,6 +1391,29 @@ static float DeviceWidth = 0.154;
 }
 
 #pragma mark- 更换虚拟设备显示VirtualDevice
+- (void)fitBrightness{
+    self.baseBrightness = [UIScreen mainScreen].brightness;
+    [self fullBrightness:nil];
+}
+
+- (void)restoreBrightness{
+    [self toBaseBrightness:nil];
+}
+
+- (void)fullBrightness:(id)sender{
+    if ([UIScreen mainScreen].brightness < 1) {
+        [UIScreen mainScreen].brightness += 0.016;
+        [self performSelector:@selector(fullBrightness:) withObject:nil afterDelay:0.016];
+    }
+}
+
+- (void)toBaseBrightness:(id)sender{
+    if ([UIScreen mainScreen].brightness > self.baseBrightness) {
+        [UIScreen mainScreen].brightness -= 0.016;
+        [self performSelector:@selector(toBaseBrightness:) withObject:nil afterDelay:0.016];
+    }
+}
+
 - (void)openVirtualDevice{
     
 }
@@ -1540,7 +1570,7 @@ static float DeviceWidth = 0.154;
     return frame;
 }
 
-#pragma mark- 更新
+#pragma mark- 更新 Update
 - (void)glkViewControllerUpdate:(GLKViewController *)controller{
 //    DebugLog(@"glkViewControllerUpdate");
 
@@ -1922,7 +1952,8 @@ static float DeviceWidth = 0.154;
     [self.player seekToTime:kCMTimeZero];
 }
 - (CGRect)getCylinderMirrorFrame{
-    return CGRectMake(308, 286, 150, 150 / self.view.bounds.size.width * self.view.bounds.size.height);
+    return CGRectMake(307, 285, 154, 154 / self.view.bounds.size.width * self.view.bounds.size.height);
+//    return CGRectMake(308, 286, 150, 150 / self.view.bounds.size.width * self.view.bounds.size.height);
 //    return CGRectMake(311, 270, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
 }
 
@@ -2197,6 +2228,7 @@ static float DeviceWidth = 0.154;
         DebugLog(@"willIAPPurchaseDone");
     }];
     
+    
     if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnamorphosisSetup"]){
         self.topToolBar.userInteractionEnabled = true;
     }
@@ -2205,65 +2237,6 @@ static float DeviceWidth = 0.154;
     }
 }
 #pragma mark- 绘画Paint
-- (void)setIsReversePaint:(BOOL)isReversePaint{
-    _isReversePaint = isReversePaint;
-    self.paintButton.isReversePaint = isReversePaint;
-}
-#pragma mark- 绘画代理PaintScreenDelegate
-- (EAGLContext*) createEAGleContextWithShareGroup{
-    return [self createBestEAGLContext];
-}
-
-- (void) closePaintDoc:(ADPaintDoc *)paintDoc completionBlock:(void (^) (void)) completionBlock{
-    self.cylinderProjectDefaultAlphaBlend = 1;
-    
-    //刷新当前画框内容
-    NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
-    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
-    transitionImageView.image = [UIImage imageWithContentsOfFile:path];
-    
-    [self.paintScreenVC dismissViewControllerAnimated:true completion:^{
-        if (completionBlock) {
-            completionBlock();
-        }
-        
-        self.paintButton.selected = false;
-
-        self.cylinderProjectCur.renderer.material.mainTexture = [RETexture textureFromImagePath:path reload:true];
-        
-        if (self.isReversePaint) {
-        }
-        else{
-            //变换反射图动画
-            self.cylinder.reflectionStrength = 0;
-            REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
-            REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-            propAnim.duration = CylinderFadeInOutDuration;
-            propAnim.fromValue = [NSNumber numberWithFloat:0];
-            propAnim.toValue = [NSNumber numberWithFloat:1];
-            [self.cylinder.animation play];
-            
-            transitionImageView.alpha = 1;
-            [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
-                transitionImageView.alpha = 0;
-            }completion:^(BOOL finished) {
-            }];
-            
-            UIView *fromView = self.view;
-            CGRect rect = [self willGetCylinderMirrorFrame];
-            CGFloat scale = self.view.frame.size.width / rect.size.width;
-            [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-            
-            [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
-                [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
-            } completion:^(BOOL finished) {
-                fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-                fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
-            }];
-        }
-    }];
-}
-
 -(void)openPaintDoc:(ADPaintDoc*)paintDoc {
     //    self.curPaintDoc = paintDoc;
     self.paintScreenVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"paintScreen"];
@@ -2276,22 +2249,23 @@ static float DeviceWidth = 0.154;
     if (self.isReversePaint) {
         uvSpace = self.cylinder.reflectionTexUVSpace;
         imageRatio = self.projectView.bounds.size.height / self.projectView.bounds.size.width;
-
+        
         //截取反向绘制的底图
         UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
         [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:true];
         image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
         UIGraphicsEndImageContext();
-
+        
         reversePaintDocSrc = [ADPaintFrameManager curGroup].curPaintDoc;
     }
-
+    
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
+        self.paintButton.selected = false;
         [self lockInteraction:false];
         [self.paintScreenVC openDoc:paintDoc];
-
+        
         if (self.isReversePaint) {
             self.paintScreenVC.paintView.reversePaintData = [[ADReversePaintInputData alloc]init];
             self.paintScreenVC.paintView.reversePaintData.radius = self.userInputParams.cylinderDiameter * 0.5;
@@ -2302,9 +2276,75 @@ static float DeviceWidth = 0.154;
             self.paintScreenVC.paintView.reversePaintData.reflectionTexUVSpace = uvSpace;
             self.paintScreenVC.paintView.backgroundColor = [UIColor colorWithPatternImage:image];
             self.paintScreenVC.paintView.reversePaintDocSrc = reversePaintDocSrc;
+            
+            //reversePaint IAP
+            if(![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]){
+                [self.paintScreenVC openIAPWithProductFeatureIndex:0];
+            }
+            
         }
     }];
 }
+
+- (void)setIsReversePaint:(BOOL)isReversePaint{
+    _isReversePaint = isReversePaint;
+    self.paintButton.isReversePaint = isReversePaint;
+}
+#pragma mark- 绘画代理PaintScreenDelegate
+- (EAGLContext*) createEAGleContextWithShareGroup{
+    return [self createBestEAGLContext];
+}
+
+- (void) willPaintScreenDissmissWithPaintDoc:(ADPaintDoc *)paintDoc{
+    self.cylinderProjectDefaultAlphaBlend = 1;
+    
+    //刷新当前画框内容
+    NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
+    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
+    transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+}
+
+- (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc *)paintDoc{
+    NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
+    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
+    self.cylinderProjectCur.renderer.material.mainTexture = [RETexture textureFromImagePath:path reload:true];
+    
+    if(self.isSetupMode){
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:nil];
+    }
+    
+    if (self.isReversePaint) {
+    }
+    else{
+        //变换反射图动画
+        self.cylinder.reflectionStrength = 0;
+        REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
+        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+        propAnim.duration = CylinderFadeInOutDuration;
+        propAnim.fromValue = [NSNumber numberWithFloat:0];
+        propAnim.toValue = [NSNumber numberWithFloat:1];
+        [self.cylinder.animation play];
+        
+        transitionImageView.alpha = 1;
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+            transitionImageView.alpha = 0;
+        }completion:^(BOOL finished) {
+        }];
+        
+        UIView *fromView = self.view;
+        CGRect rect = [self willGetCylinderMirrorFrame];
+        CGFloat scale = self.view.frame.size.width / rect.size.width;
+        [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
+        
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+            [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+        } completion:^(BOOL finished) {
+            fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+            fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
+        }];
+    }
+}
+
 
 #pragma mark- 调整视角View
 - (void)setIsTopViewMode:(BOOL)isTopViewMode{
@@ -2317,6 +2357,8 @@ static float DeviceWidth = 0.154;
     [RemoteLog logAction:@"sideViewButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
+    
+    [self restoreBrightness];
     
     [self deselectUserInputParams];
     
@@ -2345,6 +2387,8 @@ static float DeviceWidth = 0.154;
     [RemoteLog logAction:@"topViewButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
+    
+    [self fitBrightness];
     
     [self deselectUserInputParams];
     

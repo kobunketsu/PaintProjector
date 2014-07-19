@@ -135,7 +135,6 @@
 
     [self deleteSmudgeFramebuffers];
     
-    [[REGLWrapper current]deleteShader:@"ADShaderBrush"];
     [self.material destroy];
     self.material = nil;
     
@@ -465,12 +464,12 @@
 
 - (void)setColor:(UIColor *)newValue {
     _brushState.color = [newValue copy];
-    [self.delegate willBrushColorChanged:_brushState.color];
+    [self.delegate willBrushColorChanged:self];
 }
 
 //计算一次点到点绘制需要的数量
 - (size_t) calculateDrawCountFromPoint:(CGPoint)start toPoint:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
-    DebugLogFuncUpdate(@"calculateDrawCountFromPointToPoint from %@ to %@ isTapDraw %i", NSStringFromCGPoint(start), NSStringFromCGPoint(end), isTapDraw);
+//    DebugLogFuncUpdate(@"calculateDrawCountFromPointToPoint from %@ to %@ isTapDraw %i", NSStringFromCGPoint(start), NSStringFromCGPoint(end), isTapDraw);
 	// Convert locations from Points to Pixels
 	CGFloat scale = 1.0;
     //	CGFloat scale = self.contentScaleFactor;
@@ -513,7 +512,7 @@
             }
         }
     }
-    DebugLog(@"calculateDrawCountFromPointToPoint count %lu", count);
+//    DebugLog(@"calculateDrawCountFromPointToPoint count %lu", count);
     return count;
 }
 

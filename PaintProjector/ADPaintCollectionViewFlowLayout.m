@@ -7,7 +7,15 @@
 //
 
 #import "ADPaintCollectionViewFlowLayout.h"
-
+@interface ADPaintCollectionViewFlowLayout()
+{
+    NSUInteger countRow;
+    NSUInteger countColumn;
+    CGFloat interItemSpacing;
+    CGFloat lineSpacing;
+    CGFloat pageWidth;
+}
+@end
 @implementation ADPaintCollectionViewFlowLayout
 
 //- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds
@@ -39,13 +47,20 @@
     
     DebugLog(@"array.count %lu", (unsigned long)array.count);
     UICollectionViewLayoutAttributes* attributes = (UICollectionViewLayoutAttributes*)array[0];
-    NSUInteger countRow = (NSUInteger)self.collectionView.bounds.size.width / attributes.size.width;
-    NSUInteger countColumn = (NSUInteger)self.collectionView.bounds.size.height / attributes.size.height;
+    [self prepareCalculateAttributeFrame:attributes];
     
-    CGFloat pageWidth = self.collectionView.bounds.size.width;
+    for (UICollectionViewLayoutAttributes* attributes in array) {
+        [self calculateAttributeFrame:attributes];
+    }
+    
+    return array;
+}
+- (void)prepareCalculateAttributeFrame:(UICollectionViewLayoutAttributes*)attributes{
+    countRow = (NSUInteger)self.collectionView.bounds.size.width / attributes.size.width;
+    countColumn = (NSUInteger)self.collectionView.bounds.size.height / attributes.size.height;
+    pageWidth = self.collectionView.bounds.size.width;
     //    NSLog(@"countRow %zu countColumn %zu", countRow, countColumn);
     
-    CGFloat interItemSpacing = 0; CGFloat lineSpacing = 0;
     if (countRow > 1) {
         interItemSpacing = (self.collectionView.bounds.size.width - self.sectionInset.left - self.sectionInset.right - countRow * attributes.size.width) / (CGFloat)(countRow - 1);
         interItemSpacing = MAX(interItemSpacing, self.minimumInteritemSpacing);
@@ -55,34 +70,29 @@
         lineSpacing = (self.collectionView.bounds.size.height - self.sectionInset.top - self.sectionInset.bottom - countColumn * attributes.size.height) / (CGFloat)(countColumn - 1);
         lineSpacing = MAX(lineSpacing, self.minimumLineSpacing);
     }
-    
-    for (int i =0; i < array.count; ++i) {
-        UICollectionViewLayoutAttributes* attributes = (UICollectionViewLayoutAttributes*)array[i];
-        NSUInteger index = attributes.indexPath.row;
-        NSUInteger indexInPage = (NSUInteger)fmod(index, countRow * countColumn);
-        NSUInteger pageIndex = (NSUInteger)floor((float)index / (countRow * countColumn));
-        //        NSLog(@"pageIndex %zu indexInPage %zu", pageIndex, indexInPage);
-        //        NSLog(@"frame %@", NSStringFromCGRect(attributes.frame));
-        
-        NSUInteger indexRowInPage = fmod(indexInPage, countRow);
-        NSUInteger indexColInPage = floor((float)indexInPage / (float)countRow);
-        
-        CGFloat x = self.sectionInset.left + indexRowInPage * attributes.size.width + interItemSpacing * indexRowInPage + pageIndex * pageWidth;
-        CGFloat y = self.sectionInset.top + indexColInPage * attributes.size.height + lineSpacing * indexColInPage;
-        
-        CGFloat width = attributes.size.width;
-        CGFloat height = attributes.size.height;
-        attributes.frame = CGRectMake(x, y, width, height);
-    }
-    
-    return array;
 }
-
+- (void)calculateAttributeFrame:(UICollectionViewLayoutAttributes*)attributes{
+    NSUInteger index = attributes.indexPath.row;
+    NSUInteger indexInPage = (NSUInteger)fmod(index, countRow * countColumn);
+    NSUInteger pageIndex = (NSUInteger)floor((float)index / (countRow * countColumn));
+    //        NSLog(@"pageIndex %zu indexInPage %zu", pageIndex, indexInPage);
+    //        NSLog(@"frame %@", NSStringFromCGRect(attributes.frame));
+    
+    NSUInteger indexRowInPage = fmod(indexInPage, countRow);
+    NSUInteger indexColInPage = floor((float)indexInPage / (float)countRow);
+    
+    CGFloat x = self.sectionInset.left + indexRowInPage * attributes.size.width + interItemSpacing * indexRowInPage + pageIndex * pageWidth;
+    CGFloat y = self.sectionInset.top + indexColInPage * attributes.size.height + lineSpacing * indexColInPage;
+    
+    CGFloat width = attributes.size.width;
+    CGFloat height = attributes.size.height;
+    attributes.frame = CGRectMake(x, y, width, height);
+}
 
 - (CGSize)collectionViewContentSize{
 //    DebugLogFuncStart(@"collectionViewContentSize")
-    NSUInteger countRow = (NSUInteger)self.collectionView.bounds.size.width / self.itemSize.width;
-    NSUInteger countColumn = (NSUInteger)self.collectionView.bounds.size.height / self.itemSize.height;
+    countRow = (NSUInteger)self.collectionView.bounds.size.width / self.itemSize.width;
+    countColumn = (NSUInteger)self.collectionView.bounds.size.height / self.itemSize.height;
     NSUInteger countPage = ceilf((float)[self.collectionView numberOfItemsInSection:0] / (float)(countRow * countColumn));
     //    NSLog(@"countPage %zu", countPage);
     CGSize size = CGSizeMake(countPage * self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
@@ -98,4 +108,11 @@
     return targetOffset;
 }
 
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath{
+//    DebugLogSystem(@"initialLayoutAttributesForAppearingItemAtIndexPath row %d", itemIndexPath.row);
+    UICollectionViewLayoutAttributes *attribute = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
+    [self calculateAttributeFrame:attribute];
+//    DebugLogWarn(@"attribute %@", NSStringFromCGRect(attribute.frame));
+    return attribute;
+}
 @end
