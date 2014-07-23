@@ -6,8 +6,9 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-attribute vec4 position;
-attribute vec4 texcoord;
+attribute vec3 position;
+attribute vec2 texcoord;
+attribute vec3 norm;
 //attribute vec4 color;
 
 uniform mat4 projMatrix;
@@ -20,8 +21,10 @@ varying highp vec3 normal;
 //varying lowp vec4 color0;
 void main()
 {
-    worldPos = worldMatrix * position;
-    highp vec3 vNormal = vec3(position.x, 0, position.z);
+    worldPos = worldMatrix * vec4(position, 1);
+    highp vec3 vNormal = norm;
+    //highp vec3 vNormal = vec3(position.x, normal.y, position.z);
+//    highp vec3 vNormal = vec3(position.x, 0, position.z);
     //省略worldMatrix
     normal = normalize(vNormal);
     texcoord0 = texcoord.xy;

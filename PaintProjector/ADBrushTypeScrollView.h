@@ -24,9 +24,10 @@
 }
 @property (assign, nonatomic) id delegate;
 @property (retain, nonatomic)NSMutableArray *brushTypes;
-@property (weak, nonatomic) IBOutlet UIPageControl *brushTypePageControl;
+@property (weak, nonatomic) UIPageControl *brushTypePageControl;
 
 -(void)initSubviewsWithNumOfBrushPerPage:(NSInteger)numOfBrush;
 -(void)addBrushType:(ADBrush*)brush;
 -(void)destroy;
+-(void)autoShowBrushesTimerFired:(id)sender;
 @end

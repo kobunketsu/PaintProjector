@@ -46,6 +46,13 @@ void main()
 //    highp float t1 = (sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     highp float t2 = (-sqrt(b*b - 4.0*a*c) - b) / (2.0*a);
     
+    //利用t1 t2差值判断是否接近边缘，在一个接近边缘的阈值处切
+//    sqrt(b*b-4.0*a*c) = 0.001*a;
+//    highp float delta = (t1 - t2) / t2;
+//    if (delta < 0.02) {
+//        t2 = (- 0.02*a - b) / (2.0*a);
+//    }
+    
     highp vec3 pointOnSurface = eye.xyz + vEyeToPointOnImage * t2;
     
     pointOnSurface.y = max(-0.0001, pointOnSurface.y);
@@ -61,8 +68,8 @@ void main()
 
     highp vec3 pointOnFloor =  pointOnSurface + vecReflect * t;
     
-//    highp vec3 finalWorlPos = worldPos.xyz * (1.0 - morphBlend) + pointOnFloor.xyz * morphBlend;
-    highp vec3 finalWorlPos = pointOnFloor.xyz;
+    highp vec3 finalWorlPos = worldPos.xyz * (1.0 - morphBlend) + pointOnFloor.xyz * morphBlend;
+//    highp vec3 finalWorlPos = pointOnFloor.xyz;
 //    highp vec3 finalWorlPos = worldPos.xyz;
     
     gl_Position = viewProjMatrix * vec4(finalWorlPos.xyz, 1);
@@ -72,4 +79,7 @@ void main()
 
     color0 = color;
     color0.a = alphaBlend;
+    
+    //debug
+//    color0.x = abs(t1 - t2) * 100.0;
 }

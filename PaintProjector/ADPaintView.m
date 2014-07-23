@@ -870,6 +870,7 @@
 
 
 #pragma mark- Touch
+
 - (void)eyeDropBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 	location = [self.firstTouch locationInView:self];
 	location.y = self.bounds.size.height - location.y;
@@ -1027,9 +1028,10 @@
             if([touches containsObject:self.firstTouch]){
                 self.firstTouch = nil;
                 self.paintTouch = nil;
-                self.state = PaintingView_TouchNone;
-                
+
                 [self.delegate willEndUIEyeDrop];
+                if ([self enterState:PaintingView_TouchNone]) {
+                }
             }
             break;
         }
@@ -1052,7 +1054,9 @@
                 self.firstTouch = nil;
                 DebugLog(@"touchesEnded PaintingView_TouchPaint remove drawPath, set paintTouch nil!");
                 [self.drawPath removeAllObjects];
-                self.state = PaintingView_TouchNone;
+                
+                if ([self enterState:PaintingView_TouchNone]) {
+                }
             }
             break;
         }
@@ -1262,6 +1266,20 @@
 }
 
 #pragma mark- Draw
+- (BOOL)enterState:(PaintingViewState)state{
+    DebugLogFuncStart(@"enterState %d", state);
+    if (state == PaintingView_TouchPaint) {
+        ADPaintLayer *layer = (ADPaintLayer *)self.paintData.layers[self.curLayerIndex];
+        if (!layer.visible) {
+            DebugLogWarn(@"enter state PaintingView_TouchPaint failed on invisible layer");
+            return NO;
+        }
+    }
+    
+    _state = state;
+    return YES;
+}
+
 - (void)prepareDrawEnv{
     //设置renderbuffer
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);

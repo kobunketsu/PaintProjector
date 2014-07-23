@@ -74,6 +74,7 @@
 @property (assign, nonatomic) CGFloat transformAnchorViewSize;
 @property (assign, nonatomic) CGPoint curTransformAnchorViewSrcCenter;//当前变换点的中心
 @property (assign, nonatomic) CGFloat curTransformDirection;//当前变换点的移动方向
+@property (retain, nonatomic) NSTimer *autoShowBrushTimer;
 @end
 
 
@@ -315,6 +316,7 @@
     
     const NSInteger numOfBrushPerPage = 6;
     [self.brushTypeScrollView initSubviewsWithNumOfBrushPerPage:numOfBrushPerPage];
+    self.brushTypeScrollView.brushTypePageControl = self.brushTypePageControl;
     self.brushTypePageControl.numberOfPages = (NSInteger)ceilf((CGFloat)[self.brushTypeScrollView.brushTypes count] / numOfBrushPerPage);
     
     [self.brushButton addGestureRecognizer:self.lpgrBrushButton];
@@ -345,11 +347,7 @@
     [self.pgrRootCanvasView delaysTouchesBegan];
     [self.pgrRootCanvasView requireGestureRecognizerToFail:self.pgr1TouchesPaintView];
 
-    
-    //实现UndoRedo
-//    self.undoButton.hidden = true;
-//    self.redoButton.hidden = true;
-    
+
     //自定义手势
     self.clearGestureRecognizer = [[ADClearGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan3TouchesClearRootCanvasView:)];
     [self.rootCanvasView addGestureRecognizer:self.clearGestureRecognizer];
@@ -509,8 +507,9 @@
                     //超过双手手势误差时间，状态判定为绘图
                     if (self.twoFingerPanGestureCurTimeInterval >= TwoFingerPanGestureTime){
                         DebugLog(@"self.paintView.state change to PaintingView_TouchPaint");
-                        self.twoFingerPanGestureCurTimeInterval = -1;
-                        self.paintView.state = PaintingView_TouchPaint;
+                        if ([self.paintView enterState:PaintingView_TouchPaint]) {
+                            self.twoFingerPanGestureCurTimeInterval = -1;
+                        }
                     }
                     //未超过误差时间
                     else if (self.twoFingerPanGestureCurTimeInterval > 0 && self.twoFingerPanGestureCurTimeInterval < TwoFingerPanGestureTime){
@@ -559,11 +558,13 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             DebugLog(@"EyeDrop Begin");
-            self.paintView.state = PaintingView_TouchEyeDrop;
-            CGPoint point = [self willGetEyeDropLocation];
-            [self.paintView eyeDropColor:point];
-            
-            [self willStartUIEyeDrop];
+            if ([self.paintView enterState:PaintingView_TouchEyeDrop]) {
+                CGPoint point = [self willGetEyeDropLocation];
+                [self.paintView eyeDropColor:point];
+                
+                [self willStartUIEyeDrop];
+            }
+
             break;
         }
         case UIGestureRecognizerStateEnded: {
@@ -590,14 +591,15 @@
     }
     
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        self.paintView.state = PaintingView_TouchPaint;
-        if (self.paintView.paintTouch == NULL) {
-            self.paintView.paintTouch = self.paintView.firstTouch;
+        if ([self.paintView enterState:PaintingView_TouchPaint]) {
+            if (self.paintView.paintTouch == NULL) {
+                self.paintView.paintTouch = self.paintView.firstTouch;
+            }
+            CGPoint location = [sender locationInView:sender.view];
+            location.y = self.paintView.bounds.size.height - location.y;
+            [self.paintView startDraw:location isTapDraw:true];
+            [self.paintView draw:true];
         }
-        CGPoint location = [sender locationInView:sender.view];
-        location.y = self.paintView.bounds.size.height - location.y;
-        [self.paintView startDraw:location isTapDraw:true];
-        [self.paintView draw:true];
     }
 }
 
@@ -1125,7 +1127,10 @@
         return;
     }
     
-    self.paintView.state = PaintingView_TouchTransformCanvas;
+    if (![self.paintView enterState:PaintingView_TouchTransformCanvas]) {
+        return;
+    }
+    
     
     //记录初始双指中点
     CGPoint p0 = [sender locationOfTouch:0 inView:self.rootCanvasView];
@@ -1160,7 +1165,10 @@
     if (_state != PaintScreen_Normal) {
         return;
     }
-    self.paintView.state = PaintingView_TouchNone;
+    
+    if (![self.paintView enterState:PaintingView_TouchNone]) {
+        return;
+    }
     
     CALayer *layer = self.paintView.layer;
     CGFloat x = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.x"]).floatValue;
@@ -1248,7 +1256,11 @@
     if (_state != PaintScreen_Normal) {
         return;
     }
-    self.paintView.state = PaintingView_TouchQuickTool;
+    
+    if (![self.paintView enterState:PaintingView_TouchQuickTool]) {
+        return;
+    }
+    
     UIPanGestureRecognizer *gesture = (UIPanGestureRecognizer *)sender;
     CGPoint translation = [gesture translationInView:self.rootCanvasView];
     
@@ -1290,7 +1302,9 @@
 //    self.undoButton.highlighted = false;
 //    self.redoButton.highlighted = false;
     
-    self.paintView.state = PaintingView_TouchNone;
+    if (![self.paintView enterState:PaintingView_TouchNone]) {
+        return;
+    }
     
     if (self.isPaintFullScreen) {
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
@@ -2050,6 +2064,8 @@
         //切换成横移动画
         [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
             _state = PaintScreen_SelectBrush;
+            
+            [self autoShowBrushes:true];
         }];
     }
 }
@@ -2152,27 +2168,51 @@
 }
 -(void)swapBrushType{
     DebugLogFuncStart(@"swapBrushType");
-    if(_state == PaintScreen_Normal){
-        //            [self togglePaintFullScreen];
-        //            self.paintView.multiTouchEndCount = sender.numberOfTouchesRequired;
-        
-        //切换笔刷快捷方式
-        [self brushTypeBackButtonTouchDown:self.brushBackButton];
-        
-        [self brushTypeBackButtonTouchUp:self.brushBackButton];
-        
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
-            
-            if (self.isPaintFullScreen) {
-                [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
-                //将layerPanel移到顶端
-                [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
-            }
-        }];
-        self.paintView.state = PaintingView_TouchNone;
-        
+    if(_state != PaintScreen_Normal){
+        return;
     }
+    
+    if (![self.paintView enterState:PaintingView_TouchNone]) {
+        return;
+    }
+    
+    //            [self togglePaintFullScreen];
+    //            self.paintView.multiTouchEndCount = sender.numberOfTouchesRequired;
+    
+    //切换笔刷快捷方式
+    [self brushTypeBackButtonTouchDown:self.brushBackButton];
+    
+    [self brushTypeBackButtonTouchUp:self.brushBackButton];
+    
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+        
+        if (self.isPaintFullScreen) {
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+            //将layerPanel移到顶端
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+        }
+    }];
 }
+
+- (void)autoShowBrushes:(BOOL)on{
+    DebugLogFuncStart(@"autoShowBrushes %i", on);
+    if (on) {
+//        self.autoShowBrushTimer = [NSTimer  timerWithTimeInterval:10.0 target:self.brushTypeScrollView selector:@selector(autoShowBrushesTimerFired:)userInfo:nil repeats:NO];
+//        [[NSRunLoop  currentRunLoop] addTimer:self.autoShowBrushTimer forMode:NSDefaultRunLoopMode];
+//
+//        [self.autoShowBrushTimer performSelector:@selector(fire) withObject:nil afterDelay:10.0];
+        [self.brushTypeScrollView performSelector:@selector(autoShowBrushesTimerFired:) withObject:nil afterDelay:10.0];
+    }
+    else{
+        [NSRunLoop cancelPreviousPerformRequestsWithTarget:self.brushTypeScrollView selector:@selector(autoShowBrushesTimerFired:) object:nil];
+//        [self.autoShowBrushTimer invalidate];
+//        self.autoShowBrushTimer = nil;
+    }
+
+}
+
+
+
 #pragma mark- 调色板代理SwatchManagerViewControllerDelegate
 - (void)willSetSwatchFile:(NSURL *)url{
     if (url) {
@@ -2577,6 +2617,9 @@
     //UI
     [self.paintView setBrush:[brush copy]];
     [self.paintView.brush setColor:self.paintColorButton.color];
+
+    //取消自动展示
+    [self autoShowBrushes:false];
     
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
@@ -2588,6 +2631,7 @@
 
 -(void)willSelectBrushCanceled:(id)sender{
     DebugLogFuncStart(@"willSelectBrushCanceled");
+    [self autoShowBrushes:false];
     
     //UI
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -4396,22 +4440,25 @@
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"eyeDropperButtonTouchUp" identifier:sender];
     if (self.paintView.state != PaintingView_TouchEyeDrop) {
-        self.paintView.state = PaintingView_TouchEyeDrop;
-        _state = PaintScreen_PickColor;
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 10, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
-        }completion:nil];
-        [self.eyeDropperButton setColor:self.paintColorButton.color];
+        if ([self.paintView enterState:PaintingView_TouchEyeDrop]) {
+            _state = PaintScreen_PickColor;
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 10, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
+            }completion:nil];
+            [self.eyeDropperButton setColor:self.paintColorButton.color];
+        }
     }
     else if(self.paintView.state == PaintingView_TouchEyeDrop){
-        self.paintView.state = PaintingView_TouchNone;
-        _state = PaintScreen_Normal;
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
-        }completion:nil];
-        [self.eyeDropperButton setColor:[UIColor clearColor]];
+        if ([self.paintView enterState:PaintingView_TouchNone]) {
+            _state = PaintScreen_Normal;
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
+            }completion:nil];
+            [self.eyeDropperButton setColor:[UIColor clearColor]];
+        }
+
     }
 
 }
@@ -4690,20 +4737,20 @@
     if (feature == Pro_Crayons) {
         brush = [[ADCrayons alloc]initWithPaintView:self.paintView];
         brush.brushState.classId = 6;
-        brush.brushState.color = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
+//        brush.brushState.color = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewCrayons";
 
     }
     else if (feature == Pro_Finger) {
         brush = [[ADFinger alloc]initWithPaintView:self.paintView];
         brush.brushState.classId = 7;
-        brush.brushState.color = [UIColor colorWithRed:248.0/255.0 green:163.0 / 255.0 blue:138.0 / 255.0 alpha:1];
+//        brush.brushState.color = [UIColor colorWithRed:248.0/255.0 green:163.0 / 255.0 blue:138.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewFinger";
     }
     else if (feature == Pro_MarkerSquare) {
         brush = [[ADMarkerSquare alloc]initWithPaintView:self.paintView];
         brush.brushState.classId = 8;
-        brush.brushState.color = [UIColor colorWithRed:216.0/255.0 green:255.0 / 255.0 blue:56.0 / 255.0 alpha:1];
+//        brush.brushState.color = [UIColor colorWithRed:216.0/255.0 green:255.0 / 255.0 blue:56.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewMarkerSquare";
     }
     else if (feature == Pro_AirBrush) {
@@ -4714,13 +4761,13 @@
     else if (feature == Pro_ChineseBrush) {
         brush = [[ADChineseBrush alloc]initWithPaintView:self.paintView];
         brush.brushState.classId = 10;
-        brush.brushState.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+//        brush.brushState.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
         brush.name = @"brushPreviewChineseBrush";
     }
     else if (feature == Pro_OilBrush) {
         brush = [[ADOilBrush alloc]initWithPaintView:self.paintView];
         brush.brushState.classId = 11;
-        brush.brushState.color = [UIColor colorWithRed:255.0/255.0 green:216.0 / 255.0 blue:120.0 / 255.0 alpha:1];
+//        brush.brushState.color = [UIColor colorWithRed:255.0/255.0 green:216.0 / 255.0 blue:120.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewOilBrush";
     }
     else{

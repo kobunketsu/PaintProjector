@@ -191,6 +191,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UIButton *imageHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton *eyeDistanceButton;
 @property (weak, nonatomic) IBOutlet UIButton *eyeHeightButton;
+@property (weak, nonatomic) IBOutlet UIButton *eyeZoomButton;
 @property (weak, nonatomic) IBOutlet UIButton *projectWidthButton;
 @property (weak, nonatomic) IBOutlet UIButton *projectHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton *projectZoomButton;
@@ -239,5 +240,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) ADGrid *grid;//网格
 
 #pragma mark- 测试Debug
+- (IBAction)debugSliderValueChanged:(UISlider *)sender;
+@property (weak, nonatomic) IBOutlet UISlider *debugSlider;
 @property (weak, nonatomic) IBOutlet UIView *debugView;
 @end

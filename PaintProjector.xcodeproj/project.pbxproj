@@ -503,6 +503,8 @@
 		08CE4BFB18D7D2C1008C4904 /* ADInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BF918D7D2C1008C4904 /* ADInfoButton.m */; };
 		08CEBB38195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CEBB37195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m */; };
 		08CEBB39195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CEBB37195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m */; };
+		08CF37D6197D61C30017D43A /* iap_brushPreviewBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */; };
+		08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */; };
 		08D4B8BA18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4B8BB18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4F68C19712FC900A81063 /* ADReversePaintInputData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */; };
@@ -1420,6 +1422,7 @@
 		08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADProductInfoTableViewController.m; sourceTree = "<group>"; };
 		08CEBB36195A71B400247F8B /* ADShaderUnlitTransparentAdditive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderUnlitTransparentAdditive.h; sourceTree = "<group>"; };
 		08CEBB37195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderUnlitTransparentAdditive.m; sourceTree = "<group>"; };
+		08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushPreviewBg.png; path = PaintProjector/Images/iap_brushPreviewBg.png; sourceTree = "<group>"; };
 		08D4B8B918C56611008F5293 /* Default.swatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Default.swatch; sourceTree = "<group>"; };
 		08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADReversePaintInputData.h; sourceTree = "<group>"; };
 		08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADReversePaintInputData.m; sourceTree = "<group>"; };
@@ -2405,6 +2408,7 @@
 			isa = PBXGroup;
 			children = (
 				08E8AB05194BE6AC003A32B8 /* AnaDraw_alpha@2x.png */,
+				08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */,
 				08DEDCCA194B55FE00155A91 /* Pro_pallete.png */,
 				08F905C9194AC982002918AA /* iap_brushMarkerHard.png */,
 				08F905CA194AC982002918AA /* iap_brushChineseBrush.png */,
@@ -2882,6 +2886,7 @@
 				08083DF619645A8600FDDDE8 /* paintFrame.png in Resources */,
 				e37029de4c7956b2bb121e3c /* ADSharedTableViewCell.xib in Resources */,
 				08086E3318DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
+				08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */,
 				44c3a468a4bf3475a7a36dc9 /* ADLayerToolView.xib in Resources */,
 				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
@@ -2990,6 +2995,7 @@
 				08083DF519645A8600FDDDE8 /* paintFrame.png in Resources */,
 				0813AA1F19167BD4000C4D00 /* Models in Resources */,
 				08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */,
+				08CF37D6197D61C30017D43A /* iap_brushPreviewBg.png in Resources */,
 				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,

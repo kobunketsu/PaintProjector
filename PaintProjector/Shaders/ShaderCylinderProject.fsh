@@ -17,4 +17,8 @@ void main()
     gl_FragColor.rgb = cPaint.rgb * cPaint.a * color0.a;
 //    gl_FragColor.rgb = vec3(0, 0, 1);
     gl_FragColor.a = cPaint.a * color0.a;
+    
+    //debug
+//    highp float t = sqrt(-1.0);
+//    gl_FragColor.rgb = color0.xxx;
 }

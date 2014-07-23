@@ -178,7 +178,7 @@ typedef struct {
 @property (retain, nonatomic)ADCommandManager *commandManager;
 @property (weak, nonatomic)NSMutableArray *brushTypes;
 @property (weak, nonatomic)ADEyeDropper *eyeDropper;
-@property (assign, nonatomic)PaintingViewState state;
+@property (assign, nonatomic, readonly)PaintingViewState state;
 @property (weak, nonatomic) UITouch *paintTouch;     //记录当前绘图Touch
 @property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
 @property (assign, nonatomic) GLuint finalRenderbuffer;
@@ -202,6 +202,7 @@ typedef struct {
 //进入前台,恢复GL
 - (void)applicationWillEnterForeground;
 #pragma mark 绘图Draw
+- (BOOL)enterState:(PaintingViewState)state;
 - (void)prepareDrawEnv;
 - (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw;
 - (void)draw:(BOOL)isTapDraw;

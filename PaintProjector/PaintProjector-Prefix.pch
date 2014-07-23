@@ -108,9 +108,17 @@ static bool IsOffsetEyeDropper = true;
 #define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height
 
-#define ToSeeCylinderTopPixelOffset 70
-#define ToSeeCylinderTopViewportPixelOffsetY -160
-#define TransitionToPaintPixelOffsetY -31
+//#define ToSeeCylinderTopPixelOffset 70
+//#define ToSeeCylinderTopViewportPixelOffsetY -160
+//#define TransitionToPaintPixelOffsetY -31
+//#define ToSeeCylinderTopPosOffset 0
+
 //#define ToSeeCylinderTopPixelOffset 0
 //#define ToSeeCylinderTopViewportPixelOffsetY -90
 //#define TransitionToPaintPixelOffsetY -34
+
+#define ToSeeCylinderTopPixelOffset 0
+#define ToSeeCylinderTopViewportPixelOffsetY 0
+#define TransitionToPaintPixelOffsetY -15
+//#define ToSeeCylinderTopPosOffset -0.05
+#define ToSeeCylinderTopPosOffset 0

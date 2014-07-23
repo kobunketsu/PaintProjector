@@ -25,7 +25,7 @@
 #import "ADReversePaintInputData.h"
 
 //avoid z fighting
-#define FarClipDistance 5
+#define FarClipDistance 10
 #define NearClipDistance 0.005
 
 
@@ -180,8 +180,9 @@ static float DeviceWidth = 0.154;
         [dic setObject:[NSNumber numberWithFloat:0.027] forKey:@"userInputParams.imageCenterOnSurfHeight"];
         [dic setObject:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeHonrizontalDistance"];
         [dic setObject:[NSNumber numberWithFloat:0.31] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
         [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-        [dic setObject:[NSNumber numberWithFloat:0.05] forKey:@"userInputParams.eyeTopZ"];
+        [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
         
     }
     else{
@@ -192,12 +193,13 @@ static float DeviceWidth = 0.154;
         [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
         [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
         [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
         [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-        [dic setObject:[NSNumber numberWithFloat:0.065] forKey:@"userInputParams.eyeTopZ"];
+//        [dic setObject:[NSNumber numberWithFloat:0.065] forKey:@"userInputParams.eyeTopZ"];
+        [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
 
     }
     self.srcUserInputParams = dic;
-    
     self.isReversePaint = false;
     self.isSetupMode = false;
     self.isTopViewMode = false;
@@ -381,6 +383,7 @@ static float DeviceWidth = 0.154;
         self.cylinderInterLight.active = false;
         self.cylinderTopLight.active = false;
         self.cylinderBottom.active = false;
+        
         [self glkView:self.projectView drawInRect:self.projectView.frame];
         
         //创建临时paintDoc
@@ -701,37 +704,42 @@ static float DeviceWidth = 0.154;
     CGFloat maxValue = 1;
     if ([sender isEqual:self.cylinderDiameterButton]) {
         userInputParamKey = @"userInputParams.cylinderDiameter";
-        minValue = 0.038;
-        maxValue = 0.38;
+        minValue = 0.01;
+        maxValue = 0.2;
     }
     else if ([sender isEqual:self.cylinderHeightButton]) {
         userInputParamKey = @"userInputParams.cylinderHeight";
-        minValue = 0.07;
-        maxValue = 0.7;
+        minValue = 0.01;
+        maxValue = 0.5;
     }
     else if ([sender isEqual:self.imageWidthButton]) {
         userInputParamKey = @"userInputParams.imageWidth";
-        minValue = 0.038;
-        maxValue = 0.38;
+        minValue = 0.01;
+        maxValue = 0.2;
     }
     else if ([sender isEqual:self.imageHeightButton]) {
         userInputParamKey = @"userInputParams.imageCenterOnSurfHeight";
-        minValue = 0.035;
-        maxValue = 0.35;
+        minValue = 0.01;
+        maxValue = 0.25;
     }
-    else if ([sender isEqual:self.eyeDistanceButton]) {
-        userInputParamKey = @"userInputParams.eyeHonrizontalDistance";
-        minValue = 0.35;
-        maxValue = 3.5;
-    }
-    else if ([sender isEqual:self.eyeHeightButton]) {
-        userInputParamKey = @"userInputParams.eyeVerticalHeight";
-        minValue = 0.35;
-        maxValue = 3.5;
+//    else if ([sender isEqual:self.eyeDistanceButton]) {
+//        userInputParamKey = @"userInputParams.eyeHonrizontalDistance";
+//        minValue = 0.35;
+//        maxValue = 1.75;
+//    }
+//    else if ([sender isEqual:self.eyeHeightButton]) {
+//        userInputParamKey = @"userInputParams.eyeVerticalHeight";
+//        minValue = 0.4;
+//        maxValue = 2.0;
+//    }
+    else if ([sender isEqual:self.eyeZoomButton]) {
+        userInputParamKey = @"userInputParams.eyeZoom";
+        minValue = 0.1;
+        maxValue = 1;
     }
     else if ([sender isEqual:self.projectZoomButton]) {
         userInputParamKey = @"userInputParams.unitZoom";
-        minValue = 0.01;
+        minValue = 0.1;
         maxValue = 1;
     }
     
@@ -752,6 +760,15 @@ static float DeviceWidth = 0.154;
 
     
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.userInputParamkeyPath];
+    
+    //同比例调整
+//    if ([self.userInputParamkeyPath isEqualToString:@"userInputParams.eyeHonrizontalDistance"]) {
+//        self.userInputParams.eyeVerticalHeight = self.userInputParams.eyeHonrizontalDistance / 0.35 * 0.4;
+//    }
+//    if ([self.userInputParamkeyPath isEqualToString:@"userInputParams.eyeVerticalHeight"]) {
+//        self.userInputParams.eyeHonrizontalDistance = self.userInputParams.eyeVerticalHeight / 0.4 * 0.3;
+//    }
+    
     [self flushUIUserInputParams];
 }
 
@@ -906,17 +923,57 @@ static float DeviceWidth = 0.154;
             self.cylinderProjectCur.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
         }
     }
-    else if ([keyPath isEqualToString:@"userInputParams.eyeHonrizontalDistance"] ||
-             [keyPath isEqualToString:@"userInputParams.eyeVerticalHeight"]) {
+//    else if ([keyPath isEqualToString:@"userInputParams.eyeHonrizontalDistance"] ||
+//             [keyPath isEqualToString:@"userInputParams.eyeVerticalHeight"]) {
+//
+//        
+//        GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
+//        GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
+//        self.topCamera.position = eyeTop;
+//        RECamera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
+//
+//        
+//        
+//        if (self.cylinder) {
+//            self.cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
+//                                                                self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+//                                                                self.topCamera.orthoWidth,
+//                                                                self.topCamera.orthoHeight);
+//        }
+//    }
+    else if ([keyPath isEqualToString:@"userInputParams.eyeZoom"]){
+        //更改输入参数
+        float h = 0.4 - 0.035;
+        float w = 0.35 - 0.038;
+        GLKVector3 imageCenterOnSurf = GLKVector3Make(0, 0.035, - 0.038);
+        GLKVector3 vImageCenterToEye = GLKVector3Make(0, h, -w);
+        CGFloat dist = GLKVector3Length(vImageCenterToEye);
+        GLKVector3 eyeZoomed = GLKVector3Add(GLKVector3MultiplyScalar(GLKVector3Normalize(vImageCenterToEye), dist / self.userInputParams.eyeZoom), imageCenterOnSurf);
+        self.userInputParams.eyeHonrizontalDistance = -eyeZoomed.z;
+        self.userInputParams.eyeVerticalHeight = eyeZoomed.y;
+
+        //修改了eye position imageCenterOnSurfHeight radius中的任何一项, 都会导致vImageCenterToEye发生变化，导致image transformMatrix变化
+        //更改Camera
         GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
         GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
         self.topCamera.position = eyeTop;
+        self.topCamera.focus = GLKVector3Make(0, 0, -self.userInputParams.eyeTopZ);
+        
         RECamera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
+        
+        //更改Cylinder
         if (self.cylinder) {
             self.cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
-                                                                self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+                                                                self.topCamera.focus.z - self.topCamera.orthoHeight * 0.5,
                                                                 self.topCamera.orthoWidth,
                                                                 self.topCamera.orthoHeight);
+        }
+        
+        if (self.cylinderProjectCur) {
+            self.cylinderProjectCur.eye = eyeBottom;
+        }
+        if (self.cylinder) {
+            self.cylinder.eye = eyeBottom;
         }
     }
     else if ([keyPath isEqualToString:@"userInputParams.unitZoom"]) {
@@ -927,9 +984,9 @@ static float DeviceWidth = 0.154;
             
             if (self.cylinder) {
                 self.cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
-                                                               self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
-                                                               self.topCamera.orthoWidth,
-                                                               self.topCamera.orthoHeight);
+                                                                    self.topCamera.focus.z - self.topCamera.orthoHeight * 0.5,
+                                                                    self.topCamera.orthoWidth,
+                                                                    self.topCamera.orthoHeight);
             }
 
         }
@@ -972,8 +1029,9 @@ static float DeviceWidth = 0.154;
     [self addObserver:self forKeyPath:@"userInputParams.cylinderHeight" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.imageWidth" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.imageCenterOnSurfHeight" options:NSKeyValueObservingOptionOld context:nil];
-    [self addObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance" options:NSKeyValueObservingOptionOld context:nil];
-    [self addObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight" options:NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance" options:NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight" options:NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"userInputParams.eyeZoom" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.unitZoom" options:NSKeyValueObservingOptionOld context:nil];
     [self addObserver:self forKeyPath:@"userInputParams.eyeTopZ" options:NSKeyValueObservingOptionOld context:nil];
 
@@ -985,8 +1043,9 @@ static float DeviceWidth = 0.154;
     [self removeObserver:self forKeyPath:@"userInputParams.cylinderHeight"];
     [self removeObserver:self forKeyPath:@"userInputParams.imageWidth"];
     [self removeObserver:self forKeyPath:@"userInputParams.imageCenterOnSurfHeight"];
-    [self removeObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance"];
-    [self removeObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight"];
+//    [self removeObserver:self forKeyPath:@"userInputParams.eyeHonrizontalDistance"];
+//    [self removeObserver:self forKeyPath:@"userInputParams.eyeVerticalHeight"];
+    [self removeObserver:self forKeyPath:@"userInputParams.eyeZoom"];
     [self removeObserver:self forKeyPath:@"userInputParams.unitZoom"];
     [self removeObserver:self forKeyPath:@"userInputParams.eyeTopZ"];
 }
@@ -1010,6 +1069,9 @@ static float DeviceWidth = 0.154;
     [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateNormal];
     [self.eyeHeightButton setTitle:[NSString unitStringFromFloat:self.userInputParams.eyeVerticalHeight] forState:UIControlStateSelected];
 
+    [self.eyeZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.eyeZoom * 100] forState:UIControlStateNormal];
+    [self.eyeZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.eyeZoom * 100] forState:UIControlStateSelected];
+    
     [self.projectZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.unitZoom * 100] forState:UIControlStateNormal];
     [self.projectZoomButton setTitle:[NSString stringWithFormat:@"%.0f%%", self.userInputParams.unitZoom * 100] forState:UIControlStateSelected];
     
@@ -1048,13 +1110,12 @@ static float DeviceWidth = 0.154;
     RECamera.mainCamera.farClip = FarClipDistance;
     RECamera.mainCamera.aspect = self.eyeTopAspect;
     RECamera.mainCamera.fov = GLKMathDegreesToRadians(29);
-//    RECamera.mainCamera.backgroundColor = GLKVector4Make(90.0/255.0, 230.0/255.0, 71.0 / 255.0, 1);
     RECamera.mainCamera.backgroundColor = GLKVector4Make(0/255.0, 0/255.0, 0/255.0, 0);
     RECamera.mainCamera.cullingMask = Culling_Everything & (~Culling_CylinderImage);
     self.bottomCameraProjMatrix = RECamera.mainCamera.projMatrix;
     
-    float orthoWidth = DeviceWidth * self.userInputParams.unitZoom;
-    float orthoHeight = DeviceWidth / self.eyeTopAspect * self.userInputParams.unitZoom;
+    float orthoWidth = DeviceWidth / self.userInputParams.unitZoom;
+    float orthoHeight = (DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom;
     
     self.topCamera = [[RECamera alloc]initOrthorWithPosition:GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ)
                                                      focus:GLKVector3Make(0, 0, -self.userInputParams.eyeTopZ)
@@ -1077,6 +1138,10 @@ static float DeviceWidth = 0.154;
         self.eyeBottomTopBlend = 0.0;
     }
     
+//    else{
+//        self.eyeBottomTopBlend = 1.0;
+//    }
+    
     REPropertyAnimation *topToBottomPropAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"eyeBottomTopBlend"];
     topToBottomPropAnim.delegate = self;
     topToBottomPropAnim.fromValue = [NSNumber numberWithFloat:1];
@@ -1087,8 +1152,8 @@ static float DeviceWidth = 0.154;
         
         [self lockInteraction:false];
         
-        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
-            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeDistance"];
+        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
+            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeZoom"];
         }
         else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
             [self tutorialStartFromStepName:@"CylinderProjectSetup"];
@@ -1144,7 +1209,7 @@ static float DeviceWidth = 0.154;
     cylinder.reflectionTex = self.topCamera.targetTexture;
     cylinder.transform.scale = GLKVector3Make(self.userInputParams.cylinderDiameter, self.userInputParams.cylinderHeight, self.userInputParams.cylinderDiameter);
     cylinder.reflectionTexUVSpace = GLKVector4Make(self.topCamera.focus.x - self.topCamera.orthoWidth * 0.5,
-                                                   self.topCamera.focus.y - self.topCamera.orthoHeight * 0.5 + self.topCamera.position.z,
+                                                   self.topCamera.focus.z - self.topCamera.orthoHeight * 0.5,
                                                    self.topCamera.orthoWidth,
                                                    self.topCamera.orthoHeight);
     
@@ -1164,6 +1229,9 @@ static float DeviceWidth = 0.154;
     [self createCylinderTopLight];
     [self createCylinderBottom];
     [self createCylinderInterLight];
+    
+    //debug
+//    cylinder.active = false;
 }
 
 - (void)destroyCylinder{
@@ -1203,6 +1271,7 @@ static float DeviceWidth = 0.154;
     [cylinderTopLight.animation play];
     self.cylinderTopLight = cylinderTopLight;
     [self.curScene addEntity:cylinderTopLight];
+    
 }
 
 - (void)destroyCylinderTopLight{
@@ -1268,10 +1337,11 @@ static float DeviceWidth = 0.154;
     
     ADShaderCylinderProject *shaderCylinderProject = (ADShaderCylinderProject *)[[REGLWrapper current]createShader:@"ADShaderCylinderProject"];
     REMaterial *matCylinderProject = [[REMaterial alloc]initWithShader:shaderCylinderProject];
+//    matCylinderProject.faceMode = RE_DoubleFace;
     
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:[[ADPaintFrameManager curGroup] curPaintDoc].thumbImagePath];
     matCylinderProject.mainTexture = [RETexture textureFromImagePath:path reload:true];
-    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:100 column:100];
+    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:25 column:1600];
     [planeMesh create];
     REMeshFilter *meshFilter = [[REMeshFilter alloc]initWithMesh:planeMesh];
     REMeshRenderer *meshRenderer = [[REMeshRenderer alloc]initWithMeshFilter:meshFilter];
@@ -1558,7 +1628,12 @@ static float DeviceWidth = 0.154;
 //    DebugLogFuncUpdate(@"updateRenderViewParams");
     GLKVector3 eyeBottom = GLKVector3Make(0, self.userInputParams.eyeVerticalHeight, -self.userInputParams.eyeHonrizontalDistance);
     GLKVector3 eyeTop = GLKVector3Make(0, self.userInputParams.eyeHonrizontalDistance, -self.userInputParams.eyeTopZ);
+    eyeTop.z += ToSeeCylinderTopPosOffset;
     RECamera.mainCamera.position = GLKVector3Lerp(eyeBottom, eyeTop, self.eyeBottomTopBlend);
+    GLKVector3 eyeTopFocus = self.topCamera.focus;
+    eyeTopFocus.z += ToSeeCylinderTopPosOffset;
+    RECamera.mainCamera.focus = GLKVector3Lerp(self.topCamera.focus, eyeTopFocus, self.eyeBottomTopBlend);
+    
     GLKMatrix4 matrix = [ADUltility MatrixLerpFrom:self.bottomCameraProjMatrix to:self.topCamera.projMatrix blend:self.eyeBottomTopBlend];
     RECamera.mainCamera.projMatrix = matrix;
 }
@@ -1952,9 +2027,10 @@ static float DeviceWidth = 0.154;
     [self.player seekToTime:kCMTimeZero];
 }
 - (CGRect)getCylinderMirrorFrame{
-    return CGRectMake(307, 285, 154, 154 / self.view.bounds.size.width * self.view.bounds.size.height);
+//    return CGRectMake(307, 285, 154, 154 / self.view.bounds.size.width * self.view.bounds.size.height);
 //    return CGRectMake(308, 286, 150, 150 / self.view.bounds.size.width * self.view.bounds.size.height);
 //    return CGRectMake(311, 270, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
+    return CGRectMake(311, 351, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
 }
 
 - (CGRect)getCylinderMirrorTopFrame{
@@ -2302,6 +2378,7 @@ static float DeviceWidth = 0.154;
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+
 }
 
 - (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc *)paintDoc{
@@ -2310,6 +2387,7 @@ static float DeviceWidth = 0.154;
     self.cylinderProjectCur.renderer.material.mainTexture = [RETexture textureFromImagePath:path reload:true];
     
     if(self.isSetupMode){
+        //设定到默认的userInputParams
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:nil];
     }
     
@@ -2375,12 +2453,15 @@ static float DeviceWidth = 0.154;
     [RECamera.mainCamera.animation play];
 
     //setup
-    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = true;
     UIColor *color = [UIColor colorWithRed:72/255.0 green:110/255.0 blue:224/255.0 alpha:1];
-    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateNormal];
-    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateHighlighted];
-    [self.eyeHeightButton setTitleColor:color forState:UIControlStateNormal];
-    [self.eyeHeightButton setTitleColor:color forState:UIControlStateHighlighted];
+//    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = true;
+//    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateNormal];
+//    [self.eyeDistanceButton setTitleColor:color forState:UIControlStateHighlighted];
+//    [self.eyeHeightButton setTitleColor:color forState:UIControlStateNormal];
+//    [self.eyeHeightButton setTitleColor:color forState:UIControlStateHighlighted];
+    self.eyeZoomButton.userInteractionEnabled = true;    
+    [self.eyeZoomButton setTitleColor:color forState:UIControlStateNormal];
+    [self.eyeZoomButton setTitleColor:color forState:UIControlStateHighlighted];
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
@@ -2405,11 +2486,15 @@ static float DeviceWidth = 0.154;
     [RECamera.mainCamera.animation play];
 
     //setup
-    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = false;
-    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+//    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = false;
+    //    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    //    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    //    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    //    [self.eyeHeightButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    
+    self.eyeZoomButton.userInteractionEnabled = false;
+    [self.eyeZoomButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.eyeZoomButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 }
 
 #pragma mark- 打印Print
@@ -2626,12 +2711,12 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenter"]) {
         self.imageHeightButton.userInteractionEnabled = true;
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
-        self.eyeDistanceButton.userInteractionEnabled = true;
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
+        self.eyeZoomButton.userInteractionEnabled = true;
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
-        self.eyeHeightButton.userInteractionEnabled = true;
-    }
+//    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
+//        self.eyeHeightButton.userInteractionEnabled = true;
+//    }
     else if ([step.name isEqualToString:@"CylinderProjectSetupZoom"] ||
              [step.name isEqualToString:@"CylinderProjectSetupZoomFixDisplay"]) {
         self.projectZoomButton.userInteractionEnabled = true;
@@ -2652,8 +2737,9 @@ static float DeviceWidth = 0.154;
              [step.name isEqualToString:@"CylinderProjectSetupCylinderHeightValue"] ||
              [step.name isEqualToString:@"CylinderProjectSetupImageWidthValue"] ||
              [step.name isEqualToString:@"CylinderProjectSetupImageCenterValue"] ||
-             [step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"] ||
-             [step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"] ||
+             [step.name isEqualToString:@"CylinderProjectSetupEyeZoomValue"] ||
+//             [step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"] ||
+//             [step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"] ||
              [step.name isEqualToString:@"CylinderProjectSetupZoomValue"] ||
              [step.name isEqualToString:@"CylinderProjectSetupZoomFixDisplayValue"])
     {
@@ -2720,20 +2806,27 @@ static float DeviceWidth = 0.154;
         CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
         [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
-        [step.indicatorView targetView:self.eyeDistanceButton inRootView:self.view];
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
+        [step.indicatorView targetView:self.eyeZoomButton inRootView:self.view];
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeZoomValue"]) {
         CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
         [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
-        [step.indicatorView targetView:self.eyeHeightButton inRootView:self.view];
-    }
-    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"]) {
-        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
-        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
-    }
+//    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
+//        [step.indicatorView targetView:self.eyeDistanceButton inRootView:self.view];
+//    }
+//    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistanceValue"]) {
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//    }
+//    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeight"]) {
+//        [step.indicatorView targetView:self.eyeHeightButton inRootView:self.view];
+//    }
+//    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeHeightValue"]) {
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//    }
     else if ([step.name isEqualToString:@"CylinderProjectSetupZoom"] ||
              [step.name isEqualToString:@"CylinderProjectSetupZoomFixDisplay"]) {
         [step.indicatorView targetView:self.projectZoomButton inRootView:self.view];
@@ -2759,4 +2852,7 @@ static float DeviceWidth = 0.154;
     [step addToRootView:self.view];
 }
 
+- (IBAction)debugSliderValueChanged:(UISlider *)sender {
+    self.cylinderProjectCur.morphBlend = sender.value;
+}
 @end

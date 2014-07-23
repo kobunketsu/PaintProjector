@@ -464,7 +464,11 @@
 
 - (void)setColor:(UIColor *)newValue {
     _brushState.color = [newValue copy];
-    [self.delegate willBrushColorChanged:self];
+    
+    if (self.delegate) {
+        [self.delegate willBrushColorChanged:self];
+    }
+
 }
 
 //计算一次点到点绘制需要的数量
@@ -698,7 +702,7 @@
         size_t count = self.allDrawSpriteCount;
         DebugLog(@"glDrawArrays allDrawSpriteCount %lu", count);
         glDrawArrays(GL_POINTS, 0, count);
-        DebugLog(@"-----------------------------------Pass End-----------------------------------");
+        DebugLog(@"-----------------------------------Pass Draw End-----------------------------------");
 
         self.allDrawSpriteCount = 0;
         

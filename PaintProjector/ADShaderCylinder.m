@@ -46,6 +46,7 @@
         
         glBindAttribLocation(self.program, GLKVertexAttribTexCoord0, "texcoord");
         
+        glBindAttribLocation(self.program, GLKVertexAttribNormal, "norm");
 //        glBindAttribLocation(self.program, GLKVertexAttribColor, "color");
         
         

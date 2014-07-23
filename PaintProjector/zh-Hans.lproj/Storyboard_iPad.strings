@@ -419,4 +419,8 @@
 "jJd-6j-mPn.text" = "在这里试用";
 
 /* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "BXU-rT-2Pa"; */
-"BXU-rT-2Pa.normalTitle" = "重置";
+"BXU-rT-2Pa.normalTitle" = "清除";
+
+/* Class = "IBUILabel"; text = "Width"; ObjectID = "uu0-6a-fpA"; */
+"uu0-6a-fpA.text" = "视点缩放";
+

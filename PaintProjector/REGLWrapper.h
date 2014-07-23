@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, WrapMode) {
 typedef NS_ENUM(NSInteger, REFaceMode) {
     RE_FrontFace,
     RE_BackFace,
-//    RE_DoubleFace
+    RE_DoubleFace,
 };
 #define SwapGL(a,b){GLuint temp = a; a = b; b = temp;}
 

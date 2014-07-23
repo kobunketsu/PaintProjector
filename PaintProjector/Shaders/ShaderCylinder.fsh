@@ -36,12 +36,13 @@ void main()
     
     //uv range out of (0,1) clamp to border color in code
     lowp vec4 cRefl = texture2D(reflectionTex, vec2(u, v));
-//    if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
-//        cRefl.rgb = vec3(0,0,0);
-//    }
+    if (u < 1.0 / 1024.0 || u > 1023.0 / 1024.0 || v < 1.0 / 1024.0 || v > 1023.0 / 1024.0) {
+        cRefl.rgb = vec3(0,0,0);
+    }
     
     //clamp pixel projected behind
     cRefl.rgb *= max(0.0, sign(-worldPos.z));
+    cRefl.rgb *= 1.0 - normal.y;
 
     lowp float reflStrength = eye.w;
     gl_FragColor.rgb = (cBase.rgb + cRefl.rgb * cRefl.a * 0.8);
@@ -51,7 +52,7 @@ void main()
 
     
     //debug
-//    gl_FragColor.rgb = texture2D(reflectionTex, texcoord0).rgb;
+//    gl_FragColor.rgb = normal.yyy;
     
 //    gl_FragColor.rgb = cRefl.rgb;
     

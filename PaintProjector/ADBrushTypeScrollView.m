@@ -84,4 +84,16 @@
     self.contentSize = CGSizeMake(width * self.brushTypes.count, self.bounds.size.height);
 }
 
+- (void)autoShowBrushesTimerFired:(id)sender{
+    NSInteger page = self.brushTypePageControl.currentPage;
+
+    if ((page + 1) >= self.brushTypePageControl.numberOfPages) {
+        self.brushTypePageControl.currentPage = 0;
+    }
+    else{
+        self.brushTypePageControl.currentPage = page + 1;
+    }
+    DebugLogFuncStart(@"autoShowBrushesTimerFired currentPage %d", self.brushTypePageControl.currentPage);
+    [self setContentOffset:CGPointMake(self.brushTypePageControl.currentPage * self.frame.size.width, 0) animated:true];
+}
 @end

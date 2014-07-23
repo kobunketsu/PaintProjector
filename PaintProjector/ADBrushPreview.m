@@ -255,7 +255,7 @@
 //为涂抹笔刷试用创建初始图层
 - (void)createTextureForSmudgeBrush{
     DebugLogFuncStart(@"createTextureForSmudgeBrush");
-    self.backgroundTex = [RETexture textureFromImageName:@"AnaDraw_alpha@2x.png" reload:false];
+    self.backgroundTex = [RETexture textureFromImageName:@"iap_brushPreviewBg.png" reload:false];
 }
 
 - (void)deleteTextureForSmudgeBrush{
@@ -669,5 +669,9 @@
 //?
 -(void)willUpdateSmudgeSubPoint{
     [self willAfterDraw:self.brush.brushState refresh:false retainBacking:true];
+}
+
+- (void) willBrushColorChanged:(ADBrush *)brush{
+
 }
 @end

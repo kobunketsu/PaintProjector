@@ -48,8 +48,6 @@
             glDepthMask(GL_TRUE);
         }
         
-        [[REGLWrapper current]setFaceMode:material.faceMode];
-        
         //TODO: convert to REGLWrapper
         [material.shader setBlendMode];
         
@@ -72,12 +70,24 @@
         
         GLvoid *ptr = (GLvoid*)(offset * sizeof(short));
         
+        [[REGLWrapper current]setFaceMode:material.faceMode];
+        
         //test
         if (self.meshFilter.mesh.topology == Triangles) {
             glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, ptr);
         }
         else if (self.meshFilter.mesh.topology == Lines) {
             glDrawElements(GL_LINES, indiceCount, GL_UNSIGNED_SHORT, ptr);
+        }
+        
+        if (material.faceMode == RE_DoubleFace) {
+            [[REGLWrapper current]setFaceMode:RE_BackFace];
+            if (self.meshFilter.mesh.topology == Triangles) {
+                glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, ptr);
+            }
+            else if (self.meshFilter.mesh.topology == Lines) {
+                glDrawElements(GL_LINES, indiceCount, GL_UNSIGNED_SHORT, ptr);
+            }
         }
 
 

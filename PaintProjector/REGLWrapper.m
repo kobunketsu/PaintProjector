@@ -317,6 +317,10 @@
             glFrontFace(GL_CW);
             break;
         }
+        case RE_DoubleFace:{
+            glFrontFace(GL_CCW);
+            break;
+        }
         default:
             break;
     }
