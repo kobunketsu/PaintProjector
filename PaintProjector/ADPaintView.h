@@ -179,15 +179,11 @@ typedef struct {
 @property (weak, nonatomic)NSMutableArray *brushTypes;
 @property (weak, nonatomic)ADEyeDropper *eyeDropper;
 @property (assign, nonatomic, readonly)PaintingViewState state;
-@property (weak, nonatomic) UITouch *paintTouch;     //记录当前绘图Touch
-@property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
 @property (assign, nonatomic) GLuint finalRenderbuffer;
 @property (assign, nonatomic) GLuint backgroundTexture;//背景内容
 @property (weak, nonatomic) ADPaintData *paintData;
 @property (retain, nonatomic)ADBrush *brush;
-@property (retain, nonatomic) UIImage *paintingImage;//纪录当前的绘图内容
-@property (retain, nonatomic) UIImage *brushingImage;//纪录当前的绘图内容
-@property (retain, nonatomic) UIImage *paintRefImage;//纪录当前的绘图内容
+
 
 #pragma mark GL资源
 - (void)swapVBO;
@@ -201,6 +197,12 @@ typedef struct {
 - (void)applicationDidEnterBackground;
 //进入前台,恢复GL
 - (void)applicationWillEnterForeground;
+
+#pragma mark Interaction交互
+@property (assign, nonatomic) NSInteger curNumberOfTouch;   //当前Touch个数
+@property (weak, nonatomic) UITouch *paintTouch;     //记录当前绘图Touch
+@property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
+
 #pragma mark 绘图Draw
 - (BOOL)enterState:(PaintingViewState)state;
 - (void)prepareDrawEnv;

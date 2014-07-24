@@ -1219,7 +1219,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oqr-Kp-EJS">
-                            <rect key="frame" x="420" y="0.0" width="80" height="30"/>
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Restore">
@@ -1230,7 +1230,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="geC-fO-fTo">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                            <rect key="frame" x="420" y="0.0" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Done">
@@ -1262,16 +1262,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
-                                            <view hidden="YES" contentMode="scaleToFill" id="fl5-KO-TgT" userLabel="DebugViewAlpha">
-                                                <rect key="frame" x="100" y="100" width="300" height="300"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view hidden="YES" contentMode="scaleToFill" id="EE5-9s-svW" userLabel="DebugViewColor">
-                                                <rect key="frame" x="400" y="100" width="300" height="300"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                            </view>
                                             <view hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="UZ5-WS-IWn" userLabel="ClearEffectView">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                                 <autoresizingMask key="autoresizingMask"/>
@@ -1866,8 +1856,6 @@
                         <outlet property="colorPickerView" destination="t8W-76-5EB" id="YoC-5l-uB2"/>
                         <outlet property="colorSaveToSlotView" destination="dc1-z6-4cm" id="dAI-jr-0Cl"/>
                         <outlet property="colorSlotsScrollView" destination="T99-J2-dLj" id="c8M-Mw-0t3"/>
-                        <outlet property="debugView" destination="fl5-KO-TgT" id="0zH-uZ-VIZ"/>
-                        <outlet property="debugView2" destination="EE5-9s-svW" id="Pyf-Cf-Jr1"/>
                         <outlet property="exportButton" destination="Vhq-Ni-nC3" id="pkf-ec-kDc"/>
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
@@ -1964,7 +1952,7 @@
                         <outlet property="delegate" destination="NUX-zI-YbL" id="kNS-8I-6Si"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="zQY-1r-Dfz" userLabel="TapGR 1Touches2TapsRootCanvasView">
+                <tapGestureRecognizer enabled="NO" numberOfTapsRequired="2" id="zQY-1r-Dfz" userLabel="TapGR 1Touches2TapsRootCanvasView">
                     <connections>
                         <action selector="handleTap1Touches2TapsRootCanvasView:" destination="NUX-zI-YbL" id="AX4-z5-jOy"/>
                     </connections>
@@ -2002,7 +1990,7 @@
                         </fragment>
                     </attributedString>
                 </pinchGestureRecognizer>
-                <panGestureRecognizer cancelsTouchesInView="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="vPf-2h-AKx" userLabel="PanGR 1TouchesPaintView">
+                <panGestureRecognizer enabled="NO" cancelsTouchesInView="NO" minimumNumberOfTouches="1" maximumNumberOfTouches="1" id="vPf-2h-AKx" userLabel="PanGR 1TouchesPaintView">
                     <connections>
                         <action selector="handlePan1TouchesPaintView:" destination="NUX-zI-YbL" id="CDL-tD-eEM"/>
                         <outlet property="delegate" destination="NUX-zI-YbL" id="Ij1-v9-WwM"/>

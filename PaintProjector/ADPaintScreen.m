@@ -35,7 +35,7 @@
 #define ChangeToolBarConfirmPixels 10
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
-#define TwoFingerPanGestureTime 0.016
+
 
 //使用NSUserDefault来存储数据
 //#define LayerMaxCount_Pro 8
@@ -58,8 +58,6 @@
 @property (assign, nonatomic) BOOL isPaintFullScreen;
 @property (strong, nonatomic) ADSharedPopoverController *subPopoverController;
 @property (retain, nonatomic) ADSharedPopoverController *sharedPopoverController;
-@property (retain, nonatomic) NSDate *twoFingerPanGestureStartTime;   //检测手势的开始时间
-@property (assign, nonatomic) float twoFingerPanGestureCurTimeInterval;   //检测手势的当前误差时间
 @property (retain, nonatomic) NSMutableArray *colorButtons;//所有颜色槽
 @property (weak, nonatomic) ADColorButton *colorSaveTargetButton;//吸颜色的目标槽位
 @property (retain, nonatomic) ADClearGestureRecognizer *clearGestureRecognizer;
@@ -389,8 +387,6 @@
     [self setPaintUIDefaultCollection:nil];
     [self setBrushDetailView:nil];
     [self setRootView:nil];
-    [self setDebugView:nil];
-    [self setDebugView2:nil];
     [self setColorPickerIndicatorMagnify:nil];
     [self setRadiusSlider:nil];
     [self setEyeDropperButton:nil];
@@ -404,7 +400,6 @@
     [self setTransformButton:nil];
     [self setOpacitySlider:nil];
     [self setRadiusIndicatorView:nil];
-//    [self setBrushTypeBar:nil];
     [self setBrushBackButton:nil];
     [self setEyeDropperIndicatorView:nil];
     [self setClearButton:nil];
@@ -471,74 +466,29 @@
 - (IBAction)handlePan1TouchesPaintView:(UIPanGestureRecognizer *)sender {
     [RemoteLog logAction:@"handlePan1TouchesPaintView" identifier:sender];
     
-//    DebugLog(@"handlePan1TouchesPaintView");
-    if (_state != PaintScreen_Normal) {
-        return;
-    }
-    
-    switch (sender.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            //如果移动手势，重置判断是绘图还是变换的意图
-            switch (self.paintView.state) {
-                    
-                case PaintingView_TouchNone:
-                {
-                    self.twoFingerPanGestureStartTime = [NSDate date];
-                    self.paintView.paintTouch = nil;
-                    break;
-                }
-                default:
-                    break;
-            }
-            break;
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-            //需要继续判断是否 双指操作 or 单指操作
-            switch (self.paintView.state) {
-                case PaintingView_TouchNone:{
-                    DebugLog(@"self.paintView.state PaintingView_TouchNone");
-                    
-                    self.twoFingerPanGestureCurTimeInterval = -[self.twoFingerPanGestureStartTime timeIntervalSinceNow];
-                    
-                    //                DebugLog(@"self.twoFingerPanGestureCurTimeInterval ti %.2f", self.twoFingerPanGestureCurTimeInterval);
-                    
-                    //超过双手手势误差时间，状态判定为绘图
-                    if (self.twoFingerPanGestureCurTimeInterval >= TwoFingerPanGestureTime){
-                        DebugLog(@"self.paintView.state change to PaintingView_TouchPaint");
-                        if ([self.paintView enterState:PaintingView_TouchPaint]) {
-                            self.twoFingerPanGestureCurTimeInterval = -1;
-                        }
-                    }
-                    //未超过误差时间
-                    else if (self.twoFingerPanGestureCurTimeInterval > 0 && self.twoFingerPanGestureCurTimeInterval < TwoFingerPanGestureTime){
-                        //do nothing
-                    }
-                    //已经完成状态判定
-                    else{
-                        //do nothing
-                    }
-                    break;
-                }
-                    
-                default:
-                    break;
-            }
-        }
-        case UIGestureRecognizerStateEnded:
-        {
-            //绘图模式下，只有参于绘图的Touch End才算绘图结束，在paintView touchEnd中判断
-            break;
-        }
-        case UIGestureRecognizerStateFailed:
-        case UIGestureRecognizerStateCancelled:
-        {
-            break;
-        }
-        default:
-            break;
-    }
+////    DebugLog(@"handlePan1TouchesPaintView");
+//    if (_state != PaintScreen_Normal) {
+//        return;
+//    }
+//    
+//    switch (sender.state) {
+//        case UIGestureRecognizerStateBegan:
+//        {
+//        }
+//        case UIGestureRecognizerStateChanged:
+//        {
+//        }
+//        case UIGestureRecognizerStateEnded:
+//        {
+//        }
+//        case UIGestureRecognizerStateFailed:
+//        case UIGestureRecognizerStateCancelled:
+//        {
+//            break;
+//        }
+//        default:
+//            break;
+//    }
 }
 - (IBAction)handleLongPressPaintView:(UILongPressGestureRecognizer *)sender{
     [RemoteLog logAction:@"handlePan1TouchesPaintView" identifier:sender];
@@ -659,7 +609,6 @@
         {
             switch (self.paintView.state) {
                 case PaintingView_TouchNone:{
-                    self.twoFingerPanGestureCurTimeInterval = -1;
                     [self handle2TouchesTransformCanvasBegan:sender];
                     break;
                 }
@@ -783,7 +732,6 @@
         {
             switch (self.paintView.state) {
                 case PaintingView_TouchNone:{
-                    self.twoFingerPanGestureCurTimeInterval = -1;
                     [self handle3TouchesOperationBegan:sender];
                     break;
                 }
@@ -985,15 +933,15 @@
 
 
 - (IBAction)handleTap1Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleTap1Touches2TapsRootCanvasView" identifier:sender];
-    if (_state != PaintScreen_Normal) {
-        return;
-    }
-    
-    if (sender.state == UIGestureRecognizerStateRecognized) {
-        //容易和普通点击绘制冲突
-//        [self swapBrushType];
-    }
+//    [RemoteLog logAction:@"handleTap1Touches2TapsRootCanvasView" identifier:sender];
+//    if (_state != PaintScreen_Normal) {
+//        return;
+//    }
+//    
+//    if (sender.state == UIGestureRecognizerStateRecognized) {
+//        //容易和普通点击绘制冲突
+////        [self swapBrushType];
+//    }
 }
 
 - (IBAction)handleTap2Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender {
@@ -1314,161 +1262,6 @@
 }
 
 #pragma mark
-
-
-//函数可能被多个UITouch触发多次
-//- (void)handlePanRootCanvasViewInStateNormal:(UIPanGestureRecognizer *)sender{
-//    DebugLog(@"handlePanRootCanvasViewInStateNormal numberOfTouches %d", sender.numberOfTouches);
-//    
-//    switch (sender.state) {
-//            
-//        case UIGestureRecognizerStateBegan:{
-//            //            DebugLog(@"handlePanPaintViewBegan numberOfTouches %d", sender.numberOfTouches);
-//            
-//            //如果移动手势，重置判断是绘图还是变换的意图
-//            switch (self.paintView.state) {
-//
-//                case PaintingView_TouchNone:
-//                {
-//                    self.twoFingerPanGestureStartTime = [NSDate date];
-//                    self.paintView.paintTouch = nil;
-//                    break;
-//                }
-//
-//                case PaintingView_TouchPaint:
-//                {
-////                    self.paintView.state = PaintingView_TouchNone;
-//                    break;
-//                }
-//
-//                case PaintingView_TouchEyeDrop:
-//                case PaintingView_TouchTransformImage:
-//                case PaintingView_TouchTransformLayer:
-//                case PaintingView_TouchTransformCanvas:
-//                case PaintingView_TouchQuickTool:
-//                {
-//                    break;
-//                }
-//                default:
-//                    break;
-//            }
-////            if(self.paintView.state != PaintingView_TouchEyeDrop){
-////                self.twoFingerPanGestureStartTime = [NSDate date];
-////                self.paintView.state = PaintingView_TouchNone;
-////                self.paintView.paintTouch = nil;
-////            }
-//            break;
-//        }
-//        case UIGestureRecognizerStateChanged:{
-//            //            DebugLog(@"handlePanPaintViewChanged numberOfTouches %d", sender.numberOfTouches);
-//            //需要继续判断是否 双指操作 or 单指操作
-//            if(self.paintView.state == PaintingView_TouchNone){
-//                DebugLog(@"self.paintView.state PaintingView_TouchNone");
-//                self.twoFingerPanGestureCurTimeInterval = -[self.twoFingerPanGestureStartTime timeIntervalSinceNow];
-////                DebugLog(@"self.twoFingerPanGestureCurTimeInterval ti %.2f", self.twoFingerPanGestureCurTimeInterval);
-//                //超过双手手势误差时间，状态判定为绘图
-//
-//                if (self.twoFingerPanGestureCurTimeInterval >= TwoFingerPanGestureTime){
-//                    DebugLog(@"self.paintView.state change to PaintingView_TouchPaint");
-//                    self.twoFingerPanGestureCurTimeInterval = -1;
-//                    self.paintView.state = PaintingView_TouchPaint;
-//                }
-//                //未超过误差时间
-//                else if (self.twoFingerPanGestureCurTimeInterval > 0 && self.twoFingerPanGestureCurTimeInterval < TwoFingerPanGestureTime){
-//                    //优先判断如果有三手参与Pan，则状态判定为Undo Redo
-//                    if (sender.numberOfTouches == 3) {
-//                        DebugLog(@"handleThreeFingerOperationBegan");
-//                        self.twoFingerPanGestureCurTimeInterval = -1;
-//                        [self handleThreeFingerOperationBegan:sender];
-//                    }
-//                    //如果有双手参与Pan，则状态判定为TransformCanvas
-//                    else if (sender.numberOfTouches == 2) {
-//                        DebugLog(@"handleTwoFingerTransformCanvasBegan");
-//                        self.twoFingerPanGestureCurTimeInterval = -1;
-//                        [self handleTwoFingerTransformCanvasBegan:sender];
-//                    }
-//                    //如果单手参与Pan，则不进行绘制，不重置计时器
-//                    else if (sender.numberOfTouches == 1){
-//                        //do nothing
-//                    }
-//                }
-//                //已经完成状态判定
-//                else{
-//                }
-//            }
-//            
-//            //状态已经判定为Paint
-//            else if (self.paintView.state == PaintingView_TouchPaint){
-//                DebugLog(@"self.paintView.state PaintingView_TouchPaint");
-//                //在touchMoved中进行绘图
-//            }
-//            
-//            //状态已经判定为TransformCanvas
-//            else if (self.paintView.state == PaintingView_TouchTransformCanvas){
-//                //                DebugLog(@"self.paintView.state PaintingView_TouchTransformCanvas");
-//                //双指操作
-//                if (sender.numberOfTouches == 2) {
-//                    [self handleTwoFingerTransformCanvas:sender];
-//                }
-//                //操作中单指离开，中断操作
-//                else if (sender.numberOfTouches == 1) {
-//                    //do nothing
-//                }
-//            }
-//            
-//            //状态已经判定为Undo Redo
-//            else if (self.paintView.state == PaintingView_TouchQuickTool){
-//                [self handleThreeFingerOperation:sender];
-//            }
-//
-//            //            else if (self.paintView.state == PaintingView_TouchEyeDrop){
-//            //                DebugLog(@"self.paintView.state PaintingView_TouchEyeDrop");
-//            //
-//            //            }
-//            break;
-//        }
-//        case UIGestureRecognizerStateEnded:{
-//            //变换模式下
-//            if (self.paintView.state == PaintingView_TouchTransformCanvas) {
-//                //双手都放开，或者单手放开，都结束操作
-//                DebugLog(@"handlePanRootView ended sender.numberOfTouches %d", sender.numberOfTouches);
-//                //sender.numberOfTouches == 0;
-//                [self handleTwoFingerTransformCanvasEnd:sender];
-//            }
-//            else if (self.paintView.state == PaintingView_TouchQuickTool){
-//                DebugLog(@"handlePanRootView Undo ended sender.numberOfTouches %d", sender.numberOfTouches);
-//                [self handleThreeFingerOperationEnd:sender];
-//            }
-//            //绘图模式下，只有参于绘图的Touch End才算绘图结束，在paintView touchEnd中判断
-//            else if (self.paintView.state == PaintingView_TouchPaint){
-//            }
-//            else if (self.paintView.state == PaintingView_TouchNone){
-//            }
-//            break;
-//        }
-//        case UIGestureRecognizerStateCancelled:{
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//}
-//
-//- (IBAction)handlePanRootView:(UIPanGestureRecognizer *)sender {
-////    DebugLog(@"handlePanPaintView");
-//  
-//    //变换图片
-//    if (_state == PaintScreen_Transform) {
-//        [self handlePanRootCanvasViewInStateTransform:sender];
-//    }
-//    else{
-//        [self handlePanRootCanvasViewInStateNormal:sender];
-//    }
-//}
-
-
-
-
 
 - (void)handle1TouchesPanImageStart:(UIPanGestureRecognizer *)sender{
     CGPoint location = CGPointZero;
@@ -4405,12 +4198,6 @@
 }
 
 #pragma mark- 工具栏
-- (IBAction)debugButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"debugButtonTapped" identifier:sender];
-    [self.debugView layer].contents = (__bridge id)(self.paintView.brushingImage.CGImage);
-    [self.debugView2 layer].contents = (__bridge id)(self.paintView.paintingImage.CGImage);
-}
-
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"clearButtonTouchUp" identifier:sender];

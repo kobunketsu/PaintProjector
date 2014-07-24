@@ -211,8 +211,6 @@ ADBackgroundLayerDelegate
 @property (weak, nonatomic) IBOutlet UIView *brushDetailView;
 @property (weak, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
-@property (weak, nonatomic) IBOutlet UIView *debugView;
-@property (weak, nonatomic) IBOutlet UIView *debugView2;
 @property (weak, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
 @property (weak, nonatomic) IBOutlet ADEyeDropperIndicatorView *eyeDropperIndicatorView;
 @property (weak, nonatomic) IBOutlet UISlider *radiusSlider;

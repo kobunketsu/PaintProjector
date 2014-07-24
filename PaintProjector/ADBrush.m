@@ -493,7 +493,7 @@
     
     //绘制间隔
     float spaceThresold = brushState.radius * 2 * brushState.spacing;
-    DebugLog(@"radius %.2f spacing %.2f spaceThresold %.2f", brushState.radius, brushState.spacing, spaceThresold);
+//    DebugLog(@"radius %.2f spacing %.2f spaceThresold %.2f", brushState.radius, brushState.spacing, spaceThresold);
     
     //绘制数量
     size_t count = 0;
@@ -508,7 +508,7 @@
         else{
             //累积距离小于间隔空间时，不描画
             if(self.curDrawAccumDeltaLength < spaceThresold){
-                DebugLog(@"curDrawAccumDeltaLength < spaceThresold count 0");
+//                DebugLog(@"curDrawAccumDeltaLength < spaceThresold count 0");
                 return 0;
             }
             else{
