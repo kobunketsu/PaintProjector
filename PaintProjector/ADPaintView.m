@@ -1323,7 +1323,6 @@
     //设置renderbuffer
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
     
-    CGFloat scale = self.contentScaleFactor;
     glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
     
     //保证切换到当前canvase的大小
@@ -2937,16 +2936,16 @@
     //插入反向绘制的RenderTexture
     NSUInteger srcLayerCount = self.paintData.layers.count;
     for (ADPaintLayer *layer in reversePaintData.layers) {
+
 #if DEBUG
         glPushGroupMarkerEXT(0, "layer temp renderTexture");
 #endif
         RETexture* texture = [RETexture textureFromData:layer.data name:@"reversePaintTex"];
         //创建一个临时renderTexture, 更改viewport后，将texture描画到临时renderTexture上，reflectionTex使用临时rt
-        CGFloat scale = self.contentScaleFactor;
         CGFloat heightScale = (self.bounds.size.height + ToSeeCylinderTopPixelOffset) / self.bounds.size.height;
         CGFloat height = self.bounds.size.height / heightScale;
-        CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale * scale;
-        glViewport(0, offsetY, self.bounds.size.height * scale, height * scale);
+        CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale;
+        glViewport(0, offsetY, self.bounds.size.height, height);
         
         [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
         [self drawQuad:_VAOScreenQuad texture2D:texture.texID premultiplied:true alpha:1.0];
@@ -2956,6 +2955,7 @@
 #if DEBUG
         glPopGroupMarkerEXT();
 #endif
+        
         glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
         [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];
         layer.dirty = true;

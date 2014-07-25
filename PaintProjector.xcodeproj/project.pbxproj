@@ -380,6 +380,16 @@
 		087BCD20196923290006DE29 /* ADScaleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BCD1E196923290006DE29 /* ADScaleButton.m */; };
 		087C5AB316B2CF2E005F954A /* ADFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* ADFinger.m */; };
 		087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* ADLayerMergeButton.m */; };
+		087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
+		087D9B341981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
+		087D9B371981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */; };
+		087D9B381981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */; };
+		087D9B3B1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B3A1981EBD5002392BA /* ADSetupCylinderRefCanButton.m */; };
+		087D9B3C1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B3A1981EBD5002392BA /* ADSetupCylinderRefCanButton.m */; };
+		087D9B3F1981EC8B002392BA /* ADSetupCylinderRefPenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B3E1981EC8B002392BA /* ADSetupCylinderRefPenButton.m */; };
+		087D9B401981EC8B002392BA /* ADSetupCylinderRefPenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B3E1981EC8B002392BA /* ADSetupCylinderRefPenButton.m */; };
+		087D9B431981EDF3002392BA /* ADSetupCylinderRefNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B421981EDF3002392BA /* ADSetupCylinderRefNormalButton.m */; };
+		087D9B441981EDF3002392BA /* ADSetupCylinderRefNormalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B421981EDF3002392BA /* ADSetupCylinderRefNormalButton.m */; };
 		087FE73C173DF590009B34A2 /* ADPaintScreenPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE73B173DF590009B34A2 /* ADPaintScreenPopoverBackgroundView.m */; };
 		087FE741173DF71C009B34A2 /* ADSharedPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE740173DF71C009B34A2 /* ADSharedPopoverController.m */; };
 		087FE746173E0EED009B34A2 /* ADDownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* ADDownToolBar.m */; };
@@ -459,6 +469,8 @@
 		08B11F5718A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */; };
 		08B11F5818A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */; };
 		08B131B117D24F01004FDF1D /* ADPrintButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B131B017D24F01004FDF1D /* ADPrintButton.m */; };
+		08B17A301981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */; };
+		08B17A311981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */; };
 		08B23D9B18560BBC0049584F /* ADTransformContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B23D9A18560BBC0049584F /* ADTransformContentView.m */; };
 		08B24FED170EC0E7007CA9D2 /* ADPaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEC170EC0E7007CA9D2 /* ADPaintLayer.m */; };
 		08B24FF0170ECA6E007CA9D2 /* ADPaintLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEF170ECA6E007CA9D2 /* ADPaintLayerManager.m */; };
@@ -599,6 +611,8 @@
 		08F51712195164D6007E921B /* UISlider+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F51710195164D6007E921B /* UISlider+Extension.m */; };
 		08F51761195184DF007E921B /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F51760195184DF007E921B /* UIView+Extensions.m */; };
 		08F51762195184DF007E921B /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F51760195184DF007E921B /* UIView+Extensions.m */; };
+		08F5DF1A19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */; };
+		08F5DF1B19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */; };
 		08F5F3F118B861200009AD0C /* ADInAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* ADInAppPurchaseTableViewController.m */; };
 		08F5F3F218B861200009AD0C /* ADInAppPurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F018B861200009AD0C /* ADInAppPurchaseTableViewController.m */; };
 		08F5F3F718B868160009AD0C /* ADInAppPurchaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F5F3F618B868160009AD0C /* ADInAppPurchaseTableViewCell.m */; };
@@ -1256,6 +1270,16 @@
 		087C5AB216B2CF2E005F954A /* ADFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFinger.m; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* ADLayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerMergeButton.h; sourceTree = "<group>"; };
 		087D01E6174E5EB400938494 /* ADLayerMergeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerMergeButton.m; sourceTree = "<group>"; };
+		087D9B311981E62E002392BA /* ADSetupCylinderRefMacProButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefMacProButton.h; sourceTree = "<group>"; };
+		087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefMacProButton.m; sourceTree = "<group>"; };
+		087D9B351981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefTeaCupButton.h; sourceTree = "<group>"; };
+		087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefTeaCupButton.m; sourceTree = "<group>"; };
+		087D9B391981EBD5002392BA /* ADSetupCylinderRefCanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefCanButton.h; sourceTree = "<group>"; };
+		087D9B3A1981EBD5002392BA /* ADSetupCylinderRefCanButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefCanButton.m; sourceTree = "<group>"; };
+		087D9B3D1981EC8B002392BA /* ADSetupCylinderRefPenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefPenButton.h; sourceTree = "<group>"; };
+		087D9B3E1981EC8B002392BA /* ADSetupCylinderRefPenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefPenButton.m; sourceTree = "<group>"; };
+		087D9B411981EDF3002392BA /* ADSetupCylinderRefNormalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefNormalButton.h; sourceTree = "<group>"; };
+		087D9B421981EDF3002392BA /* ADSetupCylinderRefNormalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefNormalButton.m; sourceTree = "<group>"; };
 		087FE73A173DF590009B34A2 /* ADPaintScreenPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintScreenPopoverBackgroundView.h; sourceTree = "<group>"; };
 		087FE73B173DF590009B34A2 /* ADPaintScreenPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintScreenPopoverBackgroundView.m; sourceTree = "<group>"; };
 		087FE73F173DF71C009B34A2 /* ADSharedPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSharedPopoverController.h; sourceTree = "<group>"; };
@@ -1370,6 +1394,8 @@
 		08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintScreenTransitionManager.m; sourceTree = "<group>"; };
 		08B131AF17D24F01004FDF1D /* ADPrintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPrintButton.h; sourceTree = "<group>"; };
 		08B131B017D24F01004FDF1D /* ADPrintButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPrintButton.m; sourceTree = "<group>"; };
+		08B17A2E1981FFF000FB55BD /* ADSetupCylinderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderButton.h; sourceTree = "<group>"; };
+		08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderButton.m; sourceTree = "<group>"; };
 		08B23D9918560BBC0049584F /* ADTransformContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformContentView.h; sourceTree = "<group>"; };
 		08B23D9A18560BBC0049584F /* ADTransformContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformContentView.m; sourceTree = "<group>"; };
 		08B24FEB170EC0E7007CA9D2 /* ADPaintLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintLayer.h; sourceTree = "<group>"; };
@@ -1522,6 +1548,8 @@
 		08F51710195164D6007E921B /* UISlider+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISlider+Extension.m"; sourceTree = "<group>"; };
 		08F5175F195184DF007E921B /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
 		08F51760195184DF007E921B /* UIView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extensions.m"; sourceTree = "<group>"; };
+		08F5DF1819824F22007B3F12 /* NSObject+PropertyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PropertyAnimation.h"; sourceTree = "<group>"; };
+		08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PropertyAnimation.m"; sourceTree = "<group>"; };
 		08F5F3EF18B861200009AD0C /* ADInAppPurchaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADInAppPurchaseTableViewController.h; path = PaintProjector/ADInAppPurchaseTableViewController.h; sourceTree = "<group>"; };
 		08F5F3F018B861200009AD0C /* ADInAppPurchaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADInAppPurchaseTableViewController.m; path = PaintProjector/ADInAppPurchaseTableViewController.m; sourceTree = "<group>"; };
 		08F5F3F518B868160009AD0C /* ADInAppPurchaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADInAppPurchaseTableViewCell.h; path = PaintProjector/ADInAppPurchaseTableViewCell.h; sourceTree = "<group>"; };
@@ -2063,15 +2091,27 @@
 				08CA01C0189BD8F300524D81 /* ADShareButton.m */,
 				0861490018D7442900661AD6 /* ADSetupButton.h */,
 				0861490118D7442900661AD6 /* ADSetupButton.m */,
+				08B17A2E1981FFF000FB55BD /* ADSetupCylinderButton.h */,
+				08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */,
+				087D9B311981E62E002392BA /* ADSetupCylinderRefMacProButton.h */,
+				087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */,
+				087D9B351981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.h */,
+				087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */,
+				087D9B391981EBD5002392BA /* ADSetupCylinderRefCanButton.h */,
+				087D9B3A1981EBD5002392BA /* ADSetupCylinderRefCanButton.m */,
+				087D9B3D1981EC8B002392BA /* ADSetupCylinderRefPenButton.h */,
+				087D9B3E1981EC8B002392BA /* ADSetupCylinderRefPenButton.m */,
+				087D9B411981EDF3002392BA /* ADSetupCylinderRefNormalButton.h */,
+				087D9B421981EDF3002392BA /* ADSetupCylinderRefNormalButton.m */,
 				08CE4BF818D7D2C1008C4904 /* ADInfoButton.h */,
 				08CE4BF918D7D2C1008C4904 /* ADInfoButton.m */,
-				0898765219137FA1009CEB3D /* ADSetupCylinderView.h */,
 				08E5857A1913D8DA002DBF68 /* ADSetupEyeView.h */,
 				08E5857B1913D8DB002DBF68 /* ADSetupEyeView.m */,
 				08E585801913E791002DBF68 /* ADSetupUnitZoomView.h */,
 				08E585811913E791002DBF68 /* ADSetupUnitZoomView.m */,
 				0898765C1913897B009CEB3D /* ADSetupCylinderImageView.h */,
 				0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */,
+				0898765219137FA1009CEB3D /* ADSetupCylinderView.h */,
 				0898765319137FA1009CEB3D /* ADSetupCylinderView.m */,
 				08E251B5189CBCC60039AAC2 /* ADShaderCylinderProject.h */,
 				08E251B6189CBCC60039AAC2 /* ADShaderCylinderProject.m */,
@@ -2726,6 +2766,8 @@
 				08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */,
 				086FBF051953D8D700BCD4E5 /* NGAParallaxMotion.h */,
 				086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */,
+				08F5DF1819824F22007B3F12 /* NSObject+PropertyAnimation.h */,
+				08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -3104,6 +3146,7 @@
 				08A5CBBB189F36C500F4E226 /* REMesh.m in Sources */,
 				828ef58ce6328626847f5dff /* UIImage+Resize.m in Sources */,
 				714030c503cb89776251bd00 /* UIImage+RoundedCorner.m in Sources */,
+				087D9B3C1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */,
 				da5aed40201a0614a9d452a0 /* ADPaintScreen.m in Sources */,
 				08A79C161925A58D00E4EA6E /* ADLayerOpacityLockButton.m in Sources */,
 				6381e8b40ffe2d3a97f2793f /* ADBrush.m in Sources */,
@@ -3182,6 +3225,7 @@
 				08E251B8189CC10C0039AAC2 /* REShader.m in Sources */,
 				70957b36ddde3b5ee10e0a08 /* ADColorPickModeButton.m in Sources */,
 				08CE1A6818968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */,
+				087D9B381981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */,
 				0847F52C18B066420038869A /* ADSetupTableViewCell.m in Sources */,
 				7d3679a32694854662870645 /* RECamera.m in Sources */,
 				6a4c0c455bf23bc91890bab1 /* ADFuzzyTransparentView.m in Sources */,
@@ -3242,6 +3286,7 @@
 				ac9c2f2536b4c665eb857130 /* ADExportButton.m in Sources */,
 				0894FF8118AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */,
 				088E1D8518A26F700059002C /* ADShaderCylinder.m in Sources */,
+				08F5DF1B19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */,
 				08B9104918AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */,
 				08A5CBBA189F36C100F4E226 /* REMeshRenderer.m in Sources */,
 				0826775718E1D6C5004DA2F4 /* ADPaintUIKitStyle.m in Sources */,
@@ -3318,6 +3363,7 @@
 				4ed0b36c6f824d99ac8dea6c /* ADCommand.m in Sources */,
 				c584a8d6513e6bd51a92a182 /* ADOpenCommand.m in Sources */,
 				c1262bd9434a3da63eaf103f /* ADClearCommand.m in Sources */,
+				087D9B401981EC8B002392BA /* ADSetupCylinderRefPenButton.m in Sources */,
 				999823895e830d4af42be083 /* ADUndoBaseCommand.m in Sources */,
 				91c71a8add1c72b0db6e5787 /* ADLayerBlendModeTableViewCell.m in Sources */,
 				082060DA189D44E40027247C /* REEntity.m in Sources */,
@@ -3332,6 +3378,7 @@
 				c103e14c3f1cdab16147a434 /* ADLayerBlendModeButton2.m in Sources */,
 				25be846064d64219dbd3cf30 /* ADLayerAddButton.m in Sources */,
 				08061C1F18A372F60050B708 /* REBaseEffect.m in Sources */,
+				087D9B341981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */,
 				7a89c8358a9a8c6fe0561771 /* ADLayerClearButton.m in Sources */,
 				72cff82b1e9ecef6d41c5c4b /* ADLayerDeleteDoneButton.m in Sources */,
 				086BF05C18A12B2500948175 /* ADCylinderMesh.m in Sources */,
@@ -3357,6 +3404,7 @@
 				08983D9A18BCCD1B0001C334 /* Reachability.m in Sources */,
 				08F68F77194DCC5400470A3D /* ADTutorialPageButtonView.m in Sources */,
 				1b45185b843dee98ea7599da /* ADPaintButton.m in Sources */,
+				087D9B441981EDF3002392BA /* ADSetupCylinderRefNormalButton.m in Sources */,
 				087BCD20196923290006DE29 /* ADScaleButton.m in Sources */,
 				a2551e3c45b085876b4411ff /* ADAnamorphicButton.m in Sources */,
 				34d02516d408dac46ba4b603 /* ADAnamorphicSideViewButton.m in Sources */,
@@ -3365,6 +3413,7 @@
 				3c513cefb046c03c1ef07cbf /* ADPrintButton.m in Sources */,
 				0803D1F9189FCCE40068B14B /* RERenderTexture.m in Sources */,
 				3a04b0025429b1da2e36033e /* ADNewButton.m in Sources */,
+				08B17A311981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */,
 				b898b9c52313a579a9749bdb /* ADZoomCanvasView.m in Sources */,
 				08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
 				e21b4e595f0fb5cfb4d67bfc /* ADCrayons.m in Sources */,
@@ -3414,6 +3463,7 @@
 				0808D9BE1644EC6F0000DF40 /* ADColorButton.m in Sources */,
 				08525110194D62200087F4AF /* ADTutorialManager.m in Sources */,
 				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
+				08F5DF1A19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */,
 				086BF05B18A12B2500948175 /* ADCylinderMesh.m in Sources */,
 				0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */,
 				08E505F2195722D900ED86BF /* ADTutorialBackgroundView.m in Sources */,
@@ -3437,6 +3487,7 @@
 				08E505DD1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.m in Sources */,
 				08F9B518164C0691001B3D3D /* ADBrushToolBar.m in Sources */,
 				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
+				087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */,
 				08FD1F9D164E13F4003738FC /* ADCustomTouchUIView.m in Sources */,
 				08FDC8BD16513BB2008F35E8 /* ADPencil.m in Sources */,
@@ -3521,6 +3572,7 @@
 				08E104C418E31F3B00B777FB /* ADSharedTableView.m in Sources */,
 				084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */,
 				08A3F3DB1850A756007922D2 /* REGLWrapper.m in Sources */,
+				087D9B3B1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */,
 				08B24FED170EC0E7007CA9D2 /* ADPaintLayer.m in Sources */,
 				08B24FF0170ECA6E007CA9D2 /* ADPaintLayerManager.m in Sources */,
 				087615621959BDBC007EE0C0 /* ADMathHelper.m in Sources */,
@@ -3555,6 +3607,7 @@
 				08E33F5718C61148007A26F2 /* ADSwatchManagerButton.m in Sources */,
 				0898765A19138514009CEB3D /* ADAutoRotateView.m in Sources */,
 				088505C217F724EF00E460CA /* ADRotateCanvasView.m in Sources */,
+				087D9B371981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */,
 				0802D10C17367ACA003259E6 /* ADImportButton.m in Sources */,
 				0802D11117368411003259E6 /* ADExportButton.m in Sources */,
 				0802D11417368D8A003259E6 /* ADGalleryButton.m in Sources */,
@@ -3614,8 +3667,10 @@
 				08E5857C1913D8DB002DBF68 /* ADSetupEyeView.m in Sources */,
 				08624EFF18D3EBC400FD971E /* ADCylinderProjectToPaintCollectionTransitionManager.m in Sources */,
 				08802F6B1766FCFF00276B15 /* ADOpenCommand.m in Sources */,
+				087D9B431981EDF3002392BA /* ADSetupCylinderRefNormalButton.m in Sources */,
 				0875605C17676CD8002B806D /* ADClearCommand.m in Sources */,
 				087512FE1957FC3E00FC03CC /* ADTutorialBackgroundRightEdgeView.m in Sources */,
+				08B17A301981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */,
 				08E585821913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */,
 				08E0584F17683621007955BB /* ADUndoBaseCommand.m in Sources */,
 				08701169177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m in Sources */,
@@ -3650,6 +3705,7 @@
 				08FE79F517C8ECAD00D1EEBD /* ADVideoFrameView.m in Sources */,
 				08FB9B111942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
 				08FE79FA17C8FF9900D1EEBD /* ADPaintButton.m in Sources */,
+				087D9B3F1981EC8B002392BA /* ADSetupCylinderRefPenButton.m in Sources */,
 				081EFBFD17CA1F3500D4FE46 /* ADAnamorphicButton.m in Sources */,
 				081EFC0217CA253000D4FE46 /* ADAnamorphicSideViewButton.m in Sources */,
 				081EFC0517CA28EA00D4FE46 /* ADAnamorphicTopViewButton.m in Sources */,

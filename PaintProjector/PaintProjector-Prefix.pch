@@ -117,8 +117,9 @@ static bool IsOffsetEyeDropper = true;
 //#define ToSeeCylinderTopViewportPixelOffsetY -90
 //#define TransitionToPaintPixelOffsetY -34
 
+//#define ToSeeCylinderTopPosOffset -0.05
 #define ToSeeCylinderTopPixelOffset 0
 #define ToSeeCylinderTopViewportPixelOffsetY 0
 #define TransitionToPaintPixelOffsetY -15
-//#define ToSeeCylinderTopPosOffset -0.05
+#define TransitionToPaintPixelOffsetY_Mini -16.6
 #define ToSeeCylinderTopPosOffset 0

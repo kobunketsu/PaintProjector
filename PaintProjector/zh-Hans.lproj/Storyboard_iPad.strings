@@ -424,3 +424,17 @@
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "uu0-6a-fpA"; */
 "uu0-6a-fpA.text" = "视点缩放";
 
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "187-L4-OUe"; */
+"187-L4-OUe.normalTitle" = "苹果电脑";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "urm-LP-Tas"; */
+"urm-LP-Tas.normalTitle" = "茶杯";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "JTW-ni-CZh"; */
+"JTW-ni-CZh.normalTitle" = "饮料罐";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "H2L-U0-Iqc"; */
+"H2L-U0-Iqc.normalTitle" = "反光笔杆";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "wMP-Nr-J0H"; */
+"wMP-Nr-J0H.normalTitle" = "圆柱镜";

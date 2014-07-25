@@ -31,7 +31,7 @@
 
 
 #define CylinderFadeInOutDuration 0.4
-#define CylinderResetParamDuration 0.2
+#define CylinderResetParamDuration 0.3
 #define CylinderViewChangeDuration 1
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
@@ -44,7 +44,7 @@ static float DeviceWidth = 0.154;
 @property (assign, nonatomic)GLKVector2 touchDirectionBegin;
 //@property (assign, nonatomic)float translateImageX;//圆柱体中图片横向移动
 @property(nonatomic, copy) NSString *userInputParamkeyPath;
-@property (retain, nonatomic) REAnimation *resetAnimation;
+//@property (retain, nonatomic) REAnimation *resetAnimation;
 //VC切换动画效果管理器
 @property (nonatomic) ADPaintScreenTransitionManager *transitionManager;
 @end
@@ -170,8 +170,8 @@ static float DeviceWidth = 0.154;
     //TODO: 关闭水平监测，查内存持续增长问题
 //    [self initMotionDetect];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    ADDeviceHardware *h = [[ADDeviceHardware alloc]init];
-    if ([[h platformString] rangeOfString:@"iPad Mini"].location != NSNotFound) {
+    
+    if ([ADDeviceHardware sharedInstance].isMini) {
         //FIXME:调查参数
         DeviceWidth = 0.12;
         [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.cylinderDiameter"];
@@ -195,7 +195,6 @@ static float DeviceWidth = 0.154;
         [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
         [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
         [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-//        [dic setObject:[NSNumber numberWithFloat:0.065] forKey:@"userInputParams.eyeTopZ"];
         [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
 
     }
@@ -287,21 +286,21 @@ static float DeviceWidth = 0.154;
         [self setupAnamorphParamsDoneCompletion:nil];
     }
     
-    if (self.isTopViewMode) {
-        self.isTopViewMode = !self.isTopViewMode;
-
-        REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-        [propAnim setCompletionBlock:^{
-            [self transitionToGallery];
-        }];
-        RECamera.mainCamera.animation.clip = animClip;
-        RECamera.mainCamera.animation.target = self;
-        [RECamera.mainCamera.animation play];
-    }
-    else{
+//    if (self.isTopViewMode) {
+//        self.isTopViewMode = !self.isTopViewMode;
+//
+//        REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
+//        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
+//        [propAnim setCompletionBlock:^{
+//            [self transitionToGallery];
+//        }];
+//        RECamera.mainCamera.animation.clip = animClip;
+//        RECamera.mainCamera.animation.target = self;
+//        [RECamera.mainCamera.animation play];
+//    }
+//    else{
         [self transitionToGallery];
-    }
+//    }
 }
 
 //- (IBAction)printButtonTouchUp:(UIButton *)sender {
@@ -487,10 +486,22 @@ static float DeviceWidth = 0.154;
         CGRect rect = [self willGetCylinderMirrorFrame];
         CGFloat scale = self.view.frame.size.width / rect.size.width;
         CGPoint rectCenter = CGPointMake(rect.origin.x + rect.size.width * 0.5, rect.origin.y + rect.size.height * 0.5);
-        rectCenter = CGPointMake(rectCenter.x, rectCenter.y + TransitionToPaintPixelOffsetY);
+        rectCenter = CGPointMake(rectCenter.x, rectCenter.y);
+
+        //调整:
+        if ([ADDeviceHardware sharedInstance].isMini) {
+            rectCenter.y += TransitionToPaintPixelOffsetY_Mini;
+        }
+        else{
+            rectCenter.y += TransitionToPaintPixelOffsetY;
+        }
+        
+        
         UIView *fromView = self.view;
         fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
         fromView.layer.position = rectCenter;
+        
+        DebugLogWarn(@"transitionToPaint fromView layer anchorPoint %@ position %@", NSStringFromCGPoint(fromView.layer.anchorPoint), NSStringFromCGPoint(fromView.layer.position));
         
         //透明度动画
         transitionImageView.alpha = 0;
@@ -658,6 +669,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (void)setupAnamorphParamsDoneCompletion: (void (^) (void)) block{
+    self.isSetupMode = false;
     //恢复到初始状态
     [self resetInputParams];
     
@@ -792,25 +804,9 @@ static float DeviceWidth = 0.154;
     [self tutorialStepNextImmediate:false];
 }
 
+
 -(void)resetInputParams{
-    REAnimationClip *animClip = [[REAnimationClip alloc]init];
-    animClip.name = @"userInputParamsResetAnimClip";
-    NSEnumerator *enumeratorKey = [self.srcUserInputParams keyEnumerator];
-    for (NSObject *key in enumeratorKey) {
-        NSNumber *num = [self.srcUserInputParams objectForKey:key];
-        
-        REPropertyAnimation *propAnim = [REPropertyAnimation propertyAnimationWithKeyPath:(NSString*)key];
-        propAnim.fromValue = [self valueForKeyPath:(NSString*)key];
-        propAnim.toValue = num;
-        propAnim.duration = CylinderResetParamDuration;
-        propAnim.target = self;
-        propAnim.timing = REPropertyAnimationTimingEaseOut;
-        [animClip addPropertyAnimation:propAnim];
-    }
-    
-    REPropertyAnimation* propAnim = animClip.propertyAnimations.firstObject;
-    propAnim.delegate = self.parentViewController;
-    [propAnim setCompletionBlock:^{
+    [self animationToTarget:self params:self.srcUserInputParams duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
         for (UIButton *button in self.allUserInputParamButtons) {
             button.selected = false;
         }
@@ -818,16 +814,119 @@ static float DeviceWidth = 0.154;
         
         [self flushUIUserInputParams];
     }];
-    
-    self.resetAnimation = [REAnimation animationWithAnimClip:animClip];
-    self.resetAnimation.target = self;
-    [self.resetAnimation play];
 }
-//- (void)willCylinderProjectParamsChange{
-//}
-//
-//- (void)willCylinderProjectParamsReset{
-//}
+
+#pragma mark- 设置场景 Setup Scene
+- (IBAction)setupCylinderButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"setupCylinderButtonTouchUp" identifier:sender];
+    [self setupCylinderSceneStart];
+}
+
+- (void)setupCylinderSceneStart{
+    [self lockInteraction:true];
+    //关闭按钮调整
+    for (UIButton *button in self.allUserInputParamButtons) {
+        button.selected = false;
+    }
+    [self closeUserInputParamValueSlider];
+    
+    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
+    
+    [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:true outView:self.setupParamsView inView:self.setupSceneView completion:^{
+        [self lockInteraction:false];
+    }];
+}
+
+- (void)setupCylinderSceneDone{
+    
+    [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:false outView:self.setupSceneView inView:self.setupParamsView completion:^{
+    }];
+    
+    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
+}
+
+- (IBAction)setupCylinderRefObjectButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"setupCylinderRefObjectButtonTouchUp" identifier:sender];
+    
+    BOOL isDeviceMini = [ADDeviceHardware sharedInstance].isMini;
+    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    switch (sender.tag) {
+        case 1://mac pro
+            [dic setObject:[NSNumber numberWithFloat:0.168] forKey:@"userInputParams.cylinderDiameter"];
+            [dic setObject:[NSNumber numberWithFloat:0.258] forKey:@"userInputParams.cylinderHeight"];
+            [dic setObject:[NSNumber numberWithFloat:0.16] forKey:@"userInputParams.imageWidth"];
+            [dic setObject:[NSNumber numberWithFloat:0.158] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+
+            if (isDeviceMini) {
+                [dic setObject:[NSNumber numberWithFloat:0.21] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.17] forKey:@"userInputParams.unitZoom"];
+            }
+            else{
+                [dic setObject:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.18] forKey:@"userInputParams.unitZoom"];
+            }
+            break;
+        case 2://tea cup
+            [dic setObject:[NSNumber numberWithFloat:0.1] forKey:@"userInputParams.cylinderDiameter"];
+            [dic setObject:[NSNumber numberWithFloat:0.14] forKey:@"userInputParams.cylinderHeight"];
+            [dic setObject:[NSNumber numberWithFloat:0.1] forKey:@"userInputParams.imageWidth"];
+            [dic setObject:[NSNumber numberWithFloat:0.08] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+            if (isDeviceMini) {
+                [dic setObject:[NSNumber numberWithFloat:0.38] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.3] forKey:@"userInputParams.unitZoom"];
+            }
+            else{
+                [dic setObject:[NSNumber numberWithFloat:0.5] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.3] forKey:@"userInputParams.unitZoom"];
+            }
+
+            break;
+        case 3://drink can
+            [dic setObject:[NSNumber numberWithFloat:0.066] forKey:@"userInputParams.cylinderDiameter"];
+            [dic setObject:[NSNumber numberWithFloat:0.123] forKey:@"userInputParams.cylinderHeight"];
+            [dic setObject:[NSNumber numberWithFloat:0.066] forKey:@"userInputParams.imageWidth"];
+            [dic setObject:[NSNumber numberWithFloat:0.064] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+            if (isDeviceMini) {
+                [dic setObject:[NSNumber numberWithFloat:0.53] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.unitZoom"];
+            }
+            else{
+                [dic setObject:[NSNumber numberWithFloat:0.7] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.unitZoom"];
+            }
+
+            break;
+        case 4://pen
+            [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.cylinderDiameter"];
+            [dic setObject:[NSNumber numberWithFloat:0.12] forKey:@"userInputParams.cylinderHeight"];
+            [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.imageWidth"];
+            [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+            if (isDeviceMini) {
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+            }
+            else{
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+            }
+
+            break;
+        case 5://base mirror
+            break;
+        default:
+            break;
+    }
+    
+    [self animationToTarget:self params:dic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+        [self flushUIUserInputParams];
+        
+    }];
+    
+    [self setupCylinderSceneDone];
+
+}
+
 #pragma mark- 产品信息ProductInfo
 - (void)productInfo{
     ADProductInfoTableViewController* productInfoTableViewController = [[ADProductInfoTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -946,6 +1045,12 @@ static float DeviceWidth = 0.154;
         float h = 0.4 - 0.035;
         float w = 0.35 - 0.038;
         GLKVector3 imageCenterOnSurf = GLKVector3Make(0, 0.035, - 0.038);
+        if ([ADDeviceHardware sharedInstance].isMini) {
+            h = 0.31 - 0.027;
+            w = 0.27 - 0.03;
+            imageCenterOnSurf = GLKVector3Make(0, 0.027, - 0.03);
+        }
+        
         GLKVector3 vImageCenterToEye = GLKVector3Make(0, h, -w);
         CGFloat dist = GLKVector3Length(vImageCenterToEye);
         GLKVector3 eyeZoomed = GLKVector3Add(GLKVector3MultiplyScalar(GLKVector3Normalize(vImageCenterToEye), dist / self.userInputParams.eyeZoom), imageCenterOnSurf);
@@ -2030,7 +2135,14 @@ static float DeviceWidth = 0.154;
 //    return CGRectMake(307, 285, 154, 154 / self.view.bounds.size.width * self.view.bounds.size.height);
 //    return CGRectMake(308, 286, 150, 150 / self.view.bounds.size.width * self.view.bounds.size.height);
 //    return CGRectMake(311, 270, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
-    return CGRectMake(311, 351, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
+    
+    if ([ADDeviceHardware sharedInstance].isMini) {
+        return CGRectMake(311, 344, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
+    }
+    else{
+        return CGRectMake(311, 351, 146, 146 / self.view.bounds.size.width * self.view.bounds.size.height);
+    }
+
 }
 
 - (CGRect)getCylinderMirrorTopFrame{
@@ -2855,4 +2967,5 @@ static float DeviceWidth = 0.154;
 - (IBAction)debugSliderValueChanged:(UISlider *)sender {
     self.cylinderProjectCur.morphBlend = sender.value;
 }
+
 @end

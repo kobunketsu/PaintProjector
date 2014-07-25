@@ -8,6 +8,18 @@
 #include <sys/sysctl.h>
 
 @implementation ADDeviceHardware
+static ADDeviceHardware* sharedInstance = nil;
+
++(ADDeviceHardware*)sharedInstance{
+    if(sharedInstance != nil){
+        return sharedInstance;
+    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[ADDeviceHardware alloc]init];
+    });
+    return sharedInstance;
+}
 
 - (NSString *) platform{
     size_t size;
@@ -61,4 +73,7 @@
     return platform;
 }
 
+- (BOOL)isMini{
+    return [[self platformString] rangeOfString:@"iPad Mini"].location != NSNotFound;
+}
 @end

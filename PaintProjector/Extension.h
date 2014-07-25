@@ -7,6 +7,7 @@
 //
 
 #import "NGAParallaxMotion.h"
+#import "NSObject+PropertyAnimation.h"
 #import "NSString+Unit.h"
 #import "UIAlertView+error.h"
 #import "UIColor+String.h"

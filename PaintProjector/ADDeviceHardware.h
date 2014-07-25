@@ -6,8 +6,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ADDeviceHardware : NSObject 
-
++(ADDeviceHardware*)sharedInstance;
 - (NSString *) platform;
 - (NSString *) platformString;
-
+@property (assign, nonatomic, readonly) BOOL isMini;
 @end
