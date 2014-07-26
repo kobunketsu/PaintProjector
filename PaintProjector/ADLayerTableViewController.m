@@ -390,8 +390,10 @@ const float LayerTableViewWidth = 256;
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"addLayerButtonTouchUp" identifier:sender];
     
+    NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
+    
     //数据
-    [self.delegate willInsertLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row] completion:^{
+    [self.delegate willInsertLayerDataAtIndex:layerIndex completion:^{
         //UI
        
         DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
@@ -415,8 +417,10 @@ const float LayerTableViewWidth = 256;
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"copyLayerButtonTouchUp" identifier:sender];
     
+    NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
+    
     //数据
-    [self.delegate willInsertCopyLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
+    [self.delegate willInsertCopyLayerDataAtIndex:layerIndex];
     [self.tableView reloadData];    
     
     //UI
@@ -433,8 +437,10 @@ const float LayerTableViewWidth = 256;
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"mergeLayerButtonTouchUp" identifier:sender];
     
+    NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
+
     //数据
-    [self.delegate willMergeLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
+    [self.delegate willMergeLayerDataAtIndex:layerIndex];
     [self.tableView reloadData];
     
     //UI
@@ -451,8 +457,10 @@ const float LayerTableViewWidth = 256;
 - (IBAction)clearLayerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"clearLayerButtonTouchUp" identifier:sender];
     
+    NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
+    
     //数据
-    [self.delegate willClearLayerDataAtIndex:[self layerIndexForRow:self.curLayerIndexPath.row]];
+    [self.delegate willClearLayerDataAtIndex:layerIndex];
     
     [self.tableView reloadData];
     

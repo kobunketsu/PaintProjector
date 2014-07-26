@@ -37,6 +37,7 @@
 - (void) willSetBackgroundLayerClearColor:(UIButton*)button colorPickerControllerDelegate:(ADLayerTableViewController*)controllerDelegate;
 - (void) willSetBackgroundLayerClearColorFinished:(UIColor*)clearColor;
 - (void) willSetBackgroundLayerClearColorChanged:(UIColor*)clearColor;
+//- (BOOL) willValidateOperationOnLayerIndex:(NSInteger)index;
 - (UIView*) willGetFuzzyTransparentSourceView;
 @end
 

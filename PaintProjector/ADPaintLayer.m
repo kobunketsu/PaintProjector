@@ -22,6 +22,9 @@
         self.blendMode = blendMode;
         self.opacity = 1.0;
         self.opacityLock = opacityLock;
+        
+        //不存储到文件
+        self.operationLock = false;
     }
     
     return self;
@@ -115,7 +118,7 @@
     return layer;
 }
 
-+ (ADPaintLayer*)createLayerFormUIImage:(UIImage*)image withSize:(CGSize)size transparent:(BOOL)transparent{
++ (ADPaintLayer*)createLayerFormUIImage:(UIImage*)image withSize:(CGSize)size{
     UIImage *finalImage = [image resizedImage:image.size interpolationQuality:kCGInterpolationDefault];
     
     NSData* nsData = UIImagePNGRepresentation(finalImage);

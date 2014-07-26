@@ -378,19 +378,25 @@ static float DeviceWidth = 0.154;
     
     if (self.isReversePaint) {
         //hide cylinder
-        self.cylinder.active = false;
-        self.cylinderInterLight.active = false;
-        self.cylinderTopLight.active = false;
-        self.cylinderBottom.active = false;
-        
-        [self glkView:self.projectView drawInRect:self.projectView.frame];
+//        self.cylinder.active = false;
+//        self.cylinderInterLight.active = false;
+//        self.cylinderTopLight.active = false;
+//        self.cylinderBottom.active = false;
+//        [self glkView:self.projectView drawInRect:self.projectView.frame];
         
         //创建临时paintDoc
         ADPaintDoc* paintDoc =[[ADPaintDoc alloc]initWithDocPath:nil];
         ADPaintLayer *newLayer = [ADPaintLayer createBlankLayerWithSize:self.view.bounds.size transparent:true];
-        NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
         ADBackgroundLayer *backgroundLayer = [[ADBackgroundLayer alloc]init];
-        backgroundLayer.visible = false;
+        backgroundLayer.visible = true;
+        //截取反向绘制的底图
+        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
+        [self.projectView drawViewHierarchyInRect:self.projectView.bounds afterScreenUpdates:true];
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+        UIGraphicsEndImageContext();
+        backgroundLayer.data = UIImagePNGRepresentation(image);
+        //所有图层
+        NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
         paintDoc.data = [[ADPaintData alloc]initWithTitle:@"reversePaintDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
         
 //        if (!self.isSetupMode) {
@@ -2433,16 +2439,16 @@ static float DeviceWidth = 0.154;
     self.paintScreenVC.transitioningDelegate = self;
     
     //prepare for presentation
-    GLKVector4 uvSpace; CGFloat imageRatio = 1;UIImage *image = nil; ADPaintDoc *reversePaintDocSrc = nil;
+    GLKVector4 uvSpace; CGFloat imageRatio = 1; ADPaintDoc *reversePaintDocSrc = nil;
     if (self.isReversePaint) {
         uvSpace = self.cylinder.reflectionTexUVSpace;
         imageRatio = self.projectView.bounds.size.height / self.projectView.bounds.size.width;
         
         //截取反向绘制的底图
-        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
-        [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:true];
-        image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
-        UIGraphicsEndImageContext();
+//        UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
+//        [self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:true];
+//        image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+//        UIGraphicsEndImageContext();
         
         reversePaintDocSrc = [ADPaintFrameManager curGroup].curPaintDoc;
     }
@@ -2462,7 +2468,7 @@ static float DeviceWidth = 0.154;
             self.paintScreenVC.paintView.reversePaintData.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
             self.paintScreenVC.paintView.reversePaintData.imageRatio = imageRatio;
             self.paintScreenVC.paintView.reversePaintData.reflectionTexUVSpace = uvSpace;
-            self.paintScreenVC.paintView.backgroundColor = [UIColor colorWithPatternImage:image];
+//            self.paintScreenVC.paintView.backgroundColor = [UIColor colorWithPatternImage:image];
             self.paintScreenVC.paintView.reversePaintDocSrc = reversePaintDocSrc;
             
             //reversePaint IAP

@@ -48,6 +48,7 @@
 @property (retain, nonatomic) RERenderTexture *curLayerTexture;
 @property (retain, nonatomic) RERenderTexture *undoBaseTexture;
 @property (retain, nonatomic) RERenderTexture *brushTexture;
+@property (retain, nonatomic) RERenderTexture *backgroundLayerTexture;
 @property (retain, nonatomic) RETexture *toTransformImageTex;
 @property (assign, nonatomic) GLuint finalFramebuffer;
 
@@ -2103,6 +2104,16 @@
         [self.layerTextures addObject:layerTexture];
     }
 
+    if (self.paintData.backgroundLayer.data) {
+        NSString *name = @"backgroundLayerTexture";
+        RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+        
+        RETexture *dataTexture = [RETexture textureFromData:self.paintData.backgroundLayer.data name:name];
+        [self drawQuad:_VAOScreenQuad texture2D:dataTexture.texID premultiplied:false alpha:1.0];
+        [dataTexture destroy];
+        
+        self.backgroundLayerTexture = layerTexture;
+    }
     return true;
 }
 - (void)deleteLayerRenderTextures{
@@ -2113,6 +2124,11 @@
         texture = nil;
         
         self.curLayerTexture = nil;
+    }
+    
+    if (self.paintData.backgroundLayer.data) {
+        [self.backgroundLayerTexture destroy];
+        self.backgroundLayerTexture = nil;
     }
     
     [self.layerTextures removeAllObjects];
@@ -2349,13 +2365,17 @@
     if(!self.paintData.backgroundLayer.visible) {
         glClearColor(0, 0, 0, 0);
         glClear(GL_COLOR_BUFFER_BIT);
-        return;
+    }
+    else if (self.paintData.backgroundLayer.data) {
+        [self drawLayerWithTex:self.backgroundLayerTexture.texID blend:kCGBlendModeNormal opacity:1.0];
+    }
+    else{
+        const CGFloat* colors = CGColorGetComponents(self.paintData.backgroundLayer.clearColor.CGColor);
+        glClearColor(colors[0], colors[1], colors[2], colors[3]);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0, 0, 0, 0);
     }
 
-    const CGFloat* colors = CGColorGetComponents(self.paintData.backgroundLayer.clearColor.CGColor);
-    glClearColor(colors[0], colors[1], colors[2], colors[3]);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0, 0, 0, 0);
     
 #if DEBUG
     glPopGroupMarkerEXT();
