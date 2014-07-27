@@ -208,6 +208,12 @@ ADInAppPurchaseTableViewControllerDelegate
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender;
 - (IBAction)setupCylinderButtonTouchUp:(UIButton *)sender;
 - (void)resetInputParams;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefMacProButton;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefTeaCupButton;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefCanButton;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefPenButton;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefNormalButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *setupCylinderRefObjButtons;
 
 #pragma mark- 虚拟设备VirtualDevice
 @property (weak, nonatomic) IBOutlet UIButton *virtualDeviceButton;
@@ -245,7 +251,5 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (retain, nonatomic) ADGrid *grid;//网格
 
 #pragma mark- 测试Debug
-- (IBAction)debugSliderValueChanged:(UISlider *)sender;
-@property (weak, nonatomic) IBOutlet UISlider *debugSlider;
-@property (weak, nonatomic) IBOutlet UIView *debugView;
+
 @end

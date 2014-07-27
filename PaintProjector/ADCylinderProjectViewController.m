@@ -78,10 +78,7 @@ static float DeviceWidth = 0.154;
 }
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewWillAppear ]");
-    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
-    self.rootView.backgroundView = backgroundView;
-    [self.rootView addSubview:backgroundView];
-    [self.rootView sendSubviewToBack:backgroundView];
+    [self addBackgroundView];
     
     //用于解决启动闪黑屏的问题
     [self setupBaseParams];
@@ -121,8 +118,7 @@ static float DeviceWidth = 0.154;
 
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidDisappear ]");
-    [self.rootView.backgroundView removeFromSuperview];
-    self.rootView.backgroundView = nil;
+    [self destroyBackgroundView];
 }
 
 - (void)viewDidLoad
@@ -236,6 +232,24 @@ static float DeviceWidth = 0.154;
 //    DebugLogWarn(@"rootView.bounds %@", NSStringFromCGRect(self.rootView.bounds));
 //    self.rootView.frame = self.rootView.bounds;
 }
+
+//运行中加载占用内存的大背景图片(如果放在nib中，presentViewController后还留在内存里)
+- (void)addBackgroundView{
+    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
+    self.rootView.backgroundView = backgroundView;
+    [self.rootView addSubview:backgroundView];
+    [self.projectView removeFromSuperview];
+    [backgroundView addSubview:self.projectView];
+    [self.rootView sendSubviewToBack:backgroundView];
+}
+//运行中卸载占用内存的大背景图片
+- (void)destroyBackgroundView{
+    [self.projectView removeFromSuperview];
+    [self.rootView addSubview:self.projectView];
+    [self.rootView sendSubviewToBack:self.projectView];
+    [self.rootView.backgroundView removeFromSuperview];
+    self.rootView.backgroundView = nil;
+}
 #pragma mark- 主程序
 - (BOOL)prefersStatusBarHidden
 {
@@ -335,20 +349,23 @@ static float DeviceWidth = 0.154;
         [self setupAnamorphParamsCompletion:^{
             [self lockInteraction:false];
             
-            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
-                [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
-            }
+//            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
+//                [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
+//            }
+            [self tutorialStartCurrentStep];
         }];
     }
     else{
         [self setupAnamorphParamsDoneCompletion:^{
             [self lockInteraction:false];
             
-            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
-                [self tutorialStartFromStepName:@"CylinderProjectPaint"];
-            }
+//            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
+//                [self tutorialStartFromStepName:@"CylinderProjectPaint"];
+//            }
+            [self tutorialStartCurrentStep];
         }];
     }
+    
 
 }
 
@@ -391,7 +408,7 @@ static float DeviceWidth = 0.154;
         backgroundLayer.visible = true;
         //截取反向绘制的底图
         UIGraphicsBeginImageContextWithOptions(self.view.frame.size, false, 0);
-        [self.projectView drawViewHierarchyInRect:self.projectView.bounds afterScreenUpdates:true];
+        [self.rootView.backgroundView drawViewHierarchyInRect:self.rootView.backgroundView.bounds afterScreenUpdates:true];
         UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
         UIGraphicsEndImageContext();
         backgroundLayer.data = UIImagePNGRepresentation(image);
@@ -825,6 +842,9 @@ static float DeviceWidth = 0.154;
 #pragma mark- 设置场景 Setup Scene
 - (IBAction)setupCylinderButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"setupCylinderButtonTouchUp" identifier:sender];
+    
+    [self tutorialStepNextImmediate:false];
+    
     [self setupCylinderSceneStart];
 }
 
@@ -840,12 +860,18 @@ static float DeviceWidth = 0.154;
     
     [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:true outView:self.setupParamsView inView:self.setupSceneView completion:^{
         [self lockInteraction:false];
+        
+        [self tutorialStartCurrentStep];
+//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupScene"]) {
+//            [self tutorialStartFromStepName:@"CylinderProjectSetupScene"];
+//        }
     }];
 }
 
 - (void)setupCylinderSceneDone{
     
     [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:false outView:self.setupSceneView inView:self.setupParamsView completion:^{
+        [self tutorialStartCurrentStep];
     }];
     
     [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
@@ -858,7 +884,7 @@ static float DeviceWidth = 0.154;
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     switch (sender.tag) {
-        case 1://mac pro
+        case 4://mac pro
             [dic setObject:[NSNumber numberWithFloat:0.168] forKey:@"userInputParams.cylinderDiameter"];
             [dic setObject:[NSNumber numberWithFloat:0.258] forKey:@"userInputParams.cylinderHeight"];
             [dic setObject:[NSNumber numberWithFloat:0.16] forKey:@"userInputParams.imageWidth"];
@@ -873,7 +899,7 @@ static float DeviceWidth = 0.154;
                 [dic setObject:[NSNumber numberWithFloat:0.18] forKey:@"userInputParams.unitZoom"];
             }
             break;
-        case 2://tea cup
+        case 3://tea cup
             [dic setObject:[NSNumber numberWithFloat:0.1] forKey:@"userInputParams.cylinderDiameter"];
             [dic setObject:[NSNumber numberWithFloat:0.14] forKey:@"userInputParams.cylinderHeight"];
             [dic setObject:[NSNumber numberWithFloat:0.1] forKey:@"userInputParams.imageWidth"];
@@ -888,7 +914,7 @@ static float DeviceWidth = 0.154;
             }
 
             break;
-        case 3://drink can
+        case 2://drink can
             [dic setObject:[NSNumber numberWithFloat:0.066] forKey:@"userInputParams.cylinderDiameter"];
             [dic setObject:[NSNumber numberWithFloat:0.123] forKey:@"userInputParams.cylinderHeight"];
             [dic setObject:[NSNumber numberWithFloat:0.066] forKey:@"userInputParams.imageWidth"];
@@ -903,7 +929,7 @@ static float DeviceWidth = 0.154;
             }
 
             break;
-        case 4://pen
+        case 1://pen
             [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.cylinderDiameter"];
             [dic setObject:[NSNumber numberWithFloat:0.12] forKey:@"userInputParams.cylinderHeight"];
             [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.imageWidth"];
@@ -917,8 +943,23 @@ static float DeviceWidth = 0.154;
                 [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
             }
 
+            [self tutorialStepNextImmediate:false];
+            
             break;
         case 5://base mirror
+            [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
+            [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
+            [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.imageWidth"];
+            [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+            //FIXME:adjust
+            if (isDeviceMini) {
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+            }
+            else{
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+                [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+            }
             break;
         default:
             break;
@@ -1263,12 +1304,13 @@ static float DeviceWidth = 0.154;
         
         [self lockInteraction:false];
         
-        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
-            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeZoom"];
-        }
-        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
-            [self tutorialStartFromStepName:@"CylinderProjectSetup"];
-        }
+//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
+//            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeZoom"];
+//        }
+//        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
+//            [self tutorialStartFromStepName:@"CylinderProjectSetup"];
+//        }
+        [self tutorialStartCurrentStep];
     }];
     REAnimationClip *animClip = [REAnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
     animClip.name = @"topToBottomAnimClip";
@@ -1284,12 +1326,13 @@ static float DeviceWidth = 0.154;
         
         [self lockInteraction:false];
         
-        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
-            [self tutorialStartFromStepName:@"CylinderProjectSetupZoom"];
-        }
-        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
-            [self tutorialStartFromStepName:@"CylinderProjectViewDevice"];
-        }
+//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
+//            [self tutorialStartFromStepName:@"CylinderProjectSetupZoom"];
+//        }
+//        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
+//            [self tutorialStartFromStepName:@"CylinderProjectViewDevice"];
+//        }
+        [self tutorialStartCurrentStep];
     }];
     animClip = [REAnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
     animClip.name = @"bottomToTopAnimClip";
@@ -1628,7 +1671,7 @@ static float DeviceWidth = 0.154;
 #else
 - (CGFloat)getPercent:(UIPanGestureRecognizer *)sender{
     CGPoint translation = [sender translationInView:sender.view];
-    CGFloat fullTranslation = 200;
+    CGFloat fullTranslation = DefaultScreenWidth * 0.5;
     float percent = fabsf(translation.x) / fullTranslation;
     percent = MAX(0, MIN(percent, 1));
     return percent;
@@ -2800,6 +2843,9 @@ static float DeviceWidth = 0.154;
     for (UIButton *button in self.allUserInputParamButtons) {
         button.userInteractionEnabled = enable;
     }
+    for (UIButton *button in self.setupCylinderRefObjButtons) {
+        button.userInteractionEnabled = enable;
+    }
     self.valueSlider.userInteractionEnabled = enable;
     self.projectView.userInteractionEnabled = enable;
     
@@ -2808,14 +2854,20 @@ static float DeviceWidth = 0.154;
         [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         self.projectView.userInteractionEnabled = true;
     }
+    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
+        self.setupButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupScene"]) {
+        self.setupCylinderButton.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupSceneDone"]) {
+        self.setupCylinderRefPenButton.userInteractionEnabled = true;
+    }
     if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
         self.topPerspectiveView.userInteractionEnabled = true;
     }
     else if ([step.name isEqualToString:@"CylinderProjectViewDevice"]) {
         self.eyePerspectiveView.userInteractionEnabled = true;
-    }
-    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
-        self.setupButton.userInteractionEnabled = true;
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         self.cylinderDiameterButton.userInteractionEnabled = true;
@@ -2848,6 +2900,12 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectCloseSetup"]) {
         self.setupButton.userInteractionEnabled = true;
     }
+    else if ([step.name isEqualToString:@"CylinderProjectTopViewForPaint"]) {
+        self.topPerspectiveView.userInteractionEnabled = true;
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewForPaint"]) {
+        self.eyePerspectiveView.userInteractionEnabled = true;
+    }
     else if ([step.name isEqualToString:@"CylinderProjectPaint"]) {
         self.paintButton.userInteractionEnabled = true;
     }
@@ -2870,8 +2928,20 @@ static float DeviceWidth = 0.154;
     if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
         [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
-//        mirrorRect.origin.y += 200;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
+        CGRect rect = step.contentView.frame;
+        rect.origin = CGPointMake(560, 700);
+        step.contentView.frame = rect;
+        
+        [step.indicatorView targetView:self.setupButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupScene"]) {
+        [step.indicatorView targetView:self.setupCylinderButton inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSetupSceneDone"]) {
+        [step.indicatorView targetView:self.setupCylinderRefPenButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
         CGRect rect = step.contentView.frame;
@@ -2886,15 +2956,8 @@ static float DeviceWidth = 0.154;
         step.contentView.frame = rect;
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
-        mirrorRect.origin.y += 20;
+        mirrorRect.origin.y += 100;
         [step.indicatorViews[1] targetViewFrame:mirrorRect inRootView:self.view];
-    }
-    else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(560, 700);
-        step.contentView.frame = rect;
-        
-        [step.indicatorView targetView:self.setupButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         [step.indicatorView targetView:self.cylinderDiameterButton inRootView:self.view];
@@ -2963,15 +3026,18 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectCloseSetup"]) {
         [step.indicatorView targetView:self.setupButton inRootView:self.view];
     }
+    else if ([step.name isEqualToString:@"CylinderProjectTopViewForPaint"]) {
+        [step.indicatorView targetView:self.topPerspectiveView inRootView:self.view];
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewForPaint"]) {
+        [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
+        [step.indicatorViews[1] targetView:self.paintButton inRootView:self.view];
+    }
     else if ([step.name isEqualToString:@"CylinderProjectPaint"]) {
         [step.indicatorView targetView:self.paintButton inRootView:self.view];
     }
     
     [step addToRootView:self.view];
-}
-
-- (IBAction)debugSliderValueChanged:(UISlider *)sender {
-    self.cylinderProjectCur.morphBlend = sender.value;
 }
 
 @end

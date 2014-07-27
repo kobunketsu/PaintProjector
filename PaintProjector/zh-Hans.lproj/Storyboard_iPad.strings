@@ -77,9 +77,9 @@
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "AOV-WF-NGc"; */
 "AOV-WF-NGc.text" = "抖动";
 
-/* Class = "IBUIButton"; accessibilityLabel = "Close"; ObjectID = "AdD-j2-c1b"; */
-"AdD-j2-c1b.accessibilityLabel" = "Browse";
-"AdD-j2-c1b.normalTitle" = "浏览";
+/* Class = "IBUIButton"; accessibilityLabel = "Back"; ObjectID = "AdD-j2-c1b"; */
+"AdD-j2-c1b.accessibilityLabel" = "Back";
+"AdD-j2-c1b.normalTitle" = "后退";
 
 /* Class = "IBUIView"; accessibilityLabel = "DrawingPad"; ObjectID = "Bfe-fw-T22"; */
 "Bfe-fw-T22.accessibilityLabel" = "DrawingPad";

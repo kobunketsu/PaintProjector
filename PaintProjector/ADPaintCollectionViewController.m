@@ -632,7 +632,9 @@
         rect.size.width = cell.frame.size.width;
         step.indicatorView.frame = rect;
         
-        [step.indicatorView targetView:cell inRootView:self.rootView];
+        CGRect targetRect = CGRectMake(cell.center.x, cell.center.y, 1, 1);
+//        [step.indicatorView targetView:cell inRootView:self.rootView];
+        [step.indicatorView targetViewFrame:targetRect inRootView:self.rootView];
 
     }
     [step addToRootView:self.rootView];

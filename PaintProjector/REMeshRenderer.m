@@ -72,6 +72,10 @@
         
         [[REGLWrapper current]setFaceMode:material.faceMode];
         
+        if (material.faceMode == RE_DoubleFace) {
+            glDisable(GL_CULL_FACE);
+        }
+        
         //test
         if (self.meshFilter.mesh.topology == Triangles) {
             glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, ptr);
@@ -80,22 +84,14 @@
             glDrawElements(GL_LINES, indiceCount, GL_UNSIGNED_SHORT, ptr);
         }
         
-        if (material.faceMode == RE_DoubleFace) {
-            [[REGLWrapper current]setFaceMode:RE_BackFace];
-            if (self.meshFilter.mesh.topology == Triangles) {
-                glDrawElements(GL_TRIANGLES, indiceCount, GL_UNSIGNED_SHORT, ptr);
-            }
-            else if (self.meshFilter.mesh.topology == Lines) {
-                glDrawElements(GL_LINES, indiceCount, GL_UNSIGNED_SHORT, ptr);
-            }
-        }
-
-
         offset += indiceCount;
         
         //restore
         if (material.transparent) {
             glDepthMask(GL_TRUE);
+        }
+        if (material.faceMode == RE_DoubleFace) {
+            glEnable(GL_CULL_FACE);
         }
     }
 }

@@ -1638,7 +1638,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Close"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Browse">
+                                                <state key="normal" title="Back">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -2515,32 +2515,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="187-L4-OUe" userLabel="SetupCylinderRefMacProButton" customClass="ADSetupCylinderRefMacProButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H2L-U0-Iqc" userLabel="SetupCylinderRefPenButton" customClass="ADSetupCylinderRefPenButton">
                                                 <rect key="frame" x="0.0" y="4" width="154" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Mac Pro">
+                                                <state key="normal" title="Pen">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="vRa-bd-2he"/>
+                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="pPW-Dc-eio"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="urm-LP-Tas" userLabel="SetupCylinderRefTeaCupButton" customClass="ADSetupCylinderRefTeaCupButton">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JTW-ni-CZh" userLabel="SetupCylinderRefCanButton" customClass="ADSetupCylinderRefCanButton">
                                                 <rect key="frame" x="154" y="4" width="154" height="80"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Tea Cup">
-                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="nlL-2x-KeT"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JTW-ni-CZh" userLabel="SetupCylinderRefCanButton" customClass="ADSetupCylinderRefCanButton">
-                                                <rect key="frame" x="307" y="4" width="154" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Drink Can">
@@ -2551,16 +2539,28 @@
                                                     <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="hQ3-s2-Gd9"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H2L-U0-Iqc" userLabel="SetupCylinderRefPenButton" customClass="ADSetupCylinderRefPenButton">
-                                                <rect key="frame" x="462" y="4" width="154" height="80"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="urm-LP-Tas" userLabel="SetupCylinderRefTeaCupButton" customClass="ADSetupCylinderRefTeaCupButton">
+                                                <rect key="frame" x="307" y="4" width="154" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <state key="normal" title="Pen">
+                                                <state key="normal" title="Tea Cup">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="pPW-Dc-eio"/>
+                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="nlL-2x-KeT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="187-L4-OUe" userLabel="SetupCylinderRefMacProButton" customClass="ADSetupCylinderRefMacProButton">
+                                                <rect key="frame" x="462" y="4" width="154" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <state key="normal" title="Mac Pro">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="vRa-bd-2he"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wMP-Nr-J0H" userLabel="SetupCylinderRefNormalButton" customClass="ADSetupCylinderRefNormalButton">
@@ -2697,13 +2697,6 @@
                                     </button>
                                 </subviews>
                             </view>
-                            <slider hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="Vet-3g-35F">
-                                <rect key="frame" x="133" y="497" width="480" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="debugSliderValueChanged:" destination="Ykg-qI-0AR" eventType="valueChanged" id="5go-qd-UzF"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label="CylinderRootView">
                             <bool key="isElement" value="YES"/>
@@ -2712,7 +2705,6 @@
                     <connections>
                         <outlet property="cylinderDiameterButton" destination="1On-Dl-NSe" id="OVW-gd-4NZ"/>
                         <outlet property="cylinderHeightButton" destination="i42-kf-iWd" id="9gd-o0-Nor"/>
-                        <outlet property="debugSlider" destination="Vet-3g-35F" id="Noi-Qj-Y9j"/>
                         <outlet property="downToolBar" destination="jlQ-I2-QJ2" id="euy-X6-fFa"/>
                         <outlet property="eyeDistanceButton" destination="pVY-ih-kio" id="Ihk-cU-fJm"/>
                         <outlet property="eyeDistanceParam" destination="PLH-Rl-3VI" id="EGa-Oh-OfS"/>
@@ -2734,6 +2726,11 @@
                         <outlet property="rootView" destination="h4g-78-CMY" id="upA-4y-y8Y"/>
                         <outlet property="setupButton" destination="edV-eN-YWW" id="eaB-n1-a57"/>
                         <outlet property="setupCylinderButton" destination="R5W-20-NGQ" id="laW-Uh-vCZ"/>
+                        <outlet property="setupCylinderRefCanButton" destination="JTW-ni-CZh" id="ENM-Z9-Cq6"/>
+                        <outlet property="setupCylinderRefMacProButton" destination="187-L4-OUe" id="7Eq-fm-2WP"/>
+                        <outlet property="setupCylinderRefNormalButton" destination="wMP-Nr-J0H" id="lg3-NB-4HJ"/>
+                        <outlet property="setupCylinderRefPenButton" destination="H2L-U0-Iqc" id="s0d-8f-MRu"/>
+                        <outlet property="setupCylinderRefTeaCupButton" destination="urm-LP-Tas" id="trE-aA-Dew"/>
                         <outlet property="setupParamsView" destination="V80-LC-hYV" id="77d-lE-NuL"/>
                         <outlet property="setupSceneView" destination="aV3-Zk-3io" id="okt-Rx-oKv"/>
                         <outlet property="shareButton" destination="Q2U-zg-Mkm" id="F8w-Bj-Ffl"/>
@@ -2742,7 +2739,6 @@
                         <outlet property="valueSlider" destination="Uox-bE-dEd" id="JFy-xW-psT"/>
                         <outlet property="virtualDeviceButton" destination="rkg-MF-vVH" id="fMW-w6-QwU"/>
                         <outletCollection property="allViews" destination="jlQ-I2-QJ2" id="hiq-s8-E4B"/>
-                        <outletCollection property="allViews" destination="nbv-5J-Y5R" id="zop-G3-uPH"/>
                         <outletCollection property="downTooBarButtons" destination="1js-2l-tGk" id="TlJ-Wh-ynz"/>
                         <outletCollection property="downTooBarButtons" destination="Q2U-zg-Mkm" id="b9s-AN-OxG"/>
                         <outletCollection property="downTooBarButtons" destination="853-Ud-5W7" id="yXW-ac-BLh"/>
@@ -2760,6 +2756,13 @@
                         <outletCollection property="allUserInputParamButtons" destination="22v-i6-tDY" id="NPX-Iu-wjq"/>
                         <outletCollection property="allUserInputParamButtons" destination="pcI-iX-N3o" id="MVq-5W-PN8"/>
                         <outletCollection property="allUserInputParamButtons" destination="PJU-fr-5RP" id="tbB-PR-b0Z"/>
+                        <outletCollection property="allUserInputParamButtons" destination="R5W-20-NGQ" id="w9a-dM-30U"/>
+                        <outletCollection property="setupCylinderRefObjButtons" destination="H2L-U0-Iqc" id="UTe-Sb-gWL"/>
+                        <outletCollection property="setupCylinderRefObjButtons" destination="JTW-ni-CZh" id="ARq-A3-dHa"/>
+                        <outletCollection property="setupCylinderRefObjButtons" destination="urm-LP-Tas" id="mhO-oY-REx"/>
+                        <outletCollection property="setupCylinderRefObjButtons" destination="187-L4-OUe" id="U2d-s8-u0M"/>
+                        <outletCollection property="setupCylinderRefObjButtons" destination="wMP-Nr-J0H" id="zx8-b8-hR4"/>
+                        <outletCollection property="allViews" destination="nbv-5J-Y5R" id="zop-G3-uPH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeZ-Fy-Wf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
