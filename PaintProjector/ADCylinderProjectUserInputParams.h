@@ -15,7 +15,8 @@
 @property (assign, nonatomic) CGFloat imageCenterOnSurfHeight;
 @property (assign, nonatomic) CGFloat eyeHonrizontalDistance;
 @property (assign, nonatomic) CGFloat eyeVerticalHeight;
-@property (assign, nonatomic) CGFloat unitZoom;
 @property (assign, nonatomic) CGFloat eyeZoom;
 @property (assign, nonatomic) CGFloat eyeTopZ;
+@property (assign, nonatomic) CGFloat unitZoom;
+- (id)copyWithZone:(NSZone *)zone;
 @end

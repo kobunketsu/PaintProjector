@@ -12,7 +12,8 @@
 @interface ADPaintDoc : NSObject{
 }
 
-@property (retain, nonatomic) ADPaintData *data;
+@property (retain, nonatomic) ADPaintData *data;//存储绘图数据
+@property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;//存储变形数据
 
 //!copy属性保证只从initWithDocPath付值
 @property (copy, nonatomic) NSString *docPath;
@@ -26,6 +27,7 @@
 - (id)cloneWithDocPath:(NSString *)docPath;
 - (ADPaintData *)newData;
 - (ADPaintData *)open;
+- (ADCylinderProjectUserInputParams *)openUserInputParams;
 - (void)close;
 - (void)save;
 - (void)newAndSaveThumbImage;

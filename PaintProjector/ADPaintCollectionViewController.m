@@ -46,11 +46,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     DebugLogSystem(@"viewWillAppear");
-    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
-    self.rootView.backgroundView = backgroundView;
-    [self.rootView addSubview:backgroundView];
-    [self.rootView sendSubviewToBack:backgroundView];
-
+    [self addBackgroundView];
     
     if (!self.isLaunchTransitioned) {
         [self startLaunchTransitionToCylinderProject];
@@ -58,6 +54,8 @@
 
     //在教程调整完毕后需要重新加载
     [self tutorialSetup];
+    
+    [self tutorialStartFromStepName:@"PaintCollectionWelcome"];
     
     //修正viewDidDisappear unloadPaintFrameView后闪的问题
     [self.collectionView reloadData];
@@ -73,15 +71,11 @@
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
     }
-    
-    [self tutorialStartFromStepName:@"PaintCollectionWelcome"];
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
-    [self.rootView.backgroundView removeFromSuperview];
-    self.rootView.backgroundView = nil;
+    [self destroyBackgroundView];
     
     [self.selectedIndices removeAllObjects];
     
@@ -138,6 +132,18 @@
 -(void)dealloc{
     DebugLogSystem(@"dealloc");
     self.selectedIndices = nil;
+}
+
+- (void)addBackgroundView{
+    ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.view.frame];
+    self.rootView.backgroundView = backgroundView;
+    [self.rootView addSubview:backgroundView];
+    [self.rootView sendSubviewToBack:backgroundView];
+}
+
+-(void)destroyBackgroundView{
+    [self.rootView.backgroundView removeFromSuperview];
+    self.rootView.backgroundView = nil;
 }
 
 #pragma mark- LaunchTransition
@@ -587,18 +593,12 @@
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
     //只要是教程,就需要关闭所有其他工具
     self.downToolBar.userInteractionEnabled = enable;
+    self.collectionView.userInteractionEnabled = enable;
     
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
-        //打开关闭第一个作品的交互
-        if ([self.collectionView numberOfItemsInSection:0] == 0) {
-            return;
-        }
-        for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
-            UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            cell.userInteractionEnabled = enable;
-        }
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
+        self.collectionView.userInteractionEnabled = true;
         //打开关闭第一个作品的交互
         if ([self.collectionView numberOfItemsInSection:0] == 0) {
             return;
@@ -618,7 +618,7 @@
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(35, 262);
+        rect.origin = CGPointMake(0, 0);
         
         step.contentView.frame = rect;
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];

@@ -13,15 +13,18 @@
 #import <Foundation/Foundation.h>
 #import "ADBackgroundLayer.h"
 #import "ADPaintLayer.h"
+#import "ADCylinderProjectUserInputParams.h"
+
 
 #define kTitleKey   @"Title"
 @interface ADPaintData : NSObject <NSCoding>{
 }
-@property (copy) NSString *title;
-@property (copy) NSString *version;
-@property (retain, nonatomic) NSMutableArray *layers;
-@property (retain, nonatomic) ADBackgroundLayer *backgroundLayer;
+@property (copy) NSString *title;//标题
+@property (copy) NSString *version;//版本号
+@property (retain, nonatomic) NSMutableArray *layers;//绘画图层
+@property (retain, nonatomic) ADBackgroundLayer *backgroundLayer;//背景层
+@property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;//变形数据
 
 - (id)initWithTitle:(NSString*)title;
--(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(ADBackgroundLayer*)backgroundLayer version:(NSString*)version;
+-(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(ADBackgroundLayer*)backgroundLayer userInputParams:(ADCylinderProjectUserInputParams*)userInputParams version:(NSString*)version;
 @end

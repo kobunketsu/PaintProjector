@@ -652,7 +652,7 @@
     [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
     
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
-    DebugLog(@"-----------------------------------Frame End-----------------------------------");
+    DebugLogGL(@"-----------------------------------Frame End-----------------------------------");
     
 #if DEBUG
     glPopGroupMarkerEXT();

@@ -1196,7 +1196,7 @@
 //    DebugLog(@"_updateRender willEndDraw glFinish. presentRenderbuffer.");
     //call glFlush internally
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    DebugLog(@"-----------------------------------Frame End-----------------------------------");
+    DebugLogGL(@"-----------------------------------Frame End-----------------------------------");
 
 #if DEBUG
     glPopGroupMarkerEXT();

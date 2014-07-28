@@ -58,7 +58,6 @@
 
 //test beizer fade
 @property (assign, nonatomic) float lastlastDrawFade;//再上一次绘制结束防缩
-@property (assign, nonatomic) float lastDrawSubFade;
 @end
 
 @implementation ADBrush
@@ -204,7 +203,7 @@
 //    DebugLog(@"startDraw");
     self.lastDrawSubPoint = _curDrawPoint = _lastDrawPoint = startLocation;
     self.curDrawLength = 0;
-    self.lastDrawSubFade = self.lastlastDrawFade = self.lastDrawFade = self.curDrawFade = 1.0;
+    self.lastlastDrawFade = self.lastDrawFade = self.curDrawFade = 1.0;
     
     CFAbsoluteTime absTime = CFAbsoluteTimeGetCurrent();
     //    DebugLog(@"Seed %.3f", absTime);
@@ -512,7 +511,7 @@
                 return 0;
             }
             else{
-                count = (int)ceilf(self.curDrawAccumDeltaLength / spaceThresold);
+                count = (int)floorf(self.curDrawAccumDeltaLength / spaceThresold);
             }
         }
     }
@@ -522,12 +521,10 @@
 
 - (void) fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
 {
-//    DebugLog(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
+    DebugLogFuncUpdate(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
     CGPoint lastDrawPoint = self.lastDrawSubPoint;
     size_t countSegment = [self calculateDrawCountFromPoint:start toPoint:end brushState:brushState isTapDraw:isTapDraw];
     
-//    self.lastlastDrawFade = self.lastDrawSubFade;
-
     //绘图Fade
     if (self.brushState.isVelocitySensor) {
         if (self.brushState.isRadiusMagnifySensor) {
@@ -583,19 +580,21 @@
     //计算vertex data
     float x, y;
     float t = 0.0;
-//    DebugLog(@"fillLine fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.allDrawSpriteCount);
+    DebugLog(@"fillLine fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.allDrawSpriteCount);
 
+    CGFloat lastLength = 0;
     for(int i = 0; i < count; i++)
     {
         //计算绘制的位置
-        x = [ADMathHelper BeizerValueT:t start:origin.x control:control.x end:destination.x];
-        y = [ADMathHelper BeizerValueT:t start:origin.y control:control.y end:destination.y];
-
+        x = [ADMathHelper beizerValueT:t start:origin.x control:control.x end:destination.x];
+        y = [ADMathHelper beizerValueT:t start:origin.y control:control.y end:destination.y];
+        
+        CGFloat length = [ADMathHelper beizerLengthT:t start:origin control:control end:destination];
+        DebugLogWarn(@"fillLine t %.1f length %.1f", t, length);
+        
         //计算绘制的距离
-        float distVecX = x-self.lastDrawSubPoint.x;
-        float distVecY = y-self.lastDrawSubPoint.y;
-        float distance = sqrtf(distVecX * distVecX + distVecY * distVecY);
-        self.curDrawLength += distance;
+        self.curDrawLength += (length - lastLength);//delta length
+        DebugLogWarn(@"curDrawLength %.1f", self.curDrawLength);
         
         //散布Scattering
         float randX = (float)(random() % 50) / 50.0f;
@@ -680,8 +679,7 @@
         //lastDrawPoint使用完毕，更新lastDrawPoint,
         //更新执行的速度可能快于上一次取贴图，导致取到的数值是错误的
         self.lastDrawSubPoint = CGPointMake(x, y);
-//        self.lastDrawSubFade = radiusFade;
-//        [self.delegate willUpdateLayerContentCGRectWithPoint:self.lastDrawSubPoint radius:radius];
+        lastLength = length;
     }
     
     //allDrawSpriteCount累加count
@@ -700,9 +698,9 @@
     //GPU还未完成绘制时，下一个CPU使用 glBufferSubData可能导致stalling
     if (self.allDrawSpriteCount > 0) {
         size_t count = self.allDrawSpriteCount;
-        DebugLog(@"glDrawArrays allDrawSpriteCount %lu", count);
+        DebugLogGL(@"glDrawArrays allDrawSpriteCount %lu", count);
         glDrawArrays(GL_POINTS, 0, count);
-        DebugLog(@"-----------------------------------Pass Draw End-----------------------------------");
+//        DebugLogGL(@"-----------------------------------Draw-----------------------------------");
 
         self.allDrawSpriteCount = 0;
         

@@ -12,9 +12,10 @@
 #import "ADUltility.h"
 #import "ADPaintLayer.h"
 
-#define kDataKey        @"Data"
-#define kDataFile       @"data.plist"
-#define kThumbImageFile @"thumbImage.png"
+#define kDataKey            @"Data"
+#define kUserInputParamsKey @"UserInputParams"
+#define kDataFile           @"data.plist"
+#define kThumbImageFile     @"thumbImage.png"
 
 @implementation ADPaintDoc
 
@@ -109,32 +110,47 @@
     ADPaintLayer* paintLayer = [ADPaintLayer createBlankLayerWithSize:self.defaultSize transparent:true];
     NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
     ADBackgroundLayer *backgroundLayer = [[ADBackgroundLayer alloc]init];
-    self.data = [[ADPaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
+    self.data = [[ADPaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer userInputParams:nil version:@"1.0"];
     
     return self.data;
 }
 
 - (ADPaintData *)open {
-    //打开已经进入内存的paintData
-    if (self.data != nil) {
-        return self.data;
+    if (!self.data) {
+        NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
+        NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
+        //解压磁盘上的paintData
+        if (codedData != nil){
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
+            self.data = [unarchiver decodeObjectForKey:kDataKey];//data should be released somewhere
+            [unarchiver finishDecoding];
+        }
+        //创建默认paintData
+        else{
+            [self newData];
+        }
     }
-    NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
-    NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
-    //解压磁盘上的paintData
-    if (codedData != nil){
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
-        self.data = [unarchiver decodeObjectForKey:kDataKey];//data should be released somewhere
-        [unarchiver finishDecoding];
-    }
-    //创建默认paintData
-    else{
-        [self newData];
-    }
-    
+
     return self.data;
 }
 
+- (ADCylinderProjectUserInputParams *)openUserInputParams{
+    if (!self.userInputParams) {
+        NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
+        NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
+        //解压磁盘上的paintData
+        if (codedData != nil){
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
+            self.userInputParams = [unarchiver decodeObjectForKey:kUserInputParamsKey];//data should be released somewhere
+            [unarchiver finishDecoding];
+        }
+        else{
+            
+        }
+    }
+    
+    return self.userInputParams;
+}
 
 - (id)cloneWithDocPath:(NSString *)docPath{
     ADPaintDoc *doc = [[ADPaintDoc alloc]initWithDocPath:docPath];
@@ -153,12 +169,16 @@
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中
 - (void)save {
 //    DebugLog(@"saveData");
-    if (self.data == nil) return;
-    
+
     NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [archiver encodeObject:self.data forKey:kDataKey];
+    if (self.data){
+        [archiver encodeObject:self.data forKey:kDataKey];
+    }
+    if (self.userInputParams){
+        [archiver encodeObject:self.userInputParams forKey:kUserInputParamsKey];
+    }
     [archiver finishEncoding];
     if ([data writeToFile:dataPath atomically:YES]) {
         DebugLogSuccess(@"saved to %@", dataPath);
@@ -166,6 +186,8 @@
     else{
         DebugLogError(@"save to %@ failed!", dataPath);
     }
+    
+    
 
 }
 //从磁盘或者内存得到缩略图

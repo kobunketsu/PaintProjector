@@ -221,58 +221,72 @@
 //初始化教程的四个步骤，具体步骤的排版信息在切换到具体步骤并加载对应页面后使用页面排版代理进行排版
 - (void)initTutorial{
     ADTutorialIndicatorView *inidcatorView = nil;
+    UIImageView *imageView = nil;
     [ADSimpleTutorialManager initialize];
     [ADSimpleTutorialManager current].delegate = self;
     ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialMain" ofClass:@"ADSimpleTutorial"];
     
     //欢迎界面
-    ADTutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 670, 500) pageImage:nil withNextButton:true];
+    ADTutorialStep *step = [tutorial addPageStep:@"PaintCollectionWelcome" description:NSLocalizedString(@"PaintCollectionWelcome", nil) pageBounds:CGRectMake(0, 0, 768, 945) pageImage:nil withNextButton:true];
     tutorial.curStep = step;
     [((ADTutorialPageButtonView*)tutorial.curStep.contentView).nextButton setTitle:NSLocalizedString(@"TutorialStart", nil) forState:UIControlStateNormal];
 
-    //添加3d 多层次效果
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_main.png"]];
-    imageView.parallaxIntensity = 30;
-    [step.contentView addSubview:imageView];
+    //背景图层
+    ADTutorialBackgroundView *backgroundView = [[ADTutorialBackgroundView alloc]initWithFrame:step.contentView.bounds];
+//    backgroundView.parallaxIntensity = 30;
+    backgroundView.opaque = false;
+    [step.contentView addSubview:backgroundView];
+    
+    //标题图层
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, 768, 100)];
+    label.textColor = [UIColor darkGrayColor];
+    label.text = NSLocalizedString(@"TutorialWelcome", nil);
+    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 30]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [step.contentView  addSubview:label];
+    
+    //描述图层
+    label = [[UILabel alloc]initWithFrame:CGRectMake(0, 720, 768, 100)];
+    label.textColor = [UIColor darkGrayColor];
+    label.text = NSLocalizedString(@"PaintCollectionWelcome", nil);
+    label.numberOfLines = 3;
+    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 17]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [step.contentView  addSubview:label];
 
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_bookBG.png"]];
-    imageView.frame = CGRectMake(0, 0, 700, 500);
-    imageView.parallaxIntensity = 25;
+    imageView.frame = CGRectMake(0+35, 200, 700, 500);
+//    imageView.parallaxIntensity = 25;
     [step.contentView addSubview:imageView];
     
-//    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_booklet.png"]];
-//    imageView.frame = CGRectMake(520, 280, 113, 138);
-//    imageView.parallaxIntensity = 25;
-//    [step.contentView addSubview:imageView];
-    
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup2.png"]];
-    imageView.frame = CGRectMake(245, 375, 199, 102);
-    imageView.parallaxIntensity = 20;
+    imageView.frame = CGRectMake(245+35, 575, 199, 102);
+//    imageView.parallaxIntensity = 20;
     [step.contentView addSubview:imageView];
     
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup3.png"]];
-    imageView.frame = CGRectMake(485, 285, 142, 194);
-    imageView.parallaxIntensity = 10;
+    imageView.frame = CGRectMake(485+35, 485, 142, 194);
+//    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
     
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_setup.png"]];
-    imageView.frame = CGRectMake(10, 30, 197, 223);
-    imageView.parallaxIntensity = 10;
+    imageView.frame = CGRectMake(10+35, 230, 197, 223);
+//    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
     
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_pickImage.png"]];
-    imageView.frame = CGRectMake(460, 15, 191, 251);
-    imageView.parallaxIntensity = 10;
+    imageView.frame = CGRectMake(460+35, 215, 191, 251);
+//    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
     
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_viewDevice.png"]];
-    imageView.frame = CGRectMake(20, 280, 254, 198);
-    imageView.parallaxIntensity = 10;
+    imageView.frame = CGRectMake(20+35, 480, 254, 198);
+//    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
     
     imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_putDevice.png"]];
-    imageView.frame = CGRectMake(135, 0, 388, 388);
-    imageView.parallaxIntensity = 0;
+    imageView.frame = CGRectMake(135+35, 200, 388, 388);
+//    imageView.parallaxIntensity = 0;
     [step.contentView addSubview:imageView];
     
     //选中图片
@@ -379,7 +393,7 @@
     [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
     //完成教程
-    CGFloat height = 440;
+    CGFloat height = 866;
     CGFloat width = 768;
     CGFloat offsetX = 10;
     step = [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, width, height) pageImage:nil withNextButton:true];
@@ -390,7 +404,7 @@
     [step.contentView addSubview:view];
     
     //标题图层
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 100)];
+    label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 80)];
     label.textColor = [UIColor darkGrayColor];
     label.text = NSLocalizedString(@"QuickGestures", nil);
     [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 30]];
@@ -399,11 +413,11 @@
     
     //添加tutorial collection view
     UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.sectionInset = UIEdgeInsetsMake(80, 10, 10, 10);
     flowLayout.itemSize=CGSizeMake(180,230);
-    flowLayout.minimumInteritemSpacing = 10;
-    flowLayout.minimumLineSpacing = 10;
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.minimumLineSpacing = 0;
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     ADTutorialPaintScreenGestureCollectionView *collectionView = [[ADTutorialPaintScreenGestureCollectionView alloc] initWithFrame:CGRectMake(offsetX, 0, width - offsetX * 2, height - 10) collectionViewLayout:flowLayout];
     collectionView.opaque = false;
     collectionView.backgroundColor = [UIColor clearColor];

@@ -96,13 +96,39 @@ static float NormalizeAngle (float angle)
     return angle;
 }
 
-+ (CGFloat)BeizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end{
+#pragma mark- 贝塞尔曲线Beizer
++ (CGFloat)beizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end{
     return pow(1 - t, 2) * start + 2.0 * (1 - t) * t * control + t * t * end;
 }
-+ (CGPoint)BeizerCurveT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
++ (CGPoint)beizerCurveT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     CGPoint p = CGPointZero;
     p.x = pow(1 - t, 2) * start.x + 2.0 * (1 - t) * t * control.x + t * t * end.x;
     p.y = pow(1 - t, 2) * start.y + 2.0 * (1 - t) * t * control.y + t * t * end.y;
     return p;
+}
+
++ (CGFloat)beizerLengthT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
+    CGFloat ax = start.x - 2 * control.x + end.x;
+    CGFloat ay = start.y - 2 * control.y + end.y;
+    CGFloat bx = 2 * control.x - 2 * start.x;
+    CGFloat by = 2 * control.y - 2 * start.y;
+    
+    CGFloat A = 4*(ax * ax + ay * ay);
+    CGFloat B = 4*(ax * bx + ay * by);
+    CGFloat C = bx * bx + by * by;
+    
+    //MARK: 需要检验
+    if (A < FLT_EPSILON || C < FLT_EPSILON) {
+        return 0;
+    }
+    
+    CGFloat temp1 = sqrtf(C + t * (B + A * t));
+    CGFloat temp2 = (2 * A * t * temp1 + B *(temp1 - sqrtf(C)));
+    CGFloat temp3 = logf(B + 2 * sqrtf(A) * sqrtf(C));
+    CGFloat temp4 = logf(B + 2 * A * t + 2 * sqrtf(A) * temp1);
+    CGFloat temp5 = 2 * sqrtf(A) * temp2;
+    CGFloat temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
+    
+    return (temp5 + temp6) / (8 * powf(A, 1.5));
 }
 @end

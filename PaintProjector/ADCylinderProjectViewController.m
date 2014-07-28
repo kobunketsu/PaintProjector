@@ -170,28 +170,28 @@ static float DeviceWidth = 0.154;
     if ([ADDeviceHardware sharedInstance].isMini) {
         //FIXME:调查参数
         DeviceWidth = 0.12;
-        [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.cylinderDiameter"];
-        [dic setObject:[NSNumber numberWithFloat:0.055] forKey:@"userInputParams.cylinderHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.imageWidth"];
-        [dic setObject:[NSNumber numberWithFloat:0.027] forKey:@"userInputParams.imageCenterOnSurfHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeHonrizontalDistance"];
-        [dic setObject:[NSNumber numberWithFloat:0.31] forKey:@"userInputParams.eyeVerticalHeight"];
-        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
-        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-        [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
+        [dic setValue:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.cylinderDiameter"];
+        [dic setValue:[NSNumber numberWithFloat:0.055] forKey:@"userInputParams.cylinderHeight"];
+        [dic setValue:[NSNumber numberWithFloat:0.03] forKey:@"userInputParams.imageWidth"];
+        [dic setValue:[NSNumber numberWithFloat:0.027] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+        [dic setValue:[NSNumber numberWithFloat:0.27] forKey:@"userInputParams.eyeHonrizontalDistance"];
+        [dic setValue:[NSNumber numberWithFloat:0.31] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setValue:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+        [dic setValue:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+        [dic setValue:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
         
     }
     else{
         DeviceWidth = 0.154;
-        [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
-        [dic setObject:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.imageWidth"];
-        [dic setObject:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
-        [dic setObject:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
-        [dic setObject:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
-        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
-        [dic setObject:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
-        [dic setObject:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
+        [dic setValue:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.cylinderDiameter"];
+        [dic setValue:[NSNumber numberWithFloat:0.07] forKey:@"userInputParams.cylinderHeight"];
+        [dic setValue:[NSNumber numberWithFloat:0.038] forKey:@"userInputParams.imageWidth"];
+        [dic setValue:[NSNumber numberWithFloat:0.035] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+        [dic setValue:[NSNumber numberWithFloat:0.35] forKey:@"userInputParams.eyeHonrizontalDistance"];
+        [dic setValue:[NSNumber numberWithFloat:0.4] forKey:@"userInputParams.eyeVerticalHeight"];
+        [dic setValue:[NSNumber numberWithFloat:1] forKey:@"userInputParams.eyeZoom"];
+        [dic setValue:[NSNumber numberWithFloat:1] forKey:@"userInputParams.unitZoom"];
+        [dic setValue:[NSNumber numberWithFloat:0.01] forKey:@"userInputParams.eyeTopZ"];
 
     }
     self.srcUserInputParams = dic;
@@ -297,7 +297,7 @@ static float DeviceWidth = 0.154;
 
     //do some work
     if (self.isSetupMode) {
-        [self setupAnamorphParamsDoneCompletion:nil];
+        [self setupAnamorphParamsDoneAnimationCompletion:nil];
     }
     
 //    if (self.isTopViewMode) {
@@ -346,22 +346,16 @@ static float DeviceWidth = 0.154;
     [self lockInteraction:true];
     
     if (self.isSetupMode) {
-        [self setupAnamorphParamsCompletion:^{
+        [self setupAnamorphParamsAnimationCompletion:^{
             [self lockInteraction:false];
             
-//            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
-//                [self tutorialStartFromStepName:@"CylinderProjectSetupCylinderDiameter"];
-//            }
             [self tutorialStartCurrentStep];
         }];
     }
     else{
-        [self setupAnamorphParamsDoneCompletion:^{
+        [self setupAnamorphParamsDoneAnimationCompletion:^{
             [self lockInteraction:false];
-            
-//            if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPaint"]) {
-//                [self tutorialStartFromStepName:@"CylinderProjectPaint"];
-//            }
+
             [self tutorialStartCurrentStep];
         }];
     }
@@ -414,7 +408,7 @@ static float DeviceWidth = 0.154;
         backgroundLayer.data = UIImagePNGRepresentation(image);
         //所有图层
         NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
-        paintDoc.data = [[ADPaintData alloc]initWithTitle:@"reversePaintDoc" layers:layers backgroundLayer:backgroundLayer version:@"1.0"];
+        paintDoc.data = [[ADPaintData alloc]initWithTitle:@"reversePaintDoc" layers:layers backgroundLayer:backgroundLayer userInputParams:nil version:@"1.0"];
         
 //        if (!self.isSetupMode) {
             [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
@@ -425,7 +419,7 @@ static float DeviceWidth = 0.154;
     }
     else{
         //reset userinput
-        [self setupAnamorphParamsDoneCompletion:^{
+        [self setupAnamorphParamsDoneAnimationCompletion:^{
             [self transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
         }];
 
@@ -487,6 +481,10 @@ static float DeviceWidth = 0.154;
 }
 
 - (void)transitionToPaint:(ADPaintDoc*)paintDoc{
+    if (!paintDoc.userInputParams) {
+        paintDoc.userInputParams = self.userInputParams;
+    }
+    
     //更新临时view
     NSString *path = [[ADPaintFrameManager curGroup] curPaintDoc].thumbImagePath;
     path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:path];
@@ -494,10 +492,12 @@ static float DeviceWidth = 0.154;
     transitionImageView.image = nil;
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
     
+    //打开paintDoc
     if (self.isReversePaint) {
         [self openPaintDoc:paintDoc];
     }
     else{
+        //打开动画
         REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
         REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
         propAnim.duration = 0.5;
@@ -529,6 +529,7 @@ static float DeviceWidth = 0.154;
         //透明度动画
         transitionImageView.alpha = 0;
         //    DebugLogWarn(@"fromView anchorPoint %@", NSStringFromCGPoint(fromView.layer.anchorPoint));
+        
         [UIView animateWithDuration:TempPaintFrameToPaintFadeInDuration animations:^{
             transitionImageView.alpha = 1;
             [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
@@ -680,7 +681,11 @@ static float DeviceWidth = 0.154;
     self.setupButton.selected = isSetupMode;
 }
 
-- (void)setupAnamorphParamsCompletion: (void (^) (void)) block{
+- (void)setupAnamorphParamsAnimationCompletion: (void (^) (void)) block{
+    self.isSetupMode = true;
+    //加载paintDoc保存的状态
+    [self loadInputParams];
+    
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
         if (block != nil) {
             block();
@@ -691,7 +696,7 @@ static float DeviceWidth = 0.154;
 //    [self openVirtualDevice];
 }
 
-- (void)setupAnamorphParamsDoneCompletion: (void (^) (void)) block{
+- (void)setupAnamorphParamsDoneAnimationCompletion: (void (^) (void)) block{
     self.isSetupMode = false;
     //恢复到初始状态
     [self resetInputParams];
@@ -793,16 +798,12 @@ static float DeviceWidth = 0.154;
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderValueChanged" identifier:sender];
 
-    
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.userInputParamkeyPath];
     
-    //同比例调整
-//    if ([self.userInputParamkeyPath isEqualToString:@"userInputParams.eyeHonrizontalDistance"]) {
-//        self.userInputParams.eyeVerticalHeight = self.userInputParams.eyeHonrizontalDistance / 0.35 * 0.4;
-//    }
-//    if ([self.userInputParamkeyPath isEqualToString:@"userInputParams.eyeVerticalHeight"]) {
-//        self.userInputParams.eyeHonrizontalDistance = self.userInputParams.eyeVerticalHeight / 0.4 * 0.3;
-//    }
+    //更新paintDoc的userInputParams
+    [ADPaintFrameManager curGroup].curPaintDoc.userInputParams = [self.userInputParams copy];
+    
+//    ADCylinderProjectUserInputParams *param = [ADPaintFrameManager curGroup].curPaintDoc.userInputParams;
     
     [self flushUIUserInputParams];
 }
@@ -827,7 +828,32 @@ static float DeviceWidth = 0.154;
     [self tutorialStepNextImmediate:false];
 }
 
+//载入paintDoc保存的inputParams
+-(void)loadInputParams{
+    ADCylinderProjectUserInputParams *params = [[ADPaintFrameManager curGroup].curPaintDoc openUserInputParams];
+    
+    if (!params) {
+        return;
+    }
+    
+    NSMutableDictionary *paramsDic = [[NSMutableDictionary alloc]init];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.cylinderDiameter] forKey:@"userInputParams.cylinderDiameter"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.cylinderHeight] forKey:@"userInputParams.cylinderHeight"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.imageWidth] forKey:@"userInputParams.imageWidth"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.imageCenterOnSurfHeight] forKey:@"userInputParams.imageCenterOnSurfHeight"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.eyeHonrizontalDistance] forKey:@"userInputParams.eyeHonrizontalDistance"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.eyeVerticalHeight] forKey:@"userInputParams.eyeVerticalHeight"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.eyeZoom] forKey:@"userInputParams.eyeZoom"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.unitZoom] forKey:@"userInputParams.unitZoom"];
+    [paramsDic setValue:[NSNumber numberWithFloat:params.eyeTopZ] forKey:@"userInputParams.eyeTopZ"];
+    
+    [self animationToTarget:self params:paramsDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+        [self flushUIUserInputParams];
+    }];
+    
+}
 
+//重置到默认的inputParams
 -(void)resetInputParams{
     [self animationToTarget:self params:self.srcUserInputParams duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
         for (UIButton *button in self.allUserInputParamButtons) {
@@ -862,9 +888,7 @@ static float DeviceWidth = 0.154;
         [self lockInteraction:false];
         
         [self tutorialStartCurrentStep];
-//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupScene"]) {
-//            [self tutorialStartFromStepName:@"CylinderProjectSetupScene"];
-//        }
+
     }];
 }
 
@@ -966,6 +990,9 @@ static float DeviceWidth = 0.154;
     }
     
     [self animationToTarget:self params:dic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+        //更新paintDoc的userInputParams
+        [ADPaintFrameManager curGroup].curPaintDoc.userInputParams = [self.userInputParams copy];
+        
         [self flushUIUserInputParams];
         
     }];
@@ -1303,13 +1330,7 @@ static float DeviceWidth = 0.154;
     [topToBottomPropAnim setCompletionBlock:^{
         
         [self lockInteraction:false];
-        
-//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
-//            [self tutorialStartFromStepName:@"CylinderProjectSetupEyeZoom"];
-//        }
-//        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetup"]) {
-//            [self tutorialStartFromStepName:@"CylinderProjectSetup"];
-//        }
+
         [self tutorialStartCurrentStep];
     }];
     REAnimationClip *animClip = [REAnimationClip animationClipWithPropertyAnimation:topToBottomPropAnim];
@@ -1325,13 +1346,7 @@ static float DeviceWidth = 0.154;
     [bottomToTopPropAnim setCompletionBlock:^{
         
         [self lockInteraction:false];
-        
-//        if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectSetupZoom"]) {
-//            [self tutorialStartFromStepName:@"CylinderProjectSetupZoom"];
-//        }
-//        else if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectViewDevice"]) {
-//            [self tutorialStartFromStepName:@"CylinderProjectViewDevice"];
-//        }
+
         [self tutorialStartCurrentStep];
     }];
     animClip = [REAnimationClip animationClipWithPropertyAnimation:bottomToTopPropAnim];
@@ -2470,7 +2485,7 @@ static float DeviceWidth = 0.154;
         self.topToolBar.userInteractionEnabled = true;
     }
     else{
-        [self setupAnamorphParamsDoneCompletion:nil];        
+        [self setupAnamorphParamsDoneAnimationCompletion:nil];        
     }
 }
 #pragma mark- 绘画Paint
@@ -2501,7 +2516,9 @@ static float DeviceWidth = 0.154;
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         self.paintButton.selected = false;
         [self lockInteraction:false];
+        
         [self.paintScreenVC openDoc:paintDoc];
+        
         
         if (self.isReversePaint) {
             self.paintScreenVC.paintView.reversePaintData = [[ADReversePaintInputData alloc]init];

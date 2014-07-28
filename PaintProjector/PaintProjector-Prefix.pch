@@ -79,6 +79,13 @@
     #define DebugLogFuncUpdate(s, ...)
     #endif
 
+    #ifdef DEBUG
+    //函数每帧都调用的log
+    #define DebugLogGL(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg255,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #else
+    #define DebugLogGL(s, ...)
+    #endif
+
 #endif
 
 

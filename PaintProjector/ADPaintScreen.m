@@ -359,6 +359,7 @@
     _uploadDataQueque = dispatch_queue_create("com.WenjieHu.ProjectPaint.uploadDataQueue", NULL);
     
     //教程
+//    [[ADSimpleTutorialManager current] activeTutorial:@"TutorialMain"];
     [self tutorialSetup];
     
     //从viewController启动主程序测试
