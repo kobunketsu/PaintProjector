@@ -126,9 +126,9 @@ typedef struct {
 @property (weak, nonatomic) ADPaintView* paintView;
 @property (assign, nonatomic) CGSize canvasSize;
 @property (retain, nonatomic) ADBrushState* brushState;
-@property (assign, nonatomic) CGPoint lastDrawPoint;
-@property (assign, nonatomic) CGPoint curDrawPoint;
-@property (assign, nonatomic) float curDrawAccumDeltaLength;//当前绘制的长度
+@property (assign, nonatomic) CGPoint lastSegmentEndPoint;
+@property (assign, nonatomic) CGPoint curSegmentEndPoint;
+@property (assign, nonatomic) float curStrokedLength;//当前绘制的长度
 
 #pragma mark- OpenGLES
 @property (assign, nonatomic) BrushVertex* vertexBuffer;
@@ -165,10 +165,11 @@ typedef struct {
 
 - (void)startDraw:(CGPoint)startLocation;
 - (void)prepareWithBrushState:(ADBrushState*)brushState lastBrushState:(ADBrushState*)lastBrushState;
-- (size_t)calculateDrawCountFromPoint:(CGPoint)start toPoint:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw;
+- (size_t)numOfSegmentPointFromStart:(CGPoint)start toEnd:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw;
 - (void)fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;
-- (void)fillLineBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint)destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate;
+- (void)fillSegmentBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint)destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate;
 - (void)renderImmediate:(BOOL)isImmediate;
+- (void)endDraw;
 
 
 

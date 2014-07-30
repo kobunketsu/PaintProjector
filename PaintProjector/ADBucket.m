@@ -56,7 +56,7 @@
     self.brushState.wet = 0;
 }
 
-- (size_t) calculateDrawCountFromPoint:(CGPoint)start toPoint:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
+- (size_t) numOfSegmentPointFromStart:(CGPoint)start toEnd:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
     return 0;
 }
 
@@ -75,7 +75,7 @@
     //do nothing. done in prepareWithBrushState
 }
 
--(void)fillLineBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
+-(void)fillSegmentBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
 {
     //do nothing. done in prepareWithBrushState
 }

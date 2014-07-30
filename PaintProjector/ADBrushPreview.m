@@ -495,21 +495,17 @@
     
     size_t count = 0;
     //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
-    self.brush.curDrawPoint = self.brush.lastDrawPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
+    self.brush.curSegmentEndPoint = self.brush.lastSegmentEndPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
     for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
         
         NSUInteger endIndex = (cmd.paintPaths.count == 1 ? i : (i+1));
         CGPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGPointValue];
         CGPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGPointValue];
         
-        size_t countSegment = [self.brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
+        size_t countSegment = [self.brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
         DebugLog(@"calculateDrawCountFromPointToPoint countSegment %lu", countSegment);
         
-        self.brush.lastDrawPoint = self.brush.curDrawPoint;
-        //重置累积距离
-        if (countSegment > 0) {
-            self.brush.curDrawAccumDeltaLength = 0;
-        }
+        self.brush.lastSegmentEndPoint = self.brush.curSegmentEndPoint;
         
         count += countSegment;
     }

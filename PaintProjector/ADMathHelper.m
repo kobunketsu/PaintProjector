@@ -95,7 +95,11 @@ static float NormalizeAngle (float angle)
         angle += 360;
     return angle;
 }
-
+#pragma mark- 距离Distance
++ (CGFloat)lengthFromPoint:(CGPoint)p0 toPoint:(CGPoint)p1{
+    CGPoint vec = CGPointMake(p1.x - p0.x, p1.y - p0.y);
+    return sqrtf(vec.x * vec.x + vec.y * vec.y);
+}
 #pragma mark- 贝塞尔曲线Beizer
 + (CGFloat)beizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end{
     return pow(1 - t, 2) * start + 2.0 * (1 - t) * t * control + t * t * end;
@@ -107,6 +111,7 @@ static float NormalizeAngle (float angle)
     return p;
 }
 
+#if 0
 + (CGFloat)beizerLengthT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     CGFloat ax = start.x - 2 * control.x + end.x;
     CGFloat ay = start.y - 2 * control.y + end.y;
@@ -118,17 +123,55 @@ static float NormalizeAngle (float angle)
     CGFloat C = bx * bx + by * by;
     
     //MARK: 需要检验
-    if (A < FLT_EPSILON || C < FLT_EPSILON) {
+//    CGFloat temp1 = sqrtf(C + t * (B + A * t));
+//    CGFloat temp2 = (2 * A * t * temp1 + B *(temp1 - sqrtf(C)));
+//    CGFloat temp3 = logf(B + 2 * sqrtf(A) * sqrtf(C));
+//    CGFloat temp4 = logf(B + 2 * A * t + 2 * sqrtf(A) * temp1);
+//    CGFloat temp5 = 2 * sqrtf(A) * temp2;
+//    CGFloat temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
+//    CGFloat result = (temp5 + temp6) / (8 * powf(A, 1.5));
+    if (A < FLT_EPSILON) {
+        DebugLogError(@"A < FLT_EPSILON %.1f", A);
         return 0;
     }
     
-    CGFloat temp1 = sqrtf(C + t * (B + A * t));
-    CGFloat temp2 = (2 * A * t * temp1 + B *(temp1 - sqrtf(C)));
-    CGFloat temp3 = logf(B + 2 * sqrtf(A) * sqrtf(C));
-    CGFloat temp4 = logf(B + 2 * A * t + 2 * sqrtf(A) * temp1);
-    CGFloat temp5 = 2 * sqrtf(A) * temp2;
-    CGFloat temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
+    CGFloat b = B / (2 * A);
+    CGFloat c = C / A;
+    CGFloat u = t + b;
+    CGFloat k = c - b * b;
     
-    return (temp5 + temp6) / (8 * powf(A, 1.5));
+    if (b + sqrtf(b * b + k) < FLT_EPSILON) {
+        DebugLogError(@"b + sqrtf(b * b + k) < FLT_EPSILON b %.1f k %.1f", b, k);
+        return 0;
+    }
+    
+    CGFloat result = u * sqrtf(u * u + k);
+    result -= b * sqrtf(b * b + k);
+    result += logf(fabsf((u + sqrtf(u * u + k)) / (b + sqrtf(b * b + k))));
+    result *= sqrtf(A) * 0.5;
+    
+    
+    return result;
 }
+#else
++ (CGFloat)beizerLengthSteps:(NSUInteger)numOfStep start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
+    DebugLog(@"numOfStep %d", numOfStep);
+    if (numOfStep == 0) {
+        return 0;
+    }
+    
+    //brute force 通过step计算长度
+    CGPoint lastPos = start;
+    CGFloat length = 0;
+    CGFloat step = 1.0 / (CGFloat)numOfStep;
+    CGFloat t = step;
+    for (int i = 0; i < numOfStep; ++i, t += step) {
+        CGPoint pos = [ADMathHelper beizerCurveT:t start:start control:control end:end];
+        CGPoint vec = CGPointMake(pos.x - lastPos.x, pos.y - lastPos.y);
+        length += sqrtf(vec.x * vec.x + vec.y * vec.y);
+        lastPos = pos;
+    }
+    return length;
+}
+#endif
 @end

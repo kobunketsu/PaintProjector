@@ -1438,18 +1438,14 @@
     
     size_t count = 0;
     ADBrush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
-    brush.curDrawPoint = brush.lastDrawPoint = [cmd.paintPaths[0] CGPointValue];
+    brush.curSegmentEndPoint = brush.lastSegmentEndPoint = [cmd.paintPaths[0] CGPointValue];
     
     if (cmd.paintPaths.count == 1) {
 //        DebugLogWarn(@"cmd.paintPaths.count == 1");
         CGPoint startPoint = [cmd.paintPaths[0] CGPointValue];
         CGPoint endPoint = [cmd.paintPaths[0] CGPointValue];
-        size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
-        brush.lastDrawPoint = brush.curDrawPoint;
-        //重置累积距离
-        if (countSegment > 0) {
-            brush.curDrawAccumDeltaLength = 0;
-        }
+        size_t countSegment = [brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
+        brush.lastSegmentEndPoint = brush.curSegmentEndPoint;
         
         count += countSegment;
     }
@@ -1458,12 +1454,8 @@
         for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
             CGPoint startPoint = [cmd.paintPaths[i] CGPointValue];
             CGPoint endPoint = [cmd.paintPaths[i+1] CGPointValue];
-            size_t countSegment = [brush calculateDrawCountFromPoint:startPoint toPoint:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
-            brush.lastDrawPoint = brush.curDrawPoint;
-            //重置累积距离
-            if (countSegment > 0) {
-                brush.curDrawAccumDeltaLength = 0;
-            }
+            size_t countSegment = [brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
+            brush.lastSegmentEndPoint = brush.curSegmentEndPoint;
             
             count += countSegment;
         }
@@ -1484,7 +1476,7 @@
     
     [[REGLWrapper current] bindBuffer: _VBOBrush];
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
-    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
+//    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
     //    self.allocVertexCount = count;
 #if DEBUG
     NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
