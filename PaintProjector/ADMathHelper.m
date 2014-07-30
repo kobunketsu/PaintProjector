@@ -111,7 +111,7 @@ static float NormalizeAngle (float angle)
     return p;
 }
 
-#if 0
+
 + (CGFloat)beizerLengthT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     CGFloat ax = start.x - 2 * control.x + end.x;
     CGFloat ay = start.y - 2 * control.y + end.y;
@@ -122,14 +122,16 @@ static float NormalizeAngle (float angle)
     CGFloat B = 4*(ax * bx + ay * by);
     CGFloat C = bx * bx + by * by;
     
+#if 1
     //MARK: 需要检验
-//    CGFloat temp1 = sqrtf(C + t * (B + A * t));
-//    CGFloat temp2 = (2 * A * t * temp1 + B *(temp1 - sqrtf(C)));
-//    CGFloat temp3 = logf(B + 2 * sqrtf(A) * sqrtf(C));
-//    CGFloat temp4 = logf(B + 2 * A * t + 2 * sqrtf(A) * temp1);
-//    CGFloat temp5 = 2 * sqrtf(A) * temp2;
-//    CGFloat temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
-//    CGFloat result = (temp5 + temp6) / (8 * powf(A, 1.5));
+    CGFloat temp1 = sqrtf(C + t * (B + A * t));
+    CGFloat temp2 = (2 * A * t * temp1 + B *(temp1 - sqrtf(C)));
+    CGFloat temp3 = logf(B + 2 * sqrtf(A) * sqrtf(C));
+    CGFloat temp4 = logf(B + 2 * A * t + 2 * sqrtf(A) * temp1);
+    CGFloat temp5 = 2 * sqrtf(A) * temp2;
+    CGFloat temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
+    CGFloat result = (temp5 + temp6) / (8 * powf(A, 1.5));
+#else
     if (A < FLT_EPSILON) {
         DebugLogError(@"A < FLT_EPSILON %.1f", A);
         return 0;
@@ -149,11 +151,10 @@ static float NormalizeAngle (float angle)
     result -= b * sqrtf(b * b + k);
     result += logf(fabsf((u + sqrtf(u * u + k)) / (b + sqrtf(b * b + k))));
     result *= sqrtf(A) * 0.5;
-    
-    
+#endif
     return result;
 }
-#else
+
 + (CGFloat)beizerLengthSteps:(NSUInteger)numOfStep start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     DebugLog(@"numOfStep %d", numOfStep);
     if (numOfStep == 0) {
@@ -173,5 +174,24 @@ static float NormalizeAngle (float angle)
     }
     return length;
 }
-#endif
+
+
+//  长度函数反函数，使用牛顿切线法求解
+//private static function InvertL (t:Number, l:Number):Number
+//{
+//    CGFloat t1 = t;
+//    CGFloat t2;
+//    do
+//    {
+//        t2 = t1 - (L(t1) - l)/s(t1);
+//        if (Math.abs(t1-t2) < 0.000001) break;
+//        t1 = t2;
+//    }while(true);
+//    return t2;
+//}
+
+//+ (CGFloat)uniformBeizerTFromT:(CGFloat)t lengthAtT:(CGFloat)length{
+//    
+//}
+
 @end

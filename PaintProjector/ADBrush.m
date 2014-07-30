@@ -9,10 +9,12 @@
 #import "ADBrush.h"
 #import "ADPaintView.h"
 #import "REGLWrapper.h"
+#import "ADHeap.h"
 
 #define kPatternWidth 44
 #define kPatternHeight 44
 #define curveTesselateScale 0.25
+#define curveFixJitterIter 20
 
 @class ADBrushState;
 @implementation ADBrushState
@@ -50,9 +52,12 @@
 
 @interface ADBrush()
 #pragma mark- Core
+@property (assign, nonatomic) CGFloat lastSegmentTailLength;//上一次片段未绘制的长度
+@property (assign, nonatomic) CGFloat curSegmentLength;//当前片段的长度
+@property (assign, nonatomic) CGFloat curSegmentSpeed;//当前片段对应速度(Length作为ControlPoint)
+@property (retain, nonatomic) ADHeap *segmentLengths;//用来光滑笔刷大小变化
+
 @property (assign, nonatomic) CGPoint lastStrokedPoint;//上一次绘制的点
-@property (assign, nonatomic) CGFloat curSegmentLenth;//当前片段的长度
-@property (assign, nonatomic) CGFloat lastSegmentTailLenth;//上一次片段未绘制的长度
 @property (assign, nonatomic) size_t strokedSpriteCount;//当前一次绘制的数量
 
 @property (assign, nonatomic) CGFloat curStrokedFade;//当前绘制结束放缩
@@ -97,7 +102,9 @@
         [self resetDefaultBrushState];
         
         _lastSegmentEndPoint = _lastStrokedPoint = CGPointZero;
-        _lastSegmentTailLenth = 0;
+        _lastSegmentTailLength = 0;
+        
+        _segmentLengths = [[ADHeap alloc]initWithCapacity:curveFixJitterIter];
         
         //UI
         [self setColor: [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0]];
@@ -201,9 +208,11 @@
 
 - (void)startDraw:(CGPoint)startLocation{
 //    DebugLog(@"startDraw");
-    self.lastStrokedPoint = self.curSegmentEndPoint = self.lastSegmentEndPoint = startLocation;
+    [self.segmentLengths clear];
     self.curStrokedLength = 0;
-    self.lastSegmentTailLenth = 0;
+    self.lastSegmentTailLength = 0;
+    self.lastStrokedPoint = self.lastSegmentEndPoint = self.curSegmentEndPoint = startLocation;
+    self.curSegmentLength = 0;
     self.lastStrokedFade = self.curStrokedFade = 1.0;
     
     CFAbsoluteTime absTime = CFAbsoluteTimeGetCurrent();
@@ -213,6 +222,7 @@
 }
 
 - (void)endDraw{
+
 }
 
 -(BOOL)compareBrushState:(ADBrushState*)bs1 withBrushState:(ADBrushState*)bs2{
@@ -503,10 +513,12 @@
     CGFloat lengthForStep = [ADMathHelper lengthFromPoint:self.lastSegmentEndPoint toPoint:start];
     lengthForStep += [ADMathHelper lengthFromPoint:start toPoint:self.curSegmentEndPoint];
     NSUInteger numOfStep = (NSUInteger)ceilf(lengthForStep / spacing * curveTesselateScale);
-    self.curSegmentLenth = [ADMathHelper beizerLengthSteps:numOfStep start:self.lastSegmentEndPoint control:start end:self.curSegmentEndPoint];
+
+    self.curSegmentLength = [ADMathHelper beizerLengthSteps:numOfStep start:self.lastSegmentEndPoint control:start end:self.curSegmentEndPoint];
+    [self.segmentLengths push:[NSNumber numberWithFloat:self.curSegmentLength]];
     
     //调整
-    CGFloat adjustSegmentLength = self.curSegmentLenth + self.lastSegmentTailLenth;
+    CGFloat adjustSegmentLength = self.curSegmentLength + self.lastSegmentTailLength;
     numOfSegmentPoint = (size_t)floorf(adjustSegmentLength / spacing);
     
     CGFloat adjustSpacing;
@@ -521,18 +533,30 @@
     numOfSegmentPoint = (size_t)floor(adjustSegmentLength / adjustSpacing);
     
     //当前描绘后留下的尾巴长度
-    self.lastSegmentTailLenth = fmodf(adjustSegmentLength, adjustSpacing);
-    DebugLogWarn(@"segmentLength %.1f adjustSegmentLength %.1f adjustSpacing %.1f segmentTailLenth %.1f ", self.curSegmentLenth, adjustSegmentLength, adjustSpacing, self.lastSegmentTailLenth);
+    self.lastSegmentTailLength = fmodf(adjustSegmentLength, adjustSpacing);
+    DebugLogWarn(@"segmentLength %.1f adjustSegmentLength %.1f adjustSpacing %.1f segmentTailLenth %.1f ", self.curSegmentLength, adjustSegmentLength, adjustSpacing, self.lastSegmentTailLength);
     
     //绘制数量
     if(self.brushState.isAirbrush){
         numOfSegmentPoint = MAX(1, numOfSegmentPoint);
     }
 
+    [self mapSegmentLengthToSegmentSpeed];
+    
 //    DebugLog(@"numOfSegmentPointFromStart %lu", numOfSegmentPoint);
     return numOfSegmentPoint;
 }
 
+- (void)mapSegmentLengthToSegmentSpeed{
+
+    CGFloat averageLength = 0;
+    for (int i = 0; i < self.segmentLengths.contents.count; ++i) {
+        averageLength += ((NSNumber *)self.segmentLengths.contents[i]).floatValue;
+    }
+    averageLength /= (CGFloat)self.segmentLengths.contents.count;
+    
+    self.curSegmentSpeed = averageLength;
+}
 /*
 adjustSegmentLength = segmentLength + lastSegmentTailLenth;
 numOfSegmentPoint = floor(adjustSegmentLength / space);
@@ -562,7 +586,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
  }
  */
 
-- (void) fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
+- (void)fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
 {
     DebugLogFuncUpdate(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
     size_t numOfSegmentPoint = [self numOfSegmentPointFromStart:start toEnd:end brushState:brushState isTapDraw:isTapDraw];
@@ -570,7 +594,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     //绘图Fade
     if (self.brushState.isVelocitySensor) {
         if (self.brushState.isRadiusMagnifySensor) {
-            CGFloat curStrokedFade = MAX(self.curSegmentLenth / 10.0, 1.0);
+            CGFloat curStrokedFade = MAX(self.curSegmentSpeed / 10.0, 1.0);
             if (curStrokedFade < self.lastStrokedFade) {
                 self.curStrokedFade = MAX(curStrokedFade, self.lastStrokedFade - 1.0 / self.brushState.radius);
             }
@@ -581,9 +605,9 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         else{
             //max: atan(-paintDistance/30.0+0.5) = 2 - M_PI/2 = 0.43 (25 degree)--> -paintDistance/30.0 ~ 0
             //min: atan(-paintDistance/30.0+0.5) = - M_PI/2 = -1.57 (-90 degree)--> paintDistance ~ 60(2.07 * 30)
-            self.curStrokedFade = (atan(-self.curSegmentLenth/30 + 0.5) + M_PI/2) / 2;
+            self.curStrokedFade = (atan(-self.curSegmentSpeed/30 + 0.5) + M_PI/2) / 2;
 //            self.curStrokedFade = (atan(-self.curStrokedLength/120 + 2) + M_PI/2) / 2;
-            DebugLogWarn(@"curStrokedFade %.1f", self.curSegmentLenth);
+            DebugLogWarn(@"curStrokedFade %.1f", self.curSegmentSpeed);
         }
     }
     
@@ -593,7 +617,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     if (self.brushState.wet > 0) {
         //save temp texture for next draw smudge texture 拷贝吸取位置的贴图
         //time consume.if move too fast, count is high, thread will invoke a lot of update brush smudge texture. next drawElement should not be drawn until this operation is finished
-        [self.delegate willUpdateSmudgeTextureWithBrushState:brushState location:self.lastStrokedPoint];
+        [self.delegate willUpdateSmudgeTextureWithBrushState:brushState location:self.lastSegmentEndPoint];
     }
     
     self.lastSegmentEndPoint = self.curSegmentEndPoint;

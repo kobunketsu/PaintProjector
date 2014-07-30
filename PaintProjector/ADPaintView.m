@@ -1169,6 +1169,12 @@
         }
     }
 }
+
+- (void)setCurNumberOfTouch:(NSInteger)curNumberOfTouch{
+    _curNumberOfTouch = MAX(0, curNumberOfTouch);
+//    DebugLogWarn(@"setCurNumberOfTouch %d", _curNumberOfTouch);
+}
+
 #pragma mark-
 - (void)updateRender{
     [self _updateRender];
