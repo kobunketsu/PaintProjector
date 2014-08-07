@@ -1668,7 +1668,7 @@
                                                     <action selector="touchUpInsideUndoButton:" destination="NUX-zI-YbL" eventType="touchUpInside" id="iA0-b9-dHu"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="RedoButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="ADRedoButton">
                                                 <rect key="frame" x="384" y="0.0" width="96" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Redo"/>

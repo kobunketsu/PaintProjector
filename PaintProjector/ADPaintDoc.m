@@ -137,6 +137,7 @@
 - (ADCylinderProjectUserInputParams *)openUserInputParams{
     if (!self.userInputParams) {
         NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
+        dataPath = [dataPath stringByReplacingOccurrencesOfString:@"psf" withString:@"inf"];
         NSData *codedData = [[NSData alloc] initWithContentsOfFile:dataPath];
         //解压磁盘上的paintData
         if (codedData != nil){
@@ -145,7 +146,7 @@
             [unarchiver finishDecoding];
         }
         else{
-            
+            self.userInputParams = [[ADCylinderProjectUserInputParams alloc]init];
         }
     }
     
@@ -168,28 +169,68 @@
 
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中
 - (void)save {
-//    DebugLog(@"saveData");
+    DebugLogFuncStart(@"saveData");
 
     NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     if (self.data){
         [archiver encodeObject:self.data forKey:kDataKey];
-    }
-    if (self.userInputParams){
-        [archiver encodeObject:self.userInputParams forKey:kUserInputParamsKey];
-    }
-    [archiver finishEncoding];
-    if ([data writeToFile:dataPath atomically:YES]) {
-        DebugLogSuccess(@"saved to %@", dataPath);
+        [archiver finishEncoding];
+        if ([data writeToFile:dataPath atomically:YES]) {
+            DebugLogSuccess(@"writeToFile %@ success!", dataPath);
+        }
+        else{
+            DebugLogError(@"writeToFile %@ failed!", dataPath);
+        }
     }
     else{
-        DebugLogError(@"save to %@ failed!", dataPath);
+        DebugLogError(@"data nil");
     }
     
-    
+    [self saveUserInputParams];
+}
+
+- (void)saveUserInputParams{
+    DebugLogFuncStart(@"saveUserInputParams");
+    NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
+    dataPath = [dataPath stringByReplacingOccurrencesOfString:@"psf" withString:@"inf"];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    if (self.userInputParams){
+        [archiver encodeObject:self.userInputParams forKey:kUserInputParamsKey];
+        [archiver finishEncoding];
+        if ([data writeToFile:dataPath atomically:YES]) {
+            DebugLogSuccess(@"writeToFile %@ success!", dataPath);
+        }
+        else{
+            DebugLogError(@"writeToFile %@ failed!", dataPath);
+        }
+    }
+    else{
+        DebugLogError(@"userInputParams nil");
+    }
+}
+
+- (void)saveThumbImage:(UIImage*)image{
+    DebugLogFuncStart(@"saveThumbImage");
+    NSString *thumbImagePath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
+    NSData *thumbImageData = UIImagePNGRepresentation(image);
+    //    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);
+    if (thumbImageData) {
+        if([thumbImageData writeToFile:thumbImagePath atomically:YES]){
+            DebugLogSuccess(@"thumbImage saved to %@", thumbImagePath);
+        }
+        else{
+            DebugLogError(@"thumbImage save to %@ failed!", thumbImagePath);
+        }
+    }
+    else{
+        DebugLogError(@"thumbImageData nil");
+    }
 
 }
+
 //从磁盘或者内存得到缩略图
 - (UIImage *)thumbImage {
 //    
@@ -201,29 +242,43 @@
     return nil;
 }
 
-- (void)saveThumbImage:(UIImage*)image{
-//    DebugLog(@"saveThumbImage");
-    NSString *thumbImagePath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
-    NSData *thumbImageData = UIImagePNGRepresentation(image);
-//    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);
-    if([thumbImageData writeToFile:thumbImagePath atomically:YES]){
-        DebugLogSuccess(@"thumbImage saved to %@", thumbImagePath);
-    }
-    else{
-        DebugLogError(@"thumbImage save to %@ failed!", thumbImagePath);
-    }
-}
+
 
 - (void)delete {
+    DebugLogFuncStart(@"delete");
+    [self deleteData];
     
+    [self deleteUserInputParams];
+    
+    [self deleteThumbImage];
+}
+
+- (void)deleteData {
+    NSString* path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSError *error;
-    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:self.docPath error:&error];
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
     if (!success) {
         DebugLogError(@"Error removing document path: %@", error.localizedDescription);
     }
-    
+}
+- (void)deleteUserInputParams {
+    NSString* path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
+    path = [path stringByReplacingOccurrencesOfString:@".psf" withString:@".inf"];
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+    if (!success) {
+        DebugLogError(@"Error removing document path: %@", error.localizedDescription);
+    }
 }
 
+- (void)deleteThumbImage {
+    NSString* path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.thumbImagePath];
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+    if (!success) {
+        DebugLogError(@"Error removing document path: %@", error.localizedDescription);
+    }
+}
 #pragma mark- 导出
 - (NSString *)getExportFileName {
     NSString *fileName = self.data.title;

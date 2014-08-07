@@ -35,7 +35,7 @@
 #define ChangeToolBarConfirmPixels 10
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
-
+#define PaintScreenIBActionAnimationDuration 0.3
 
 //使用NSUserDefault来存储数据
 //#define LayerMaxCount_Pro 8
@@ -853,7 +853,7 @@
             self.clearEffectView.hidden = false;
             self.clearEffectView.backgroundColor = [self.paintView.paintData.backgroundLayer.clearColor copy];
             self.clearEffectView.alpha = 0;
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.clearEffectView.alpha = 0.75;
             } completion:nil];
             
@@ -866,7 +866,7 @@
         case UIGestureRecognizerStateRecognized:{
             DebugLog(@"handleClearCanvas Recognized");
             
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.clearEffectView.alpha = 1.0;
             } completion:^(BOOL finished) {
                 [self.paintView clearData];
@@ -884,7 +884,7 @@
         case UIGestureRecognizerStateFailed:{
             DebugLog(@"handleClearCanvas Failed");
             
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.clearEffectView.alpha = 0.0;
             } completion:^(BOOL finished) {
                 self.clearEffectView.hidden = true;
@@ -1220,18 +1220,27 @@
     }
     
     if (translation.x > 0 && abs(translation.x / translation.y) > 1.0){
+        [self beginButtonIBAction:self.redoButton];
         [self redoDraw];
+        [self performSelector:@selector(endButtonIBAction:) withObject:self.redoButton afterDelay:PaintScreenIBActionAnimationDuration];
     }
     else if (translation.x < 0 && abs(translation.x / translation.y) > 1.0){
+        [self beginButtonIBAction:self.undoButton];
         [self undoDraw];
+        [self performSelector:@selector(endButtonIBAction:) withObject:self.undoButton afterDelay:PaintScreenIBActionAnimationDuration];
     }
     else if (translation.y > 0 && abs(translation.x / translation.y) < 1.0){
         //打开取色器快捷方式
+        [self beginButtonIBAction:self.paintColorButton];
         [self paintColorButtonTouchUp:nil];
+        [self performSelector:@selector(endButtonIBAction:) withObject:self.paintColorButton afterDelay:PaintScreenIBActionAnimationDuration];
     }
     else if (translation.y < 0 && abs(translation.x / translation.y) < 1.0){
         //打开图层快捷方式
+        [self beginButtonIBAction:self.layerButton];
         [self layerButtonTouchUp:nil];
+        [self performSelector:@selector(endButtonIBAction:) withObject:self.layerButton afterDelay:PaintScreenIBActionAnimationDuration];
+        
     }
 
 }
@@ -1467,7 +1476,7 @@
                 CGPoint targetCenterInRootView = [self.rootView convertPoint:self.colorSaveTargetButton.center fromView:self.colorSaveTargetButton.superview];
                 self.colorSaveToSlotView.center = targetCenterInRootView;
             } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     self.colorSaveToSlotView.bounds = self.colorSaveTargetButton.bounds;
                     self.colorSaveToSlotView.alpha = 0;
                     self.colorSaveTargetButton.color = self.colorSaveToSlotView.color;
@@ -1872,7 +1881,7 @@
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender {
     [RemoteLog logAction:@"brushTypeButtonTouchDown" identifier:sender];
     self.brushButtonTempRect = sender.frame;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 20, sender.frame.size.width, sender.frame.size.height);        
     }completion:nil];
 
@@ -1880,14 +1889,14 @@
 
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender {
     [RemoteLog logAction:@"brushTypeButtonTouchCancel" identifier:sender];
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
     }completion:nil];
 }
 
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender {
     [RemoteLog logAction:@"brushTypePageControlValueChanged" identifier:sender];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.brushTypeScrollView.contentOffset = CGPointMake(sender.currentPage * self.brushTypeScrollView.frame.size.width, 0);
     } completion:nil];
 }
@@ -1904,7 +1913,7 @@
     self.brushButton.userInteractionEnabled = false;
     self.brushBackButton.userInteractionEnabled = false;
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         //更新位置
         float newPosX = self.brushBackButton.frame.origin.x;
         float newBackPosX = self.brushButton.frame.origin.x;
@@ -1946,7 +1955,7 @@
 
 - (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender {
     [RemoteLog logAction:@"brushTypeBackButtonTouchCancel" identifier:sender];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 40, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 0, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
     }completion:^(BOOL finished) {
@@ -1954,7 +1963,7 @@
 }
 - (IBAction)brushTypeBackButtonTouchDown:(UIButton *)sender {
     [RemoteLog logAction:@"brushTypeBackButtonTouchDown" identifier:sender];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 40, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
     }completion:^(BOOL finished) {
@@ -2346,7 +2355,7 @@
     self.radiusSlider.value = self.brushButton.brush.brushState.radius;
     [self setOpacitySliderValueWithBrushState:self.brushButton.brush.brushState];
     
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         brushButton.frame = CGRectMake(brushButton.frame.origin.x, 0, brushButton.frame.size.width, brushButton.frame.size.height);
     }completion:nil];
     
@@ -2428,7 +2437,7 @@
     [self autoShowBrushes:false];
     
     //UI
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         for (ADBrushTypeButton* button in self.brushTypeScrollView.subviews) {
             button.frame = CGRectMake(button.frame.origin.x, 20, button.frame.size.width, button.frame.size.height);
         }
@@ -3873,6 +3882,16 @@
     [self lockInteraction:false];
 }
 
+
+- (void)beginButtonIBAction:(UIButton*)button{
+    button.highlighted = true;
+    [button.layer setNeedsDisplay];
+}
+- (void)endButtonIBAction:(UIButton*)button{
+    button.highlighted = false;
+    [button.layer setNeedsDisplay];
+}
+
 - (void)playRedoDrawAnim{
     //UI bounce animation
     CGRect frame = self.redoButton.frame;
@@ -3908,13 +3927,11 @@
 
 -(void)willEnableUIRedo:(BOOL)enable{
     self.redoButton.alpha = enable ? 1 : 0;
-//    [self.redoButton.layer setNeedsDisplay];
     self.redoButton.enabled = enable;
 }
 
 -(void)willEnableUIUndo:(BOOL)enable{
     self.undoButton.alpha = enable ? 1 : 0;
-//    [self.undoButton.layer setNeedsDisplay];
     self.undoButton.enabled = enable;
 }
 
@@ -4039,7 +4056,7 @@
 - (void) willEndUIEyeDrop{
     _eyeDropperIndicatorView.hidden = true;
     
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
     [self.eyeDropperButton setColor:[UIColor clearColor]];
@@ -4219,7 +4236,7 @@
 
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender {
     [RemoteLog logAction:@"eyeDropperButtonTouchDown" identifier:sender];
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 0, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
 }
@@ -4231,7 +4248,7 @@
         if ([self.paintView enterState:PaintingView_TouchEyeDrop]) {
             _state = PaintScreen_PickColor;
             
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
                 self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 10, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
             }completion:nil];
             [self.eyeDropperButton setColor:self.paintColorButton.color];
@@ -4241,7 +4258,7 @@
         if ([self.paintView enterState:PaintingView_TouchNone]) {
             _state = PaintScreen_Normal;
             
-            [UIView animateWithDuration:0.2 animations:^{
+            [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
                 self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
             }completion:nil];
             [self.eyeDropperButton setColor:[UIColor clearColor]];
@@ -4253,7 +4270,7 @@
 
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender {
     [RemoteLog logAction:@"eyeDropperButtonTouchCancel" identifier:sender];
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
     [self.eyeDropperButton setColor:[UIColor clearColor]];

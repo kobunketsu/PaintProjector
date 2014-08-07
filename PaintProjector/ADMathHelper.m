@@ -100,17 +100,17 @@ static float NormalizeAngle (float angle)
     CGPoint vec = CGPointMake(p1.x - p0.x, p1.y - p0.y);
     return sqrtf(vec.x * vec.x + vec.y * vec.y);
 }
-#pragma mark- 贝塞尔曲线Beizer
+#pragma mark- 贝塞尔二次曲线Beizer
 + (CGFloat)beizerValueT:(CGFloat)t start:(CGFloat)start control:(CGFloat)control end:(CGFloat)end{
     return pow(1 - t, 2) * start + 2.0 * (1 - t) * t * control + t * t * end;
 }
+
 + (CGPoint)beizerCurveT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     CGPoint p = CGPointZero;
     p.x = pow(1 - t, 2) * start.x + 2.0 * (1 - t) * t * control.x + t * t * end.x;
     p.y = pow(1 - t, 2) * start.y + 2.0 * (1 - t) * t * control.y + t * t * end.y;
     return p;
 }
-
 
 + (CGFloat)beizerLengthT:(CGFloat)t start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
     CGFloat ax = start.x - 2 * control.x + end.x;
@@ -194,4 +194,33 @@ static float NormalizeAngle (float angle)
 //    
 //}
 
+#pragma mark- 贝塞尔三次曲线Beizer
++ (CGFloat)beizer3ValueT:(CGFloat)t start:(CGFloat)start control1:(CGFloat)control1 control2:(CGFloat)control2 end:(CGFloat)end{
+    return pow(1 - t, 3) * start + 3.0 * pow((1 - t), 2) * t * control1 + 3.0 * (1 - t) * pow(t, 2) * control2 + pow(t, 3) * end;
+}
++ (CGPoint)beizer3CurveT:(CGFloat)t start:(CGPoint)start control1:(CGPoint)control1 control2:(CGPoint)control2 end:(CGPoint)end{
+    CGPoint p = CGPointZero;
+    p.x = pow(1 - t, 3) * start.x + 3.0 * pow((1 - t), 2) * t * control1.x + 3.0 * (1 - t) * pow(t, 2) * control2.x + pow(t, 3) * end.x;
+    p.y = pow(1 - t, 3) * start.y + 3.0 * pow((1 - t), 2) * t * control1.y + 3.0 * (1 - t) * pow(t, 2) * control2.y + pow(t, 3) * end.y;
+    return p;
+}
++ (CGFloat)beizer3LengthSteps:(NSUInteger)numOfStep start:(CGPoint)start control1:(CGPoint)control1 control2:(CGPoint)control2 end:(CGPoint)end{
+    DebugLog(@"numOfStep %d", numOfStep);
+    if (numOfStep == 0) {
+        return 0;
+    }
+    
+    //brute force 通过step计算长度
+    CGPoint lastPos = start;
+    CGFloat length = 0;
+    CGFloat step = 1.0 / (CGFloat)numOfStep;
+    CGFloat t = step;
+    for (int i = 0; i < numOfStep; ++i, t += step) {
+        CGPoint pos = [ADMathHelper beizer3CurveT:t start:start control1:control1 control2:control2 end:end];
+        CGPoint vec = CGPointMake(pos.x - lastPos.x, pos.y - lastPos.y);
+        length += sqrtf(vec.x * vec.x + vec.y * vec.y);
+        lastPos = pos;
+    }
+    return length;
+}
 @end

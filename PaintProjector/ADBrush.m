@@ -611,7 +611,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         }
     }
     
-    [self fillSegmentBezierOrigin:self.lastSegmentEndPoint Control:start Destination:_curSegmentEndPoint Count:numOfSegmentPoint segmentOffset:segmentOffset brushState:brushState isImmediate:isImmediate];
+    [self fillSegmentBezierOrigin:self.lastSegmentEndPoint Control:start Destination:self.curSegmentEndPoint Count:numOfSegmentPoint segmentOffset:segmentOffset brushState:brushState isImmediate:isImmediate];
     
     //更新smudgeTexture
     if (self.brushState.wet > 0) {

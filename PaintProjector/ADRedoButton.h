@@ -7,6 +7,6 @@
 //
 
 #import "ADIconColorPermeateButton.h"
-@interface RedoButton : ADIconColorPermeateButton
+@interface ADRedoButton : ADIconColorPermeateButton
 
 @end

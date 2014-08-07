@@ -17,6 +17,7 @@
 #import "ADSimpleTutorialManager.h"
 #import "AppDelegate.h"
 
+#define TutorialFadeInOutDuration 1.0
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
@@ -55,6 +56,7 @@
     //在教程调整完毕后需要重新加载
     [self tutorialSetup];
     
+    //动画在显示完成之后开始进行
     [self tutorialStartFromStepName:@"PaintCollectionWelcome"];
     
     //修正viewDidDisappear unloadPaintFrameView后闪的问题
@@ -71,6 +73,8 @@
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
     }
+    
+    [self transitionToTutorial];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -202,6 +206,7 @@
 - (void)willCompleteLaunchTransitionToCylinderProject{
     [self launchTransitionToCylinderProjectCompleted];
 }
+
 #pragma mark- 编辑Edit
 - (void)setEditMode:(BOOL)editMode{
     self.fileButton.selected = editMode;
@@ -588,6 +593,17 @@
     }
 }
 
+- (void)transitionToTutorial{
+    DebugLogFuncStart(@"launchTransitionToTutorial");
+    if (![[ADSimpleTutorialManager current] isActive]) {
+        return;
+    }
+    
+    TutorialStepAnimationBlock animBlock = [ADSimpleTutorialManager current].curTutorial.curStep.fadeInAnimationBlock;
+    if (animBlock) {
+        animBlock();
+    }
+}
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
@@ -617,12 +633,36 @@
     DebugLogFuncStart(@"willLayoutWithStep");
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(0, 0);
-        
-        step.contentView.frame = rect;
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];
-        
+
+        //开始动画
+//        __block CGRect targetRect = step.contentView.frame;
+//        CGRect srcRect = step.contentView.frame;
+//        srcRect.origin.y = -self.view.frame.size.height;
+//        step.contentView.frame = srcRect;
+//        
+//        [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
+//            step.contentView.frame = targetRect;
+//        }];
+
+        step.contentView.alpha = 0;
+        __weak ADTutorialStep *stepWeak = step;
+        [step setFadeInAnimationBlock:^{
+            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
+                stepWeak.contentView.alpha = 1;
+            }];
+        }];
+
+
+//        [step.contentView.layer setValue:[NSNumber numberWithFloat:5.0] forKeyPath:@"transform.scale"];
+//        __weak ADTutorialStep *stepWeak = step;
+//        [step setFadeInAnimationBlock:^{
+//            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
+//                [stepWeak.contentView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
+//            } completion:nil];
+//        }];
+
+
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
         

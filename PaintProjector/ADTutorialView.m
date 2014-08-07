@@ -15,6 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        [self initCustom];
     }
     return self;
 }
@@ -24,10 +25,14 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
+        [self initCustom];
     }
     return self;
 }
 
+- (void)initCustom{
+//    self.textLabelAutoLayout = true;
+}
 //决定tutorialView下的nextButton是内置的button，还是界面上的某个button,
 //如果是界面上的某个button,加上事件后,在dealloc tutorialView后需要移除这个事件
 - (void)initWithTutorial:(ADTutorial*)tutorial description:(NSString *)desc bgImage:(UIImage*)image{
@@ -58,6 +63,10 @@
     CGRect frame = self.imageView.frame;
     frame.size = self.frame.size;
     self.imageView.frame = frame;
+    
+    if (self.layoutCompletionBlock) {
+        self.layoutCompletionBlock();
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

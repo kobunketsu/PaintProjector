@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 Hu Wenjie. All rights reserved.
 //
 
-#import "RedoButton.h"
+#import "ADRedoButton.h"
 
-@implementation RedoButton
+@implementation ADRedoButton
 
 - (id)initWithFrame:(CGRect)frame
 {

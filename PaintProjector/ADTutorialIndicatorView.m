@@ -26,6 +26,7 @@
 
 - (void)layoutSubviews{
     DebugLogSystem(@"layoutSubviews");
+    //通过计算字长宽重新设置label位置
     //重新设置label的位置
     CGRect frame = self.bounds;
     if (self.arrowDirection == UIPopoverArrowDirectionUp) {
@@ -39,9 +40,9 @@
     else if (self.arrowDirection == UIPopoverArrowDirectionRight) {
         self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 19, CGRectGetMinY(frame) + 13, CGRectGetWidth(frame) - 52, CGRectGetHeight(frame) - 23);
     }
-
-    //通过计算字长宽重新设置label位置
+    
     [self.textLabel alignTextHorizonCenterWithFontSize:[UIFont labelFontSize]];
+
  
     //增加整体动画
     //保存源frame，在EnterBackgroundh后退出动画时归位
@@ -67,6 +68,10 @@
     } completion:^(BOOL finished) {
         self.frame = srcframe;
     }];
+    
+    if (self.layoutCompletionBlock) {
+        self.layoutCompletionBlock();
+    }
 }
 
 - (void)setArrowDirection:(UIPopoverArrowDirection)arrowDirection{

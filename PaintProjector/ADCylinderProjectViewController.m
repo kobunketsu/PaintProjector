@@ -128,12 +128,34 @@ static float DeviceWidth = 0.154;
 	// Do any additional setup after loading the view.
     [self registerDeviceRotation];
     
-    //通知注册事件对app退到后台进行响应
+
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationDidEnterBackground:)
+     name:UIApplicationDidEnterBackgroundNotification
+     object:nil];
+    
+    //通知程序返回激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(applicationWillEnterForeground:)
+     name:UIApplicationWillEnterForegroundNotification
+     object:nil];
+    
+    //通知程序退出激活状态
     [[NSNotificationCenter defaultCenter]
      addObserver:self
-     selector:@selector(willResignActiveNotification:)
+     selector:@selector(applicationWillResignActive:)
      name:UIApplicationWillResignActiveNotification
      object:nil];
+    
+    //通知程序即将关闭
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillTerminate:)
+     name:UIApplicationWillTerminateNotification
+     object:nil];
+
+    
+    
     
     self.projectView.opaque = NO;
     
@@ -211,11 +233,18 @@ static float DeviceWidth = 0.154;
 
 -(void)dealloc{
     DebugLogSystem(@"[ dealloc ]");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+
 }
 
 
-
+#pragma mark- 主程序
 - (void)unregisterDeviceRotation{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:[UIDevice currentDevice]];
 }
@@ -250,19 +279,28 @@ static float DeviceWidth = 0.154;
     [self.rootView.backgroundView removeFromSuperview];
     self.rootView.backgroundView = nil;
 }
-#pragma mark- 主程序
+
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
 }
--(void)willResignActiveNotification:(id)sender{
-    DebugLogFuncStart(@"willResignActiveNotification sender:%@", sender);
-    self.playTime = [self.player currentTime];
-    
-    //because cylinderProjectView is subclass of GLKitView, will pauses its animation timer under resign active
+
+- (void)applicationDidEnterBackground:(id)sender{
+    DebugLogFuncStart(@"applicationDidEnterBackground");
+
 }
--(void)didEnterBackgroundNotification{
-    DebugLogFuncStart(@"didEnterBackgroundNotification");
+
+- (void)applicationWillEnterForeground:(NSNotification *)note{
+    DebugLogFuncStart(@"applicationWillEnterForeground");
+}
+
+-(void)applicationWillResignActive:(id)sender{
+    DebugLogFuncStart(@"applicationWillResignActive");
+//    [self uploadAndSaveDoc];
+}
+
+-(void)applicationWillTerminate:(id)sender{
+    DebugLogFuncStart(@"applicationWillTerminate");
 }
 
 #pragma mark- 交互控制 UserInteraction
@@ -811,18 +849,27 @@ static float DeviceWidth = 0.154;
 - (IBAction)userInputParamSliderTouchUp:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderTouchUp" identifier:sender];
     [self tutorialStartCurrentStep];
+    
+    [self userInputParamSliderTouchEnd];
 }
 
 - (IBAction)userInputParamSliderTouchUpOutside:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderTouchUpOutside" identifier:sender];
     [self tutorialStartCurrentStep];
+    
+    [self userInputParamSliderTouchEnd];
 }
 
 - (IBAction)userInputParamSliderTouchCancel:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderTouchCancel" identifier:sender];
     [self tutorialStartCurrentStep];
+    
+    [self userInputParamSliderTouchEnd];
 }
 
+- (void)userInputParamSliderTouchEnd{
+    [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
+}
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender {
     [RemoteLog logAction:@"userInputParamSliderTouchDown" identifier:sender];
     [self tutorialStepNextImmediate:false];
@@ -992,9 +1039,10 @@ static float DeviceWidth = 0.154;
     [self animationToTarget:self params:dic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
         //更新paintDoc的userInputParams
         [ADPaintFrameManager curGroup].curPaintDoc.userInputParams = [self.userInputParams copy];
-        
+
         [self flushUIUserInputParams];
-        
+
+        [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
     }];
     
     [self setupCylinderSceneDone];
@@ -1051,14 +1099,9 @@ static float DeviceWidth = 0.154;
     AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
     [appDelegate initTutorial];
     
-    //测试
-//#if DEBUG
-//    [self tutorialSetup];
-//    [[AnaDrawTutorialManager current].curTutorial startFromStepName:@"CylinderProjectPaint"];
-//#else
-    [self galleryButtonTouchUp:self.galleryButton];
-//#endif
+    //完成初始化后设置开始页面
     
+    [self galleryButtonTouchUp:self.galleryButton];
 }
 #pragma mark- 内容CylinderProject View
 
@@ -2972,9 +3015,19 @@ static float DeviceWidth = 0.154;
         rect.origin = CGPointMake(500, 728);
         step.contentView.frame = rect;
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];
+        
+        ADTutorialIndicatorView *indicatorView = (ADTutorialIndicatorView *)step.indicatorViews[1];
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
         mirrorRect.origin.y += 100;
-        [step.indicatorViews[1] targetViewFrame:mirrorRect inRootView:self.view];
+        [indicatorView targetViewFrame:mirrorRect inRootView:self.view];
+
+        __weak ADTutorialIndicatorView * weakIndicatorView = indicatorView;
+        [indicatorView setLayoutCompletionBlock:^{
+            CGRect frame = weakIndicatorView.textLabel.frame;
+            frame.origin.y = 100;
+            weakIndicatorView.textLabel.frame = frame;
+        }];
+            
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         [step.indicatorView targetView:self.cylinderDiameterButton inRootView:self.view];

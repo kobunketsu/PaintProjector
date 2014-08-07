@@ -34,9 +34,10 @@
 #import "InfColorPickerIndicatorMagnify.h"
 #import "ADEyeDropperIndicatorView.h"
 #import "ADUndoButton.h"
-#import "RedoButton.h"
+#import "ADRedoButton.h"
 #import "ADClearButton.h"
 #import "ADBrushToolBar.h"
+#import "ADLayerButton.h"
 
 //Other ViewController
 //#import "CylinderProjectViewController.h"
@@ -233,7 +234,7 @@ ADBackgroundLayerDelegate
 //@property (weak, nonatomic) IBOutlet UIScrollView *radiusScrollView;
 @property (weak, nonatomic) IBOutlet ADRadiusIndicatorView *radiusIndicatorView;
 @property (weak, nonatomic) IBOutlet ADOpacityIndicatorView *opacityIndicatorView;
-@property (weak, nonatomic) IBOutlet RedoButton *redoButton;
+@property (weak, nonatomic) IBOutlet ADRedoButton *redoButton;
 @property (weak, nonatomic) IBOutlet ADUndoButton *undoButton;
 @property (strong, nonatomic) IBOutletCollection(ADAutoRotateButton) NSArray *autoRotateButtons;
 @property (strong, nonatomic) IBOutletCollection(ADAutoRotateButton) NSArray *topToolBarButtons;

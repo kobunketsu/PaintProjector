@@ -9,6 +9,22 @@
 #import "ADCylinderProjectUserInputParams.h"
 
 @implementation ADCylinderProjectUserInputParams
+- (id)init{
+    self = [super init];
+    if (self) {
+        _cylinderDiameter = 0.038;
+        _cylinderHeight = 0.07;
+        _imageWidth = 0.038;
+        _imageCenterOnSurfHeight = 0.035;
+        _eyeHonrizontalDistance = 0.35;
+        _eyeVerticalHeight = 0.4;
+        _eyeZoom = 1;
+        _unitZoom = 1;
+        _eyeTopZ = 0.01;
+    }
+    return self;
+}
+
 //- (void)setEyeZoom:(CGFloat)eyeZoom{
 //    DebugLogWarn(@"setEyeZoom %.1f", eyeZoom);
 //    _eyeZoom = eyeZoom;

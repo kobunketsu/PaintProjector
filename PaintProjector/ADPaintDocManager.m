@@ -181,16 +181,7 @@ static ADPaintDocManager* sharedInstance = nil;
 }
 
 - (void)deletePaintDoc:(ADPaintDoc*)paintDoc{
-    NSString* srcFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.docPath];
-    NSError *error;
-    if (![[NSFileManager defaultManager]removeItemAtPath:srcFullPath error:&error]) {
-        DebugLogError(@"Error deletePaintDoc: %@", [error localizedDescription]);
-    }
-    //删除图标
-    NSString* srcThumbFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
-    if (![[NSFileManager defaultManager]removeItemAtPath:srcThumbFullPath error:&error]) {
-        DebugLogError(@"Error deletePaintDoc Thumb: %@", [error localizedDescription]);
-    }
+    [paintDoc delete];
 }
 
 - (ADPaintDoc*)clonePaintDoc:(ADPaintDoc*)paintDoc{

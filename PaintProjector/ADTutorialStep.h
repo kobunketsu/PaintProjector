@@ -10,12 +10,15 @@
 #import "ADTutorialView.h"
 #import "ADTutorialIndicatorView.h"
 
+typedef void(^TutorialStepAnimationBlock)(void);
+
 @interface ADTutorialStep : NSObject
 @property(copy, nonatomic)NSString *name;
 @property(assign, nonatomic) id delegate;
 @property(retain, nonatomic)ADTutorialView *contentView;
 @property(retain, nonatomic)ADTutorialIndicatorView *indicatorView;//主指示器
 @property(retain, nonatomic)NSMutableArray *indicatorViews;
+@property (nonatomic, copy) TutorialStepAnimationBlock fadeInAnimationBlock;
 - (void)start;
 - (void)end;
 //加入到教程内容的根UIView下

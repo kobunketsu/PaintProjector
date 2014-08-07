@@ -30,6 +30,7 @@
 - (ADCylinderProjectUserInputParams *)openUserInputParams;
 - (void)close;
 - (void)save;
+- (void)saveUserInputParams;
 - (void)newAndSaveThumbImage;
 - (void)saveThumbImage:(UIImage*)image;
 - (void)delete;

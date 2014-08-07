@@ -638,7 +638,7 @@
 		08FB9B121942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB9B101942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m */; };
 		08FD0A1F1952EF0500643DC3 /* tutorial_main.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD0A1E1952EF0500643DC3 /* tutorial_main.png */; };
 		08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */ = {isa = PBXBuildFile; fileRef = 08FD0A1E1952EF0500643DC3 /* tutorial_main.png */; };
-		08FD1F99164DF509003738FC /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
+		08FD1F99164DF509003738FC /* ADRedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* ADRedoButton.m */; };
 		08FD1F9D164E13F4003738FC /* ADCustomTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F9C164E13F4003738FC /* ADCustomTouchUIView.m */; };
 		08FD2DC4179B8864006B0EB8 /* ADCylinderProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD2DC3179B8864006B0EB8 /* ADCylinderProjectViewController.m */; };
 		08FDC8BD16513BB2008F35E8 /* ADPencil.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FDC8BC16513BB2008F35E8 /* ADPencil.m */; };
@@ -809,7 +809,7 @@
 		b96c05be8b1fd142d303d318 /* ADPaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* ADPaintDoc.m */; };
 		b9c7be3996399a503583fba3 /* ADDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860668F17D2DB60002EE42A /* ADDeleteButton.m */; };
 		baeee30903f0ac5ba28684ff /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 0897D7D8187C43CF00A7ECD2 /* Shaders */; };
-		bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* RedoButton.m */; };
+		bd03ecaf8b06f118b149cfa5 /* ADRedoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FD1F98164DF509003738FC /* ADRedoButton.m */; };
 		bdf721c8d230e08aeb472afa /* ADPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94997B8016819D13006E3661 /* ADPaintView.m */; };
 		bf4c2ea3f33c32c54f09c908 /* ADLayerBlendModeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862133E174D06AD006704C8 /* ADLayerBlendModeButton.m */; };
 		c103e14c3f1cdab16147a434 /* ADLayerBlendModeButton2.m in Sources */ = {isa = PBXBuildFile; fileRef = 08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */; };
@@ -1570,8 +1570,8 @@
 		08FB9B0F1942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintCollectionViewFlowLayout.h; path = PaintProjector/ADPaintCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		08FB9B101942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionViewFlowLayout.m; path = PaintProjector/ADPaintCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		08FD0A1E1952EF0500643DC3 /* tutorial_main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_main.png; path = PaintProjector/Images/tutorial_main.png; sourceTree = "<group>"; };
-		08FD1F97164DF509003738FC /* RedoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedoButton.h; sourceTree = "<group>"; };
-		08FD1F98164DF509003738FC /* RedoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedoButton.m; sourceTree = "<group>"; };
+		08FD1F97164DF509003738FC /* ADRedoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRedoButton.h; sourceTree = "<group>"; };
+		08FD1F98164DF509003738FC /* ADRedoButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRedoButton.m; sourceTree = "<group>"; };
 		08FD1F9B164E13F3003738FC /* ADCustomTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADCustomTouchUIView.h; sourceTree = "<group>"; };
 		08FD1F9C164E13F4003738FC /* ADCustomTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADCustomTouchUIView.m; sourceTree = "<group>"; };
 		08FD2DC2179B8864006B0EB8 /* ADCylinderProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADCylinderProjectViewController.h; sourceTree = "<group>"; };
@@ -2405,8 +2405,8 @@
 				0829C01E168349F80009CD1C /* ADImageStack.m */,
 				0809EA43164946DF0061233D /* ADUndoButton.h */,
 				0809EA44164946DF0061233D /* ADUndoButton.m */,
-				08FD1F97164DF509003738FC /* RedoButton.h */,
-				08FD1F98164DF509003738FC /* RedoButton.m */,
+				08FD1F97164DF509003738FC /* ADRedoButton.h */,
+				08FD1F98164DF509003738FC /* ADRedoButton.m */,
 				949B368716896D3C00D3D5D2 /* ADPaintCommand.h */,
 				949B368816896D3C00D3D5D2 /* ADPaintCommand.m */,
 				08A4C99D1689EC8400002625 /* ADCommandStack.h */,
@@ -3176,7 +3176,7 @@
 				ca53a460052690d799e70353 /* ADUndoButton.m in Sources */,
 				efce58c21b23dbf0c8fd3ffb /* ADHeap.m in Sources */,
 				007caacc578989b98b28cd37 /* ADBrushToolBar.m in Sources */,
-				bd03ecaf8b06f118b149cfa5 /* RedoButton.m in Sources */,
+				bd03ecaf8b06f118b149cfa5 /* ADRedoButton.m in Sources */,
 				dcc1369eefcabccd63408c2c /* ADCustomTouchUIView.m in Sources */,
 				b3bfd9587c8094c480be1249 /* ADPencil.m in Sources */,
 				08FB9B121942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
@@ -3486,7 +3486,7 @@
 				0809EA49164970D70061233D /* ADHeap.m in Sources */,
 				08E505DD1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.m in Sources */,
 				08F9B518164C0691001B3D3D /* ADBrushToolBar.m in Sources */,
-				08FD1F99164DF509003738FC /* RedoButton.m in Sources */,
+				08FD1F99164DF509003738FC /* ADRedoButton.m in Sources */,
 				087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */,
 				08FD1F9D164E13F4003738FC /* ADCustomTouchUIView.m in Sources */,
