@@ -45,34 +45,6 @@
 		08083DF619645A8600FDDDE8 /* paintFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 08083DF419645A8600FDDDE8 /* paintFrame.png */; };
 		08086DBE18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08086DBD18DC8A9900F03EB4 /* libbeeblex.a */; };
 		08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08086DBD18DC8A9900F03EB4 /* libbeeblex.a */; };
-		08086E2E18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC018DC8BA200F03EB4 /* airBrushRadius16.png */; };
-		08086E2F18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC018DC8BA200F03EB4 /* airBrushRadius16.png */; };
-		08086E3218DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC218DC8BA200F03EB4 /* AnaDraw29x29@2x~ipad.png */; };
-		08086E3318DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC218DC8BA200F03EB4 /* AnaDraw29x29@2x~ipad.png */; };
-		08086E3418DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC318DC8BA200F03EB4 /* AnaDraw29x29~ipad.png */; };
-		08086E3518DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC318DC8BA200F03EB4 /* AnaDraw29x29~ipad.png */; };
-		08086E3618DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC418DC8BA200F03EB4 /* AnaDraw40x40@2x~ipad.png */; };
-		08086E3718DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC418DC8BA200F03EB4 /* AnaDraw40x40@2x~ipad.png */; };
-		08086E3818DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC518DC8BA200F03EB4 /* AnaDraw40x40~ipad.png */; };
-		08086E3918DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC518DC8BA200F03EB4 /* AnaDraw40x40~ipad.png */; };
-		08086E3A18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC618DC8BA200F03EB4 /* AnaDraw50x50@2x~ipad.png */; };
-		08086E3B18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC618DC8BA200F03EB4 /* AnaDraw50x50@2x~ipad.png */; };
-		08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC718DC8BA200F03EB4 /* AnaDraw50x50~ipad.png */; };
-		08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC718DC8BA200F03EB4 /* AnaDraw50x50~ipad.png */; };
-		08086E3E18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC818DC8BA200F03EB4 /* AnaDraw72x72@2x~ipad.png */; };
-		08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC818DC8BA200F03EB4 /* AnaDraw72x72@2x~ipad.png */; };
-		08086E4018DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC918DC8BA200F03EB4 /* AnaDraw72x72~ipad.png */; };
-		08086E4118DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DC918DC8BA200F03EB4 /* AnaDraw72x72~ipad.png */; };
-		08086E4218DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCA18DC8BA200F03EB4 /* AnaDraw76x76@2x~ipad.png */; };
-		08086E4318DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCA18DC8BA200F03EB4 /* AnaDraw76x76@2x~ipad.png */; };
-		08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCB18DC8BA200F03EB4 /* AnaDraw76x76~ipad.png */; };
-		08086E4518DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCB18DC8BA200F03EB4 /* AnaDraw76x76~ipad.png */; };
-		08086E4618DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCC18DC8BA200F03EB4 /* AnaDraw512x512@2x.png */; };
-		08086E4718DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCC18DC8BA200F03EB4 /* AnaDraw512x512@2x.png */; };
-		08086E4818DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCD18DC8BA200F03EB4 /* AnaDrawLaunch.png */; };
-		08086E4918DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCD18DC8BA200F03EB4 /* AnaDrawLaunch.png */; };
-		08086E4A18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */; };
-		08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */; };
 		08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */; };
 		08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */; };
 		08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */; };
@@ -93,8 +65,6 @@
 		08086E9B18DC8BA300F03EB4 /* email_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DF618DC8BA300F03EB4 /* email_48.png */; };
 		08086EA018DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DF918DC8BA300F03EB4 /* FB-f-Logo__blue_50.png */; };
 		08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DF918DC8BA300F03EB4 /* FB-f-Logo__blue_50.png */; };
-		08086EA418DC8BA300F03EB4 /* fingerPrint.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DFB18DC8BA300F03EB4 /* fingerPrint.png */; };
-		08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DFB18DC8BA300F03EB4 /* fingerPrint.png */; };
 		08086EB418DC8BA300F03EB4 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086E0318DC8BA300F03EB4 /* noise.png */; };
 		08086EB518DC8BA300F03EB4 /* noise.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086E0318DC8BA300F03EB4 /* noise.png */; };
 		08086EC618DC8BA300F03EB4 /* PhotoLibrary.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086E0C18DC8BA300F03EB4 /* PhotoLibrary.png */; };
@@ -124,10 +94,6 @@
 		080BD0D91645FDC000B37C01 /* ADSelectBrushButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0D81645FDC000B37C01 /* ADSelectBrushButton.m */; };
 		080BD0DD164601B400B37C01 /* ADEyeDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 080BD0DC164601B400B37C01 /* ADEyeDropper.m */; };
 		080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080D245D18B6E5C400161756 /* StoreKit.framework */; };
-		080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */; };
-		080FBABB1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */; };
-		080FBABC1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */; };
-		080FBABD1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */; };
 		0811271F194982A80057BD53 /* ADShaderBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811271E194982A80057BD53 /* ADShaderBrush.m */; };
 		08112720194982A80057BD53 /* ADShaderBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811271E194982A80057BD53 /* ADShaderBrush.m */; };
 		0813AA1F19167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
@@ -185,7 +151,11 @@
 		0826EE8A18B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */; };
 		0826EE8D18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
 		0826EE8E18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
+		0828471D199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
+		0828471E199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
 		0829C01F168349F80009CD1C /* ADImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ADImageStack.m */; };
+		082D39FC1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */ = {isa = PBXBuildFile; fileRef = 082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */; };
+		082D39FD1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */ = {isa = PBXBuildFile; fileRef = 082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */; };
 		082DF31816A166AB007656AA /* ADColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31716A166AA007656AA /* ADColorPickerView.m */; };
 		082DF31B16A1A647007656AA /* ADChalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* ADChalk.m */; };
 		082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
@@ -230,6 +200,10 @@
 		0847F53418B0945E0038869A /* ADCylinderProjectUserInputParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847F53218B0945E0038869A /* ADCylinderProjectUserInputParams.m */; };
 		08494ED11781DC1200A256E8 /* ADLayerDeleteDoneButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08494ED01781DC1200A256E8 /* ADLayerDeleteDoneButton.m */; };
 		0849CEA81735503D004B30C6 /* ADRadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */; };
+		0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
+		0849FF43199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
+		0849FF46199F2532000A35F2 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF45199F2532000A35F2 /* ADNextPageButton.m */; };
+		0849FF47199F2532000A35F2 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF45199F2532000A35F2 /* ADNextPageButton.m */; };
 		084D5405170338A60052F510 /* ADPaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* ADPaintDoc.m */; };
 		084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* ADPaintDocManager.m */; };
 		084F8EC8173BDD9D007676C3 /* ADBrushTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F8EC7173BDD9D007676C3 /* ADBrushTypeViewController.m */; };
@@ -249,10 +223,6 @@
 		085539841751B7D400DECF41 /* ADGridButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085539831751B7D400DECF41 /* ADGridButton.m */; };
 		08561FB017806184008449E7 /* ADLayerBlendModeButton2.m in Sources */ = {isa = PBXBuildFile; fileRef = 08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */; };
 		0857779916C62DC80040B152 /* RECamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* RECamera.m */; };
-		085856D6196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 085856D4196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png */; };
-		085856D7196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 085856D4196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png */; };
-		085856DB196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 085856DA196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png */; };
-		085856DC196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 085856DA196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png */; };
 		085C0C4A18D8A77F001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085C0C4B18D8A780001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085EFD4E1732BDD900F0395D /* ADPaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */; };
@@ -396,12 +366,24 @@
 		087FE74A173E2F9C009B34A2 /* ADMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE749173E2F9B009B34A2 /* ADMarker.m */; };
 		08802F601766A4BF00276B15 /* ADCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F5F1766A4BF00276B15 /* ADCommand.m */; };
 		08802F6B1766FCFF00276B15 /* ADOpenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F6A1766FCFF00276B15 /* ADOpenCommand.m */; };
+		088313A8199CF52A00C49B92 /* homepage-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313A7199CF52A00C49B92 /* homepage-48.png */; };
+		088313A9199CF52A00C49B92 /* homepage-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313A7199CF52A00C49B92 /* homepage-48.png */; };
+		088313AB199CFA5B00C49B92 /* tutorial-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AA199CFA5B00C49B92 /* tutorial-48.png */; };
+		088313AC199CFA5B00C49B92 /* tutorial-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AA199CFA5B00C49B92 /* tutorial-48.png */; };
+		088313AE199CFC5700C49B92 /* community-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AD199CFC5700C49B92 /* community-48.png */; };
+		088313AF199CFC5700C49B92 /* community-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AD199CFC5700C49B92 /* community-48.png */; };
+		088313B1199D00E900C49B92 /* fanart-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313B0199D00E900C49B92 /* fanart-48.png */; };
+		088313B2199D00E900C49B92 /* fanart-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313B0199D00E900C49B92 /* fanart-48.png */; };
 		088505BA17F718DF00E460CA /* ADLockCanvasRotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505B917F718DF00E460CA /* ADLockCanvasRotationView.m */; };
 		088505BF17F720FF00E460CA /* ADZoomCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505BE17F720FF00E460CA /* ADZoomCanvasView.m */; };
 		088505C217F724EF00E460CA /* ADRotateCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088505C117F724EF00E460CA /* ADRotateCanvasView.m */; };
 		08869AD0177DE9660010E0AA /* ADColorSaveToSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08869ACF177DE9660010E0AA /* ADColorSaveToSlotView.m */; };
 		0888F8B8194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
 		0888F8B9194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
+		088AFA90199BAC8900B573DC /* AnaDrawAppIcon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 088AFA8E199BAC8900B573DC /* AnaDrawAppIcon-76.png */; };
+		088AFA91199BAC8900B573DC /* AnaDrawAppIcon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 088AFA8E199BAC8900B573DC /* AnaDrawAppIcon-76.png */; };
+		088AFA92199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088AFA8F199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png */; };
+		088AFA93199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 088AFA8F199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png */; };
 		088B073A183EE9980099C6A9 /* ADLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B0739183EE9980099C6A9 /* ADLayer.m */; };
 		088B073F183EEBA80099C6A9 /* ADBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B073E183EEBA80099C6A9 /* ADBackgroundLayer.m */; };
 		088B40191792FB7F002750EA /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 088B40171792FB7F002750EA /* DBChooser.bundle */; };
@@ -490,10 +472,6 @@
 		08B9104918AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104718AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m */; };
 		08B9104C18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */; };
 		08B9104D18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */; };
-		08BD36E81932D097000B14EF /* bgRootView.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E61932D097000B14EF /* bgRootView.png */; };
-		08BD36E91932D097000B14EF /* bgRootView.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E61932D097000B14EF /* bgRootView.png */; };
-		08BD36EA1932D097000B14EF /* bgRootView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E71932D097000B14EF /* bgRootView@2x.png */; };
-		08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08BD36E71932D097000B14EF /* bgRootView@2x.png */; };
 		08BD5CAE180102FA00F0FF67 /* ADFullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* ADFullScreenButton.m */; };
 		08BD5CB61801094200F0FF67 /* ADFullScreenReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CB51801094200F0FF67 /* ADFullScreenReverseButton.m */; };
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
@@ -521,8 +499,6 @@
 		08D4B8BB18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4F68C19712FC900A81063 /* ADReversePaintInputData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */; };
 		08D4F68D19712FC900A81063 /* ADReversePaintInputData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */; };
-		08D639C1196A4B3600AB3390 /* rootCanvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D639C0196A4B3600AB3390 /* rootCanvas.png */; };
-		08D639C2196A4B3600AB3390 /* rootCanvas.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D639C0196A4B3600AB3390 /* rootCanvas.png */; };
 		08D639C5196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */; };
 		08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */; };
 		08D836911737E2E600B68990 /* ADFreeTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836901737E2E600B68990 /* ADFreeTransformButton.m */; };
@@ -539,16 +515,6 @@
 		08DF53CA195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
 		08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
 		08E0584F17683621007955BB /* ADUndoBaseCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E0584E17683621007955BB /* ADUndoBaseCommand.m */; };
-		08E06124193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06122193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png */; };
-		08E06125193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06122193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png */; };
-		08E06126193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06123193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png */; };
-		08E06127193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06123193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png */; };
-		08E0612A193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */; };
-		08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */; };
-		08E0612C193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */; };
-		08E0612D193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */; };
-		08E06CB71965A6AF00A63017 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06CB61965A6AF00A63017 /* pin.png */; };
-		08E06CB81965A6AF00A63017 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E06CB61965A6AF00A63017 /* pin.png */; };
 		08E06CBB1965BDD800A63017 /* ADPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* ADPinView.m */; };
 		08E06CBC1965BDD800A63017 /* ADPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* ADPinView.m */; };
 		08E104C418E31F3B00B777FB /* ADSharedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E104C318E31F3B00B777FB /* ADSharedTableView.m */; };
@@ -592,8 +558,6 @@
 		08E585831913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E585811913E791002DBF68 /* ADSetupUnitZoomView.m */; };
 		08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */; };
 		08E7B0A017EAD32800A121B5 /* ADBrushPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */; };
-		08E8AB06194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E8AB05194BE6AC003A32B8 /* AnaDraw_alpha@2x.png */; };
-		08E8AB07194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E8AB05194BE6AC003A32B8 /* AnaDraw_alpha@2x.png */; };
 		08E9D27A193EB020002F4990 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D279193EB020002F4990 /* CoreMedia.framework */; };
 		08E9D27C193EB027002F4990 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D27B193EB027002F4990 /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		08E9D27E193EB034002F4990 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D27D193EB034002F4990 /* AVFoundation.framework */; };
@@ -910,20 +874,6 @@
 		08083DF119644AA200FDDDE8 /* brushMarkerSquareShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushMarkerSquareShape_r64.png; path = PaintProjector/Images/brushMarkerSquareShape_r64.png; sourceTree = SOURCE_ROOT; };
 		08083DF419645A8600FDDDE8 /* paintFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paintFrame.png; path = PaintProjector/Images/paintFrame.png; sourceTree = SOURCE_ROOT; };
 		08086DBD18DC8A9900F03EB4 /* libbeeblex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbeeblex.a; path = BBXBeeblex/libbeeblex.a; sourceTree = "<group>"; };
-		08086DC018DC8BA200F03EB4 /* airBrushRadius16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airBrushRadius16.png; path = PaintProjector/Images/airBrushRadius16.png; sourceTree = SOURCE_ROOT; };
-		08086DC218DC8BA200F03EB4 /* AnaDraw29x29@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw29x29@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw29x29@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC318DC8BA200F03EB4 /* AnaDraw29x29~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw29x29~ipad.png"; path = "PaintProjector/Images/AnaDraw29x29~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC418DC8BA200F03EB4 /* AnaDraw40x40@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw40x40@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw40x40@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC518DC8BA200F03EB4 /* AnaDraw40x40~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw40x40~ipad.png"; path = "PaintProjector/Images/AnaDraw40x40~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC618DC8BA200F03EB4 /* AnaDraw50x50@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw50x50@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw50x50@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC718DC8BA200F03EB4 /* AnaDraw50x50~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw50x50~ipad.png"; path = "PaintProjector/Images/AnaDraw50x50~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC818DC8BA200F03EB4 /* AnaDraw72x72@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw72x72@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw72x72@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DC918DC8BA200F03EB4 /* AnaDraw72x72~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw72x72~ipad.png"; path = "PaintProjector/Images/AnaDraw72x72~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DCA18DC8BA200F03EB4 /* AnaDraw76x76@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DCB18DC8BA200F03EB4 /* AnaDraw76x76~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08086DCC18DC8BA200F03EB4 /* AnaDraw512x512@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw512x512@2x.png"; path = "PaintProjector/Images/AnaDraw512x512@2x.png"; sourceTree = SOURCE_ROOT; };
-		08086DCD18DC8BA200F03EB4 /* AnaDrawLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AnaDrawLaunch.png; path = PaintProjector/Images/AnaDrawLaunch.png; sourceTree = SOURCE_ROOT; };
-		08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawLaunch@2x.png"; path = "PaintProjector/Images/AnaDrawLaunch@2x.png"; sourceTree = SOURCE_ROOT; };
 		08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_dryTip_64.png; path = PaintProjector/Images/brush_dryTip_64.png; sourceTree = SOURCE_ROOT; };
 		08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushSoftFallOff.png; path = PaintProjector/Images/brushSoftFallOff.png; sourceTree = SOURCE_ROOT; };
 		08086DDF18DC8BA200F03EB4 /* camera_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera_48.png; path = PaintProjector/Images/camera_48.png; sourceTree = SOURCE_ROOT; };
@@ -934,7 +884,6 @@
 		08086DF518DC8BA300F03EB4 /* dropbox_Logo_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dropbox_Logo_48.png; path = PaintProjector/Images/dropbox_Logo_48.png; sourceTree = SOURCE_ROOT; };
 		08086DF618DC8BA300F03EB4 /* email_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = email_48.png; path = PaintProjector/Images/email_48.png; sourceTree = SOURCE_ROOT; };
 		08086DF918DC8BA300F03EB4 /* FB-f-Logo__blue_50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FB-f-Logo__blue_50.png"; path = "PaintProjector/Images/FB-f-Logo__blue_50.png"; sourceTree = SOURCE_ROOT; };
-		08086DFB18DC8BA300F03EB4 /* fingerPrint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fingerPrint.png; path = PaintProjector/Images/fingerPrint.png; sourceTree = SOURCE_ROOT; };
 		08086E0318DC8BA300F03EB4 /* noise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noise.png; path = PaintProjector/Images/noise.png; sourceTree = SOURCE_ROOT; };
 		08086E0C18DC8BA300F03EB4 /* PhotoLibrary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PhotoLibrary.png; path = PaintProjector/Images/PhotoLibrary.png; sourceTree = SOURCE_ROOT; };
 		08086E1218DC8BA300F03EB4 /* radiusSliderTracker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = radiusSliderTracker.png; path = PaintProjector/Images/radiusSliderTracker.png; sourceTree = SOURCE_ROOT; };
@@ -972,8 +921,6 @@
 		080BD0DB164601B400B37C01 /* ADEyeDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADEyeDropper.h; sourceTree = "<group>"; };
 		080BD0DC164601B400B37C01 /* ADEyeDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADEyeDropper.m; sourceTree = "<group>"; };
 		080D245D18B6E5C400161756 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_4@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_4@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_4~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_4~ipad.png"; sourceTree = SOURCE_ROOT; };
 		0811271D194982A80057BD53 /* ADShaderBrush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderBrush.h; sourceTree = "<group>"; };
 		0811271E194982A80057BD53 /* ADShaderBrush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderBrush.m; sourceTree = "<group>"; };
 		0813AA1E19167BD4000C4D00 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = PaintProjector/Models; sourceTree = "<group>"; };
@@ -1031,8 +978,11 @@
 		0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionView.m; path = PaintProjector/ADProductFeatureCollectionView.m; sourceTree = "<group>"; };
 		0826EE8B18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADProductFeatureCollectionViewCell.h; path = PaintProjector/ADProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
 		0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionViewCell.m; path = PaintProjector/ADProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
+		0828471B199F346500953E01 /* BrushTypePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypePageControl.h; sourceTree = "<group>"; };
+		0828471C199F346500953E01 /* BrushTypePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypePageControl.m; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ADImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ADImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageStack.m; sourceTree = "<group>"; };
+		082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_viewDeviceSrc.png; path = PaintProjector/Images/tutorial_viewDeviceSrc.png; sourceTree = "<group>"; };
 		082DF31616A166AA007656AA /* ADColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADColorPickerView.h; sourceTree = "<group>"; };
 		082DF31716A166AA007656AA /* ADColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADColorPickerView.m; sourceTree = "<group>"; };
 		082DF31916A1A646007656AA /* ADChalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADChalk.h; sourceTree = "<group>"; };
@@ -1096,6 +1046,10 @@
 		08494ED01781DC1200A256E8 /* ADLayerDeleteDoneButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerDeleteDoneButton.m; sourceTree = "<group>"; };
 		0849CEA61735503C004B30C6 /* ADRadiusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRadiusIndicatorView.h; sourceTree = "<group>"; };
 		0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRadiusIndicatorView.m; sourceTree = "<group>"; };
+		0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPreviousPageButton.h; sourceTree = "<group>"; };
+		0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPreviousPageButton.m; sourceTree = "<group>"; };
+		0849FF44199F2532000A35F2 /* ADNextPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADNextPageButton.h; sourceTree = "<group>"; };
+		0849FF45199F2532000A35F2 /* ADNextPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADNextPageButton.m; sourceTree = "<group>"; };
 		084D5403170338A60052F510 /* ADPaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDoc.h; sourceTree = "<group>"; };
 		084D5404170338A60052F510 /* ADPaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintDoc.m; sourceTree = "<group>"; };
 		084D540817033C260052F510 /* ADPaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDocManager.h; sourceTree = "<group>"; };
@@ -1121,8 +1075,6 @@
 		08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeButton2.m; sourceTree = "<group>"; };
 		0857779716C62DC80040B152 /* RECamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RECamera.h; path = PaintProjector/RECamera.h; sourceTree = "<group>"; };
 		0857779816C62DC80040B152 /* RECamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RECamera.m; path = PaintProjector/RECamera.m; sourceTree = "<group>"; };
-		085856D4196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_5~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_5~ipad.png"; sourceTree = SOURCE_ROOT; };
-		085856DA196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_5@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_5@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
 		085EFD4C1732BDD900F0395D /* ADPaintColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintColorButton.h; sourceTree = "<group>"; };
 		085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintColorButton.m; sourceTree = "<group>"; };
 		085FB3D0177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModePopoverBackgroundView.h; sourceTree = "<group>"; };
@@ -1199,8 +1151,6 @@
 		08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
 		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
 		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
-		0871A825192A47E000BB8558 /* AnaDraw76x76_2@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		0871A826192A47E000BB8558 /* AnaDraw76x76_2~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2~ipad.png"; sourceTree = SOURCE_ROOT; };
 		0871A82A192A569600BB8558 /* ADBrushPropertyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyTableView.h; sourceTree = "<group>"; };
 		0871A82B192A569600BB8558 /* ADBrushPropertyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPropertyTableView.m; sourceTree = "<group>"; };
 		0871A82E192A56E200BB8558 /* ADBrushPropertyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyTableViewCell.h; sourceTree = "<group>"; };
@@ -1292,6 +1242,10 @@
 		08802F5F1766A4BF00276B15 /* ADCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADCommand.m; sourceTree = "<group>"; };
 		08802F691766FCFE00276B15 /* ADOpenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADOpenCommand.h; sourceTree = "<group>"; };
 		08802F6A1766FCFF00276B15 /* ADOpenCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOpenCommand.m; sourceTree = "<group>"; };
+		088313A7199CF52A00C49B92 /* homepage-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "homepage-48.png"; path = "PaintProjector/Images/homepage-48.png"; sourceTree = SOURCE_ROOT; };
+		088313AA199CFA5B00C49B92 /* tutorial-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tutorial-48.png"; path = "PaintProjector/Images/tutorial-48.png"; sourceTree = SOURCE_ROOT; };
+		088313AD199CFC5700C49B92 /* community-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "community-48.png"; path = "PaintProjector/Images/community-48.png"; sourceTree = SOURCE_ROOT; };
+		088313B0199D00E900C49B92 /* fanart-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fanart-48.png"; path = "PaintProjector/Images/fanart-48.png"; sourceTree = SOURCE_ROOT; };
 		088505B817F718DF00E460CA /* ADLockCanvasRotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLockCanvasRotationView.h; sourceTree = "<group>"; };
 		088505B917F718DF00E460CA /* ADLockCanvasRotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLockCanvasRotationView.m; sourceTree = "<group>"; };
 		088505BD17F720FF00E460CA /* ADZoomCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADZoomCanvasView.h; sourceTree = "<group>"; };
@@ -1302,6 +1256,8 @@
 		08869ACF177DE9660010E0AA /* ADColorSaveToSlotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADColorSaveToSlotView.m; sourceTree = "<group>"; };
 		0888F8B6194A177500CB71D2 /* UILabel+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Align.h"; sourceTree = "<group>"; };
 		0888F8B7194A177500CB71D2 /* UILabel+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Align.m"; sourceTree = "<group>"; };
+		088AFA8E199BAC8900B573DC /* AnaDrawAppIcon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawAppIcon-76.png"; path = "PaintProjector/Images/AnaDrawAppIcon-76.png"; sourceTree = SOURCE_ROOT; };
+		088AFA8F199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawAppIcon-76@2x.png"; path = "PaintProjector/Images/AnaDrawAppIcon-76@2x.png"; sourceTree = SOURCE_ROOT; };
 		088B0738183EE9980099C6A9 /* ADLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayer.h; sourceTree = "<group>"; };
 		088B0739183EE9980099C6A9 /* ADLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayer.m; sourceTree = "<group>"; };
 		088B073D183EEBA80099C6A9 /* ADBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBackgroundLayer.h; sourceTree = "<group>"; };
@@ -1421,8 +1377,6 @@
 		08B9104718AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionViewCellFrame.m; path = PaintProjector/ADPaintCollectionViewCellFrame.m; sourceTree = "<group>"; };
 		08B9104A18AF6ACF00BEA0D3 /* ADShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShareTableViewController.h; sourceTree = "<group>"; };
 		08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShareTableViewController.m; sourceTree = "<group>"; };
-		08BD36E61932D097000B14EF /* bgRootView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bgRootView.png; path = PaintProjector/Images/bgRootView.png; sourceTree = SOURCE_ROOT; };
-		08BD36E71932D097000B14EF /* bgRootView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bgRootView@2x.png"; path = "PaintProjector/Images/bgRootView@2x.png"; sourceTree = SOURCE_ROOT; };
 		08BD5CAC180102FA00F0FF67 /* ADFullScreenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFullScreenButton.h; sourceTree = "<group>"; };
 		08BD5CAD180102FA00F0FF67 /* ADFullScreenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFullScreenButton.m; sourceTree = "<group>"; };
 		08BD5CB41801094200F0FF67 /* ADFullScreenReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFullScreenReverseButton.h; sourceTree = "<group>"; };
@@ -1452,7 +1406,6 @@
 		08D4B8B918C56611008F5293 /* Default.swatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Default.swatch; sourceTree = "<group>"; };
 		08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADReversePaintInputData.h; sourceTree = "<group>"; };
 		08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADReversePaintInputData.m; sourceTree = "<group>"; };
-		08D639C0196A4B3600AB3390 /* rootCanvas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rootCanvas.png; path = PaintProjector/Images/rootCanvas.png; sourceTree = SOURCE_ROOT; };
 		08D639C3196A4F7C00AB3390 /* ADRootCanvasBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRootCanvasBackgroundView.h; sourceTree = "<group>"; };
 		08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRootCanvasBackgroundView.m; sourceTree = "<group>"; };
 		08D8368F1737E2E600B68990 /* ADFreeTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFreeTransformButton.h; sourceTree = "<group>"; };
@@ -1477,11 +1430,6 @@
 		08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorialManager.m; path = PaintProjector/ADSimpleTutorialManager.m; sourceTree = "<group>"; };
 		08E0584D17683621007955BB /* ADUndoBaseCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUndoBaseCommand.h; sourceTree = "<group>"; };
 		08E0584E17683621007955BB /* ADUndoBaseCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADUndoBaseCommand.m; sourceTree = "<group>"; };
-		08E06122193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08E06123193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_2~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_2~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_3~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_3~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw76x76_3@2x~ipad.png"; path = "PaintProjector/Images/AnaDraw76x76_3@2x~ipad.png"; sourceTree = SOURCE_ROOT; };
-		08E06CB61965A6AF00A63017 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pin.png; path = PaintProjector/Images/pin.png; sourceTree = SOURCE_ROOT; };
 		08E06CB91965BDD800A63017 /* ADPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPinView.h; path = PaintProjector/ADPinView.h; sourceTree = "<group>"; };
 		08E06CBA1965BDD800A63017 /* ADPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPinView.m; path = PaintProjector/ADPinView.m; sourceTree = "<group>"; };
 		08E104C218E31F3B00B777FB /* ADSharedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedTableView.h; path = PaintProjector/ADSharedTableView.h; sourceTree = "<group>"; };
@@ -1524,7 +1472,6 @@
 		08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		08E7B09E17EAD32700A121B5 /* ADBrushPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyViewController.h; sourceTree = "<group>"; };
 		08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPropertyViewController.m; sourceTree = "<group>"; };
-		08E8AB05194BE6AC003A32B8 /* AnaDraw_alpha@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDraw_alpha@2x.png"; path = "PaintProjector/Images/AnaDraw_alpha@2x.png"; sourceTree = "<group>"; };
 		08E9D279193EB020002F4990 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		08E9D27B193EB027002F4990 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		08E9D27D193EB034002F4990 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1757,41 +1704,18 @@
 		082439D716CCAE2100FC12BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				08D639C0196A4B3600AB3390 /* rootCanvas.png */,
-				08E06CB61965A6AF00A63017 /* pin.png */,
-				085856DA196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png */,
-				085856D4196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png */,
-				080FBAB81B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png */,
-				080FBAB91B2499DC0028A767 /* AnaDraw76x76_4~ipad.png */,
-				08E06128193F890500BDD2BA /* AnaDraw76x76_3~ipad.png */,
-				08E06129193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png */,
-				08E06122193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png */,
-				08E06123193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png */,
-				08086DC018DC8BA200F03EB4 /* airBrushRadius16.png */,
-				0871A825192A47E000BB8558 /* AnaDraw76x76_2@2x~ipad.png */,
-				0871A826192A47E000BB8558 /* AnaDraw76x76_2~ipad.png */,
-				08086DC218DC8BA200F03EB4 /* AnaDraw29x29@2x~ipad.png */,
-				08086DC318DC8BA200F03EB4 /* AnaDraw29x29~ipad.png */,
-				08086DC418DC8BA200F03EB4 /* AnaDraw40x40@2x~ipad.png */,
-				08086DC518DC8BA200F03EB4 /* AnaDraw40x40~ipad.png */,
-				08086DC618DC8BA200F03EB4 /* AnaDraw50x50@2x~ipad.png */,
-				08086DC718DC8BA200F03EB4 /* AnaDraw50x50~ipad.png */,
-				08086DC818DC8BA200F03EB4 /* AnaDraw72x72@2x~ipad.png */,
-				08086DC918DC8BA200F03EB4 /* AnaDraw72x72~ipad.png */,
-				08086DCA18DC8BA200F03EB4 /* AnaDraw76x76@2x~ipad.png */,
-				08086DCB18DC8BA200F03EB4 /* AnaDraw76x76~ipad.png */,
-				08086DCC18DC8BA200F03EB4 /* AnaDraw512x512@2x.png */,
-				08086DCD18DC8BA200F03EB4 /* AnaDrawLaunch.png */,
-				08086DCE18DC8BA200F03EB4 /* AnaDrawLaunch@2x.png */,
-				08BD36E61932D097000B14EF /* bgRootView.png */,
-				08BD36E71932D097000B14EF /* bgRootView@2x.png */,
+				088313B0199D00E900C49B92 /* fanart-48.png */,
+				088313AD199CFC5700C49B92 /* community-48.png */,
+				088313AA199CFA5B00C49B92 /* tutorial-48.png */,
+				088313A7199CF52A00C49B92 /* homepage-48.png */,
+				088AFA8E199BAC8900B573DC /* AnaDrawAppIcon-76.png */,
+				088AFA8F199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png */,
 				08086DDF18DC8BA200F03EB4 /* camera_48.png */,
 				08083DF419645A8600FDDDE8 /* paintFrame.png */,
 				08086DE718DC8BA200F03EB4 /* checkerUnit.png */,
 				08086DF518DC8BA300F03EB4 /* dropbox_Logo_48.png */,
 				08086DF618DC8BA300F03EB4 /* email_48.png */,
 				08086DF918DC8BA300F03EB4 /* FB-f-Logo__blue_50.png */,
-				08086DFB18DC8BA300F03EB4 /* fingerPrint.png */,
 				08086E0C18DC8BA300F03EB4 /* PhotoLibrary.png */,
 				08086E1218DC8BA300F03EB4 /* radiusSliderTracker.png */,
 				08086E2118DC8BA300F03EB4 /* sinaWeibo48x48.png */,
@@ -2014,6 +1938,7 @@
 				08525115194D853D0087F4AF /* tutorial_pickImage.png */,
 				08525116194D853D0087F4AF /* tutorial_putDevice.png */,
 				08525118194D853D0087F4AF /* tutorial_viewDevice.png */,
+				082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */,
 				0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */,
 				08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */,
 				08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */,
@@ -2284,6 +2209,8 @@
 				0871A82B192A569600BB8558 /* ADBrushPropertyTableView.m */,
 				0871A82E192A56E200BB8558 /* ADBrushPropertyTableViewCell.h */,
 				0871A82F192A56E200BB8558 /* ADBrushPropertyTableViewCell.m */,
+				0828471B199F346500953E01 /* BrushTypePageControl.h */,
+				0828471C199F346500953E01 /* BrushTypePageControl.m */,
 			);
 			name = Brush;
 			sourceTree = "<group>";
@@ -2447,7 +2374,6 @@
 		08E0610D193F7DA000BDD2BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				08E8AB05194BE6AC003A32B8 /* AnaDraw_alpha@2x.png */,
 				08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */,
 				08DEDCCA194B55FE00155A91 /* Pro_pallete.png */,
 				08F905C9194AC982002918AA /* iap_brushMarkerHard.png */,
@@ -2629,6 +2555,10 @@
 				087751BA180450B20034FEA7 /* ADCustomLayer.m */,
 				08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */,
 				08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */,
+				0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */,
+				0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */,
+				0849FF44199F2532000A35F2 /* ADNextPageButton.h */,
+				0849FF45199F2532000A35F2 /* ADNextPageButton.m */,
 			);
 			name = PaintScreen;
 			path = PaintProjector;
@@ -2870,100 +2800,79 @@
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
 				08751305195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				08086EA118DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
-				085856D7196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png in Resources */,
 				0875131419580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
-				08086E3F18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
-				08086E3918DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
+				082D39FD1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
-				08086E4318DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
 				08E505EC19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A02195B0D64006EDCFC /* cylinderMain.png in Resources */,
 				08086EFF18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
-				08086E3D18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				2bd9b4e63efc55eb48214f7c /* InfoPlist.strings in Resources */,
 				1730f73413c9164df5673fd7 /* InfColorPickerView.xib in Resources */,
-				08086E4918DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */,
 				08086EB518DC8BA300F03EB4 /* noise.png in Resources */,
 				08525120194D853D0087F4AF /* tutorial_viewDevice.png in Resources */,
 				08086EC718DC8BA300F03EB4 /* PhotoLibrary.png in Resources */,
+				088313AF199CFC5700C49B92 /* community-48.png in Resources */,
+				088AFA93199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png in Resources */,
 				08F905DA194AC982002918AA /* iap_brushOilBrush.png in Resources */,
-				08086E3B18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
 				08D4B8BB18C56611008F5293 /* Default.swatch in Resources */,
 				08086E9B18DC8BA300F03EB4 /* email_48.png in Resources */,
 				0815818819614F1C00AB1645 /* brushPencilShape_r64.png in Resources */,
 				08086F0E18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08E53A00195AF849006EDCFC /* cylinderTopLight.png in Resources */,
-				08086E3518DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
+				088313A9199CF52A00C49B92 /* homepage-48.png in Resources */,
 				089CC75E195BB9DB002D4236 /* cylinderInterLight.png in Resources */,
 				364524c221467b3b1a347142 /* Images.xcassets in Resources */,
-				08086E4518DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
 				0875131D1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */,
 				08751307195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */,
-				08086E4718DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */,
 				08F905D4194AC982002918AA /* iap_brushAirbrush.png in Resources */,
-				08E8AB07194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */,
 				08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */,
 				0875131619580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */,
-				08086E3718DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */,
 				08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
 				0851DF27197920BA000391B3 /* iap_reversePaint.png in Resources */,
 				08B2CFA918C0CA9E00D34C1E /* Swatches in Resources */,
 				baeee30903f0ac5ba28684ff /* Shaders in Resources */,
-				08086E4118DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
 				08086E7318DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
 				08F905D0194AC982002918AA /* iap_brushMarkerHard.png in Resources */,
 				0875130B195806BC00FC03CC /* tutorial_gesture2FingerSpread.png in Resources */,
 				08F905D8194AC982002918AA /* iap_brushFinger.png in Resources */,
-				08E06125193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */,
-				080FBABB1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
 				08086E9918DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08086E6D18DC8BA300F03EB4 /* camera_48.png in Resources */,
 				081B5EAE194F3AF80035CD58 /* tutorial_setup.png in Resources */,
+				088AFA91199BAC8900B573DC /* AnaDrawAppIcon-76.png in Resources */,
 				0852511A194D853D0087F4AF /* tutorial_pickImage.png in Resources */,
 				0852511C194D853D0087F4AF /* tutorial_putDevice.png in Resources */,
+				088313AC199CFA5B00C49B92 /* tutorial-48.png in Resources */,
 				08083DF619645A8600FDDDE8 /* paintFrame.png in Resources */,
 				e37029de4c7956b2bb121e3c /* ADSharedTableViewCell.xib in Resources */,
-				08086E3318DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
 				08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */,
 				44c3a468a4bf3475a7a36dc9 /* ADLayerToolView.xib in Resources */,
 				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
-				08E0612B193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
 				0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
-				080FBABD1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */,
 				08F905D2194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
-				08D639C2196A4B3600AB3390 /* rootCanvas.png in Resources */,
 				08083DF319644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */,
 				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08BFC0D51961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
-				085856DC196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png in Resources */,
 				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
-				08BD36EB1932D097000B14EF /* bgRootView@2x.png in Resources */,
 				086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				a6559ed589dcc0977b6e52e4 /* cylinderCap.png in Resources */,
-				08E06127193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */,
-				08E0612D193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */,
+				088313B2199D00E900C49B92 /* fanart-48.png in Resources */,
 				0875131219580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
 				0879B3A2195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
-				08E06CB81965A6AF00A63017 /* pin.png in Resources */,
 				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
-				08086EA518DC8BA300F03EB4 /* fingerPrint.png in Resources */,
-				08086E4B18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
 				08751309195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				08086E7D18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
-				08086E2F18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */,
 				08086EF118DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
-				08BD36E91932D097000B14EF /* bgRootView.png in Resources */,
 				08086E7118DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				086FBF0B1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
 				08086ED318DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
@@ -2979,43 +2888,33 @@
 				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
 				08751304195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
-				085856D6196C4F3B0094D62A /* AnaDraw76x76_5~ipad.png in Resources */,
 				0875131319580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
-				08086E4818DC8BA300F03EB4 /* AnaDrawLaunch.png in Resources */,
-				08E06126193F88D200BDD2BA /* AnaDraw76x76_2~ipad.png in Resources */,
-				08086E4418DC8BA300F03EB4 /* AnaDraw76x76~ipad.png in Resources */,
-				080FBABA1B2499DC0028A767 /* AnaDraw76x76_4@2x~ipad.png in Resources */,
+				082D39FC1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08E505EB19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
-				08086E3C18DC8BA300F03EB4 /* AnaDraw50x50~ipad.png in Resources */,
 				08FD0A1F1952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A01195B0D64006EDCFC /* cylinderMain.png in Resources */,
 				08086E6C18DC8BA300F03EB4 /* camera_48.png in Resources */,
-				08086E3218DC8BA300F03EB4 /* AnaDraw29x29@2x~ipad.png in Resources */,
-				08086E3E18DC8BA300F03EB4 /* AnaDraw72x72@2x~ipad.png in Resources */,
 				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
 				08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
 				08086EF018DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
-				08086E4218DC8BA300F03EB4 /* AnaDraw76x76@2x~ipad.png in Resources */,
 				0852511F194D853D0087F4AF /* tutorial_viewDevice.png in Resources */,
 				0808D9DD164559870000DF40 /* InfColorPickerView.xib in Resources */,
-				080FBABC1B2499DC0028A767 /* AnaDraw76x76_4~ipad.png in Resources */,
 				08F905D9194AC982002918AA /* iap_brushOilBrush.png in Resources */,
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
-				08BD36E81932D097000B14EF /* bgRootView.png in Resources */,
+				088313AE199CFC5700C49B92 /* community-48.png in Resources */,
+				088AFA92199BAC8900B573DC /* AnaDrawAppIcon-76@2x.png in Resources */,
 				0815818719614F1C00AB1645 /* brushPencilShape_r64.png in Resources */,
 				08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08086EFE18DC8BA300F03EB4 /* twitter50x50.png in Resources */,
 				08E539FF195AF849006EDCFC /* cylinderTopLight.png in Resources */,
 				0832E27E1933A7EA004BD986 /* release_notes.md in Resources */,
 				089CC75D195BB9DB002D4236 /* cylinderInterLight.png in Resources */,
-				08E06124193F88D200BDD2BA /* AnaDraw76x76_2@2x~ipad.png in Resources */,
 				0875131C1958105300FC03CC /* tutorial_gesture1FingerTapHold.png in Resources */,
+				088313A8199CF52A00C49B92 /* homepage-48.png in Resources */,
 				08751306195806BC00FC03CC /* tutorial_gesture2FingerPinch.png in Resources */,
 				08086E7018DC8BA300F03EB4 /* chalkStroke.png in Resources */,
-				08086EA418DC8BA300F03EB4 /* fingerPrint.png in Resources */,
 				08F905D3194AC982002918AA /* iap_brushAirbrush.png in Resources */,
-				08E8AB06194BE6AC003A32B8 /* AnaDraw_alpha@2x.png in Resources */,
 				0875131519580D4700FC03CC /* tutorial_gesture3FingerRight.png in Resources */,
 				08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */,
 				08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */,
@@ -3029,10 +2928,12 @@
 				08F905CF194AC982002918AA /* iap_brushMarkerHard.png in Resources */,
 				08F905D7194AC982002918AA /* iap_brushFinger.png in Resources */,
 				08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */,
+				088AFA90199BAC8900B573DC /* AnaDrawAppIcon-76.png in Resources */,
 				08086E7218DC8BA300F03EB4 /* chalkStroke02.png in Resources */,
 				08086EA018DC8BA300F03EB4 /* FB-f-Logo__blue_50.png in Resources */,
 				081B5EAD194F3AF80035CD58 /* tutorial_setup.png in Resources */,
 				08525119194D853D0087F4AF /* tutorial_pickImage.png in Resources */,
+				088313AB199CFA5B00C49B92 /* tutorial-48.png in Resources */,
 				0852511B194D853D0087F4AF /* tutorial_putDevice.png in Resources */,
 				08083DF519645A8600FDDDE8 /* paintFrame.png in Resources */,
 				0813AA1F19167BD4000C4D00 /* Models in Resources */,
@@ -3041,41 +2942,28 @@
 				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
-				08086E3A18DC8BA300F03EB4 /* AnaDraw50x50@2x~ipad.png in Resources */,
-				08086E3618DC8BA300F03EB4 /* AnaDraw40x40@2x~ipad.png in Resources */,
-				08E0612C193F890500BDD2BA /* AnaDraw76x76_3@2x~ipad.png in Resources */,
-				08BD36EA1932D097000B14EF /* bgRootView@2x.png in Resources */,
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
 				08F905D1194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				08083DF219644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */,
-				08D639C1196A4B3600AB3390 /* rootCanvas.png in Resources */,
 				0832E27C1933A7EA004BD986 /* README.md in Resources */,
 				08BFC0D41961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
-				085856DB196C4F550094D62A /* AnaDraw76x76_5@2x~ipad.png in Resources */,
 				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
-				08E0612A193F890500BDD2BA /* AnaDraw76x76_3~ipad.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
-				08086E4018DC8BA300F03EB4 /* AnaDraw72x72~ipad.png in Resources */,
 				0875131119580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
+				088313B1199D00E900C49B92 /* fanart-48.png in Resources */,
 				0879B3A1195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131919580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				08086E9818DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
 				08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */,
-				08086E3418DC8BA300F03EB4 /* AnaDraw29x29~ipad.png in Resources */,
-				08E06CB71965A6AF00A63017 /* pin.png in Resources */,
-				08086E3818DC8BA300F03EB4 /* AnaDraw40x40~ipad.png in Resources */,
 				08086E7C18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08751308195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				0815334817D3809300A45B54 /* cylinderShadow.png in Resources */,
-				08086E4A18DC8BA300F03EB4 /* AnaDrawLaunch@2x.png in Resources */,
 				08086EC618DC8BA300F03EB4 /* PhotoLibrary.png in Resources */,
-				08086E2E18DC8BA300F03EB4 /* airBrushRadius16.png in Resources */,
 				08086F0D18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				086FBF0A1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
-				08086E4618DC8BA300F03EB4 /* AnaDraw512x512@2x.png in Resources */,
 				08F905D5194AC982002918AA /* iap_brushCrayons.png in Resources */,
 				08DEDCCB194B55FE00155A91 /* Pro_pallete.png in Resources */,
 			);
@@ -3199,7 +3087,9 @@
 				6286a49f1b86b01ad6df2623 /* UIImage+ImageEffects.m in Sources */,
 				bdf721c8d230e08aeb472afa /* ADPaintView.m in Sources */,
 				0898765519137FA1009CEB3D /* ADSetupCylinderView.m in Sources */,
+				0849FF43199F2518000A35F2 /* ADPreviousPageButton.m in Sources */,
 				33be33b2f53e037e6bb4c699 /* ADImageStack.m in Sources */,
+				0849FF47199F2532000A35F2 /* ADNextPageButton.m in Sources */,
 				c1d7b7961f820030662540f1 /* ADUltility.m in Sources */,
 				08E585831913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */,
 				08B11F5818A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */,
@@ -3345,6 +3235,7 @@
 				291bfba0df1cd723a5c24dfc /* ADLayerVisibleButton.m in Sources */,
 				0861490318D7442900661AD6 /* ADSetupButton.m in Sources */,
 				08B2A07D18A0930B003C888F /* REDisplay.m in Sources */,
+				0828471E199F346500953E01 /* BrushTypePageControl.m in Sources */,
 				ae562571891c95d007ed289c /* ADLayerOpacitySlider.m in Sources */,
 				08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */,
 				bf4c2ea3f33c32c54f09c908 /* ADLayerBlendModeButton.m in Sources */,
@@ -3472,10 +3363,12 @@
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
 				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
 				0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */,
+				0828471D199F346500953E01 /* BrushTypePageControl.m in Sources */,
 				0813AA2519167C07000C4D00 /* REModelEntity.m in Sources */,
 				0808D9E0164559870000DF40 /* InfSourceColorView.m in Sources */,
 				94B8F66A18A8C93C007F8619 /* REPropertyAnimation.m in Sources */,
 				0847F53318B0945E0038869A /* ADCylinderProjectUserInputParams.m in Sources */,
+				0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */,
 				08F280C4189E76D900DF744C /* ADPlaneMesh.m in Sources */,
 				080BD0D91645FDC000B37C01 /* ADSelectBrushButton.m in Sources */,
 				080BD0DD164601B400B37C01 /* ADEyeDropper.m in Sources */,
@@ -3718,6 +3611,7 @@
 				0871D02A1812A27400A0D037 /* ADCrayons.m in Sources */,
 				0863C02219702CAE00CDB283 /* ADCylinderImage.m in Sources */,
 				0860669017D2DB60002EE42A /* ADDeleteButton.m in Sources */,
+				0849FF46199F2532000A35F2 /* ADNextPageButton.m in Sources */,
 				08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
 				08AE475818C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */,
 				08956DC518976F5B00EAB16C /* ADPaintFrameTransitionManager.m in Sources */,

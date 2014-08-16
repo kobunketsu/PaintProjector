@@ -8,7 +8,7 @@
 
 #import "ADTutorialManager.h"
 #import "ADSimpleTutorial.h"
-
+#define TutorialFadeInOutDuration 0.50
 @interface ADSimpleTutorialManager : ADTutorialManager
 @end
 

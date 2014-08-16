@@ -3,61 +3,61 @@
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5~ipad-1.png",
+      "filename" : "AnaDrawAppIcon-76.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5@2x~ipad-4.png",
+      "filename" : "AnaDrawAppIcon-76@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5~ipad-2.png",
+      "filename" : "AnaDrawAppIcon-76-1.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5@2x~ipad-3.png",
+      "filename" : "AnaDrawAppIcon-76@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5~ipad-3.png",
+      "filename" : "AnaDrawAppIcon-76-2.png",
       "scale" : "1x"
     },
     {
       "size" : "50x50",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5@2x~ipad-2.png",
+      "filename" : "AnaDrawAppIcon-76@2x-2.png",
       "scale" : "2x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5~ipad-4.png",
+      "filename" : "AnaDrawAppIcon-76-3.png",
       "scale" : "1x"
     },
     {
       "size" : "72x72",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5@2x~ipad-1.png",
+      "filename" : "AnaDrawAppIcon-76@2x-3.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5~ipad.png",
+      "filename" : "AnaDrawAppIcon-76-4.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "AnaDraw76x76_5@2x~ipad.png",
+      "filename" : "AnaDrawAppIcon-76@2x-4.png",
       "scale" : "2x"
     }
   ],

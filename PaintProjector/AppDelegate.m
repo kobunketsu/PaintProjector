@@ -279,7 +279,7 @@
 //    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
     
-    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_viewDevice.png"]];
+    imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_viewDeviceSrc.png"]];
     imageView.frame = CGRectMake(20+35, 480, 254, 198);
 //    imageView.parallaxIntensity = 10;
     [step.contentView addSubview:imageView];
@@ -431,10 +431,10 @@
     [step.contentView addSubview:collectionView];
     
     //添加遮盖效果层
-    ADTutorialBackgroundLeftEdgeView *leftEdgeView = [[ADTutorialBackgroundLeftEdgeView alloc]initWithFrame:CGRectMake(0, 0, offsetX + 20, height)];
-    [step.contentView addSubview:leftEdgeView];
-    ADTutorialBackgroundRightEdgeView *rightEdgeView = [[ADTutorialBackgroundRightEdgeView alloc]initWithFrame:CGRectMake(width - 20 - offsetX, 0, offsetX + 20, height)];
-    [step.contentView addSubview:rightEdgeView];
+//    ADTutorialBackgroundLeftEdgeView *leftEdgeView = [[ADTutorialBackgroundLeftEdgeView alloc]initWithFrame:CGRectMake(0, 0, offsetX + 20, height)];
+//    [step.contentView addSubview:leftEdgeView];
+//    ADTutorialBackgroundRightEdgeView *rightEdgeView = [[ADTutorialBackgroundRightEdgeView alloc]initWithFrame:CGRectMake(width - 20 - offsetX, 0, offsetX + 20, height)];
+//    [step.contentView addSubview:rightEdgeView];
     
     UIButton *nextButton = ((ADTutorialPageButtonView*)step.contentView).nextButton;
     [((ADTutorialPageButtonView*)step.contentView) bringSubviewToFront:nextButton];

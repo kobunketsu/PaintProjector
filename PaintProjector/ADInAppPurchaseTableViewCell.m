@@ -293,6 +293,7 @@
     [self.brushPreview reset];
 }
 - (IBAction)brushColorButtonTouchUp:(ADColorButton *)sender {
+    DebugLogIBAction(@"brushColorButtonTouchUp");
     self.brush.color = sender.color;
 }
 @end

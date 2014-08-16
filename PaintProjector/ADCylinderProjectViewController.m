@@ -35,6 +35,7 @@
 #define CylinderViewChangeDuration 1
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
+#define PopoverFrameWithIconAlignedWidth 330
 
 static float DeviceWidth = 0.154;
 
@@ -581,7 +582,8 @@ static float DeviceWidth = 0.154;
     ADShareTableViewController* shareTableViewController = [[ADShareTableViewController alloc]initWithStyle:UITableViewStylePlain];
     shareTableViewController.delegate = self;
     
-    shareTableViewController.preferredContentSize = CGSizeMake(self.view.frame.size.width * 0.5, shareTableViewController.tableViewHeight);
+    //align to down toolbar icon
+    shareTableViewController.preferredContentSize = CGSizeMake(PopoverFrameWithIconAlignedWidth, shareTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:shareTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -1053,8 +1055,8 @@ static float DeviceWidth = 0.154;
 - (void)productInfo{
     ADProductInfoTableViewController* productInfoTableViewController = [[ADProductInfoTableViewController alloc]initWithStyle:UITableViewStylePlain];
     productInfoTableViewController.delegate = self;
-    
-    productInfoTableViewController.preferredContentSize = CGSizeMake(self.view.frame.size.width * 0.5, productInfoTableViewController.tableViewHeight);
+    //align to downtoolbar icon
+    productInfoTableViewController.preferredContentSize = CGSizeMake(PopoverFrameWithIconAlignedWidth, productInfoTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:productInfoTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -2616,6 +2618,7 @@ static float DeviceWidth = 0.154;
     }
     else{
         //变换反射图动画
+        transitionImageView.image = [UIImage imageWithContentsOfFile:path];
         self.cylinder.reflectionStrength = 0;
         REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
         REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;

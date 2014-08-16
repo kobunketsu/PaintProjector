@@ -158,6 +158,7 @@
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
     [self tutorialStartFromStepName:@"PaintScreenTutorialDone"];
+    [self transitionToTutorial];
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -315,6 +316,7 @@
     const NSInteger numOfBrushPerPage = 6;
     [self.brushTypeScrollView initSubviewsWithNumOfBrushPerPage:numOfBrushPerPage];
     self.brushTypeScrollView.brushTypePageControl = self.brushTypePageControl;
+    self.brushTypePageControl.delegate = self;
     self.brushTypePageControl.numberOfPages = (NSInteger)ceilf((CGFloat)[self.brushTypeScrollView.brushTypes count] / numOfBrushPerPage);
     
     [self.brushButton addGestureRecognizer:self.lpgrBrushButton];
@@ -1787,6 +1789,10 @@
 }
 
 #pragma mark- 绘图界面 Paint UI Operation
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    self.previousBrushTypePageButton.hidden = self.brushTypePageControl.currentPage == 0;
+//    self.nextBrushTypePageButton.hidden = (self.brushTypePageControl.currentPage == self.brushTypePageControl.numberOfPages - 1);
+//}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //shrink when color button's frame origin is out of contentOffset ~ (contentOffset + scrollview.width)
 //    DebugLog(@"count %d", _colorSlotsScrollView.subviews.count);
@@ -1868,7 +1874,7 @@
         [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
             _state = PaintScreen_SelectBrush;
             
-            [self autoShowBrushes:true];
+//            [self autoShowBrushes:true];
         }];
     }
 }
@@ -1896,10 +1902,37 @@
 
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender {
     [RemoteLog logAction:@"brushTypePageControlValueChanged" identifier:sender];
-    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.brushTypeScrollView.contentOffset = CGPointMake(sender.currentPage * self.brushTypeScrollView.frame.size.width, 0);
-    } completion:nil];
+    [self scrollBrushTypeScrollViewByPage:sender.currentPage];
 }
+
+- (IBAction)previousBrushTypePageButtonTouchUp:(UIButton *)sender{
+    [RemoteLog logAction:@"previousBrushTypePageButtonTouchUp" identifier:sender];
+    if (self.brushTypePageControl.currentPage == 0) {
+        return;
+    }
+    
+    self.brushTypePageControl.currentPage --;
+    [self scrollBrushTypeScrollViewByPage:self.brushTypePageControl.currentPage];
+}
+- (IBAction)nextBrushTypePageButtonTouchUp:(UIButton *)sender{
+    [RemoteLog logAction:@"nextBrushTypePageButtonTouchUp" identifier:sender];
+    if (self.brushTypePageControl.currentPage >= self.brushTypePageControl.numberOfPages) {
+        return;
+    }
+    
+    self.brushTypePageControl.currentPage ++;
+    [self scrollBrushTypeScrollViewByPage:self.brushTypePageControl.currentPage];
+}
+
+- (void)scrollBrushTypeScrollViewByPage:(NSInteger)pageIndex{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.brushTypeScrollView.contentOffset = CGPointMake(pageIndex * self.brushTypeScrollView.frame.size.width, 0);
+    } completion:^(BOOL finished) {
+//        self.previousBrushTypePageButton.hidden = pageIndex == 0;
+//        self.nextBrushTypePageButton.hidden = (pageIndex == self.brushTypePageControl.numberOfPages - 1);
+    }];
+}
+
 
 - (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"brushTypeBackButtonTouchUp" identifier:sender];
@@ -2014,7 +2047,10 @@
 
 }
 
-
+- (void)willBrushTypeCurrentPageChanged:(NSInteger)page{
+    self.previousBrushTypePageButton.hidden = (page <= 0);
+    self.nextBrushTypePageButton.hidden = (page >= self.brushTypePageControl.numberOfPages - 1);
+}
 
 #pragma mark- 调色板代理SwatchManagerViewControllerDelegate
 - (void)willSetSwatchFile:(NSURL *)url{
@@ -2422,7 +2458,7 @@
     [self.paintView.brush setColor:self.paintColorButton.color];
 
     //取消自动展示
-    [self autoShowBrushes:false];
+//    [self autoShowBrushes:false];
     
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
@@ -2434,7 +2470,7 @@
 
 -(void)willSelectBrushCanceled:(id)sender{
     DebugLogFuncStart(@"willSelectBrushCanceled");
-    [self autoShowBrushes:false];
+//    [self autoShowBrushes:false];
     
     //UI
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -4656,6 +4692,17 @@
     }
     
 }
+- (void)transitionToTutorial{
+    DebugLogFuncStart(@"launchTransitionToTutorial");
+    if (![[ADSimpleTutorialManager current] isActive]) {
+        return;
+    }
+    
+    TutorialStepAnimationBlock animBlock = [ADSimpleTutorialManager current].curTutorial.curStep.fadeInAnimationBlock;
+    if (animBlock) {
+        animBlock();
+    }
+}
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
@@ -4675,6 +4722,14 @@
         CGRect rect = step.contentView.frame;
         rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
         step.contentView.frame = rect;
+        
+        step.contentView.alpha = 0;
+        __weak ADTutorialStep *stepWeak = step;
+        [step setFadeInAnimationBlock:^{
+            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
+                stepWeak.contentView.alpha = 1;
+            }];
+        }];
     }
 
     [step addToRootView:self.view];

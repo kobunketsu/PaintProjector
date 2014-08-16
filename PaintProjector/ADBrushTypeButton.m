@@ -47,7 +47,7 @@
         [self drawPen];
     }
     else if ([self.brush isKindOfClass:[ADMarker class]]) {
-        [self drawMarker];
+        [self drawMarkerWithFrame:rect];
     }
     else if ([self.brush isKindOfClass:[ADFinger class]]) {
         [self drawFinger];
@@ -658,7 +658,8 @@
 
 }
 
-- (void)drawMarker{
+- (void)drawMarkerWithFrame: (CGRect)frame;
+{
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -668,15 +669,6 @@
     CGFloat firColorRGBA[4];
     [firColor getRed: &firColorRGBA[0] green: &firColorRGBA[1] blue: &firColorRGBA[2] alpha: &firColorRGBA[3]];
     
-    CGFloat firColorHSBA[4];
-    [firColor getHue: &firColorHSBA[0] saturation: &firColorHSBA[1] brightness: &firColorHSBA[2] alpha: &firColorHSBA[3]];
-    
-    UIColor* secColor = [UIColor colorWithHue: firColorHSBA[0] saturation: 0 brightness: firColorHSBA[2] alpha: firColorHSBA[3]];
-    CGFloat secColorRGBA[4];
-    [secColor getRed: &secColorRGBA[0] green: &secColorRGBA[1] blue: &secColorRGBA[2] alpha: &secColorRGBA[3]];
-    
-    UIColor* secColor_h = [UIColor colorWithRed: (secColorRGBA[0] * 0.6 + 0.4) green: (secColorRGBA[1] * 0.6 + 0.4) blue: (secColorRGBA[2] * 0.6 + 0.4) alpha: (secColorRGBA[3] * 0.6 + 0.4)];
-    UIColor* secColor_h2 = [UIColor colorWithRed: (secColorRGBA[0] * 0.8 + 0.2) green: (secColorRGBA[1] * 0.8 + 0.2) blue: (secColorRGBA[2] * 0.8 + 0.2) alpha: (secColorRGBA[3] * 0.8 + 0.2)];
     UIColor* thirdColor = [UIColor colorWithRed: (firColorRGBA[0] * 0.3) green: (firColorRGBA[1] * 0.3) blue: (firColorRGBA[2] * 0.3) alpha: (firColorRGBA[3] * 0.3 + 0.7)];
     CGFloat thirdColorRGBA[4];
     [thirdColor getRed: &thirdColorRGBA[0] green: &thirdColorRGBA[1] blue: &thirdColorRGBA[2] alpha: &thirdColorRGBA[3]];
@@ -688,35 +680,23 @@
     UIColor* firColor_h2 = [UIColor colorWithRed: (firColorRGBA[0] * 0.8 + 0.2) green: (firColorRGBA[1] * 0.8 + 0.2) blue: (firColorRGBA[2] * 0.8 + 0.2) alpha: (firColorRGBA[3] * 0.8 + 0.2)];
     
     //// Gradient Declarations
-    NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)firColor_s.CGColor,
-                               (id)[UIColor colorWithRed: 0.842 green: 0.046 blue: 0.036 alpha: 1].CGColor,
-                               (id)firColor.CGColor,
-                               (id)[UIColor colorWithRed: 0.886 green: 0.049 blue: 0.038 alpha: 1].CGColor,
-                               (id)firColor.CGColor,
-                               (id)[UIColor colorWithRed: 0.842 green: 0.046 blue: 0.036 alpha: 1].CGColor,
-                               (id)firColor_s.CGColor, nil];
     CGFloat gradientLocations[] = {0, 0.08, 0.38, 0.5, 0.64, 0.92, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)firColor_s.CGColor, (id)[UIColor colorWithRed: 0.842 green: 0.046 blue: 0.036 alpha: 1].CGColor, (id)firColor.CGColor, (id)[UIColor colorWithRed: 0.886 green: 0.049 blue: 0.038 alpha: 1].CGColor, (id)firColor.CGColor, (id)[UIColor colorWithRed: 0.842 green: 0.046 blue: 0.036 alpha: 1].CGColor, (id)firColor_s.CGColor], gradientLocations);
     
     //// Shadow Declarations
     UIColor* shadow = firColor_g;
     CGSize shadowOffset = CGSizeMake(0.1, 5.1);
     CGFloat shadowBlurRadius = 10;
     
-    //// Frames
-    CGRect frame = self.bounds;
-    
-    
     //// Marker
     {
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
         CGContextBeginTransparencyLayer(context, NULL);
         
         
         //// Bezier Drawing
-        UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+        UIBezierPath* bezierPath = UIBezierPath.bezierPath;
         [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 32.86, CGRectGetMinY(frame) + 4.99)];
         [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 38.76, CGRectGetMinY(frame) + 11) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 34.89, CGRectGetMinY(frame) + 4.99) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 36.6, CGRectGetMinY(frame) + 7.67)];
         [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 41, CGRectGetMinY(frame) + 27) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 40.88, CGRectGetMinY(frame) + 14.27) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 41, CGRectGetMinY(frame) + 22.46)];
@@ -729,7 +709,7 @@
         
         
         //// Rounded Rectangle 2 Drawing
-        UIBezierPath* roundedRectangle2Path = [UIBezierPath bezierPath];
+        UIBezierPath* roundedRectangle2Path = UIBezierPath.bezierPath;
         [roundedRectangle2Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 20, CGRectGetMinY(frame) + 46)];
         [roundedRectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 15, CGRectGetMinY(frame) + 68)];
         [roundedRectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 51, CGRectGetMinY(frame) + 68)];
@@ -751,31 +731,31 @@
         
         
         //// Rounded Rectangle Drawing
-        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPath];
+        UIBezierPath* roundedRectanglePath = UIBezierPath.bezierPath;
         [roundedRectanglePath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 13.44, CGRectGetMinY(frame) + 99.96)];
         [roundedRectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 52, CGRectGetMinY(frame) + 100)];
-        [roundedRectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 51.93, CGRectGetMinY(frame) + 67.57)];
+        [roundedRectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 52, CGRectGetMinY(frame) + 68)];
         [roundedRectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 14, CGRectGetMinY(frame) + 68)];
         [roundedRectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13.44, CGRectGetMinY(frame) + 99.96)];
         [roundedRectanglePath closePath];
-        [secColor setFill];
+        [firColor_s setFill];
         [roundedRectanglePath fill];
         
         
         //// Rectangle Drawing
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPath];
+        UIBezierPath* rectanglePath = UIBezierPath.bezierPath;
         [rectanglePath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 15, CGRectGetMinY(frame) + 102)];
         [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 21, CGRectGetMinY(frame) + 102)];
         [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 21, CGRectGetMinY(frame) + 68)];
         [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 15, CGRectGetMinY(frame) + 68)];
         [rectanglePath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 15, CGRectGetMinY(frame) + 102)];
         [rectanglePath closePath];
-        [secColor_h setFill];
+        [firColor_h setFill];
         [rectanglePath fill];
         
         
         //// Bezier 2 Drawing
-        UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
+        UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
         [bezier2Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 22.11, CGRectGetMinY(frame) + 27)];
         [bezier2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 21, CGRectGetMinY(frame) + 28.05)];
         [bezier2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 21, CGRectGetMinY(frame) + 48)];
@@ -790,7 +770,7 @@
         
         
         //// Bezier 3 Drawing
-        UIBezierPath* bezier3Path = [UIBezierPath bezierPath];
+        UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
         [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 44.49, CGRectGetMinY(frame) + 27)];
         [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 45.5, CGRectGetMinY(frame) + 28.13)];
         [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 45.5, CGRectGetMinY(frame) + 48)];
@@ -805,19 +785,19 @@
         
         
         //// Rectangle 2 Drawing
-        UIBezierPath* rectangle2Path = [UIBezierPath bezierPath];
+        UIBezierPath* rectangle2Path = UIBezierPath.bezierPath;
         [rectangle2Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 46, CGRectGetMinY(frame) + 102)];
         [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 51, CGRectGetMinY(frame) + 102)];
         [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 51, CGRectGetMinY(frame) + 68)];
         [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46, CGRectGetMinY(frame) + 68)];
         [rectangle2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46, CGRectGetMinY(frame) + 102)];
         [rectangle2Path closePath];
-        [secColor_h2 setFill];
+        [firColor_h2 setFill];
         [rectangle2Path fill];
         
         
         //// Bezier 4 Drawing
-        UIBezierPath* bezier4Path = [UIBezierPath bezierPath];
+        UIBezierPath* bezier4Path = UIBezierPath.bezierPath;
         [bezier4Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 32, CGRectGetMinY(frame) + 5)];
         [bezier4Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 31, CGRectGetMinY(frame) + 12) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 32, CGRectGetMinY(frame) + 5) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 32.89, CGRectGetMinY(frame) + 8.24)];
         [bezier4Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 25, CGRectGetMinY(frame) + 18) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 29.11, CGRectGetMinY(frame) + 15.76) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 25, CGRectGetMinY(frame) + 18)];
@@ -836,7 +816,6 @@
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
-    
 }
 
 - (void)drawFinger{

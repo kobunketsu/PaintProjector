@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZXj-eQ-u2Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZXj-eQ-u2Q">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -1363,13 +1363,33 @@
                                                     <outlet property="delegate" destination="NUX-zI-YbL" id="o16-Uw-s3z"/>
                                                 </connections>
                                             </scrollView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl">
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl" customClass="BrushTypePageControl">
                                                 <rect key="frame" x="364" y="0.0" width="39" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
                                                     <action selector="brushTypePageControlValueChanged:" destination="NUX-zI-YbL" eventType="valueChanged" id="2Ze-rK-9Ki"/>
                                                 </connections>
                                             </pageControl>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QUd-Xd-zWk" userLabel="previousPageButton" customClass="PreviousPageButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="22" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="previousBrushTypePageButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="Q16-xM-9QE"/>
+                                                </connections>
+                                            </button>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FTk-dX-0qc" userLabel="nextPageButton" customClass="NextPageButton">
+                                                <rect key="frame" x="746" y="0.0" width="22" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="nextBrushTypePageButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="1XI-s6-hQc"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <accessibility key="accessibilityConfiguration" label="Brushs">
                                             <bool key="isElement" value="YES"/>
@@ -1866,6 +1886,7 @@
                         <outlet property="lpgrBrushButton" destination="7jA-nm-TSI" id="Wdn-Mx-ega"/>
                         <outlet property="lpgrPaintView" destination="oTk-me-Tqm" id="k5m-IJ-7kH"/>
                         <outlet property="mainToolBar" destination="erO-nK-SuU" id="hEa-UN-jr2"/>
+                        <outlet property="nextBrushTypePageButton" destination="FTk-dX-0qc" id="SYE-58-syD"/>
                         <outlet property="opacityIndicatorView" destination="C41-sP-OY9" id="ubR-2n-n2a"/>
                         <outlet property="opacitySlider" destination="SRt-Fr-rjv" id="cH4-TL-KEh"/>
                         <outlet property="paintColorButton" destination="XFa-Ld-xa1" id="OzL-Yw-Cuy"/>
@@ -1877,6 +1898,7 @@
                         <outlet property="pgr2TouchesRootCanvasView" destination="p8M-Ll-zAa" id="D7v-FO-L7p"/>
                         <outlet property="pgr3TouchesRootCanvasView" destination="nal-JO-dWr" id="yMC-UN-5SZ"/>
                         <outlet property="pgrRootCanvasView" destination="9Qu-66-uty" id="Ec6-Z9-kiE"/>
+                        <outlet property="previousBrushTypePageButton" destination="QUd-Xd-zWk" id="lZX-fa-dLL"/>
                         <outlet property="radiusIndicatorView" destination="Vl4-eP-tzn" id="99K-NB-LHH"/>
                         <outlet property="radiusSlider" destination="BfJ-tE-xFg" id="D2g-eO-a0K"/>
                         <outlet property="redoButton" destination="wGv-uB-mqP" id="gDe-05-KMT"/>

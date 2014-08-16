@@ -38,6 +38,7 @@
 #import "ADClearButton.h"
 #import "ADBrushToolBar.h"
 #import "ADLayerButton.h"
+#import "BrushTypePageControl.h"
 
 //Other ViewController
 //#import "CylinderProjectViewController.h"
@@ -140,7 +141,8 @@ InfColorPickerControllerDelegate,
 ADFuzzyTransparentViewDelegate,
 ADInAppPurchaseTableViewControllerDelegate,
 ADSwatchManagerViewControllerDelegate,
-ADBackgroundLayerDelegate
+ADBackgroundLayerDelegate,
+BrushTypePageControlDelegate
 >
 {
     //变换
@@ -208,7 +210,9 @@ ADBackgroundLayerDelegate
 @property (weak, nonatomic) IBOutlet ADDownToolBar *paintToolBar;
 @property (weak, nonatomic) IBOutlet UIView *paintToolView;
 //@property (weak, nonatomic) IBOutlet DownToolBar *brushTypeBar;
-@property (weak, nonatomic) IBOutlet UIPageControl *brushTypePageControl;
+@property (weak, nonatomic) IBOutlet BrushTypePageControl *brushTypePageControl;
+@property( weak, nonatomic) IBOutlet UIButton* previousBrushTypePageButton;
+@property( weak, nonatomic) IBOutlet UIButton* nextBrushTypePageButton;
 @property (weak, nonatomic) IBOutlet UIView *brushDetailView;
 @property (weak, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
@@ -277,6 +281,8 @@ ADBackgroundLayerDelegate
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender;
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender;
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender;
+- (IBAction)previousBrushTypePageButtonTouchUp:(UIButton *)sender;
+- (IBAction)nextBrushTypePageButtonTouchUp:(UIButton *)sender;
 - (IBAction)touchUpInsideUndoButton:(ADUndoButton *)sender;
 - (IBAction)touchUpInsideRedoButton:(UIButton *)sender;
 - (IBAction)syncBrushView:(id)sender;

@@ -973,7 +973,7 @@
 }
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
+//    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
     [super touchesMoved:touches withEvent:event];
     
     //只接受在touchesBegan注册的UITouch事件处理

@@ -80,16 +80,20 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = NSLocalizedString(@"ProductIntroduction", nil);
+            cell.textLabel.text = NSLocalizedString(@"ProductUserManual", nil);
+            cell.imageView.image = [UIImage imageNamed:@"tutorial-48.png"];
             break;
         case 1:
-            cell.textLabel.text = NSLocalizedString(@"ProductUserManual", nil);
+            cell.textLabel.text = NSLocalizedString(@"ProductIntroduction", nil);
+            cell.imageView.image = [UIImage imageNamed:@"homepage-48.png"];
             break;
         case 2:
             cell.textLabel.text = NSLocalizedString(@"ProductSupport", nil);
+            cell.imageView.image = [UIImage imageNamed:@"community-48.png"];
             break;
         case 3:
             cell.textLabel.text = NSLocalizedString(@"ProductFanArts", nil);
+            cell.imageView.image = [UIImage imageNamed:@"fanart-48.png"];            
             break;
         default:
             break;
@@ -162,11 +166,11 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [self.delegate willOpenWelcomGuideURL];
+            [self.delegate willOpenTutorial];
             break;
         case 1:
-//            [self.delegate willOpenUserManualURL];
-            [self.delegate willOpenTutorial];
+            [self.delegate willOpenWelcomGuideURL];
+
             break;
         case 2:
             [self.delegate willOpenSupportURL];

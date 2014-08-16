@@ -17,7 +17,6 @@
 #import "ADSimpleTutorialManager.h"
 #import "AppDelegate.h"
 
-#define TutorialFadeInOutDuration 1.0
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
