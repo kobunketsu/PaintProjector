@@ -58,7 +58,7 @@
 			CGContextDrawImage( context, CGRectMake( 0, 0, width, height ), image.CGImage );
 
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
-			GLuint errorcode = glGetError();
+//			GLuint errorcode = glGetError();
 			CGContextRelease(context);
 			
 			free(imageData);

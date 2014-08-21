@@ -12,80 +12,13 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "LogDefine.h"
     #import "ADBarStyleKit.h"
     #import "Extension.h"
     #import "RemoteLog.h"
     #import "ADMathHelper.h"
-//debug color
-    #define XCODE_COLORS_ESCAPE @"\033["
-
-    #define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-    #define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-    #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
-
-    #ifdef DEBUG
-//普通的log
-    #define DebugLog(s, ...) NSLog(@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLog(s, ...)
-    #endif
-
-    #ifdef DEBUG
-//警告的log
-    #define DebugLogWarn(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogWarn(s, ...)
-    #endif
-
-    #ifdef DEBUG
-//严重错误的log
-    #define DebugLogError(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,0,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogError(s, ...)
-    #endif
-
-    #ifdef DEBUG
-//成功的log
-    #define DebugLogSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogSuccess(s, ...)
-    #endif
-
-    #ifdef DEBUG
-//系统函数调用的log
-    #define DebugLogSystem(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg127,127,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogSystem(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
-    #endif
-
-    #ifdef DEBUG
-//用户交互的log
-    #define DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogIBAction(s, ...)
-    #endif
-
-    #ifdef DEBUG
-//函数开始的log
-    #define DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogFuncStart(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
-    #endif
-
-    #ifdef DEBUG
-//函数每帧都调用的log
-    #define DebugLogFuncUpdate(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogFuncUpdate(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //函数每帧都调用的log
-    #define DebugLogGL(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg255,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define DebugLogGL(s, ...)
-    #endif
-
+    #import "ConstantsAndMacros.h"
+    #import "ADLogMemUsage.h"
 #endif
 
 
@@ -99,9 +32,6 @@
 
 #define UndoMaxCount 10
 //#define UndoImageSize 1024
-#define ARC4RANDOM_MAX      0x100000000
-#define DEGREES_TO_RADIANS(x) (M_PI * x / 180.0)
-#define RADIANS_TO_DEGREES(x) (180.0 * x / M_PI)
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define HumanEyeFOV 68.0f
 #define FuzzyTransparentAlpha 0.7

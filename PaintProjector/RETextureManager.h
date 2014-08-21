@@ -22,9 +22,9 @@ static RETextureManager *texMgr = nil;
 @property(retain, nonatomic) NSMutableDictionary* textureUIImageCache;
 + (RETextureManager*)current;
 + (GLKTextureInfo *)textureInfoFromImageName:(NSString*)imageName reload:(BOOL)reload;
-+ (GLKTextureInfo *)textureInfoFromImageName:(NSString*)imageName option:(NSDictionary *)options reload:(BOOL)reload;
+//+ (GLKTextureInfo *)textureInfoFromImageName:(NSString*)imageName option:(NSDictionary *)options reload:(BOOL)reload;
 + (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload;
-+ (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath option:(NSDictionary *)options reload:(BOOL)reload;
+//+ (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath option:(NSDictionary *)options reload:(BOOL)reload;
 
 + (GLKTextureInfo *)textureInfoFromFileInDocument:(NSString*)filePathInDoc reload:(BOOL)reload;
 + (GLKTextureInfo *)textureInfoFromUIImage:(UIImage*)uiImage;

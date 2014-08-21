@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ADPaintLayerManager : NSObject
-+ (int)addLayer;
-+ (int)deleteLayerAtIndex:(int)index;
-+ (int)insertLayerAtIndex:(int)index;
+//+ (int)addLayer;
+//+ (int)deleteLayerAtIndex:(int)index;
+//+ (int)insertLayerAtIndex:(int)index;
 @end

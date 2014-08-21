@@ -9,7 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface ADCalculateRunTime : NSObject
-
 CGFloat BUNRTimeBlock (void (^block)(void));
-
 @end

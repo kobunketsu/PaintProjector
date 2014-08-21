@@ -17,12 +17,12 @@
         
         GLuint vertShader, fragShader;
         NSString *vertShaderPathname, *fragShaderPathname;
-        NSString *programBrushName = [NSString stringWithFormat:@"programBrush%@", self.class];
-    
+
         // Create shader program.
         GLuint program = glCreateProgram();
         self.program = program;
 #if DEBUG
+        NSString *programBrushName = [NSString stringWithFormat:@"programBrush%@", self.class];
         glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [programBrushName UTF8String]);
 #endif
         

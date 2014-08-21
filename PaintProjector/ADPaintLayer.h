@@ -43,7 +43,6 @@ typedef enum LayerBlendMode LayerBlendMode;
 @property (assign, nonatomic) bool operationLock;
 //@property (assign, nonatomic) bool dirty;
 //@property (assign, nonatomic) bool visible;
-- (id)initWithData:(NSData*)data name:(NSString *)name blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity;
 + (ADPaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent;
 + (ADPaintLayer*)createLayerFormUIImage:(UIImage*)image withSize:(CGSize)size;
 @end

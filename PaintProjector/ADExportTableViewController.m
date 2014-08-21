@@ -57,14 +57,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 5;
 }
@@ -173,13 +173,13 @@
 //            [self.delegate didSelectExportToDropbox];
 //            break;
         case 2:
-            [self.delegate didSelectPostToFacebook];
+            [self.delegate didSelectExportToSocialName:@"Facebook"];
             break;
         case 3:
-            [self.delegate didSelectPostToTwitter];
+            [self.delegate didSelectExportToSocialName:@"Twitter"];
             break;
         case 4:
-            [self.delegate didSelectPostToSinaWeibo];
+            [self.delegate didSelectExportToSocialName:@"SinaWeibo"];
             break;
         default:
             break;

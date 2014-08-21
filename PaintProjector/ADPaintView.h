@@ -38,14 +38,14 @@
 #define DEBUG_VIEW_COLORALPHA 0
 
 typedef NS_ENUM(NSInteger, PaintingViewState) {
-    PaintingView_TouchNone,
-    PaintingView_TouchPaint,
-    PaintingView_TouchEyeDrop,
-    PaintingView_TouchTransformImage,
-    PaintingView_TouchTransformLayer,
-    PaintingView_TouchTransformCanvas,
-    PaintingView_TouchQuickTool,
-    PaintingView_TouchToggleFullScreen,
+    PaintView_TouchNone,
+    PaintView_TouchPaint,
+    PaintView_TouchEyeDrop,
+    PaintView_TouchTransformImage,
+    PaintView_TouchTransformLayer,
+    PaintView_TouchTransformCanvas,
+    PaintView_TouchQuickTool,
+    PaintView_TouchToggleFullScreen,
 };
 
 typedef struct {
@@ -90,7 +90,8 @@ typedef struct {
 
 //CLASS INTERFACES:
 @interface ADPaintView : UIView 
-    <ADHeapDelegate,//创建删除undo Image
+    <
+//    ADHeapDelegate,//创建删除undo Image
     ADOpenCommandDelegate,
     ADPaintCommandDelegate,
     ADUndoBaseCommandDelegate,
@@ -98,9 +99,6 @@ typedef struct {
     ADBrushDelegate,
     ADBrushPreviewDelegate>//实现描画
 {
-	CGPoint	location;
-	CGPoint	previousLocation;
-    
     //存储最后输出的frame buffer 和depth buffer
     GLuint _finalFramebuffer;    
 	GLuint _finalRenderbuffer;
@@ -219,7 +217,7 @@ typedef struct {
 - (void)transformCanvasReset;
 - (void)freeTransformCanvasTranslate:(CGPoint)translation rotate:(float) angle scale:(float)scale;
 
-#pragma mark 变换图片TransformImage
+#pragma mark 变换图片TransformImageLayer
 - (void)transformImageBeganAnchorPoint:(CGPoint)anchorPoint;
 - (TransformInfo)freeTransformImageTranslate:(CGPoint)translation rotate:(float) angle scale:(CGPoint)scale anchorPoint:(CGPoint)anchorPoint;
 - (CGPoint)imageScaleAnchor;
@@ -230,10 +228,9 @@ typedef struct {
 - (CGRect)calculateLayerContentRect;
 //变换当前图层
 - (void)beforeTransformLayer;
-//- (void)transformImageBegan;
-
-- (void)transformImageDone;
-- (void)transformImageCancelled;
+- (void)beforeTransformImage:(UIImage*)uiImage;
+- (void)transformImageLayerDone;
+- (void)transformImageLayerCancelled;
 
 #pragma mark 图层Layer
 - (int)curLayerIndex;
@@ -277,6 +274,7 @@ typedef struct {
 - (void)transferReversePaint;
 #pragma mark 其他Misc
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
+//- (NSData*)dataSnapshotFromFramebuffer:(GLuint)framebuffer;
 //取色
 - (void)eyeDropColor:(CGPoint)point;
 @end

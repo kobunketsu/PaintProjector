@@ -26,7 +26,7 @@
 {
     unsigned char pixel[4] = {0};
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef tempContext = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, kCGImageAlphaPremultipliedLast);
+    CGContextRef tempContext = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, kCGBitmapByteOrderDefault);
 
     CGContextTranslateCTM(tempContext, -point.x, -point.y);
     

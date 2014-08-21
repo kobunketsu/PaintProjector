@@ -75,11 +75,11 @@ static ADPaintDocManager* sharedInstance = nil;
         if ([[file pathExtension] isEqualToString: @"psf"]) {
             NSString* docPath = [dir stringByAppendingPathComponent:file];
             //获得文件属性
-            NSError *error = nil;
-            NSString *fullDocPath = [[ADUltility applicationDocumentDirectory]stringByAppendingPathComponent:docPath];
-            NSDictionary *dic = [[NSFileManager defaultManager]attributesOfItemAtPath:fullDocPath error:&error];
-            NSDate *date = [dic fileCreationDate];
-            DebugLog(@"paintDoc date %@", date);
+//            NSError *error = nil;
+//            NSString *fullDocPath = [[ADUltility applicationDocumentDirectory]stringByAppendingPathComponent:docPath];
+//            NSDictionary *dic = [[NSFileManager defaultManager]attributesOfItemAtPath:fullDocPath error:&error];
+//            NSDate *date = [dic fileCreationDate];
+//            DebugLog(@"paintDoc date %@", date);
             
             ADPaintDoc* paintDoc =[[ADPaintDoc alloc]initWithDocPath:docPath];
             [paintDocs addObject:paintDoc];

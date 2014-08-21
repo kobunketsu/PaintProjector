@@ -24,6 +24,7 @@
 //    DebugLogWarn(@"textureWithName %@", name);
     RERenderTexture *texture = [[RERenderTexture alloc]init];
     texture.name = name;
+
     //使用双贴图方式在多次拷贝贴图时减少阻塞
     //创建frame buffer
     GLuint rt = 0;
@@ -86,9 +87,10 @@
 
 - (void)destroy{
 //    DebugLogWarn(@"destroy %@", self.name);
-    [super destroy];
+    [[REGLWrapper current] deleteFramebufferOES:self.frameBuffer];
 
-    [[REGLWrapper current] deleteFramebufferOES:_frameBuffer];
+    //override supper destroy;
+    [[REGLWrapper current]deleteTexture:self.texID];
 }
 
 - (UIImage*)snapshotImageToViewportSize:(CGSize)viewportSize

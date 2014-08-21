@@ -14,5 +14,4 @@
 @property (weak, nonatomic) IBOutlet ADPaintFrameView *paintFrameView;
 @property (weak, nonatomic) IBOutlet ADPaintCollectionViewCellFrame *cellFrame;
 @property (weak, nonatomic) IBOutlet UIImageView *pinView;
-- (IBAction)paintFrameViewTouchDown:(UIButton *)sender;
 @end

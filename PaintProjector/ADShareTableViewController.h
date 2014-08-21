@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol ADShareTableViewControllerDelegate
-- (void) didSelectPostToFacebook;
-- (void) didSelectPostToTwitter;
-- (void) didSelectPostToSinaWeibo;
+- (void) didSelectPostToSocialName:(NSString*)socialName;
 - (void) didSelectPostToEmail;
 @end
 

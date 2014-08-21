@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0897D7DD187C46BA00A7ECD2"
+               BlueprintIdentifier = "087B9DDF19A0E12D000B0213"
                BuildableName = "PaintProjector Tests.xctest"
                BlueprintName = "PaintProjector Tests"
                ReferencedContainer = "container:PaintProjector.xcodeproj">

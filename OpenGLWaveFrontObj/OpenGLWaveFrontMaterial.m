@@ -30,7 +30,8 @@
 {
 	NSMutableDictionary *ret = [NSMutableDictionary dictionary];
 	[ret setObject:[OpenGLWaveFrontMaterial defaultMaterial] forKey:@"default"];
-	NSString *mtlData = [NSString stringWithContentsOfFile:path];
+    NSError *error = nil;
+	NSString *mtlData = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
 	NSArray *mtlLines = [mtlData componentsSeparatedByString:@"\n"];
 	// Can't use fast enumeration here, need to manipulate line order
 	for (int i = 0; i < [mtlLines count]; i++)

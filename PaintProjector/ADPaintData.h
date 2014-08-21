@@ -25,6 +25,5 @@
 @property (retain, nonatomic) ADBackgroundLayer *backgroundLayer;//背景层
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;//变形数据
 
-- (id)initWithTitle:(NSString*)title;
 -(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(ADBackgroundLayer*)backgroundLayer userInputParams:(ADCylinderProjectUserInputParams*)userInputParams version:(NSString*)version;
 @end

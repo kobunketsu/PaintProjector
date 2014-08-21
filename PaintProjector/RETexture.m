@@ -75,8 +75,10 @@
 }
 
 - (void)destroy{
-    [super destroy];
-//    DebugLogWarn(@"self.layerTextures removeObject %d", numTex.intValue);    
+   
     [RETextureManager deleteTexture:self.texID];
+    
+    [super destroy];
+//    DebugLogWarn(@"self.layerTextures removeObject %d", numTex.intValue);
 }
 @end

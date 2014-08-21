@@ -11,9 +11,7 @@
 - (void) didSelectExportToEmail;
 - (void) didSelectExportToDropbox;
 - (void) didSelectExportToPhotoLibrary;
-- (void) didSelectPostToFacebook;
-- (void) didSelectPostToTwitter;
-- (void) didSelectPostToSinaWeibo;
+- (void) didSelectExportToSocialName:(NSString*)socialName;
 @end
 @interface ADExportTableViewController : UITableViewController
 @property (assign, nonatomic) id delegate;

@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-@protocol ADHeapDelegate
-- (void) topElementAdded:(id)object;
-- (void) topElementRemoved:(id)object;
-- (void) bottomElementRemoved:(id)object;
-- (void) allElementRemoved;
-@end
+//@protocol ADHeapDelegate
+//- (void) topElementAdded:(id)object;
+//- (void) topElementRemoved:(id)object;
+//- (void) bottomElementRemoved:(id)object;
+//- (void) allElementRemoved;
+//@end
 
 @interface ADHeap : NSObject {
 }

@@ -119,6 +119,8 @@
             _rotation = CGAffineTransformMakeRotation( M_PI_2 );
             
             break;
+        default:
+            break;
             
     }
     

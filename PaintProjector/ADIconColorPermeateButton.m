@@ -43,4 +43,8 @@
     
     UIGraphicsPopContext();
 }
+
+-(void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor*)iconColor{
+    //override in subclass
+}
 @end

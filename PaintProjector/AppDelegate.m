@@ -21,11 +21,13 @@
 
 + (void)initialize
 {
+//#if DEBUG
     //configure iRate
     [iRate sharedInstance].appStoreID = 885877961;
-    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].daysUntilPrompt = 7;
     [iRate sharedInstance].usesUntilPrompt = 15;
 //    [iRate sharedInstance].previewMode = true;
+//#endif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -71,9 +73,9 @@
 
         //设置用户参数
         [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialFinished"];
 

@@ -60,13 +60,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)memoryWarning:(NSNotification*)note {
-    DebugLogFuncStart(@"memoryWarning");
+    DebugLogSystem(@"memoryWarning");
     
     DebugLog(@"removeTextureCache");
     [_textureCache removeAllObjects];
     DebugLog(@"removeTextureUIImageCache");
     [_textureUIImageCache removeAllObjects];
-    //    [_textureDataCache removeAllObjects];
 }
 
 + (void)destroyTextures{
@@ -76,25 +75,24 @@
         [[REGLWrapper current]deleteTexture:tex];
     }
     [texMgr.textureCache removeAllObjects];
-    DebugLogSuccess(@"all textures deleted from cache and gl");
+    DebugLog(@"all textures deleted from cache and gl");
 }
 
 + (void)deleteTexture:(GLuint)texture{
-    id deleteTexKey = 0;
+    id deleteTexKey = nil; GLuint deleteTexValue = 0;
     for (id key in texMgr.textureCache) {
-        GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:key];
+        GLKTextureInfo* texInfo = (GLKTextureInfo*)[texMgr.textureCache objectForKey:key];
         if (texInfo.name == texture) {
             deleteTexKey = key;
+            deleteTexValue = texInfo.name;
             break;
         }
     }
     
-    if (deleteTexKey != 0) {
-        [texMgr.textureCache removeObjectForKey:deleteTexKey];
+    if (deleteTexKey) {
         [[REGLWrapper current]deleteTexture:texture];
-        DebugLogSuccess(@"texture %@ deleted from cache and gl", deleteTexKey);
+        [texMgr.textureCache removeObjectForKey:deleteTexKey];
     }
-
 }
 
 + (GLKTextureInfo *)textureInfoFromImagePath:(NSString*)imagePath reload:(BOOL)reload{
@@ -121,7 +119,6 @@
         }
         else {
             [texMgr.textureCache setObject:texInfo forKey:imagePath];
-            DebugLog(@"load texInfo: %d forKey %@", texInfo.name, imagePath);
         }
         return texInfo;
     }
@@ -158,8 +155,10 @@
     NSError * error;
     GLKTextureInfo *texInfo = [GLKTextureLoader textureWithCGImage:image options:options error:&error];
     if (!texInfo) {
-        DebugLog(@"Error loading file: %@", [error localizedDescription]);
+        DebugLogError(@"Error loading file: %@", [error localizedDescription]);
         return NULL;
+    }
+    else{
     }
     
     return texInfo;
@@ -187,11 +186,10 @@
         NSError * error;         
         texInfo = [GLKTextureLoader textureWithCGImage:uiImage.CGImage options:options error:&error];     
         if (!texInfo) {
-            DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
+            DebugLogError(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
             [texMgr.textureCache setObject:texInfo forKey:[NSNumber numberWithInteger:uiImage.hash]];
-            DebugLogSuccess(@"loaded texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:uiImage.hash]);
         }
         return texInfo;
     }
@@ -211,12 +209,12 @@
                                   nil];
         NSError * error;
         texInfo = [GLKTextureLoader textureWithContentsOfData:data options:options error:&error];
+        
         if (!texInfo) {
-            DebugLog(@"Error loading texInfo: %@", [error localizedDescription]);
+            DebugLogError(@"Error loading texInfo: %@", [error localizedDescription]);
         }
         else {
             [texMgr.textureCache setObject:texInfo forKey:[NSNumber numberWithInteger:data.hash]];
-            DebugLogSuccess(@"loaded texInfo: %d forKey %@", texInfo.name, [NSNumber numberWithInteger:data.hash]);
         }
         return texInfo;
     }

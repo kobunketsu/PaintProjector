@@ -12,7 +12,6 @@
 #import "mach/mach.h"
 
 @implementation ADCalculateRunTime
-
 CGFloat BNRTimeBlock (void (^block)(void)) {
     mach_timebase_info_data_t info;
     if (mach_timebase_info(&info) != KERN_SUCCESS) return -1.0;
@@ -24,12 +23,11 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     
     uint64_t nanos = elapsed * info.numer / info.denom;
     CGFloat result = (CGFloat)nanos / NSEC_PER_SEC;
-        
+    
     NSLog(@"isEqual: time: %f\n", result);
-
+    
     return result;
 }
-
 -(void) report_memory {
     struct task_basic_info info;
     mach_msg_type_number_t size = sizeof(info);

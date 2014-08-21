@@ -10,24 +10,29 @@
 #import <objc/runtime.h>
 
 @implementation UILabel (VerticalAlign)
-//FIXME:IOS7
+
 - (void)alignTop {
-    CGSize fontSize = [self.text sizeWithFont:self.font];
+    NSDictionary *attribute = @{NSFontAttributeName:self.font};
+    CGSize fontSize = [self.text sizeWithAttributes:attribute];
+    
     double finalHeight = fontSize.height * self.numberOfLines;
     double finalWidth = self.frame.size.width;    //expected width of label
-    CGSize theStringSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
+    
+    CGSize theStringSize = [self.text boundingRectWithSize:CGSizeMake(finalWidth, finalHeight) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    
     int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
     for(int i=0; i<newLinesToPad; i++){
         self.text = [self.text stringByAppendingString:@"\n "];
     }
-    NSString *text = self.text;
 }
-//FIXME:IOS7
+
 - (void)alignBottom {
-    CGSize fontSize = [self.text sizeWithFont:self.font];
+    NSDictionary *attribute = @{NSFontAttributeName:self.font};
+    CGSize fontSize = [self.text sizeWithAttributes:attribute];
     double finalHeight = fontSize.height * self.numberOfLines;
     double finalWidth = self.frame.size.width;    //expected width of label
-    CGSize theStringSize = [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(finalWidth, finalHeight) lineBreakMode:self.lineBreakMode];
+    CGSize theStringSize = [self.text boundingRectWithSize:CGSizeMake(finalWidth, finalHeight) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+    
     int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
     for(int i=0; i<newLinesToPad; i++)
         self.text = [NSString stringWithFormat:@" \n%@",self.text];

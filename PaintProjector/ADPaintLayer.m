@@ -20,7 +20,7 @@
         self.name = name;
         self.identifier = identifier;
         self.blendMode = blendMode;
-        self.opacity = 1.0;
+        self.opacity = opacity;
         self.opacityLock = opacityLock;
         
         //不存储到文件
@@ -39,7 +39,7 @@
 #define kOpacityLockKey   @"OpacityLock"
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:self.data forKey:kDataKey];
+    [encoder encodeDataObject:self.data];
     [encoder encodeObject:self.name forKey:kName];
     [encoder encodeObject:self.identifier forKey:kIdentifier];
     [encoder encodeInteger:(NSInteger)self.blendMode forKey:kBlendModeKey];
@@ -50,7 +50,7 @@
 }
 
 - (id) initWithCoder:(NSCoder *)decoder {
-    NSData *data = [decoder decodeObjectForKey:kDataKey];
+    NSData *data = [decoder decodeDataObject];
     NSString *name = [decoder decodeObjectForKey:kName];
     NSString *identifier = [decoder decodeObjectForKey:kIdentifier];
     LayerBlendMode blendMode = (LayerBlendMode)[decoder decodeIntegerForKey:kBlendModeKey];
@@ -73,6 +73,10 @@
     return layer;
 }
 
+- (void)dealloc{
+    DebugLogSystem(@"dealloc");
+    self.data = nil;
+}
 + (ADPaintLayer*)createBlankLayerWithSize:(CGSize)size transparent:(BOOL)transparent{
 //    NSInteger width = UndoImageSize;NSInteger height = UndoImageSize;
     NSInteger width = size.width;NSInteger height = size.height;

@@ -1,9 +1,9 @@
 //
-//  AnaDraw_Tests.m
+//  PaintProjector_Tests.m
 //  PaintProjector Tests
 //
-//  Created by 胡 文杰 on 14-1-7.
-//  Copyright (c) 2014年 WenjiHu. All rights reserved.
+//  Created by 胡 文杰 on 8/17/14.
+//  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
@@ -28,7 +28,7 @@
 
 - (void)testExample
 {
-//    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end

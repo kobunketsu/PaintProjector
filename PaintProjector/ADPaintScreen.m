@@ -511,7 +511,7 @@
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             DebugLog(@"EyeDrop Begin");
-            if ([self.paintView enterState:PaintingView_TouchEyeDrop]) {
+            if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
                 CGPoint point = [self willGetEyeDropLocation];
                 [self.paintView eyeDropColor:point];
                 
@@ -533,8 +533,6 @@
         default:
             break;
     }
-    
-    
 }
 
 - (IBAction)handleTap1Touches1TapsPaintView:(UITapGestureRecognizer *)sender {
@@ -544,7 +542,7 @@
     }
     
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        if ([self.paintView enterState:PaintingView_TouchPaint]) {
+        if ([self.paintView enterState:PaintView_TouchPaint]) {
             if (self.paintView.paintTouch == NULL) {
                 self.paintView.paintTouch = self.paintView.firstTouch;
             }
@@ -611,7 +609,7 @@
         case UIGestureRecognizerStateBegan:
         {
             switch (self.paintView.state) {
-                case PaintingView_TouchNone:{
+                case PaintView_TouchNone:{
                     [self handle2TouchesTransformCanvasBegan:sender];
                     break;
                 }
@@ -623,7 +621,7 @@
         case UIGestureRecognizerStateChanged:
         {
             switch (self.paintView.state) {
-                case PaintingView_TouchTransformCanvas:{
+                case PaintView_TouchTransformCanvas:{
                     //双指操作
                     [self handle2TouchesTransformCanvas:sender];
                     //单指中途提起
@@ -637,7 +635,7 @@
         case UIGestureRecognizerStateEnded:
         {
             switch (self.paintView.state) {
-                case PaintingView_TouchTransformCanvas:{
+                case PaintView_TouchTransformCanvas:{
                     //双手都放开，或者单手放开，都结束操作
                     [self handle2TouchesTransformCanvasEnded:sender];
                     break;
@@ -734,11 +732,11 @@
         case UIGestureRecognizerStateChanged:
         {
             switch (self.paintView.state) {
-                case PaintingView_TouchNone:{
+                case PaintView_TouchNone:{
                     [self handle3TouchesOperationBegan:sender];
                     break;
                 }
-                case PaintingView_TouchQuickTool:{
+                case PaintView_TouchQuickTool:{
                     [self handle3TouchesOperation:sender];
                     break;
                 }
@@ -750,7 +748,7 @@
         case UIGestureRecognizerStateEnded:
         {
             switch (self.paintView.state) {
-                case PaintingView_TouchQuickTool:{
+                case PaintView_TouchQuickTool:{
                     [self handle3TouchesOperationEnd:sender];
                     break;
                 }
@@ -788,7 +786,7 @@
 //        }
 //    }
 //    else if(sender.state == UIGestureRecognizerStateEnded){
-//        //self.paintView.state = PaintingView_TouchNone until transform done confirmed
+//        //self.paintView.state = PaintView_TouchNone until transform done confirmed
 //    }
 //    else if(sender.state == UIGestureRecognizerStateCancelled){
 //    }
@@ -797,20 +795,20 @@
 //
 //- (void)handlePinchRootViewInStateNormal:(UIPinchGestureRecognizer *)sender {
 //    if(sender.state == UIGestureRecognizerStateBegan){
-//        self.paintView.state = PaintingView_TouchTransformCanvas;
+//        self.paintView.state = PaintView_TouchTransformCanvas;
 //        [self handleTwoFingerTransformCanvasBegan:sender];
 //    }
 //    else if (sender.state == UIGestureRecognizerStateEnded){
 //        DebugLog(@"handlePinchPaintView ended");
 //        //变换模式下
-//        if (self.paintView.state == PaintingView_TouchTransformCanvas) {
+//        if (self.paintView.state == PaintView_TouchTransformCanvas) {
 //            //双手都放开，或者单手放开，都结束操作
 //            //                if (sender.numberOfTouches != 2) {
 //            [self handleTwoFingerTransformCanvasEnd:sender];
 //            //                }
 //        }
 //        //绘图模式下，只有参于绘图的Touch End才算绘图结束，在paintView touchEnd中判断
-//        else if (self.paintView.state == PaintingView_TouchPaint){
+//        else if (self.paintView.state == PaintView_TouchPaint){
 //        }
 //    }
 //    else if (sender.state == UIGestureRecognizerStateChanged){
@@ -1078,7 +1076,7 @@
         return;
     }
     
-    if (![self.paintView enterState:PaintingView_TouchTransformCanvas]) {
+    if (![self.paintView enterState:PaintView_TouchTransformCanvas]) {
         return;
     }
     
@@ -1117,7 +1115,7 @@
         return;
     }
     
-    if (![self.paintView enterState:PaintingView_TouchNone]) {
+    if (![self.paintView enterState:PaintView_TouchNone]) {
         return;
     }
     
@@ -1136,9 +1134,10 @@
     layer.anchorPoint = CGPointMake(0.5, 0.5);
     layer.position = CGPointMake(center.x - x, center.y - y);
 
+#if DEBUG
     CGFloat x1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.x"]).floatValue;
     CGFloat y1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.y"]).floatValue;
-    
+#endif
     DebugLog(@"after layer translation x:%.1f y:%.1f", x1, y1);
     DebugLog(@"after layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
     DebugLog(@"after layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
@@ -1208,7 +1207,7 @@
         return;
     }
     
-    if (![self.paintView enterState:PaintingView_TouchQuickTool]) {
+    if (![self.paintView enterState:PaintView_TouchQuickTool]) {
         return;
     }
     
@@ -1262,7 +1261,7 @@
 //    self.undoButton.highlighted = false;
 //    self.redoButton.highlighted = false;
     
-    if (![self.paintView enterState:PaintingView_TouchNone]) {
+    if (![self.paintView enterState:PaintView_TouchNone]) {
         return;
     }
     
@@ -2008,7 +2007,7 @@
         return;
     }
     
-    if (![self.paintView enterState:PaintingView_TouchNone]) {
+    if (![self.paintView enterState:PaintView_TouchNone]) {
         return;
     }
     
@@ -2649,6 +2648,11 @@
 #pragma mark- 导入 Import
 - (IBAction)importButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"importButtonTapped" identifier:sender];
+    
+    if (![self checkInsertAvailable]) {
+        return;
+    }
+    
     sender.selected = true;
     
     ADImportTableViewController* importTableViewController = [[ADImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -2764,6 +2768,7 @@
 #pragma mark- 取图片 UIImagePickerControllerDelegate
 // For responding to the user tapping Cancel.
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
+    [RemoteLog logAction:@"imagePickerControllerDidCancel" identifier:picker];
     [self dismissViewControllerAnimated:true completion:^{
         self.cameraImagePickerVC = nil;
     }];
@@ -2795,11 +2800,12 @@
             imageToSave = originalImage;
         }
         
-        CGFloat w = CGImageGetWidth(imageToSave.CGImage);
-        CGFloat h = CGImageGetHeight(imageToSave.CGImage);
-        DebugLog(@"camera image w %f h %f", w, h);
+//        CGFloat w = CGImageGetWidth(imageToSave.CGImage);
+//        CGFloat h = CGImageGetHeight(imageToSave.CGImage);
+//        DebugLog(@"camera image w %f h %f", w, h);
         
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            [RemoteLog logAction:@"imagePickerControllerDidFinishPickingImageFromCamera" identifier:picker];
             // Save the new image (original or edited) to the Camera Roll
             ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
             [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
@@ -2826,6 +2832,7 @@
             }];
         }
         else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+            [RemoteLog logAction:@"imagePickerControllerDidFinishPickingImageFromPhotoLibrary" identifier:picker];
             finalImage = imageToSave;
             if (self.subPopoverController) {
                 [self.subPopoverController dismissPopoverAnimated:true];
@@ -2837,8 +2844,11 @@
 }
 
 - (void)importEditImage:(UIImage *)image{
+    DebugLogFuncStart(@"importEditImage");
+    
     //将UIImage转换
     [self.paintView insertUIImageAtCurLayer:image];
+    
     
     //添加编辑Done按钮在导入图片的中心
     CGRect rect = [self.paintView calculateLayerContentRect];
@@ -2877,8 +2887,8 @@
         [alert show];
         return NO;
     }
-    
 }
+
 #pragma NavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
@@ -2888,9 +2898,13 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     if(result == MFMailComposeResultCancelled)
-        DebugLog(@"Mail has cancelled");
-    if(result == MFMailComposeResultSaved)
-        DebugLog(@"Mail has saved");
+        [RemoteLog logAction:@"Mail cancelled" identifier:controller];
+    else if(result == MFMailComposeResultSaved)
+        [RemoteLog logAction:@"Mail saved" identifier:controller];
+    else if(result == MFMailComposeResultSent)
+        [RemoteLog logAction:@"Mail sent" identifier:controller];
+    else if(result == MFMailComposeResultFailed)
+        [RemoteLog logAction:@"Mail failed" identifier:controller];
     
     [self dismissViewControllerAnimated:true completion:nil];
 }
@@ -2912,6 +2926,12 @@
 
 -(void) didSelectExportToEmail{
     [RemoteLog logAction:@"didSelectExportToEmail" identifier:nil];
+    if (![MFMailComposeViewController canSendMail]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
     
@@ -2938,10 +2958,10 @@
 
 - (void) savedPhotoImage:(UIImage*)image didFinishSavingWithError: (NSError *)error contextInfo: (void *)contextInfo{
     if (error) {
-        DebugLog(@"Error save image %@", [error localizedDescription]);
+        DebugLogError(@"Error save image %@", [error localizedDescription]);
     }
     else{
-        DebugLog(@"didFinishSaving");
+        DebugLogSuccess(@"didFinishSaving");
         //更新UI
         [self.sharedPopoverController dismissPopoverAnimated:true];
     }
@@ -2963,12 +2983,27 @@
 //    [self exportToEmail];
 }
 
--(void) didSelectPostToFacebook {
-    [RemoteLog logAction:@"didSelectPostToFacebook" identifier:nil];
+- (void)didSelectExportToSocialName:(NSString*)socialName{
+    [RemoteLog logAction:[NSString stringWithFormat:@"didSelectPostTo%@", socialName] identifier:nil];
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    NSString *socialType = nil;
+    if ([socialName isEqualToString:@"Facebook"]) {
+        socialType = SLServiceTypeFacebook;
+    }
+    else if ([socialName isEqualToString:@"Twitter"]) {
+        socialType = SLServiceTypeTwitter;
+    }
+    else if ([socialName isEqualToString:@"SinaWeibo"]) {
+        socialType = SLServiceTypeSinaWeibo;
+    }
+    else if ([socialName isEqualToString:@"TencentWeibo"]) {
+        socialType = SLServiceTypeTencentWeibo;
+    }
+    
+    if([SLComposeViewController isAvailableForServiceType:socialType]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:socialType];
         
         NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
@@ -2978,7 +3013,10 @@
         
         NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
-
+        
+        [controller setCompletionHandler:^(SLComposeViewControllerResult result){
+            [RemoteLog logAction:[NSString stringWithFormat:@"exported to %@", socialName] identifier:nil];
+        }];
         [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
         }];
@@ -2986,62 +3024,8 @@
     else{
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.exportButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"FacebookNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
--(void) didSelectPostToTwitter{
-    [RemoteLog logAction:@"didSelectPostToTwitter" identifier:nil];
-    self.exportButton.selected = false;
-    [self.exportButton.layer setNeedsDisplay];
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *controller = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
-        [controller setInitialText:postText];
-        
-        UIImage *image = [self paintImageForPostInSocial];
-        [controller addImage:image];
-
-        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
-        [controller addURL:appURL];
-        
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        [self presentViewController:controller animated:YES completion:^{
-        }];
-    }
-    else{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.exportButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"TwitterNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
--(void) didSelectPostToSinaWeibo {
-    [RemoteLog logAction:@"didSelectPostToSinaWeibo" identifier:nil];
-    self.exportButton.selected = false;
-    [self.exportButton.layer setNeedsDisplay];
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
-        
-        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
-        [controller setInitialText:postText];
-        
-        UIImage *image = [self paintImageForPostInSocial];
-        [controller addImage:image];
-
-        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
-        [controller addURL:appURL];
-
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        [self presentViewController:controller animated:YES completion:^{
-        }];
-    }
-    else{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.exportButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SinaWeiboNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -3358,27 +3342,30 @@
 }
 
 - (void)setTransformContentViewAnimRecursive{
-    [CATransaction begin];
-    [CATransaction setAnimationDuration:10.0];
-    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-    [CATransaction setCompletionBlock:^{
-        //TODO:循环调用导致无法释放transformContentView
-        if (self.transformContentView != nil) {
-            [self setTransformContentViewAnimRecursive];
-        }
-    }];
-    
-    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"phase"];
-    
-    //    anim.fromValue = [NSNumber numberWithFloat:0];
-    anim.toValue = [NSNumber numberWithFloat:120];
-    
-    [self.transformContentView.layer removeAnimationForKey:@"phase"];
-    [self.transformContentView.layer addAnimation:anim forKey:@"phase"];
+//    [CATransaction begin];
+//    [CATransaction setAnimationDuration:10.0];
+//    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+//    [CATransaction setCompletionBlock:^{
+//        //TODO:循环调用导致无法释放transformContentView
+////        if (self.transformContentView != nil) {
+////            [self setTransformContentViewAnimRecursive];
+////        }
+//    }];
+//    
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"phase"];
+//    
+//    //    anim.fromValue = [NSNumber numberWithFloat:0];
+//    anim.toValue = [NSNumber numberWithFloat:120];
+//    
+//    [self.transformContentView.layer removeAnimationForKey:@"phase"];
+//    [self.transformContentView.layer addAnimation:anim forKey:@"phase"];
+//    
+//    ((ADTransformContentViewLayer*)self.transformContentView.layer).phase = 120;
+//    
+//    [CATransaction commit];
     
     ((ADTransformContentViewLayer*)self.transformContentView.layer).phase = 120;
-    
-    [CATransaction commit];
+    [self.transformContentView.layer setNeedsDisplay];
 }
 
 //- (void)startChangeTransformState:(BOOL)enter{
@@ -3480,8 +3467,8 @@
     else if (_state == PaintScreen_Transform){
         [self lockInteraction:true];
         
-        [self.paintView transformImageDone];
-        
+        [self.paintView transformImageLayerDone];
+    
         //UI
         [self leaveTransformState];
 //        [self updateFuzzyTransparentViews];
@@ -4280,8 +4267,8 @@
 //TODO:需要在其他按钮按下时取消取色状态
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"eyeDropperButtonTouchUp" identifier:sender];
-    if (self.paintView.state != PaintingView_TouchEyeDrop) {
-        if ([self.paintView enterState:PaintingView_TouchEyeDrop]) {
+    if (self.paintView.state != PaintView_TouchEyeDrop) {
+        if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
             _state = PaintScreen_PickColor;
             
             [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
@@ -4290,8 +4277,8 @@
             [self.eyeDropperButton setColor:self.paintColorButton.color];
         }
     }
-    else if(self.paintView.state == PaintingView_TouchEyeDrop){
-        if ([self.paintView enterState:PaintingView_TouchNone]) {
+    else if(self.paintView.state == PaintView_TouchEyeDrop){
+        if ([self.paintView enterState:PaintView_TouchNone]){
             _state = PaintScreen_Normal;
             
             [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
@@ -4383,6 +4370,7 @@
         self.exportButton.selected = false;
         [self.exportButton.layer setNeedsDisplay];
     }
+    
 }
 
 
@@ -4390,9 +4378,9 @@
 -(void)willSnapshotUIImageEnd:(UIImage *)image{
     //TODO:目前会导致GetColorSpaceModel BadAccess
     
-    for (ADAutoRotateButton *button in self.topToolBarButtons) {
-
-    }
+//    for (ADAutoRotateButton *button in self.topToolBarButtons) {
+//
+//    }
 
     //更新顶部按钮颜色
     [CATransaction begin];
@@ -4400,8 +4388,8 @@
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     [CATransaction setCompletionBlock:^{
         //animations are removed automatically
-        for (ADAutoRotateButton *button in self.topToolBarButtons) {
-        }
+//        for (ADAutoRotateButton *button in self.topToolBarButtons) {
+//        }
     }];
     
     for (ADAutoRotateButton *button in self.topToolBarButtons) {

@@ -81,7 +81,8 @@ static inline void	processOneVertex(VertexTextureIndex *rootNode, GLuint vertexI
 		self.groups = [NSMutableArray array];
 		
 		self.sourceObjFilePath = path;
-		NSString *objData = [NSString stringWithContentsOfFile:path];
+        NSError *error = nil;
+		NSString *objData = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
 		NSUInteger vertexCount = 0, faceCount = 0, textureCoordsCount=0, groupCount = 0;
 		// Iterate through file once to discover how many vertices, normals, and faces there are
 		NSArray *lines = [objData componentsSeparatedByString:@"\n"];

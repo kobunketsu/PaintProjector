@@ -92,11 +92,8 @@ GLKViewDelegate,
 UIPrintInteractionControllerDelegate,
 UIViewControllerTransitioningDelegate,
 UIPopoverControllerDelegate,
-SKProductsRequestDelegate,
 UIAlertViewDelegate,
 MFMailComposeViewControllerDelegate,
-UICollectionViewDelegate,
-UICollectionViewDataSource,
 REDisplayDelegate,
 ADPaintScreenTransitionManagerDelegate,
 ADPaintScreenDelegate,
@@ -105,7 +102,6 @@ ADCustomPercentDrivenInteractiveTransition,
 ADShareTableViewControllerDelegate,
 ADProductInfoTableViewControllerDelegate,
 ADInAppPurchaseTableViewControllerDelegate
-//CylinderProjectSetupViewControllerDelegate
 >
 {
     void * _baseAddress;
@@ -222,7 +218,7 @@ ADInAppPurchaseTableViewControllerDelegate
 
 #pragma mark- 绘制Paint
 //@property (weak, nonatomic) PaintDoc *curPaintDoc;
--(void)viewPaintDoc:(ADPaintDoc*)paintDoc;
+//-(void)viewPaintDoc:(ADPaintDoc*)paintDoc;
 - (void)openPaintDoc:(ADPaintDoc*)paintDoc;
 - (void)transitionToPaint:(ADPaintDoc*)paintDoc;
 
@@ -243,12 +239,14 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (assign, nonatomic) CMTime playTime;//播放到的时刻
 
 - (void)syncPlayUI;
-- (IBAction)playButtonTouchUp:(UIButton *)sender;
-- (IBAction)playbackButtonTouchUp:(UIButton *)sender;
+//- (IBAction)playButtonTouchUp:(UIButton *)sender;
+//- (IBAction)playbackButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- 帮助物体Helper
 @property (assign, nonatomic) BOOL showGrid;//是否显示网格
 @property (retain, nonatomic) ADGrid *grid;//网格
+
+#pragma mark- 分享Share
 
 #pragma mark- 测试Debug
 

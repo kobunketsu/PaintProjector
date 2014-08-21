@@ -57,14 +57,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return 4;
 }
@@ -171,13 +171,13 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [self.delegate didSelectPostToFacebook];
+            [self.delegate didSelectPostToSocialName:@"Facebook"];
             break;
         case 1:
-            [self.delegate didSelectPostToTwitter];
+            [self.delegate didSelectPostToSocialName:@"Twitter"];
             break;
         case 2:
-            [self.delegate didSelectPostToSinaWeibo];
+            [self.delegate didSelectPostToSocialName:@"SinaWeibo"];
             break;
         case 3:
             [self.delegate didSelectPostToEmail];

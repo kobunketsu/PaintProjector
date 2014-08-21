@@ -156,12 +156,14 @@
 }
 
 - (void)deletePreviewFramebuffer{
+    DebugLogFuncStart(@"deletePreviewFramebuffer");
     [[REGLWrapper current] deleteFramebufferOES:_framebuffer];
     
     [[REGLWrapper current] deleteRenderbufferOES:_renderbuffer];
 }
 
 - (BOOL)createPreviewFramebuffer{
+    DebugLogFuncStart(@"createPreviewFramebuffer");
 #if DEBUG
     glPushGroupMarkerEXT(0, "createPreviewFramebuffer");
 #endif
@@ -210,14 +212,13 @@
 }
 
 - (void)deleteBrushRenderTexture{
-    DebugLogFuncStart(@"deleteBrushFramebufferTexture");
+    DebugLogFuncStart(@"deleteBrushRenderTexture");
     [self.brushTexture destroy];
     self.brushTexture = nil;
 }
 
 - (BOOL)createBrushRenderTexture{
-    
-    DebugLogFuncStart(@"createBrushFramebufferTexture");
+    DebugLogFuncStart(@"createBrushRenderTexture");
     self.brushTexture = [RERenderTexture textureWithName:@"brushPreviewBrushTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
 	return YES;
@@ -225,16 +226,14 @@
 
 //PaintLayer
 - (void)deleteLayerRenderTexture{
-    DebugLogFuncStart(@"deleteLayerFramebufferTexture");
+    DebugLogFuncStart(@"deleteLayerRenderTexture");
     [self.curLayerTexture destroy];
     self.curLayerTexture = nil;
 }
 
 - (BOOL)createLayerRenderTexture{
-    DebugLogFuncStart(@"createLayerFramebufferTexture");
-    
+    DebugLogFuncStart(@"createLayerRenderTexture");
     self.curLayerTexture = [RERenderTexture textureWithName:@"brushPreviewLayerTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    
 	return YES;
 }
 
@@ -246,9 +245,8 @@
 }
 
 - (BOOL)createTempLayerRenderTexture{
-    DebugLogFuncStart(@"createTempLayerFramebufferTexture");
+    DebugLogFuncStart(@"createTempLayerRenderTexture");
     self.curPaintedLayerTexture = [RERenderTexture textureWithName:@"brushPreviewPaintedLayerTexture" size:BrushPreview_Size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-
 	return YES;
 }
 

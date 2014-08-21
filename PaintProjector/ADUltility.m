@@ -200,7 +200,7 @@ static ADUltility* sharedInstance = nil;
     // Allocate  memory needed for the bitmap context
     GLubyte	*data = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));
     // Use  the bitmatp creation function provided by the Core Graphics framework.
-    CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width * 4, CGImageGetColorSpace(image), kCGImageAlphaPremultipliedLast);
+    CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width * 4, CGImageGetColorSpace(image), kCGBitmapByteOrderDefault);
     
     //flip uiImage for opengl
     CGContextTranslateCTM(context, 0, height);
@@ -228,11 +228,33 @@ static ADUltility* sharedInstance = nil;
     CFRelease(destination);
 }
 #pragma mark UIImage Tools
+//+ (NSData*)dataSnapshotInRect:(CGRect)rect{
+//    CGFloat x = rect.origin.x;
+//    CGFloat y = rect.origin.y;
+//    NSInteger width = rect.size.width;
+//    NSInteger height = rect.size.height;
+//    
+//    NSInteger dataLength = width * height * 4;
+//    GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
+//    glViewport(x, y, width, height);
+//    // Read pixel data from the framebuffer
+//    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+//    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+//    CFDataRef dataRef = CFDataCreateWithBytesNoCopy(NULL, data, dataLength, NULL);
+//    
+//    NSData *nsdata = (__bridge NSData*)dataRef;
+//    return nsdata;
+//}
+static void providerReleaseData(void *info, const void *data, size_t size)
+{
+    free((void *)data);
+}
 
 + (UIImage*)snapshot:(UIView*)eaglview Context:(EAGLContext *)context InViewportSize:(CGSize)viewportSize ToOutputSize:(CGSize)outputSize{
+
 	[EAGLContext setCurrentContext:context];//之前有丢失context的现象出现
 
-//	GLint _backingWidth;GLint _backingHeight;    
+//	GLint _backingWidth;GLint _backingHeight;
 //	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
 //	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &_backingHeight);
 //    
@@ -241,7 +263,7 @@ static ADUltility* sharedInstance = nil;
     NSInteger x = 0, y = 0;
     NSInteger dataLength = width * height * 4;
     GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
-    glViewport(0, 0, viewportSize.width, viewportSize.height);
+    glViewport(x, y, viewportSize.width, viewportSize.height);
     // Read pixel data from the framebuffer
     glPixelStorei(GL_PACK_ALIGNMENT, 4);
 
@@ -250,6 +272,7 @@ static ADUltility* sharedInstance = nil;
     // Create a CGImage with the pixel data
     // If your OpenGL ES content is opaque, use kCGImageAlphaNoneSkipLast to ignore the alpha channel
     // otherwise, use kCGImageAlphaPremultipliedLast
+
     CGDataProviderRef ref = CGDataProviderCreateWithData(NULL, data, dataLength, NULL);
     CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
     CGImageRef iref = CGImageCreate(width, height, 8, 32, width * 4, colorspace, kCGBitmapByteOrder32Big | kCGImageAlphaPremultipliedLast,
@@ -267,8 +290,6 @@ static ADUltility* sharedInstance = nil;
             scale = eaglview.contentScaleFactor;
         }
 
-//        widthInPoints = width / scale;
-//        heightInPoints = height / scale;
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(outputSize.width, outputSize.height), NO, scale);
     }
     else {
@@ -287,15 +308,15 @@ static ADUltility* sharedInstance = nil;
     CGContextDrawImage(cgcontext, CGRectMake(0.0, 0.0, outputSize.width, outputSize.height), iref);
     
     // Retrieve the UIImage from the current context
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();//using mmap
     UIGraphicsEndImageContext();
     
     // Clean up
-    free(data);
-    CFRelease(ref);
-    CFRelease(colorspace);
     CGImageRelease(iref);
-    
+    CGColorSpaceRelease(colorspace);
+    CGDataProviderRelease(ref);
+    free(data);
+
     return image;
 }
 

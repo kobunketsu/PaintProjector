@@ -181,6 +181,7 @@
     if (self.lastTexture == tex) {
         self.lastTexture = 0;
     }
+    glFinish();
     RELEASE_TEXTURE(tex);
 }
 
@@ -426,9 +427,9 @@
 
 - (BOOL)validateProgram:(GLuint)prog
 {
-    
-    GLint logLength, status;
-#if defined(DEBUG)
+    GLint status;
+#if DEBUG
+    GLint logLength;
     glValidateProgram(prog);
     glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
     if (logLength > 0) {

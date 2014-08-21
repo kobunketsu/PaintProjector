@@ -246,14 +246,14 @@ BrushTypePageControlDelegate
 @property (retain, nonatomic) UIImagePickerController *cameraImagePickerVC;
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender;
-- (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;
-- (IBAction)handlePanRootView:(UIPanGestureRecognizer *)sender;
+//- (IBAction)handlePinchRootView:(UIPinchGestureRecognizer *)sender;
+//- (IBAction)handlePanRootView:(UIPanGestureRecognizer *)sender;
 - (IBAction)handleLongPressPaintView:(UILongPressGestureRecognizer *)sender;
 - (IBAction)handleLongPress2TouchesRootCanvasView:(UILongPressGestureRecognizer *)sender;
 //- (IBAction)handleSwipeGRRootView:(UISwipeGestureRecognizer *)sender;
 - (IBAction)handleLongPressColorSlot:(UILongPressGestureRecognizer *)sender;
-- (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender;
-- (IBAction)handleTapBrushView:(UITapGestureRecognizer *)sender;
+//- (IBAction)handlePanBrushView:(UIPanGestureRecognizer *)sender;
+//- (IBAction)handleTapBrushView:(UITapGestureRecognizer *)sender;
 - (IBAction)handleTap1Touches1TapsPaintView:(UITapGestureRecognizer *)sender;
 - (IBAction)handleTap1Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender;
 - (IBAction)handleTap2Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender;
@@ -295,7 +295,7 @@ BrushTypePageControlDelegate
 - (IBAction)takeBarValue: (InfColorBarPicker*) sender;
 - (IBAction)takeSquareValue: (InfColorSquarePicker*) sender;
 
-- (IBAction)debugButtonTouchUp:(UIButton *)sender;
+//- (IBAction)debugButtonTouchUp:(UIButton *)sender;
 - (IBAction)clearButtonTouchUp:(ADClearButton *)sender;
 - (IBAction)clearButtonTouchDown:(ADClearButton *)sender;
 //- (IBAction)clearButtonTouchCancel:(ClearButton *)sender;

@@ -270,7 +270,13 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     DebugLogSystem(@"记录交易,交易记录保存到磁盘存储收据");
     // save the transaction receipt to disk
     NSString *productTransactionReceipt = [transaction.payment.productIdentifier stringByAppendingString:@"Receipt"];
-    [[NSUserDefaults standardUserDefaults] setValue:transaction.transactionReceipt forKey:productTransactionReceipt];
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *receipt = [NSData dataWithContentsOfURL:receiptURL];
+    if(!receipt) {
+        /* No local receipt -- handle the error. */
+    }
+    NSString *jsonObjectString = [receipt base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    [[NSUserDefaults standardUserDefaults] setValue:jsonObjectString forKey:productTransactionReceipt];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

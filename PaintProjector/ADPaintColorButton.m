@@ -47,7 +47,7 @@
     
     //// Color Declarations
     UIColor* gradientColor = _color;
-    CGFloat* colors = CGColorGetComponents(_color.CGColor);
+    const CGFloat* colors = CGColorGetComponents(_color.CGColor);
     UIColor* gradientColor2 = [UIColor colorWithRed: colors[0] * 0.85 green: colors[1] * 0.85 blue: colors[2] * 0.85 alpha: 1];
     UIColor* gradientColor3= [UIColor colorWithRed: colors[0] * 0.9 green: colors[1] * 0.9 blue: colors[2] * 0.9 alpha: 1];
     

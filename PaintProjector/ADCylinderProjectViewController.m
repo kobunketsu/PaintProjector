@@ -590,19 +590,38 @@ static float DeviceWidth = 0.154;
     [self.sharedPopoverController presentPopoverFromRect:self.shareButton.bounds inView:self.shareButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 #pragma mark- 分享 share Delegate
--(void) didSelectPostToFacebook {
-    [RemoteLog logAction:@"didSelectPostToFacebook" identifier:nil];
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+-(void)didSelectPostToSocialName:(NSString*)socialName{
+    [RemoteLog logAction:[NSString stringWithFormat:@"didSelectPostTo%@", socialName] identifier:nil];
+    NSString *serviceType = nil;
+    if ([socialName isEqualToString:@"Facebook"]) {
+        serviceType = SLServiceTypeFacebook;
+    }
+    else if ([socialName isEqualToString:@"Twitter"]) {
+        serviceType = SLServiceTypeTwitter;
+    }
+    else if ([socialName isEqualToString:@"SinaWeibo"]) {
+        serviceType = SLServiceTypeSinaWeibo;
+    }
+    else if ([socialName isEqualToString:@"TencentWeibo"]) {
+        serviceType = SLServiceTypeTencentWeibo;
+    }
+    
+    if([SLComposeViewController isAvailableForServiceType:serviceType]) {
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:serviceType];
         
         NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
+        @autoreleasepool {
+            UIImage *image = [self.projectView snapshot];
+            [controller addImage:image];
+        }
         
         NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
-
+        
+        [controller setCompletionHandler:^(SLComposeViewControllerResult result){
+            [self sharedToSocial:socialName completion:result];
+        }];
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.shareButton.selected = false;
         [self presentViewController:controller animated:YES completion:^{
@@ -611,67 +630,28 @@ static float DeviceWidth = 0.154;
     else{
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.shareButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"FacebookNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
-
--(void) didSelectPostToTwitter{
-    [RemoteLog logAction:@"didSelectPostToTwitter" identifier:nil];
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
-    {
-        SLComposeViewController *controller = [SLComposeViewController
-                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
-        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
-        [controller setInitialText:postText];
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
-        
-        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
-        [controller addURL:appURL];
-        
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.shareButton.selected = false;
-        [self presentViewController:controller animated:YES completion:^{
-        }];
+-(void)sharedToSocial:(NSString*)socialName completion:(SLComposeViewControllerResult) result{
+    if (result == SLComposeViewControllerResultCancelled) {
+        [RemoteLog logAction:[NSString stringWithFormat:@"shared to %@ canceled", socialName] identifier:nil];
     }
     else{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.shareButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"TwitterNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
-
--(void) didSelectPostToSinaWeibo {
-    [RemoteLog logAction:@"didSelectPostToSinaWeibo" identifier:nil];
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
-        NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
-        [controller setInitialText:postText];
-        
-        UIImage *image = [self.projectView snapshot];
-        [controller addImage:image];
-        
-        NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
-        [controller addURL:appURL];
-        
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.shareButton.selected = false;
-        [self presentViewController:controller animated:YES completion:^{
-            
-        }];
-    }
-    else{
-        [self.sharedPopoverController dismissPopoverAnimated:true];
-        self.shareButton.selected = false;
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SinaWeiboNotInstalled", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        [RemoteLog logAction:[NSString stringWithFormat:@"shared to %@", socialName] identifier:nil];
     }
 }
 
 -(void) didSelectPostToEmail {
     [RemoteLog logAction:@"didSelectPostToEmail" identifier:nil];
+    if (![MFMailComposeViewController canSendMail]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
     picker.mailComposeDelegate = self;
     NSString *postText = NSLocalizedString(@"EmailMessageSubject", nil);
@@ -689,16 +669,17 @@ static float DeviceWidth = 0.154;
     }
 
     [picker setMessageBody:messageBody isHTML:YES];
-    
-    UIImage *image = [self.projectView snapshot];
-    //convert UIImage to NSData to add it as attachment
-    NSData *imageData = UIImagePNGRepresentation(image);
-    
-    //this is how to attach any data in mail, remember mimeType will be different
-    //for other data type attachment.
-    
-    [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
-    
+
+    @autoreleasepool {
+        UIImage *image = [self.projectView snapshot];
+        //convert UIImage to NSData to add it as attachment
+        NSData *imageData = UIImagePNGRepresentation(image);
+        
+        //this is how to attach any data in mail, remember mimeType will be different
+        //for other data type attachment.
+        [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
+    }
+
     //showing MFMailComposerView here
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.shareButton.selected = false;
@@ -709,11 +690,16 @@ static float DeviceWidth = 0.154;
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     if(result == MFMailComposeResultCancelled)
-        DebugLog(@"Mail has cancelled");
-    if(result == MFMailComposeResultSaved)
-        DebugLog(@"Mail has saved");
+        [RemoteLog logAction:@"Mail cancelled" identifier:controller];
+    else if(result == MFMailComposeResultSaved)
+        [RemoteLog logAction:@"Mail saved" identifier:controller];
+    else if(result == MFMailComposeResultSent)
+        [RemoteLog logAction:@"Mail sent" identifier:controller];
+    else if(result == MFMailComposeResultFailed)
+        [RemoteLog logAction:@"Mail failed" identifier:controller];
     
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:true completion:^{
+    }];
 }
 #pragma mark- 设置Setup
 - (void)setIsSetupMode:(BOOL)isSetupMode{
@@ -2170,8 +2156,10 @@ static float DeviceWidth = 0.154;
     
     if (halfWayImage != NULL) {
         
+#if DEBUG
         NSString *actualTimeString = (__bridge NSString *)CMTimeCopyDescription(NULL, actualTime);
         NSString *requestedTimeString = (__bridge NSString *)CMTimeCopyDescription(NULL, midpoint);
+#endif
         DebugLog(@"Got halfWayImage: Asked for %@, got %@", requestedTimeString, actualTimeString);
         
         // Do something interesting with the image.
@@ -2520,6 +2508,9 @@ static float DeviceWidth = 0.154;
 }
 
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
+- (ADBrush*) willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
+    return nil;
+}
 - (void)willIAPPurchaseDone{
     [self.iapVC dismissViewControllerAnimated:true completion:^{
         DebugLog(@"willIAPPurchaseDone");
