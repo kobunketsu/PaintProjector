@@ -24,7 +24,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     uint64_t nanos = elapsed * info.numer / info.denom;
     CGFloat result = (CGFloat)nanos / NSEC_PER_SEC;
     
-    NSLog(@"isEqual: time: %f\n", result);
+    DebugLogProfile(@"isEqual: time: %f\n", result);
     
     return result;
 }
@@ -36,9 +36,9 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
                                    (task_info_t)&info,
                                    &size);
     if( kerr == KERN_SUCCESS ) {
-        NSLog(@"Memory in use (in bytes): %u", info.resident_size);
+        DebugLogProfile(@"Memory in use (in bytes): %u", info.resident_size);
     } else {
-        NSLog(@"Error with task_info(): %s", mach_error_string(kerr));
+        DebugLogProfile(@"Error with task_info(): %s", mach_error_string(kerr));
     }
 }
 @end

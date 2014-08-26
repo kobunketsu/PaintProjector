@@ -38,9 +38,9 @@
 
     #ifdef DEBUG
     //成功的log
-    #define _DebugLogSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    #define _DebugLogWriteSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
     #else
-    #define _DebugLogSuccess(s, ...)
+    #define _DebugLogWriteSuccess(s, ...)
     #endif
 
     #ifdef DEBUG
@@ -88,13 +88,13 @@
 #endif
 
 //global switcher
-#define DebugLog(s,...)            _DebugLog(s, ##__VA_ARGS__)
-#define DebugLogWarn(s,...)        _DebugLogWarn(s, ##__VA_ARGS__)
-#define DebugLogError(s,...)       _DebugLogError(s, ##__VA_ARGS__)
-#define DebugLogSuccess(s,...)     _DebugLogSuccess(s, ##__VA_ARGS__)
-#define DebugLogSystem(s,...)      _DebugLogSystem(s, ##__VA_ARGS__)
-#define DebugLogIBAction(s,...)    _DebugLogIBAction(s, ##__VA_ARGS__)
-#define DebugLogFuncStart(s,...)   _DebugLogFuncStart(s, ##__VA_ARGS__)
-#define DebugLogFuncUpdate(s,...)  _DebugLogFuncUpdate(s, ##__VA_ARGS__)
-#define DebugLogGL(s,...)          _DebugLogGL(s, ##__VA_ARGS__)
-#define DebugLogProfile(s,...)     //_DebugLogProfile(s, ##__VA_ARGS__)
+#define DebugLog(s,...)                 _DebugLog(s, ##__VA_ARGS__)
+#define DebugLogWarn(s,...)             _DebugLogWarn(s, ##__VA_ARGS__)
+#define DebugLogError(s,...)            _DebugLogError(s, ##__VA_ARGS__)
+#define DebugLogWriteSuccess(s,...)     _DebugLogWriteSuccess(s, ##__VA_ARGS__)
+#define DebugLogSystem(s,...)           _DebugLogSystem(s, ##__VA_ARGS__)
+#define DebugLogIBAction(s,...)         _DebugLogIBAction(s, ##__VA_ARGS__)
+#define DebugLogFuncStart(s,...)        _DebugLogFuncStart(s, ##__VA_ARGS__)
+#define DebugLogFuncUpdate(s,...)       _DebugLogFuncUpdate(s, ##__VA_ARGS__)
+#define DebugLogGL(s,...)               _DebugLogGL(s, ##__VA_ARGS__)
+#define DebugLogProfile(s,...)          //_DebugLogProfile(s, ##__VA_ARGS__)

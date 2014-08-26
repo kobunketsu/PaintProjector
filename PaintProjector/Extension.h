@@ -23,3 +23,4 @@
 #import "UIView+Extensions.h"
 #import "UIView+Tag.h"
 #import "UIView+VisibilityAnimation.h"
+#import "SKProduct+LocalizedPrice.h"

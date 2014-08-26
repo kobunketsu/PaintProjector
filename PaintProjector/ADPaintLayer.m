@@ -62,6 +62,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone{
+    DebugLogSystem(@"copyWithZone");
     ADPaintLayer *layer = (ADPaintLayer *)[super copyWithZone:zone];
     layer.name = self.name;
     layer.data = [self.data copyWithZone:zone];

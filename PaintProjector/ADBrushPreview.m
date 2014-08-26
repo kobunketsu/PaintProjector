@@ -62,6 +62,13 @@
      name:UIApplicationWillResignActiveNotification
      object:nil];
     
+    //通知程序退出激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationDidBecomeActive:)
+     name:UIApplicationDidBecomeActiveNotification
+     object:nil];
+    
     //通知程序即将关闭
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -76,9 +83,12 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+    
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -100,10 +110,6 @@
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
     DebugLogFuncStart(@"applicationWillEnterForeground");
-    if ([REGLWrapper current].context == NULL) {
-        DebugLogWarn(@"reactiveGL context null");
-        return;
-    }
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     [self setupGL];
@@ -115,6 +121,16 @@
     glFinish();
 }
 
+-(void)applicationDidBecomeActive:(id)sender{
+    DebugLogFuncStart(@"applicationDidBecomeActive");
+    //在购买iap时会调用
+    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+    
+    [self setupGL];
+    
+    glFinish();
+    
+}
 -(void)applicationWillResignActive:(id)sender{
     DebugLogFuncStart(@"applicationWillResignActive");
     glFinish();
@@ -142,7 +158,6 @@
 
 - (void)setupGL{
     DebugLogFuncStart(@"setupGL");
-    [EAGLContext setCurrentContext:[REGLWrapper current].context];
 
     [self createLayerRenderTexture];
     

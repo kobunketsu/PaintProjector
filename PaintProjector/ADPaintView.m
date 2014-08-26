@@ -1812,14 +1812,14 @@
     //删除之前的buffer
     [self destroyFrameBufferTextures];
     [self createFramebufferTextures];
+    //预编译部分Shader
+    [self prewarmShaders];
+    
     [self setCurLayerIndex:self.paintData.layers.count - 1];
 
     //重置撤销
     [self resetUndoRedo];
 
-    //预编译部分Shader
-    [self prewarmShaders];
-    
     //第一次presentRenderbuffer,在此之前prewarm所有的shader
     [self _updateRender];
     
@@ -2094,7 +2094,7 @@
 - (BOOL)createLayerRenderTextures{
     DebugLogFuncStart(@"createLayerRenderTexturesFromPaintData");
     if (self.paintData == nil) {
-        DebugLog(@"createLayerRenderTexturesFromPaintData failed. paintData nil");
+        DebugLogError(@"createLayerRenderTexturesFromPaintData failed. paintData nil");
         return NO;
     }
     
@@ -2975,7 +2975,7 @@
     
     //交换图片原数据
     ADPaintData *data = [self.reversePaintDocSrc open];
-    ADPaintData *reversePaintData = self.paintData;
+    self.reversePaintData = self.paintData;
     self.paintData = data;
     
     //覆盖原数据
@@ -2986,7 +2986,7 @@
     RERenderTexture *tempRT = [RERenderTexture textureWithName:@"temp" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     //插入反向绘制的RenderTexture
     NSUInteger srcLayerCount = self.paintData.layers.count;
-    for (ADPaintLayer *layer in reversePaintData.layers) {
+    for (ADPaintLayer *layer in self.reversePaintData.layers) {
 
 #if DEBUG
         glPushGroupMarkerEXT(0, "layer temp renderTexture");
@@ -3037,6 +3037,7 @@
         }
     }
     
+    //更新原数据到合成后的数据
     self.reversePaintDocSrc.data = self.paintData;
     
     //删除资源
@@ -3060,12 +3061,12 @@
     self.cylinderImage = cylinderImage;
     cylinderImage.name = @"cylinderImage";
     cylinderImage.renderer = meshRenderer;
-    cylinderImage.radius = self.reversePaintData.radius;
-    cylinderImage.eye = self.reversePaintData.eye;
-    cylinderImage.imageWidth = self.reversePaintData.imageWidth;
-    cylinderImage.imageCenterOnSurfHeight = self.reversePaintData.imageCenterOnSurfHeight;
-    cylinderImage.imageRatio = self.reversePaintData.imageRatio;
-    cylinderImage.reflectionTexUVSpace = self.reversePaintData.reflectionTexUVSpace;
+    cylinderImage.radius = self.reversePaintInputData.radius;
+    cylinderImage.eye = self.reversePaintInputData.eye;
+    cylinderImage.imageWidth = self.reversePaintInputData.imageWidth;
+    cylinderImage.imageCenterOnSurfHeight = self.reversePaintInputData.imageCenterOnSurfHeight;
+    cylinderImage.imageRatio = self.reversePaintInputData.imageRatio;
+    cylinderImage.reflectionTexUVSpace = self.reversePaintInputData.reflectionTexUVSpace;
     cylinderImage.layerMask = Culling_CylinderImage;
     meshRenderer.delegate = cylinderImage;
     [cylinderImage update];

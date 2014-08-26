@@ -31,9 +31,6 @@
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.2];
     
     //// Shadow Declarations
-    UIColor* highlight = UIColor.whiteColor;
-    CGSize highlightOffset = CGSizeMake(0.1, 1.1);
-    CGFloat highlightBlurRadius = 0;
     UIColor* shadow = shadowColor2;
     CGSize shadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat shadowBlurRadius = 0;
@@ -69,34 +66,11 @@
     [bezier5Path addCurveToPoint: CGPointMake(27.61, 21.26) controlPoint1: CGPointMake(28.94, 21.88) controlPoint2: CGPointMake(28.34, 21.26)];
     [bezier5Path closePath];
     CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, highlightOffset, highlightBlurRadius, [highlight CGColor]);
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
     [iconColor setFill];
     [bezier5Path fill];
-    
-    ////// Bezier 5 Inner Shadow
-    CGContextSaveGState(context);
-    UIRectClip(bezier5Path.bounds);
-    CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-    
-    CGContextSetAlpha(context, CGColorGetAlpha([shadow CGColor]));
-    CGContextBeginTransparencyLayer(context, NULL);
-    {
-        UIColor* opaqueShadow = [shadow colorWithAlphaComponent: 1];
-        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [opaqueShadow CGColor]);
-        CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-        CGContextBeginTransparencyLayer(context, NULL);
-        
-        [opaqueShadow setFill];
-        [bezier5Path fill];
-        
-        CGContextEndTransparencyLayer(context);
-    }
-    CGContextEndTransparencyLayer(context);
     CGContextRestoreGState(context);
-    
-    CGContextRestoreGState(context);
-
-    
+  
 }
 
 

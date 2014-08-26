@@ -445,7 +445,7 @@
 
 -(void)applicationWillResignActive:(id)sender{
     DebugLogFuncStart(@"applicationWillResignActive");
-    [self uploadAndSaveDoc];
+    [self autoSave];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
 }
@@ -2492,7 +2492,7 @@
 
 #pragma mark- 文件操作
 - (void)openDoc:(ADPaintDoc*)paintDoc{
-    //DebugLog(@"Open Paint Doc");    
+    //DebugLog(@"openDoc");
     self.paintDoc = paintDoc;
 
     [self.paintView setOpenData:[self.paintDoc open]];
@@ -2507,46 +2507,96 @@
     }
     
 }
-- (void)uploadAndSaveDoc{
+
+-(void)updateDoc{
     [self.paintView uploadLayerDatas];
-    [self saveDoc];
 }
+
+//保存文档和截图
 - (void)saveDoc{
-    //在paintView完成上传paintData后更新到paintDoc中，并保存paintDoc到磁盘
+    //在paintView完成上传paintData后更新到paintDoc中，并保存paintDoc到磁盘,
     //将当前PaintDoc文件保存到.psf
     [self.paintDoc save];
     
     //刷新预览文件
     [self.paintDoc saveThumbImage:[self.paintView snapshotScreenToUIImageOutputSize:CGSizeMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5)]];
-    
-    //保存workspace
-    [self saveWorkSpace];
 }
 
--(void)closeDoc{
-//    DebugLog(@"self.paintView close");
-    [self.paintView uploadLayerDatas];
+//自动保存工作环境和当前工作内容
+- (void)autoSave{
+    DebugLogFuncStart(@"autoSave");
+    [self saveWorkSpace];
     
+    [self updateDoc];
+
     //反向绘制转换并合成paintDoc
+    ADPaintDoc *tempDoc = nil;
+    ADPaintData *tempData = nil;
+    
     if (self.isReversePaint) {
+        tempDoc = self.paintDoc;
+        tempData = [self.paintView.paintData copy];
+    
         [self.paintView transferReversePaint];
         self.paintDoc = self.paintView.reversePaintDocSrc;
     }
+
     [self saveDoc];
     
-    //UI
+    //用于reversePaint恢复当前正在画的paintDoc
+    if (self.isReversePaint) {
+        self.paintDoc = tempDoc;
+        self.paintView.paintData = tempData;
+    }
+}
+
+//关闭界面
+-(void)close{
+    DebugLogFuncStart(@"close");
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"DontSave", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
+    alertView.tag = 6;
+    [alertView show];
+    
+    [self saveWorkSpace];
+}
+
+//关闭界面和文档
+- (void)closeDoc{
     [self.paintView transformCanvasReset];
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
         //    DebugLog(@"delegate closePaintDoc");
         [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
         [self dismissViewControllerAnimated:true completion:^{
-            [self.paintDoc close];
             [self lockInteraction:false];
             [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
+            [self.paintDoc close];
         }];
-
     }];
+}
+
+//不保存直接关闭文档
+- (void)closeDocWithoutSave{
+    if (self.isReversePaint) {
+        self.paintDoc = self.paintView.reversePaintDocSrc;
+    }
+    
+    [self closeDoc];
+}
+
+//保存并关闭文档
+- (void)closeDocWithSave{
+    [self updateDoc];
+    
+    //反向绘制转换并合成paintDoc
+    if (self.isReversePaint) {
+        [self.paintView transferReversePaint];
+        self.paintDoc = self.paintView.reversePaintDocSrc;
+    }
+    
+    [self saveDoc];
+    
+    [self closeDoc];
 }
 
 #pragma mark- 工作环境
@@ -2813,7 +2863,7 @@
                     DebugLogError(@"writeImageToSavedPhotosAlbum error");
                 }
                 else {
-                    DebugLogSuccess(@"writeImageToSavedPhotosAlbum url %@", assetURL);
+                    DebugLogWriteSuccess(@"writeImageToSavedPhotosAlbum url %@", assetURL);
                     [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                         ALAssetRepresentation *assetRep = [asset defaultRepresentation];
                         finalImage = [UIImage imageWithCGImage:[assetRep fullResolutionImage]];
@@ -2961,7 +3011,7 @@
         DebugLogError(@"Error save image %@", [error localizedDescription]);
     }
     else{
-        DebugLogSuccess(@"didFinishSaving");
+        DebugLogWriteSuccess(@"didFinishSaving");
         //更新UI
         [self.sharedPopoverController dismissPopoverAnimated:true];
     }
@@ -3854,7 +3904,7 @@
     //禁止所有屏幕上的操作
     [self lockInteraction:true];
     
-    [self closeDoc];
+    [self close];
 }
 
 #pragma mark- 取消操作 Undo Redo
@@ -4529,6 +4579,19 @@
                 break;
         }
     }
+    else if (alertView.tag == 6) {
+        switch (buttonIndex) {
+            case 0:
+                [self closeDocWithoutSave];
+                break;
+            case 1:
+                [self closeDocWithSave];
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
@@ -4726,6 +4789,5 @@
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{
     self.testImageView.image = image;
-    
 }
 @end

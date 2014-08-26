@@ -444,17 +444,7 @@
         return;
     }
     _shapeTexture = [RETexture textureFromImageName:textureName reload:false];
-    if (!_shapeTexture) {
-        self.brushState.isShapeTexture = false;
-        DebugLog(@"setBrushShapeTexture loadTextureInfo failed");
-    }
-    else{
-#if DEBUG
-        NSString *Label = [NSString stringWithFormat:@"%@", textureName];
-        glLabelObjectEXT(GL_TEXTURE, _shapeTexture.texID, 0, [Label UTF8String]);
-#endif
-        self.brushState.isShapeTexture = true;
-    }
+    self.brushState.isShapeTexture = (_shapeTexture != nil);
 }
 
 -(void) setBrushCommonTextures

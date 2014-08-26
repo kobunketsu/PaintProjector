@@ -34,9 +34,6 @@
     UIColor* shadow = shadowColor2;
     CGSize shadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat shadowBlurRadius = 0;
-    UIColor* highlight = UIColor.whiteColor;
-    CGSize highlightOffset = CGSizeMake(0.1, 1.1);
-    CGFloat highlightBlurRadius = 0;
     
     //// Group
     {
@@ -65,31 +62,9 @@
         [bezier2Path addCurveToPoint: CGPointMake(24, 8) controlPoint1: CGPointMake(23.55, 7) controlPoint2: CGPointMake(24, 7.45)];
         [bezier2Path closePath];
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, highlightOffset, highlightBlurRadius, [highlight CGColor]);
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
         [color setFill];
         [bezier2Path fill];
-        
-        ////// Bezier 2 Inner Shadow
-        CGContextSaveGState(context);
-        UIRectClip(bezier2Path.bounds);
-        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-        
-        CGContextSetAlpha(context, CGColorGetAlpha([shadow CGColor]));
-        CGContextBeginTransparencyLayer(context, NULL);
-        {
-            UIColor* opaqueShadow = [shadow colorWithAlphaComponent: 1];
-            CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [opaqueShadow CGColor]);
-            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            [opaqueShadow setFill];
-            [bezier2Path fill];
-            
-            CGContextEndTransparencyLayer(context);
-        }
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
-        
         CGContextRestoreGState(context);
         
     }

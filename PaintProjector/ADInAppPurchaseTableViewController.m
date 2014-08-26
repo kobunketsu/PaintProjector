@@ -136,23 +136,23 @@
     //如果应用启动时没有得到产品列表，则立即再次联网尝试获得产品列表
     if (![[ADSimpleIAPManager sharedInstance] isProductsRequested]){
         //检查是否有网络连接
-        Reachability *reach = [Reachability reachabilityForInternetConnection];
-        NetworkStatus netStatus = [reach currentReachabilityStatus];
-        if (netStatus == NotReachable) {
-            DebugLog(@"没有网络连接, 无法得到产品列表");
-            self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoAccess", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            [self.alertView show];
-        }
-        else{
+//        Reachability *reach = [Reachability reachabilityForInternetConnection];
+//        NetworkStatus netStatus = [reach currentReachabilityStatus];
+//        if (netStatus == NotReachable) {
+//            DebugLog(@"没有网络连接, 无法得到产品列表");
+//            self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+//            [self.alertView show];
+//        }
+//        else{
             [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
                 if (success) {
-                    DebugLog(@"获得产品列表成功,刷新产品显示");
+                    DebugLog(@"获得产品列表更新成功,刷新产品显示");
                     [self.tableView reloadData];
                 }
                 else{
-                    DebugLog(@"获得产品列表失败");
-                    self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                    [self.alertView show];
+                    DebugLog(@"获得产品列表更新失败,显示本地保存的产品列表");
+//                    self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+//                    [self.alertView show];
                 }
                 
                 //关闭Loading指示器
@@ -172,7 +172,7 @@
             
             //查询超时处理
 //            [self performSelector:@selector(requestProductsTimeOut:) withObject:nil afterDelay:10.0];
-        }
+//        }
     }
     //已经得到产品列表，直接显示
     else{
@@ -216,7 +216,7 @@
             NetworkStatus netStatus = [reach currentReachabilityStatus];
             if (netStatus == NotReachable) {
                 DebugLog(@"没有网络连接, 无法恢复产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
                 [alertView show];
             }
             else{
@@ -253,7 +253,7 @@
     ADInAppPurchaseTableViewCell *cell = (ADInAppPurchaseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     
-    SKProduct *product = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
+    SKProductWrapper *product = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
     
     if (!product) {
         DebugLogError(@"no product available!");
@@ -261,22 +261,15 @@
     }
     //产品名字
     cell.productName.text = product.localizedTitle;
-    
-    //产品价格
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
 
+    //产品价格
     cell.buyProductButton.tag = indexPath.row;
-    
-    //TODO:语言显示
+     //TODO:语言显示
     if ([[ADSimpleIAPManager sharedInstance]productPurchased:product.productIdentifier]) {
         [cell.buyProductButton setTitle:NSLocalizedString(@"Purchased", nil) forState:UIControlStateNormal];
     }
     else{
-        [cell.buyProductButton setTitle:formattedString forState:UIControlStateNormal];
+        [cell.buyProductButton setTitle:product.localizedPrice forState:UIControlStateNormal];
     }
 
     //产品特性

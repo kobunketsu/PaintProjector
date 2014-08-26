@@ -45,7 +45,7 @@
         // This needs to be done prior to linking.
         glBindAttribLocation(self.program, GLKVertexAttribPosition, "position");
         
-        glBindAttribLocation(self.program, GLKVertexAttribTexCoord0, "texcoord");
+//        glBindAttribLocation(self.program, GLKVertexAttribTexCoord0, "texcoord");
         
 //        glBindAttribLocation(self.program, GLKVertexAttribColor, "color");
         

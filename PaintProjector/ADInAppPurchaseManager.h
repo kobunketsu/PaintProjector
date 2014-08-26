@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+#import "SKProductWrapper.h"
 
 #define kInAppPurchaseManagerProductsFetchedNotification @"kInAppPurchaseManagerProductsFetchedNotification"
 
@@ -36,4 +37,5 @@ typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * product
 - (void)purchaseProduct:(SKProduct*)product;
 - (void)restorePurchase;
 - (BOOL)productPurchased:(NSString *)productIdentifier;
+- (void)setProductsFromLocal:(NSArray*)products;
 @end

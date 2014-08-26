@@ -24,7 +24,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor{
     //// General Declarations
-    CGContextRef context = ctx;
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
     UIColor* color = iconColor;
@@ -34,9 +34,6 @@
     UIColor* shadow = shadowColor2;
     CGSize shadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat shadowBlurRadius = 0;
-    UIColor* highlight = UIColor.whiteColor;
-    CGSize highlightOffset = CGSizeMake(0.1, 1.1);
-    CGFloat highlightBlurRadius = 0;
     
     //// Group
     {
@@ -89,31 +86,9 @@
         [bezier5Path addCurveToPoint: CGPointMake(13.52, 10.41) controlPoint1: CGPointMake(14.69, 7) controlPoint2: CGPointMake(13.52, 8.9)];
         [bezier5Path closePath];
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, highlightOffset, highlightBlurRadius, [highlight CGColor]);
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
         [color setFill];
         [bezier5Path fill];
-        
-        ////// Bezier 5 Inner Shadow
-        CGContextSaveGState(context);
-        UIRectClip(bezier5Path.bounds);
-        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-        
-        CGContextSetAlpha(context, CGColorGetAlpha([shadow CGColor]));
-        CGContextBeginTransparencyLayer(context, NULL);
-        {
-            UIColor* opaqueShadow = [shadow colorWithAlphaComponent: 1];
-            CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [opaqueShadow CGColor]);
-            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            [opaqueShadow setFill];
-            [bezier5Path fill];
-            
-            CGContextEndTransparencyLayer(context);
-        }
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
-        
         CGContextRestoreGState(context);
         
     }

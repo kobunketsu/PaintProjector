@@ -179,7 +179,9 @@ typedef struct {
 @property (assign, nonatomic, readonly)PaintingViewState state;
 @property (assign, nonatomic) GLuint finalRenderbuffer;
 @property (assign, nonatomic) GLuint backgroundTexture;//背景内容
-@property (weak, nonatomic) ADPaintData *paintData;
+@property (retain, nonatomic) ADPaintData *paintData;//正向绘制数据
+@property (retain, nonatomic) ADPaintData *reversePaintData;//反向绘制数据
+@property (retain, nonatomic) ADPaintData *combinedPaintData;//合成后的新数据覆盖正向数据
 @property (retain, nonatomic)ADBrush *brush;
 
 
@@ -267,7 +269,7 @@ typedef struct {
 - (void)redoDraw;
 - (void)resetUndoRedo;
 #pragma mark 反向绘制图片ReversePaint
-@property(retain, nonatomic)ADReversePaintInputData *reversePaintData;
+@property(retain, nonatomic)ADReversePaintInputData *reversePaintInputData;
 @property(retain, nonatomic)ADCylinderImage *cylinderImage;
 @property(retain, nonatomic)RECamera *reversePaintCamera;
 @property(retain, nonatomic)ADPaintDoc *reversePaintDocSrc;

@@ -55,6 +55,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     ADBackgroundLayer *layer = (ADBackgroundLayer *)[super copyWithZone:zone];
     layer.clearColor = [self.clearColor copy];
+    layer.data = [self.data copy];
     return layer;
 }
 

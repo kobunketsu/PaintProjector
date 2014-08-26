@@ -73,7 +73,7 @@
         [curGroup.paintDocs insertObject:paintDoc atIndex:0];
 
         curGroup.curPaintIndex = 0;
-        DebugLogSuccess(@"curGroup.paintDocs insertObject atIndex 0");
+        DebugLog(@"curGroup.paintDocs insertObject atIndex 0");
     }
     else{
         [curGroup.paintDocs insertObject:paintDoc atIndex:index];
@@ -82,7 +82,7 @@
 //            curPaintFrameGroup.curPaintIndex ++;
             curGroup.curPaintIndex = index;
 //        }
-        DebugLogSuccess(@"curGroup.paintDocs insertObject atIndex:%d", index);
+        DebugLog(@"curGroup.paintDocs insertObject atIndex:%d", index);
     }
     
     DebugLog(@"curPaintIndex %d", curGroup.curPaintIndex);

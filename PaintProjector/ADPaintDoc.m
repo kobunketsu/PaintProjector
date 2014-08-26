@@ -18,7 +18,9 @@
 #define kThumbImageFile     @"thumbImage.png"
 
 @implementation ADPaintDoc
-
++ (NSString*)currentVersion{
+    return DocVersion;
+}
 - (id)init {
     if ((self = [super init])) {
         //TODO: define defaultSize
@@ -107,11 +109,13 @@
 }
 
 - (ADPaintData *)newData {
+    self.data = [[ADPaintData alloc]init];
+    self.data.version = [ADPaintDoc currentVersion];
+    self.data.title = @"newData";
     ADPaintLayer* paintLayer = [ADPaintLayer createBlankLayerWithSize:self.defaultSize transparent:true];
-    NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
-    ADBackgroundLayer *backgroundLayer = [[ADBackgroundLayer alloc]init];
-    self.data = [[ADPaintData alloc]initWithTitle:@"newDoc" layers:layers backgroundLayer:backgroundLayer userInputParams:nil version:@"1.0"];
-    
+    self.data.layers = [[NSMutableArray alloc]initWithObjects:paintLayer, nil];
+    self.data.backgroundLayer = [[ADBackgroundLayer alloc]init];
+
     return self.data;
 }
 
@@ -157,6 +161,7 @@
     ADPaintDoc *doc = [[ADPaintDoc alloc]initWithDocPath:docPath];
     doc.data = [self.data copy];
     doc.defaultSize = self.defaultSize;
+    doc.userInputParams = [self.userInputParams copy];
     
     return doc;
 }
@@ -168,8 +173,8 @@
 }
 
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中
-- (void)save {
-    DebugLogFuncStart(@"saveData");
+- (void)save{
+    DebugLogFuncStart(@"save");
 
     NSString *dataPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:self.docPath];
     NSMutableData *data = [[NSMutableData alloc] init];
@@ -178,7 +183,7 @@
         [archiver encodeObject:self.data forKey:kDataKey];
         [archiver finishEncoding];
         if ([data writeToFile:dataPath atomically:YES]) {
-            DebugLogSuccess(@"writeToFile %@ success!", dataPath);
+            DebugLogWriteSuccess(@"writeToFile %@ success!", dataPath);
         }
         else{
             DebugLogError(@"writeToFile %@ failed!", dataPath);
@@ -201,7 +206,7 @@
         [archiver encodeObject:self.userInputParams forKey:kUserInputParamsKey];
         [archiver finishEncoding];
         if ([data writeToFile:dataPath atomically:YES]) {
-            DebugLogSuccess(@"writeToFile %@ success!", dataPath);
+            DebugLogWriteSuccess(@"writeToFile %@ success!", dataPath);
         }
         else{
             DebugLogError(@"writeToFile %@ failed!", dataPath);
@@ -209,6 +214,7 @@
     }
     else{
         DebugLogError(@"userInputParams nil");
+        [archiver finishEncoding];
     }
 }
 
@@ -219,7 +225,7 @@
     //    NSData *thumbImageData = UIImageJPEGRepresentation(image, 1);
     if (thumbImageData) {
         if([thumbImageData writeToFile:thumbImagePath atomically:YES]){
-            DebugLogSuccess(@"thumbImage saved to %@", thumbImagePath);
+            DebugLogWriteSuccess(@"thumbImage saved to %@", thumbImagePath);
         }
         else{
             DebugLogError(@"thumbImage save to %@ failed!", thumbImagePath);

@@ -67,6 +67,10 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     // we will release the request object in the delegate callback
 }
 
+- (void)setProductsFromLocal:(NSArray*)products{
+    _products = products;
+}
+
 - (BOOL)isRequestingProduct{
     return productsRequest != nil;
 }
@@ -78,7 +82,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     DebugLogSystem(@"从AppStore得到产品列表.");
     self.productsRequested = true;
     NSArray *products = response.products;
-    _products = products;
+    _products = [SKProductWrapper productsWithSKProductArray:products];
     
     if (products.count == 0) {
         DebugLogWarn(@"没有产品, 无法购买");
@@ -86,10 +90,10 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     }
     
     DebugLog(@"付费产品数量: %d", [products count]);
-    for (SKProduct *product in products) {
+    for (SKProductWrapper *product in products) {
         DebugLog(@"产品标题: %@" , product.localizedTitle);
         DebugLog(@"产品描述: %@" , product.localizedDescription);
-        DebugLog(@"产品价格: %@" , product.price);
+        DebugLog(@"产品价格: %@" , product.localizedPrice);
         DebugLog(@"产品标识: %@" , product.productIdentifier);
     }
     
@@ -106,7 +110,6 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         _completionHandler = nil;
     }
 
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:self userInfo:nil];
 }
 
@@ -211,7 +214,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 
                 DebugLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
                 transactionResult = TransactionValidated;
-                DebugLogSuccess(@"验证交易成功,提供产品下载");
+                DebugLog(@"验证交易成功,提供产品下载");
                 if (restore) {
                     [self provideContent:transaction.originalTransaction.payment.productIdentifier];
                 }
@@ -291,19 +294,14 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     
     if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
         
-        DebugLog(@"专业版提供Anamorphosis参数调整");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+        DebugLogWriteSuccess(@"专业版提供Anamorphosis反向绘制");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
         
-        DebugLog(@"专业版提供16层图层");
-        [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-        
-        DebugLog(@"专业版提供额外笔刷包");
+        DebugLogWriteSuccess(@"专业版提供额外笔刷包");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
         
-        DebugLog(@"专业版提供调色板管理");
+        DebugLogWriteSuccess(@"专业版提供调色板管理");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
-        
-        
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];

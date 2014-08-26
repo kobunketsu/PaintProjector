@@ -9,5 +9,5 @@
 #import "ADAutoRotateButton.h"
 
 @interface ADBackButton : ADAutoRotateButton
-
+@property (assign, nonatomic)BOOL isReversePaint;
 @end

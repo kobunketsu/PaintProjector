@@ -12,6 +12,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "GlobalDefines.h"
     #import "LogDefine.h"
     #import "ADBarStyleKit.h"
     #import "Extension.h"
@@ -23,9 +24,9 @@
 
 
 #define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
-#define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/anadraw/?topic=official-user-manaul"
-#define PRODUCT_INFO_GALLERY @"http://www.dreapp.com/anadraw/?page_id=43"
-#define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/anadraw/?page_id=45"
+#define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"
+#define PRODUCT_INFO_GALLERY @"http://www.dreapp.com/fanarts/"
+#define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/community/"
 
 #define TEST 0
 #define TestReversePaint 1

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ADCylinderProjectUserInputParams : NSObject
+@property (copy) NSString *version;//版本号
 @property (assign, nonatomic) CGFloat cylinderHeight;
 @property (assign, nonatomic) CGFloat cylinderDiameter;
 @property (assign, nonatomic) CGFloat imageWidth;

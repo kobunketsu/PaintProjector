@@ -8,6 +8,7 @@
 
 #import "ADInAppPurchaseManager.h"
 #import "ADBrush.h"
+typedef void (^BuyRequestProductsCompletionHandler)(BOOL success, NSArray * products);
 
 typedef NS_ENUM(NSUInteger, IAPProPackageFeature)
 {
@@ -23,5 +24,5 @@ typedef NS_ENUM(NSUInteger, IAPProPackageFeature)
 
 @interface ADSimpleIAPManager : ADInAppPurchaseManager
 +(id)sharedInstance;
-
+- (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
 @end

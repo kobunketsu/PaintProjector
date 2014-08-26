@@ -52,9 +52,9 @@
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialFinished"];
     
 //    [self initTutorial];
@@ -71,14 +71,15 @@
         //第一次启动时，将Collection内的contents拷贝入Documents,以后首页直接读取用户document目录下的文件结构
         [self copyCollectionFromMainBundleToUserDocument];
 
-        //设置用户参数
+        //非IAP功能
         [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialFinished"];
+        
+        //IAP功能
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialFinished"];
-
     }
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialFinished"]) {
@@ -136,7 +137,6 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
-//    NSLog(@"applicationWillEnterForeground");
     DebugLogSystem(@"applicationWillEnterForeground");
     
     //恢复所有动画的播放
@@ -149,6 +149,7 @@
             [view setNeedsLayout];
         }
     }
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -204,7 +205,7 @@
         BOOL success = [[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:destPath error:&error];
         if (success == YES)
         {
-            DebugLogSuccess(@"file %@ copied from app bundle to user documents/Folder_0.", fileName);
+            DebugLogWriteSuccess(@"file %@ copied from app bundle to user documents/Folder_0.", fileName);
         }
         else
         {

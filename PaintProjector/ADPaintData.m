@@ -13,16 +13,16 @@
 
 @implementation ADPaintData
 
--(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(ADBackgroundLayer*)backgroundLayer userInputParams:(ADCylinderProjectUserInputParams*)userInputParams version:(NSString*)version{
-    if ((self = [super init])) {
-        _title = title;
-        _version = version;
-        _layers = layers;
-        _backgroundLayer = backgroundLayer;
-        _userInputParams = userInputParams;
-    }
-    return self;
-}
+//-(id)initWithTitle:(NSString*)title layers:(NSMutableArray*)layers backgroundLayer:(ADBackgroundLayer*)backgroundLayer version:(NSString*)version{
+//    if ((self = [super init])) {
+//        _title = title;
+//        _version = version;
+//        _layers = layers;
+//        _backgroundLayer = backgroundLayer;
+//    }
+//    return self;
+//}
+
 
 #pragma mark NSCoding
 
@@ -34,29 +34,47 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.version forKey:kVersionKey];
-    [encoder encodeObject:self.title forKey:kTitleKey];
-    [encoder encodeObject:self.layers forKey:kLayerKey];
-    [encoder encodeObject:self.backgroundLayer forKey:kBackgroundLayerKey];
-    [encoder encodeObject:self.userInputParams forKey:kUserInputParamsKey];
+    if (self.version.floatValue <= ((NSString*)DocVersion).floatValue) {
+        [encoder encodeObject:self.title forKey:kTitleKey];
+        [encoder encodeObject:self.layers forKey:kLayerKey];
+        [encoder encodeObject:self.backgroundLayer forKey:kBackgroundLayerKey];
+    }
+    else{
+        DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+        return;
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    NSString *version = [decoder decodeObjectForKey:kVersionKey];
-    NSString *title = [decoder decodeObjectForKey:kTitleKey];
-    NSMutableArray *layers = [decoder decodeObjectForKey:kLayerKey];
-    ADBackgroundLayer *backgroundLayer = [decoder decodeObjectForKey:kBackgroundLayerKey];
-    ADCylinderProjectUserInputParams *userInputParams = [decoder decodeObjectForKey:kUserInputParamsKey];
-    return [self initWithTitle:title layers:layers backgroundLayer:backgroundLayer userInputParams:userInputParams version:version];
+    if ((self = [super init])) {
+        _version = [decoder decodeObjectForKey:kVersionKey];
+        if (_version.floatValue <= ((NSString*)DocVersion).floatValue) {
+            _title = [decoder decodeObjectForKey:kTitleKey];
+            _layers = [decoder decodeObjectForKey:kLayerKey];
+            _backgroundLayer = [decoder decodeObjectForKey:kBackgroundLayerKey];
+        }
+        else{
+            DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+            return nil;
+        }
+    }
+    return self;
 }
 
 - (id)copyWithZone:(NSZone *)zone{
     ADPaintData *data = [[ADPaintData alloc] init];
-    data.title = self.title;
     data.version = self.version;
-    data.layers = [self.layers copyWithZone:zone];//?
-    data.backgroundLayer = [self.backgroundLayer copyWithZone:zone];
-    //TODO: test
-    data.userInputParams = [self.userInputParams copyWithZone:zone];
+    if (self.version.floatValue <= ((NSString*)DocVersion).floatValue) {
+        data.title = self.title;
+        data.layers = [[NSMutableArray alloc]initWithArray:self.layers copyItems:YES];
+        data.backgroundLayer = [self.backgroundLayer copyWithZone:zone];
+
+    }
+    else{
+        DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+        return nil;
+    }
+
     return data;
 }
 @end

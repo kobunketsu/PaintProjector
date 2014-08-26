@@ -9,5 +9,5 @@
 #import "ADIconColorPermeateButton.h"
 
 @interface ADAnamorphicButton : ADIconColorPermeateButton
-
+@property (assign, nonatomic)BOOL isReversePaint;
 @end

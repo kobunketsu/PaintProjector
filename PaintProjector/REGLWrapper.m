@@ -75,7 +75,7 @@
         DebugLogError(@"Failed to create ES context");
     }
     else{
-        DebugLogSuccess(@"create kEAGLRenderingAPIOpenGLES2 context success");
+        DebugLog(@"create kEAGLRenderingAPIOpenGLES2 context success");
     }
     return context;
 }

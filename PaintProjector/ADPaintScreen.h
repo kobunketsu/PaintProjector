@@ -85,6 +85,8 @@
 #import "ADSwatchManagerButton.h"
 
 #import "ADBackgroundLayer.h"
+#import "ADAnamorphicButton.h"
+
 @class ADTransformContentView;
 @class ADTransformAnchorView;
 
@@ -227,7 +229,7 @@ BrushTypePageControlDelegate
 @property (weak, nonatomic) IBOutlet UIButton *transformButton;
 @property (weak, nonatomic) IBOutlet UIButton *importButton;
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet ADAnamorphicButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIView *lockCanvasRotationView;
 @property (weak, nonatomic) IBOutlet UIView *zoomCanvasView;
 @property (weak, nonatomic) IBOutlet UILabel *zoomCanvasLabel;

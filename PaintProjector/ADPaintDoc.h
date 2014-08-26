@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ADPaintData.h"
+#import "ADCylinderProjectUserInputParams.h"
 
 @interface ADPaintDoc : NSObject{
 }
@@ -21,18 +22,19 @@
 
 @property (retain, nonatomic) UIImage *thumbImage;
 @property (assign, nonatomic) CGSize defaultSize;
-
++ (NSString*)currentVersion;
 - (id)init;
 - (id)initWithDocPath:(NSString *)docPath;
 - (id)cloneWithDocPath:(NSString *)docPath;
 - (ADPaintData *)newData;
-- (ADPaintData *)open;
+- (ADPaintData *)open;//从文件磁盘载入
 - (ADCylinderProjectUserInputParams *)openUserInputParams;
 - (void)close;
 - (void)save;
 - (void)saveUserInputParams;
 - (void)newAndSaveThumbImage;
 - (void)saveThumbImage:(UIImage*)image;
+
 - (void)delete;
 - (NSString *)getExportFileName;
 - (NSData *)exportToNSData;
