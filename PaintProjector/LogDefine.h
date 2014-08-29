@@ -16,75 +16,45 @@
 #define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 
 #ifdef DEBUG
-    //普通的log
+//普通的log
     #define _DebugLog(s, ...) NSLog(@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLog(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //警告的log
+//警告的log
     #define _DebugLogWarn(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogWarn(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //严重错误的log
+//严重错误的log
     #define _DebugLogError(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,0,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogError(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //成功的log
+//成功的log
     #define _DebugLogWriteSuccess(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg0,255,0;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogWriteSuccess(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //系统函数调用的log
+//系统函数调用的log
     #define _DebugLogSystem(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg127,127,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogSystem(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
-    #endif
-
-    #ifdef DEBUG
-    //用户交互的log
+//用户交互的log
     #define _DebugLogIBAction(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,64,64;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogIBAction(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //函数开始的log
+//函数开始的log
     #define _DebugLogFuncStart(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,127;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogFuncStart(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
-    #endif
-
-    #ifdef DEBUG
-    //函数每帧都调用的log
+//函数每帧都调用的log
     #define _DebugLogFuncUpdate(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg0,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogFuncUpdate(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //函数每帧都调用的log
+//OpenGLES调用的log
     #define _DebugLogGL(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg255,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
-    #define _DebugLogGL(s, ...)
-    #endif
-
-    #ifdef DEBUG
-    //函数每帧都调用的log (去除self指针)
+    #define _DebugLogGLGroupStart(s, ...) glPushGroupMarkerEXT(0, [[NSString stringWithFormat:(s), ##__VA_ARGS__] UTF8String]); _DebugLogGL(s, ##__VA_ARGS__);
+    #define _DebugLogGLGroupEnd() glPopGroupMarkerEXT()
+    #define DebugLogGLSnapshotStart [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
+    #define DebugLogGLSnapshotEnd DebugLogGLSnapshotStart
+//函数每帧都调用的log (去除self指针)
     #define _DebugLogProfile(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,125,0;" @"<%@:(%d)> %@" XCODE_COLORS_RESET, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    #else
+#else
+    #define _DebugLog(s, ...)
+    #define _DebugLogWarn(s, ...)
+    #define _DebugLogError(s, ...)
+    #define _DebugLogWriteSuccess(s, ...)
+    #define _DebugLogSystem(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
+    #define _DebugLogIBAction(s, ...)
+    #define _DebugLogFuncStart(s, ...) NSString *str = [NSString stringWithFormat:@"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]];[RemoteLog log:str];
+    #define _DebugLogFuncUpdate(s, ...)
+    #define _DebugLogGL(s, ...)
+    #define _DebugLogGLGroupStart(s, ...)
+    #define _DebugLogGLGroupEnd()
+    #define DebugLogGLSnapshotStart
+    #define DebugLogGLSnapshotEnd
     #define _DebugLogProfile(s, ...)
-    #endif
-
 #endif
 
 //global switcher
@@ -95,6 +65,10 @@
 #define DebugLogSystem(s,...)           _DebugLogSystem(s, ##__VA_ARGS__)
 #define DebugLogIBAction(s,...)         _DebugLogIBAction(s, ##__VA_ARGS__)
 #define DebugLogFuncStart(s,...)        _DebugLogFuncStart(s, ##__VA_ARGS__)
-#define DebugLogFuncUpdate(s,...)       _DebugLogFuncUpdate(s, ##__VA_ARGS__)
-#define DebugLogGL(s,...)               _DebugLogGL(s, ##__VA_ARGS__)
-#define DebugLogProfile(s,...)          //_DebugLogProfile(s, ##__VA_ARGS__)
+#define DebugLogFuncUpdate(s,...)       //_DebugLogFuncUpdate(s, ##__VA_ARGS__)
+#define DebugLogGL(s,...)               //_DebugLogGL(s, ##__VA_ARGS__)
+#define DebugLogGLGroupStart(s,...)     //_DebugLogGLGroupStart(s, ##__VA_ARGS__)
+#define DebugLogGLGroupEnd()            //_DebugLogGLGroupEnd()
+#define DebugLogProfile(s,...)          _DebugLogProfile(s, ##__VA_ARGS__)
+
+#endif

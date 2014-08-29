@@ -385,8 +385,6 @@ const float LayerTableViewWidth = 256;
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
-
-
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"addLayerButtonTouchUp" identifier:sender];
     
@@ -475,12 +473,12 @@ const float LayerTableViewWidth = 256;
 - (IBAction)deleteDoneLayerButtonTouchUp:(UIButton *)sender {
 }
 
-
 - (IBAction)layerBlendModeButtonTouchUp:(ADLayerBlendModeButton *)sender {
     [RemoteLog logAction:@"layerBlendModeButtonTouchUp" identifier:sender];
     
     int row = [self rowForLayerIndex:sender.tag];
     if (self.inBlendModeRow == row) {
+        sender.selected = false;
         self.inBlendModeRow = -1;
         
         //删除blendView
@@ -495,6 +493,7 @@ const float LayerTableViewWidth = 256;
         self.blendModeLabel.hidden = true;
     }
     else{
+        sender.selected = true;
         self.inBlendModeRow = row;
         int row = [self rowForLayerIndex:sender.tag];
         self.curSetupIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
@@ -577,6 +576,7 @@ const float LayerTableViewWidth = 256;
 - (float)tableViewWidth {
     return LayerTableViewWidth;
 }
+
 - (float)tableViewHeight {
 //    DebugLog(@"toolBar height %.1f", self.toolBar.bounds.size.height);
     float height = LayerTableViewCellHeight * [self.layers count] + BackgroundLayerTableViewCellHeight + self.toolBar.bounds.size.height;

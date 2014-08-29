@@ -20,7 +20,7 @@
 #pragma mark- 圆柱体中Image的系统参数
 @property (assign, nonatomic) float imageRatio;//圆柱体中图片的宽高比率
 
-@property(weak, nonatomic)RETexture *reflectionTex;
+@property(retain, nonatomic)RETexture *reflectionTex;
 @property(assign, nonatomic)GLKVector4 reflectionTexUVSpace;
 #pragma mark- 更新
 - (void)updateImageInCylinder;

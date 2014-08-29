@@ -92,4 +92,8 @@
     
     return  self;
 }
+
+- (void)setBlendMode{
+    [[REGLWrapper current]blendFunc:BlendFuncAlphaBlendPremultiplied];
+}
 @end

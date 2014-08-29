@@ -60,10 +60,8 @@
 }
 -(void)prewarm{
     DebugLogFuncStart(@"prewarm");
+    DebugLogGLGroupStart(@"PaintCommand execute");
 
-#if DEBUG
-    glPushGroupMarkerEXT(0, "PaintCommand execute");
-#endif
     //有可能造成transform时候出现错误像素
     CGPoint startPoint = CGPointMake(DefaultScreenWidth * 0.5, DefaultScreenHeight * 0.5);
     CGPoint endPoint = CGPointMake(DefaultScreenWidth, DefaultScreenHeight);
@@ -90,15 +88,11 @@
 
     
     [super endExecute];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 -(void)execute{
 //    DebugLog(@"[ execute]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "PaintCommand execute");
-#endif
+    DebugLogGLGroupStart(@"PaintCommand execute");
     
     if ([self.paintPaths count]==0) {
         return;
@@ -160,9 +154,7 @@
 
     
     [super endExecute];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 
@@ -177,9 +169,7 @@
     [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:false isImmediate:true];
     
     //笔刷属性 移动到选择ui交互上
-#if DEBUG
-    glPushGroupMarkerEXT(0, "Draw");
-#endif
+    DebugLogGLGroupStart(@"Draw");
     //重置随机数字Seed
     srandom(self.brushState.seed + self.curSegmentOffset);
     //    DebugLog(@"srandom %d", self.brush.brushState.seed + self.curPaintCommand.curSegmentOffset);
@@ -191,9 +181,7 @@
     
     //在draw之后进行随机数字Seed偏移
     self.curSegmentOffset ++;
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
     //合成finalFramebuffer结果
     [self.delegate willAfterDraw:self.brushState refresh:true retainBacking:true];
 }

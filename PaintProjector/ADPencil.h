@@ -7,7 +7,7 @@
 //
 
 #import "ADBrush.h"
-
+static CGFloat classRadius = 0;
 @interface ADPencil : ADBrush
 {
 }

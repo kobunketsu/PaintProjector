@@ -33,8 +33,7 @@
 
 #import "ADBrushPreview.h"
 
-#import "ADReversePaintInputData.h"
-#import "ADCylinderImage.h"
+
 #define DEBUG_VIEW_COLORALPHA 0
 
 typedef NS_ENUM(NSInteger, PaintingViewState) {
@@ -114,10 +113,7 @@ typedef struct {
     GLuint _VBOBrushBack;
 	size_t	_vertexBrushMaxCount;
 	size_t	_vertexBrushUndoMaxCount;
-    
-//    GLuint _undoBaseFramebuffer;
-//    GLuint _undoBaseTexture;
-    
+
     GLuint _VBOQuad;
     GLuint _VAOQuad;
     GLuint _VBOScreenQuad;
@@ -173,17 +169,20 @@ typedef struct {
 @property (assign, nonatomic) GLuint VAOBrushBack;
 @property (assign, nonatomic) GLuint VBOBrush;
 @property (assign, nonatomic) GLuint VBOBrushBack;
-@property (retain, nonatomic)ADCommandManager *commandManager;
-@property (weak, nonatomic)NSMutableArray *brushTypes;
-@property (weak, nonatomic)ADEyeDropper *eyeDropper;
-@property (assign, nonatomic, readonly)PaintingViewState state;
+@property (assign, nonatomic) GLuint VAOScreenQuad;
+@property (assign, nonatomic) GLuint VAOQuad;
 @property (assign, nonatomic) GLuint finalRenderbuffer;
+@property (assign, nonatomic) GLuint finalFramebuffer;
+@property (assign, nonatomic) NSInteger viewGLSize;  //用于创建framebufferTextuer的尺寸
 @property (assign, nonatomic) GLuint backgroundTexture;//背景内容
 @property (retain, nonatomic) ADPaintData *paintData;//正向绘制数据
-@property (retain, nonatomic) ADPaintData *reversePaintData;//反向绘制数据
-@property (retain, nonatomic) ADPaintData *combinedPaintData;//合成后的新数据覆盖正向数据
-@property (retain, nonatomic)ADBrush *brush;
+@property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
 
+@property (retain, nonatomic)ADCommandManager *commandManager;
+@property (assign, nonatomic, readonly)PaintingViewState state;
+@property (weak, nonatomic)NSMutableArray *brushTypes;
+@property (retain, nonatomic)ADBrush *brush;
+@property (weak, nonatomic)ADEyeDropper *eyeDropper;
 
 #pragma mark GL资源
 - (void)swapVBO;
@@ -261,22 +260,20 @@ typedef struct {
 - (void)insertCopyLayerAtIndex:(int)index immediate:(BOOL)isImmediate;
 //指定位置上传图层数据
 - (void)uploadLayerDataAtIndex:(int)index;
+- (void)uploadLayerDatas:(BOOL)forceUpdate;
+- (void)uploadLayerDatas;
 #pragma mark 文件系统FileSystem
 - (void)setOpenData:(ADPaintData*)data;
-- (void)uploadLayerDatas;
 #pragma mark 撤销UndoRedo
 - (void)undoDraw;
 - (void)redoDraw;
 - (void)resetUndoRedo;
-#pragma mark 反向绘制图片ReversePaint
-@property(retain, nonatomic)ADReversePaintInputData *reversePaintInputData;
-@property(retain, nonatomic)ADCylinderImage *cylinderImage;
-@property(retain, nonatomic)RECamera *reversePaintCamera;
-@property(retain, nonatomic)ADPaintDoc *reversePaintDocSrc;
-- (void)transferReversePaint;
+#pragma ultility
+- (void)drawQuad:(GLuint)quad texture2D:(GLuint)texture premultiplied:(BOOL)premultiplied alpha:(GLfloat)alpha;
+- (void)drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity;
 #pragma mark 其他Misc
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
-//- (NSData*)dataSnapshotFromFramebuffer:(GLuint)framebuffer;
+- (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer;
 //取色
 - (void)eyeDropColor:(CGPoint)point;
 @end

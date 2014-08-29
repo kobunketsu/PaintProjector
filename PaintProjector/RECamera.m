@@ -226,6 +226,7 @@
 }
 
 - (void)render{
+    DebugLogGLGroupStart(@"Camera %@ rendering", self.name);
     [self preRender];
 
     if (self.targetTexture != nil) {
@@ -243,6 +244,7 @@
         }
     }
     [self postRender];
+    DebugLogGLGroupEnd();
 }
 - (void)preRender{
     glClearColor(self.backgroundColor.x, self.backgroundColor.y, self.backgroundColor.z, self.backgroundColor.w);

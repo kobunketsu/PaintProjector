@@ -88,6 +88,12 @@
     if(FBO!=self.lastFramebuffer){
         glBindFramebufferOES(GL_FRAMEBUFFER_OES, FBO);
         self.lastFramebuffer=FBO;
+        
+//#if DEBUG
+//        GLint defaultFBO;
+//        glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &defaultFBO);
+//        DebugLogWarn(@"binded to Framebuffer:%u", defaultFBO);
+//#endif
     }
     
     if (discardHint) {
@@ -183,6 +189,7 @@
     }
     glFinish();
     RELEASE_TEXTURE(tex);
+//    DebugLogWarn(@"glIsFramebufferOES %i",glIsFramebufferOES(tex));
 }
 
 -(REShader*)createShader:(NSString*)name{

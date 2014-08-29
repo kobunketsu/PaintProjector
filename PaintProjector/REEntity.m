@@ -20,16 +20,13 @@
 }
 
 - (void)render{
-#if DEBUG
-    NSString *renderLog = [NSString stringWithFormat:@"rendering entity %@", self.name];
-    glPushGroupMarkerEXT(0, [renderLog UTF8String]);
-#endif
+
+    DebugLogGLGroupStart(@"rendering entity %@", self.name);
+
     if (self.renderer) {
         [self.renderer render];
     }
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 -(void)willRenderSubMeshAtIndex:(int)index{

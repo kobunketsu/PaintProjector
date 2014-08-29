@@ -9,5 +9,8 @@
 #import "ADReversePaintInputData.h"
 
 @implementation ADReversePaintInputData
-
+//- (void)destroy{
+//    [self.refelctionTex destroy];
+//    self.refelctionTex = nil;
+//}
 @end

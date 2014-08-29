@@ -170,6 +170,7 @@
 //释放Data
 -(void)close{
     [self setData:nil];
+    [self setReverseData:nil];
 }
 
 //将data.plist压缩到archiver，并将archiver保存到系统分配的文件夹中

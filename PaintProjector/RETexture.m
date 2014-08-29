@@ -75,7 +75,7 @@
 }
 
 - (void)destroy{
-   
+
     [RETextureManager deleteTexture:self.texID];
     
     [super destroy];

@@ -27,6 +27,12 @@
     [self updateImageInCylinder];
 }
 
+- (void)destroy{
+    [self.reflectionTex destroy];
+    self.reflectionTex = nil;
+    [super destroy];
+}
+
 - (void)updateImageInCylinder{
     
     //限制眼睛取值范围

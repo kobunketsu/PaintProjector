@@ -598,6 +598,8 @@
 		08F280C4189E76D900DF744C /* ADPlaneMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F280C3189E76D900DF744C /* ADPlaneMesh.m */; };
 		08F2E367197389B400C55F85 /* ADPaintReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F2E366197389B400C55F85 /* ADPaintReverseButton.m */; };
 		08F2E368197389B400C55F85 /* ADPaintReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F2E366197389B400C55F85 /* ADPaintReverseButton.m */; };
+		08F385D819AD843100FE0ED0 /* ADReversePaint.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F385D719AD843100FE0ED0 /* ADReversePaint.m */; };
+		08F385D919AD843100FE0ED0 /* ADReversePaint.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F385D719AD843100FE0ED0 /* ADReversePaint.m */; };
 		08F3A6901736089C002E063A /* ADTopToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A68F1736089C002E063A /* ADTopToolBar.m */; };
 		08F3A695173613A6002E063A /* ADTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A694173613A6002E063A /* ADTransformButton.m */; };
 		08F3A69817362A43002E063A /* ADLayerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F3A69717362A43002E063A /* ADLayerButton.m */; };
@@ -1536,6 +1538,8 @@
 		08F280C3189E76D900DF744C /* ADPlaneMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPlaneMesh.m; path = PaintProjector/ADPlaneMesh.m; sourceTree = "<group>"; };
 		08F2E365197389B400C55F85 /* ADPaintReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintReverseButton.h; sourceTree = "<group>"; };
 		08F2E366197389B400C55F85 /* ADPaintReverseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintReverseButton.m; sourceTree = "<group>"; };
+		08F385D619AD843100FE0ED0 /* ADReversePaint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADReversePaint.h; sourceTree = "<group>"; };
+		08F385D719AD843100FE0ED0 /* ADReversePaint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADReversePaint.m; sourceTree = "<group>"; };
 		08F3A68E1736089C002E063A /* ADTopToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTopToolBar.h; sourceTree = "<group>"; };
 		08F3A68F1736089C002E063A /* ADTopToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTopToolBar.m; sourceTree = "<group>"; };
 		08F3A693173613A6002E063A /* ADTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformButton.h; sourceTree = "<group>"; };
@@ -2612,9 +2616,21 @@
 			name = Primitives;
 			sourceTree = "<group>";
 		};
+		08F385DA19AD8C9800FE0ED0 /* ReversePaint */ = {
+			isa = PBXGroup;
+			children = (
+				08F385D619AD843100FE0ED0 /* ADReversePaint.h */,
+				08F385D719AD843100FE0ED0 /* ADReversePaint.m */,
+				08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */,
+				08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */,
+			);
+			name = ReversePaint;
+			sourceTree = "<group>";
+		};
 		08FD1F9E164E454A003738FC /* PaintScreen */ = {
 			isa = PBXGroup;
 			children = (
+				08F385DA19AD8C9800FE0ED0 /* ReversePaint */,
 				0822E39C19A1D9AF0094081E /* Unused */,
 				0808D9CB164559870000DF40 /* InfColorPicker */,
 				08C0B42B16BD361A00DE6286 /* Ultility */,
@@ -2691,8 +2707,6 @@
 				08383D411931C06900EA3647 /* ADBrushSwapButton.m */,
 				087751B9180450B20034FEA7 /* ADCustomLayer.h */,
 				087751BA180450B20034FEA7 /* ADCustomLayer.m */,
-				08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */,
-				08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */,
 				0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */,
 				0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */,
 				0849FF44199F2532000A35F2 /* ADNextPageButton.h */,
@@ -3335,6 +3349,7 @@
 				c25abf19aa976a475aa4c235 /* ADClearGestureRecognizer.m in Sources */,
 				08AE475918C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */,
 				08F905DE194ACBA7002918AA /* ADCrystalGradientStyleButton.m in Sources */,
+				08F385D919AD843100FE0ED0 /* ADReversePaint.m in Sources */,
 				e243e49eed2a843ccb577fa2 /* ADBackgroundLayer.m in Sources */,
 				0813AA2E19168C94000C4D00 /* REVertexCommon.m in Sources */,
 				fcc39e92703da8cf8276bfdb /* ADLayer.m in Sources */,
@@ -3659,6 +3674,7 @@
 				08771E641927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				087AEBA71890ABE100D5B393 /* ADPaintFrameManager.m in Sources */,
 				08BD5CB61801094200F0FF67 /* ADFullScreenReverseButton.m in Sources */,
+				08F385D819AD843100FE0ED0 /* ADReversePaint.m in Sources */,
 				08402CB41701E1F000DE952A /* ADPaintData.m in Sources */,
 				0876F493193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				084D5405170338A60052F510 /* ADPaintDoc.m in Sources */,

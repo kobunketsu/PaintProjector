@@ -19,11 +19,7 @@
 #import "ADFinger.h"
 #import "ADBucket.h"
 
-#import "ADCylinderImage.h"
-#import "ADShaderCylinderImage.h"
-#import "ADPlaneMesh.h"
-#import "REMeshFilter.h"
-#import "REMeshRenderer.h"
+
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
@@ -33,7 +29,6 @@
 // A class extension to declare private methods
 @interface ADPaintView ()
 @property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
-@property (assign, nonatomic)NSInteger viewGLSize;  //用于创建framebufferTextuer的尺寸
 @property (retain, nonatomic) NSMutableArray *touchPath;  //记录路径
 
 //@property (retain, nonatomic)NSMutableArray *layerFramebuffers;
@@ -43,14 +38,12 @@
 @property(nonatomic, readwrite) CGPoint location;
 @property(nonatomic, readwrite) CGPoint previousLocation;
 
-@property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
 @property (retain, nonatomic) RERenderTexture *curPaintedLayerTexture;
 @property (retain, nonatomic) RERenderTexture *curLayerTexture;
 @property (retain, nonatomic) RERenderTexture *undoBaseTexture;
 @property (retain, nonatomic) RERenderTexture *brushTexture;
 @property (retain, nonatomic) RERenderTexture *backgroundLayerTexture;
 @property (retain, nonatomic) RETexture *toTransformImageTex;
-@property (assign, nonatomic) GLuint finalFramebuffer;
 
 @property (retain, nonatomic) ADPaintCommand *curPaintCommand;
 @property (assign, nonatomic) BrushVertex* vertexBufferBrush;//每只笔预先分配的用于绘制的顶点数据
@@ -240,40 +233,30 @@
 }
 
 -(void)applicationWillResignActive{
-    DebugLogFuncStart(@"applicationWillResignActive");
+    DebugLogSystem(@"applicationWillResignActive");
     //remove animation timer
     
     glFinish();
 }
 
 -(void)applicationDidEnterBackground{
-    DebugLogFuncStart(@"applicationDidEnterBackground");
+    DebugLogSystem(@"applicationDidEnterBackground");
     //https://developer.apple.com/library/ios/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/ImplementingaMultitasking-awareOpenGLESApplication/ImplementingaMultitasking-awareOpenGLESApplication.html
     //textures models should not be disposed.
     //TODO:some framebuffers can be disposed.
-    [EAGLContext setCurrentContext:[REGLWrapper current].context];
-    
-    [self destroyFrameBufferTextures];
-    
-    glFinish();
+//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+//    [self destroyFrameBufferTextures];
+//    glFinish();
 }
 
 -(void)applicationWillEnterForeground{
-    DebugLogFuncStart(@"applicationWillEnterForeground");
-    if ([REGLWrapper current].context == NULL) {
-        DebugLogWarn(@"reactiveGL context null");
-        return;
-    }
-    [EAGLContext setCurrentContext:[REGLWrapper current].context];
-    
-    [self createFramebufferTextures];
-    [self setCurLayerIndex:self.curLayerIndex];
-    
-    //刷新renderbuffer, 保证重新创建的内容还原正确
-
-    [self _updateRender];
-    
-    glFinish();
+    DebugLogSystem(@"applicationWillEnterForeground");
+//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+//    [self createFramebufferTextures];
+//    [self setCurLayerIndex:self.curLayerIndex];
+//    //刷新renderbuffer, 保证重新创建的内容还原正确
+//    [self _updateRender];
+//    glFinish();
 }
 
 // If our view is resized, we'll be asked to layout subviews.
@@ -1189,9 +1172,8 @@
 - (void)_updateRender{
 //    DebugLog(@"[ UpdateRender layer count %d]", self.paintData.layers.count);
 
-#if DEBUG
-    glPushGroupMarkerEXT(0, "_updateRender Draw Final Framebuffer");
-#endif
+    DebugLogGLGroupStart(@"_updateRender Draw Final Framebuffer");
+
     [[REGLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:true clear:false];
 
     //使用Disable 不需要Clear
@@ -1210,9 +1192,7 @@
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
     DebugLogGL(@"-----------------------------------Frame End-----------------------------------");
 
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 
@@ -1232,16 +1212,13 @@
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
 //    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "copyCurLayerToCurPaintedLayer");
-#endif
+    DebugLogGLGroupStart(@"copyCurLayerToCurPaintedLayer");
+
 	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)copyCurPaintedLayerToCurLayer{
@@ -1414,10 +1391,7 @@
 //执行周期为一个移动操作
 - (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
 //    DebugLog(@"[ willStartDraw ]");
-#if DEBUG
-    NSString *str = [NSString stringWithFormat:@"paintView willStartDraw brushId %d", brushState.classId];
-    glPushGroupMarkerEXT(0, [str cStringUsingEncoding:NSASCIIStringEncoding]);
-#endif
+    DebugLogGLGroupStart(@"paintView willStartDraw brushId %d", brushState.classId);
     
     ADBrush *brush = [self.brushTypes objectAtIndex:brushState.classId];
     [brush startDraw:startPoint];
@@ -1433,15 +1407,12 @@
         [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:true];
     }
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void) willAllocUndoVertexBufferWithPaintCommand:(ADPaintCommand*)cmd{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willAllocUndoVertexBuffer");
-#endif
+    DebugLogGLGroupStart(@"paintView willAllocUndoVertexBuffer");
+
     
     if (cmd.paintPaths.count==0) {
         return;
@@ -1490,22 +1461,21 @@
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
 //    [RemoteLog log:[NSString stringWithFormat:@"glBufferData realloc count %lu", count]];
     //    self.allocVertexCount = count;
-#if DEBUG
-    NSString *label = [NSString stringWithFormat:@"glBufferData count %zu", count];
-    glPushGroupMarkerEXT(0, [label UTF8String]);
-    glPopGroupMarkerEXT();
+
+    DebugLogGLGroupStart(@"glBufferData count %zu", count);
+    DebugLogGLGroupEnd();
     
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
+
 }
 
 
 //执行周期为一个移动单位
 - (void) willBeforeDrawBrushState:(ADBrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willBeforeDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willBeforeDraw");
-#endif
+
+    DebugLogGLGroupStart(@"paintView willBeforeDraw");
+
     if (brushState.wet > 0) {
         if (isUndoBaseWrapped) {
             //直接在_curPaintLayerFramebuffer上进行涂抹绘制
@@ -1524,43 +1494,35 @@
     [brush prepareWithBrushState:brushState lastBrushState:self.lastBrushState];
     self.lastBrushState = brushState;
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willRenderLineFromPoint ]");
-#if DEBUG
-//    glPushGroupMarkerEXT(0, "paintView willFillData");
-#endif
+
+//    DebugLogGLGroupStart(@"paintView willFillData");
     
     ADBrush *brush = [self.brushTypes objectAtIndex:brushId];
     [brush fillDataFromPoint:start toPoint:end segmentOffset:segmentOffset brushState:brushState isTapDraw:isTapDraw isImmediate:isImmediate];
-#if DEBUG
-//    glPopGroupMarkerEXT();
-#endif
+//    DebugLogGLGroupEnd();
 }
 
 //method can be put in paintingView
 - (void)willRenderDataWithBrushId:(NSInteger)brushId isImmediate:(BOOL)isImmediate{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willRenderDraw");
-#endif
+
+    DebugLogGLGroupStart(@"paintView willRenderDraw");
     
     ADBrush *brush = [self.brushTypes objectAtIndex:brushId];
     [brush renderImmediate:isImmediate];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willAfterDraw:(ADBrushState*)brushState refresh:(BOOL)refresh retainBacking:(BOOL)retainBacking{
 //    DebugLog(@"[ willAfterDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willAfterDraw");
-#endif
+
+    DebugLogGLGroupStart(@"paintView willAfterDraw");
+
     if (brushState.wet > 0) {
         
     }
@@ -1588,16 +1550,14 @@
         [self _updateRender];
     }
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willEndDraw:(ADBrushState*)brushState isUndoWrapped:(BOOL)isUndoWrapped{
 //    DebugLog(@"[ willEndDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "paintView willEndDraw");
-#endif
+
+    DebugLogGLGroupStart(@"paintView willEndDraw");
+
     //无论笔刷操作类型，将临时buffer的内容拷贝到当前层
     if (!isUndoWrapped) {
 //        DebugLog(@"!isUndoWrapped copyCurPaintedLayerToCurLayer");
@@ -1609,9 +1569,7 @@
     
     [self.delegate willEnableDirectEyeDropper:true];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 #pragma mark- Command Manager Delegate
@@ -1621,47 +1579,39 @@
     [self _updateRender];
 }
 - (void)willBeginUndo{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "willBeginUndo");
-#endif
+
+    DebugLogGLGroupStart(@"willBeginUndo");
+
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     //清空实际图层，重新进行绘制
 	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:false clear:true];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willFinishUndo{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "WillFinishUndo");
-#endif
+
+    DebugLogGLGroupStart(@"WillFinishUndo");
+
     [self finishUndoRedo];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
     
 }
 
 - (void)willBeginRedo{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "willBeginRedo");
-#endif
+
+    DebugLogGLGroupStart(@"willBeginRedo");
+
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willFinishRedo{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "willFinishRedo");
-#endif
+
+    DebugLogGLGroupStart(@"willFinishRedo");
+
     [self finishUndoRedo];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 - (void) willEnableRedo:(BOOL)enable{
     [self.delegate willEnableUIRedo:enable];
@@ -1683,9 +1633,9 @@
 
 - (void) willEndWrapUndoBaseCommand{
     DebugLog(@"willWrapUndoBaseCommand draw _curPaintedLayerTexture to _undoBaseFramebuffer");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "willWrapUndoBaseCommand");
-#endif
+
+    DebugLogGLGroupStart(@"willWrapUndoBaseCommand");
+
     
     //将tempLayerFramebuffer的结果Copy到undoBaseFramebuffer
     [[REGLWrapper current] bindFramebufferOES:self.undoBaseTexture.frameBuffer discardHint:true clear:true];
@@ -1700,9 +1650,7 @@
     
     [self setVBOBrushForImmediate];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 #pragma mark- Undo Redo
@@ -1768,7 +1716,7 @@
         layerFramebuffer = ((RERenderTexture*)self.layerTextures[index]).frameBuffer;
     }
 
-    ADPaintLayer* layer =  [self.paintData.layers objectAtIndex:index];
+    ADPaintLayer* layer = self.paintData.layers[index];
     layer.data = nil;
 //    @autoreleasepool {
     UIImage* image = [self snapshotFramebufferToUIImage:layerFramebuffer];
@@ -1779,14 +1727,24 @@
 }
 
 - (void)uploadLayerDatas{
+    [self uploadLayerDatas:false];
+}
+
+- (void)uploadLayerDatas:(BOOL)forceUpdate{
     DebugLogFuncStart(@"uploadLayerDatas");
     //更新层的内容
     for (int i =0; i < self.paintData.layers.count; ++i) {
         ADPaintLayer* layer = [self.paintData.layers objectAtIndex:i];
-        if (layer.dirty == true) {
+        if (forceUpdate) {
             [self uploadLayerDataAtIndex:i];
-            layer.dirty = false;
         }
+        else{
+            if (layer.dirty == true) {
+                [self uploadLayerDataAtIndex:i];
+                layer.dirty = false;
+            }
+        }
+
     }
     DebugLog(@"uploadLayerDatas completed!");
 }
@@ -1837,9 +1795,8 @@
 - (void) willExecuteUndoBaseCommand:(ADUndoBaseCommand*)command{
     DebugLog(@"[ willExecuteUndoBaseCommand  copy command.texture to curPaintedLayer ]");
     
-#if DEBUG
-    glPushGroupMarkerEXT(0, "willExecuteUndoBaseCommand");
-#endif
+    DebugLogGLGroupStart(@"willExecuteUndoBaseCommand");
+
     [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
 
     [self drawSquareQuadWithTexture2DPremultiplied:command.texture];
@@ -1849,9 +1806,7 @@
         DebugLog(@"!command.isUndoBaseWrapped copyCurPaintedLayerToCurLayer");
         [self copyCurPaintedLayerToCurLayer];
     }
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 
@@ -1883,9 +1838,7 @@
     
     NSUInteger copyRadius = (NSUInteger)brushState.radius;
     
-#if DEBUG
-    glPushGroupMarkerEXT(0, "Get BrushSmudgeTexture From CurrentLayer");
-#endif
+    DebugLogGLGroupStart(@"Get BrushSmudgeTexture From CurrentLayer");
     
     //    使用DrawQuad的方式代替glCopyTexSubImage2D
     //    [[REGLWrapper current] bindFramebufferOES: _curPaintedLayerFramebuffer];
@@ -1959,9 +1912,7 @@
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:brush.smudgeTexture.texID];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 //?
@@ -2081,16 +2032,6 @@
 
 #pragma mark- Layer
 
-//创建图层
-- (void)addLayerRenderTexturesFromTexture:(RETexture *)texture{
-    if(!self.layerTextures)return;
-
-    NSString *name = [NSString stringWithFormat:@"layerTexture%@", texture.name];
-    RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    [self drawQuad:_VAOScreenQuad texture2D:texture.texID premultiplied:false alpha:1.0];
-    [self.layerTextures addObject:layerTexture];
-}
-
 - (BOOL)createLayerRenderTextures{
     DebugLogFuncStart(@"createLayerRenderTexturesFromPaintData");
     if (self.paintData == nil) {
@@ -2101,11 +2042,12 @@
     self.layerTextures = [[NSMutableArray alloc]init];
     
     for (int i=0; i < self.paintData.layers.count; ++i) {
-        NSString *name = [NSString stringWithFormat:@"layerTexture%d", i];
+        NSString *name = [NSString stringWithFormat:@"layerTexture_%d", i];
         ADPaintLayer* layer = self.paintData.layers[i];
         
         RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
         
+        name = [NSString stringWithFormat:@"layerTextureSrc_%d", i];
         RETexture *dataTexture = [RETexture textureFromData:layer.data name:name];
         [self drawQuad:_VAOScreenQuad texture2D:dataTexture.texID premultiplied:false alpha:1.0];
         [dataTexture destroy];
@@ -2127,14 +2069,13 @@
     return true;
 }
 - (void)deleteLayerRenderTextures{
-    DebugLogFuncStart(@"deleteLayerFramebufferTextures");
+    DebugLogFuncStart(@"deleteLayerRenderTextures");
     for(int i = 0; i< self.layerTextures.count;++i){
         RERenderTexture *texture = (RERenderTexture *)self.layerTextures[i];
         [texture destroy];
         texture = nil;
-        
-        self.curLayerTexture = nil;
     }
+    self.curLayerTexture = nil;
     
     if (self.paintData.backgroundLayer.data) {
         [self.backgroundLayerTexture destroy];
@@ -2142,9 +2083,10 @@
     }
     
     [self.layerTextures removeAllObjects];
+    
 }
 - (BOOL)createTempLayerRenderTexture{
-    DebugLogFuncStart(@"createTempLayerFramebufferTexture");
+    DebugLogFuncStart(@"createTempLayerRenderTexture");
         self.curPaintedLayerTexture = [RERenderTexture textureWithName:@"curPaintedLayerTexture" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
 //    DebugLog(@"createTempLayerFramebuffer: %d Texture: %d", _tempLayerFramebuffer, _tempLayerTexture);
@@ -2152,7 +2094,7 @@
 }
 
 - (void)deleteTempLayerRenderTexture{
-    DebugLogFuncStart(@"deleteTempLayerFramebufferTexture");
+    DebugLogFuncStart(@"deleteTempLayerRenderTexture");
     [self.curPaintedLayerTexture destroy];
     self.curPaintedLayerTexture = nil;
 }
@@ -2163,6 +2105,8 @@
 
 //设置当前图层
 - (void)setCurLayerIndex:(int)newValue {
+    DebugLogFuncStart(@"setCurLayerIndex %u", newValue);
+    
     if (newValue < 0) {
         return;
     }
@@ -2375,9 +2319,9 @@
 
 //绘制背景图层
 -(void)drawBackgroundLayer{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "Draw Background");
-#endif
+
+    DebugLogGLGroupStart(@"Draw Background");
+
     //隐藏层不绘制
     if(!self.paintData.backgroundLayer.visible) {
         glClearColor(0, 0, 0, 0);
@@ -2393,10 +2337,7 @@
         glClearColor(0, 0, 0, 0);
     }
 
-    
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 //绘制图层
@@ -2406,10 +2347,7 @@
     //隐藏层不绘制
     if(!layer.visible) return;
     
-#if DEBUG
-    NSString *glString = [NSString stringWithFormat:@"Draw layer %d", index];
-    glPushGroupMarkerEXT(0, [glString UTF8String]);
-#endif
+    DebugLogGLGroupStart(@"Draw layer %d", index);
     //如果是当前绘图层
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
@@ -2421,9 +2359,7 @@
 //        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, numTex.intValue,  layer.blendMode, layer.opacity);
         [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 
@@ -2967,129 +2903,6 @@
     return anchor;
 }
 
-#pragma mark- TransferReversePaint
-- (void)transferReversePaint{
-//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    //创建资源
-    [self createReversePaintResource];
-    
-    //交换图片原数据
-    ADPaintData *data = [self.reversePaintDocSrc open];
-    self.reversePaintData = self.paintData;
-    self.paintData = data;
-    
-    //覆盖原数据
-    [self deleteLayerRenderTextures];
-    [self createLayerRenderTextures];
-    [self setCurLayerIndex:self.paintData.layers.count - 1];
-    
-    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"temp" size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    //插入反向绘制的RenderTexture
-    NSUInteger srcLayerCount = self.paintData.layers.count;
-    for (ADPaintLayer *layer in self.reversePaintData.layers) {
-
-#if DEBUG
-        glPushGroupMarkerEXT(0, "layer temp renderTexture");
-#endif
-        RETexture* texture = [RETexture textureFromData:layer.data name:@"reversePaintTex"];
-        //创建一个临时renderTexture, 更改viewport后，将texture描画到临时renderTexture上，reflectionTex使用临时rt
-        CGFloat heightScale = (self.bounds.size.height + ToSeeCylinderTopPixelOffset) / self.bounds.size.height;
-        CGFloat height = self.bounds.size.height / heightScale;
-        CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale;
-        glViewport(0, offsetY, self.bounds.size.height, height);
-        
-        [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
-        [self drawQuad:_VAOScreenQuad texture2D:texture.texID premultiplied:true alpha:1.0];
-        
-        self.cylinderImage.reflectionTex = tempRT;
-        [self.reversePaintCamera render];
-#if DEBUG
-        glPopGroupMarkerEXT();
-#endif
-        
-        glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
-        [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];
-        layer.dirty = true;
-        [self.paintData.layers insertObject:layer atIndex:self.paintData.layers.count];
-    }
-
-    [[REGLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:true clear:false];
-    
-    //绘制背景层
-    [self drawBackgroundLayer];
-    
-    //合成图层(用于截图)
-    for (int i = 0; i < self.paintData.layers.count; ++i) {
-        ADPaintLayer* layer = self.paintData.layers[i];
-        //隐藏层不绘制
-        if(!layer.visible) return;
-        RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[i];
-        [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
-    }
-    
-    //绘制完成上传数据
-    [self copyCurLayerToCurPaintedLayer];
-    for (int i =srcLayerCount; i < self.paintData.layers.count; ++i) {
-        ADPaintLayer* layer = [self.paintData.layers objectAtIndex:i];
-        if (layer.dirty == true) {
-            [self uploadLayerDataAtIndex:i];
-            layer.dirty = false;
-        }
-    }
-    
-    //更新原数据到合成后的数据
-    self.reversePaintDocSrc.data = self.paintData;
-    
-    //删除资源
-    [self destroyReversePaintResource];
-    
-//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
-}
-
-- (void)createReversePaintResource{
-    ADShaderCylinderImage *shaderCylinderImage = (ADShaderCylinderImage *)[[REGLWrapper current]createShader:@"ADShaderCylinderImage"];
-    REMaterial *matCylinderImage = [[REMaterial alloc]initWithShader:shaderCylinderImage];
-    matCylinderImage.faceMode = RE_BackFace;
-    
-    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:1 column:1];
-    [planeMesh create];
-    REMeshFilter *meshFilter = [[REMeshFilter alloc]initWithMesh:planeMesh];
-    REMeshRenderer *meshRenderer = [[REMeshRenderer alloc]initWithMeshFilter:meshFilter];
-    meshRenderer.sharedMaterial = matCylinderImage;
-    
-    ADCylinderImage *cylinderImage = [[ADCylinderImage alloc]init];
-    self.cylinderImage = cylinderImage;
-    cylinderImage.name = @"cylinderImage";
-    cylinderImage.renderer = meshRenderer;
-    cylinderImage.radius = self.reversePaintInputData.radius;
-    cylinderImage.eye = self.reversePaintInputData.eye;
-    cylinderImage.imageWidth = self.reversePaintInputData.imageWidth;
-    cylinderImage.imageCenterOnSurfHeight = self.reversePaintInputData.imageCenterOnSurfHeight;
-    cylinderImage.imageRatio = self.reversePaintInputData.imageRatio;
-    cylinderImage.reflectionTexUVSpace = self.reversePaintInputData.reflectionTexUVSpace;
-    cylinderImage.layerMask = Culling_CylinderImage;
-    meshRenderer.delegate = cylinderImage;
-    [cylinderImage update];
-    
-    //add virtual camera to render cylinderImage
-    RECamera *camera = [[RECamera alloc]init];
-    self.reversePaintCamera = camera;
-    camera.name = @"reversePaintCamera";
-    RERenderTexture *renderTex = [RERenderTexture textureWithName:@"cylinderImageCameraTex" width:1024 height:1024 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    camera.targetTexture = renderTex;
-    camera.cullingMask = Culling_CylinderImage;
-    [camera.cullingEntities addObject:cylinderImage];
-}
-
-- (void)destroyReversePaintResource{
-    [self.cylinderImage destroy];
-    self.cylinderImage = nil;
-    
-    [self.reversePaintCamera destroy];
-    self.reversePaintCamera = nil;
-    
-}
-
 #pragma mark- Opengl Draw Tools
 
 #if DEBUG_VIEW_COLORALPHA
@@ -3236,17 +3049,7 @@
 - (void) drawScreenQuadTransformMatrix:(GLKMatrix4)transformMatrix texture2DPremultiplied:(GLuint)texture{
     [self drawQuad:_VAOScreenQuad transformMatrix:transformMatrix texture2DPremultiplied:texture];
 }
-
-- (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer
-{
-	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
-    [[REGLWrapper current] bindFramebufferOES: framebuffer discardHint:false clear:false];
-    CGSize viewportSize = self.bounds.size;
-    UIImage *image = [ADUltility snapshot:self Context:[REGLWrapper current].context InViewportSize:viewportSize ToOutputSize:viewportSize];
-
-    return image;
-}
-
+#pragma mark- snapshot
 - (UIImage*)snapshotPaintToUIImage
 {
 	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
@@ -3255,7 +3058,15 @@
 
     return image;
 }
-
+- (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer
+{
+	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
+    [[REGLWrapper current] bindFramebufferOES: framebuffer discardHint:false clear:false];
+    CGSize viewportSize = self.bounds.size;
+    UIImage *image = [ADUltility snapshot:self Context:[REGLWrapper current].context InViewportSize:viewportSize ToOutputSize:viewportSize];
+    
+    return image;
+}
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size
 {
 	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现

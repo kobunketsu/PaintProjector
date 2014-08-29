@@ -433,25 +433,28 @@
 }
 
 - (void)applicationDidEnterBackground:(id)sender{
-    DebugLogFuncStart(@"applicationDidEnterBackground");
+    DebugLogSystem(@"applicationDidEnterBackground");
     //TODO:删除一些OpenGL资源,让其他App可以使用OpenGLES资源,使用glFinish 保证直接删除
     [self.paintView applicationDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
-    DebugLogFuncStart(@"applicationWillEnterForeground");
+    DebugLogSystem(@"applicationWillEnterForeground");
     [self.paintView applicationWillEnterForeground];
 }
 
 -(void)applicationWillResignActive:(id)sender{
-    DebugLogFuncStart(@"applicationWillResignActive");
+    DebugLogSystem(@"applicationWillResignActive");
+    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+    [self prepareForAutoSave];
+    
     [self autoSave];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
 }
 
 -(void)applicationWillTerminate:(id)sender{
-    DebugLogFuncStart(@"applicationWillTerminate");
+    DebugLogSystem(@"applicationWillTerminate");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -2455,6 +2458,7 @@
     //UI
     [self.paintView setBrush:[brush copy]];
     [self.paintView.brush setColor:self.paintColorButton.color];
+    //笔刷大小取自相同笔刷
 
     //取消自动展示
 //    [self autoShowBrushes:false];
@@ -2495,7 +2499,14 @@
     //DebugLog(@"openDoc");
     self.paintDoc = paintDoc;
 
-    [self.paintView setOpenData:[self.paintDoc open]];
+    //制定绘制的paintData
+    if (self.isReversePaint) {
+        [self.paintView setOpenData:self.paintDoc.reverseData];
+        self.reversePaint = [[ADReversePaint alloc]initWithPaintView:self.paintView srcPaintData:[self.paintDoc open]];
+    }
+    else{
+        [self.paintView setOpenData:[self.paintDoc open]];
+    }
     
     self.paintView.paintData.backgroundLayer.delegate = self;
     
@@ -2523,37 +2534,38 @@
 }
 
 //自动保存工作环境和当前工作内容
+- (void)prepareForAutoSave{
+    //关闭打开的layePanel面板
+    if (self.isReversePaint) {
+//        if(self.sharedPopoverController && [self.sharedPopoverController.contentViewController isKindOfClass:[ADLayerTableViewController class]]){
+//            [self.sharedPopoverController dismissPopoverAnimated:false];
+//        }
+    }
+}
+
 - (void)autoSave{
     DebugLogFuncStart(@"autoSave");
-    [self saveWorkSpace];
+    DebugLogMem(@"will autoSave");
     
-    [self updateDoc];
+    [self saveWorkSpace];DebugLogMem(@"did saveWorkSpace");
+    
+    [self updateDoc];DebugLogMem(@"did updateDoc");
 
     //反向绘制转换并合成paintDoc
-    ADPaintDoc *tempDoc = nil;
-    ADPaintData *tempData = nil;
-    
     if (self.isReversePaint) {
-        tempDoc = self.paintDoc;
-        tempData = [self.paintView.paintData copy];
-    
-        [self.paintView transferReversePaint];
-        self.paintDoc = self.paintView.reversePaintDocSrc;
+        self.paintDoc.data = [self.reversePaint combineReversePaintData];DebugLogMem(@"did combineReversePaintDataWithSrcPaintData");
+        [self saveDoc];DebugLogMem(@"did saveDoc");
+//        self.paintDoc.data = nil;
     }
-
-    [self saveDoc];
-    
-    //用于reversePaint恢复当前正在画的paintDoc
-    if (self.isReversePaint) {
-        self.paintDoc = tempDoc;
-        self.paintView.paintData = tempData;
+    else{
+        [self saveDoc];
     }
 }
 
 //关闭界面
 -(void)close{
     DebugLogFuncStart(@"close");
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"DontSave", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Save", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"DontSave", nil), nil];
     alertView.tag = 6;
     [alertView show];
     
@@ -2571,30 +2583,36 @@
             [self lockInteraction:false];
             [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
             [self.paintDoc close];
+            if (self.isReversePaint) {
+                self.reversePaint = nil;
+            }
         }];
     }];
 }
 
+- (void)closeDocCanceled{
+    [self lockInteraction:false];
+}
 //不保存直接关闭文档
 - (void)closeDocWithoutSave{
-    if (self.isReversePaint) {
-        self.paintDoc = self.paintView.reversePaintDocSrc;
-    }
-    
     [self closeDoc];
 }
 
 //保存并关闭文档
 - (void)closeDocWithSave{
-    [self updateDoc];
     
+    [self updateDoc];
+  
     //反向绘制转换并合成paintDoc
     if (self.isReversePaint) {
-        [self.paintView transferReversePaint];
-        self.paintDoc = self.paintView.reversePaintDocSrc;
+        self.paintDoc.data = [self.reversePaint combineReversePaintData];
+        [self saveDoc];
+//        self.paintDoc.data = nil;
+    }
+    else{
+        [self saveDoc];
     }
     
-    [self saveDoc];
     
     [self closeDoc];
 }
@@ -2765,7 +2783,7 @@
                  [self enterTransformImageState:rect];
              }
              else{
-                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
+                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
                  alertView.tag = 2;
                  [alertView show];
              }
@@ -2933,7 +2951,7 @@
         
         return YES;
     }else {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
         [alert show];
         return NO;
     }
@@ -2977,7 +2995,7 @@
 -(void) didSelectExportToEmail{
     [RemoteLog logAction:@"didSelectExportToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
@@ -3075,7 +3093,7 @@
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.exportButton.selected = false;
         NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -3738,14 +3756,25 @@
 -(BOOL)checkInsertAvailable{
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
 
-    if (self.paintDoc.data.layers.count >= layerMaxCount) {
-        NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersAvailable", nil)];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        alertView.tag = 5;
-        [alertView show];
-        return false;
+    if(self.isReversePaint){
+        if (self.paintDoc.data.layers.count + self.paintDoc.reverseData.layers.count >= layerMaxCount) {
+            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"ReverseLayersAvailable", nil)];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            alertView.tag = 5;
+            [alertView show];
+            return false;
+        }
     }
-
+    else{
+        if (self.paintDoc.data.layers.count >= layerMaxCount) {
+            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersAvailable", nil)];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            alertView.tag = 5;
+            [alertView show];
+            return false;
+        }
+    }
+    
     return  true;
 }
 
@@ -4421,6 +4450,7 @@
         [self.exportButton.layer setNeedsDisplay];
     }
     
+//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
 }
 
 
@@ -4582,12 +4612,14 @@
     else if (alertView.tag == 6) {
         switch (buttonIndex) {
             case 0:
-                [self closeDocWithoutSave];
-                break;
-            case 1:
                 [self closeDocWithSave];
                 break;
-                
+            case 1:
+                [self closeDocCanceled];
+                break;
+            case 2:
+                [self closeDocWithoutSave];
+                break;
             default:
                 break;
         }
@@ -4611,11 +4643,11 @@
             [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
             [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
                 
-                [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintView.reversePaintDocSrc];
+                [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
                 [self dismissViewControllerAnimated:true completion:^{
                     [self.paintDoc close];
                     [self lockInteraction:false];
-                    [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintView.reversePaintDocSrc];
+                    [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
                 }];
             }];
         }

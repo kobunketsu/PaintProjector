@@ -16,7 +16,7 @@
 @property(assign, nonatomic)CGFloat imageCenterOnSurfHeight;
 
 @property(assign, nonatomic)CGFloat imageRatio;
-@property(assign, nonatomic)RETexture *refelctionTex;
+//@property(retain, nonatomic)RETexture *refelctionTex;
 @property(assign, nonatomic)GLKVector4 reflectionTexUVSpace;
 
 @end

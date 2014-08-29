@@ -14,6 +14,7 @@
 }
 
 @property (retain, nonatomic) ADPaintData *data;//存储绘图数据
+@property (retain, nonatomic) ADPaintData *reverseData;//反向绘图数据
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;//存储变形数据
 
 //!copy属性保证只从initWithDocPath付值

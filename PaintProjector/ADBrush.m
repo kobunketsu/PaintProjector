@@ -524,7 +524,7 @@
     
     //当前描绘后留下的尾巴长度
     self.lastSegmentTailLength = fmodf(adjustSegmentLength, adjustSpacing);
-    DebugLogWarn(@"segmentLength %.1f adjustSegmentLength %.1f adjustSpacing %.1f segmentTailLenth %.1f ", self.curSegmentLength, adjustSegmentLength, adjustSpacing, self.lastSegmentTailLength);
+//    DebugLogWarn(@"segmentLength %.1f adjustSegmentLength %.1f adjustSpacing %.1f segmentTailLenth %.1f ", self.curSegmentLength, adjustSegmentLength, adjustSpacing, self.lastSegmentTailLength);
     
     //绘制数量
     if(self.brushState.isAirbrush){

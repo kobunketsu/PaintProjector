@@ -100,7 +100,7 @@
 */
 
 - (void)applicationDidEnterBackground:(id)sender{
-    DebugLogFuncStart(@"applicationDidEnterBackground");
+    DebugLogSystem(@"applicationDidEnterBackground");
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     [self tearDownGL];
@@ -109,7 +109,7 @@
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
-    DebugLogFuncStart(@"applicationWillEnterForeground");
+    DebugLogSystem(@"applicationWillEnterForeground");
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     [self setupGL];
@@ -122,7 +122,7 @@
 }
 
 -(void)applicationDidBecomeActive:(id)sender{
-    DebugLogFuncStart(@"applicationDidBecomeActive");
+    DebugLogSystem(@"applicationDidBecomeActive");
     //在购买iap时会调用
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
@@ -132,12 +132,12 @@
     
 }
 -(void)applicationWillResignActive:(id)sender{
-    DebugLogFuncStart(@"applicationWillResignActive");
+    DebugLogSystem(@"applicationWillResignActive");
     glFinish();
 }
 
 -(void)applicationWillTerminate:(id)sender{
-    DebugLogFuncStart(@"applicationWillTerminate");
+    DebugLogSystem(@"applicationWillTerminate");
 }
 
 #pragma mark- UI
@@ -179,9 +179,7 @@
 
 - (BOOL)createPreviewFramebuffer{
     DebugLogFuncStart(@"createPreviewFramebuffer");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "createPreviewFramebuffer");
-#endif
+    DebugLogGLGroupStart(@"createPreviewFramebuffer");
     
 	// Generate IDs for a framebuffer object and a color renderbuffer
     if (_framebuffer==0) {
@@ -218,10 +216,7 @@
 		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
 		return NO;
 	}
-    
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
     
 	return YES;
 }
@@ -277,9 +272,7 @@
 }
 
 - (void) prepareDrawEnv{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "prepareDrawEnv");
-#endif
+    DebugLogGLGroupStart(@"prepareDrawEnv");
     
     //重置混合模式
     glClearColor(125.0/255.0, 130.0 / 255.0, 138.0 / 255.0, 1.0);
@@ -290,25 +283,25 @@
     
     glEnable(GL_BLEND);
     [[REGLWrapper current] blendFunc:BlendFuncAlphaBlend];
-    
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+   
+
+    DebugLogGLGroupEnd();
+
 }
 
 - (void)clear{
     DebugLogFuncStart(@"clear");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "clear");
-#endif
+
+    DebugLogGLGroupStart(@"clear");
+
     [[REGLWrapper current] bindFramebufferOES: self.brushTexture.frameBuffer discardHint:true clear:true];
     [[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
     [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     [[REGLWrapper current] bindFramebufferOES: _framebuffer discardHint:true clear:true];
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+
+    DebugLogGLGroupEnd();
+
 }
 
 - (void)prepareBrush:(ADBrush *)brush{
@@ -347,9 +340,9 @@
 }
 - (void)createStroke:(ADBrush*)brush{
     DebugLogFuncStart(@"createStroke");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "createStroke");
-#endif
+
+    DebugLogGLGroupStart(@"createStroke");
+
     
     self.brush = brush;
     self.brush.canvasSize = self.bounds.size;//设置临时Canvas,需要恢复paintView的设置
@@ -371,9 +364,9 @@
     
     [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]
                                       End:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]];
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+
+    DebugLogGLGroupEnd();
+
 }
 
 - (void)deleteStroke{
@@ -453,17 +446,17 @@
 #pragma mark- PaintCommand Delegate
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
-    //    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "copyCurLayerToCurPaintedLayer");
-#endif
+    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
+
+    DebugLogGLGroupStart(@"copyCurLayerToCurPaintedLayer");
+
 	[[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     
     [self.delegate willDrawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+
+    DebugLogGLGroupEnd();
+
 }
 
 - (void)copyCurPaintedLayerToCurLayer{
@@ -477,9 +470,9 @@
 //执行周期为一个移动操作
 - (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
 //    DebugLog(@"[ willStartDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willStartDrawBrushState");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willStartDrawBrushState");
+
 //    DebugLog(@"willStartDrawBrushState %@", [brushState.color colorString]);
     
     ADBrush *brush = self.brush;
@@ -496,15 +489,13 @@
         [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:true];
     }
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void) willAllocUndoVertexBufferWithPaintCommand:(ADPaintCommand*)cmd{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willAllocUndoVertexBuffer");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willAllocUndoVertexBuffer");
+
     
     size_t count = 0;
     //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
@@ -531,16 +522,14 @@
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * count, NULL, GL_STREAM_DRAW);
     DebugLog(@"glBufferData realloc count %lu", count);
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void) willBeforeDrawBrushState:(ADBrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willBeforeDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willBeforeDraw");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willBeforeDraw");
+
     if (brushState.wet > 0) {
         if (isUndoBaseWrapped) {
             //直接在_curPaintLayerFramebuffer上进行涂抹绘制
@@ -563,44 +552,37 @@
     self.lastBrushState = brushState;
 //    brushState.color = color;
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 
 - (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willFillDataFromPoint");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willFillDataFromPoint");
+
     
     ADBrush *brush = self.brush;
     [brush fillDataFromPoint:start toPoint:end segmentOffset:segmentOffset brushState:brushState isTapDraw:isTapDraw isImmediate:isImmediate];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 //method can be put in paintingView
 - (void)willRenderDataWithBrushId:(NSInteger)brushId isImmediate:(BOOL)isImmediate{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willRenderDraw");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willRenderDraw");
     
     ADBrush *brush = self.brush;
     [brush renderImmediate:isImmediate];
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willAfterDraw:(ADBrushState*)brushState refresh:(BOOL)refresh retainBacking:(BOOL)retainBacking{
 //    DebugLog(@"[ willAfterDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreview willAfterDraw");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreview willAfterDraw");
+
     if (self.brush.brushState.wet > 0) {
         
     }
@@ -630,31 +612,27 @@
     }
 
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)willEndDraw:(ADBrushState*)brushState isUndoWrapped:(BOOL)isUndoWrapped{
 //    DebugLog(@"[ willEndDraw ]");
-#if DEBUG
-    glPushGroupMarkerEXT(0, "brushPreivew willEndDraw");
-#endif
+
+    DebugLogGLGroupStart(@"brushPreivew willEndDraw");
+
     //无论笔刷操作类型，将临时buffer的内容拷贝到当前层
     if (!isUndoWrapped) {
         //        DebugLog(@"!isUndoWrapped copyCurPaintedLayerToCurLayer");
         [self copyCurPaintedLayerToCurLayer];
     }
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 - (void)_updateRender{
-#if DEBUG
-    glPushGroupMarkerEXT(0, "_updateRender Draw Final Framebuffer");
-#endif
+
+    DebugLogGLGroupStart(@"_updateRender Draw Final Framebuffer");
+
 //    glClearColor(0.0, 0.0, 0.0, 0.0);
     [[REGLWrapper current] bindFramebufferOES: _framebuffer discardHint:true clear:true];
     
@@ -663,9 +641,7 @@
     [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
     DebugLogGL(@"-----------------------------------Frame End-----------------------------------");
     
-#if DEBUG
-    glPopGroupMarkerEXT();
-#endif
+    DebugLogGLGroupEnd();
 }
 
 #pragma mark- Brush Delegate

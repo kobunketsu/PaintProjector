@@ -22,6 +22,11 @@
 
 + (id)textureWithName:(NSString *)name width:(CGFloat)width height:(CGFloat)height mipmap:(InterpolationType)interpolationType wrapMode:(WrapMode)wrapMode{
 //    DebugLogWarn(@"textureWithName %@", name);
+//    DebugLogWarn(@"context:%@", [REGLWrapper current].context);
+//    GLint defaultFBO;
+//    glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &defaultFBO);
+//    DebugLogWarn(@"defaultFBO:%u", defaultFBO);
+    
     RERenderTexture *texture = [[RERenderTexture alloc]init];
     texture.name = name;
 
@@ -69,6 +74,7 @@
 		return nil;
 	}
     
+    DebugLogWarn(@"create fbo:%u tex:%u  name:%@", rt, tex, texture.name);
     return texture;
 }
 
@@ -86,7 +92,7 @@
 }
 
 - (void)destroy{
-//    DebugLogWarn(@"destroy %@", self.name);
+    DebugLogError(@"destroy fbo:%u tex:%u name:%@", self.frameBuffer, self.texID, self.name);
     [[REGLWrapper current] deleteFramebufferOES:self.frameBuffer];
 
     //override supper destroy;

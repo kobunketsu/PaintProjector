@@ -23,7 +23,7 @@
     return self;
 }
 -(void)destroy{
-    DebugLogFuncStart(@"destroy %@", self.name);
+//    DebugLogFuncStart(@"destroy %@", self.name);
 //    [NSException raise:NSInternalInconsistencyException
 //                format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
 }

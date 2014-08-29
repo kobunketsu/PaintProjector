@@ -86,6 +86,7 @@
 
 #import "ADBackgroundLayer.h"
 #import "ADAnamorphicButton.h"
+#import "ADReversePaint.h"
 
 @class ADTransformContentView;
 @class ADTransformAnchorView;
@@ -311,6 +312,7 @@ BrushTypePageControlDelegate
 - (IBAction)customLayerButtonTouchDown:(ADAutoRotateButton *)sender;
 
 #pragma mark- 
+@property (retain, nonatomic)ADReversePaint *reversePaint;
 @property (assign, nonatomic)BOOL isReversePaint;
 - (void)prepareForPresentation;
 - (void)afterPresentation;
