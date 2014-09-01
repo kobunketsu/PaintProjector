@@ -19,6 +19,7 @@
     if (self) {
         _morphBlend = 1;
         _alphaBlend = 0;
+        _floorOffset = GLKVector3Make(0, 0, 0);
     }
     return self;
 }
@@ -90,6 +91,7 @@
     [material setFloat:self.radius forPropertyName:@"radius"];
     [material setFloat:self.morphBlend forPropertyName:@"morphBlend"];
     [material setFloat:self.alphaBlend forPropertyName:@"alphaBlend"];
+    [material setVector:GLKVector4MakeWithVector3(self.floorOffset, 0) forPropertyName:@"floorOffset"];
 }
 
 
@@ -104,6 +106,7 @@
     cylinderProject.imageRatio = self.imageRatio;
     cylinderProject.alphaBlend = self.alphaBlend;
     cylinderProject.morphBlend = self.morphBlend;
+    cylinderProject.floorOffset = self.floorOffset;
     cylinderProject.renderer.delegate = cylinderProject;
     
     return cylinderProject;

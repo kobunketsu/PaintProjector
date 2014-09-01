@@ -54,7 +54,7 @@
         [self.sharedMaterials addObject:sharedMaterial];
     }
     else{
-        [self.sharedMaterials replaceObjectAtIndex:0 withObject:sharedMaterial];
+        self.sharedMaterials[0] = sharedMaterial;
     }
 }
 
@@ -84,7 +84,7 @@
     RERenderer *renderer = (RERenderer *)[super copyWithZone:zone];
     renderer.delegate = self.delegate;
 //    renderer.materials = [self.materials copy];
-    renderer.sharedMaterials = self.sharedMaterials;
+    renderer.sharedMaterials = [self.sharedMaterials mutableCopy];//shallow copy
     return  renderer;
 }
 

@@ -1427,7 +1427,6 @@ static float DeviceWidth = 0.154;
     animClip.name = @"reflectionFadeInOutAnimClip";
     REAnimation *anim = [REAnimation animationWithAnimClip:animClip];
     cylinder.animation = anim;
-    
     self.cylinder = cylinder;
     [self.curScene addEntity:cylinder];
     
@@ -1539,7 +1538,21 @@ static float DeviceWidth = 0.154;
     [self.curScene removeEntity:self.cylinderInterLight];
     self.cylinderInterLight = nil;
 }
-- (void)createCylinderProject{
+- (ADCylinderProject *)createCylinderProjectShadow{
+    ADCylinderProject *cylinderProjectShadow = [self createCylinderProjectWithRow:25 Column:25];
+    //修改Transform
+    cylinderProjectShadow.floorOffset = GLKVector3Make(0, -0.005, 0);
+    //修改Material
+    cylinderProjectShadow.layerMask = Layer_Default;
+
+    cylinderProjectShadow.renderer.material.transparent = true;
+    cylinderProjectShadow.renderer.material.mainTexture = [RETexture textureFromImageName:@"cylinderProjectShadow.png" reload:false];
+    
+    [self.curScene addEntity:cylinderProjectShadow];
+    return cylinderProjectShadow;
+}
+
+- (ADCylinderProject *)createCylinderProjectWithRow:(NSInteger)row Column:(NSInteger)column{
     
     ADShaderCylinderProject *shaderCylinderProject = (ADShaderCylinderProject *)[[REGLWrapper current]createShader:@"ADShaderCylinderProject"];
     REMaterial *matCylinderProject = [[REMaterial alloc]initWithShader:shaderCylinderProject];
@@ -1547,7 +1560,7 @@ static float DeviceWidth = 0.154;
     
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:[[ADPaintFrameManager curGroup] curPaintDoc].thumbImagePath];
     matCylinderProject.mainTexture = [RETexture textureFromImagePath:path reload:true];
-    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:25 column:1600];
+    ADPlaneMesh *planeMesh = [[ADPlaneMesh alloc]initWithRow:row column:column];
     [planeMesh create];
     REMeshFilter *meshFilter = [[REMeshFilter alloc]initWithMesh:planeMesh];
     REMeshRenderer *meshRenderer = [[REMeshRenderer alloc]initWithMeshFilter:meshFilter];
@@ -1564,6 +1577,7 @@ static float DeviceWidth = 0.154;
     cylinderProject.layerMask = Layer_Reflection;
     cylinderProject.alphaBlend = self.cylinderProjectDefaultAlphaBlend;
     
+//animation
     REPropertyAnimation *fadeInPropAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
     fadeInPropAnim.delegate = self;
     fadeInPropAnim.toValue = [NSNumber numberWithFloat:1];
@@ -1599,11 +1613,13 @@ static float DeviceWidth = 0.154;
     browseAnimClip.name = @"browseAnimClip";
     [anim addClip:browseAnimClip];
   
-    
+//add to scene
     meshRenderer.delegate = cylinderProject;
-    self.cylinderProjectCur = cylinderProject;
+//    self.cylinderProjectCur = cylinderProject;
+    
     [self.curScene addEntity:cylinderProject];
     
+    return cylinderProject;
 }
 - (void)destroyCylinderProject{
     [self.curScene removeEntity:self.cylinderProjectCur];
@@ -1638,7 +1654,7 @@ static float DeviceWidth = 0.154;
     [self initSceneCameras];
     
     DebugLog(@"init Scene Entities ");
-    [self createCylinderProject];
+    self.cylinderProjectCur = [self createCylinderProjectWithRow:25 Column:1600];
     
     [self createCylinder];
     
@@ -2379,6 +2395,7 @@ static float DeviceWidth = 0.154;
         }];
         self.cylinderProjectCur.animation.clip = curAnimClip;
         [self.cylinderProjectCur.animation play];
+
         DebugLog(@"playing browse Next anim");
         REAnimationClip *nextAnimClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
         REPropertyAnimation *nextPropAnim = nextAnimClip.propertyAnimations.firstObject;
@@ -2412,6 +2429,7 @@ static float DeviceWidth = 0.154;
         }];
         self.cylinderProjectCur.animation.clip = curAnimClip;
         [self.cylinderProjectCur.animation play];
+
         DebugLog(@"playing browse Last anim");
 
         REAnimationClip *lastAnimClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
@@ -2438,7 +2456,6 @@ static float DeviceWidth = 0.154;
         self.cylinderProjectCur.animation.clip = animClip;
         [self.cylinderProjectCur.animation play];
         
-        
         REAnimationClip *nextAnimClip = [self.cylinderProjectNext.animation.clips valueForKey:@"browseAnimClip"];
         REPropertyAnimation *propAnim = nextAnimClip.propertyAnimations.firstObject;
         propAnim.fromValue = [self.cylinderProjectNext valueForKeyPath:@"transform.translate.x"];
@@ -2455,7 +2472,6 @@ static float DeviceWidth = 0.154;
         }];
         self.cylinderProjectCur.animation.clip = animClip;
         [self.cylinderProjectCur.animation play];
-        
         
         REAnimationClip *lastAnimClip = [self.cylinderProjectLast.animation.clips valueForKey:@"browseAnimClip"];
         REPropertyAnimation *propAnim = lastAnimClip.propertyAnimations.firstObject;
@@ -2990,7 +3006,10 @@ static float DeviceWidth = 0.154;
         [step.indicatorView targetView:self.setupButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupScene"]) {
-        [step.indicatorView targetView:self.setupCylinderButton inRootView:self.view];
+        CGRect frame = self.setupCylinderButton.frame;
+        frame.origin.x += 5;
+        [step.indicatorView targetViewFrame:frame inRootView:self.view];
+//        [step.indicatorView targetView:self.setupCylinderButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupSceneDone"]) {
         [step.indicatorView targetView:self.setupCylinderRefPenButton inRootView:self.view];
@@ -3039,22 +3058,22 @@ static float DeviceWidth = 0.154;
         [step.indicatorView targetView:self.imageWidthButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupImageWidthValue"]) {
-        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
-        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenter"]) {
         [step.indicatorView targetView:self.imageHeightButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupImageCenterValue"]) {
-        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
-        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupEyeZoom"]) {
         [step.indicatorView targetView:self.eyeZoomButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupEyeZoomValue"]) {
-        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
-        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
 //    else if ([step.name isEqualToString:@"CylinderProjectSetupEyeDistance"]) {
 //        [step.indicatorView targetView:self.eyeDistanceButton inRootView:self.view];
@@ -3076,8 +3095,8 @@ static float DeviceWidth = 0.154;
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupZoomValue"] ||
             [step.name isEqualToString:@"CylinderProjectSetupZoomFixDisplayValue"]) {
-        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
-        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
+//        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:self.view];
+//        [step.indicatorView targetViewFrame:thumbRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"]) {
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.view];

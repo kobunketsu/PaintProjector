@@ -320,7 +320,9 @@
         [cell.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
         cell.cellFrame.layer.shadowRadius = 3;
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 2);
-    }completion:nil];
+    }completion:^(BOOL finished) {
+        DebugLogWarn(@"didHighlightItemAtIndexPath anim completed");
+    }];
 
 //    [cell.layer setNeedsDisplay];
 }
@@ -335,7 +337,7 @@
         cell.cellFrame.layer.shadowRadius = 10;
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 5);
     }completion:^(BOOL finished) {
-//        DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
+        DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
     }];
 }
 

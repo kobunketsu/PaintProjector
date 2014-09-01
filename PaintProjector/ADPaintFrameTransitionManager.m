@@ -62,6 +62,7 @@
     }
     
     //动画隐藏所有paintFrame
+    DebugLogWarn(@"presentingAnimateTransition hiding all paintFrames");
     [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
         paintCollectionVC.view.alpha = 0;
         
@@ -75,12 +76,12 @@
     } completion:^(BOOL finished) {
         //初始化
         toView.alpha = 1;
-        
+        DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect");
         [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
             [imageView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
             imageView.frame = destRect;
         } completion:^(BOOL finished) {
-       
+            DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect finished");
             //加入转换imageView用来fill containView 消失之后带来的问题
             UIImageView *transitionImageView = [[UIImageView alloc]initWithFrame:destRect];
             transitionImageView.image = imageView.image;
@@ -172,8 +173,8 @@
 //    [containerView addSubview:transitionImageView];
     
     //动画
+    DebugLogWarn(@"dismissingAnimateTransition translating transitionImageView to destRect");
     toView.alpha = 0;
-    
     [UIView animateWithDuration:0 animations:^{
 //        transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {

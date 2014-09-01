@@ -92,7 +92,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     REAnimation *anim = (REAnimation *)[super copyWithZone:zone];
     anim.target = self.target;
-    anim.clips = [self.clips copy];
+    anim.clips = [self.clips mutableCopy];//shallow copy
     anim.playing = self.playing;
     anim.clip = self.clip;
     

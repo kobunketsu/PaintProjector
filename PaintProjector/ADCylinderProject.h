@@ -22,6 +22,7 @@
 #pragma mark- 更新
 - (void)updateImageInCylinder;
 #pragma mark- 投影动画
-@property (assign, nonatomic) float morphBlend;
-@property (assign, nonatomic) float alphaBlend;
+@property (assign, nonatomic) float morphBlend;//变形混合
+@property (assign, nonatomic) float alphaBlend;//透明混合
+@property (assign, nonatomic) GLKVector3 floorOffset;//投影到地面后进行的偏移量
 @end

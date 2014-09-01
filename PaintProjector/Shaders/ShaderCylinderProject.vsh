@@ -18,6 +18,8 @@ uniform vec4 eye;
 uniform highp float radius;
 uniform highp float morphBlend;
 uniform highp float alphaBlend;
+uniform highp vec4 floorOffset;
+
 varying highp vec2 texcoord0;
 varying lowp vec4 color0;
 
@@ -69,6 +71,7 @@ void main()
     highp vec3 pointOnFloor =  pointOnSurface + vecReflect * t;
     
     highp vec3 finalWorlPos = worldPos.xyz * (1.0 - morphBlend) + pointOnFloor.xyz * morphBlend;
+    finalWorlPos += floorOffset.xyz;
 //    highp vec3 finalWorlPos = pointOnFloor.xyz;
 //    highp vec3 finalWorlPos = worldPos.xyz;
     

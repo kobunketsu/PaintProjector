@@ -106,7 +106,6 @@
 		0813AA2E19168C94000C4D00 /* REVertexCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0813AA2C19168C94000C4D00 /* REVertexCommon.m */; };
 		0814743C18B19A5C00BBC25A /* REAnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* REAnimationClip.m */; };
 		0814743D18B19A5C00BBC25A /* REAnimationClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 0814743B18B19A5C00BBC25A /* REAnimationClip.m */; };
-		0815334817D3809300A45B54 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
 		0815818719614F1C00AB1645 /* brushPencilShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818619614F1C00AB1645 /* brushPencilShape_r64.png */; };
 		0815818819614F1C00AB1645 /* brushPencilShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818619614F1C00AB1645 /* brushPencilShape_r64.png */; };
 		0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */; };
@@ -183,6 +182,8 @@
 		0826EE8E18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
 		0828471D199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
 		0828471E199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
+		0829651B19B45AE300BB619F /* cylinderProjectShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0829651A19B45AE300BB619F /* cylinderProjectShadow.png */; };
+		0829651C19B45AE300BB619F /* cylinderProjectShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0829651A19B45AE300BB619F /* cylinderProjectShadow.png */; };
 		0829C01F168349F80009CD1C /* ADImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ADImageStack.m */; };
 		082D39FC1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */ = {isa = PBXBuildFile; fileRef = 082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */; };
 		082D39FD1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */ = {isa = PBXBuildFile; fileRef = 082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */; };
@@ -737,7 +738,6 @@
 		82f135bc896d402dccd58cfe /* ADDownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* ADDownToolBar.m */; };
 		84e38cf39290be67242a948a /* ADMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE749173E2F9B009B34A2 /* ADMarker.m */; };
 		882033cbd8efa1050a5d6091 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C21AF2214E4579F00DB003E /* main.m */; };
-		88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815334717D3809300A45B54 /* cylinderShadow.png */; };
 		89b02925c6d5cc842e9485d6 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083DD3E0167768A400050793 /* ImageIO.framework */; };
 		8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081A2CE7163CD7FE006EC27A /* QuartzCore.framework */; };
 		8b04446cff5bf8c9a3fdcec7 /* ADLayerCopyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0847F102174FC31D008E795B /* ADLayerCopyButton.m */; };
@@ -960,7 +960,6 @@
 		0813AA2C19168C94000C4D00 /* REVertexCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REVertexCommon.m; path = PaintProjector/REVertexCommon.m; sourceTree = "<group>"; };
 		0814743A18B19A5C00BBC25A /* REAnimationClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = REAnimationClip.h; path = PaintProjector/REAnimationClip.h; sourceTree = "<group>"; };
 		0814743B18B19A5C00BBC25A /* REAnimationClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REAnimationClip.m; path = PaintProjector/REAnimationClip.m; sourceTree = "<group>"; };
-		0815334717D3809300A45B54 /* cylinderShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderShadow.png; path = Images/cylinderShadow.png; sourceTree = "<group>"; };
 		0815818619614F1C00AB1645 /* brushPencilShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushPencilShape_r64.png; path = PaintProjector/Images/brushPencilShape_r64.png; sourceTree = SOURCE_ROOT; };
 		08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushCrayonsGrain_r64.png; path = PaintProjector/Images/brushCrayonsGrain_r64.png; sourceTree = SOURCE_ROOT; };
 		0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushCrayonsShape_r64.png; path = PaintProjector/Images/brushCrayonsShape_r64.png; sourceTree = SOURCE_ROOT; };
@@ -1025,6 +1024,7 @@
 		0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionViewCell.m; path = PaintProjector/ADProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
 		0828471B199F346500953E01 /* BrushTypePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypePageControl.h; sourceTree = "<group>"; };
 		0828471C199F346500953E01 /* BrushTypePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypePageControl.m; sourceTree = "<group>"; };
+		0829651A19B45AE300BB619F /* cylinderProjectShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderProjectShadow.png; path = Images/cylinderProjectShadow.png; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ADImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ADImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageStack.m; sourceTree = "<group>"; };
 		082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_viewDeviceSrc.png; path = PaintProjector/Images/tutorial_viewDeviceSrc.png; sourceTree = "<group>"; };
@@ -2595,9 +2595,9 @@
 		08EDD50817AD23A20023E08A /* Texture */ = {
 			isa = PBXGroup;
 			children = (
+				0829651A19B45AE300BB619F /* cylinderProjectShadow.png */,
 				089CC75C195BB9DB002D4236 /* cylinderInterLight.png */,
 				08E539FE195AF849006EDCFC /* cylinderTopLight.png */,
-				0815334717D3809300A45B54 /* cylinderShadow.png */,
 				08EDD50D17AD296B0023E08A /* cylinderMain.png */,
 				0879B3A0195C5CA70062EF11 /* cylinderBottom.png */,
 				08EDD50B17AD23B70023E08A /* cylinderCap.png */,
@@ -3048,6 +3048,7 @@
 				08E4D7FE19A71F0A00990523 /* camera-48.png in Resources */,
 				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
+				0829651C19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				0822E39919A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
@@ -3069,7 +3070,6 @@
 				0879B3A2195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				7b48a987f01c40eb25d0f497 /* Collection in Resources */,
-				88db0a486148ec72960f4683 /* cylinderShadow.png in Resources */,
 				08751309195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				08086E7D18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086EF118DC8BA300F03EB4 /* sinaWeibo48x48.png in Resources */,
@@ -3154,6 +3154,7 @@
 				08E4D7FD19A71F0A00990523 /* camera-48.png in Resources */,
 				08CF37D6197D61C30017D43A /* iap_brushPreviewBg.png in Resources */,
 				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
+				0829651B19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				0822E39819A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
@@ -3178,7 +3179,6 @@
 				08086E7C18DC8BA300F03EB4 /* checkerUnit.png in Resources */,
 				08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08751308195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
-				0815334817D3809300A45B54 /* cylinderShadow.png in Resources */,
 				08086EC618DC8BA300F03EB4 /* PhotoLibrary.png in Resources */,
 				08086F0D18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				0822E38C19A1D3D70094081E /* AnaDrawAppiTunesArtworkApp.png in Resources */,
@@ -3912,7 +3912,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "7d8939d5-b70b-4e88-b18b-d77b7ac8ac7c";
+				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3953,8 +3953,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "7d8939d5-b70b-4e88-b18b-d77b7ac8ac7c";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7d8939d5-b70b-4e88-b18b-d77b7ac8ac7c";
+				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8e11c405-85f8-4947-b88d-af49a61f28f5";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -4473,8 +4473,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "7d8939d5-b70b-4e88-b18b-d77b7ac8ac7c";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7d8939d5-b70b-4e88-b18b-d77b7ac8ac7c";
+				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8e11c405-85f8-4947-b88d-af49a61f28f5";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

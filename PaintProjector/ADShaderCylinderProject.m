@@ -76,6 +76,7 @@
         [self setUniformForKey:@"eye"];
         [self setUniformForKey:@"morphBlend"];
         [self setUniformForKey:@"alphaBlend"];
+        [self setUniformForKey:@"floorOffset"];
         [self setUniformForKey:@"paintTex"];
         
         // Release vertex and fragment shaders.
