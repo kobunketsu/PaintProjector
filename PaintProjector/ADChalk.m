@@ -7,7 +7,7 @@
 //
 
 #import "ADChalk.h"
-
+static ADBrushState *brushStateChalk = nil;
 @implementation ADChalk
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -20,7 +20,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateChalk = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateChalk;
+}
 - (NSString*)name{
     return @"ADChalk";
 }

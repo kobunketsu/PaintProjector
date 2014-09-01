@@ -14,7 +14,6 @@
 #import "iRate.h"
 
 
-//#define DEBUG 1
 @implementation AppDelegate
 
 @synthesize window = _window;

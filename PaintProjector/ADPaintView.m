@@ -286,14 +286,10 @@
     };
     glGenVertexArraysOES(1, &_debugVertexArray);
     [[REGLWrapper current] bindVertexArrayOES: _debugVertexArray];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray, 0, "debugVertexArray");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray, 0, "debugVertexArray");
     glGenBuffers(1, &_debugVertexBuffer);
     [[REGLWrapper current] bindBuffer: _debugVertexBuffer];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer, 0, "debugVertexBuffer");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer, 0, "debugVertexBuffer");
     glBufferData(GL_ARRAY_BUFFER, sizeof(debugQuadVertices), debugQuadVertices, GL_STREAM_DRAW);
     
 	// Render the vertex array
@@ -322,14 +318,10 @@
     };
     glGenVertexArraysOES(1, &_debugVertexArray2);
     [[REGLWrapper current] bindVertexArrayOES:_debugVertexArray2];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray2, 0, "debugVertexArray2");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _debugVertexArray2, 0, "debugVertexArray2");
     glGenBuffers(1, &_debugVertexBuffer2);
     [[REGLWrapper current] bindBuffer: _debugVertexBuffer2];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer2, 0, "debugVertexBuffer2");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _debugVertexBuffer2, 0, "debugVertexBuffer2");
     glBufferData(GL_ARRAY_BUFFER, sizeof(debugQuadVertices2), debugQuadVertices2, GL_STREAM_DRAW);
     
 	// Render the vertex array
@@ -346,15 +338,11 @@
 - (BOOL)createScreenQuadVertexbuffer{
     glGenVertexArraysOES(1, &_VAOScreenQuad);
     [[REGLWrapper current] bindVertexArrayOES:_VAOScreenQuad];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOScreenQuad, 0, "VAOScreenQuad");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOScreenQuad, 0, "VAOScreenQuad");
     glGenBuffers(1, &_VBOScreenQuad);
 //    [[REGLWrapper current] bindBuffer: _vertexBufferScreenQuad];
     [[REGLWrapper current] bindBuffer: _VBOScreenQuad];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOScreenQuad, 0, "VBOScreenQuad");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _VBOScreenQuad, 0, "VBOScreenQuad");
     QuadVertex quadVertices[] = {
         {{1, -1, 0.0},{1.0f, 0.0f}},
         {{-1, -1, 0.0},{ 0.0f, 0.0f}},
@@ -379,14 +367,10 @@
 - (BOOL)createQuadVertexbuffer{
     glGenVertexArraysOES(1, &_VAOQuad);
     [[REGLWrapper current] bindVertexArrayOES:_VAOQuad];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOQuad, 0, "VAOQuad");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOQuad, 0, "VAOQuad");
     glGenBuffers(1, &_VBOQuad);
     [[REGLWrapper current] bindBuffer: _VBOQuad];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOQuad, 0, "VBOQuad");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _VBOQuad, 0, "VBOQuad");
     //scale quadVertices by view size
     CGFloat w = self.bounds.size.width;
     CGFloat h = self.bounds.size.height;
@@ -451,16 +435,12 @@
         glGenFramebuffersOES(1, &_finalFramebuffer);
     }
 	[[REGLWrapper current] bindFramebufferOES: _finalFramebuffer discardHint:false clear:false];
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _finalFramebuffer, 0, [@"finalFramebuffer" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_FRAMEBUFFER_OES, _finalFramebuffer, 0, [@"finalFramebuffer" UTF8String]);
     if (_finalRenderbuffer==0) {
         glGenRenderbuffersOES(1, &_finalRenderbuffer);
     }
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_RENDERBUFFER_OES, _finalRenderbuffer, 0, [@"finalRenderbuffer" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_RENDERBUFFER_OES, _finalRenderbuffer, 0, [@"finalRenderbuffer" UTF8String]);
 	// This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
 	// allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
 	[[REGLWrapper current].context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
@@ -539,9 +519,7 @@
     //创建VAO
     glGenVertexArraysOES(1, &_VAOBrush);
     [[REGLWrapper current] bindVertexArrayOES:_VAOBrush];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrush, 0, "VAOBrush");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrush, 0, "VAOBrush");
     //生成VBO
     if (!_VBOBrush) {
         glGenBuffers(1, &_VBOBrush);
@@ -549,9 +527,7 @@
     
     //将buffer数据绑定VBO
     [[REGLWrapper current] bindBuffer: _VBOBrush];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOBrush, 0, "VBOBrush");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _VBOBrush, 0, "VBOBrush");
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
@@ -563,18 +539,14 @@
     //创建VAO
     glGenVertexArraysOES(1, &_VAOBrushBack);
     [[REGLWrapper current] bindVertexArrayOES:_VAOBrushBack];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrushBack, 0, "VAOBrushBack");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _VAOBrushBack, 0, "VAOBrushBack");
     if (!_VBOBrushBack) {
         glGenBuffers(1, &_VBOBrushBack);
     }
     
     //将buffer数据绑定Back VBO
     [[REGLWrapper current] bindBuffer: _VBOBrushBack];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _VBOBrushBack, 0, "VBOBrushBack");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _VBOBrushBack, 0, "VBOBrushBack");
     glBufferData(GL_ARRAY_BUFFER, sizeof(BrushVertex) * _vertexBrushMaxCount, NULL, GL_STREAM_DRAW);
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(BrushVertex), 0);
@@ -1290,6 +1262,11 @@
 
 
 - (void)setBrush:(ADBrush *)brush{
+    if([_brush isEqual:brush]){
+        return;
+    }
+    
+    [self.delegate willChangeFromBrush:_brush toBrush:brush];
     _brush = brush;
     [self.delegate willChangeUIBrush:brush];
 }
@@ -3145,10 +3122,8 @@
         glDeleteShader(fragShader);
     }
     
-#if DEBUG
     NSString* programLabel = [NSString stringWithFormat:@"program%@",fragShaderName];
-    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
-#endif
+    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
     return program;
 }
 
@@ -3218,9 +3193,7 @@
         glDetachShader(_programQuad, fragShader);
         glDeleteShader(fragShader);
     }
-#if DEBUG
-    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, _programQuad, 0, [@"programQuad" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, _programQuad, 0, [@"programQuad" UTF8String]);
     return YES;
 }
 

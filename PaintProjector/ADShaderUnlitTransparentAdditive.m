@@ -82,9 +82,7 @@
             glDetachShader(self.program, fragShader);
             glDeleteShader(fragShader);
         }
-#if DEBUG
-        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programUnlitTransparentAdditvie" UTF8String]);
-#endif
+        DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programUnlitTransparentAdditvie" UTF8String]);
     }
     return self;
 }

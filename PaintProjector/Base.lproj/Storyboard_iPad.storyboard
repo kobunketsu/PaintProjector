@@ -2267,9 +2267,11 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1On-Dl-NSe" userLabel="CylinderDiameterButton">
-                                                                <rect key="frame" x="0.0" y="12" width="118" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <state key="normal" title="adfadfadf"/>
+                                                                <state key="normal" title="adfadfadf">
+                                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="userInputParamButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="oF0-ab-25p"/>
                                                                 </connections>
@@ -2288,7 +2290,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="i42-kf-iWd" userLabel="CylinderHeightButton">
-                                                                <rect key="frame" x="0.0" y="12" width="118" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2321,7 +2323,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3d5-8i-B14" userLabel="ImageWidthButton">
-                                                                <rect key="frame" x="0.0" y="12" width="118" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2344,7 +2346,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="M5u-7e-9Zn" userLabel="ImageHeightButton">
-                                                                <rect key="frame" x="0.0" y="12" width="118" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2414,18 +2416,18 @@
                                                         </subviews>
                                                     </view>
                                                     <view opaque="NO" contentMode="scaleToFill" id="HLe-yx-9dp" userLabel="EyeZoom">
-                                                        <rect key="frame" x="66" y="32" width="136" height="30"/>
+                                                        <rect key="frame" x="66" y="0.0" width="136" height="67"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uu0-6a-fpA" userLabel="EyeZoomLabel">
-                                                                <rect key="frame" x="0.0" y="14" width="90" height="21"/>
+                                                                <rect key="frame" x="0.0" y="48" width="90" height="21"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nQD-FI-X56" userLabel="EyeZoomButton">
-                                                                <rect key="frame" x="59" y="12" width="59" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="67"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <state key="normal">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2495,20 +2497,20 @@
                                                         </subviews>
                                                     </view>
                                                     <view opaque="NO" contentMode="scaleToFill" id="zN4-dZ-BHf" userLabel="UnitZoom">
-                                                        <rect key="frame" x="66" y="32" width="136" height="30"/>
+                                                        <rect key="frame" x="66" y="0.0" width="136" height="67"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ya-mw-mT6" userLabel="UnitZoomLabel">
-                                                                <rect key="frame" x="0.0" y="14" width="90" height="21"/>
+                                                                <rect key="frame" x="0.0" y="48" width="90" height="21"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22v-i6-tDY" userLabel="UnitZoomButton">
-                                                                <rect key="frame" x="59" y="12" width="59" height="21"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="67"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <state key="normal">
+                                                                <state key="normal" title="test">
                                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </state>
                                                                 <connections>

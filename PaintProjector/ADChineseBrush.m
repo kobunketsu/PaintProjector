@@ -7,7 +7,7 @@
 //
 
 #import "ADChineseBrush.h"
-
+static ADBrushState *brushStateChineseBrush = nil;
 @implementation ADChineseBrush
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +19,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateChineseBrush = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateChineseBrush;
+}
 - (NSString*)name{
     return @"ADChineseBrush";
 }

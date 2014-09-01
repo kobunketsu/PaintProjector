@@ -40,6 +40,7 @@
 
 - (void)nextButtonTouchUp:(UIButton *)sender
 {
+    [RemoteLog logAction:@"nextButtonTouchUp" identifier:sender];
     [self.delegate willStepNextImmediate];
 }
 @end

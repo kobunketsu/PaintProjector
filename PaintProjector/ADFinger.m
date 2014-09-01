@@ -7,7 +7,7 @@
 //
 
 #import "ADFinger.h"
-
+static ADBrushState *brushStateFinger = nil;
 @implementation ADFinger
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +19,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateFinger = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateFinger;
+}
 - (NSString*)name{
     return @"ADFinger";
 }

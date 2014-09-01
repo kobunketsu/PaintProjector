@@ -34,7 +34,6 @@
 //}
 
 - (IBAction)resetButtonTouchUp:(UIButton *)sender {
-    DebugLogIBAction(@"resetButtonTouchUp");
-    
+    [RemoteLog logAction:@"resetButtonTouchUp" identifier:sender];
 }
 @end

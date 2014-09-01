@@ -418,7 +418,8 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"paintButtonTouchUp" identifier:sender];
+    NSString *logString = self.isReversePaint ? @"reversePaintButtonTouchUp" : @"paintButtonTouchUp";
+    [RemoteLog logAction:logString identifier:sender];
     
     [self tutorialStepNextImmediate:false];
     
@@ -545,7 +546,7 @@ static float DeviceWidth = 0.154;
         REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
         propAnim.duration = 0.5;
         propAnim.fromValue = [NSNumber numberWithFloat:1];
-        propAnim.toValue = [NSNumber numberWithFloat:0];
+        propAnim.toValue = [NSNumber numberWithFloat:1];
         [self.cylinder.animation play];
         
         //确定fromView的锚点，和放大缩小的尺寸
@@ -666,8 +667,9 @@ static float DeviceWidth = 0.154;
     if (self.isTopViewMode) {
         NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
         NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
-        NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@",
-                                   NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight];
+        NSString *deviceDiameter = [NSString unitStringFromFloat:self.userInputParams.cylinderDiameter];
+        NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@\n %@: %@",
+                                   NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight, NSLocalizedString(@"DeviceDiameter", nil), deviceDiameter];
         
         messageBody = [messageBody stringByAppendingString:messageDetail];
     }
@@ -2589,7 +2591,7 @@ static float DeviceWidth = 0.154;
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     transitionImageView.image = [UIImage imageWithContentsOfFile:path];
-
+    transitionImageView.alpha = 1;
 }
 
 - (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc *)paintDoc{
@@ -2606,7 +2608,7 @@ static float DeviceWidth = 0.154;
     }
     else{
         //变换反射图动画
-        transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+//        transitionImageView.image = [UIImage imageWithContentsOfFile:path];
         self.cylinder.reflectionStrength = 0;
         REAnimationClip *animClip = [self.cylinder.animation.clips valueForKey:@"reflectionFadeInOutAnimClip"];
         REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
@@ -2615,10 +2617,9 @@ static float DeviceWidth = 0.154;
         propAnim.toValue = [NSNumber numberWithFloat:1];
         [self.cylinder.animation play];
         
-        transitionImageView.alpha = 1;
-        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+        [UIView animateWithDuration:CylinderFadeInOutDuration delay:CylinderFadeInOutDuration options:UIViewAnimationOptionCurveEaseInOut animations:^{
             transitionImageView.alpha = 0;
-        }completion:^(BOOL finished) {
+        } completion:^(BOOL finished) {
         }];
         
         UIView *fromView = self.view;

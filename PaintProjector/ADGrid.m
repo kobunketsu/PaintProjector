@@ -28,16 +28,12 @@
         glGenVertexArraysOES(1, &_vertexLineArray);
     }
     glBindVertexArrayOES(_vertexLineArray);
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexLineArray, 0, "vertexLineArray");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexLineArray, 0, "vertexLineArray");
     if (!glIsBuffer(_vertexLineBuffer)) {
         glGenBuffers(1, &_vertexLineBuffer);
     }
     glBindBuffer(GL_ARRAY_BUFFER, _vertexLineBuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _vertexLineBuffer, 0, "vertexLineBuffer");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _vertexLineBuffer, 0, "vertexLineBuffer");
     _lineWidthCount = self.rowCount + 1;
     _lineHeightCount = self.columnCount + 1;
     //    DebugLog(@"_widthCount:%d  _lineHeightCount:%d", _widthCount, _lineHeightCount);
@@ -149,9 +145,7 @@
         glDetachShader(_programLine, fragShader);
         glDeleteShader(fragShader);
     }
-#if DEBUG
-    glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, _programLine, 0, [@"programLine" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, _programLine, 0, [@"programLine" UTF8String]);
     return YES;
 }
 

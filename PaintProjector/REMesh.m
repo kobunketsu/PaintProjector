@@ -49,16 +49,12 @@
     //绑定gpu
     glGenVertexArraysOES(1, &_vertexArray);
     [[REGLWrapper current] bindVertexArrayOES:_vertexArray];
-#if DEBUG
-    glLabelObjectEXT(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexArray, 0, "meshRenderer");
-#endif
+    DebugLogGLLabel(GL_VERTEX_ARRAY_OBJECT_EXT, _vertexArray, 0, "meshRenderer");
     
     glGenBuffers(1, &_indexBuffer);
     [[REGLWrapper current] bindElementBuffer:_indexBuffer];
     
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _indexBuffer, 0, "indexBuffer");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _indexBuffer, 0, "indexBuffer");
     size_t indicesCount = self.triangleCount * 3;
     GLvoid *indices = (GLvoid *)self.triangles.bytes;
     
@@ -66,9 +62,7 @@
     
     glGenBuffers(1, &_vertexBuffer);
     [[REGLWrapper current] bindBuffer:_vertexBuffer];
-#if DEBUG
-    glLabelObjectEXT(GL_BUFFER_OBJECT_EXT, _vertexBuffer, 0, "vertexBuffer");
-#endif
+    DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _vertexBuffer, 0, "vertexBuffer");
     size_t vertLength = self.verticeCount;
     GLvoid *vertices = (GLvoid *)self.vertices.bytes;
     

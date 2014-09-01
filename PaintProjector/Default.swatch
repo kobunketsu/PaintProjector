@@ -2,25 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-	<string>255 255 255 %5</string>
-	<string>244 146 30 %5</string>
-	<string>133 133 133 %5</string>
-	<string>197 210 219 %5</string>
-	<string>62 107 133 %5</string>
-	<string>77 139 77 %5</string>
-	<string>252 194 64 %5</string>
-	<string>191 75 49 %5</string>
-	<string>75 57 41 %5</string>
-	<string>206 214 180 %5</string>
-	<string>199 183 115 %5</string>
-	<string>227 219 154 %5</string>
-	<string>245 252 208 %5</string>
-	<string>177 194 179 %5</string>
-	<string>119 134 145 %5</string>
-	<string>99 85 83 %5</string>
-	<string>137 147 163 %5</string>
-	<string>81 83 86 %5</string>
-	<string>132 137 115 %5</string>
-	<string>158 163 145 %5</string>
+	<string>242 193 40 %13</string>
+	<string>242 193 40 %10</string>
+	<string>239 147 162 %9</string>
+	<string>255 145 66 %9</string>
+	<string>214 161 128 %7</string>
+	<string>237 231 225 %6</string>
+	<string>104 83 149 %6</string>
+	<string>0 133 160 %6</string>
+	<string>198 90 134 %5</string>
+	<string>10 164 99 %5</string>
+	<string>241 227 172 %4</string>
+	<string>120 46 81 %4</string>
+	<string>33 153 208 %4</string>
+	<string>94 120 160 %3</string>
+	<string>133 152 62 %3</string>
+	<string>182 166 191 %2</string>
+	<string>29 96 158 %2</string>
+	<string>38 38 38 %2</string>
 </array>
 </plist>

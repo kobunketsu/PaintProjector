@@ -8,6 +8,7 @@
 
 #import "ADMarkerSquare.h"
 #import "RETextureManager.h"
+static ADBrushState *brushStateMarkerSquare = nil;
 @implementation ADMarkerSquare
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +20,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateMarkerSquare = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateMarkerSquare;
+}
 - (NSString*)name{
     return @"ADMarkerSquare";
 }

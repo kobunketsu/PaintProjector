@@ -9,10 +9,17 @@
 #import "ADPen.h"
 #define LINE_WIDTH_MAX 10
 #define LINE_VELOCITY_MAX 50
-
 #define _DEBUG_ 0
-@implementation ADPen
 
+static ADBrushState *brushStatePen = nil;
+
+@implementation ADPen
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStatePen = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStatePen;
+}
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
 //    if (self !=nil) {

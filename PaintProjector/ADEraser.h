@@ -7,6 +7,7 @@
 //
 
 #import "ADBrush.h"
+
 @interface ADEraser : ADBrush
 
 @end

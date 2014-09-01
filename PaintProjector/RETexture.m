@@ -22,9 +22,7 @@
     RETexture *texture = [[RETexture alloc]init];
     GLKTextureInfo *texInfo = [RETextureManager textureInfoFromImagePath:imagePath reload:reload];
     texture.name = [[imagePath lastPathComponent] stringByDeletingPathExtension];
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
-#endif
+    DebugLogGLLabel(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
     texture.texID = texInfo.name;
     texture.width = texInfo.width;
     texture.height = texInfo.height;
@@ -35,9 +33,7 @@
     RETexture *texture = [[RETexture alloc]init];
     GLKTextureInfo *texInfo = [RETextureManager textureInfoFromImageName:imageName reload:reload];
     texture.name = imageName;
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
-#endif
+    DebugLogGLLabel(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
     texture.texID = texInfo.name;
     texture.width = texInfo.width;
     texture.height = texInfo.height;
@@ -50,9 +46,7 @@
     RETexture *texture = [[RETexture alloc]init];
     GLKTextureInfo *texInfo = [RETextureManager textureInfoFromData:data];
     texture.name = name;
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
-#endif
+    DebugLogGLLabel(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
     texture.texID = texInfo.name;
     texture.width = texInfo.width;
     texture.height = texInfo.height;
@@ -64,9 +58,7 @@
     RETexture *texture = [[RETexture alloc]init];
     GLKTextureInfo *texInfo = [RETextureManager textureInfoFromUIImage:image];
     texture.name = name;
-#if DEBUG
-    glLabelObjectEXT(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
-#endif
+    DebugLogGLLabel(GL_TEXTURE, texture.texID, 0, [texture.name UTF8String]);
     texture.texID = texInfo.name;
     texture.width = texInfo.width;
     texture.height = texInfo.height;

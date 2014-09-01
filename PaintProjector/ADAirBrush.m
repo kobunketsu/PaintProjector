@@ -7,7 +7,7 @@
 //
 
 #import "ADAirBrush.h"
-
+static ADBrushState *brushStateAirBrush = nil;
 @implementation ADAirBrush
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -18,7 +18,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateAirBrush = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateAirBrush;
+}
 - (NSString*)name{
     return @"ADAirBrush";
 }

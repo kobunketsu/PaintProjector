@@ -8,6 +8,7 @@
 
 #import "ADEraser.h"
 #import "REGLWrapper.h"
+static ADBrushState *brushStateEraser = nil;
 @implementation ADEraser
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +20,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateEraser = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateEraser;
+}
 - (NSString*)name{
     return @"ADEraser";
 }

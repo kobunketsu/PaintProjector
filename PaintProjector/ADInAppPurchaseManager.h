@@ -38,4 +38,5 @@ typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * product
 - (void)restorePurchase;
 - (BOOL)productPurchased:(NSString *)productIdentifier;
 - (void)setProductsFromLocal:(NSArray*)products;
+- (void)testflightPurchase;
 @end

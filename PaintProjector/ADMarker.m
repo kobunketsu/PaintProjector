@@ -7,7 +7,7 @@
 //
 
 #import "ADMarker.h"
-
+static ADBrushState *brushStateMarker = nil;
 @implementation ADMarker
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +19,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateMarker = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateMarker;
+}
 - (NSString*)name{
     return @"ADMarker";
 }

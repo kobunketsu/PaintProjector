@@ -7,7 +7,7 @@
 //
 
 #import "ADCrayons.h"
-
+static ADBrushState *brushStateCrayons = nil;
 @implementation ADCrayons
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -17,6 +17,12 @@
 //    
 //    return self;
 //}
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateCrayons = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateCrayons;
+}
 - (NSString*)name{
     return @"ADCrayons";
 }

@@ -7,7 +7,7 @@
 //
 
 #import "ADPencil.h"
-
+static ADBrushState *brushStatePencil = nil;
 @implementation ADPencil
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -17,7 +17,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStatePencil = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStatePencil;
+}
 - (NSString*)name{
     return @"ADPencil";
 }

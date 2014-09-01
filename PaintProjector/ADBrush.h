@@ -21,6 +21,8 @@
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define kBrushCurveIntervalScale 1.2
 #define kBrushPixelStep		2
+
+#pragma mark- BrushState
 @interface ADBrushState : NSObject
 {
 }
@@ -49,7 +51,7 @@
 @property (assign, nonatomic)bool isRadiusMagnifySensor;
 
 @end
-
+#pragma mark- Brush
 typedef enum
 {
     BrushType_Pencil,
@@ -110,9 +112,9 @@ typedef struct {
     
     GLfloat _projectionMat[16];
 }
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState;
++(ADBrushState*)brushStateTemplate;
 #pragma mark- InAppPurchase
-
 @property (assign, nonatomic, readonly) BOOL free;
 @property (assign, nonatomic, readonly) BOOL available;
 @property (assign, nonatomic, readonly) NSInteger iapProductFeatureId;

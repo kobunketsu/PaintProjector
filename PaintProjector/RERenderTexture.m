@@ -35,20 +35,16 @@
     GLuint rt = 0;
     glGenFramebuffersOES(1, &rt);
     [[REGLWrapper current] bindFramebufferOES:rt discardHint:false clear:false];
-#if DEBUG
     NSString *rtName = [NSString stringWithFormat:@"FBO %@", texture.name];
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, rt, 0, [rtName UTF8String]);
-#endif
+    DebugLogGLLabel(GL_FRAMEBUFFER_OES, rt, 0, [rtName UTF8String]);
     texture.frameBuffer = rt;
     
     //链接renderBuffer对象
     GLuint tex;
     glGenTextures(1, &tex);
     [[REGLWrapper current] bindTexture: tex];
-#if DEBUG
     NSString *texName = [NSString stringWithFormat:@"Tex %@", texture.name];
-    glLabelObjectEXT(GL_TEXTURE, tex, 0, [texName UTF8String]);
-#endif
+    DebugLogGLLabel(GL_TEXTURE, tex, 0, [texName UTF8String]);
     [[REGLWrapper current]setImageInterpolation:interpolationType];
     
     [[REGLWrapper current]setImageWrapMode:wrapMode];

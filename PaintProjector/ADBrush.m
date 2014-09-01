@@ -65,6 +65,12 @@
 @end
 
 @implementation ADBrush
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    //override by subclass
+}
++(ADBrushState*)brushStateTemplate{
+    return nil;
+}
 // first define the pattern width and height
 - (id)copyWithZone:(NSZone *)zone{
     ADBrush *brush = [[[self class] alloc]init];

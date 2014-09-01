@@ -7,7 +7,7 @@
 //
 
 #import "AdInkPen.h"
-
+static ADBrushState *brushStateInkPen = nil;
 @implementation AdInkPen
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -20,7 +20,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateInkPen = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateInkPen;
+}
 - (NSString*)name{
     return @"AdInkPen";
 }

@@ -241,7 +241,7 @@
     //undo redo
     [self willEnableUIRedo:false];
     [self willEnableUIUndo:false];
-
+    
 //    EAGLContext * context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
 //    if (context == nil) {
 //        context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -969,105 +969,6 @@
 }
 
 
-- (IBAction)handlePanTransformAnchorView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePanAnchorView" identifier:sender];
-    if (_state != PaintScreen_Transform) {
-        return;
-    }
-    NSUInteger index = sender.view.tag;
-    switch (sender.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            CGPoint p0 = sender.view.center;
-            p0 = [self.paintView convertPoint:p0 fromView:self.rootCanvasView];
-            self.curTransformAnchorViewSrcCenter = p0;
-            
-            //找到对应的另一处anchorView
-            ADTransformAnchorView *view = (ADTransformAnchorView *)[self.transformAnchorViews objectAtIndex:8 - index];
-            CGPoint p1 = view.center;
-            p1 = [self.paintView convertPoint:p1 fromView:self.rootCanvasView];
-            
-            self.curTransformDirection = atan2f(p0.y - p1.y, p0.x - p1.x);
-            
-            self.transformContentViewSrcCenter = self.transformContentView.center;
-            self.transformContentViewSrcBounds = self.transformContentView.bounds;
-            
-            [self transformImageStartWithPoint0:p0 point1:p1 forceImageCenterAnchor:false];
-            
-            //UI
-            [self showTransformAnchorViewExclusiveByIndex:index];
-            break;
-        }
-        case UIGestureRecognizerStateChanged:
-        {
-//            DebugLog(@"sender center %@", NSStringFromCGPoint(sender.view.center));
-            CGPoint translate = [sender translationInView:self.paintView];
-            
-            //投影移动矢量到当前变换轴线上,得到实际的移动向量
-            CGFloat r = sqrtf(translate.x * translate.x + translate.y * translate.y);
-            CGFloat r0 = cosf(self.curTransformDirection - atan2f(translate.y, translate.x)) * r;
-            CGPoint t = CGPointMake(cosf(self.curTransformDirection) * r0, sinf(self.curTransformDirection) * r0);
-            
-            //得到两个移动基点(在paintView坐标系下)
-            CGPoint p0 = CGPointMake(self.curTransformAnchorViewSrcCenter.x + t.x, self.curTransformAnchorViewSrcCenter.y + t.y);
-            sender.view.center = [self.rootCanvasView convertPoint:p0 fromView:self.paintView];
-            
-            ADTransformAnchorView *view = (ADTransformAnchorView *)[self.transformAnchorViews objectAtIndex:8 - index];
-            CGPoint p1 = view.center;
-            p1 = [self.paintView convertPoint:p1 fromView:self.rootCanvasView];
-//            DebugLog(@"paintView space p0 %@  p1 %@", NSStringFromCGPoint(p0), NSStringFromCGPoint(p1));
-            
-            //转换到transformContent的坐标系下
-            CGPoint p0Canvas = [self.rootCanvasView convertPoint:p0 fromView:self.paintView];
-            CGPoint p1Canvas = [self.rootCanvasView convertPoint:p1 fromView:self.paintView];
-            CGPoint p0Local = [self.transformContentView convertPoint:p0 fromView:self.paintView];
-            CGPoint p1Local = [self.transformContentView convertPoint:p1 fromView:self.paintView];
-//            DebugLog(@"transformContentView space p0Local %@  p1Local %@", NSStringFromCGPoint(p0Local), NSStringFromCGPoint(p1Local));
-            
-            
-            CGRect bounds = self.transformContentView.bounds;
-            if (index == 0 || index == 2 || index == 6 || index == 8) {
-                CGFloat width = fabsf(p1Local.x - p0Local.x);
-                CGFloat height = fabsf(p1Local.y - p0Local.y);
-                bounds.size = CGSizeMake(width, height);
-                //变换transforContentView大小会导致view重分配大小
-                self.transformContentView.bounds = bounds;
-                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
-                
-                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_XX enableAnchor:false];
-            }
-            else if (index == 3 || index == 5){
-                bounds.size.width = GLKVector2Distance(GLKVector2Make(p0Canvas.x, p0Canvas.y), GLKVector2Make(p1Canvas.x, p1Canvas.y));
-                self.transformContentView.bounds = bounds;
-                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
-                
-                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_X enableAnchor:false];
-            }
-            else if (index == 1 || index == 7){
-                bounds.size.height = GLKVector2Distance(GLKVector2Make(p0Canvas.x, p0Canvas.y), GLKVector2Make(p1Canvas.x, p1Canvas.y));
-                self.transformContentView.bounds = bounds;
-                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
-                
-                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_Y enableAnchor:false];
-            }
-
-            break;
-        }
-        case UIGestureRecognizerStateEnded:
-        {
-            [self updateAllTransformAnchorViews];
-            [self showAllTransformAnchorViews];
-            break;
-        }
-        case UIGestureRecognizerStateFailed:
-        case UIGestureRecognizerStateCancelled:
-        {
-            break;
-        }
-        default:
-            break;
-    }
-}
 
 #pragma mark
 - (void)handle2TouchesTransformCanvasBegan:(UIGestureRecognizer *)sender{
@@ -1375,7 +1276,105 @@
     [self updateAllTransformAnchorViews];
     [self showAllTransformAnchorViews];
 }
-
+- (IBAction)handlePanTransformAnchorView:(UIPanGestureRecognizer *)sender {
+    [RemoteLog logAction:@"handlePanAnchorView" identifier:sender];
+    if (_state != PaintScreen_Transform) {
+        return;
+    }
+    NSUInteger index = sender.view.tag;
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            CGPoint p0 = sender.view.center;
+            p0 = [self.paintView convertPoint:p0 fromView:self.rootCanvasView];
+            self.curTransformAnchorViewSrcCenter = p0;
+            
+            //找到对应的另一处anchorView
+            ADTransformAnchorView *view = (ADTransformAnchorView *)[self.transformAnchorViews objectAtIndex:8 - index];
+            CGPoint p1 = view.center;
+            p1 = [self.paintView convertPoint:p1 fromView:self.rootCanvasView];
+            
+            self.curTransformDirection = atan2f(p0.y - p1.y, p0.x - p1.x);
+            
+            self.transformContentViewSrcCenter = self.transformContentView.center;
+            self.transformContentViewSrcBounds = self.transformContentView.bounds;
+            
+            [self transformImageStartWithPoint0:p0 point1:p1 forceImageCenterAnchor:false];
+            
+            //UI
+            [self showTransformAnchorViewExclusiveByIndex:index];
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+        {
+            //            DebugLog(@"sender center %@", NSStringFromCGPoint(sender.view.center));
+            CGPoint translate = [sender translationInView:self.paintView];
+            
+            //投影移动矢量到当前变换轴线上,得到实际的移动向量
+            CGFloat r = sqrtf(translate.x * translate.x + translate.y * translate.y);
+            CGFloat r0 = cosf(self.curTransformDirection - atan2f(translate.y, translate.x)) * r;
+            CGPoint t = CGPointMake(cosf(self.curTransformDirection) * r0, sinf(self.curTransformDirection) * r0);
+            
+            //得到两个移动基点(在paintView坐标系下)
+            CGPoint p0 = CGPointMake(self.curTransformAnchorViewSrcCenter.x + t.x, self.curTransformAnchorViewSrcCenter.y + t.y);
+            sender.view.center = [self.rootCanvasView convertPoint:p0 fromView:self.paintView];
+            
+            ADTransformAnchorView *view = (ADTransformAnchorView *)[self.transformAnchorViews objectAtIndex:8 - index];
+            CGPoint p1 = view.center;
+            p1 = [self.paintView convertPoint:p1 fromView:self.rootCanvasView];
+            //            DebugLog(@"paintView space p0 %@  p1 %@", NSStringFromCGPoint(p0), NSStringFromCGPoint(p1));
+            
+            //转换到transformContent的坐标系下
+            CGPoint p0Canvas = [self.rootCanvasView convertPoint:p0 fromView:self.paintView];
+            CGPoint p1Canvas = [self.rootCanvasView convertPoint:p1 fromView:self.paintView];
+            CGPoint p0Local = [self.transformContentView convertPoint:p0 fromView:self.paintView];
+            CGPoint p1Local = [self.transformContentView convertPoint:p1 fromView:self.paintView];
+            //            DebugLog(@"transformContentView space p0Local %@  p1Local %@", NSStringFromCGPoint(p0Local), NSStringFromCGPoint(p1Local));
+            
+            
+            CGRect bounds = self.transformContentView.bounds;
+            if (index == 0 || index == 2 || index == 6 || index == 8) {
+                CGFloat width = fabsf(p1Local.x - p0Local.x);
+                CGFloat height = fabsf(p1Local.y - p0Local.y);
+                bounds.size = CGSizeMake(width, height);
+                //变换transforContentView大小会导致view重分配大小
+                self.transformContentView.bounds = bounds;
+                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
+                
+                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_XX enableAnchor:false];
+            }
+            else if (index == 3 || index == 5){
+                bounds.size.width = GLKVector2Distance(GLKVector2Make(p0Canvas.x, p0Canvas.y), GLKVector2Make(p1Canvas.x, p1Canvas.y));
+                self.transformContentView.bounds = bounds;
+                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
+                
+                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_X enableAnchor:false];
+            }
+            else if (index == 1 || index == 7){
+                bounds.size.height = GLKVector2Distance(GLKVector2Make(p0Canvas.x, p0Canvas.y), GLKVector2Make(p1Canvas.x, p1Canvas.y));
+                self.transformContentView.bounds = bounds;
+                self.transformContentView.center = CGPointMake((p0Canvas.x + p1Canvas.x)*0.5, (p0Canvas.y + p1Canvas.y)*0.5);
+                
+                [self transformImageWithPoint0:p0 point1:p1 enableTranslate:true enableRotate:false enableScale:true scaleMode:ScaleMode_Y enableAnchor:false];
+            }
+            
+            break;
+        }
+        case UIGestureRecognizerStateEnded:
+        {
+            [self updateAllTransformAnchorViews];
+            [self showAllTransformAnchorViews];
+            break;
+        }
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+        {
+            break;
+        }
+        default:
+            break;
+    }
+}
 #pragma mark- 手势 Gestures 其他(无需判断状态)
 - (IBAction)handleLongPressPaintColorButton:(UILongPressGestureRecognizer *)sender {
     [RemoteLog logAction:@"handleLongPressPaintColorButton" identifier:sender];
@@ -2456,7 +2455,14 @@
     }
     
     //UI
-    [self.paintView setBrush:[brush copy]];
+    ADBrush *brushCopy = [brush copy];
+    //得到上一个记录的同类型的brushState
+    ADBrushState *brushState =[[brush class] brushStateTemplate];
+    if (brushState) {
+        brushCopy.brushState = [brushState copy];
+    }
+    
+    [self.paintView setBrush:brushCopy];
     [self.paintView.brush setColor:self.paintColorButton.color];
     //笔刷大小取自相同笔刷
 
@@ -2574,11 +2580,12 @@
 
 //关闭界面和文档
 - (void)closeDoc{
+
     [self.paintView transformCanvasReset];
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
         //    DebugLog(@"delegate closePaintDoc");
-        [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
+        [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];        
         [self dismissViewControllerAnimated:true completion:^{
             [self lockInteraction:false];
             [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
@@ -3184,6 +3191,8 @@
     
     CGRect bounds = CGRectMake(0, 0, self.transformContentViewSrcBounds.size.width * scale.x, self.transformContentViewSrcBounds.size.height * scale.y);
     self.transformContentView.bounds = bounds;
+    [self.transformContentView.layer setNeedsLayout];
+    [self.transformContentView.layer setNeedsDisplay];
    
     return [self.paintView freeTransformImageTranslate:translate rotate:rotate scale:scale anchorPoint:CGPointZero];
 }
@@ -4040,6 +4049,10 @@
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{
     [self.paintColorButton setColor:resultColor];
     [_opacitySlider setColor:resultColor];
+}
+- (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush{
+    //保存srcBrush对应的类的模版brushState
+    [[srcBrush class]setBrushStateTemplate:srcBrush.brushState];
 }
 - (void) willChangeUIBrush:(ADBrush*) brush{
     //更新半径UI

@@ -33,46 +33,40 @@
     
     //// Shadow Declarations
     UIColor* shadow = strokeColor;
-    CGSize shadowOffset = CGSizeMake(0.1, -3.1);
+    CGSize shadowOffset = CGSizeMake(0.1, 3.1);
     CGFloat shadowBlurRadius = 5;
     
     //// Oval Drawing
     CGFloat size = self.bounds.size.width - 4;
-    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2, 2, size, size)];
-    [[UIColor lightGrayColor] setFill];
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(2, 2, size, size)];
+    [UIColor.lightGrayColor setFill];
     [ovalPath fill];
     
     ////// Oval Inner Shadow
-    CGRect ovalBorderRect = CGRectInset([ovalPath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    ovalBorderRect = CGRectOffset(ovalBorderRect, -shadowOffset.width, -shadowOffset.height);
-    ovalBorderRect = CGRectInset(CGRectUnion(ovalBorderRect, [ovalPath bounds]), -1, -1);
-    
-    UIBezierPath* ovalNegativePath = [UIBezierPath bezierPathWithRect: ovalBorderRect];
-    [ovalNegativePath appendPath: ovalPath];
-    ovalNegativePath.usesEvenOddFillRule = YES;
-    
     CGContextSaveGState(context);
+    UIRectClip(ovalPath.bounds);
+    CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+    
+    CGContextSetAlpha(context, CGColorGetAlpha([shadow CGColor]));
+    CGContextBeginTransparencyLayer(context, NULL);
     {
-        CGFloat xOffset = shadowOffset.width + round(ovalBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
+        UIColor* opaqueShadow = [shadow colorWithAlphaComponent: 1];
+        CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [opaqueShadow CGColor]);
+        CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+        CGContextBeginTransparencyLayer(context, NULL);
         
-        [ovalPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(ovalBorderRect.size.width), 0);
-        [ovalNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [ovalNegativePath fill];
+        [opaqueShadow setFill];
+        [ovalPath fill];
+        
+        CGContextEndTransparencyLayer(context);
     }
+    CGContextEndTransparencyLayer(context);
     CGContextRestoreGState(context);
     
-    [[UIColor whiteColor] setStroke];
+    [UIColor.whiteColor setStroke];
     ovalPath.lineWidth = 0.5;
     [ovalPath stroke];
-    
-    
+  
     
 }
 

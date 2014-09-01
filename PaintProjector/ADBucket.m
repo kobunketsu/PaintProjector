@@ -8,6 +8,7 @@
 
 #import "ADBucket.h"
 @class ADPaintView;
+static ADBrushState *brushStateBucket = nil;
 @implementation ADBucket
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -20,7 +21,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateBucket = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateBucket;
+}
 - (NSString*)name{
     return @"ADBucket";
 }

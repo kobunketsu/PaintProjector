@@ -7,9 +7,14 @@
 //
 
 #import "ADEraserSoft.h"
-
+static ADBrushState *brushStateEraserSoft = nil;
 @implementation ADEraserSoft
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateEraserSoft = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateEraserSoft;
+}
 - (NSString*)name{
     return @"ADEraserSoft";
 }

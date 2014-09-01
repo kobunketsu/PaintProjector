@@ -38,6 +38,7 @@
     #define _DebugLogGLGroupEnd() glPopGroupMarkerEXT()
     #define DebugLogGLSnapshotStart [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
     #define DebugLogGLSnapshotEnd DebugLogGLSnapshotStart
+    #define DebugLogGLLabel(type,object,length,label) glLabelObjectEXT(type,object,length,label)
 //函数每帧都调用的log (去除self指针)
     #define _DebugLogProfile(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,125,0;" @"<%@:(%d)> %@" XCODE_COLORS_RESET, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
@@ -54,6 +55,7 @@
     #define _DebugLogGLGroupEnd()
     #define DebugLogGLSnapshotStart
     #define DebugLogGLSnapshotEnd
+    #define DebugLogGLLabel(type,object,length,label)
     #define _DebugLogProfile(s, ...)
 #endif
 

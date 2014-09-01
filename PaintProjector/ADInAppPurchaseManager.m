@@ -306,8 +306,8 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-
-    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ThankForPurchase", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+    [alertView show];
 }
 //
 // removes the transaction from the queue and posts a notification with the transaction result
@@ -389,5 +389,8 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         }
     }
 }
-
+#pragma mark- testflight
+- (void)testflightPurchase{
+    [self provideContent:@"AnaDrawProVersionPackage"];
+}
 @end

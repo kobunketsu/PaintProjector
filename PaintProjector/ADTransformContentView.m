@@ -66,7 +66,10 @@
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];
     [[UIColor blueColor] setStroke];
-    rectanglePath.lineWidth = 5;
+    
+    //keep line width equal to screen pixel
+    NSNumber *num = [self.layer valueForKeyPath:@"transform.scale"];
+    rectanglePath.lineWidth = 5.0 / num.floatValue;
     CGFloat rectanglePattern[] = {20, 10, 20, 10};
     [rectanglePath setLineDash: rectanglePattern count: 4 phase: contentLayer.phase];
     [rectanglePath stroke];

@@ -67,7 +67,7 @@ typedef struct {
 
 - (void) willChangeUIPaintColor:(UIColor*) resultColor;
 - (void) willChangeUIBrush:(ADBrush*) brush;
-
+- (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush;
 - (void) willPaintViewTouchBegan;
 - (void) willTouchMoving:(CGPoint)point;
 

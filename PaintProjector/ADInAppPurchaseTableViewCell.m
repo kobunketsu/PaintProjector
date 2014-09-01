@@ -224,7 +224,11 @@
                 }
                 else{
                     DebugLog(@"有网络连接, 直接购买产品");
+#if TESTFLIGHT
+                    [[ADSimpleIAPManager sharedInstance] testflightPurchase];
+#else
                     [[ADSimpleIAPManager sharedInstance] purchaseProduct:product];
+#endif
                 }
             }
         }
@@ -302,11 +306,11 @@
 
 #pragma mark- Reset
 - (IBAction)brushResetButtonTouchUp:(id)sender {
-    DebugLogIBAction(@"brushResetButtonTouchUp");
+    [RemoteLog logAction:@"brushResetButtonTouchUp" identifier:sender];
     [self.brushPreview reset];
 }
 - (IBAction)brushColorButtonTouchUp:(ADColorButton *)sender {
-    DebugLogIBAction(@"brushColorButtonTouchUp");
+    [RemoteLog logAction:@"brushColorButtonTouchUp" identifier:sender];
     self.brush.color = sender.color;
 }
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "ADOilBrush.h"
-
+static ADBrushState *brushStateOilBrush = nil;
 @implementation ADOilBrush
 //- (id)initWithPaintView:(PaintingView *)paintView{
 //    self = [super initWithPaintView:paintView];
@@ -19,7 +19,12 @@
 //    
 //    return self;
 //}
-
++(void)setBrushStateTemplate:(ADBrushState*)brushState{
+    brushStateOilBrush = brushState;
+}
++(ADBrushState*)brushStateTemplate{
+    return brushStateOilBrush;
+}
 - (NSString*)name{
     return @"ADOilBrush";
 }

@@ -186,17 +186,13 @@
         glGenFramebuffersOES(1, &_framebuffer);
     }
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _framebuffer, 0, [@"brushPreviewFramebuffer" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_FRAMEBUFFER_OES, _framebuffer, 0, [@"brushPreviewFramebuffer" UTF8String]);
     
     if (_renderbuffer==0) {
         glGenRenderbuffersOES(1, &_renderbuffer);
     }
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, _renderbuffer);
-#if DEBUG
-    glLabelObjectEXT(GL_RENDERBUFFER_OES, _renderbuffer, 0, [@"brushPreviewRenderbuffer" UTF8String]);
-#endif
+    DebugLogGLLabel(GL_RENDERBUFFER_OES, _renderbuffer, 0, [@"brushPreviewRenderbuffer" UTF8String]);
 	// This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
 	// allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
 	[[REGLWrapper current].context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
