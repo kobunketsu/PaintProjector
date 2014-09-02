@@ -14,6 +14,7 @@
 #import "ADRootCanvasView.h"
 #import "ADRootCanvasBackgroundView.h"
 
+#define PaintFrameFadeOutScale 0.9
 
 @protocol ADPaintScreenDelegate;
 

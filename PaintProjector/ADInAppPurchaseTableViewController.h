@@ -12,6 +12,7 @@
 
 @interface ADInAppPurchaseTableViewController : UITableViewController
 <UIAlertViewDelegate,
+SimpleIAPManagerDelegate,
 ADInAppPurchaseTableViewCellDelegate>
 @property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UIView *titleView;

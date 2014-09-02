@@ -12,7 +12,6 @@
 
 #define PaintFrameMoveAnimationDuration 0.6
 #define PaintFrameFadeAnimationDuration 0.3
-#define PaintFrameFadeOutScale 0.95
 
 @implementation ADPaintFrameTransitionManager
 //动画方法:
@@ -75,8 +74,8 @@
         [imageView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
         //初始化
-        toView.alpha = 1;
         DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect");
+        toView.alpha = 1;
         [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
             [imageView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
             imageView.frame = destRect;

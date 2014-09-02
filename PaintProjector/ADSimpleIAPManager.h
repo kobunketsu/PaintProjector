@@ -24,5 +24,11 @@ typedef NS_ENUM(NSUInteger, IAPProPackageFeature)
 
 @interface ADSimpleIAPManager : ADInAppPurchaseManager
 +(id)sharedInstance;
+@property(assign, nonatomic) id delegate;
 - (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
+- (void)testflightPurchase;
+@end
+
+@protocol SimpleIAPManagerDelegate
+- (void)willNotifyUserIAPProductContentProvided;
 @end

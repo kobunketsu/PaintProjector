@@ -75,4 +75,33 @@ static ADSimpleIAPManager* sharedInstance = nil;
     }];
 }
 
+- (void)provideContent:(NSString *)productIdentifier{
+    [super provideContent:productIdentifier];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
+    
+    if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
+        
+        DebugLogWriteSuccess(@"专业版提供Anamorphosis反向绘制");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
+        
+        DebugLogWriteSuccess(@"专业版提供额外笔刷包");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
+        
+        DebugLogWriteSuccess(@"专业版提供调色板管理");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if (self.delegate) {
+        [self.delegate willNotifyUserIAPProductContentProvided];
+    }
+}
+
+#pragma mark- testflight
+- (void)testflightPurchase{
+    [self provideContent:@"AnaDrawProVersionPackage"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionSucceededNotification object:self userInfo:nil];
+}
 @end

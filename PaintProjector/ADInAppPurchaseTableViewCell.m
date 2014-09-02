@@ -224,7 +224,9 @@
                 }
                 else{
                     DebugLog(@"有网络连接, 直接购买产品");
-#if TESTFLIGHT
+#if DEBUG
+                    [[ADSimpleIAPManager sharedInstance] testflightPurchase];
+#elif TESTFLIGHT
                     [[ADSimpleIAPManager sharedInstance] testflightPurchase];
 #else
                     [[ADSimpleIAPManager sharedInstance] purchaseProduct:product];

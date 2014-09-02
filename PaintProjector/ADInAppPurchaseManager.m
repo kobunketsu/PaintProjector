@@ -88,7 +88,9 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         DebugLogWarn(@"没有产品, 无法购买");
         return;
     }
-    
+    NSLocale *local = [NSLocale currentLocale];
+    DebugLog(@"当前本地化 %@",local.localeIdentifier);
+
     DebugLog(@"付费产品数量: %d", [products count]);
     for (SKProductWrapper *product in products) {
         DebugLog(@"产品标题: %@" , product.localizedTitle);
@@ -99,7 +101,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     
     for (NSString *invalidProductId in response.invalidProductIdentifiers)
     {
-        DebugLogWarn(@"产品号不存在: %@" , invalidProductId);
+        DebugLogError(@"产品号不存在: %@" , invalidProductId);
     }
     
     // finally release the reqest we alloc/init’ed in requestProUpgradeProductData
@@ -290,24 +292,6 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 {
     DebugLogFuncStart(@"解锁内容");
     [_purchasedProductIdentifiers addObject:productIdentifier];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
-    
-    if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
-        
-        DebugLogWriteSuccess(@"专业版提供Anamorphosis反向绘制");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
-        
-        DebugLogWriteSuccess(@"专业版提供额外笔刷包");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
-        
-        DebugLogWriteSuccess(@"专业版提供调色板管理");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
-    }
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ThankForPurchase", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-    [alertView show];
 }
 //
 // removes the transaction from the queue and posts a notification with the transaction result
@@ -351,7 +335,48 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)failedTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"交易失败 domain:%@ error:%u", transaction.error.domain, transaction.error.code);
+    switch (transaction.error.code) {
+            
+        case SKErrorUnknown:
+            
+            NSLog(@"SKErrorUnknown");
+            
+            break;
+            
+        case SKErrorClientInvalid:
+            
+            NSLog(@"SKErrorClientInvalid");
+            
+            break;
+            
+        case SKErrorPaymentCancelled:
+            
+            NSLog(@"SKErrorPaymentCancelled");
+            
+            break;
+            
+        case SKErrorPaymentInvalid:
+            
+            NSLog(@"SKErrorPaymentInvalid");
+            
+            break;
+            
+        case SKErrorPaymentNotAllowed:
+            
+            NSLog(@"SKErrorPaymentNotAllowed");
+            
+            break;
+            
+        default:
+            
+            NSLog(@"No Match Found for error");
+            
+            break;
+            
+    }
+    
+    NSLog(@"交易失败 %@",[transaction.error description]);
+
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
         // error!
@@ -389,8 +414,5 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
         }
     }
 }
-#pragma mark- testflight
-- (void)testflightPurchase{
-    [self provideContent:@"AnaDrawProVersionPackage"];
-}
+
 @end

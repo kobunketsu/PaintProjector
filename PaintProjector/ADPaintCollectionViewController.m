@@ -21,6 +21,7 @@
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
 
+
 @interface ADPaintCollectionViewController ()
 //圆柱体投影VC
 @property (weak, nonatomic) ADCylinderProjectViewController *cylinderProjectVC;
@@ -31,6 +32,9 @@
 //是否编辑状态
 @property (assign, nonatomic) BOOL editMode;
 
+//优化UI体验
+@property (assign, nonatomic) BOOL toViewPaintFrame;
+@property (retain, nonatomic) UIActivityIndicatorView *activityView;
 @end
 
 @implementation ADPaintCollectionViewController
@@ -299,7 +303,9 @@
     
     //非编辑状态，打开
     if (!self.editMode) {
-        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
+        //优化UI交互，在didHighlightItemAtIndexPath动画调用结束之后进行。
+        self.toViewPaintFrame = true;
+//        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
     }
     //编辑状态
@@ -317,7 +323,7 @@
     ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         
-        [cell.layer setValue:[NSNumber numberWithFloat:0.95] forKeyPath:@"transform.scale"];
+        [cell.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
         cell.cellFrame.layer.shadowRadius = 3;
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 2);
     }completion:^(BOOL finished) {
@@ -338,6 +344,11 @@
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 5);
     }completion:^(BOOL finished) {
         DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
+        if (self.toViewPaintFrame) {
+            [self createActivityViewFromRect:cell];
+            [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
+            self.toViewPaintFrame = false;
+        }
     }];
 }
 
@@ -383,6 +394,22 @@
 #pragma mark- 交互控制 UserInteraction
 - (void)lockInteraction:(BOOL)lock{
     self.downToolBar.userInteractionEnabled = !lock;
+}
+
+- (void)createActivityViewFromRect:(UIView*)view{
+    self.activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [view addSubview:self.activityView];
+    self.activityView.center = CGPointMake(view.bounds.size.width * 0.5, view.bounds.size.height * 0.5);
+    self.activityView.hidesWhenStopped = true;
+    [self.activityView startAnimating];
+}
+
+- (void)deleteActivityView{
+    if (self.activityView) {
+        [self.activityView stopAnimating];
+        [self.activityView removeFromSuperview];
+        self.activityView = nil;
+    }
 }
 #pragma mark- Tool Bar
 
@@ -499,6 +526,7 @@
     self.cylinderProjectVC.paintDirectly = paintDirectly;
     
     [self presentViewController:self.cylinderProjectVC animated:YES completion:^{
+        [self deleteActivityView];
         [self lockInteraction:false];
         
         DebugLog(@"Fade in cylinderProjcet");

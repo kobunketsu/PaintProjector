@@ -31,7 +31,8 @@
 
 
 #define CylinderFadeInOutDuration 0.4
-#define CylinderResetParamDuration 0.3
+#define CylinderFadeInOutDeallocDelay 0.4
+#define CylinderResetParamDuration 0.4
 #define CylinderViewChangeDuration 1
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
@@ -2604,13 +2605,19 @@ static float DeviceWidth = 0.154;
     self.cylinderProjectDefaultAlphaBlend = 1;
     
     //刷新当前画框内容
-    NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
-    UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
-    transitionImageView.image = [UIImage imageWithContentsOfFile:path];
-    transitionImageView.alpha = 1;
+    if (self.isReversePaint) {
+    }
+    else{
+        NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
+        UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
+        transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+        transitionImageView.alpha = 1;
+    }
+
 }
 
 - (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc *)paintDoc{
+    DebugLogFuncStart(@"willPaintScreenDissmissDoneWithPaintDoc");
     NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     UIImageView *transitionImageView = (UIImageView *)[self.view subViewWithTag:100];
     self.cylinderProjectCur.renderer.material.mainTexture = [RETexture textureFromImagePath:path reload:true];
@@ -2633,7 +2640,7 @@ static float DeviceWidth = 0.154;
         propAnim.toValue = [NSNumber numberWithFloat:1];
         [self.cylinder.animation play];
         
-        [UIView animateWithDuration:CylinderFadeInOutDuration delay:CylinderFadeInOutDuration options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:CylinderFadeInOutDuration delay:CylinderFadeInOutDeallocDelay options:UIViewAnimationOptionCurveEaseInOut animations:^{
             transitionImageView.alpha = 0;
         } completion:^(BOOL finished) {
         }];
@@ -2642,14 +2649,18 @@ static float DeviceWidth = 0.154;
         CGRect rect = [self willGetCylinderMirrorFrame];
         CGFloat scale = self.view.frame.size.width / rect.size.width;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-        
-        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+        DebugLogWarn(@"willPaintScreenDissmissDoneWithPaintDoc translating");
+        [UIView animateWithDuration:CylinderFadeInOutDuration delay:CylinderFadeInOutDeallocDelay options:UIViewAnimationOptionCurveEaseOut animations:^{
             [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         } completion:^(BOOL finished) {
+            //实际动画时间超过设定时间，中间有class dealloc发生
+            DebugLogWarn(@"willPaintScreenDissmissDoneWithPaintDoc translation done");
             fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
             fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
         }];
     }
+    
+    [paintDoc close];
 }
 
 

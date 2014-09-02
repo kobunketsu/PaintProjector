@@ -109,7 +109,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.superViewBounds = CGRectMake(0, 0, 500, 350);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(transactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
+    
+    ((ADSimpleIAPManager *)[ADSimpleIAPManager sharedInstance]).delegate = self;
  
     [self reload];
 }
@@ -127,7 +130,7 @@
 
 #pragma mark - 交易Purchase
 
-- (void)transactionSucceeded:(id)arg{
+- (void)IAPTransactionSucceeded:(id)arg{
     DebugLog(@"购买产品成功,刷新产品显示");
     [self.tableView reloadData];
 }
@@ -229,7 +232,6 @@
             [alertView show];
         }
     }
-
 }
 
 #pragma mark - Table view data source
@@ -351,10 +353,20 @@
     [self.delegate willIAPPurchaseDone];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 1) {
+        [RemoteLog logAction:@"IAP bought confirmed" identifier:nil];
+    }
+}
+
 #pragma mark- InAppPurchaseTableViewCellDelegate
 - (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
     return [self.delegate willGetBrushByIAPFeatureIndex:feature];
 }
-#pragma mark- 产品描述 IAPProductFeature
-
+#pragma mark- ADSimpleIAPManagerDelegate
+- (void)willNotifyUserIAPProductContentProvided{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+    alertView.tag = 1;
+    [alertView show];
+}
 @end

@@ -229,6 +229,12 @@
      name:UIApplicationWillTerminateNotification
      object:nil];
 
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(IAPTransactionSucceeded:)
+     name:kInAppPurchaseManagerTransactionSucceededNotification
+     object:nil];
+    
     //paintView 设置
     self.paintView.delegate = self;
     CGPathRef path = [UIBezierPath bezierPathWithRect:self.paintView.bounds].CGPath;
@@ -270,29 +276,29 @@
     //初始化各种笔刷
     [ADBrushManager initialize];
     
-    ADPencil *pencil = [[ADPencil alloc]initWithPaintView:self.paintView];
+    ADPencil *pencil = [[ADPencil alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADEraser *eraser = [[ADEraser alloc]initWithPaintView:self.paintView];
+    ADEraser *eraser = [[ADEraser alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADPen *pen = [[ADPen alloc]initWithPaintView:self.paintView];
+    ADPen *pen = [[ADPen alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADMarker *marker = [[ADMarker alloc]initWithPaintView:self.paintView];
+    ADMarker *marker = [[ADMarker alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADFinger *finger = [[ADFinger alloc]initWithPaintView:self.paintView];
+    ADFinger *finger = [[ADFinger alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADChineseBrush *chineseBrush = [[ADChineseBrush alloc]initWithPaintView:self.paintView];
+    ADChineseBrush *chineseBrush = [[ADChineseBrush alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADCrayons *crayons = [[ADCrayons alloc]initWithPaintView:self.paintView];
+    ADCrayons *crayons = [[ADCrayons alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADBucket *bucket = [[ADBucket alloc]initWithPaintView:self.paintView];
+    ADBucket *bucket = [[ADBucket alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    AdInkPen *inkPen = [[AdInkPen alloc]initWithPaintView:self.paintView];
+    AdInkPen *inkPen = [[AdInkPen alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADMarkerSquare *markerSquare = [[ADMarkerSquare alloc]initWithPaintView:self.paintView];
+    ADMarkerSquare *markerSquare = [[ADMarkerSquare alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADOilBrush *oilBrush = [[ADOilBrush alloc]initWithPaintView:self.paintView];
+    ADOilBrush *oilBrush = [[ADOilBrush alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
-    ADAirBrush *airBrush = [[ADAirBrush alloc]initWithPaintView:self.paintView];
+    ADAirBrush *airBrush = [[ADAirBrush alloc]initWithPaintView:self.paintView delegate:self.paintView];
     
     //将笔刷加入笔刷类型视图
     UIScrollView *scrollView = (UIScrollView *)self.brushTypeScrollView;
@@ -423,6 +429,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
     
     [ADBrushManager destroy];
     
@@ -2580,16 +2588,18 @@
 
 //关闭界面和文档
 - (void)closeDoc{
-
+    DebugLogFuncStart(@"closeDoc");
     [self.paintView transformCanvasReset];
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
-        //    DebugLog(@"delegate closePaintDoc");
-        [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];        
+        //blocked by paintDoc close;
+        
+        [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
+        DebugLog(@"dismissViewControllerAnimated");
         [self dismissViewControllerAnimated:true completion:^{
+            DebugLog(@"dismissViewControllerAnimated done");//0.3s
             [self lockInteraction:false];
             [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
-            [self.paintDoc close];
             if (self.isReversePaint) {
                 self.reversePaint = nil;
             }
@@ -3186,9 +3196,7 @@
         }
 
     }
-    
 
-    
     CGRect bounds = CGRectMake(0, 0, self.transformContentViewSrcBounds.size.width * scale.x, self.transformContentViewSrcBounds.size.height * scale.y);
     self.transformContentView.bounds = bounds;
     [self.transformContentView.layer setNeedsLayout];
@@ -4047,13 +4055,16 @@
 }
 
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{
+    DebugLogFuncStart(@"willChangeUIPaintColor %@", resultColor);
     [self.paintColorButton setColor:resultColor];
-    [_opacitySlider setColor:resultColor];
+    [self.opacitySlider setColor:resultColor];
 }
+
 - (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush{
     //保存srcBrush对应的类的模版brushState
     [[srcBrush class]setBrushStateTemplate:srcBrush.brushState];
 }
+
 - (void) willChangeUIBrush:(ADBrush*) brush{
     //更新半径UI
     self.radiusSlider.minimumValue = brush.radiusSliderMinValue;
@@ -4601,6 +4612,13 @@
        
     }];
 }
+- (void)IAPTransactionSucceeded:(id)arg{
+    DebugLog(@"购买产品成功,刷新产品显示");
+    for ( UIView *view in self.brushTypeScrollView.subviews) {
+        ADBrushTypeButton *brushTypeView = (ADBrushTypeButton *)view;
+        [brushTypeView setNeedsDisplay];
+    }
+}
 
 #pragma mark- 处理警告 UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -4655,12 +4673,11 @@
         if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
             [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
             [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
-                
                 [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
                 [self dismissViewControllerAnimated:true completion:^{
-                    [self.paintDoc close];
                     [self lockInteraction:false];
                     [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
+                    self.reversePaint = nil;
                 }];
             }];
         }
@@ -4672,37 +4689,37 @@
     //创建一个全新的笔刷，然后在关闭IAP使用后释放掉
     ADBrush *brush = nil;
     if (feature == Pro_Crayons) {
-        brush = [[ADCrayons alloc]initWithPaintView:self.paintView];
+        brush = [[ADCrayons alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 6;
 //        brush.brushState.color = [UIColor colorWithRed:126.0/255.0 green:44.0 / 255.0 blue:99.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewCrayons";
 
     }
     else if (feature == Pro_Finger) {
-        brush = [[ADFinger alloc]initWithPaintView:self.paintView];
+        brush = [[ADFinger alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 7;
 //        brush.brushState.color = [UIColor colorWithRed:248.0/255.0 green:163.0 / 255.0 blue:138.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewFinger";
     }
     else if (feature == Pro_MarkerSquare) {
-        brush = [[ADMarkerSquare alloc]initWithPaintView:self.paintView];
+        brush = [[ADMarkerSquare alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 8;
 //        brush.brushState.color = [UIColor colorWithRed:216.0/255.0 green:255.0 / 255.0 blue:56.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewMarkerSquare";
     }
     else if (feature == Pro_AirBrush) {
-        brush = [[ADAirBrush alloc]initWithPaintView:self.paintView];
+        brush = [[ADAirBrush alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 9;
         brush.name = @"brushPreviewAirBrush";
     }
     else if (feature == Pro_ChineseBrush) {
-        brush = [[ADChineseBrush alloc]initWithPaintView:self.paintView];
+        brush = [[ADChineseBrush alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 10;
 //        brush.brushState.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
         brush.name = @"brushPreviewChineseBrush";
     }
     else if (feature == Pro_OilBrush) {
-        brush = [[ADOilBrush alloc]initWithPaintView:self.paintView];
+        brush = [[ADOilBrush alloc]initWithPaintView:self.paintView delegate:nil];
         brush.brushState.classId = 11;
 //        brush.brushState.color = [UIColor colorWithRed:255.0/255.0 green:216.0 / 255.0 blue:120.0 / 255.0 alpha:1];
         brush.name = @"brushPreviewOilBrush";

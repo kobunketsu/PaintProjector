@@ -97,11 +97,11 @@
 }
 
 //绘制笔刷
-- (id)initWithPaintView:(ADPaintView*)paintView{
+- (id)initWithPaintView:(ADPaintView*)paintView delegate:(id)delegate{
     self = [super init];
     if (self !=nil) {
         _paintView = paintView;
-        self.delegate = paintView;
+        self.delegate = delegate;
       
         //Param
         _brushState = [[ADBrushState alloc]init];

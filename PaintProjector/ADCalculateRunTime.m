@@ -24,7 +24,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     uint64_t nanos = elapsed * info.numer / info.denom;
     CGFloat result = (CGFloat)nanos / NSEC_PER_SEC;
     
-    DebugLogProfile(@"isEqual: time: %f\n", result);
+//    DebugLogProfile(@"isEqual: time: %f\n", result);
     
     return result;
 }

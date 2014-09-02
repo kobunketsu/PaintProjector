@@ -146,7 +146,7 @@ typedef struct {
 @property (assign, nonatomic) float radiusSliderMaxValue;
 @property (assign, nonatomic) float radiusSliderMinValue;
 
-- (id)initWithPaintView:(ADPaintView*)paintView;
+- (id)initWithPaintView:(ADPaintView*)paintView delegate:(id)delegate;
 - (void)initGL;
 - (void)tearDownGL;
 //- (BOOL)loadShader;
