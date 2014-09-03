@@ -161,7 +161,6 @@
 
 - (void)drawImmediateStart:(CGPoint)startPoint{
     [self.delegate willStartDrawBrushState:self.brushState FromPoint:startPoint isUndoBaseWrapped:false];
-    
 }
 
 - (void)drawImmediateFrom:(CGPoint)startPoint to:(CGPoint)endPoint{

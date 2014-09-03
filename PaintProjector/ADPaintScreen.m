@@ -2732,7 +2732,7 @@
 
 #pragma mark- 导入 Import
 - (IBAction)importButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"importButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"importButtonTouchUp" identifier:sender];
     
     if (![self checkInsertAvailable]) {
         return;
@@ -2995,7 +2995,7 @@
 }
 
 - (IBAction)exportButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"exportButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"exportButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     ADExportTableViewController* exportTableViewController = [[ADExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -3526,12 +3526,10 @@
         view.userInteractionEnabled = true;
     }
     self.pgr1TouchesPaintView.enabled = true;
-    
-    [self.paintView resetUndoRedo];
 }
 
 - (IBAction)transformButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"transformButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"transformButtonTouchUp" identifier:sender];
     
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
@@ -3543,6 +3541,7 @@
 
         [self lockInteraction:true];
         
+        //UI
         [self.paintView beforeTransformLayer];
 
         //UI
@@ -3551,13 +3550,15 @@
     }
     else if (_state == PaintScreen_Transform){
         [self lockInteraction:true];
-        
+
+        PaintingViewState paintViewState = self.paintView.state;
         [self.paintView transformImageLayerDone];
-    
+        if (paintViewState == PaintView_TouchTransformImage) {
+            [self.paintView resetUndoRedo];
+        }
+
         //UI
         [self leaveTransformState];
-//        [self updateFuzzyTransparentViews];
-
     }
 
 }
@@ -3616,7 +3617,7 @@
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"layerButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"layerButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     self.layerTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"LayerTableViewController"];
@@ -3668,8 +3669,8 @@
 }
 
 
-- (IBAction)createLayerButtonTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"createLayerButtonTapped" identifier:sender];
+- (IBAction)createLayerButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"createLayerButtonTouchUp" identifier:sender];
     [self insertLayerAtIndex:[self curLayerIndex]];
 }
 
@@ -3740,36 +3741,16 @@
 }
 
 #pragma mark- 图层代理 LayerTableViewControllerDelegate
-- (void) willSetCurLayerDataAtIndex:(int)index{
-    //串行排列放入线程，保证在uploadLayerData之后更新，避免多线程操作context冲突
-    dispatch_sync(_uploadDataQueque, ^{
-        [self setCurLayerIndex: index];
-        
-        //命令 如果点击了图层面板，则Undo Redo重置
-        [self.paintView resetUndoRedo];
-    });
+-(BOOL)checkIndexAvailable:(int)index{
+    if(index >= self.paintView.paintData.layers.count){
+        return false;
+    }
+    if(index < 0){
+        return false;
+    }
+    return true;
 }
 
-//检查是否可以插入图层
-//-(BOOL)checkInsertAvailable{
-//    NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
-//    if([[NSUserDefaults standardUserDefaults]boolForKey:@"AnaDrawProVersionPackage"]){
-//        if (self.paintDoc.data.layers.count >= layerMaxCount) {
-//            NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersIAP", nil)];
-//            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:nil, nil];
-//            alertView.tag = 4;
-//            [alertView show];
-//            return false;
-//        }
-//    }
-//    else{
-//        if (self.paintDoc.data.layers.count >= layerMaxCount) {
-//            [self openIAPWithProductFeatureIndex:7];
-//            return false;
-//        }
-//    }
-//    return  true;
-//}
 -(BOOL)checkInsertAvailable{
     NSUInteger layerMaxCount = [[NSUserDefaults standardUserDefaults]integerForKey:@"LayerQuantityLimitation"];
 
@@ -3795,27 +3776,74 @@
     return  true;
 }
 
--(void)willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion{
-    if ([self checkInsertAvailable]) {
-        //数据 & 显示
-        [self.paintView insertBlankLayerAtIndex:index transparent:true immediate:true];
-        [self.paintView uploadLayerDatas];
-        completion();
+- (int) willGetCurLayerIndex{
+    return self.paintView.curLayerIndex;
+}
+- (BOOL) willSetCurLayerDataAtIndex:(int)index{
+    if(![self checkIndexAvailable:index]){
+        return false;
     }
+    //串行排列放入线程，保证在uploadLayerData之后更新，避免多线程操作context冲突
+    dispatch_sync(_uploadDataQueque, ^{
+        [self setCurLayerIndex: index];
+        
+        //命令 如果点击了图层面板，则Undo Redo重置
+        [self.paintView resetUndoRedo];
+    });
+    return true;
 }
 
--(void)willEraseLayerDataAtIndex:(int)index{
-    [self.paintView eraseLayerAtIndex:index];
+-(BOOL)willInsertLayerDataAtIndex:(int)index{
+    if (![self checkInsertAvailable]) {
+        return false;
+    }
+
+    //数据 & 显示
+    [self.paintView insertBlankLayerAtIndex:index transparent:true immediate:true];
     [self.paintView uploadLayerDatas];
+    return true;
+}
+- (BOOL) willInsertCopyLayerDataAtIndex:(int)index{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    if (![self checkInsertAvailable]) {
+        return false;
+    }
+    
+    [self.paintView insertCopyLayerAtIndex:index immediate:true];
+    return true;
 }
 
--(void)willDeleteLayerDataAtIndex:(int)index{
+- (BOOL)willClearLayerDataAtIndex:(int)index{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
+    [self.paintView eraseLayerAtIndex:index];
+    [self.paintView uploadLayerDataAtIndex:index];
+    return true;
+}
+
+-(BOOL)willDeleteLayerDataAtIndex:(int)index{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
     //数据 & 显示
     [self.paintView deleteLayerAtIndex:index immediate:true];
     [self.paintView uploadLayerDatas];
+    return true;
 }
 
-- (void)willMoveLayerFromIndex:(int)fromIndex toIndex:(int)toIndex{
+- (BOOL)willMoveLayerFromIndex:(int)fromIndex toIndex:(int)toIndex{
+    if(![self checkIndexAvailable:fromIndex]){
+        return false;
+    }
+    if(![self checkIndexAvailable:toIndex]){
+        return false;
+    }
+    
     //数据 & 显示    
     if (toIndex > fromIndex) {
         [self.paintView moveLayerDownFromIndex:fromIndex ToIndex:toIndex immediate:true];
@@ -3824,46 +3852,64 @@
         [self.paintView moveLayerUpFromIndex:fromIndex ToIndex:toIndex immediate:true];
     }
     else{
-        
     }
     
     [self.paintView uploadLayerDatas];
+    return true;
+}
+- (BOOL)willMergeLayerDataAtIndex:(int)index{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    //最底层不合并
+    if (index == 0) {
+        return false;
+    }
+    
+    [self.paintView mergeLayerAtIndex:index];
+    [self.paintView uploadLayerDataAtIndex:index - 1];
+    return true;
+}
+
+#pragma mark-
+
+- (BOOL) willSetLayerAtIndex:(int)index visible:(BOOL)visible{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
+    [self setLayerAtIndex:index visible:visible];
+    return true;
+}
+- (BOOL)willSetLayerAtIndex:(int)index opacity:(float)opacity{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
+    [self.paintView setLayerAtIndex:index opacity:opacity];
+    return true;
+}
+
+- (BOOL)willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock{
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
+    [self.paintView setLayerAtIndex:index opacityLock:opacityLock];
+    return true;
+}
+
+- (BOOL) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index {
+    if(![self checkIndexAvailable:index]){
+        return false;
+    }
+    
+    [self.paintView setLayerAtIndex:index blendMode:blendMode];
+    return true;
 }
 
 - (void)willSetBackgroundLayerVisible:(bool)visible {
     [self setBackgroundLayerVisible:visible];
-}
-- (void) willSetLayerAtIndex:(int)index visible:(BOOL)visible{
-    [self setLayerAtIndex:index visible:visible];
-}
-
-- (void) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index {
-    [self.paintView setCurLayerBlendMode:blendMode];    
-}
-
-- (void)willSetLayerAtIndex:(int)index opacity:(float)opacity{
-    [self.paintView setLayerAtIndex:index opacity:opacity];
-}
-
-- (void)willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock{
-    [self.paintView setLayerAtIndex:index opacityLock:opacityLock];
-}
-
-- (void)willMergeLayerDataAtIndex:(int)index{
-    [self.paintView mergeLayerAtIndex:index];
-}
-- (void)willClearLayerDataAtIndex:(int)index{
-    [self.paintView eraseLayerAtIndex:index];
-    [self.paintView uploadLayerDataAtIndex:index];
-}
-- (void) willInsertCopyLayerDataAtIndex:(int)index{
-    if ([self checkInsertAvailable]) {
-        [self.paintView insertCopyLayerAtIndex:index immediate:true];
-    }
-}
-
-- (int) willGetCurLayerIndex{
-    return self.paintView.curLayerIndex;
 }
 - (void) willUpdateRender{
     [self.paintView updateRender];
@@ -3945,7 +3991,7 @@
 
 #pragma mark- 退出 SaveClose
 - (IBAction)saveAndCloseButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"saveAndCloseButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"saveAndCloseButtonTouchUp" identifier:sender];
     
     //禁止所有屏幕上的操作
     [self lockInteraction:true];
@@ -4248,13 +4294,13 @@
 }
 #pragma mark- 取色界面 Pick Color UI Operation
 - (IBAction)colorSlotsSwitchTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"colorSlotsSwitchTapped" identifier:sender];
+    [RemoteLog logAction:@"colorSlotsSwitchTouchUp" identifier:sender];
     [self.brushOpacityView setHidden:![self.brushOpacityView isHidden]];
     _colorSlotsViewHidden = [self.brushOpacityView isHidden];
 }
 
 - (IBAction)colorPickerSwitchTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"colorPickerSwitchTapped" identifier:sender];
+    [RemoteLog logAction:@"colorPickerSwitchTouchUp" identifier:sender];
     if(self.colorPickerView.sourceView!=NULL){
         self.colorPickerView.sourceView.backgroundColor = self.infColorPickerController.resultColor;
         if(self.colorPickerView.sourceView == _paintColorView){
@@ -4288,7 +4334,7 @@
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 - (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"paintColorButtonTapped" identifier:sender];
+    [RemoteLog logAction:@"paintColorButtonTouchUp" identifier:sender];
 //    if (colorPickerView.hidden) {
 //        colorPickerView.hidden = false;
 //        colorPickerView.sourceView = _paintColorView;

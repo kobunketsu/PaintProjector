@@ -206,53 +206,54 @@ const float LayerTableViewWidth = 256;
         
         //如果是最后一个图层，只删除图层内容
         if (self.layers.count == 1 && layerIndex == 0) {
-            [self.delegate willEraseLayerDataAtIndex:layerIndex];//updateRender
-            [self.tableView reloadData];
+            if ([self.delegate willClearLayerDataAtIndex:layerIndex]) {
+                [self.tableView reloadData];
+            }
         }
         //删除图层
         else{
-            //立即释放图片资源
-            ADLayerTableViewCell *cell = (ADLayerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-            cell.layerImageView.image = nil;
-            cell.layerImageView.backgroundColor = nil;
-            
-            [self.delegate willDeleteLayerDataAtIndex:layerIndex];
-            
-            //UI
-            // Delete the row from the data source
-            [self.tableView beginUpdates];
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-            
-            [self checkEditable];
-            self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
-            
-            
-            //刷新后选择cell
-            NSIndexPath *newIndexPath;
-            //删除当前绘制层上方图层
-            if(indexPath.row < self.curLayerIndexPath.row){
-                newIndexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row - 1 inSection:0];
-            }
-            //删除当前绘制层
-            else if (indexPath.row == self.curLayerIndexPath.row){
-                //当前绘制层是最底层，取上一层
-                if (layerIndex == 0) {
-                    newIndexPath = [NSIndexPath indexPathForRow:[self rowForLayerIndex:0] inSection:0];
+            if([self.delegate willDeleteLayerDataAtIndex:layerIndex]){
+                //立即释放图片资源
+                ADLayerTableViewCell *cell = (ADLayerTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                cell.layerImageView.image = nil;
+                cell.layerImageView.backgroundColor = nil;
+                
+                //UI
+                // Delete the row from the data source
+                [self.tableView beginUpdates];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView endUpdates];
+                
+                [self checkEditable];
+                self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
+                
+                
+                //刷新后选择cell
+                NSIndexPath *newIndexPath;
+                //删除当前绘制层上方图层
+                if(indexPath.row < self.curLayerIndexPath.row){
+                    newIndexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row - 1 inSection:0];
                 }
+                //删除当前绘制层
+                else if (indexPath.row == self.curLayerIndexPath.row){
+                    //当前绘制层是最底层，取上一层
+                    if (layerIndex == 0) {
+                        newIndexPath = [NSIndexPath indexPathForRow:[self rowForLayerIndex:0] inSection:0];
+                    }
+                    else{
+                        newIndexPath = indexPath;
+                    }
+                }
+                //删除当前绘制层下方图层
                 else{
-                    newIndexPath = indexPath;
+                    newIndexPath = self.curLayerIndexPath;
                 }
+                //        DebugLog(@"selectRowAtIndexPath row %d", newIndexPath.row);
+                [self selectRowAtIndexPath:newIndexPath];
+                
+                //重新设过当前图层后，需要更新显示
+                [self.delegate willUpdateRender];
             }
-            //删除当前绘制层下方图层
-            else{
-                newIndexPath = self.curLayerIndexPath;
-            }
-            //        DebugLog(@"selectRowAtIndexPath row %d", newIndexPath.row);
-            [self selectRowAtIndexPath:newIndexPath];
-            
-            //重新设过当前图层后，需要更新显示
-            [self.delegate willUpdateRender];
         }
     }
 }
@@ -284,16 +285,16 @@ const float LayerTableViewWidth = 256;
     DebugLog(@"[ moveRowAtIndexPath fromRow %d toRow %d]", fromIndexPath.row, toIndexPath.row);
 
     //交换数据
-    [self.delegate willMoveLayerFromIndex:[self layerIndexForRow:fromIndexPath.row] toIndex:[self layerIndexForRow:toIndexPath.row]];
-    
-    //更新过愿数据内容之后重新刷新ui内容
-    [self.tableView reloadData];
-
-    //刷新后选择cell
-    [self selectRowForCurLayer];
-    
-    //解决在iPad Air上不能更新的问题
-    [self.delegate willUpdateRender];
+    if([self.delegate willMoveLayerFromIndex:[self layerIndexForRow:fromIndexPath.row] toIndex:[self layerIndexForRow:toIndexPath.row]]){
+        //更新过愿数据内容之后重新刷新ui内容
+        [self.tableView reloadData];
+        
+        //刷新后选择cell
+        [self selectRowForCurLayer];
+        
+        //解决在iPad Air上不能更新的问题
+        [self.delegate willUpdateRender];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -391,7 +392,7 @@ const float LayerTableViewWidth = 256;
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
     //数据
-    [self.delegate willInsertLayerDataAtIndex:layerIndex completion:^{
+    if([self.delegate willInsertLayerDataAtIndex:layerIndex]){
         //UI
        
         DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
@@ -409,7 +410,7 @@ const float LayerTableViewWidth = 256;
         [self selectRowAtIndexPath:indexPath];
         
         [self updateIconColors];
-    }];
+    };
 }
 
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender {
@@ -418,18 +419,19 @@ const float LayerTableViewWidth = 256;
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
     //数据
-    [self.delegate willInsertCopyLayerDataAtIndex:layerIndex];
-    [self.tableView reloadData];    
-    
-    //UI
-    [self checkEditable];
-    self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
-
-    //刷新后选择cell
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
-    [self selectRowAtIndexPath:indexPath];
-    
-    [self updateIconColors];
+    if([self.delegate willInsertCopyLayerDataAtIndex:layerIndex]){
+        [self.tableView reloadData];
+        
+        //UI
+        [self checkEditable];
+        self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
+        
+        //刷新后选择cell
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
+        [self selectRowAtIndexPath:indexPath];
+        
+        [self updateIconColors];
+    }
 }
 
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender {
@@ -438,18 +440,19 @@ const float LayerTableViewWidth = 256;
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
 
     //数据
-    [self.delegate willMergeLayerDataAtIndex:layerIndex];
-    [self.tableView reloadData];
-    
-    //UI
-    [self checkEditable];
-    self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
-
-    //刷新后选择cell
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
-    [self selectRowAtIndexPath:indexPath];
-    
-    [self updateIconColors];
+    if ([self.delegate willMergeLayerDataAtIndex:layerIndex]) {
+        [self.tableView reloadData];
+        
+        //UI
+        [self checkEditable];
+        self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
+        
+        //刷新后选择cell
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.curLayerIndexPath.row inSection:self.curLayerIndexPath.section];
+        [self selectRowAtIndexPath:indexPath];
+        
+        [self updateIconColors];
+    }
 }
 
 - (IBAction)clearLayerButtonTouchUp:(UIButton *)sender {
@@ -458,13 +461,13 @@ const float LayerTableViewWidth = 256;
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
     //数据
-    [self.delegate willClearLayerDataAtIndex:layerIndex];
-    
-    [self.tableView reloadData];
-    
-    [self selectRowAtIndexPath:self.curLayerIndexPath];
-    
-    [self updateIconColors];
+    if([self.delegate willClearLayerDataAtIndex:layerIndex]){
+        [self.tableView reloadData];
+        
+        [self selectRowAtIndexPath:self.curLayerIndexPath];
+        
+        [self updateIconColors];
+    }
 }
 
 - (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender {
@@ -612,7 +615,8 @@ const float LayerTableViewWidth = 256;
 }
 
 - (void) willSetLayerBlendMode:(LayerBlendMode)blendMode{
-    [self.delegate willSetLayerBlendMode:blendMode atIndex:self.curSetupIndexPath.row];
+    int layerIndex = [self layerIndexForRow:self.curSetupIndexPath.row];
+    [self.delegate willSetLayerBlendMode:blendMode atIndex:layerIndex];
 }
 
 - (float) willGetLayerOpacity{
@@ -636,8 +640,9 @@ const float LayerTableViewWidth = 256;
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-    [self.delegate willSetCurLayerDataAtIndex:[self layerIndexForRow:indexPath.row]];
-    self.curLayerIndexPath = indexPath;
+    if([self.delegate willSetCurLayerDataAtIndex:[self layerIndexForRow:indexPath.row]]){
+        self.curLayerIndexPath = indexPath;
+    }
 }
 
 

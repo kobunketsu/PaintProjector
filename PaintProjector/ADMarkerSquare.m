@@ -35,7 +35,7 @@ static ADBrushState *brushStateMarkerSquare = nil;
 }
 
 - (void)setRadiusSliderValue{
-    self.radiusSliderMinValue = 5;
+    self.radiusSliderMinValue = 2;
     self.radiusSliderMaxValue = 10;
 }
 
@@ -52,7 +52,7 @@ static ADBrushState *brushStateMarkerSquare = nil;
     self.brushState.angle = 30;
     self.brushState.angleJitter = 0.0;
     self.brushState.angleFade = 0.0;
-    self.brushState.spacing = 0.05;
+    self.brushState.spacing = 0.1;
     self.brushState.scattering = 0.0;
     self.brushState.isAirbrush = false;
     self.brushState.isPatternTexture = false;

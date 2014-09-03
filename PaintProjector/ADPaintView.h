@@ -27,10 +27,6 @@
 #import "ADPaintDoc.h"
 
 #import "ADCommandManager.h"
-#import "ADPaintCommand.h"
-#import "ADOpenCommand.h"
-#import "ADUndoBaseCommand.h"
-
 #import "ADBrushPreview.h"
 
 
@@ -91,6 +87,7 @@ typedef struct {
 @interface ADPaintView : UIView 
     <
 //    ADHeapDelegate,//创建删除undo Image
+    ADTransformCommandDelegate,
     ADOpenCommandDelegate,
     ADPaintCommandDelegate,
     ADUndoBaseCommandDelegate,
@@ -130,7 +127,7 @@ typedef struct {
     GLuint _colorQuadUniform;
     GLuint _tranformImageMatrixUniform;
     
-    GLKMatrix4 _transformedImageMatrix;
+//    GLKMatrix4 _transformedImageMatrix;
     
 //    GLuint _programBackgroundLayer;
     GLuint _programPaintLayerBlendModeNormal;
@@ -231,7 +228,7 @@ typedef struct {
 - (void)beforeTransformLayer;
 - (void)beforeTransformImage:(UIImage*)uiImage;
 - (void)transformImageLayerDone;
-- (void)transformImageLayerCancelled;
+//- (void)transformImageLayerCancelled;
 
 #pragma mark 图层Layer
 - (int)curLayerIndex;
@@ -249,7 +246,7 @@ typedef struct {
 //指定当前图层
 - (void)setCurLayerIndex:(int)newValue;
 //指定当前图层混合方式
-- (void)setCurLayerBlendMode:(LayerBlendMode)blendMode;
+- (void)setLayerAtIndex:(int)index blendMode:(LayerBlendMode)blendMode;
 //指定当前图层透明度
 - (void)setLayerAtIndex:(int)index opacity:(float)opacity;
 //指定当前图层透明度锁定

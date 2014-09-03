@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ADCommandStack.h"
+#import "ADTransformCommand.h"
+#import "ADPaintCommand.h"
+#import "ADOpenCommand.h"
+#import "ADUndoBaseCommand.h"
+
 @protocol ADCommandManagerDelegate
 - (void) willBeginUndo;
 - (void) willFinishUndo;

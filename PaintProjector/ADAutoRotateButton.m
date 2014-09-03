@@ -66,7 +66,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];    
-    self.titleEdgeInsets = UIEdgeInsetsMake(75, 0, 0, 0);
+    self.titleEdgeInsets = UIEdgeInsetsMake(68, 0, 0, 0);
 }
 /*
 // Only override drawRect: if you perform custom drawing.

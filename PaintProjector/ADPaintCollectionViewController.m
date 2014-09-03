@@ -663,38 +663,15 @@
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];
-
-        //开始动画
-//        __block CGRect targetRect = step.contentView.frame;
-//        CGRect srcRect = step.contentView.frame;
-//        srcRect.origin.y = -self.view.frame.size.height;
-//        step.contentView.frame = srcRect;
-//        
-//        [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-//            step.contentView.frame = targetRect;
-//        }];
-
-        step.contentView.alpha = 0;
-        __weak ADTutorialStep *stepWeak = step;
-        [step setFadeInAnimationBlock:^{
-            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-                stepWeak.contentView.alpha = 1;
-            }];
-        }];
-
-
-//        [step.contentView.layer setValue:[NSNumber numberWithFloat:5.0] forKeyPath:@"transform.scale"];
+//        step.contentView.alpha = 0;
 //        __weak ADTutorialStep *stepWeak = step;
 //        [step setFadeInAnimationBlock:^{
 //            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-//                [stepWeak.contentView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
-//            } completion:nil];
+//                stepWeak.contentView.alpha = 1;
+//            }];
 //        }];
-
-
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
-        
         //对齐第一个image的底面
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         CGRect rect = step.indicatorView.frame;

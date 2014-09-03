@@ -42,6 +42,8 @@
 //函数每帧都调用的log (去除self指针)
     #define _DebugLogProfile(s, ...) NSLog(XCODE_COLORS_ESCAPE @"fg255,125,0;" @"<%@:(%d)> %@" XCODE_COLORS_RESET, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #else
+//release版需要输出的LOG类型分：1.testflight log. 2.distribution log
+//所有release版本的log都会testflight阶段显示在testflight和flurry中
     #define _DebugLog(s, ...)
     #define _DebugLogWarn(s, ...)
     #define _DebugLogError(s, ...)

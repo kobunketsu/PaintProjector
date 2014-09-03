@@ -170,6 +170,8 @@
 		08234EBD18915541008B4189 /* ADPaintFrameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 087AEBA61890ABE100D5B393 /* ADPaintFrameManager.m */; };
 		08234EC218915A45008B4189 /* ADFileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* ADFileButton.m */; };
 		08234EC318915F32008B4189 /* ADFileButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08234EC118915A45008B4189 /* ADFileButton.m */; };
+		0824209F19B604010073951D /* ADTransformCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824209E19B604010073951D /* ADTransformCommand.m */; };
+		082420A019B604010073951D /* ADTransformCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0824209E19B604010073951D /* ADTransformCommand.m */; };
 		0826775418E1D6BB004DA2F4 /* ADPaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */; };
 		0826775718E1D6C5004DA2F4 /* ADPaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */; };
 		0826775A18E1D92E004DA2F4 /* ADCrystalGradientStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775918E1D92E004DA2F4 /* ADCrystalGradientStyleView.m */; };
@@ -1012,6 +1014,8 @@
 		0822E37D19A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawSpotlightIcon-50@2x.png"; path = "PaintProjector/Images/AnaDrawSpotlightIcon-50@2x.png"; sourceTree = SOURCE_ROOT; };
 		08234EC018915A45008B4189 /* ADFileButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADFileButton.h; path = PaintProjector/ADFileButton.h; sourceTree = "<group>"; };
 		08234EC118915A45008B4189 /* ADFileButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADFileButton.m; path = PaintProjector/ADFileButton.m; sourceTree = "<group>"; };
+		0824209D19B604010073951D /* ADTransformCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformCommand.h; sourceTree = "<group>"; };
+		0824209E19B604010073951D /* ADTransformCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformCommand.m; sourceTree = "<group>"; };
 		0826775218E1D6BB004DA2F4 /* ADPaintUIKitStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintUIKitStyle.h; path = PaintProjector/ADPaintUIKitStyle.h; sourceTree = "<group>"; };
 		0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintUIKitStyle.m; path = PaintProjector/ADPaintUIKitStyle.m; sourceTree = "<group>"; };
 		0826775818E1D92E004DA2F4 /* ADCrystalGradientStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADCrystalGradientStyleView.h; path = PaintProjector/ADCrystalGradientStyleView.h; sourceTree = "<group>"; };
@@ -2495,6 +2499,8 @@
 				0875605B17676CD8002B806D /* ADClearCommand.m */,
 				08E0584D17683621007955BB /* ADUndoBaseCommand.h */,
 				08E0584E17683621007955BB /* ADUndoBaseCommand.m */,
+				0824209D19B604010073951D /* ADTransformCommand.h */,
+				0824209E19B604010073951D /* ADTransformCommand.m */,
 			);
 			name = Command;
 			sourceTree = "<group>";
@@ -3359,6 +3365,7 @@
 				56587df82cd649e6fc7df6a8 /* ADBrushPreview.m in Sources */,
 				307587aae300fd31921da168 /* RETextureManager.m in Sources */,
 				0814743D18B19A5C00BBC25A /* REAnimationClip.m in Sources */,
+				082420A019B604010073951D /* ADTransformCommand.m in Sources */,
 				08086F1018DC95A800F03EB4 /* iRate.m in Sources */,
 				08397FC118B6479D009A8F3C /* ADInAppPurchaseManager.m in Sources */,
 				08234EBD18915541008B4189 /* ADPaintFrameManager.m in Sources */,
@@ -3799,6 +3806,7 @@
 				088B741A17F466000039ABC4 /* ADLayerTableView.m in Sources */,
 				0832967E17ACD22600F8DCF2 /* ADPlayerView.m in Sources */,
 				08234EC218915A45008B4189 /* ADFileButton.m in Sources */,
+				0824209F19B604010073951D /* ADTransformCommand.m in Sources */,
 				08E1DD9B17AE32D0002D9BC2 /* ADCylinderProjectView.m in Sources */,
 				08A0315E18DED0C2006EE308 /* ADRootCanvasView.m in Sources */,
 				0826775418E1D6BB004DA2F4 /* ADPaintUIKitStyle.m in Sources */,

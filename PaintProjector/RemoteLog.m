@@ -26,17 +26,16 @@
     
 #if DEBUG
     DebugLogIBAction(@"%@",name);
+#elif TESTFLIGHT
+    [TestFlight passCheckpoint:name];
 #else
     [Flurry logEvent:name];
-    [TestFlight passCheckpoint:name];
 #endif
 }
 
 + (void)log:(NSString *)name{
-#if DEBUG
-    NSLog(@"%@", name);
-#else
-    CLSLog(name, nil);
+    CLSLog(name, nil);//debug release mode inside
+#if TESTFLIGHT
     TFLog(name, nil);
 #endif
 }

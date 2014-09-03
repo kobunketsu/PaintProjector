@@ -9,6 +9,7 @@
 #import "ADPaintFrameTransitionManager.h"
 #import "ADPaintCollectionViewController.h"
 #import "ADPaintCollectionViewCell.h"
+#import "ADTutorialManager.h"
 
 #define PaintFrameMoveAnimationDuration 0.6
 #define PaintFrameFadeAnimationDuration 0.3
@@ -129,55 +130,32 @@
     paintCollectionVC.downToolBar.hidden = true;
     UIView *toView = paintCollectionVC.view;
     
-
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[ADPaintFrameManager curGroup].curPaintIndex inSection:0];
     DebugLog(@"indexPath row %d", indexPath.row);
     
     paintCollectionVC.pageControl.currentPage = (NSInteger)floorf((float)indexPath.row / (float)paintCollectionVC.numberOfPaintPerPage);
     
-    //得到新的当前PaintFrameView
-//    PaintCollectionViewCell *cell = (PaintCollectionViewCell *)[paintCollectionVC collectionView:paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
-    
     //将paintFrameView转换到CylinderProject rootView
     UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
     [transitionImageView removeFromSuperview];
-//    UIButton *paintFrameView = cell.paintFrameView;
-//    [paintFrameView setImage:transitionImageView.image forState:UIControlStateNormal];
-
-//    CGSize defaultSize = paintCollectionVC.curPaintFrameView.frame.size;
-//    CGRect destRect = [paintFrameView convertRect:paintFrameView.frame toView:toView];
-//    destRect.size = defaultSize;
     
     //更新scroll位置
-//    [paintCollectionVC.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:false];
     [paintCollectionVC.collectionView selectItemAtIndexPath:indexPath animated:false scrollPosition:UICollectionViewScrollPositionNone];
-    
-    //patch:处理奇怪的偏移
-//    destRect.origin.x -= 15;
-//    destRect.origin.y -= 20;
-
-//    DebugLogWarn(@"paintFrameView.frame %@", NSStringFromCGRect(paintFrameView.frame));
-//    DebugLogWarn(@"destRect rootView %@", NSStringFromCGRect(destRect));
-//    DebugLogWarn(@"contentOffset %@", NSStringFromCGPoint(paintCollectionVC.collectionView.contentOffset));
-    
-    //解决scroll过paintCollection之后返回位置不对的显示问题
-//    if (destRect.origin.y > toView.bounds.size.height) {
-//        destRect.origin.x -= paintCollectionVC.collectionView.contentOffset.x;
-//        destRect.origin.y -= paintCollectionVC.collectionView.contentOffset.y;
-//    }
-
     [containerView addSubview:toView];
     [containerView addSubview:fromVC.view];
-//    [containerView addSubview:transitionImageView];
     
     //动画
     DebugLogWarn(@"dismissingAnimateTransition translating transitionImageView to destRect");
+//    if ([ADTutorialManager current].isActive) {
+//        //如果进入教程模式,将教程首页加到paintCollectionVC的子目录下
+//        [[ADTutorialManager current].curTutorial.curStep addToRootView:toView];
+//    }
+    
+    //渐入cylinderProjectView
     toView.alpha = 0;
     [UIView animateWithDuration:0 animations:^{
-//        transitionImageView.frame = destRect;
+        //        transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {
-        //渐入cylinderProjectView
         [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
             toView.alpha = 1;
             fromVC.view.alpha = 0;
@@ -194,13 +172,12 @@
                 
             } else {
                 // reset from- view to its original state
-//                [transitionImageView removeFromSuperview];
-//                transitionImageView.alpha = 1;
+                //                [transitionImageView removeFromSuperview];
+                //                transitionImageView.alpha = 1;
             }
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }];
-
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext

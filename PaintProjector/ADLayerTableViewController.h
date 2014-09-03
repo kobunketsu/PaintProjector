@@ -19,18 +19,18 @@
 @class ADFuzzyTransparentView;
 
 @protocol ADLayerTableViewControllerDelegate
-- (void) willSetCurLayerDataAtIndex:(int)index;
-- (void) willInsertLayerDataAtIndex:(int)index completion:(void (^)(void))completion;
-- (void) willInsertCopyLayerDataAtIndex:(int)index;
-- (void) willEraseLayerDataAtIndex:(int)index;
-- (void) willDeleteLayerDataAtIndex:(int)index;
-- (void) willClearLayerDataAtIndex:(int)index;
-- (void) willMergeLayerDataAtIndex:(int)index;
-- (void) willMoveLayerFromIndex:(int)fromIndex toIndex:(int)toIndex;
-- (void) willSetLayerAtIndex:(int)index visible:(BOOL)visible;
-- (void) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index;
-- (void) willSetLayerAtIndex:(int)index opacity:(float)opacity;
-- (void) willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock;
+- (BOOL) willSetCurLayerDataAtIndex:(int)index;
+- (BOOL) willInsertLayerDataAtIndex:(int)index;
+- (BOOL) willInsertCopyLayerDataAtIndex:(int)index;
+- (BOOL) willEraseLayerDataAtIndex:(int)index;
+- (BOOL) willDeleteLayerDataAtIndex:(int)index;
+- (BOOL) willClearLayerDataAtIndex:(int)index;
+- (BOOL) willMergeLayerDataAtIndex:(int)index;
+- (BOOL) willMoveLayerFromIndex:(int)fromIndex toIndex:(int)toIndex;
+- (BOOL) willSetLayerAtIndex:(int)index visible:(BOOL)visible;
+- (BOOL) willSetLayerBlendMode:(LayerBlendMode)blendMode atIndex:(int)index;
+- (BOOL) willSetLayerAtIndex:(int)index opacity:(float)opacity;
+- (BOOL) willSetLayerAtIndex:(int)index opacityLock:(BOOL)opacityLock;
 - (int) willGetCurLayerIndex;
 - (void) willUpdateRender;
 - (void) willSetBackgroundLayerVisible:(bool)visible;

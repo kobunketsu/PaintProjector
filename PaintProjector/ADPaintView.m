@@ -56,6 +56,7 @@
 @property (assign, nonatomic) GLint lastProgramLayerTex;
 @property (retain, nonatomic) CADisplayLink *displayLink;
 
+#pragma mark- Transform
 @property (assign, nonatomic) CGPoint anchorTranslate;
 @property (assign, nonatomic) CGPoint anchorInverseTranslate;
 @property (assign, nonatomic) CGPoint imageTranslate;
@@ -72,21 +73,22 @@
 @property (assign, nonatomic) CGFloat canvasSrcScale;
 @property (assign, nonatomic) BOOL isRotateSnapFit;
 @property (assign, nonatomic) BOOL isTranslateSnapFit;
+@property (retain, nonatomic) ADTransformCommand *transformCommand;
+#pragma mark- 文件File
+- (void)close;
 
+- (void)open;
+
+#pragma mark- OpenGLES
+- (void)createFramebufferTextures;
+
+#pragma mark- 工具Tools
+- (UIImage*)snapshotPaintToUIImage;
 #if DEBUG_VIEW_COLORALPHA
 @property (retain, nonatomic) UIImageView* imageView;
 @property (retain, nonatomic) UIImageView* debugAlphaView;
 #endif
 
-- (void)createFramebufferTextures;
-
-//文件
-- (void)close;
-
-- (void)open;
-
-//工具
-- (UIImage*)snapshotPaintToUIImage;
 @end
 
 @implementation ADPaintView
@@ -2427,8 +2429,8 @@
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-- (void)setCurLayerBlendMode:(LayerBlendMode)blendMode{
-    ADPaintLayer* layer = [self.paintData.layers objectAtIndex:_curLayerIndex];
+- (void)setLayerAtIndex:(int)index blendMode:(LayerBlendMode)blendMode{
+    ADPaintLayer* layer = [self.paintData.layers objectAtIndex:index];
     layer.blendMode = blendMode;
     
     [self _updateRender];
@@ -2463,8 +2465,6 @@
     
     //合成图层(暂时不考虑混合模式)
     [self drawPaintLayerAtIndex:index];
-    
-    [self uploadLayerDataAtIndex:index - 1];
     
     //删除当前图层 (并更新)
     [self deleteLayerAtIndex:index immediate:true];
@@ -2629,7 +2629,13 @@
 - (void)beforeTransformImage:(UIImage*)uiImage{
 
     _state = PaintView_TouchTransformImage;
-
+    
+    //MARK:不加入undo redo commands
+    ADTransformCommand *transformCommand = [[ADTransformCommand alloc]init];
+    transformCommand.delegate = self;
+    transformCommand.isLayer = false;
+    self.transformCommand = transformCommand;
+    
     //处理UIImage 尺寸过大的问题
     self.toTransformImageTex = [RETexture textureFromUIImage:uiImage name:nil];
     
@@ -2656,6 +2662,15 @@
 - (void)beforeTransformLayer{
     _state = PaintView_TouchTransformLayer;
     
+    //创建一个transformCommand
+    ADTransformCommand *transformCommand = [[ADTransformCommand alloc]init];
+    transformCommand.delegate = self;
+    transformCommand.isLayer = true;
+    self.transformCommand = transformCommand;
+    [self.commandManager addCommand:transformCommand];
+    ADPaintLayer *layer = self.paintData.layers[self.curLayerIndex];
+    layer.dirty = true;
+    
     float widthScale = 1;
     float heightScale = widthScale * (self.bounds.size.height / self.bounds.size.width);
 
@@ -2666,11 +2681,11 @@
     _anchorInverseTranslate = CGPointZero;
     
     _toTransformImageTex = self.curLayerTexture;
-    
+
     //将当前图层作为绘制来描画
     [self drawCurLayerTransformed];
-    
-    [self resetUndoRedo];
+
+//    [self resetUndoRedo];
 }
 
 - (void)transformImageBeganAnchorPoint:(CGPoint)anchorPoint{
@@ -2685,22 +2700,24 @@
     DebugLog(@"transformImageBegan _imageSrcTranslate %@ _imageSrcRotate %1.f _imageSrcScale %@ _anchorTranslate %@", NSStringFromCGPoint(_imageSrcTranslate), _imageSrcRotate, NSStringFromCGPoint(_imageSrcScale), NSStringFromCGPoint(_anchorTranslate));
 }
 
--(void) transformImageLayerCancelled{
-    _transformedImageMatrix = GLKMatrix4Identity;
-    _state = PaintView_TouchNone;
-    
-    if (self.state == PaintView_TouchTransformImage) {
-        [self.toTransformImageTex destroy];
-        self.toTransformImageTex = nil;
-    }
-}
+//-(void) transformImageLayerCancelled{
+//    _transformedImageMatrix = GLKMatrix4Identity;
+//    _state = PaintView_TouchNone;
+//    
+//    if (self.state == PaintView_TouchTransformImage) {
+//        [self.toTransformImageTex destroy];
+//        self.toTransformImageTex = nil;
+//    }
+//}
 
 -(void) transformImageLayerDone{
-    _transformedImageMatrix = GLKMatrix4Identity;
+//    _transformedImageMatrix = GLKMatrix4Identity;
+    
     [self copyCurPaintedLayerToCurLayer];
+    self.transformCommand = nil;
     
     //更新UI
-    [self uploadLayerDataAtIndex:self.curLayerIndex];
+//    [self uploadLayerDataAtIndex:self.curLayerIndex];
     
     //删除资源
     if (self.state == PaintView_TouchTransformImage) {
@@ -2727,15 +2744,11 @@
     mat = GLKMatrix4Multiply(anchorTransformMatrixT, mat);
     mat = GLKMatrix4Multiply(imageTransformMatrixT, mat);
     
-    _transformedImageMatrix = mat;
-    
     //project
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
-    _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
+    self.transformCommand.transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), mat);
     
-    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
-    
-    [self drawQuad:_VAOQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:self.curLayerTexture.texID];
+    [self transformImageWithCommand:self.transformCommand];
 
     //更新渲染
     [self _updateRender];
@@ -2763,15 +2776,13 @@
     mat = GLKMatrix4Multiply(anchorTransformMatrixT, mat);
     mat = GLKMatrix4Multiply(imageTransformMatrixT, mat);
     
-    _transformedImageMatrix = mat;
-    
     //project
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
-    _transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), _transformedImageMatrix);
+    self.transformCommand.transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), mat);
     
     [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
-    [self drawQuad:_VAOScreenQuad transformMatrix:_transformedImageMatrix texture2DPremultiplied:texture];
+    [self drawQuad:_VAOScreenQuad transformMatrix:self.transformCommand.transformedImageMatrix texture2DPremultiplied:texture];
     
     //更新渲染
     [self _updateRender];
@@ -2870,7 +2881,7 @@
 
 - (CGPoint)imageScaleAnchor{
     GLKVector4 originCenter = GLKVector4Make(0, 0, 0, 1);
-    GLKVector4 transformedAnchor = GLKMatrix4MultiplyVector4(_transformedImageMatrix, originCenter);
+    GLKVector4 transformedAnchor = GLKMatrix4MultiplyVector4(self.transformCommand.transformedImageMatrix, originCenter);
     float x = transformedAnchor.x * 0.5 + 0.5;
     float y = 1.0f - (transformedAnchor.y * 0.5 + 0.5);
 
@@ -2878,6 +2889,19 @@
     DebugLog(@"anchor x:%.2f y:%.2f", anchor.x, anchor.y);
     
     return anchor;
+}
+- (void)transformImageWithCommand:(ADTransformCommand*)command{
+    if (command.isLayer) {
+        [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
+        
+        [self drawQuad:_VAOQuad transformMatrix:command.transformedImageMatrix texture2DPremultiplied:self.curLayerTexture.texID];
+    }
+}
+#pragma mark- TransformCommandDelegate
+
+- (void)willTransformImageWithCommand:(ADTransformCommand*)command{
+    [self transformImageWithCommand:command];
+    [self copyCurPaintedLayerToCurLayer];
 }
 
 #pragma mark- Opengl Draw Tools

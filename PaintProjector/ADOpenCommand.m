@@ -20,7 +20,7 @@
 }
 
 -(void)execute{
-    DebugLog(@"[ execute ]");
+    DebugLogFuncStart(@"execute");
     [self.delegate willExecuteOpenCommand:self];
 }
 @end

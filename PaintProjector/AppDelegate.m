@@ -56,7 +56,6 @@
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialFinished"];
     
-//    [self initTutorial];
 #else
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
@@ -81,12 +80,14 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     }
     
+
+#endif
+    
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialFinished"]) {
-//      這裡判斷是否第一次,初始化教程
+        //      這裡判斷是否第一次,初始化教程
         [self initTutorial];
     }
-#endif
-
+    
     //初始化IAP商店
     [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:nil];
 
