@@ -66,7 +66,7 @@
 "853-Ud-5W7.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Top"; ObjectID = "853-Ud-5W7"; */
-"853-Ud-5W7.normalTitle" = "道 具";
+"853-Ud-5W7.normalTitle" = "实 物";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "9SY-4H-8aQ"; */
 "9SY-4H-8aQ.text" = "圆柱高度";
@@ -424,17 +424,20 @@
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "uu0-6a-fpA"; */
 "uu0-6a-fpA.text" = "视点缩放";
 
-/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "187-L4-OUe"; */
+/* Class = "IBUIButton"; normalTitle = "MacPro"; ObjectID = "187-L4-OUe"; */
 "187-L4-OUe.normalTitle" = "苹果电脑";
 
-/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "urm-LP-Tas"; */
+/* Class = "IBUIButton"; normalTitle = "TeaCup"; ObjectID = "urm-LP-Tas"; */
 "urm-LP-Tas.normalTitle" = "茶杯";
 
-/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "JTW-ni-CZh"; */
+/* Class = "IBUIButton"; normalTitle = "Can"; ObjectID = "JTW-ni-CZh"; */
 "JTW-ni-CZh.normalTitle" = "饮料罐";
 
-/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "H2L-U0-Iqc"; */
+/* Class = "IBUIButton"; normalTitle = "Pen"; ObjectID = "H2L-U0-Iqc"; */
 "H2L-U0-Iqc.normalTitle" = "反光笔杆";
 
-/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "wMP-Nr-J0H"; */
+/* Class = "IBUIButton"; normalTitle = "BaseMirror"; ObjectID = "wMP-Nr-J0H"; */
 "wMP-Nr-J0H.normalTitle" = "圆柱镜";
+
+/* Class = "IBUIButton"; normalTitle = "Back"; ObjectID = "WaL-wJ-MUc"; */
+"WaL-wJ-MUc.normalTitle" = "后退";

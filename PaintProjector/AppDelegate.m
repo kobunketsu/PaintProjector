@@ -12,6 +12,7 @@
 #import "ADSimpleIAPManager.h"
 #import "BBXBeeblex.h"
 #import "iRate.h"
+#import "Questionnaire.h"
 
 
 @implementation AppDelegate
@@ -23,8 +24,9 @@
 //#if DEBUG
     //configure iRate
     [iRate sharedInstance].appStoreID = 885877961;
-    [iRate sharedInstance].daysUntilPrompt = 7;
+    [iRate sharedInstance].daysUntilPrompt = 5;
     [iRate sharedInstance].usesUntilPrompt = 15;
+    [iRate sharedInstance].eventsUntilPrompt = 3;
 //    [iRate sharedInstance].previewMode = true;
 //#endif
 }
@@ -39,6 +41,10 @@
     [Flurry startSession:@"M8DMDS5GW352GZQ4TN3B"];
     
     [TestFlight takeOff:@"d99fa9e3-3923-4f55-acea-0a1e077b133f"];
+    
+#if TESTFLIGHT
+    [self initQuestionnaire];
+#endif
     
     [Crashlytics startWithAPIKey:@"c9088b1cc6c9d24318c5ed35da6d53c9457d0365"];
     
@@ -249,10 +255,10 @@
     [step.contentView  addSubview:label];
     
     //描述图层
-    label = [[UILabel alloc]initWithFrame:CGRectMake(0, 720, 768, 100)];
+    label = [[UILabel alloc]initWithFrame:CGRectMake(0, 700, 768, 200)];
     label.textColor = [UIColor darkGrayColor];
     label.text = NSLocalizedString(@"PaintCollectionWelcome", nil);
-    label.numberOfLines = 3;
+    label.numberOfLines = 5;
     [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 17]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [step.contentView  addSubview:label];
@@ -300,10 +306,10 @@
     [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
 
     //向后翻页
-    [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionLeft];
+    [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //向前翻页
-    [tutorial addActionStep:@"CylinderProjectPreviousImage" description:NSLocalizedString(@"CylinderProjectPreviousImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionRight];
+//    [tutorial addActionStep:@"CylinderProjectPreviousImage" description:NSLocalizedString(@"CylinderProjectPreviousImage", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionRight];
     
     //高级设置
 //    step = [tutorial addPageStep:@"CylinderProjectSetup" description:nil pageBounds:CGRectMake(0, 0, 197, 223) pageImage:nil withNextButton:false];
@@ -396,6 +402,8 @@
     //关闭参数设置
     [tutorial addActionStep:@"CylinderProjectCloseSetup" description:NSLocalizedString(@"CylinderProjectCloseSetup", nil) bounds:CGRectMake(0, 0, 256, 192) arrowDirection:UIPopoverArrowDirectionDown];
     
+//    [tutorial addActionStep:@"CylinderProjectCloseSetupSave" description:NSLocalizedString(@"CylinderProjectCloseSetupSave", nil) bounds:CGRectMake(0, 0, 256, 192) arrowDirection:UIPopoverArrowDirectionUp];
+    
     //顶视角绘画创作
     [tutorial addActionStep:@"CylinderProjectTopViewForPaint" description:NSLocalizedString(@"CylinderProjectTopViewForPaint", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionDown];
     
@@ -464,9 +472,17 @@
     }
 }
 
+#pragma mark- 问答
+- (void) initQuestionnaire{
+    [[Questionnaire sharedInstance]addYesNoQuestion:@"BetaTestQuestion1"];
+    [[Questionnaire sharedInstance]addYesNoQuestion:@"BetaTestQuestion2"];
+    [[Questionnaire sharedInstance]addYesNoQuestion:@"BetaTestQuestion3"];
+    [[Questionnaire sharedInstance]addYesNoQuestion:@"BetaTestQuestion4"];
+    [[Questionnaire sharedInstance]addYesNoQuestion:@"BetaTestQuestion5"];
+}
 #pragma mark- 教程代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 11;
+    return 12;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -477,36 +493,39 @@
     NSString *imageName = nil;
     switch (indexPath.row) {
         case 0:
-            imageName = @"tutorial_gesture1FingerTapHold";
+            imageName = @"tutorial_gesture1FingerDrag";
             break;
         case 1:
-            imageName = @"tutorial_gesture2FingerDrag";
+            imageName = @"tutorial_gesture1FingerTapHold";
             break;
         case 2:
-            imageName = @"tutorial_gesture2FingerRotate";
+            imageName = @"tutorial_gesture2FingerDrag";
             break;
         case 3:
-            imageName = @"tutorial_gesture2FingerPinch";
+            imageName = @"tutorial_gesture2FingerRotate";
             break;
         case 4:
-            imageName = @"tutorial_gesture2FingerSpread";
+            imageName = @"tutorial_gesture2FingerPinch";
             break;
         case 5:
-            imageName = @"tutorial_gesture2FingerDoubleTap";
+            imageName = @"tutorial_gesture2FingerSpread";
             break;
         case 6:
-            imageName = @"tutorial_gesture3FingerUp";
+            imageName = @"tutorial_gesture2FingerDoubleTap";
             break;
         case 7:
-            imageName = @"tutorial_gesture3FingerDown";
+            imageName = @"tutorial_gesture3FingerUp";
             break;
         case 8:
-            imageName = @"tutorial_gesture3FingerLeft";
+            imageName = @"tutorial_gesture3FingerDown";
             break;
         case 9:
-            imageName = @"tutorial_gesture3FingerRight";
+            imageName = @"tutorial_gesture3FingerLeft";
             break;
         case 10:
+            imageName = @"tutorial_gesture3FingerRight";
+            break;
+        case 11:
             imageName = @"tutorial_gesture3FingerZ";
             break;
         default:

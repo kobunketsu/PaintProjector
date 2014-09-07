@@ -155,8 +155,6 @@ ADInAppPurchaseTableViewControllerDelegate
 
 #pragma mark- 输入User Input
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;
-@property (retain, nonatomic) NSMutableDictionary *srcUserInputParams;//初始用户输入参数
-
 
 #pragma mark- 视角ViewMode
 @property (assign, nonatomic) BOOL isTopViewMode;
@@ -204,12 +202,15 @@ ADInAppPurchaseTableViewControllerDelegate
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender;
 - (IBAction)setupCylinderButtonTouchUp:(UIButton *)sender;
 - (void)resetInputParams;
+#pragma mark- 参考设备参数
 @property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefMacProButton;
 @property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefTeaCupButton;
 @property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefCanButton;
 @property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefPenButton;
 @property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefNormalButton;
+@property (weak, nonatomic) IBOutlet UIButton *setupCylinderRefBackButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *setupCylinderRefObjButtons;
+- (IBAction)setupCylinderRefBackButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- 虚拟设备VirtualDevice
 @property (weak, nonatomic) IBOutlet UIButton *virtualDeviceButton;

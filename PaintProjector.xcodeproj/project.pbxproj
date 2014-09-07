@@ -256,6 +256,10 @@
 		085539801751AA6E00DECF41 /* ADAnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0855397F1751AA6D00DECF41 /* ADAnchorView.m */; };
 		08561FB017806184008449E7 /* ADLayerBlendModeButton2.m in Sources */ = {isa = PBXBuildFile; fileRef = 08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */; };
 		0857779916C62DC80040B152 /* RECamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* RECamera.m */; };
+		0858A8EC19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */; };
+		0858A8ED19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */; };
+		085B167819BB5D21002FA10B /* feedback-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 085B167719BB5D21002FA10B /* feedback-48.png */; };
+		085B167919BB5D21002FA10B /* feedback-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 085B167719BB5D21002FA10B /* feedback-48.png */; };
 		085C0C4A18D8A77F001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085C0C4B18D8A780001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085EFD4E1732BDD900F0395D /* ADPaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */; };
@@ -472,6 +476,8 @@
 		08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* ADPaintCollectionView.m */; };
 		08AB75CA188F5ABA007DA20B /* ADPaintCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C9188F5ABA007DA20B /* ADPaintCollectionViewCell.m */; };
 		08AB75CC188F5ABA007DA20B /* ADPaintCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C9188F5ABA007DA20B /* ADPaintCollectionViewCell.m */; };
+		08ABA3B619B85C4C00435239 /* ADSetupCylinderBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08ABA3B519B85C4C00435239 /* ADSetupCylinderBackButton.m */; };
+		08ABA3B719B85C4C00435239 /* ADSetupCylinderBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08ABA3B519B85C4C00435239 /* ADSetupCylinderBackButton.m */; };
 		08AE475818C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AE475718C8C126008940E8 /* ADSwatchManagerViewController.m */; };
 		08AE475918C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AE475718C8C126008940E8 /* ADSwatchManagerViewController.m */; };
 		08AFD4CE17F33DA600B9492B /* ADFuzzyTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD4CD17F33DA600B9492B /* ADFuzzyTransparentView.m */; };
@@ -536,6 +542,8 @@
 		08DEDCCC194B55FE00155A91 /* Pro_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 08DEDCCA194B55FE00155A91 /* Pro_pallete.png */; };
 		08DF53CA195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
 		08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
+		08E007DC19BB134900C5DC27 /* Questionnaire.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E007DB19BB134900C5DC27 /* Questionnaire.m */; };
+		08E007DD19BB134900C5DC27 /* Questionnaire.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E007DB19BB134900C5DC27 /* Questionnaire.m */; };
 		08E0584F17683621007955BB /* ADUndoBaseCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E0584E17683621007955BB /* ADUndoBaseCommand.m */; };
 		08E06CBB1965BDD800A63017 /* ADPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* ADPinView.m */; };
 		08E06CBC1965BDD800A63017 /* ADPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E06CBA1965BDD800A63017 /* ADPinView.m */; };
@@ -1051,6 +1059,7 @@
 		0832E2771933A7EA004BD986 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		0832E2781933A7EA004BD986 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		0832E2791933A7EA004BD986 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		0832F56D19BC21CD00FB98CE /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		083462A119A793F900644158 /* GlobalDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDefines.h; sourceTree = "<group>"; };
 		08383D401931C06900EA3647 /* ADBrushSwapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushSwapButton.h; sourceTree = "<group>"; };
 		08383D411931C06900EA3647 /* ADBrushSwapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushSwapButton.m; sourceTree = "<group>"; };
@@ -1127,6 +1136,8 @@
 		08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeButton2.m; sourceTree = "<group>"; };
 		0857779716C62DC80040B152 /* RECamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RECamera.h; path = PaintProjector/RECamera.h; sourceTree = "<group>"; };
 		0857779816C62DC80040B152 /* RECamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RECamera.m; path = PaintProjector/RECamera.m; sourceTree = "<group>"; };
+		0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture1FingerDrag.png; path = PaintProjector/Images/tutorial_gesture1FingerDrag.png; sourceTree = "<group>"; };
+		085B167719BB5D21002FA10B /* feedback-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "feedback-48.png"; path = "PaintProjector/Images/feedback-48.png"; sourceTree = SOURCE_ROOT; };
 		085EFD4C1732BDD900F0395D /* ADPaintColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintColorButton.h; sourceTree = "<group>"; };
 		085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintColorButton.m; sourceTree = "<group>"; };
 		085FB3D0177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModePopoverBackgroundView.h; sourceTree = "<group>"; };
@@ -1392,6 +1403,8 @@
 		08AB75C4188F5A5A007DA20B /* ADPaintCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionView.m; path = PaintProjector/ADPaintCollectionView.m; sourceTree = "<group>"; };
 		08AB75C8188F5ABA007DA20B /* ADPaintCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintCollectionViewCell.h; path = PaintProjector/ADPaintCollectionViewCell.h; sourceTree = "<group>"; };
 		08AB75C9188F5ABA007DA20B /* ADPaintCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionViewCell.m; path = PaintProjector/ADPaintCollectionViewCell.m; sourceTree = "<group>"; };
+		08ABA3B419B85C4C00435239 /* ADSetupCylinderBackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderBackButton.h; sourceTree = "<group>"; };
+		08ABA3B519B85C4C00435239 /* ADSetupCylinderBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderBackButton.m; sourceTree = "<group>"; };
 		08AE475618C8C126008940E8 /* ADSwatchManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSwatchManagerViewController.h; sourceTree = "<group>"; };
 		08AE475718C8C126008940E8 /* ADSwatchManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSwatchManagerViewController.m; sourceTree = "<group>"; };
 		08AFD4CC17F33DA600B9492B /* ADFuzzyTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFuzzyTransparentView.h; sourceTree = "<group>"; };
@@ -1480,6 +1493,8 @@
 		08DEDCCA194B55FE00155A91 /* Pro_pallete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pro_pallete.png; path = PaintProjector/Images/Pro_pallete.png; sourceTree = "<group>"; };
 		08DF53C8195E99B800CFE6A2 /* ADSimpleTutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleTutorialManager.h; path = PaintProjector/ADSimpleTutorialManager.h; sourceTree = "<group>"; };
 		08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorialManager.m; path = PaintProjector/ADSimpleTutorialManager.m; sourceTree = "<group>"; };
+		08E007DA19BB134900C5DC27 /* Questionnaire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Questionnaire.h; path = PaintProjector/Questionnaire.h; sourceTree = "<group>"; };
+		08E007DB19BB134900C5DC27 /* Questionnaire.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Questionnaire.m; path = PaintProjector/Questionnaire.m; sourceTree = "<group>"; };
 		08E0584D17683621007955BB /* ADUndoBaseCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADUndoBaseCommand.h; sourceTree = "<group>"; };
 		08E0584E17683621007955BB /* ADUndoBaseCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADUndoBaseCommand.m; sourceTree = "<group>"; };
 		08E06CB91965BDD800A63017 /* ADPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPinView.h; path = PaintProjector/ADPinView.h; sourceTree = "<group>"; };
@@ -1793,6 +1808,7 @@
 				088313B0199D00E900C49B92 /* fanart-48.png */,
 				088313AD199CFC5700C49B92 /* community-48.png */,
 				088313AA199CFA5B00C49B92 /* tutorial-48.png */,
+				085B167719BB5D21002FA10B /* feedback-48.png */,
 			);
 			name = ProductInfo;
 			sourceTree = "<group>";
@@ -1993,9 +2009,9 @@
 				084691421748C4F500E50554 /* ADLayerToolView.xib */,
 				08A724B61844ED3E00B9178B /* ADLayerTransformButton.h */,
 				08A724B71844ED3E00B9178B /* ADLayerTransformButton.m */,
-				08672137174A6AA8005A9FE0 /* ADLayerVisibleButton.h */,
 				08A79C131925A58D00E4EA6E /* ADLayerOpacityLockButton.h */,
 				08A79C141925A58D00E4EA6E /* ADLayerOpacityLockButton.m */,
+				08672137174A6AA8005A9FE0 /* ADLayerVisibleButton.h */,
 				08672138174A6AA8005A9FE0 /* ADLayerVisibleButton.m */,
 				08511B07174BD39D00C97202 /* ADLayerOpacitySlider.h */,
 				08511B08174BD39E00C97202 /* ADLayerOpacitySlider.m */,
@@ -2086,6 +2102,7 @@
 				08525116194D853D0087F4AF /* tutorial_putDevice.png */,
 				08525118194D853D0087F4AF /* tutorial_viewDevice.png */,
 				082D39FB1993DB55002B7B83 /* tutorial_viewDeviceSrc.png */,
+				0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */,
 				0875131B1958105300FC03CC /* tutorial_gesture1FingerTapHold.png */,
 				08751300195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png */,
 				08751301195806BC00FC03CC /* tutorial_gesture2FingerPinch.png */,
@@ -2163,6 +2180,8 @@
 				08B17A2E1981FFF000FB55BD /* ADSetupCylinderButton.h */,
 				08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */,
 				087D9B311981E62E002392BA /* ADSetupCylinderRefMacProButton.h */,
+				08ABA3B419B85C4C00435239 /* ADSetupCylinderBackButton.h */,
+				08ABA3B519B85C4C00435239 /* ADSetupCylinderBackButton.m */,
 				087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */,
 				087D9B351981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.h */,
 				087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */,
@@ -2520,6 +2539,15 @@
 			path = Flurry;
 			sourceTree = "<group>";
 		};
+		08E007D919BB126100C5DC27 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				08E007DA19BB134900C5DC27 /* Questionnaire.h */,
+				08E007DB19BB134900C5DC27 /* Questionnaire.m */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
 		08E0610D193F7DA000BDD2BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -2725,6 +2753,7 @@
 		9C21AF0714E4579F00DB003E = {
 			isa = PBXGroup;
 			children = (
+				08E007D919BB126100C5DC27 /* Test */,
 				0876155F1959BD9C007EE0C0 /* Math */,
 				08CBF66219362DC7002934F6 /* Flurry */,
 				08983D9218BCCCE00001C334 /* ProductList.plist */,
@@ -2771,6 +2800,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0832F56D19BC21CD00FB98CE /* iAd.framework */,
 				08E9D27D193EB034002F4990 /* AVFoundation.framework */,
 				08E9D279193EB020002F4990 /* CoreMedia.framework */,
 				08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */,
@@ -3059,6 +3089,7 @@
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				0822E39919A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
+				085B167919BB5D21002FA10B /* feedback-48.png in Resources */,
 				37bf406d2dad30a4ffe892e4 /* DBChooser.bundle in Resources */,
 				08F905D2194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				0822E39319A1D3D70094081E /* AnaDrawSpotlightIcon-40.png in Resources */,
@@ -3072,6 +3103,7 @@
 				088313B2199D00E900C49B92 /* fanart-48.png in Resources */,
 				0822E38119A1D3D70094081E /* AnaDrawAppIcon-60@2x.png in Resources */,
 				0822E39719A1D3D70094081E /* AnaDrawSpotlightIcon-50.png in Resources */,
+				0858A8ED19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */,
 				0875131219580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
 				0879B3A2195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131A19580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
@@ -3165,6 +3197,7 @@
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				0822E39819A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
+				085B167819BB5D21002FA10B /* feedback-48.png in Resources */,
 				08F905D1194AC982002918AA /* iap_brushChineseBrush.png in Resources */,
 				08083DF219644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */,
 				0822E39219A1D3D70094081E /* AnaDrawSpotlightIcon-40.png in Resources */,
@@ -3178,6 +3211,7 @@
 				088313B1199D00E900C49B92 /* fanart-48.png in Resources */,
 				0822E38019A1D3D70094081E /* AnaDrawAppIcon-60@2x.png in Resources */,
 				0822E39619A1D3D70094081E /* AnaDrawSpotlightIcon-50.png in Resources */,
+				0858A8EC19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */,
 				0879B3A1195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				0875131919580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,
 				08086E9818DC8BA300F03EB4 /* dropbox_Logo_48.png in Resources */,
@@ -3306,6 +3340,7 @@
 				08CEBB39195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */,
 				08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* ADEraser.m in Sources */,
+				08ABA3B719B85C4C00435239 /* ADSetupCylinderBackButton.m in Sources */,
 				4e9779aa9b6bd2a3b1fd4cc6 /* ADPen.m in Sources */,
 				0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				08EF9E5718A1E2C000376568 /* REResources.m in Sources */,
@@ -3394,6 +3429,7 @@
 				65eda761451e45ad70d4fb72 /* ADExportTableViewController.m in Sources */,
 				17b14fb94b0f8625fd6691c9 /* ADOpacitySlider.m in Sources */,
 				e8bf068d0fc58b89a6e034d9 /* ADPaintColorButton.m in Sources */,
+				08E007DD19BB134900C5DC27 /* Questionnaire.m in Sources */,
 				0813AA2619167C07000C4D00 /* REModelEntity.m in Sources */,
 				5e50a7fdceed516adb9ddf41 /* ADRadiusButton.m in Sources */,
 				08E104C518E31F3B00B777FB /* ADSharedTableView.m in Sources */,
@@ -3687,6 +3723,7 @@
 				084D5405170338A60052F510 /* ADPaintDoc.m in Sources */,
 				083A810B19356FE30088980E /* RemoteLog.m in Sources */,
 				08E104C418E31F3B00B777FB /* ADSharedTableView.m in Sources */,
+				08ABA3B619B85C4C00435239 /* ADSetupCylinderBackButton.m in Sources */,
 				084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */,
 				08A3F3DB1850A756007922D2 /* REGLWrapper.m in Sources */,
 				087D9B3B1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */,
@@ -3747,6 +3784,7 @@
 				08E16DC917412581000B211D /* ADEyeDropperIndicatorView.m in Sources */,
 				0860059717466DEC004BF021 /* ADSharedTableViewCell.m in Sources */,
 				08FF70CC189019A400A7A09B /* ADPaintUIKitAnimation.m in Sources */,
+				08E007DC19BB134900C5DC27 /* Questionnaire.m in Sources */,
 				0860059A17467848004BF021 /* ADLayerTableViewController.m in Sources */,
 				084691031747C80300E50554 /* ADLayerTableViewCell.m in Sources */,
 				089C629E17EC836C00E2AB48 /* ADBrushPropertyView.m in Sources */,
@@ -3920,7 +3958,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
+				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3961,8 +3999,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8e11c405-85f8-4947-b88d-af49a61f28f5";
+				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c07cd439-64af-49e9-8567-5a65f7138a17";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -4481,8 +4519,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "8e11c405-85f8-4947-b88d-af49a61f28f5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8e11c405-85f8-4947-b88d-af49a61f28f5";
+				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c07cd439-64af-49e9-8567-5a65f7138a17";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

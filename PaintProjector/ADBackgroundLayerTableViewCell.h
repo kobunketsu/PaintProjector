@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ADLayerVisibleButton.h"
 #import "ADLayerImageView.h"
+#import "ADLayerTableViewCellBackgroundView.h"
+
 @interface ADBackgroundLayerTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet ADLayerTableViewCellBackgroundView *bgBackgroundView;
 @property (weak, nonatomic) IBOutlet ADLayerVisibleButton *visibleButton;
 @property (weak, nonatomic) IBOutlet ADLayerImageView *layerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *layerImageButton;

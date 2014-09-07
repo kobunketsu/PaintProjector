@@ -45,7 +45,7 @@
 
  
     //增加整体动画
-    //保存源frame，在EnterBackgroundh后退出动画时归位
+    //保存源frame，在EnterBackground后退出动画时归位
     CGRect srcframe = self.frame;
     CGRect destframe = self.frame;
     

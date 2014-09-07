@@ -10,7 +10,7 @@
 #import "ADDownToolBar.h"
 #import "ADTopToolBar.h"
 
-#define TopDownToolBarFadeAnimationDuration 0.3
+#define TopDownToolBarFadeAnimationDuration 0.4
 
 @implementation ADPaintUIKitAnimation
 

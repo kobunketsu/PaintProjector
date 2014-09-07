@@ -24,6 +24,11 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    [self drawNormalWithFrame:rect];
+}
+
+- (void)drawNormalWithFrame: (CGRect)frame;
+{
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -43,7 +48,7 @@
     
     UIColor* glowColor = [UIColor colorWithRed: (iconSpecularColorRGBA[0] * 1 + 0) green: (iconSpecularColorRGBA[1] * 1 + 0) blue: (iconSpecularColorRGBA[2] * 1 + 0) alpha: (iconSpecularColorRGBA[3] * 1 + 0)];
     UIColor* iconShadowTempColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.3) green: (iconColorRGBA[1] * 0.3) blue: (iconColorRGBA[2] * 0.3) alpha: (iconColorRGBA[3] * 0.3 + 0.7)];
-    UIColor* iconShadowColor = [iconShadowTempColor colorWithAlphaComponent: 0.1];
+    UIColor* iconShadowColor = [iconShadowTempColor colorWithAlphaComponent: 0.5];
     
     //// Shadow Declarations
     UIColor* iconHighlight = iconHighlightColor;
@@ -56,17 +61,15 @@
     CGSize glowOffset = CGSizeMake(0.1, -0.1);
     CGFloat glowBlurRadius = 4;
     
-    //// Frames
-    CGRect frame = CGRectMake(0, 0, 66, 66);
     
     //// Subframes
-    CGRect iconNormal = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 47) * 0.52632 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 47) * 0.52632 + 0.5), 47, 47);
+    CGRect iconNormal = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 44) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 44) * 0.50000 + 0.5), 44, 44);
     
     
     //// IconNormal
     {
         CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, glow.CGColor);
+        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, [glow CGColor]);
         CGContextBeginTransparencyLayer(context, NULL);
         
         
@@ -78,74 +81,69 @@
             
             
             //// Bezier 3 Drawing
-            UIBezierPath* bezier3Path = [UIBezierPath bezierPath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.10638 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.84043 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.15957 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.89362 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.10638 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.86980 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.13020 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.89362 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.84043 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.89362 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.89362 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.84043 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.86980 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.89362 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.89362 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.86980 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.89362 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.15957 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.84043 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.10638 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.89362 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.13020 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.86980 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.10638 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.15957 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.10638 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.10638 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.15957 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.13020 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.10638 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.10638 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.13020 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.10638 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.84043 * CGRectGetHeight(iconNormal))];
+            UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 4.68, CGRectGetMinY(iconNormal) + 36.98)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 7.02, CGRectGetMinY(iconNormal) + 39.32) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 4.68, CGRectGetMinY(iconNormal) + 38.27) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 5.73, CGRectGetMinY(iconNormal) + 39.32)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 36.98, CGRectGetMinY(iconNormal) + 39.32)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 39.32, CGRectGetMinY(iconNormal) + 36.98) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 38.27, CGRectGetMinY(iconNormal) + 39.32) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 39.32, CGRectGetMinY(iconNormal) + 38.27)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 39.32, CGRectGetMinY(iconNormal) + 7.02)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 36.98, CGRectGetMinY(iconNormal) + 4.68) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 39.32, CGRectGetMinY(iconNormal) + 5.73) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 38.27, CGRectGetMinY(iconNormal) + 4.68)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 7.02, CGRectGetMinY(iconNormal) + 4.68)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 4.68, CGRectGetMinY(iconNormal) + 7.02) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 5.73, CGRectGetMinY(iconNormal) + 4.68) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 4.68, CGRectGetMinY(iconNormal) + 5.73)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 4.68, CGRectGetMinY(iconNormal) + 36.98)];
             [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.88298 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.11702 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.11702 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.00000 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.05239 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.05239 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.00000 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.88298 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.00000 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 1.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.11702 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.94761 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.00000 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 1.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.05239 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 1.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.88298 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.88298 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 1.00000 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 1.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.94761 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.94761 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 1.00000 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.11702 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 1.00000 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.88298 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.05239 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 1.00000 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.00000 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.94761 * CGRectGetHeight(iconNormal))];
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 38.85)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 5.15)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 5.15, CGRectGetMinY(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 2.31) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 2.31, CGRectGetMinY(iconNormal))];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 38.85, CGRectGetMinY(iconNormal))];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 5.15) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 41.69, CGRectGetMinY(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 2.31)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 38.85)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 38.85, CGRectGetMinY(iconNormal) + 44) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 41.69) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 41.69, CGRectGetMinY(iconNormal) + 44)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 5.15, CGRectGetMinY(iconNormal) + 44)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 38.85) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 2.31, CGRectGetMinY(iconNormal) + 44) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 41.69)];
             [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.63830 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.48936 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.80851 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.57447 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.73370 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.48936 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.80851 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.57447 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.80851 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.80851 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.21277 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.80851 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.63830 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.48936 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.21277 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.80851 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.45745 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.48936 * CGRectGetHeight(iconNormal))];
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 28.09, CGRectGetMinY(iconNormal) + 21.53)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 35.57, CGRectGetMinY(iconNormal) + 25.28) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 32.28, CGRectGetMinY(iconNormal) + 21.53) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 35.57, CGRectGetMinY(iconNormal) + 25.28)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 35.57, CGRectGetMinY(iconNormal) + 35.57)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 9.36, CGRectGetMinY(iconNormal) + 35.57)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 28.09, CGRectGetMinY(iconNormal) + 21.53) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 9.36, CGRectGetMinY(iconNormal) + 35.57) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 20.13, CGRectGetMinY(iconNormal) + 21.53)];
             [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.56348 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.47874 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.19149 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.78723 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.37975 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.56341 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.19149 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.78723 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.19149 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.49468 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.31915 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.38298 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.19149 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.49468 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.22375 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.38298 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.56348 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.47874 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.38609 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.38298 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.47634 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.40164 * CGRectGetHeight(iconNormal))];
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 24.79, CGRectGetMinY(iconNormal) + 21.06)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 8.43, CGRectGetMinY(iconNormal) + 34.64) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 16.71, CGRectGetMinY(iconNormal) + 24.79) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 8.43, CGRectGetMinY(iconNormal) + 34.64)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 8.43, CGRectGetMinY(iconNormal) + 21.77)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 14.04, CGRectGetMinY(iconNormal) + 16.85) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 8.43, CGRectGetMinY(iconNormal) + 21.77) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 9.84, CGRectGetMinY(iconNormal) + 16.85)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 24.79, CGRectGetMinY(iconNormal) + 21.06) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 16.99, CGRectGetMinY(iconNormal) + 16.85) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 20.96, CGRectGetMinY(iconNormal) + 17.67)];
             [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.79863 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.33054 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.79863 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.18010 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.84017 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.28900 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.84017 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.22164 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.64818 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.18010 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.75708 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.13855 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.68973 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.13855 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.64818 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.33054 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.60663 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.22164 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.60663 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.28900 * CGRectGetHeight(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 0.79863 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.33054 * CGRectGetHeight(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 0.68973 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.37209 * CGRectGetHeight(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 0.75708 * CGRectGetWidth(iconNormal), CGRectGetMinY(iconNormal) + 0.37209 * CGRectGetHeight(iconNormal))];
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 35.14, CGRectGetMinY(iconNormal) + 14.54)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 35.14, CGRectGetMinY(iconNormal) + 7.92) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 36.97, CGRectGetMinY(iconNormal) + 12.72) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 36.97, CGRectGetMinY(iconNormal) + 9.75)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 28.52, CGRectGetMinY(iconNormal) + 7.92) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 33.31, CGRectGetMinY(iconNormal) + 6.1) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 30.35, CGRectGetMinY(iconNormal) + 6.1)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 28.52, CGRectGetMinY(iconNormal) + 14.54) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 26.69, CGRectGetMinY(iconNormal) + 9.75) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 26.69, CGRectGetMinY(iconNormal) + 12.72)];
+            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 35.14, CGRectGetMinY(iconNormal) + 14.54) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 30.35, CGRectGetMinY(iconNormal) + 16.37) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 33.31, CGRectGetMinY(iconNormal) + 16.37)];
             [bezier3Path closePath];
             CGContextSaveGState(context);
-            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, iconShadow.CGColor);
+            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
             [iconColor setFill];
             [bezier3Path fill];
             
             ////// Bezier 3 Inner Shadow
-            CGRect bezier3BorderRect = CGRectInset([bezier3Path bounds], -iconHighlightBlurRadius, -iconHighlightBlurRadius);
-            bezier3BorderRect = CGRectOffset(bezier3BorderRect, -iconHighlightOffset.width, -iconHighlightOffset.height);
-            bezier3BorderRect = CGRectInset(CGRectUnion(bezier3BorderRect, [bezier3Path bounds]), -1, -1);
-            
-            UIBezierPath* bezier3NegativePath = [UIBezierPath bezierPathWithRect: bezier3BorderRect];
-            [bezier3NegativePath appendPath: bezier3Path];
-            bezier3NegativePath.usesEvenOddFillRule = YES;
-            
             CGContextSaveGState(context);
+            UIRectClip(bezier3Path.bounds);
+            CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+            
+            CGContextSetAlpha(context, CGColorGetAlpha([iconHighlight CGColor]));
+            CGContextBeginTransparencyLayer(context, NULL);
             {
-                CGFloat xOffset = iconHighlightOffset.width + round(bezier3BorderRect.size.width);
-                CGFloat yOffset = iconHighlightOffset.height;
-                CGContextSetShadowWithColor(context,
-                                            CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                            iconHighlightBlurRadius,
-                                            iconHighlight.CGColor);
+                UIColor* opaqueShadow = [iconHighlight colorWithAlphaComponent: 1];
+                CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, [opaqueShadow CGColor]);
+                CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+                CGContextBeginTransparencyLayer(context, NULL);
                 
-                [bezier3Path addClip];
-                CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(bezier3BorderRect.size.width), 0);
-                [bezier3NegativePath applyTransform: transform];
-                [[UIColor grayColor] setFill];
-                [bezier3NegativePath fill];
+                [opaqueShadow setFill];
+                [bezier3Path fill];
+                
+                CGContextEndTransparencyLayer(context);
             }
+            CGContextEndTransparencyLayer(context);
             CGContextRestoreGState(context);
             
             CGContextRestoreGState(context);
@@ -173,9 +171,6 @@
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
     }
-    
-    
-
 }
 
 

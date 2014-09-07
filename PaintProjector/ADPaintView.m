@@ -2636,13 +2636,21 @@
     transformCommand.isLayer = false;
     self.transformCommand = transformCommand;
     
-    //处理UIImage 尺寸过大的问题
+    //处理UIImage 尺寸过大的问题 如果图片尺寸大于屏幕尺寸，适配到屏幕大小
     self.toTransformImageTex = [RETexture textureFromUIImage:uiImage name:nil];
-    
-    float widthScale = (float)self.toTransformImageTex.width / (float)self.bounds.size.width;
-    //如果图片尺寸大于屏幕尺寸，适配到屏幕大小
-    widthScale = MIN(widthScale, 1);
-    float heightScale = widthScale * ((float)self.toTransformImageTex.height / (float)self.toTransformImageTex.width);
+    float widthScale = 0; float heightScale = 0;
+    if (self.toTransformImageTex.width > self.toTransformImageTex.height) {
+        widthScale = (float)self.toTransformImageTex.width / (float)self.bounds.size.width;
+
+        widthScale = MIN(widthScale, 1);
+        heightScale = widthScale * ((float)self.toTransformImageTex.height / (float)self.toTransformImageTex.width);
+    }
+    else{
+        heightScale = (float)self.toTransformImageTex.height / (float)self.bounds.size.height;
+        heightScale = MIN(heightScale, 1);
+        widthScale = heightScale * ((float)self.toTransformImageTex.width / (float)self.toTransformImageTex.height);
+    }
+
     
 //    DebugLog(@"width %d height %d", texInfo.width, texInfo.height);
 //    DebugLog(@"widthScale %.1f heightScale %.1f", widthScale, heightScale);

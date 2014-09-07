@@ -19,5 +19,7 @@
 @property (assign, nonatomic) CGFloat eyeZoom;
 @property (assign, nonatomic) CGFloat eyeTopZ;
 @property (assign, nonatomic) CGFloat unitZoom;
+
 - (id)copyWithZone:(NSZone *)zone;
+- (NSMutableDictionary*)propertyNameValueDic;
 @end

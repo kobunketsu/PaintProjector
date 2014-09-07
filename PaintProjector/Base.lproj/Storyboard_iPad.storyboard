@@ -171,6 +171,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="154"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view appearanceType="aqua" contentMode="scaleToFill" id="S4H-bD-hoy" userLabel="BackgroundView" customClass="ADLayerTableViewCellBackgroundView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="768" height="154"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" id="GiR-79-oU6" userLabel="LayerImageViewFrame">
                                                     <rect key="frame" x="3" y="4" width="111" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -231,6 +236,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="bgView" destination="S4H-bD-hoy" id="chU-0b-GxP"/>
                                             <outlet property="layerBlendModeButton" destination="fuU-1o-IoM" id="ar2-s8-fBI"/>
                                             <outlet property="layerImageView" destination="WBe-Io-Mjp" id="pt6-ur-qjU"/>
                                             <outlet property="layerImageViewFrame" destination="GiR-79-oU6" id="AaN-We-cuY"/>
@@ -248,6 +254,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view appearanceType="aqua" contentMode="scaleToFill" id="weg-Rg-6nb" userLabel="BackgroundView" customClass="ADLayerTableViewCellBackgroundView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="768" height="74"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" id="DA5-Gp-Zch" userLabel="LayerImageViewFrame">
                                                     <rect key="frame" x="40" y="4" width="111" height="65"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -292,6 +303,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="bgBackgroundView" destination="weg-Rg-6nb" id="Z7v-na-hmb"/>
                                             <outlet property="layerImageButton" destination="boW-yU-zeM" id="Wab-ty-t3o"/>
                                             <outlet property="layerImageView" destination="jOR-Y2-h3h" id="z5p-pZ-oNz"/>
                                             <outlet property="layerImageViewFrame" destination="DA5-Gp-Zch" id="Ot6-zi-nrT"/>
@@ -2540,7 +2552,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="H2L-U0-Iqc" userLabel="SetupCylinderRefPenButton" customClass="ADSetupCylinderRefPenButton">
-                                                <rect key="frame" x="0.0" y="4" width="154" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Pen">
@@ -2552,7 +2564,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JTW-ni-CZh" userLabel="SetupCylinderRefCanButton" customClass="ADSetupCylinderRefCanButton">
-                                                <rect key="frame" x="154" y="4" width="154" height="80"/>
+                                                <rect key="frame" x="128" y="0.0" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Drink Can">
@@ -2564,7 +2576,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="urm-LP-Tas" userLabel="SetupCylinderRefTeaCupButton" customClass="ADSetupCylinderRefTeaCupButton">
-                                                <rect key="frame" x="307" y="4" width="154" height="80"/>
+                                                <rect key="frame" x="256" y="0.0" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Tea Cup">
@@ -2576,7 +2588,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="187-L4-OUe" userLabel="SetupCylinderRefMacProButton" customClass="ADSetupCylinderRefMacProButton">
-                                                <rect key="frame" x="462" y="4" width="154" height="80"/>
+                                                <rect key="frame" x="384" y="0.0" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Mac Pro">
@@ -2588,7 +2600,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wMP-Nr-J0H" userLabel="SetupCylinderRefNormalButton" customClass="ADSetupCylinderRefNormalButton">
-                                                <rect key="frame" x="615" y="4" width="154" height="80"/>
+                                                <rect key="frame" x="512" y="0.0" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Base Mirror">
@@ -2597,6 +2609,18 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="q7I-1J-joe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WaL-wJ-MUc" userLabel="SetupCylinderBackButton" customClass="ADSetupCylinderBackButton">
+                                                <rect key="frame" x="640" y="0.0" width="128" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <state key="normal" title="Back">
+                                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="setupCylinderRefBackButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="Sj4-2z-z8R"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2753,6 +2777,7 @@
                         <outlet property="rootView" destination="h4g-78-CMY" id="upA-4y-y8Y"/>
                         <outlet property="setupButton" destination="edV-eN-YWW" id="eaB-n1-a57"/>
                         <outlet property="setupCylinderButton" destination="R5W-20-NGQ" id="laW-Uh-vCZ"/>
+                        <outlet property="setupCylinderRefBackButton" destination="WaL-wJ-MUc" id="60Q-We-TTb"/>
                         <outlet property="setupCylinderRefCanButton" destination="JTW-ni-CZh" id="ENM-Z9-Cq6"/>
                         <outlet property="setupCylinderRefMacProButton" destination="187-L4-OUe" id="7Eq-fm-2WP"/>
                         <outlet property="setupCylinderRefNormalButton" destination="wMP-Nr-J0H" id="lg3-NB-4HJ"/>

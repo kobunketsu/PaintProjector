@@ -11,10 +11,12 @@
 #import "ADLayerBlendModeButton.h"
 #import "ADLayerImageView.h"
 #import "ADLayerOpacityLockButton.h"
+#import "ADLayerTableViewCellBackgroundView.h"
 @class ADLayerOpacityLockButton;
 
 @interface ADLayerTableViewCell : UITableViewCell
 //@property (copy, nonatomic) NSString *layerIdentifier;
+@property (weak, nonatomic) IBOutlet ADLayerTableViewCellBackgroundView *bgView;
 @property (weak, nonatomic) IBOutlet ADLayerVisibleButton *visibleButton;
 @property (weak, nonatomic) IBOutlet ADLayerOpacityLockButton *layerOpacityLockButton;
 @property (weak, nonatomic) IBOutlet ADLayerImageView *layerImageView;

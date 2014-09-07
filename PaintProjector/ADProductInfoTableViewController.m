@@ -65,7 +65,11 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
+#if TESTFLIGHT
+    return 5;
+#else
     return 4;
+#endif
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,6 +99,12 @@
             cell.textLabel.text = NSLocalizedString(@"ProductFanArts", nil);
             cell.imageView.image = [UIImage imageNamed:@"fanart-48.png"];            
             break;
+#if TESTFLIGHT
+        case 4:
+            cell.textLabel.text = NSLocalizedString(@"ProductBetaTestFeedback", nil);
+            cell.imageView.image = [UIImage imageNamed:@"feedback-48.png"];
+            break;
+#endif
         default:
             break;
     }
@@ -178,6 +188,11 @@
         case 3:
             [self.delegate willOpenGalleryURL];
             break;
+#if TESTFLIGHT
+        case 4:
+            [self.delegate willOpenBetaTestFeedback];
+            break;
+#endif
         default:
             break;
     }

@@ -133,6 +133,7 @@ const float LayerTableViewWidth = 256;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DebugLogFuncStart(@"cellForRowAtIndexPath layer index %d", [self layerIndexForRow:indexPath.row]);
     //反过来显示
     if ([self rowForBackgroundLayer] == indexPath.row) {
         ADBackgroundLayerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BackgroundLayerTableViewCell"];
@@ -142,7 +143,7 @@ const float LayerTableViewWidth = 256;
         
         cell.isAccessibilityElement = true;
         cell.accessibilityLabel = @"BackgroundCell";
-        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
+//        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
         return cell;
     }
     else{
@@ -155,7 +156,7 @@ const float LayerTableViewWidth = 256;
         
         cell.isAccessibilityElement = true;
         cell.accessibilityIdentifier = layer.identifier;
-        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
+//        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
         return cell;
     }
 }
@@ -223,6 +224,7 @@ const float LayerTableViewWidth = 256;
                 [self.tableView beginUpdates];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 [self.tableView endUpdates];
+                [self.tableView reloadData];//引起底纹的改变
                 
                 [self checkEditable];
                 self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
@@ -298,7 +300,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    DebugLog(@"willDisplayCell layer index %d", [self layerIndexForRow:indexPath.row]);
+    DebugLogFuncStart(@"willDisplayCell layer index %d", [self layerIndexForRow:indexPath.row]);
     
     CGFloat colorRGBA[4];
     if (self.backgroundLayer.visible) {

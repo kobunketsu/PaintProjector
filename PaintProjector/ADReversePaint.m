@@ -119,8 +119,8 @@
 
 - (void)combineReverseToSrc{
     DebugLogGLGroupStart(@"combine");
-//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"cylinderImageReflectionTex" size:self.paintView.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];DebugLogMem(@"did create tempRT");
+
+    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"cylinderImageReflectionTex" size:self.paintView.viewGLSize mipmap:Interpolation_Linear wrapMode:WrapMode_Clamp];DebugLogMem(@"did create tempRT");
     self.cylinderImage.reflectionTex = tempRT;
 
     
@@ -139,12 +139,14 @@
         CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale;
         glViewport(0, offsetY, self.paintView.bounds.size.height, height);
         
-        
+        DebugLogGLSnapshotStart
         [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
+        [[REGLWrapper current] setImageInterpolation:Interpolation_Linear];
         [self.paintView drawQuad:self.paintView.VAOScreenQuad texture2D:texture.texID premultiplied:true alpha:1.0];
         //        [[REGLWrapper current]blendFunc:BlendFuncAlphaBlendPremultiplied];
         [self.reversePaintCamera render];DebugLogMem(@"did reversePaintCamera render");
-        
+        [[REGLWrapper current] setImageInterpolationFinished];
+        DebugLogGLSnapshotEnd
         [texture destroy];
         
         glViewport(0, 0, self.paintView.bounds.size.width, self.paintView.bounds.size.height);
@@ -154,7 +156,7 @@
         [self.paintData.layers addObject:newLayer];
     }
     [tempRT destroy];DebugLogMem(@"did destroy tempRT");
-//    [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER_OES];
+
     DebugLogGLGroupEnd();
 }
 

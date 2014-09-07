@@ -13,6 +13,9 @@
 - (void) willOpenSupportURL;
 - (void) willOpenGalleryURL;
 - (void) willOpenTutorial;
+#if TESTFLIGHT
+- (void) willOpenBetaTestFeedback;
+#endif
 @end
 
 @interface ADProductInfoTableViewController : UITableViewController

@@ -4501,7 +4501,9 @@
 
 #pragma mark- 弹出框代理UIPopoverController
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
-    DebugLog(@"popoverControllerDidDismissPopover contentViewController: %@", popoverController.contentViewController);
+    NSString *logStr = [NSString stringWithFormat:@"popoverControllerDidDismissPopover contentViewController: %@", popoverController.contentViewController];
+    [RemoteLog log:logStr];
+    
     if ([popoverController.contentViewController isKindOfClass:[ADBrushPropertyViewController class]]) {
 
         [self.paintView prepareDrawEnv];

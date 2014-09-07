@@ -116,4 +116,19 @@
     }
     return self;
 }
+
+- (NSMutableDictionary*)propertyNameValueDic{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+    [dic setObject:[NSNumber numberWithFloat:self.cylinderDiameter] forKey:@"cylinderDiameter"];
+    [dic setObject:[NSNumber numberWithFloat:self.cylinderHeight] forKey:@"cylinderHeight"];
+    [dic setObject:[NSNumber numberWithFloat:self.imageWidth] forKey:@"imageWidth"];
+    [dic setObject:[NSNumber numberWithFloat:self.imageCenterOnSurfHeight] forKey:@"imageCenterOnSurfHeight"];
+    [dic setObject:[NSNumber numberWithFloat:self.eyeHonrizontalDistance] forKey:@"eyeHonrizontalDistance"];
+    [dic setObject:[NSNumber numberWithFloat:self.eyeVerticalHeight] forKey:@"eyeVerticalHeight"];
+    [dic setObject:[NSNumber numberWithFloat:self.eyeZoom] forKey:@"eyeZoom"];
+    [dic setObject:[NSNumber numberWithFloat:self.eyeTopZ] forKey:@"eyeTopZ"];
+    [dic setObject:[NSNumber numberWithFloat:self.unitZoom] forKey:@"unitZoom"];
+    return dic;
+}
+
 @end

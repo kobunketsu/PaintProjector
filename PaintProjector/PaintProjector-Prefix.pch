@@ -25,11 +25,11 @@
 
 #define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
 #define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"
-#define PRODUCT_INFO_GALLERY @"http://www.dreapp.com/fanarts/"
+#define PRODUCT_INFO_GALLERY @"http://www.pinterest.com/anadrawapp/artwork-by-anadraw/"
 #define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/community/"
 
 #define TEST 0
-#define TestReversePaint 1
+#define TESTFLIGHT 0
 
 #define UndoMaxCount 10
 //#define UndoImageSize 1024

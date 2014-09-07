@@ -17,6 +17,9 @@
 #import "ADSimpleTutorialManager.h"
 #import "AppDelegate.h"
 
+//#import "iAd/ADBannerView.h"
+
+#define TutorialPickImageIndex 1
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
@@ -649,7 +652,7 @@
             return;
         }
         for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
-            if (i == 0) {
+            if (i == TutorialPickImageIndex) {
                 continue;
             }
             UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -673,7 +676,7 @@
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
         //对齐第一个image的底面
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:TutorialPickImageIndex inSection:0]];
         CGRect rect = step.indicatorView.frame;
         rect.size.width = cell.frame.size.width;
         step.indicatorView.frame = rect;

@@ -13,18 +13,18 @@
 - (id)initWithData:(NSData*)data name:(NSString *)name identifier:(NSString*)identifier blendMode:(LayerBlendMode)blendMode visible:(bool)visible opacity:(float)opacity opacityLock:(BOOL)opacityLock{
     self = [super init];
     if(self!=NULL){
-        self.visible = visible;
-        self.dirty = true;
-        
-        self.data = data;
-        self.name = name;
-        self.identifier = identifier;
-        self.blendMode = blendMode;
-        self.opacity = opacity;
-        self.opacityLock = opacityLock;
+        _data = data;
+        _name = name;
+        _identifier = identifier;
+        _blendMode = blendMode;
+        _opacity = opacity;
+        _opacityLock = opacityLock;
         
         //不存储到文件
-        self.operationLock = false;
+        _operationLock = false;
+        
+        self.visible = visible;
+        self.dirty = true;
     }
     
     return self;
@@ -70,6 +70,9 @@
     layer.blendMode = self.blendMode;
     layer.opacity = self.opacity;
     layer.opacityLock = self.opacityLock;
+    
+    //rewrite layer.dirty
+    layer.dirty = self.dirty;
     
     return layer;
 }

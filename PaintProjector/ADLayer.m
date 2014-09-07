@@ -9,6 +9,15 @@
 #import "ADLayer.h"
 
 @implementation ADLayer
+- (id)init{
+    self = [super init];
+    if (self) {
+        _visible = true;
+        _dirty = true;
+    }
+    return self;
+}
+
 - (void)setVisible:(bool)visible{
     if (_visible != visible) {
         _visible = visible;
@@ -21,4 +30,8 @@
     layer.dirty = self.dirty;
     return layer;
 }
+//- (void)setDirty:(bool)dirty{
+//    DebugLogWarn(@"setDirty %i", dirty);
+//    _dirty = dirty;
+//}
 @end
