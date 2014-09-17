@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADPaintScreenPopoverBackgroundView.h"
+#import "ADSharedPopoverBackgroundView.h"
 
-@interface ADLayerBlendModePopoverBackgroundView : ADPaintScreenPopoverBackgroundView
+@interface ADLayerBlendModePopoverBackgroundView : ADSharedPopoverBackgroundView
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#define PaintFrameMoveAnimationDuration 0.6
+#define PaintFrameFadeAnimationDuration 0.3
 @protocol ADPaintFrameTransitionManagerDelegate <NSObject>
 - (CGRect)willGetCylinderMirrorFrame;
 @end

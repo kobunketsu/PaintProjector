@@ -23,4 +23,48 @@
     frame.origin.y = MIN(frame.origin.y + frame.size.height, rect.origin.y + rect.size.height) - frame.size.height;
     self.frame = frame;
 }
+
+- (void)setFrameLerpFromRect:(CGRect)fromRect toRect:(CGRect)toRect percentage:(CGFloat)percentage{
+    CGRect frame = CGRectZero;
+    frame.origin.x = fromRect.origin.x * (1.0 - percentage) + toRect.origin.x * percentage;
+    frame.origin.y = fromRect.origin.y * (1.0 - percentage) + toRect.origin.y * percentage;
+    frame.size.width = fromRect.size.width * (1.0 - percentage) + toRect.size.width * percentage;
+    frame.size.height = fromRect.size.height * (1.0 - percentage) + toRect.size.height * percentage;
+    self.frame = frame;
+}
+
+- (void)debugSubviewHierachy{
+    if (self.backgroundColor) {
+        const CGFloat *colors = CGColorGetComponents(self.backgroundColor.CGColor);
+        DebugLog(@"view :%@ r %.1f g %.1f b %.1f", self, colors[0], colors[1], colors[2]);
+    }
+    
+    for (UIView *view in self.subviews) {
+        [view debugSubviewHierachy];
+    }
+}
+
+- (void)setFrameOriginX:(CGFloat)originX{
+    CGRect frame = self.frame;
+    frame.origin.x = originX;
+    self.frame = frame;
+}
+
+- (void)setFrameOriginY:(CGFloat)originY{
+    CGRect frame = self.frame;
+    frame.origin.y = originY;
+    self.frame = frame;
+}
+
+- (void)setFrameSizeWidth:(CGFloat)width{
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
+- (void)setFrameSizeHeight:(CGFloat)height{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+}
 @end

@@ -16,6 +16,7 @@
 #pragma mark Cache
 
 static UIColor* _colorEdge = nil;
+static UIColor* _colorEdgeHighlighted = nil;
 static UIColor* _gradientColorStart = nil;
 static UIColor* _gradientColorEnd = nil;
 static UIColor* _gradientColorMid = nil;
@@ -27,7 +28,9 @@ static ADPCGradient* _gradientLightGrayPink = nil;
 + (void)initialize
 {
     // Colors Initialization
-    _colorEdge = [UIColor colorWithRed: 1 green: 0.943 blue: 0.961 alpha: 1];
+//    _colorEdge = [UIColor colorWithRed: 1 green: 0.943 blue: 0.961 alpha: 1];
+    _colorEdge = [UIColor colorWithRed: 0.9 green: 0.9 blue: 0.9 alpha: 1];
+    _colorEdgeHighlighted = [UIColor colorWithRed: 0.801 green: 0.947 blue: 1 alpha: 1];
     _gradientColorStart = [UIColor colorWithRed: 0.902 green: 0.894 blue: 0.894 alpha: 1];
     _gradientColorEnd = [UIColor colorWithRed: 0.84 green: 0.821 blue: 0.821 alpha: 1];
     _gradientColorMid = [UIColor colorWithRed: 0.746 green: 0.773 blue: 0.782 alpha: 1];
@@ -41,6 +44,7 @@ static ADPCGradient* _gradientLightGrayPink = nil;
 #pragma mark Colors
 
 + (UIColor*)colorEdge { return _colorEdge; }
++ (UIColor*)colorEdgeHighlighted { return _colorEdgeHighlighted; }
 + (UIColor*)gradientColorStart { return _gradientColorStart; }
 + (UIColor*)gradientColorEnd { return _gradientColorEnd; }
 + (UIColor*)gradientColorMid { return _gradientColorMid; }

@@ -7,6 +7,7 @@
 //
 
 #import "ADTutorialNextButton.h"
+#import "ADPaintUIKitStyle.h"
 
 @implementation ADTutorialNextButton
 
@@ -15,9 +16,23 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-//        [self addTarget:self action:@selector(nextButtonTouchUp:) forControlEvents:UIControlEventTouchDown];
+        [self initCustom];
     }
     return self;
+}
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initCustom];
+    }
+    return self;
+}
+
+- (void)initCustom{
+    self.titleLabel.font = [UIFont fontWithDescriptor:self.titleLabel.font.fontDescriptor size:[ADPaintUIKitStyle fontCustomSize]];
+    [self setTitleColor:[UIColor selectableColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
 }
 
 -(void)setHighlighted:(BOOL)highlighted{
@@ -46,14 +61,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* gradientColorStart = [UIColor colorWithRed: 0.658 green: 0.887 blue: 0.97 alpha: 1];
-    UIColor* gradientColorEnd = [UIColor colorWithRed: 0.564 green: 0.768 blue: 0.842 alpha: 1];
-    UIColor* gradientColorMid = [UIColor colorWithRed: 0.041 green: 0.679 blue: 0.911 alpha: 1];
-    UIColor* colorEdge = [UIColor colorWithRed: 0.801 green: 0.947 blue: 1 alpha: 1];
-    
-    //// Gradient Declarations
-    CGFloat gradientLightGrayPinkLocations[] = {0, 0.3, 1};
-    CGGradientRef gradientLightGrayPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColorEnd.CGColor, (id)gradientColorMid.CGColor, (id)gradientColorStart.CGColor], gradientLightGrayPinkLocations);
+    CGGradientRef gradientLightGrayPink = [ADPaintUIKitStyle crystalGradientHighlighted];
     
     //// Rectangle Drawing
     CGRect rectangleRect = CGRectMake(CGRectGetMinX(frame) + 5, CGRectGetMinY(frame) + 5, floor((CGRectGetWidth(frame) - 5) * 0.97872 + 0.5), floor((CGRectGetHeight(frame) - 5) * 0.95652 + 0.5));
@@ -65,7 +73,7 @@
                                 CGPointMake(CGRectGetMidX(rectangleRect), CGRectGetMinY(rectangleRect)),
                                 0);
     CGContextRestoreGState(context);
-    [colorEdge setStroke];
+    [[ADBarStyleKit colorEdgeHighlighted] setStroke];
     rectanglePath.lineWidth = 3;
     [rectanglePath stroke];
     
@@ -81,15 +89,8 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-    UIColor* gradientColorStart = [UIColor colorWithRed: 0.57 green: 0.57 blue: 0.57 alpha: 1];
-    UIColor* gradientColorEnd = [UIColor colorWithRed: 0.442 green: 0.442 blue: 0.442 alpha: 1];
-    UIColor* gradientColorMid = [UIColor colorWithRed: 0.411 green: 0.411 blue: 0.411 alpha: 1];
-    UIColor* colorEdge = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 1];
-    
     //// Gradient Declarations
-    CGFloat gradientLightGrayPinkLocations[] = {0, 0.3, 1};
-    CGGradientRef gradientLightGrayPink = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColorEnd.CGColor, (id)gradientColorMid.CGColor, (id)gradientColorStart.CGColor], gradientLightGrayPinkLocations);
+    CGGradientRef gradientLightGrayPink = [ADPaintUIKitStyle crystalGradientNormal];
     
     //// Rectangle Drawing
     CGRect rectangleRect = CGRectMake(CGRectGetMinX(frame) + 5, CGRectGetMinY(frame) + 5, floor((CGRectGetWidth(frame) - 5) * 0.97872 + 0.5), floor((CGRectGetHeight(frame) - 5) * 0.95652 + 0.5));
@@ -101,7 +102,7 @@
                                 CGPointMake(CGRectGetMidX(rectangleRect), CGRectGetMinY(rectangleRect)),
                                 0);
     CGContextRestoreGState(context);
-    [colorEdge setStroke];
+    [[ADBarStyleKit colorEdge] setStroke];
     rectanglePath.lineWidth = 3;
     [rectanglePath stroke];
     

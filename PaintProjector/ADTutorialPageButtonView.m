@@ -8,6 +8,7 @@
 
 #import "ADTutorialPageButtonView.h"
 #import "ADTutorialNextButton.h"
+
 @implementation ADTutorialPageButtonView
 
 - (id)initWithFrame:(CGRect)frame
@@ -22,8 +23,10 @@
 - (void)initWithTutorial:(ADTutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image{
     [super initWithTutorial:tutorial description:desc bgImage:image];
     
-    CGFloat width = 128;CGFloat height = 64; CGFloat offset = 25;
-    _nextButton = [[ADTutorialNextButton alloc]initWithFrame:CGRectMake(self.bounds.size.width - width - offset, self.bounds.size.height - height - offset, width, height)];
+    CGFloat width = TutorialNextButtonWidth;CGFloat height = TutorialNextButtonHeight; CGFloat offset = TutorialNextButtonMargin;
+    CGFloat x = MAX(self.bounds.size.width - width - offset, 0);
+    CGFloat y = MAX(self.bounds.size.height - height - offset, 0);
+    _nextButton = [[ADTutorialNextButton alloc]initWithFrame:CGRectMake(x, y, width, height)];
 
     [self addSubview:self.nextButton];
     [self.nextButton setTitle:NSLocalizedString(@"TutorialNext", nil) forState:UIControlStateNormal];

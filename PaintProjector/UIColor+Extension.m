@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 WenjiHu. All rights reserved.
 //
 
-#import "UIColor+String.h"
+#import "UIColor+Extension.h"
 
-@implementation UIColor (String)
+@implementation UIColor (Extension)
 +(UIColor*)colorWithString:(NSString*)string{
     NSArray *rgb = [string componentsSeparatedByString:@" "];
     CGFloat r = [rgb[0] integerValue] / 255.0;
@@ -21,5 +21,10 @@
     const CGFloat *colorPtr = CGColorGetComponents(self.CGColor);
     NSString *colorData = [NSString stringWithFormat:@"%u %u %u", (NSUInteger)(colorPtr[0]*255.0), (NSUInteger)(colorPtr[1]*255.0), (NSUInteger)(colorPtr[2]*255.0)];
     return colorData;
+}
+
+#pragma mark- Common Colors
++ (UIColor*)selectableColor{
+    return [UIColor colorWithRed:0 green:0.5 blue:1 alpha:1];
 }
 @end

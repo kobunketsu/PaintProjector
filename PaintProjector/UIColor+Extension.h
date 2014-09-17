@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (String)
+@interface UIColor (Extension)
 +(UIColor*)colorWithString:(NSString*)string;
 -(NSString*)colorString;
+
+#pragma mark- Common Colors
++ (UIColor*)selectableColor;
 @end

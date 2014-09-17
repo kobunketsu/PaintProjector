@@ -34,28 +34,37 @@
         //恢复用户可交互操作的UI
         [self.delegate willTutorialEnableUserInteraction:true withStep:self];
         
+        [self.delegate willTutorialEndWithStep:self];
+        
         //TODO: anim fade
         [self removeFromRootView];
     }
 }
 
+- (void)dealloc{
+    self.indicatorView = nil;
+    [self.indicatorViews removeAllObjects];
+    self.indicatorViews = nil;
+    self.contentView = nil;
+}
+
 - (void)addToRootView:(UIView *)rootView{
     for (ADTutorialIndicatorView *view in self.indicatorViews) {
         [rootView addSubview:view];
+        [view setNeedsLayout];
     }
     if (self.contentView) {
         [rootView addSubview:self.contentView];
+        [self.contentView setNeedsLayout];
     }
 }
 - (void)removeFromRootView{
     for (ADTutorialIndicatorView *view in self.indicatorViews) {
         [view removeFromSuperview];
     }
-    self.indicatorViews = nil;
-    
+
     if (self.contentView) {
         [self.contentView removeFromSuperview];
-        self.contentView = nil;
     }
 }
 

@@ -11,8 +11,7 @@
 #import "ADPaintCollectionViewCell.h"
 #import "ADTutorialManager.h"
 
-#define PaintFrameMoveAnimationDuration 0.6
-#define PaintFrameFadeAnimationDuration 0.3
+
 
 @implementation ADPaintFrameTransitionManager
 //动画方法:
@@ -87,6 +86,7 @@
             transitionImageView.image = imageView.image;
             transitionImageView.tag = 100;
             [toView addSubview:transitionImageView];
+            
             [imageView removeFromSuperview];
             imageView.alpha = 1;
             
@@ -100,12 +100,16 @@
                 
             } else {
                 // reset from- view to its original state
-                //                [imageView removeFromSuperview];
-                //                imageView.alpha = 1;
                 paintCollectionVC.view.alpha = 1;
                 
+                for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+                    [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+                }
+//                [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+                
                 //unload paintFrameView
-                [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
                 [paintCollectionVC.curPaintFrameView setPaintDoc:nil];
                 [paintCollectionVC.curPaintFrameView unloadForDisplay];
                 
@@ -119,6 +123,7 @@
     
 
 }
+
 
 - (void)dismissingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     
@@ -156,6 +161,13 @@
     [UIView animateWithDuration:0 animations:^{
         //        transitionImageView.frame = destRect;
     } completion:^(BOOL finished) {
+        //重置打开动画最后的可见状态
+        for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
+            [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
+        }
+        
         [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
             toView.alpha = 1;
             fromVC.view.alpha = 0;
@@ -190,9 +202,5 @@
         [self dismissingAnimateTransition:transitionContext];
     }
 }
-
-//- (void)animationEnded:(BOOL) transitionCompleted{
-//    
-//}
 
 @end

@@ -24,16 +24,18 @@
     return step;
 }
 
-- (ADTutorialStep *)addPageStep:(NSString *)name description:(NSString*)desc pageBounds:(CGRect)bounds pageImage:(NSString *)imageName withNextButton:(BOOL)withNextButton{
+- (ADTutorialStep *)addPageStep:(NSString *)name description:(NSString*)desc pageBounds:(CGRect)bounds pageImage:(NSString *)imageName withNextButton:(BOOL)withNextButton nextButtonName:(NSString*)buttonName{
     ADTutorialStep *step = [self addStep:name];
     if (withNextButton) {
         step.contentView = [[ADTutorialPageButtonView alloc]initWithFrame:bounds];
+        [step.contentView initWithTutorial:self description:desc bgImage:[UIImage imageNamed:imageName]];
+        [((ADTutorialPageButtonView*)step.contentView).nextButton setTitle:buttonName forState:UIControlStateNormal];
     }
     else{
         step.contentView = [[ADTutorialPageView alloc]initWithFrame:bounds];
+        [step.contentView initWithTutorial:self description:desc bgImage:[UIImage imageNamed:imageName]];
     }
     
-    [step.contentView initWithTutorial:self description:desc bgImage:[UIImage imageNamed:imageName]];
     return step;
 }
 

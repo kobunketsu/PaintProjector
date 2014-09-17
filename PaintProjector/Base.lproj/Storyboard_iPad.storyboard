@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZXj-eQ-u2Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="dCD-DJ-bI0">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -340,6 +340,20 @@
             </objects>
             <point key="canvasLocation" x="-1043" y="-2800"/>
         </scene>
+        <!--Launch View Controller-->
+        <scene sceneID="4ia-fG-5R3">
+            <objects>
+                <viewController id="dCD-DJ-bI0" customClass="ADLaunchViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B6P-q6-ulO">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s5S-Ol-S0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5638" y="-1700"/>
+        </scene>
         <!--Paint Collection View Controller-->
         <scene sceneID="guk-3z-txW">
             <objects>
@@ -491,7 +505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TG9-fd-chK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1972" y="-1658"/>
+            <point key="canvasLocation" x="-3652" y="-1668"/>
         </scene>
         <!--Brush Property View Controller-->
         <scene sceneID="E4m-zX-tnT">
@@ -1258,6 +1272,740 @@
             </objects>
             <point key="canvasLocation" x="-990" y="-510"/>
         </scene>
+        <!--Anamorphosis Basic View Controller-->
+        <scene sceneID="Z4x-M4-cQz">
+            <objects>
+                <viewController storyboardIdentifier="AnamorphosisBasicViewController" id="6Ui-9q-rua" customClass="ADAnamorphosisBasicViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oUJ-Jj-1pH">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_background.png" id="twv-7O-v0y">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" id="uto-pB-TfM" userLabel="GalleryArtCollectionView">
+                                <rect key="frame" x="0.0" y="108" width="768" height="360"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="288" minimumInteritemSpacing="10" id="FKW-8U-CDY">
+                                    <size key="itemSize" width="480" height="360"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="144" minY="0.0" maxX="144" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell appearanceType="aqua" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TutorialArtCollectionViewCell" id="iQH-UN-a4v" customClass="ADTutorialArtCollectionViewCell">
+                                        <rect key="frame" x="144" y="0.0" width="480" height="360"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="1J1-7J-vIi" userLabel="ShadowView">
+                                                    <rect key="frame" x="12" y="9" width="456" height="342"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <view appearanceType="aqua" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="iFr-Mz-7LA" userLabel="FrameView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="456" height="342"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <subviews>
+                                                                <imageView appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gr9-jU-A0Q">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="456" height="342"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Istvan Orosz" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NJE-2Q-oYc">
+                                                                    <rect key="frame" x="243" y="292" width="200" height="50"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="30"/>
+                                                                    <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </view>
+                                                    </subviews>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="authorNameLabel" destination="NJE-2Q-oYc" id="3Eq-2q-Go9"/>
+                                            <outlet property="frameView" destination="iFr-Mz-7LA" id="3uk-z3-P3y"/>
+                                            <outlet property="imageView" destination="gr9-jU-A0Q" id="jKP-r1-32e"/>
+                                            <outlet property="shadowView" destination="1J1-7J-vIi" id="zOM-34-HhE"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="6Ui-9q-rua" id="KmN-XW-Dfn"/>
+                                    <outlet property="delegate" destination="6Ui-9q-rua" id="86C-Iu-YrP"/>
+                                </connections>
+                            </collectionView>
+                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" id="QMY-ac-Prd" userLabel="LifeArtCollectionView">
+                                <rect key="frame" x="0.0" y="530" width="768" height="350"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="0.0" id="2pa-Ni-1DH">
+                                    <size key="itemSize" width="360" height="270"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LifeArtCollectionViewCell" id="rCw-we-mr8" customClass="ADTutorialArtCollectionViewCell">
+                                        <rect key="frame" x="16" y="40" width="360" height="270"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="270"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="OCo-Kh-vii" userLabel="ShadowView">
+                                                    <rect key="frame" x="10" y="11" width="340" height="250"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <view appearanceType="aqua" clipsSubviews="YES" contentMode="scaleToFill" id="bLV-B2-Jbs" userLabel="FrameView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="340" height="250"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <imageView appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="PvE-v1-rc1">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="340" height="250"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                </imageView>
+                                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coasters" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XQ7-S6-hI9" userLabel="ImageNameLabel">
+                                                                    <rect key="frame" x="0.0" y="180" width="340" height="70"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="30"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </view>
+                                                    </subviews>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="frameView" destination="bLV-B2-Jbs" id="Jsa-v5-bsz"/>
+                                            <outlet property="imageNameLabel" destination="XQ7-S6-hI9" id="t9f-zj-caJ"/>
+                                            <outlet property="imageView" destination="PvE-v1-rc1" id="0aN-Wr-peT"/>
+                                            <outlet property="shadowView" destination="OCo-Kh-vii" id="sad-HI-TxX"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="6Ui-9q-rua" id="JN4-yb-q83"/>
+                                    <outlet property="delegate" destination="6Ui-9q-rua" id="hzd-P0-5j2"/>
+                                </connections>
+                            </collectionView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="What is anamorphosis" textAlignment="center" id="IV8-lJ-FSe" userLabel="Introduction0TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="A deformed image appears in its true shape" textAlignment="center" id="9DY-UI-AUd" userLabel="Introduction1TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Only when viewed in some magical way" textAlignment="center" id="8dm-io-dHH" userLabel="Introduction2TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="It has a long history from late Renaissance" textAlignment="center" id="t6C-jH-jZT" userLabel="Introduction3TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Loved by great artists like Salvador Dali" textAlignment="center" id="EZd-Rm-5x6" userLabel="Introduction4TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Now people all love this fashional form of art" textAlignment="center" id="LPd-Mb-Usx" userLabel="Introduction5TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Creating magical illusion art is not impossible" textAlignment="center" id="cxH-Qw-sL8" userLabel="Introduction6TextView">
+                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="u1R-Wq-PmM">
+                                <rect key="frame" x="0.0" y="495" width="768" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view hidden="YES" appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="YjU-gt-ie4" userLabel="Slogan2View">
+                                        <rect key="frame" x="68" y="-5" width="632" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_D-Do.png" id="lpv-pD-jSX" userLabel="D-Do">
+                                                <rect key="frame" x="122" y="12" width="36" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_o-Do.png" id="P6m-Ps-dBm" userLabel="o-Do">
+                                                <rect key="frame" x="160" y="22" width="32" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_Y-You.png" id="ZAN-lX-uZF" userLabel="Y-You">
+                                                <rect key="frame" x="2" y="12" width="37" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_o-You.png" id="PXY-Jm-EcK" userLabel="o-You">
+                                                <rect key="frame" x="36" y="22" width="32" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_u-You.png" id="tRp-no-ru8" userLabel="u-You">
+                                                <rect key="frame" x="72" y="23" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_W-Wannaa.png" id="AkP-Nw-RoM" userLabel="W-Wannaa">
+                                                <rect key="frame" x="208" y="12" width="52" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a-Wannaa.png" id="ik4-LT-na0" userLabel="a-Wannaa">
+                                                <rect key="frame" x="261" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="8" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n-Wannaa.png" id="bap-l9-VZI" userLabel="n-Wannaa">
+                                                <rect key="frame" x="295" y="22" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="9" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n-Wannaa.png" id="9yh-jM-c0Z" userLabel="n-Wannaa">
+                                                <rect key="frame" x="396" y="22" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a-Wannaa.png" id="dTy-pt-VNO" userLabel="a-Wannaa">
+                                                <rect key="frame" x="362" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a-Wannaa.png" id="xW2-Xa-O7E" userLabel="a-Wannaa">
+                                                <rect key="frame" x="429" y="22" width="28" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_D-Draw.png" id="Y19-h6-Hj3" userLabel="D-Draw">
+                                                <rect key="frame" x="462" y="12" width="36" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_r-Draw.png" id="PLu-eT-Hlw" userLabel="r-Draw">
+                                                <rect key="frame" x="503" y="22" width="18" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a-Draw.png" id="lu0-qP-I5f" userLabel="a-Draw">
+                                                <rect key="frame" x="523" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_w-Draw.png" id="SM1-ZR-GKh" userLabel="w-Draw">
+                                                <rect key="frame" x="553" y="23" width="42" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_i-it.png" id="QuY-LR-EEU" userLabel="i-it">
+                                                <rect key="frame" x="619" y="12" width="8" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_t-it.png" id="Tn5-3p-29g" userLabel="t-it">
+                                                <rect key="frame" x="327" y="13" width="18" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="4K6-LR-sob" userLabel="SloganView">
+                                        <rect key="frame" x="68" y="-5" width="632" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_D-Do.png" id="Sxy-sd-ED3" userLabel="D-Do">
+                                                <rect key="frame" x="4" y="12" width="36" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_o-Do.png" id="jgH-oP-4Fg" userLabel="o-Do">
+                                                <rect key="frame" x="42" y="22" width="32" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_Y-You.png" id="eSb-yM-TNu" userLabel="Y-You">
+                                                <rect key="frame" x="91" y="12" width="37" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_o-You.png" id="iGH-9e-qft" userLabel="o-You">
+                                                <rect key="frame" x="125" y="22" width="32" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_u-You.png" id="RIX-9A-0Th" userLabel="u-You">
+                                                <rect key="frame" x="161" y="23" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_W-Wannaa.png" id="VCy-6g-xUt" userLabel="W-Wannaa">
+                                                <rect key="frame" x="208" y="12" width="52" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a0-Wannaa.png" id="dfC-vZ-8bh" userLabel="a-Wannaa">
+                                                <rect key="frame" x="261" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="8" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n0-Wannaa.png" id="A1E-hx-fRn" userLabel="n-Wannaa">
+                                                <rect key="frame" x="295" y="22" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="9" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n1-Wannaa.png" id="Kox-jb-ikk" userLabel="n-Wannaa">
+                                                <rect key="frame" x="329" y="22" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a1-Wannaa.png" id="Hmi-Uo-5lo" userLabel="a-Wannaa">
+                                                <rect key="frame" x="362" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a2-Wannaa.png" id="80w-2C-ByB" userLabel="a-Wannaa">
+                                                <rect key="frame" x="392" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="12" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_D-Draw.png" id="TL1-Hg-5YL" userLabel="D-Draw">
+                                                <rect key="frame" x="443" y="12" width="36" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="13" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_r-Draw.png" id="29E-i6-Xj2" userLabel="r-Draw">
+                                                <rect key="frame" x="483" y="22" width="19" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="14" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a-Draw.png" id="RgN-7Q-Xrm" userLabel="a-Draw">
+                                                <rect key="frame" x="503" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="15" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_w-Draw.png" id="Qj9-tn-kMx" userLabel="w-Draw">
+                                                <rect key="frame" x="533" y="23" width="43" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="16" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_i-it.png" id="IHm-8l-68R" userLabel="i-it">
+                                                <rect key="frame" x="597" y="12" width="8" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="17" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_t-it.png" id="ch5-Ra-1Uw" userLabel="t-it">
+                                                <rect key="frame" x="609" y="12" width="18" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
+                                </subviews>
+                            </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="SVs-qL-bst" userLabel="GalleryArtPageControl">
+                                <rect key="frame" x="364" y="462" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" id="JiA-rX-ySi" userLabel="LifeArtPageControl">
+                                <rect key="frame" x="364" y="835" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Everyone can draw these with AnaDraw" textAlignment="center" id="OjA-BW-UfI" userLabel="LifeArt0TextView">
+                                <rect key="frame" x="0.0" y="860" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Put your illusion art into life" textAlignment="center" id="PWV-2a-Vrg" userLabel="LifeArt1TextView">
+                                <rect key="frame" x="0.0" y="860" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fIU-AC-MEb" customClass="ADTutorialNextButton">
+                                <rect key="frame" x="593" y="935" width="150" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Learn More">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="DoneButtonTouchUp:" destination="6Ui-9q-rua" eventType="touchUpInside" id="f8K-wv-5hA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hBz-al-mMx"/>
+                    <connections>
+                        <outlet property="galleryArtCollectionView" destination="uto-pB-TfM" id="Dkf-C8-khf"/>
+                        <outlet property="galleryArtPageControl" destination="SVs-qL-bst" id="knj-zZ-zJD"/>
+                        <outlet property="introduction0TextView" destination="IV8-lJ-FSe" id="0SV-YR-UxP"/>
+                        <outlet property="introduction1TextView" destination="9DY-UI-AUd" id="JgI-uD-vFd"/>
+                        <outlet property="introduction2TextView" destination="8dm-io-dHH" id="HFS-gQ-P5W"/>
+                        <outlet property="introduction3TextView" destination="t6C-jH-jZT" id="4An-fY-aW5"/>
+                        <outlet property="introduction4TextView" destination="EZd-Rm-5x6" id="qWf-xg-n3G"/>
+                        <outlet property="introduction5TextView" destination="LPd-Mb-Usx" id="zUH-8L-hSn"/>
+                        <outlet property="introduction6TextView" destination="cxH-Qw-sL8" id="f1k-kc-m2a"/>
+                        <outlet property="lifeArt0TextView" destination="OjA-BW-UfI" id="0tH-Zv-3OR"/>
+                        <outlet property="lifeArt1TextView" destination="PWV-2a-Vrg" id="hTI-Nw-ZlQ"/>
+                        <outlet property="lifeArtCollectionView" destination="QMY-ac-Prd" id="lx9-MO-iad"/>
+                        <outlet property="lifeArtPageControl" destination="JiA-rX-ySi" id="xjy-GZ-seu"/>
+                        <outlet property="nextButton" destination="fIU-AC-MEb" id="p1z-oq-KN1"/>
+                        <outletCollection property="sloganCharacters2" destination="lpv-pD-jSX" id="Mqm-fo-YCF"/>
+                        <outletCollection property="sloganCharacters2" destination="P6m-Ps-dBm" id="F1W-K2-Q46"/>
+                        <outletCollection property="sloganCharacters2" destination="ZAN-lX-uZF" id="89p-Yb-MA9"/>
+                        <outletCollection property="sloganCharacters2" destination="PXY-Jm-EcK" id="1we-MJ-aAQ"/>
+                        <outletCollection property="sloganCharacters2" destination="tRp-no-ru8" id="5NS-jl-R4m"/>
+                        <outletCollection property="sloganCharacters2" destination="AkP-Nw-RoM" id="edl-T8-rjY"/>
+                        <outletCollection property="sloganCharacters2" destination="ik4-LT-na0" id="2CS-hQ-hY0"/>
+                        <outletCollection property="sloganCharacters2" destination="bap-l9-VZI" id="p3Z-lu-bt2"/>
+                        <outletCollection property="sloganCharacters2" destination="9yh-jM-c0Z" id="mYP-PX-EpY"/>
+                        <outletCollection property="sloganCharacters2" destination="dTy-pt-VNO" id="tXt-F2-2zv"/>
+                        <outletCollection property="sloganCharacters2" destination="xW2-Xa-O7E" id="Fv3-Rc-J5n"/>
+                        <outletCollection property="sloganCharacters2" destination="Y19-h6-Hj3" id="35i-GK-VuO"/>
+                        <outletCollection property="sloganCharacters2" destination="PLu-eT-Hlw" id="snd-6x-u3U"/>
+                        <outletCollection property="sloganCharacters2" destination="lu0-qP-I5f" id="4il-pZ-GH2"/>
+                        <outletCollection property="sloganCharacters2" destination="SM1-ZR-GKh" id="xi4-S3-PQa"/>
+                        <outletCollection property="sloganCharacters2" destination="QuY-LR-EEU" id="yXk-te-tiA"/>
+                        <outletCollection property="sloganCharacters2" destination="Tn5-3p-29g" id="bcp-AM-wPK"/>
+                        <outletCollection property="sloganCharacters" destination="Sxy-sd-ED3" id="Tea-Ba-7Wf"/>
+                        <outletCollection property="sloganCharacters" destination="jgH-oP-4Fg" id="NU3-ZX-Z0w"/>
+                        <outletCollection property="sloganCharacters" destination="eSb-yM-TNu" id="O21-b3-nsg"/>
+                        <outletCollection property="sloganCharacters" destination="iGH-9e-qft" id="uSM-KD-el1"/>
+                        <outletCollection property="sloganCharacters" destination="RIX-9A-0Th" id="n0S-sX-VfN"/>
+                        <outletCollection property="sloganCharacters" destination="VCy-6g-xUt" id="V6h-9r-0kQ"/>
+                        <outletCollection property="sloganCharacters" destination="dfC-vZ-8bh" id="S0E-ce-xos"/>
+                        <outletCollection property="sloganCharacters" destination="A1E-hx-fRn" id="YGS-JZ-O1q"/>
+                        <outletCollection property="sloganCharacters" destination="Kox-jb-ikk" id="bQJ-T7-NkB"/>
+                        <outletCollection property="sloganCharacters" destination="Hmi-Uo-5lo" id="X8d-Nx-MxS"/>
+                        <outletCollection property="sloganCharacters" destination="80w-2C-ByB" id="rXw-Mq-ixc"/>
+                        <outletCollection property="sloganCharacters" destination="TL1-Hg-5YL" id="qPf-ni-wvB"/>
+                        <outletCollection property="sloganCharacters" destination="29E-i6-Xj2" id="0wX-IF-rVE"/>
+                        <outletCollection property="sloganCharacters" destination="RgN-7Q-Xrm" id="Hsl-rJ-uTg"/>
+                        <outletCollection property="sloganCharacters" destination="Qj9-tn-kMx" id="VTV-Zr-PT5"/>
+                        <outletCollection property="sloganCharacters" destination="IHm-8l-68R" id="GS9-3G-jRI"/>
+                        <outletCollection property="sloganCharacters" destination="ch5-Ra-1Uw" id="KnL-PO-nnq"/>
+                        <outletCollection property="introductionTextViews" destination="IV8-lJ-FSe" id="qA4-VJ-J1D"/>
+                        <outletCollection property="introductionTextViews" destination="9DY-UI-AUd" id="Hbp-Sl-npE"/>
+                        <outletCollection property="introductionTextViews" destination="8dm-io-dHH" id="mw4-D4-azI"/>
+                        <outletCollection property="introductionTextViews" destination="t6C-jH-jZT" id="i6v-5d-mPG"/>
+                        <outletCollection property="introductionTextViews" destination="EZd-Rm-5x6" id="vqY-D6-VBb"/>
+                        <outletCollection property="introductionTextViews" destination="LPd-Mb-Usx" id="EWW-8L-sNq"/>
+                        <outletCollection property="introductionTextViews" destination="cxH-Qw-sL8" id="UUK-gN-XjH"/>
+                        <outletCollection property="lifeArtTextViews" destination="OjA-BW-UfI" id="kPc-L5-KLo"/>
+                        <outletCollection property="lifeArtTextViews" destination="PWV-2a-Vrg" id="ZXY-O2-Sb9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iwq-tN-uhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4208" y="-2962"/>
+        </scene>
+        <!--Simple Tutorial View Controller-->
+        <scene sceneID="1R9-2O-mSb">
+            <objects>
+                <viewController storyboardIdentifier="SimpleTutorialViewController" id="2bY-OT-P2o" customClass="ADSimpleTutorialViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ff1-bu-5aF" customClass="ADSimpleTutorialView">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view appearanceType="aqua" contentMode="scaleToFill" id="Y6T-LY-d4i" userLabel="TutorialWelcomeView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Art of Anamorphosis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TpK-54-R3H" userLabel="AnaDrawWelcomeLabel">
+                                        <rect key="frame" x="0.0" y="55" width="768" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CiT-Ho-F8z" userLabel="WhatIsAnaDrawLabel">
+                                        <rect key="frame" x="0.0" y="700" width="768" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">AnaDraw is a drawing app which allow you to draw anamorphic images.
+
+Learn how to use the powerful tools to view and draw by following this tutorial step by step.
+
+You will create unbelievable illusion.</string>
+                                                <attributes>
+                                                    <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_bookBG.png" id="59l-3A-hf8" userLabel="BookBGImageView">
+                                        <rect key="frame" x="35" y="200" width="700" height="500"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup2.png" id="pzH-z2-DWE" userLabel="Setup2ImageView">
+                                        <rect key="frame" x="280" y="575" width="199" height="102"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup3.png" id="Ucr-01-t1x" userLabel="Setup3ImageView">
+                                        <rect key="frame" x="520" y="485" width="142" height="194"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup.png" id="Ny2-Xy-3TR" userLabel="SetupImageView">
+                                        <rect key="frame" x="45" y="230" width="197" height="223"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_pickImage.png" id="dJS-vB-9wN" userLabel="PickImageView">
+                                        <rect key="frame" x="495" y="215" width="191" height="251"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_viewDeviceSrc.png" id="Lnu-n1-ODj" userLabel="ViewDeviceSrcImageView">
+                                        <rect key="frame" x="55" y="480" width="254" height="198"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_putDevice.png" id="PqT-Jl-phK" userLabel="PutDeviceImageView">
+                                        <rect key="frame" x="170" y="200" width="388" height="388"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ByIstvanOrosz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mhu-mP-dfk" userLabel="AuthorNameLabel">
+                                        <rect key="frame" x="548" y="650" width="202" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="SnellRoundhand" family="Snell Roundhand" pointSize="30"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a91-OH-aKP" userLabel="StartTutorialButton" customClass="ADTutorialNextButton">
+                                        <rect key="frame" x="593" y="932" width="150" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startTutorialButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="TZ9-L1-s38"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view appearanceType="aqua" contentMode="scaleToFill" id="tCi-WS-FzE" userLabel="TutorialListView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label hidden="YES" appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Tutorial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ab9-bT-uyd" userLabel="TutorialListTitleLabel">
+                                        <rect key="frame" x="0.0" y="55" width="768" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="zWx-so-nDe" userLabel="AnamorphosisBasicView">
+                                        <rect key="frame" x="0.0" y="120" width="968" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Rq-hF-ljj" userLabel="AnamorphosisBasicButton" customClass="ADCrystalGradientStyleButton">
+                                                <rect key="frame" x="50" y="30" width="918" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="tutorialAnamorphosisBasicButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="8Ha-KC-NHV"/>
+                                                </connections>
+                                            </button>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_putDevice.png" id="R3h-Ee-VpY" userLabel="AnamorphosisBasicImageView">
+                                                <rect key="frame" x="22" y="-20" width="160" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Knowledge of Anamorphosis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3k4-p8-Ra1" userLabel="AnamorphosisBasicLabel">
+                                                <rect key="frame" x="205" y="0.0" width="563" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="8Y1-L9-UoP" userLabel="AnaDrawBasicView">
+                                        <rect key="frame" x="0.0" y="280" width="968" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FDU-rI-c8e" userLabel="AnaDrawBasicButton" customClass="ADCrystalGradientStyleButton">
+                                                <rect key="frame" x="51" y="30" width="918" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="tutorialAnaDrawBasicButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="vCU-6G-keZ"/>
+                                                </connections>
+                                            </button>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_viewDeviceSrc.png" id="jrJ-JQ-VsT" userLabel="AnaDrawBasicImageView">
+                                                <rect key="frame" x="20" y="17" width="160" height="130"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="21" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Use of AnaDraw" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rfa-XN-Ejv" userLabel="AnaDrawBasicLabel">
+                                                <rect key="frame" x="206" y="0.0" width="563" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="yoq-Kh-UVv" userLabel="AdvancedSetupView">
+                                        <rect key="frame" x="0.0" y="440" width="968" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e9m-cF-0d1" userLabel="AdvancedSetupButton" customClass="ADCrystalGradientStyleButton">
+                                                <rect key="frame" x="51" y="30" width="918" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tutorialAdvancedSetupButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="Osg-Vg-LYS"/>
+                                                </connections>
+                                            </button>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup3.png" id="JGH-Ov-JgC" userLabel="AdvancedSetupImageView">
+                                                <rect key="frame" x="11" y="0.0" width="146" height="170"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="22" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advanced Setup before Drawing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O2Z-O4-v92" userLabel="AdvancedSetupLabel">
+                                                <rect key="frame" x="206" y="0.0" width="563" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="7BG-yI-o8J" userLabel="DrawReflectionView">
+                                        <rect key="frame" x="0.0" y="600" width="968" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L1b-wx-Qev" userLabel="DrawReflectionButton" customClass="ADCrystalGradientStyleButton">
+                                                <rect key="frame" x="51" y="30" width="918" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tutorialDrawReflectionButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="SQj-qP-wkc"/>
+                                                </connections>
+                                            </button>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_pickImage.png" id="Abs-xt-YaV" userLabel="DrawReflectionImageView">
+                                                <rect key="frame" x="20" y="4" width="130" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to Draw Image on Reflection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Qd-E8-JFh" userLabel="DrawReflectionLabel">
+                                                <rect key="frame" x="206" y="0.0" width="563" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="SHl-0s-34c" userLabel="DrawAnamorphosisView">
+                                        <rect key="frame" x="0.0" y="760" width="968" height="160"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mEC-BM-IUZ" userLabel="DrawAnamorphosisButton" customClass="ADCrystalGradientStyleButton">
+                                                <rect key="frame" x="50" y="30" width="918" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="tutorialDrawAnamorphosisButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="CEZ-mw-luv"/>
+                                                </connections>
+                                            </button>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup.png" id="5aE-W9-v2g" userLabel="DrawAnamorphosisImageView">
+                                                <rect key="frame" x="20" y="5" width="130" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="24" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to Draw Image on Anamorphosis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RPD-r6-NrP" userLabel="DrawAnamorphosisLabel">
+                                                <rect key="frame" x="205" y="0.0" width="563" height="160"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </view>
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfs-LW-277" userLabel="End" customClass="ADTutorialNextButton">
+                                        <rect key="frame" x="593" y="934" width="150" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Quit">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tutorialDoneButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="lFt-ZV-Yhk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QCG-xU-m6U"/>
+                    <connections>
+                        <outlet property="anaDrawWelcomeLabel" destination="TpK-54-R3H" id="sbl-ax-U6Y"/>
+                        <outlet property="authorNameLabel" destination="mhu-mP-dfk" id="vXq-xi-5jp"/>
+                        <outlet property="bookBGImageView" destination="59l-3A-hf8" id="9Jd-Jm-eVQ"/>
+                        <outlet property="pickupImageTargetView" destination="Abs-xt-YaV" id="eRa-xQ-cmE"/>
+                        <outlet property="pickupImageView" destination="dJS-vB-9wN" id="as4-p2-Ac3"/>
+                        <outlet property="putDeviceImageTargetView" destination="R3h-Ee-VpY" id="RuG-Z5-di9"/>
+                        <outlet property="putDeviceImageView" destination="PqT-Jl-phK" id="asR-2N-8gb"/>
+                        <outlet property="setup2ImageView" destination="pzH-z2-DWE" id="t8I-61-PR1"/>
+                        <outlet property="setup3ImageTargetView" destination="JGH-Ov-JgC" id="eo6-3E-cuo"/>
+                        <outlet property="setup3ImageView" destination="Ucr-01-t1x" id="yiA-lH-GrU"/>
+                        <outlet property="setupImageTargetView" destination="5aE-W9-v2g" id="OGe-ck-aM1"/>
+                        <outlet property="setupImageView" destination="Ny2-Xy-3TR" id="grm-1k-X9T"/>
+                        <outlet property="startTutorialButton" destination="a91-OH-aKP" id="fEM-lS-8p6"/>
+                        <outlet property="tutorialListTitleLabel" destination="ab9-bT-uyd" id="N8m-7I-O6c"/>
+                        <outlet property="tutorialListView" destination="tCi-WS-FzE" id="uGq-aK-GSh"/>
+                        <outlet property="tutorialNextButton" destination="dfs-LW-277" id="qWh-Up-7z8"/>
+                        <outlet property="tutorialWelcomeView" destination="Y6T-LY-d4i" id="sEU-HN-hZE"/>
+                        <outlet property="viewDeviceSrcImageTargetView" destination="jrJ-JQ-VsT" id="Tfj-YW-ieU"/>
+                        <outlet property="viewDeviceSrcImageView" destination="Lnu-n1-ODj" id="eiZ-he-xec"/>
+                        <outlet property="whatIsAnaDrawLabel" destination="CiT-Ho-F8z" id="IJI-Oq-LfG"/>
+                        <outletCollection property="miscViews" destination="TpK-54-R3H" id="Xy8-Vp-wHP"/>
+                        <outletCollection property="miscViews" destination="CiT-Ho-F8z" id="ndu-Ze-ihi"/>
+                        <outletCollection property="miscViews" destination="59l-3A-hf8" id="Hjz-WI-4wI"/>
+                        <outletCollection property="miscViews" destination="pzH-z2-DWE" id="bcH-ym-eax"/>
+                        <outletCollection property="miscViews" destination="mhu-mP-dfk" id="foC-Lc-nR7"/>
+                        <outletCollection property="miscViews" destination="a91-OH-aKP" id="h1l-G0-Qc3"/>
+                        <outletCollection property="tutorialButtons" destination="0Rq-hF-ljj" id="qcy-Ps-jb3"/>
+                        <outletCollection property="tutorialButtons" destination="FDU-rI-c8e" id="Nf2-dR-9Xg"/>
+                        <outletCollection property="tutorialButtons" destination="e9m-cF-0d1" id="zqq-by-nzR"/>
+                        <outletCollection property="tutorialButtons" destination="L1b-wx-Qev" id="HZs-9N-3si"/>
+                        <outletCollection property="tutorialButtons" destination="mEC-BM-IUZ" id="sCL-F1-1J0"/>
+                        <outletCollection property="tutorialButtonLabels" destination="3k4-p8-Ra1" id="sCJ-Qs-p9F"/>
+                        <outletCollection property="tutorialButtonLabels" destination="Rfa-XN-Ejv" id="fSB-8r-qde"/>
+                        <outletCollection property="tutorialButtonLabels" destination="O2Z-O4-v92" id="TN4-nF-lRR"/>
+                        <outletCollection property="tutorialButtonLabels" destination="1Qd-E8-JFh" id="lR9-mi-eUD"/>
+                        <outletCollection property="tutorialButtonLabels" destination="RPD-r6-NrP" id="oR4-Hq-XSl"/>
+                        <outletCollection property="tutorialImageViews" destination="R3h-Ee-VpY" id="6eA-fW-Kg3"/>
+                        <outletCollection property="tutorialImageViews" destination="JGH-Ov-JgC" id="sjo-xD-iHN"/>
+                        <outletCollection property="tutorialImageViews" destination="Abs-xt-YaV" id="L2z-A8-aPi"/>
+                        <outletCollection property="tutorialImageViews" destination="5aE-W9-v2g" id="RMU-wZ-Sz2"/>
+                        <outletCollection property="tutorialAllViews" destination="ab9-bT-uyd" id="qEH-SS-Jd0"/>
+                        <outletCollection property="tutorialAllViews" destination="0Rq-hF-ljj" id="c2x-7I-esh"/>
+                        <outletCollection property="tutorialAllViews" destination="R3h-Ee-VpY" id="j2o-2j-vy2"/>
+                        <outletCollection property="tutorialAllViews" destination="3k4-p8-Ra1" id="rZx-Hm-d8A"/>
+                        <outletCollection property="tutorialAllViews" destination="FDU-rI-c8e" id="oxj-as-LO0"/>
+                        <outletCollection property="tutorialAllViews" destination="jrJ-JQ-VsT" id="4qU-H9-Bub"/>
+                        <outletCollection property="tutorialAllViews" destination="Rfa-XN-Ejv" id="oX4-5W-t6W"/>
+                        <outletCollection property="tutorialAllViews" destination="e9m-cF-0d1" id="eyM-gC-fhJ"/>
+                        <outletCollection property="tutorialAllViews" destination="JGH-Ov-JgC" id="xHP-nv-p3z"/>
+                        <outletCollection property="tutorialAllViews" destination="O2Z-O4-v92" id="CMr-6o-JMP"/>
+                        <outletCollection property="tutorialAllViews" destination="L1b-wx-Qev" id="Hw5-2k-w5o"/>
+                        <outletCollection property="tutorialAllViews" destination="Abs-xt-YaV" id="LVB-A2-wii"/>
+                        <outletCollection property="tutorialAllViews" destination="1Qd-E8-JFh" id="z0j-YY-I0a"/>
+                        <outletCollection property="tutorialAllViews" destination="mEC-BM-IUZ" id="Knv-iY-stw"/>
+                        <outletCollection property="tutorialAllViews" destination="5aE-W9-v2g" id="7gG-RK-zRK"/>
+                        <outletCollection property="tutorialAllViews" destination="RPD-r6-NrP" id="mZd-gx-oQ9"/>
+                        <outletCollection property="tutorialAllViews" destination="dfs-LW-277" id="BUA-1f-0UN"/>
+                        <outletCollection property="tutorialButtonGroups" destination="zWx-so-nDe" id="oZK-1Y-JTG"/>
+                        <outletCollection property="tutorialButtonGroups" destination="8Y1-L9-UoP" id="j3X-fp-pzd"/>
+                        <outletCollection property="tutorialButtonGroups" destination="yoq-Kh-UVv" id="BhP-Hd-8wR"/>
+                        <outletCollection property="tutorialButtonGroups" destination="7BG-yI-o8J" id="lSR-gW-9Xd"/>
+                        <outletCollection property="tutorialButtonGroups" destination="SHl-0s-34c" id="Ehm-H6-VTL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-Jf-VFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5088" y="-2968"/>
+        </scene>
         <!--paintScreen-->
         <scene sceneID="GTS-f8-ra6">
             <objects>
@@ -1375,7 +2123,7 @@
                                                     <outlet property="delegate" destination="NUX-zI-YbL" id="o16-Uw-s3z"/>
                                                 </connections>
                                             </scrollView>
-                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl" customClass="BrushTypePageControl">
+                                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl" customClass="BrushTypePageControl">
                                                 <rect key="frame" x="364" y="0.0" width="39" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
@@ -1574,7 +2322,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HXT-bj-iEv" userLabel="LayerButton" customClass="ADLayerButton">
-                                                <rect key="frame" x="672" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="683" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Layer"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1592,8 +2340,27 @@
                                                     <action selector="layerButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="hgQ-cb-eFN"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oDv-8N-C1w" userLabel="HelpButton" customClass="ADHelpButton">
+                                                <rect key="frame" x="88" y="0.0" width="85" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label="Help"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <state key="normal" title="Help">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="customLayerButtonTouchCancel:" destination="NUX-zI-YbL" eventType="touchCancel" id="hh2-Yw-4FX"/>
+                                                    <action selector="customLayerButtonTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="rfO-Dr-KSO"/>
+                                                    <action selector="customLayerButtonTouchUpOutside:" destination="NUX-zI-YbL" eventType="touchUpOutside" id="vy9-fY-XG7"/>
+                                                    <action selector="helpButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="Vk7-7L-CH2"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PEc-2b-GNU" userLabel="TransformButton" customClass="ADTransformButton">
-                                                <rect key="frame" x="576" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="598" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Transform"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1609,7 +2376,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dc-Q8-cDV" userLabel="ClearButton" customClass="ADClearButton">
-                                                <rect key="frame" x="480" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="513" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Clear"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1628,7 +2395,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rmw-ah-joO" userLabel="ImportButton" customClass="ADImportButton">
-                                                <rect key="frame" x="96" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="173" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Import"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1647,7 +2414,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vhq-Ni-nC3" userLabel="ExportButton" customClass="ADExportButton">
-                                                <rect key="frame" x="192" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="258" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Export"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1666,7 +2433,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="ADAnamorphicButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Close"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1685,7 +2452,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Zl-fu-rHb" userLabel="UndoButton" customClass="ADUndoButton">
-                                                <rect key="frame" x="288" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="343" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Undo"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1701,7 +2468,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="ADRedoButton">
-                                                <rect key="frame" x="384" y="0.0" width="96" height="80"/>
+                                                <rect key="frame" x="428" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Redo"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1891,6 +2658,7 @@
                         <outlet property="exportButton" destination="Vhq-Ni-nC3" id="pkf-ec-kDc"/>
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
+                        <outlet property="helpButton" destination="oDv-8N-C1w" id="EhG-cM-IAG"/>
                         <outlet property="importButton" destination="Rmw-ah-joO" id="CQ1-lc-GMw"/>
                         <outlet property="layerButton" destination="HXT-bj-iEv" id="Xg9-7T-g2z"/>
                         <outlet property="lockCanvasRotationView" destination="1U1-UR-ry1" id="NHj-pc-j9i"/>
@@ -1952,6 +2720,8 @@
                         <outletCollection property="topToolBarButtons" destination="1Aq-H8-fVk" id="On6-0D-h5Q"/>
                         <outletCollection property="fullScreenButtons" destination="AJ4-6O-LyP" id="KF7-nN-cyg"/>
                         <outletCollection property="fullScreenButtons" destination="Olc-1G-d92" id="iEt-Jw-VCb"/>
+                        <outletCollection property="topToolBarButtons" destination="oDv-8N-C1w" id="Uf0-gW-yX4"/>
+                        <outletCollection property="autoRotateButtons" destination="oDv-8N-C1w" id="MSZ-Ym-5h6"/>
                     </connections>
                 </viewController>
                 <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="LkA-0M-IXn" userLabel="FullScreenReverseButton" customClass="ADFullScreenReverseButton">
@@ -2075,6 +2845,67 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-2774" y="-546"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="KtV-Nk-mRl">
+            <objects>
+                <viewController storyboardIdentifier="HelpViewController" id="Lwt-Rt-8hS" customClass="ADHelpViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wdh-GA-GHi">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="tjb-r1-2Y2" customClass="ADHelpCollectionView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="5vw-wL-sLO">
+                                    <size key="itemSize" width="180" height="230"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="helpCollectionViewCell" id="DfB-Xw-fz5" customClass="ADHelpCollectionViewCell">
+                                        <rect key="frame" x="5" y="5" width="180" height="230"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y8U-Wg-TlZ">
+                                                    <rect key="frame" x="10" y="170" width="160" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="label" destination="Y8U-Wg-TlZ" id="LMH-kP-MSx"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Lwt-Rt-8hS" id="mwV-IX-38h"/>
+                                    <outlet property="delegate" destination="Lwt-Rt-8hS" id="mh6-lV-g2B"/>
+                                </connections>
+                            </collectionView>
+                            <pageControl appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="SNu-kp-oVJ">
+                                <rect key="frame" x="356" y="232" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="pageControl" destination="SNu-kp-oVJ" id="r62-1M-IZU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xZw-or-hjK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2769" y="1803"/>
         </scene>
         <!--Swatch Manager View Controller-->
         <scene sceneID="Fu9-YN-yGo">
@@ -2727,20 +3558,13 @@
                                             <action selector="infoButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="loE-HQ-zV0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="w1V-2I-Uqb" userLabel="PaintButton" customClass="ADPaintButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w1V-2I-Uqb" userLabel="PaintButton" customClass="ADPaintButton">
                                         <rect key="frame" x="640" y="4" width="128" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="Draw"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Draw">
-                                                    <attributes>
-                                                        <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Draw">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="paintButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="MwK-O6-PNi"/>
@@ -2824,11 +3648,38 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2802" y="-1658"/>
+            <point key="canvasLocation" x="-2798" y="-1683"/>
         </scene>
     </scenes>
     <resources>
         <image name="paintFrame.png" width="210" height="295"/>
+        <image name="tutorial0_D-Do.png" width="37" height="43"/>
+        <image name="tutorial0_D-Draw.png" width="37" height="43"/>
+        <image name="tutorial0_W-Wannaa.png" width="57" height="43"/>
+        <image name="tutorial0_Y-You.png" width="41" height="42"/>
+        <image name="tutorial0_a-Draw.png" width="31" height="34"/>
+        <image name="tutorial0_a-Wannaa.png" width="29" height="32"/>
+        <image name="tutorial0_a0-Wannaa.png" width="31" height="34"/>
+        <image name="tutorial0_a1-Wannaa.png" width="31" height="34"/>
+        <image name="tutorial0_a2-Wannaa.png" width="31" height="34"/>
+        <image name="tutorial0_i-it.png" width="11" height="43"/>
+        <image name="tutorial0_n-Wannaa.png" width="27" height="31"/>
+        <image name="tutorial0_n0-Wannaa.png" width="30" height="33"/>
+        <image name="tutorial0_n1-Wannaa.png" width="30" height="33"/>
+        <image name="tutorial0_o-Do.png" width="33" height="34"/>
+        <image name="tutorial0_o-You.png" width="33" height="34"/>
+        <image name="tutorial0_r-Draw.png" width="22" height="33"/>
+        <image name="tutorial0_t-it.png" width="21" height="44"/>
+        <image name="tutorial0_u-You.png" width="30" height="33"/>
+        <image name="tutorial0_w-Draw.png" width="48" height="32"/>
+        <image name="tutorial_background.png" width="768" height="1024"/>
+        <image name="tutorial_bookBG.png" width="670" height="500"/>
+        <image name="tutorial_pickImage.png" width="191" height="251"/>
+        <image name="tutorial_putDevice.png" width="387" height="389"/>
+        <image name="tutorial_setup.png" width="176" height="224"/>
+        <image name="tutorial_setup2.png" width="200" height="104"/>
+        <image name="tutorial_setup3.png" width="142" height="196"/>
+        <image name="tutorial_viewDeviceSrc.png" width="253" height="198"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

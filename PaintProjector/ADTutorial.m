@@ -53,6 +53,7 @@
     self.curStepIndex = -1;
 }
 -(void)setCurStepIndex:(NSInteger)curStepIndex{
+    DebugLogWarn(@"setCurStepIndex %d", curStepIndex);
     _curStepIndex = curStepIndex;
     
     if (curStepIndex < 0 || curStepIndex >= self.steps.count) {

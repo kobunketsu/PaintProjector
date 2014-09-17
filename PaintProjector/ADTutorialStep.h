@@ -36,4 +36,7 @@ typedef void(^TutorialStepAnimationBlock)(void);
 
 //需要使用代理提供当前页面禁止用户的操作
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep*)step;
+
+//需要使用代理处理结束
+- (void)willTutorialEndWithStep:(ADTutorialStep*)step;
 @end

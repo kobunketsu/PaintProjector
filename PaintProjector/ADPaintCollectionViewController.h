@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
 #import "ADCylinderProjectViewController.h"
+#import "ADPaintCollectionViewCell.h"
 #import "ADPaintFrameManager.h"
 #import "ADPaintFrameTransitionManager.h"
 #import "ADTutorialStep.h"
 #import "ADRootCanvasView.h"
 #import "ADRootCanvasBackgroundView.h"
+
 
 #define PaintFrameFadeOutScale 0.9
 
@@ -20,7 +24,7 @@
 
 @class ADPaintDoc;
 @protocol ADPaintCollectionViewControllerDelegate
-- (void) willTransitionPaintDocToPreview:(ADPaintDoc*)paintDoc;
+- (void) willTransitionToTutorialVC;
 @end
 
 @interface ADPaintCollectionViewController : UIViewController
@@ -30,6 +34,7 @@ UIViewControllerTransitioningDelegate,
 ADCylinderProjectViewControllerDelegate,
 ADPaintFrameTransitionManagerDelegate,
 ADTutorialStepDelegate
+
 >
 
 @property (assign, nonatomic) id delegate;
@@ -60,4 +65,5 @@ ADTutorialStepDelegate
 
 @property (weak, nonatomic) IBOutlet UIButton *fileButton;
 
+#pragma mark- 广告iAd
 @end

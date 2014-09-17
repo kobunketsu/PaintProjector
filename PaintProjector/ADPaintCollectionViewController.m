@@ -7,7 +7,6 @@
 //
 
 #import "ADPaintCollectionViewController.h"
-#import "ADPaintCollectionViewCell.h"
 #import "ADPaintFrameView.h"
 #import "ADPaintFrameViewGroup.h"
 #import "ADPaintDocManager.h"
@@ -17,7 +16,6 @@
 #import "ADSimpleTutorialManager.h"
 #import "AppDelegate.h"
 
-//#import "iAd/ADBannerView.h"
 
 #define TutorialPickImageIndex 1
 #define launchImageViewToCylinderFadeOutDuration 0.3
@@ -62,9 +60,6 @@
     //在教程调整完毕后需要重新加载
     [self tutorialSetup];
     
-    //动画在显示完成之后开始进行
-    [self tutorialStartFromStepName:@"PaintCollectionWelcome"];
-    
     //修正viewDidDisappear unloadPaintFrameView后闪的问题
     [self.collectionView reloadData];
 }
@@ -80,7 +75,9 @@
         [self launchTransitionToCylinderProject];
     }
     
-    [self transitionToTutorial];
+    //动画在显示完成之后开始进行
+    [self tutorialStepNextImmediate:YES];
+    //    [self tutorialStartFromStepName:@"PaintCollectionPickImage"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -126,7 +123,7 @@
     self.transitionManager.delegate = self;
     
     self.isLaunchTransitioned = false;
-    
+ 
 }
 
 - (void)viewDidUnload{
@@ -386,9 +383,14 @@
 }
 
 #pragma mark- CylinderProjectViewControllerDelegate
+- (void)willTransitionToTutorial{
+    if (self.delegate) {
+        [self.delegate willTransitionToTutorialVC];
+    }
+}
 -(void)willTransitionToGallery{
     //prepare seque
-    [self.cylinderProjectVC dismissViewControllerAnimated:YES completion:^{
+    [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
     }];
@@ -575,8 +577,8 @@
         return;
     }
     
-    ADTutorial *tutorial = (ADTutorial *)[[ADSimpleTutorialManager current].tutorials valueForKey:@"TutorialMain"];
-    if (tutorial) {
+    for (ADSimpleTutorial *tutorial in [ADSimpleTutorialManager current].tutorials.objectEnumerator) {
+        tutorial.curViewController = self;
         for (ADTutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"PaintCollection"].length > 0) {
                 step.delegate = self;
@@ -631,11 +633,22 @@
         return;
     }
     
-    TutorialStepAnimationBlock animBlock = [ADSimpleTutorialManager current].curTutorial.curStep.fadeInAnimationBlock;
-    if (animBlock) {
-        animBlock();
-    }
+//    TutorialStepAnimationBlock animBlock = [ADSimpleTutorialManager current].curTutorial.curStep.fadeInAnimationBlock;
+//    if (animBlock) {
+//        animBlock();
+//    }
+
+    
+    ADSimpleTutorialViewController *simpleTutorialVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SimpleTutorialViewController"];
+    simpleTutorialVC.delegate = self;
+    simpleTutorialVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:simpleTutorialVC animated:true completion:^{
+        
+    }];
 }
+
+
+
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
@@ -662,7 +675,7 @@
 }
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
-    DebugLogFuncStart(@"willLayoutWithStep");
+    DebugLogFuncStart(@"willTutorialLayoutWithStep");
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];
@@ -687,5 +700,8 @@
 
     }
     [step addToRootView:self.rootView];
+}
+
+- (void)willTutorialEndWithStep:(ADTutorialStep*)step{
 }
 @end

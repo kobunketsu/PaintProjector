@@ -21,9 +21,7 @@
 
 - (void)setIsReversePaint:(BOOL)isReversePaint{
     _isReversePaint = isReversePaint;
-//    self.titleLabel.text = isReversePaint ? NSLocalizedString(@"ReverseDraw", nil) : NSLocalizedString(@"Draw", nil) ;
     [self setNeedsDisplay];
-
 }
 
 - (void)drawRect:(CGRect)rect{

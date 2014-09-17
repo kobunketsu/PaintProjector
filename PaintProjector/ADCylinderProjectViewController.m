@@ -120,7 +120,7 @@ static float DeviceWidth = 0.154;
     
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
     
-    [self tutorialStartFromStepName:@"CylinderProjectNextImage"];
+    [self tutorialStartCurrentStep];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -208,6 +208,10 @@ static float DeviceWidth = 0.154;
     self.isTopViewMode = false;
     
     [self loadRefObjectUserInputParams];
+    
+    //加入广告
+//    [self createAdBannerView];
+    
 }
 
 - (void)viewDidUnload{
@@ -1143,12 +1147,16 @@ static float DeviceWidth = 0.154;
     [RemoteLog logAction:@"willOpenTutorial" identifier:nil];
 
     [self.sharedPopoverController dismissPopoverAnimated:true];
+    self.infoButton.selected = false;
+    
     AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
-    [appDelegate initTutorial];
+    [appDelegate initTutorialManager];
     
+    if (self.delegate) {
+        [self.delegate willTransitionToTutorial];
+    }
     //完成初始化后设置开始页面
-    
-    [self galleryButtonTouchUp:self.galleryButton];
+//    [self galleryButtonTouchUp:self.galleryButton];
 }
 #pragma mark- 内容CylinderProject View
 
@@ -2938,8 +2946,8 @@ static float DeviceWidth = 0.154;
         return;
     }
     
-    ADTutorial *tutorial = (ADTutorial *)[[ADSimpleTutorialManager current].tutorials valueForKey:@"TutorialMain"];
-    if (tutorial) {
+    for (ADSimpleTutorial *tutorial in [ADSimpleTutorialManager current].tutorials.objectEnumerator) {
+        tutorial.curViewController = self;
         for (ADTutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"CylinderProject"].length > 0) {
                 step.delegate = self;
@@ -3020,6 +3028,8 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectViewDevice"]) {
         self.eyePerspectiveView.userInteractionEnabled = true;
     }
+    else if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
+    }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         self.cylinderDiameterButton.userInteractionEnabled = true;
     }
@@ -3084,6 +3094,7 @@ static float DeviceWidth = 0.154;
     if ([step.name isEqualToString:@"CylinderProjectNextImage"]){
 //        [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
+        mirrorRect.origin.y += 200;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
@@ -3127,6 +3138,9 @@ static float DeviceWidth = 0.154;
             weakIndicatorView.textLabel.frame = frame;
         }];
             
+    }
+    else if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
+        step.contentView.center = CGPointMake(self.view.center.x, self.view.bounds.size.height - self.downToolBar.frame.size.height - step.contentView.frame.size.height);
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         [step.indicatorView targetView:self.cylinderDiameterButton inRootView:self.view];
@@ -3212,5 +3226,26 @@ static float DeviceWidth = 0.154;
     
     [step addToRootView:self.view];
 }
+
+
+- (void)willTutorialEndWithStep:(ADTutorialStep*)step{
+    if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
+        self.transitioningDelegate = nil;
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;        
+    }
+}
+#pragma mark- 广告iAd
+//- (void)createAdBannerView {
+//    // On iOS 6 ADBannerView introduces a new initializer, use it when available.
+//    if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
+//        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+//    } else {
+//        _bannerView = [[ADBannerView alloc] init];
+//    }
+//    _bannerView.delegate = self;
+//    [self.rootView insertSubview:_bannerView belowSubview:self.topToolBar];
+//}
+
+#pragma mark- 广告代理ADBannerViewDelegate
 
 @end

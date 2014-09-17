@@ -11,6 +11,7 @@
 @interface ADTutorialIndicatorView : ADTutorialView
 @property(assign, nonatomic)UIPopoverArrowDirection arrowDirection;
 @property(assign, nonatomic)CGPoint targetPoint;
+@property(assign, nonatomic)BOOL animated;
 
 //@property(assign, nonatomic)CGRect targetFrame;//记录框来保证在从后台返回后动画的正确播放
 //指示器指向一个区域

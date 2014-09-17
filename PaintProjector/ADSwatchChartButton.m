@@ -7,7 +7,6 @@
 //
 
 #import "ADSwatchChartButton.h"
-#import "UIColor+String.h"
 
 @implementation ADSwatchChartButton
 

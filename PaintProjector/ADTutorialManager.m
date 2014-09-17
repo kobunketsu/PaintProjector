@@ -105,11 +105,12 @@
 #pragma mark- 教程代理 TutorialDelegate
 - (void)willTutorialEnd:(ADTutorial *)tutorial{
     DebugLogFuncStart(@"willTutorialEnd %@", tutorial.name);
-    if (self.delegate) {
-        [self.delegate willTutorialEnd:tutorial];
-    }
+   
+//    tutorial = nil;
+//    self.curTutorial = nil;
     
-    tutorial = nil;
-    self.curTutorial = nil;
+    if (self.delegate) {
+        [self.delegate willTutorialManagerEndTutorial:tutorial];
+    }
 }
 @end

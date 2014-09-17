@@ -10,4 +10,18 @@
 
 @interface UIView (Extensions)
 - (void)adjustInRect:(CGRect)rect;
+
+//混合位置
+- (void)setFrameLerpFromRect:(CGRect)fromRect toRect:(CGRect)toRect percentage:(CGFloat)percentag;
+
+- (void)debugSubviewHierachy;
+
+- (void)setFrameOriginX:(CGFloat)originX;
+
+- (void)setFrameOriginY:(CGFloat)originY;
+
+- (void)setFrameSizeWidth:(CGFloat)width;
+
+- (void)setFrameSizeHeight:(CGFloat)height;
+
 @end

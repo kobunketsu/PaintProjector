@@ -9,5 +9,22 @@
 #import "ADSimpleTutorialManager.h"
 
 @implementation ADSimpleTutorialManager
++ (void)initialize{
+    DebugLogSystem(@"initialize");
+//    [super initialize];
+    if (!tutorialManager) {
+        tutorialManager = [[ADSimpleTutorialManager alloc]init];
+    }
+}
+
++ (void)destroy{
+    DebugLogSystem(@"destroy");
+    tutorialManager = nil;
+}
+
++ (ADSimpleTutorialManager *)current{
+    return (ADSimpleTutorialManager *)tutorialManager;
+}
+
 
 @end

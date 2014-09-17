@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ADBarStyleKit.h"
 
 #define BackgroundLayerClearColorChangedNotification @"BackgroundLayerClearColorChangedNotification"
 
@@ -18,4 +19,12 @@ static UIColor *globalRefelectColor = nil;
 + (void)setGlobalRefelectColor:(UIColor *)color;
 
 + (void)drawCrystalGradientInView:(UIView*)view;
+
++ (void)drawCrystalGradientInButton:(UIButton*)button;
+
++ (CGGradientRef)crystalGradientNormal;
+
++ (CGGradientRef)crystalGradientHighlighted;
+
++ (CGFloat)fontCustomSize;
 @end

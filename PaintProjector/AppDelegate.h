@@ -10,10 +10,13 @@
 #import "ADSimpleTutorialManager.h"
 
 @interface AppDelegate : UIResponder
-<UIApplicationDelegate, UICollectionViewDataSource,
+<UIApplicationDelegate,
 ADTutorialManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-- (void)initTutorial;
+- (void)initTutorialManager;
+- (void)destoryTutorialManager;
+//- (void)addHelpStepWithTutorial:(ADSimpleTutorial*)tutorial;
+//- (void)willTutorialEnd:(ADTutorial *)tutorial;
 - (void)copyCollectionFromMainBundleToUserDocument;
 @end

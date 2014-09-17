@@ -9,6 +9,7 @@
 #import "ADPaintScreen.h"
 #import <Social/Social.h>
 //#import <Dropbox/Dropbox.h>
+#import "AppDelegate.h"
 #import <DBChooser/DBChooser.h>
 #import "ADSimpleIAPManager.h"
 //File
@@ -30,6 +31,7 @@
 #import "ADPaintUIKitStyle.h"
 #import "ADSimpleTutorialManager.h"
 #import "ADBrushManager.h"
+#import "ADHelpViewController.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -49,6 +51,8 @@
 @property (assign, nonatomic) BOOL isInterfacePortraitUpsideDown;//用于调整横向时按钮label的方向
 @property (assign, nonatomic) UIDeviceOrientation lastDeviceAppOrientation; //用于应用的设备旋转方向
 @property (retain, nonatomic) ADLayerTableViewController *layerTableViewController;
+@property (retain, nonatomic) ADHelpViewController *helpViewController;
+
 @property (retain, nonatomic) NSDictionary *workspace;
 @property (retain, nonatomic) ADEyeDropper *eyeDropper;
 @property (retain, nonatomic) InfColorPickerController *infColorPickerController;
@@ -92,7 +96,10 @@
 - (void)afterPresentation{
     //同时更新UI
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+        [self tutorialStartCurrentStep];
+        [self transitionToTutorial];
+    }];
 }
 
 - (void)unregisterDeviceRotation{
@@ -157,8 +164,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
-    [self tutorialStartFromStepName:@"PaintScreenTutorialDone"];
-    [self transitionToTutorial];
+
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -367,7 +373,6 @@
     _uploadDataQueque = dispatch_queue_create("com.WenjieHu.ProjectPaint.uploadDataQueue", NULL);
     
     //教程
-//    [[ADSimpleTutorialManager current] activeTutorial:@"TutorialMain"];
     [self tutorialSetup];
     
     //从viewController启动主程序测试
@@ -401,6 +406,7 @@
     [self setEyeDropperButton:nil];
     [self setLayerButton:nil];
     [self setColorSlotsScrollView:nil];
+    [self setHelpButton:nil];
     [self setImportButton:nil];
     [self setExportButton:nil];
     [self setCloseButton:nil];
@@ -2730,6 +2736,20 @@
 
 
 
+#pragma mark- 通用交互 Common UX
+- (IBAction)customLayerButtonTouchCancel:(ADAutoRotateButton *)sender {
+    //    [RemoteLog logAction:@"customLayerButtonTouchCancel" identifier:sender];
+    //    [(AutoRotateButton*)sender setHighlighted:false];
+}
+- (IBAction)customLayerButtonTouchUpOutside:(ADAutoRotateButton *)sender {
+    //    [RemoteLog logAction:@"customLayerButtonTouchUpOutside" identifier:sender];
+    //    [(AutoRotateButton*)sender setHighlighted:false];
+}
+- (IBAction)customLayerButtonTouchDown:(ADAutoRotateButton *)sender {
+    //    [RemoteLog logAction:@"customLayerButtonTouchDown" identifier:sender];
+    //    [(AutoRotateButton*)sender setHighlighted:true];
+}
+
 #pragma mark- 导入 Import
 - (IBAction)importButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"importButtonTouchUp" identifier:sender];
@@ -3561,19 +3581,6 @@
         [self leaveTransformState];
     }
 
-}
-
-- (IBAction)customLayerButtonTouchCancel:(ADAutoRotateButton *)sender {
-//    [RemoteLog logAction:@"customLayerButtonTouchCancel" identifier:sender];
-//    [(AutoRotateButton*)sender setHighlighted:false];
-}
-- (IBAction)customLayerButtonTouchUpOutside:(ADAutoRotateButton *)sender {
-//    [RemoteLog logAction:@"customLayerButtonTouchUpOutside" identifier:sender];
-//    [(AutoRotateButton*)sender setHighlighted:false];
-}
-- (IBAction)customLayerButtonTouchDown:(ADAutoRotateButton *)sender {
-//    [RemoteLog logAction:@"customLayerButtonTouchDown" identifier:sender];
-//    [(AutoRotateButton*)sender setHighlighted:true];
 }
 
 //deprecated
@@ -4521,7 +4528,12 @@
         self.exportButton.selected = false;
         [self.exportButton.layer setNeedsDisplay];
     }
-    
+    else if ([popoverController.contentViewController isKindOfClass:[ADHelpViewController class]]) {
+        self.helpButton.selected = false;
+        [self.helpButton.layer setNeedsDisplay];
+        
+        [self tutorialStartCurrentStep];
+    }
 //    [EAGLContext setCurrentContext:[REGLWrapper current].context];
 }
 
@@ -4816,14 +4828,23 @@
 //主教程入口设置
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
-    ADTutorial *tutorial = (ADTutorial *)[[ADSimpleTutorialManager current].tutorials valueForKey:@"TutorialMain"];
-    if (tutorial) {
+    for (ADSimpleTutorial *tutorial in [ADSimpleTutorialManager current].tutorials.objectEnumerator) {
+        tutorial.curViewController = self;        
         for (ADTutorialStep *step in tutorial.steps) {
             if ([step.name rangeOfString:@"PaintScreen"].length > 0) {
                 step.delegate = self;
             }
         }
     }
+}
+
+- (void)tutorialStartCurrentStep{
+    DebugLogFuncStart(@"tutorialStartCurrentStep");
+    if (![[ADSimpleTutorialManager current] isActive]) {
+        return;
+    }
+    
+    [[ADSimpleTutorialManager current].curTutorial startCurrentStep];
 }
 
 //在排版等准备完成以后,检查是否需要开始教程
@@ -4864,38 +4885,190 @@
         animBlock();
     }
 }
+
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willTutorialEnableUserInteraction");
     //需要关闭所有其他工具交互
-    
-    self.mainToolBar.userInteractionEnabled = enable;
+    for (UIButton *button in self.topToolBarButtons) {
+        button.userInteractionEnabled = enable;
+    }
+//    self.mainToolBar.userInteractionEnabled = enable;
     self.paintToolBar.userInteractionEnabled = enable;
     self.rootCanvasView.userInteractionEnabled = enable;
     
+    if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
+        self.helpButton.userInteractionEnabled = true;
+    }
     //打开制定按钮交互
 }
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
     
-    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
-        step.contentView.frame = rect;
-        
-        step.contentView.alpha = 0;
-        __weak ADTutorialStep *stepWeak = step;
-        [step setFadeInAnimationBlock:^{
-            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-                stepWeak.contentView.alpha = 1;
-            }];
-        }];
-    }
+//    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
+//        CGRect rect = step.contentView.frame;
+//        rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
+//        step.contentView.frame = rect;
+//        
+//        step.contentView.alpha = 0;
+//        __weak ADTutorialStep *stepWeak = step;
+//        [step setFadeInAnimationBlock:^{
+//            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
+//                stepWeak.contentView.alpha = 1;
+//            }];
+//        }];
+//    }
 
+    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
+        step.contentView.center = CGPointMake(self.view.center.x, self.view.bounds.size.height - self.paintToolBar.frame.size.height - step.contentView.frame.size.height);
+    }
+    else if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
+        [step.indicatorView targetView:self.helpButton inRootView:self.view];
+    }
+    
     [step addToRootView:self.view];
 }
 
+#pragma mark- 帮助 Help
+- (IBAction)helpButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"helpButtonTouchUp" identifier:sender];
+    [self tutorialStepNextImmediate:false];
+    
+    ((UIButton*)sender).selected = true;
+    
+    self.helpViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"HelpViewController"];
+    self.helpViewController.preferredContentSize = CGSizeMake(768, 260);
+    
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.helpViewController];
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    
+//    [self showHelpTips];
+//    [ADSimpleTutorialManager initialize];
+//    [ADSimpleTutorialManager current].delegate = self;
+//    ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialGesture" ofClass:@"ADSimpleTutorial"];
+//    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
+//    [appDelegate addHelpStepWithTutorial:tutorial];
+//    [[ADSimpleTutorialManager current] activeTutorial:@"TutorialGesture"];
+//    
+//    [self tutorialSetup];
+//    [[ADSimpleTutorialManager current].curTutorial startCurrentStep];
+//    [self transitionToTutorial];
+}
+
+- (void)showHelpTips{
+    CGFloat height = 866;
+    CGFloat width = 768;
+    CGFloat offsetX = 10;
+    //背景图层
+    UIView *contentView = [[UIView alloc]initWithFrame:CGRectMake(0, (self.view.bounds.size.height - height) * 0.5, width, height)];
+    [self.rootView addSubview:contentView];
+    //标题图层
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 80)];
+    label.textColor = [UIColor darkGrayColor];
+    label.text = NSLocalizedString(@"QuickGestures", nil);
+    [label setFont:[UIFont fontWithName: @"HelveticaNeue" size: 30]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [contentView  addSubview:label];
+    
+    //添加tutorial collection view
+    UICollectionViewFlowLayout *flowLayout=[[UICollectionViewFlowLayout alloc] init];
+    flowLayout.sectionInset = UIEdgeInsetsMake(80, 10, 10, 10);
+    flowLayout.itemSize=CGSizeMake(180,230);
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.minimumLineSpacing = 0;
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    ADTutorialPaintScreenGestureCollectionView *collectionView = [[ADTutorialPaintScreenGestureCollectionView alloc] initWithFrame:CGRectMake(offsetX, 0, width - offsetX * 2, height - 10) collectionViewLayout:flowLayout];
+    collectionView.opaque = false;
+    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.dataSource = self;
+    [collectionView registerClass:[ADTutorialPaintScreenGestureCollectionViewCell class] forCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"];
+    [contentView addSubview:collectionView];
+    
+    
+    width = 128;
+    height = 64;
+    CGFloat offset = 25;
+    CGFloat x = MAX(contentView.bounds.size.width - width - offset, 0);
+    CGFloat y = MAX(contentView.bounds.size.height - height - offset, 0);
+    
+    UIButton *nextButton = [[UIButton alloc]initWithFrame:CGRectMake(x, y, width, height)];
+    [nextButton setTitle:NSLocalizedString(@"TutorialEnd", nil) forState:UIControlStateNormal];
+    [contentView addSubview:nextButton];
+}
+
+- (void)willTutorialEndWithStep:(ADTutorialStep*)step{
+    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
+        self.transitioningDelegate = nil;
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+}
+
+//- (void)willTutorialEnd:(ADTutorial *)tutorial{
+//    if ([tutorial.name isEqualToString:@"TutorialMain"]) {
+//        [ADSimpleTutorialManager destroy];
+//    }
+//}
+
+
+#pragma mark- 教程代理
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return 12;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    ADTutorialPaintScreenGestureCollectionViewCell *cell = (ADTutorialPaintScreenGestureCollectionViewCell*) [collectionView dequeueReusableCellWithReuseIdentifier:@"TutorialPaintScreenGestureCollectionViewCell"
+                                                                                                                                                       forIndexPath:indexPath];
+    
+    cell.userInteractionEnabled = false;
+    NSString *imageName = nil;
+    switch (indexPath.row) {
+        case 0:
+            imageName = @"tutorial_gesture1FingerDrag";
+            break;
+        case 1:
+            imageName = @"tutorial_gesture1FingerTapHold";
+            break;
+        case 2:
+            imageName = @"tutorial_gesture2FingerDrag";
+            break;
+        case 3:
+            imageName = @"tutorial_gesture2FingerRotate";
+            break;
+        case 4:
+            imageName = @"tutorial_gesture2FingerPinch";
+            break;
+        case 5:
+            imageName = @"tutorial_gesture2FingerSpread";
+            break;
+        case 6:
+            imageName = @"tutorial_gesture2FingerDoubleTap";
+            break;
+        case 7:
+            imageName = @"tutorial_gesture3FingerUp";
+            break;
+        case 8:
+            imageName = @"tutorial_gesture3FingerDown";
+            break;
+        case 9:
+            imageName = @"tutorial_gesture3FingerLeft";
+            break;
+        case 10:
+            imageName = @"tutorial_gesture3FingerRight";
+            break;
+        case 11:
+            imageName = @"tutorial_gesture3FingerZ";
+            break;
+        default:
+            break;
+    }
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+    cell.label.text = NSLocalizedString(imageName, nil);
+    
+    return cell;
+}
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{
     self.testImageView.image = image;

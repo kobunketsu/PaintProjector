@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ADPaintScreenPopoverBackgroundView : UIPopoverBackgroundView
+@interface ADSharedPopoverBackgroundView : UIPopoverBackgroundView
 {
     UIImageView *_borderImageView;
 //    UIImageView *_arrowView;

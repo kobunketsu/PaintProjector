@@ -20,7 +20,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "bgRootView.png",
+      "filename" : "AnaDrawLaunch.png",
       "scale" : "1x"
     },
     {
@@ -35,7 +35,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "bgRootView@2x.png",
+      "filename" : "AnaDrawLaunch@2x.png",
       "scale" : "2x"
     },
     {

@@ -7,7 +7,7 @@
 //
 
 #import "ADSharedPopoverController.h"
-#import "ADPaintScreenPopoverBackgroundView.h"
+#import "ADSharedPopoverBackgroundView.h"
 @implementation ADSharedPopoverController
 -(id)initWithContentViewController:(UIViewController *)viewController{
     self = [super initWithContentViewController:viewController];

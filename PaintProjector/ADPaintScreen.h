@@ -136,6 +136,7 @@ MFMailComposeViewControllerDelegate,
 UIPrintInteractionControllerDelegate,
 UIScrollViewDelegate,
 UIAlertViewDelegate,
+UICollectionViewDataSource,
 ADPaintingViewDelegate,
 ADBrushTypeScrollViewDelegate,
 ADLayerTableViewControllerDelegate,
@@ -226,7 +227,7 @@ BrushTypePageControlDelegate
 @property (weak, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *layerButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *fullScreenButtons;
-
+@property (weak, nonatomic) IBOutlet UIButton *helpButton;
 @property (weak, nonatomic) IBOutlet UIButton *transformButton;
 @property (weak, nonatomic) IBOutlet UIButton *importButton;
 @property (weak, nonatomic) IBOutlet UIButton *exportButton;
@@ -309,6 +310,9 @@ BrushTypePageControlDelegate
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender;
 - (IBAction)layerButtonTouchUp:(UIButton *)sender;
 - (IBAction)transformButtonTouchUp:(id)sender;
+- (IBAction)helpButtonTouchUp:(id)sender;
+- (IBAction)customLayerButtonTouchUpOutside:(ADAutoRotateButton *)sender;
+- (IBAction)customLayerButtonTouchCancel:(ADAutoRotateButton *)sender;
 - (IBAction)customLayerButtonTouchDown:(ADAutoRotateButton *)sender;
 
 #pragma mark- 

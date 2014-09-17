@@ -17,6 +17,7 @@
 
 // Colors
 + (UIColor*)colorEdge;
++ (UIColor*)colorEdgeHighlighted;
 + (UIColor*)gradientColorStart;
 + (UIColor*)gradientColorEnd;
 + (UIColor*)gradientColorMid;

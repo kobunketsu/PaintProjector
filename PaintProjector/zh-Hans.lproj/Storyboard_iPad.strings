@@ -60,13 +60,13 @@
 "7Ux-Cz-bnn.text" = "Draw Package";
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "7VK-ge-8h2"; */
-"7VK-ge-8h2.text" = "图片宽度";
+"7VK-ge-8h2.text" = "图像宽度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Print"; ObjectID = "853-Ud-5W7"; */
 "853-Ud-5W7.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Top"; ObjectID = "853-Ud-5W7"; */
-"853-Ud-5W7.normalTitle" = "实 物";
+"853-Ud-5W7.normalTitle" = "顶 视";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "9SY-4H-8aQ"; */
 "9SY-4H-8aQ.text" = "圆柱高度";
@@ -190,10 +190,10 @@
 "SUm-Ok-EUw.text" = "半径";
 
 /* Class = "IBUILabel"; text = "Center"; ObjectID = "TVC-pV-Nty"; */
-"TVC-pV-Nty.text" = "图片中心";
+"TVC-pV-Nty.text" = "图像中心";
 
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "UCq-ya-b9O"; */
-"UCq-ya-b9O.text" = "图片宽度";
+"UCq-ya-b9O.text" = "图像宽度";
 
 /* Class = "IBUILabel"; text = "Round"; ObjectID = "V3f-2e-X2y"; */
 "V3f-2e-X2y.text" = "圆度";
@@ -233,7 +233,7 @@
 "bFr-4g-lOC.text" = "湿度";
 
 /* Class = "IBUILabel"; text = "Center"; ObjectID = "bTv-u9-bUV"; */
-"bTv-u9-bUV.text" = "图片中心高度";
+"bTv-u9-bUV.text" = "图像中心高度";
 
 /* Class = "IBUILabel"; text = "Height"; ObjectID = "bgW-w2-KNm"; */
 "bgW-w2-KNm.text" = "圆柱高度";
@@ -355,7 +355,7 @@
 "q9m-wd-BDj.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "Eye"; ObjectID = "q9m-wd-BDj"; */
-"q9m-wd-BDj.normalTitle" = "虚 拟";
+"q9m-wd-BDj.normalTitle" = "斜 视";
 
 /* Class = "IBUIButton"; normalTitle = "Print"; ObjectID = "riP-s0-rbr"; */
 "riP-s0-rbr.normalTitle" = "Print";
@@ -373,7 +373,7 @@
 "5Ya-mw-mT6.text" = "顶视缩放";
 
 /* Class = "IBUIButton"; accessibilityLabel = "Draw"; ObjectID = "w1V-2I-Uqb"; */
-"w1V-2I-Uqb.accessibilityLabel" = "Draw";
+//"w1V-2I-Uqb.accessibilityLabel" = "Draw";
 
 /* Class = "IBUIButton"; normalTitle = "Draw"; ObjectID = "w1V-2I-Uqb"; */
 "w1V-2I-Uqb.normalTitle" = "画 画";
@@ -441,3 +441,15 @@
 
 /* Class = "IBUIButton"; normalTitle = "Back"; ObjectID = "WaL-wJ-MUc"; */
 "WaL-wJ-MUc.normalTitle" = "后退";
+
+/* Class = "IBUIButton"; normalTitle = "Learn More"; ObjectID = "fIU-AC-MEb"; */
+"fIU-AC-MEb.normalTitle" = "更多教程";
+
+/* Class = "IBUIButton"; normalTitle = "Quit"; ObjectID = "dfs-LW-277"; */
+"dfs-LW-277.normalTitle" = "退出教程";
+
+/* Class = "IBUIButton"; normalTitle = "Start"; ObjectID = "a91-OH-aKP"; */
+"a91-OH-aKP.normalTitle" = "开始教程";
+
+/* Class = "IBUIButton"; normalTitle = "Help"; ObjectID = "oDv-8N-C1w"; */
+"oDv-8N-C1w.normalTitle" = "帮助";

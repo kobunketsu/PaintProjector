@@ -9,6 +9,7 @@
 #import "ADTutorialIndicatorView.h"
 #define TargetViewFrameOffset 10
 #define TargetViewInsetPlusTriangleWidth 26
+#define IndicatorSwing 20
 
 @implementation ADTutorialIndicatorView
 
@@ -19,6 +20,7 @@
         // Initialization code
         self.opaque = false;
         self.arrowDirection = UIPopoverArrowDirectionUp;
+        self.animated = true;
 //        self.targetFrame = CGRectZero;
     }
     return self;
@@ -43,31 +45,32 @@
     
     [self.textLabel alignTextHorizonCenterWithFontSize:[UIFont labelFontSize]];
 
- 
-    //增加整体动画
-    //保存源frame，在EnterBackground后退出动画时归位
-    CGRect srcframe = self.frame;
-    CGRect destframe = self.frame;
-    
-    CGFloat swing = 20;
-    if (self.arrowDirection == UIPopoverArrowDirectionUp) {
-        destframe.origin.y += swing;
+    if (self.animated) {
+        //增加整体动画
+        //保存源frame，在EnterBackground后退出动画时归位
+        CGRect srcframe = self.frame;
+        CGRect destframe = self.frame;
+        
+        CGFloat swing = IndicatorSwing;
+        if (self.arrowDirection == UIPopoverArrowDirectionUp) {
+            destframe.origin.y += swing;
+        }
+        else if (self.arrowDirection == UIPopoverArrowDirectionDown) {
+            destframe.origin.y -= swing;
+        }
+        else if (self.arrowDirection == UIPopoverArrowDirectionLeft) {
+            destframe.origin.x += swing;
+        }
+        else if (self.arrowDirection == UIPopoverArrowDirectionRight) {
+            destframe.origin.x -= swing;
+        }
+        
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
+            self.frame = destframe;
+        } completion:^(BOOL finished) {
+            self.frame = srcframe;
+        }];
     }
-    else if (self.arrowDirection == UIPopoverArrowDirectionDown) {
-        destframe.origin.y -= swing;
-    }
-    else if (self.arrowDirection == UIPopoverArrowDirectionLeft) {
-        destframe.origin.x += swing;
-    }
-    else if (self.arrowDirection == UIPopoverArrowDirectionRight) {
-        destframe.origin.x -= swing;
-    }
-
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
-        self.frame = destframe;
-    } completion:^(BOOL finished) {
-        self.frame = srcframe;
-    }];
     
     if (self.layoutCompletionBlock) {
         self.layoutCompletionBlock();
@@ -201,10 +204,6 @@
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-    UIColor* color = [UIColor colorWithRed: 1 green: 0.943 blue: 0.961 alpha: 1];
-    
-    
     //// Subframes
     CGRect frame2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 53) * percent + 0.5), CGRectGetMinY(frame) + CGRectGetHeight(frame) - 38, 53, 38);
     
@@ -244,7 +243,7 @@
                                 CGPointMake(CGRectGetMidX(bezierBounds), CGRectGetMaxY(bezierBounds)),
                                 0);
     CGContextRestoreGState(context);
-    [color setStroke];
+    [ADBarStyleKit.colorEdge setStroke];
     bezierPath.lineWidth = 3;
     [bezierPath stroke];
 }

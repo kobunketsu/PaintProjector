@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADPaintScreenPopoverBackgroundView.h"
+#import "ADSharedPopoverBackgroundView.h"
 #import "ADPaintUIKitStyle.h"
 #import "ADSharedPopoverArrowView.h"
 
@@ -15,7 +15,7 @@
 #define ARROW_BASE 22
 #define ARROW_HEIGHT 5.0
 
-@implementation ADPaintScreenPopoverBackgroundView
+@implementation ADSharedPopoverBackgroundView
 
 - (id)initWithFrame:(CGRect)frame
 {

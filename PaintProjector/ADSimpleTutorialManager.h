@@ -8,7 +8,13 @@
 
 #import "ADTutorialManager.h"
 #import "ADSimpleTutorial.h"
+#import "ADSimpleTutorialViewController.h"
+
 #define TutorialFadeInOutDuration 0.50
 @interface ADSimpleTutorialManager : ADTutorialManager
++ (void)initialize;
++ (void)destroy;
++ (ADSimpleTutorialManager *)current;
+@property (retain, nonatomic) ADSimpleTutorialViewController *simpleTutorialVC;
 @end
 

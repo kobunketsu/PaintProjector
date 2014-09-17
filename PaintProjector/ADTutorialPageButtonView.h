@@ -8,6 +8,9 @@
 
 #import "ADTutorialPageView.h"
 
+#define TutorialNextButtonWidth 150
+#define TutorialNextButtonHeight 64
+#define TutorialNextButtonMargin 25
 
 @interface ADTutorialPageButtonView : ADTutorialPageView
 //进入下一步的按钮

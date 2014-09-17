@@ -28,7 +28,7 @@
         
         tv.delegate = self;
         tv.dataSource = self;
-        
+        tv.scrollEnabled = false;
         self.tableView = tv;
         
         self.view = self.tableView;
@@ -103,6 +103,8 @@
         default:
             break;
     }
+    
+
     return cell;
 
 }

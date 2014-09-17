@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-
+//#import <iAd/iAd.h>
 //GPUImage
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
@@ -57,6 +57,8 @@
 #import "ADInAppPurchaseTableViewController.h"
 #import "ADCylinderProjectRootView.h"
 
+
+
 static const NSString *ItemStatusContext;
 
 typedef NS_ENUM(NSInteger, CylinderProjectViewState) {
@@ -82,6 +84,7 @@ typedef void(^MyCompletionBlock)(void);
 
 @class ADCylinderProjectViewController;
 @protocol ADCylinderProjectViewControllerDelegate
+- (void) willTransitionToTutorial;
 - (void) willTransitionToGallery;
 - (void) willCompleteLaunchTransitionToCylinderProject;
 @end
@@ -94,6 +97,7 @@ UIViewControllerTransitioningDelegate,
 UIPopoverControllerDelegate,
 UIAlertViewDelegate,
 MFMailComposeViewControllerDelegate,
+//ADBannerViewDelegate,
 REDisplayDelegate,
 ADPaintScreenTransitionManagerDelegate,
 ADPaintScreenDelegate,
@@ -102,9 +106,11 @@ ADCustomPercentDrivenInteractiveTransition,
 ADShareTableViewControllerDelegate,
 ADProductInfoTableViewControllerDelegate,
 ADInAppPurchaseTableViewControllerDelegate
+
 >
 {
-    void * _baseAddress;
+    //banner
+//    ADBannerView *_bannerView;
 }
 #pragma mark- 基础Base
 @property (retain, nonatomic) GLKViewController* glkViewController;
