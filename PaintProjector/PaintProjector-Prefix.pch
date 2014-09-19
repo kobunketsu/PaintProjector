@@ -13,6 +13,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "GlobalDefines.h"
+    #import "MiscDefines.h"
     #import "LogDefine.h"
     #import "ADBarStyleKit.h"
     #import "Extension.h"
@@ -23,41 +24,4 @@
 #endif
 
 
-#define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
-#define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"
-#define PRODUCT_INFO_GALLERY @"http://www.pinterest.com/anadrawapp/artwork-by-anadraw/"
-#define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/community/"
 
-#define TEST 0
-#define TESTFLIGHT 0
-
-#define UndoMaxCount 10
-//#define UndoImageSize 1024
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
-#define HumanEyeFOV 68.0f
-#define FuzzyTransparentAlpha 0.7
-#define PaintPixelOffsetThresold 0.1 //确定触摸时多大的距离会记录成一个绘制点
-#define UISliderDefaultHeight 31
-//全局设置
-static bool useQuickTool = true;//所有快捷手势的总开关
-static bool IsQuickEyeDropper = true;
-static bool IsOffsetEyeDropper = true;
-
-#define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
-#define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height
-
-//#define ToSeeCylinderTopPixelOffset 70
-//#define ToSeeCylinderTopViewportPixelOffsetY -160
-//#define TransitionToPaintPixelOffsetY -31
-//#define ToSeeCylinderTopPosOffset 0
-
-//#define ToSeeCylinderTopPixelOffset 0
-//#define ToSeeCylinderTopViewportPixelOffsetY -90
-//#define TransitionToPaintPixelOffsetY -34
-
-//#define ToSeeCylinderTopPosOffset -0.05
-#define ToSeeCylinderTopPixelOffset 0
-#define ToSeeCylinderTopViewportPixelOffsetY 0
-#define TransitionToPaintPixelOffsetY -15
-#define TransitionToPaintPixelOffsetY_Mini -16.6
-#define ToSeeCylinderTopPosOffset 0

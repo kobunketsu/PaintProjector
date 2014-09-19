@@ -15,7 +15,6 @@
 #import "Questionnaire.h"
 #import "ADSimpleTutorialViewController.h"
 
-#define TutorialGrid 64
 
 @implementation AppDelegate
 
@@ -235,17 +234,17 @@
     ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialAnaDrawBasic" ofClass:@"ADSimpleTutorial"];
     
     //选中图片
-    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //向后翻页
-    [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //放置设备
-    [tutorial addActionStep:@"CylinderProjectPutDevice" description:NSLocalizedString(@"CylinderProjectPutDevice", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectPutDevice" description:NSLocalizedString(@"CylinderProjectPutDevice", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
-    ADTutorialStep *step = [tutorial addActionStep:@"CylinderProjectViewDevice" description:NSLocalizedString(@"CylinderProjectViewDeviceDone", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*3) arrowDirection:UIPopoverArrowDirectionDown];
+    ADTutorialStep *step = [tutorial addActionStep:@"CylinderProjectViewDevice" description:NSLocalizedString(@"CylinderProjectViewDeviceDone", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
 
-    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 384, 368)];
+    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*6, 368)];
     inidcatorView.animated = false;
     inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectViewDevice", nil) bgImage:[UIImage imageNamed:@"tutorial_viewDevice.png"]];
@@ -259,51 +258,51 @@
     ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialAdvancedSetup" ofClass:@"ADSimpleTutorial"];
     
     //选中图片
-    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //高级设置
-    [tutorial addActionStep:@"CylinderProjectSetup" description:NSLocalizedString(@"CylinderProjectSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectSetup" description:NSLocalizedString(@"CylinderProjectSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //点击圆柱体，进入快捷参数选择
-    [tutorial addActionStep:@"CylinderProjectSetupScene" description:NSLocalizedString(@"CylinderProjectSetupScene", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupScene" description:NSLocalizedString(@"CylinderProjectSetupScene", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //点击圆柱体，进入快捷参数选择
-    [tutorial addActionStep:@"CylinderProjectSetupSceneDone" description:NSLocalizedString(@"CylinderProjectSetupSceneDone", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupSceneDone" description:NSLocalizedString(@"CylinderProjectSetupSceneDone", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
 
     //调整圆柱体半径
-    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameter" description:NSLocalizedString(@"CylinderProjectSetupCylinderDiameter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
-    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameter" description:NSLocalizedString(@"CylinderProjectSetupCylinderDiameter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderDiameterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整图片宽度
-    [tutorial addActionStep:@"CylinderProjectSetupImageWidth" description:NSLocalizedString(@"CylinderProjectSetupImageWidth", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupImageWidth" description:NSLocalizedString(@"CylinderProjectSetupImageWidth", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupImageWidthValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupImageWidthValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整圆柱体高度
-    [tutorial addActionStep:@"CylinderProjectSetupCylinderHeight" description:NSLocalizedString(@"CylinderProjectSetupCylinderHeight", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupCylinderHeight" description:NSLocalizedString(@"CylinderProjectSetupCylinderHeight", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupCylinderHeightValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupCylinderHeightValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整图片高度
-    [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupImageCenterValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupImageCenterValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整缩放比例修正显示
-    [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplay" description:NSLocalizedString(@"CylinderProjectSetupZoomFixDisplay", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplay" description:NSLocalizedString(@"CylinderProjectSetupZoomFixDisplay", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplayValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupZoomFixDisplayValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整到顶视图
-    [tutorial addActionStep:@"CylinderProjectTopViewForZoom" description:NSLocalizedString(@"CylinderProjectTopViewForZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectTopViewForZoom" description:NSLocalizedString(@"CylinderProjectTopViewForZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //调整缩放比例
-    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*4) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*3.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupZoomValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupZoomValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整到视角视图
-    [tutorial addActionStep:@"CylinderProjectSideViewForEye" description:NSLocalizedString(@"CylinderProjectSideViewForEye", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectSideViewForEye" description:NSLocalizedString(@"CylinderProjectSideViewForEye", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //    //调整视角水平距离
     //    [tutorial addActionStep:@"CylinderProjectSetupEyeDistance" description:NSLocalizedString(@"CylinderProjectSetupEyeDistance", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
@@ -314,12 +313,12 @@
     //    [tutorial addActionStep:@"CylinderProjectSetupEyeHeightValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整视角水平距离
-    [tutorial addActionStep:@"CylinderProjectSetupEyeZoom" description:NSLocalizedString(@"CylinderProjectSetupEyeZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupEyeZoom" description:NSLocalizedString(@"CylinderProjectSetupEyeZoom", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     //    [tutorial addActionStep:@"CylinderProjectSetupEyeZoomValue" description:NSLocalizedString(@"CylinderProjectSetupValue", nil) bounds:CGRectMake(0, 0, 256, 128) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupEyeZoomValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //关闭参数设置
-    [tutorial addActionStep:@"CylinderProjectCloseSetup" description:NSLocalizedString(@"CylinderProjectCloseSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*3) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectCloseSetup" description:NSLocalizedString(@"CylinderProjectCloseSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2.5) arrowDirection:UIPopoverArrowDirectionDown];
 
     //完成
     [tutorial addPageStep:@"CylinderProjectTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"CylinderProjectTutorialDone", nil)];
@@ -330,17 +329,19 @@
     ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialDrawReflection" ofClass:@"ADSimpleTutorial"];
     
     //选中图片
-    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //开始绘制图片
-    [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectPaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //查看手势
-    [tutorial addActionStep:@"PaintScreenHelpTips" description:NSLocalizedString(@"PaintScreenHelpTips", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+     [tutorial addActionStep:@"PaintScreenHelpTips" description:NSLocalizedString(@"PaintScreenHelpTips", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
+
     
     //完成教程
     [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"PaintScreenTutorialDone", nil)];
     
+
     //完成教程
 //    [self addHelpStepWithTutorial:tutorial];
 }
@@ -349,24 +350,24 @@
     ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialDrawAnamorphosis" ofClass:@"ADSimpleTutorial"];
     
     //选中图片
-    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"PaintCollectionPickImage" description:NSLocalizedString(@"PaintCollectionPickImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //顶视角绘画创作
-    [tutorial addActionStep:@"CylinderProjectTopViewForPaint" description:NSLocalizedString(@"CylinderProjectTopViewForPaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectTopViewForPaint" description:NSLocalizedString(@"CylinderProjectTopViewForPaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //打开设置
-    [tutorial addActionStep:@"CylinderProjectSetup" description:NSLocalizedString(@"CylinderProjectSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectSetup" description:NSLocalizedString(@"CylinderProjectSetup", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //调整图片高度
-    [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupImageCenter" description:NSLocalizedString(@"CylinderProjectSetupImageCenter", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupImageCenterValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //调整缩放比例
-    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoomReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionUp];
+    [tutorial addActionStep:@"CylinderProjectSetupZoom" description:NSLocalizedString(@"CylinderProjectSetupZoomReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     [tutorial addActionStep:@"CylinderProjectSetupZoomValue" description:nil bounds:CGRectZero arrowDirection:UIPopoverArrowDirectionUp];
     
     //开始绘制图片
-    [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*2) arrowDirection:UIPopoverArrowDirectionDown];
+    [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //完成教程
     [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"PaintScreenTutorialDone", nil)];

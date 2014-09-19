@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ADSimpleTutorialManager.h"
 
+#define TutorialGrid 64
+
 @interface AppDelegate : UIResponder
 <UIApplicationDelegate,
 ADTutorialManagerDelegate>

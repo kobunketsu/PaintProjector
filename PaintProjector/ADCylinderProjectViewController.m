@@ -24,6 +24,7 @@
 #import "ADDeviceHardware.h"
 #import "ADReversePaintInputData.h"
 #import "iRate.h"
+#import "ADSimpleAlertView.h"
 
 #if TESTFLIGHT
 #import "Questionnaire.h"
@@ -32,8 +33,6 @@
 //avoid z fighting
 #define FarClipDistance 10
 #define NearClipDistance 0.005
-
-
 
 #define CylinderFadeInOutDuration 0.4
 #define CylinderFadeInOutDeallocDelay 0.4
@@ -119,6 +118,7 @@ static float DeviceWidth = 0.154;
     [self.delegate willCompleteLaunchTransitionToCylinderProject];
     
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.iAdBar completion:nil];
     
     [self tutorialStartCurrentStep];
 }
@@ -210,8 +210,9 @@ static float DeviceWidth = 0.154;
     [self loadRefObjectUserInputParams];
     
     //加入广告
-//    [self createAdBannerView];
-    
+#if UseiAd
+    [self createAdBannerView];
+#endif
 }
 
 - (void)viewDidUnload{
@@ -378,6 +379,17 @@ static float DeviceWidth = 0.154;
     }];
 }
 
+//提示是否需要保存
+- (void)alvertSaveUserInputParamsWithClickBlock:(AutoAlertViewClickHandler)clickHandler{
+    //提示是否保存到模版
+    ADSimpleAlertView *alertView = [[ADSimpleAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
+    alertView.delegate = alertView;
+    alertView.tag = 2;
+    [alertView setClickHandler:clickHandler];
+    [alertView show];
+}
+
+
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
     
@@ -395,11 +407,21 @@ static float DeviceWidth = 0.154;
     }
     else{
         //提示是否保存到模版
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
-//        self.saveAlertView = alertView;
-        alertView.tag = 2;
-        [alertView show];
-
+        [self alvertSaveUserInputParamsWithClickBlock:^(BOOL confirm) {
+            if (confirm) {
+                //Save UserInputParams
+                [self setupAnamorphParamsSave];
+                [self setupAnamorphParamsDone];
+            }
+            else{
+                //Dont Save. Exist to original userInputParams
+                [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+                    [self flushUIUserInputParams];
+                    [self setupAnamorphParamsDone];
+                    //        [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
+                }];
+            }
+       }];
     }
 }
 
@@ -462,6 +484,7 @@ static float DeviceWidth = 0.154;
         paintDoc.reverseData.layers = layers;
 
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
             [self transitionToPaint:paintDoc];
         }];
@@ -523,6 +546,7 @@ static float DeviceWidth = 0.154;
     
     //ToolBar动画
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
     
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
         [self lockInteraction:false];
@@ -1637,7 +1661,9 @@ static float DeviceWidth = 0.154;
     cylinderProject.imageCenterOnSurfHeight = self.userInputParams.imageCenterOnSurfHeight;
     cylinderProject.imageRatio = self.view.bounds.size.height / self.view.bounds.size.width;
     cylinderProject.layerMask = Layer_Reflection;
+//    DebugLog(@"cylinderProjectDefaultAlphaBlend %.1f", self.cylinderProjectDefaultAlphaBlend);
     cylinderProject.alphaBlend = self.cylinderProjectDefaultAlphaBlend;
+    self.cylinderProjectDefaultAlphaBlend = 1;
     
 //animation
     REPropertyAnimation *fadeInPropAnim = [REPropertyAnimation propertyAnimationWithKeyPath:@"alphaBlend"];
@@ -2663,7 +2689,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (void) willPaintScreenDissmissWithPaintDoc:(ADPaintDoc *)paintDoc{
-    self.cylinderProjectDefaultAlphaBlend = 1;
+//    self.cylinderProjectDefaultAlphaBlend = 1;
     
     //刷新当前画框内容
     if (self.isReversePaint) {
@@ -2674,7 +2700,6 @@ static float DeviceWidth = 0.154;
         transitionImageView.image = [UIImage imageWithContentsOfFile:path];
         transitionImageView.alpha = 1;
     }
-
 }
 
 - (void) willPaintScreenDissmissDoneWithPaintDoc:(ADPaintDoc *)paintDoc{
@@ -3234,18 +3259,30 @@ static float DeviceWidth = 0.154;
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;        
     }
 }
+
+#if UseiAd
 #pragma mark- 广告iAd
-//- (void)createAdBannerView {
-//    // On iOS 6 ADBannerView introduces a new initializer, use it when available.
-//    if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
-//        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-//    } else {
-//        _bannerView = [[ADBannerView alloc] init];
-//    }
-//    _bannerView.delegate = self;
+
+- (void)createAdBannerView {
+    // On iOS 6 ADBannerView introduces a new initializer, use it when available.
+    if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
+        _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    } else {
+        _bannerView = [[ADBannerView alloc] init];
+    }
+    _bannerView.delegate = self;
+
+    [self.iAdBar addSubview:_bannerView];
 //    [self.rootView insertSubview:_bannerView belowSubview:self.topToolBar];
-//}
+}
 
 #pragma mark- 广告代理ADBannerViewDelegate
-
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
+    [RemoteLog logAction:@"bannerViewActionShouldBegin" identifier:nil];
+    
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
+    return true;
+}
+#endif
 @end

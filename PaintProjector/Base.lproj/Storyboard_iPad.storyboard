@@ -347,8 +347,59 @@
                     <view key="view" contentMode="scaleToFill" id="B6P-q6-ulO">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="ZYV-81-2FT" userLabel="Title_pencil" customClass="ADLaunchLogoView_pencil">
+                                <rect key="frame" x="317" y="332" width="156" height="237"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="Xbq-St-eXq" userLabel="Title_A1_Ana" customClass="ADLaunchLogoView_A1_Ana">
+                                <rect key="frame" x="156" y="410" width="73" height="78"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="J2P-Ft-t6P" userLabel="Title_n_Ana" customClass="ADLaunchLogoView_n_Ana">
+                                <rect key="frame" x="238" y="430" width="46" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" id="AHp-cu-Uui" userLabel="Title_a2_Ana" customClass="ADLaunchLogoView_a2_Ana">
+                                <rect key="frame" x="295" y="430" width="58" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" id="yCO-Od-JD8" userLabel="Title_D_Draw" customClass="ADLaunchLogoView_D_Draw">
+                                <rect key="frame" x="362" y="408" width="64" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" id="cWz-qc-FJA" userLabel="Title_r_Draw" customClass="ADLaunchLogoView_r_Draw">
+                                <rect key="frame" x="435" y="430" width="31" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" id="lQP-aq-9na" userLabel="Title_a_Draw" customClass="ADLaunchLogoView_a_Draw">
+                                <rect key="frame" x="466" y="430" width="58" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" id="cOk-3W-d5f" userLabel="Title_w_Draw" customClass="ADLaunchLogoView_w_Draw">
+                                <rect key="frame" x="534" y="430" width="80" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="title_A1_Ana" destination="Xbq-St-eXq" id="IqG-wx-qf1"/>
+                        <outlet property="title_D_Draw" destination="yCO-Od-JD8" id="d8o-pb-YDF"/>
+                        <outlet property="title_a2_Ana" destination="AHp-cu-Uui" id="gcp-fY-jcZ"/>
+                        <outlet property="title_a_Draw" destination="lQP-aq-9na" id="gRb-78-kz5"/>
+                        <outlet property="title_n_Ana" destination="J2P-Ft-t6P" id="5IH-vD-LM0"/>
+                        <outlet property="title_pencil" destination="ZYV-81-2FT" id="GSc-lb-XI5"/>
+                        <outlet property="title_r_Draw" destination="cWz-qc-FJA" id="101-lP-k3Z"/>
+                        <outlet property="title_w_Draw" destination="cOk-3W-d5f" id="gR7-ru-YY9"/>
+                        <outletCollection property="title_characters" destination="Xbq-St-eXq" id="VPE-zK-7hQ"/>
+                        <outletCollection property="title_characters" destination="J2P-Ft-t6P" id="ajc-rS-Cxe"/>
+                        <outletCollection property="title_characters" destination="AHp-cu-Uui" id="oKC-ul-gO4"/>
+                        <outletCollection property="title_characters" destination="yCO-Od-JD8" id="8H1-Dl-jco"/>
+                        <outletCollection property="title_characters" destination="cWz-qc-FJA" id="VgW-x8-vky"/>
+                        <outletCollection property="title_characters" destination="lQP-aq-9na" id="M7d-eP-HKp"/>
+                        <outletCollection property="title_characters" destination="cOk-3W-d5f" id="jXs-Ph-TDO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s5S-Ol-S0p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1854,7 +1905,7 @@ You will create unbelievable illusion.</string>
                                                 </connections>
                                             </button>
                                             <imageView appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial_setup3.png" id="JGH-Ov-JgC" userLabel="AdvancedSetupImageView">
-                                                <rect key="frame" x="11" y="0.0" width="146" height="170"/>
+                                                <rect key="frame" x="19" y="0.0" width="130" height="170"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="22" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advanced Setup before Drawing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O2Z-O4-v92" userLabel="AdvancedSetupLabel">
@@ -2658,6 +2709,7 @@ You will create unbelievable illusion.</string>
                         <outlet property="exportButton" destination="Vhq-Ni-nC3" id="pkf-ec-kDc"/>
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
+                        <outlet property="fullScreenButton" destination="1Aq-H8-fVk" id="LCS-8u-7ue"/>
                         <outlet property="helpButton" destination="oDv-8N-C1w" id="EhG-cM-IAG"/>
                         <outlet property="importButton" destination="Rmw-ah-joO" id="CQ1-lc-GMw"/>
                         <outlet property="layerButton" destination="HXT-bj-iEv" id="Xg9-7T-g2z"/>
@@ -3072,6 +3124,10 @@ You will create unbelievable illusion.</string>
                                     <action selector="virtualDeviceButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="7KP-h2-mCC"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="9ky-Lw-qYS" userLabel="iAdBar">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
                             <view hidden="YES" opaque="NO" contentMode="top" restorationIdentifier="" id="KoF-0M-tDF" userLabel="TopToolBar" customClass="ADTopToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3589,6 +3645,7 @@ You will create unbelievable illusion.</string>
                         <outlet property="eyePerspectiveView" destination="q9m-wd-BDj" id="6kL-dn-wbv"/>
                         <outlet property="eyeZoomButton" destination="nQD-FI-X56" id="Rwz-qQ-F1c"/>
                         <outlet property="galleryButton" destination="1js-2l-tGk" id="Wnf-QE-hAW"/>
+                        <outlet property="iAdBar" destination="9ky-Lw-qYS" id="wkw-Xw-6X6"/>
                         <outlet property="imageHeightButton" destination="M5u-7e-9Zn" id="jIS-ZO-zfH"/>
                         <outlet property="imageWidthButton" destination="3d5-8i-B14" id="7Ky-CT-6dt"/>
                         <outlet property="infoButton" destination="K8x-Wh-Rm8" id="YdK-N6-ecs"/>

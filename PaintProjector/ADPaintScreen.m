@@ -32,6 +32,7 @@
 #import "ADSimpleTutorialManager.h"
 #import "ADBrushManager.h"
 #import "ADHelpViewController.h"
+#import "AppDelegate.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -77,6 +78,7 @@
 @property (assign, nonatomic) CGPoint curTransformAnchorViewSrcCenter;//当前变换点的中心
 @property (assign, nonatomic) CGFloat curTransformDirection;//当前变换点的移动方向
 @property (retain, nonatomic) NSTimer *autoShowBrushTimer;
+@property (retain, nonatomic) NSMutableArray *helpViews;
 @end
 
 
@@ -4531,8 +4533,12 @@
     else if ([popoverController.contentViewController isKindOfClass:[ADHelpViewController class]]) {
         self.helpButton.selected = false;
         [self.helpButton.layer setNeedsDisplay];
+
+        [self closeIndicator];
         
         [self tutorialStartCurrentStep];
+        
+
     }
 //    [EAGLContext setCurrentContext:[REGLWrapper current].context];
 }
@@ -4905,28 +4911,13 @@
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
-    
-//    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
-//        CGRect rect = step.contentView.frame;
-//        rect.origin = CGPointMake((self.view.bounds.size.width - rect.size.width) * 0.5, (self.view.bounds.size.height - rect.size.height) * 0.5);
-//        step.contentView.frame = rect;
-//        
-//        step.contentView.alpha = 0;
-//        __weak ADTutorialStep *stepWeak = step;
-//        [step setFadeInAnimationBlock:^{
-//            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-//                stepWeak.contentView.alpha = 1;
-//            }];
-//        }];
-//    }
-
     if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
         step.contentView.center = CGPointMake(self.view.center.x, self.view.bounds.size.height - self.paintToolBar.frame.size.height - step.contentView.frame.size.height);
     }
     else if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
         [step.indicatorView targetView:self.helpButton inRootView:self.view];
     }
-    
+
     [step addToRootView:self.view];
 }
 
@@ -4942,9 +4933,12 @@
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.helpViewController];
     self.sharedPopoverController.delegate = self;
+
+    [self showIndicator];
     
     [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     
+
 //    [self showHelpTips];
 //    [ADSimpleTutorialManager initialize];
 //    [ADSimpleTutorialManager current].delegate = self;
@@ -4956,6 +4950,87 @@
 //    [self tutorialSetup];
 //    [[ADSimpleTutorialManager current].curTutorial startCurrentStep];
 //    [self transitionToTutorial];
+}
+
+- (void)closeIndicator{
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
+        for (UIView *view in self.helpViews) {
+            view.alpha = 0;
+        }
+    }completion:^(BOOL finished) {
+        for (UIView *view in self.helpViews) {
+            [view removeFromSuperview];
+        }
+        self.helpViews = nil;
+    }];
+}
+
+- (void)showIndicator{
+    self.helpViews = [[NSMutableArray alloc]init];
+    for (NSInteger i = 0; i < 8; ++i) {
+        ADTutorialIndicatorView *indicatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*2, TutorialGrid*0.8)];
+        indicatorView.animated = false;
+        indicatorView.alpha = 0;
+        indicatorView.arrowDirection = UIPopoverArrowDirectionDown;
+        NSString *desc = nil;
+        CGRect frame = CGRectZero;
+        switch (i) {
+            case 0:
+                desc = @"PaintScreenHelpMainBrush";
+                frame = [self.view convertRect:self.brushButton.bounds fromView:self.brushButton];
+                frame.origin.x += 8;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
+                break;
+            case 1:
+                desc = @"PaintScreenHelpSecondBrush";
+                [indicatorView targetView:self.brushBackButton inRootView:self.view];
+                break;
+            case 2:
+                desc = @"PaintScreenHelpBrushRadius";
+                [indicatorView targetView:self.radiusSlider inRootView:self.view];
+                break;
+            case 3:
+                desc = @"PaintScreenHelpBrushOpacity";
+                [indicatorView targetView:self.opacitySlider inRootView:self.view];
+                break;
+            case 4:
+                desc = @"PaintScreenHelpBrushColor";
+                indicatorView.arrowDirection = UIPopoverArrowDirectionRight;
+                frame = [self.view convertRect:self.paintColorButton.bounds fromView:self.paintColorButton];
+                frame.origin.x += 25;
+                frame.origin.y -= 20;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
+                break;
+            case 5:
+                desc = @"PaintScreenHelpPalleteColor";
+                [indicatorView targetView:self.colorSlotsScrollView inRootView:self.view];
+                break;
+            case 6:
+                desc = @"PaintScreenHelpPalleteMore";
+                frame = [self.view convertRect:self.swatchManagerButton.bounds fromView:self.swatchManagerButton];
+                frame.origin.x -= 13;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
+                break;
+            case 7:
+                desc = @"PaintScreenHelpFullScreen";
+                indicatorView.arrowDirection = UIPopoverArrowDirectionRight;
+                frame = [self.view convertRect:self.fullScreenButton.bounds fromView:self.fullScreenButton];
+                frame.origin.y -= 10;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
+                break;
+            default:
+                break;
+        }
+        [indicatorView initWithTutorial:nil description:NSLocalizedString(desc, nil) bgImage:nil];
+        [self.helpViews addObject:indicatorView];
+        [self.rootView addSubview:indicatorView];
+    }
+    
+    [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
+        for (UIView *view in self.helpViews) {
+            view.alpha = 1;
+        }
+    }];
 }
 
 - (void)showHelpTips{

@@ -242,6 +242,7 @@ BrushTypePageControlDelegate
 //@property (weak, nonatomic) IBOutlet UIScrollView *radiusScrollView;
 @property (weak, nonatomic) IBOutlet ADRadiusIndicatorView *radiusIndicatorView;
 @property (weak, nonatomic) IBOutlet ADOpacityIndicatorView *opacityIndicatorView;
+@property (weak, nonatomic) IBOutlet UIView *fullScreenButton;
 @property (weak, nonatomic) IBOutlet ADRedoButton *redoButton;
 @property (weak, nonatomic) IBOutlet ADUndoButton *undoButton;
 @property (strong, nonatomic) IBOutletCollection(ADAutoRotateButton) NSArray *autoRotateButtons;

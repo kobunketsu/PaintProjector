@@ -247,6 +247,8 @@
 		0832F56F19BC277100FB98CE /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832F56D19BC21CD00FB98CE /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0834C51819BF300000151E2E /* ADLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834C51719BF2FFF00151E2E /* ADLaunchViewController.m */; };
 		0834C51919BF300000151E2E /* ADLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0834C51719BF2FFF00151E2E /* ADLaunchViewController.m */; };
+		0835267519C9E93500CB7E6F /* ADLaunchLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0835267419C9E93500CB7E6F /* ADLaunchLogoView.m */; };
+		0835267619C9E93500CB7E6F /* ADLaunchLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0835267419C9E93500CB7E6F /* ADLaunchLogoView.m */; };
 		08383D421931C06900EA3647 /* ADBrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* ADBrushSwapButton.m */; };
 		08383D431931C06900EA3647 /* ADBrushSwapButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08383D411931C06900EA3647 /* ADBrushSwapButton.m */; };
 		08397FC018B6479D009A8F3C /* ADInAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08397FBF18B6479D009A8F3C /* ADInAppPurchaseManager.m */; };
@@ -335,6 +337,10 @@
 		0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B1FF172995EB00BF4688 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B201172995EB00BF4688 /* libsqlite3.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0868B206172995EB00BF4688 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0868B202172995EB00BF4688 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0868E41B19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0868E41A19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m */; };
+		0868E41C19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0868E41A19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m */; };
+		0868E42019CC34620082AEB5 /* ADSimpleAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */; };
+		0868E42119CC34620082AEB5 /* ADSimpleAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */; };
 		08696F2A1806229D00FB16A5 /* UIImage+Pixel.m in Sources */ = {isa = PBXBuildFile; fileRef = 08696F291806229D00FB16A5 /* UIImage+Pixel.m */; };
 		086B156C181381A2001F31EE /* ADBucket.m in Sources */ = {isa = PBXBuildFile; fileRef = 086B156B181381A2001F31EE /* ADBucket.m */; };
 		086B6642179059F4001723F4 /* ADViewHeightSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 086B6641179059F4001723F4 /* ADViewHeightSlider.m */; };
@@ -604,6 +610,24 @@
 		08B9104918AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104718AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m */; };
 		08B9104C18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */; };
 		08B9104D18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */; };
+		08BD1A6B19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A6A19CA842E00E65A05 /* ADLaunchLogoViewLayer.m */; };
+		08BD1A6C19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A6A19CA842E00E65A05 /* ADLaunchLogoViewLayer.m */; };
+		08BD1A6F19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A6E19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m */; };
+		08BD1A7019CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A6E19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m */; };
+		08BD1A7319CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7219CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m */; };
+		08BD1A7419CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7219CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m */; };
+		08BD1A7719CABDEA00E65A05 /* ADLaunchLogoCharacterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7619CABDEA00E65A05 /* ADLaunchLogoCharacterView.m */; };
+		08BD1A7819CABDEA00E65A05 /* ADLaunchLogoCharacterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7619CABDEA00E65A05 /* ADLaunchLogoCharacterView.m */; };
+		08BD1A7B19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7A19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m */; };
+		08BD1A7C19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7A19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m */; };
+		08BD1A7F19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7E19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m */; };
+		08BD1A8019CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A7E19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m */; };
+		08BD1A8319CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8219CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m */; };
+		08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8219CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m */; };
+		08BD1A8719CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8619CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m */; };
+		08BD1A8819CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8619CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m */; };
+		08BD1A8F19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8E19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m */; };
+		08BD1A9019CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD1A8E19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m */; };
 		08BD5CAE180102FA00F0FF67 /* ADFullScreenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CAD180102FA00F0FF67 /* ADFullScreenButton.m */; };
 		08BD5CB61801094200F0FF67 /* ADFullScreenReverseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BD5CB51801094200F0FF67 /* ADFullScreenReverseButton.m */; };
 		08BDEA0117E54C3700803D6F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08BDEA0017E54C3700803D6F /* Images.xcassets */; };
@@ -1198,6 +1222,8 @@
 		083462A119A793F900644158 /* GlobalDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalDefines.h; sourceTree = "<group>"; };
 		0834C51619BF2FFF00151E2E /* ADLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchViewController.h; path = PaintProjector/ADLaunchViewController.h; sourceTree = "<group>"; };
 		0834C51719BF2FFF00151E2E /* ADLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchViewController.m; path = PaintProjector/ADLaunchViewController.m; sourceTree = "<group>"; };
+		0835267319C9E93500CB7E6F /* ADLaunchLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView.h; path = PaintProjector/ADLaunchLogoView.h; sourceTree = "<group>"; };
+		0835267419C9E93500CB7E6F /* ADLaunchLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView.m; path = PaintProjector/ADLaunchLogoView.m; sourceTree = "<group>"; };
 		08383D401931C06900EA3647 /* ADBrushSwapButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushSwapButton.h; sourceTree = "<group>"; };
 		08383D411931C06900EA3647 /* ADBrushSwapButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushSwapButton.m; sourceTree = "<group>"; };
 		08397FBE18B6479C009A8F3C /* ADInAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADInAppPurchaseManager.h; path = PaintProjector/ADInAppPurchaseManager.h; sourceTree = "<group>"; };
@@ -1312,6 +1338,11 @@
 		0868B1FF172995EB00BF4688 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		0868B201172995EB00BF4688 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0868B202172995EB00BF4688 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		0868E41919CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_pencil.h; path = PaintProjector/ADLaunchLogoView_pencil.h; sourceTree = "<group>"; };
+		0868E41A19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_pencil.m; path = PaintProjector/ADLaunchLogoView_pencil.m; sourceTree = "<group>"; };
+		0868E41D19CC28E10082AEB5 /* MiscDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MiscDefines.h; sourceTree = "<group>"; };
+		0868E41E19CC34620082AEB5 /* ADSimpleAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleAlertView.h; path = PaintProjector/ADSimpleAlertView.h; sourceTree = "<group>"; };
+		0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleAlertView.m; path = PaintProjector/ADSimpleAlertView.m; sourceTree = "<group>"; };
 		08696F281806229D00FB16A5 /* UIImage+Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Pixel.h"; sourceTree = "<group>"; };
 		08696F291806229D00FB16A5 /* UIImage+Pixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Pixel.m"; sourceTree = "<group>"; };
 		086B156A181381A2001F31EE /* ADBucket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBucket.h; sourceTree = "<group>"; };
@@ -1609,6 +1640,24 @@
 		08B9104718AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionViewCellFrame.m; path = PaintProjector/ADPaintCollectionViewCellFrame.m; sourceTree = "<group>"; };
 		08B9104A18AF6ACF00BEA0D3 /* ADShareTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShareTableViewController.h; sourceTree = "<group>"; };
 		08B9104B18AF6ACF00BEA0D3 /* ADShareTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShareTableViewController.m; sourceTree = "<group>"; };
+		08BD1A6919CA842E00E65A05 /* ADLaunchLogoViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoViewLayer.h; path = PaintProjector/ADLaunchLogoViewLayer.h; sourceTree = "<group>"; };
+		08BD1A6A19CA842E00E65A05 /* ADLaunchLogoViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoViewLayer.m; path = PaintProjector/ADLaunchLogoViewLayer.m; sourceTree = "<group>"; };
+		08BD1A6D19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_A1_Ana.h; path = PaintProjector/ADLaunchLogoView_A1_Ana.h; sourceTree = "<group>"; };
+		08BD1A6E19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_A1_Ana.m; path = PaintProjector/ADLaunchLogoView_A1_Ana.m; sourceTree = "<group>"; };
+		08BD1A7119CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_n_Ana.h; path = PaintProjector/ADLaunchLogoView_n_Ana.h; sourceTree = "<group>"; };
+		08BD1A7219CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_n_Ana.m; path = PaintProjector/ADLaunchLogoView_n_Ana.m; sourceTree = "<group>"; };
+		08BD1A7519CABDEA00E65A05 /* ADLaunchLogoCharacterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoCharacterView.h; path = PaintProjector/ADLaunchLogoCharacterView.h; sourceTree = "<group>"; };
+		08BD1A7619CABDEA00E65A05 /* ADLaunchLogoCharacterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoCharacterView.m; path = PaintProjector/ADLaunchLogoCharacterView.m; sourceTree = "<group>"; };
+		08BD1A7919CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_a2_Ana.h; path = PaintProjector/ADLaunchLogoView_a2_Ana.h; sourceTree = "<group>"; };
+		08BD1A7A19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_a2_Ana.m; path = PaintProjector/ADLaunchLogoView_a2_Ana.m; sourceTree = "<group>"; };
+		08BD1A7D19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_D_Draw.h; path = PaintProjector/ADLaunchLogoView_D_Draw.h; sourceTree = "<group>"; };
+		08BD1A7E19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_D_Draw.m; path = PaintProjector/ADLaunchLogoView_D_Draw.m; sourceTree = "<group>"; };
+		08BD1A8119CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_r_Draw.h; path = PaintProjector/ADLaunchLogoView_r_Draw.h; sourceTree = "<group>"; };
+		08BD1A8219CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_r_Draw.m; path = PaintProjector/ADLaunchLogoView_r_Draw.m; sourceTree = "<group>"; };
+		08BD1A8519CAC60800E65A05 /* ADLaunchLogoView_a_Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_a_Draw.h; path = PaintProjector/ADLaunchLogoView_a_Draw.h; sourceTree = "<group>"; };
+		08BD1A8619CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_a_Draw.m; path = PaintProjector/ADLaunchLogoView_a_Draw.m; sourceTree = "<group>"; };
+		08BD1A8D19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADLaunchLogoView_w_Draw.h; path = PaintProjector/ADLaunchLogoView_w_Draw.h; sourceTree = "<group>"; };
+		08BD1A8E19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADLaunchLogoView_w_Draw.m; path = PaintProjector/ADLaunchLogoView_w_Draw.m; sourceTree = "<group>"; };
 		08BD5CAC180102FA00F0FF67 /* ADFullScreenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFullScreenButton.h; sourceTree = "<group>"; };
 		08BD5CAD180102FA00F0FF67 /* ADFullScreenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFullScreenButton.m; sourceTree = "<group>"; };
 		08BD5CB41801094200F0FF67 /* ADFullScreenReverseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFullScreenReverseButton.h; sourceTree = "<group>"; };
@@ -2121,6 +2170,8 @@
 				08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */,
 				08C17B7B19C53AC200FF9A55 /* ADTextPopAnimator.h */,
 				08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */,
+				0868E41E19CC34620082AEB5 /* ADSimpleAlertView.h */,
+				0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */,
 			);
 			name = SharedUITools;
 			sourceTree = "<group>";
@@ -2132,6 +2183,28 @@
 				0834C51719BF2FFF00151E2E /* ADLaunchViewController.m */,
 				082A6A0619C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.h */,
 				082A6A0719C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.m */,
+				0835267319C9E93500CB7E6F /* ADLaunchLogoView.h */,
+				0835267419C9E93500CB7E6F /* ADLaunchLogoView.m */,
+				08BD1A6919CA842E00E65A05 /* ADLaunchLogoViewLayer.h */,
+				08BD1A6A19CA842E00E65A05 /* ADLaunchLogoViewLayer.m */,
+				08BD1A7519CABDEA00E65A05 /* ADLaunchLogoCharacterView.h */,
+				08BD1A7619CABDEA00E65A05 /* ADLaunchLogoCharacterView.m */,
+				08BD1A6D19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.h */,
+				08BD1A6E19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m */,
+				08BD1A7119CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.h */,
+				08BD1A7219CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m */,
+				08BD1A7919CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.h */,
+				08BD1A7A19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m */,
+				08BD1A7D19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.h */,
+				08BD1A7E19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m */,
+				08BD1A8119CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.h */,
+				08BD1A8219CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m */,
+				08BD1A8519CAC60800E65A05 /* ADLaunchLogoView_a_Draw.h */,
+				08BD1A8619CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m */,
+				08BD1A8D19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.h */,
+				08BD1A8E19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m */,
+				0868E41919CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.h */,
+				0868E41A19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m */,
 			);
 			name = LaunchScreen;
 			sourceTree = "<group>";
@@ -3107,6 +3180,7 @@
 			isa = PBXGroup;
 			children = (
 				083462A119A793F900644158 /* GlobalDefines.h */,
+				0868E41D19CC28E10082AEB5 /* MiscDefines.h */,
 				081A8C7019A39F4D007F1B7D /* LogDefine.h */,
 				08329AF018DD39DC00095EA9 /* Localizable.strings */,
 				9C21AF1E14E4579F00DB003E /* PaintProjector-Info.plist */,
@@ -3648,6 +3722,7 @@
 				08E505F3195722D900ED86BF /* ADTutorialBackgroundView.m in Sources */,
 				0826EE8A18B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */,
 				882033cbd8efa1050a5d6091 /* main.m in Sources */,
+				08BD1A7419CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */,
 				7006733dd0f628190d42e0b3 /* AppDelegate.m in Sources */,
 				080706E118B78F4800D9385F /* ADInAppPurchaseTableView.m in Sources */,
 				7180f0872705dada27b93742 /* UIAlertView+error.m in Sources */,
@@ -3655,6 +3730,7 @@
 				08397FC618B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
 				5b2117651ecfcf52639d39b2 /* UIImage+Alpha.m in Sources */,
 				08A5CBBB189F36C500F4E226 /* REMesh.m in Sources */,
+				0835267619C9E93500CB7E6F /* ADLaunchLogoView.m in Sources */,
 				828ef58ce6328626847f5dff /* UIImage+Resize.m in Sources */,
 				714030c503cb89776251bd00 /* UIImage+RoundedCorner.m in Sources */,
 				08D0A15F19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */,
@@ -3680,6 +3756,7 @@
 				0807A63B18C77D3300AA3FA5 /* ADSwatchManagerTableView.m in Sources */,
 				14aa0559a33e78d5019bfcfc /* InfColorSquarePicker.m in Sources */,
 				039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */,
+				0868E42119CC34620082AEB5 /* ADSimpleAlertView.m in Sources */,
 				3ea74751a145c238a19bd801 /* InfSourceColorView.m in Sources */,
 				00d3b8801be0906d9d679618 /* ADSelectBrushButton.m in Sources */,
 				0822B00518C0B9510021A75B /* ADSwatchManagerTableViewCell.m in Sources */,
@@ -3689,6 +3766,7 @@
 				efce58c21b23dbf0c8fd3ffb /* ADHeap.m in Sources */,
 				007caacc578989b98b28cd37 /* ADBrushToolBar.m in Sources */,
 				bd03ecaf8b06f118b149cfa5 /* ADRedoButton.m in Sources */,
+				0868E41C19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m in Sources */,
 				dcc1369eefcabccd63408c2c /* ADCustomTouchUIView.m in Sources */,
 				b3bfd9587c8094c480be1249 /* ADPencil.m in Sources */,
 				08FB9B121942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
@@ -3778,6 +3856,7 @@
 				080706DC18B788AE00D9385F /* ADShaderNoLitTexture.m in Sources */,
 				08E104C918E326A100B777FB /* ADSharedPopoverArrowView.m in Sources */,
 				2d65c2230979e2f2611e58c7 /* ADLayerManagerView.m in Sources */,
+				08BD1A7C19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m in Sources */,
 				08A5CBBC189F36C900F4E226 /* REMeshFilter.m in Sources */,
 				086B73B2194D3AF600870DBD /* ADTutorialStep.m in Sources */,
 				0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */,
@@ -3802,6 +3881,7 @@
 				0871A831192A56E200BB8558 /* ADBrushPropertyTableViewCell.m in Sources */,
 				6f8aadcd898535ad254b5933 /* ADLayerButton.m in Sources */,
 				0863C02319702CAF00CDB283 /* ADCylinderImage.m in Sources */,
+				08BD1A8019CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m in Sources */,
 				087B9E7E194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */,
 				78de4268fcc15d5b14c9bd04 /* ADImportButton.m in Sources */,
 				ac9c2f2536b4c665eb857130 /* ADExportButton.m in Sources */,
@@ -3823,6 +3903,7 @@
 				0879B3A6195C752F0062EF11 /* ADDeviceHardware.m in Sources */,
 				3288492b37b2543a0ade13ad /* ADClearButton.m in Sources */,
 				08E33F5818C61148007A26F2 /* ADSwatchManagerButton.m in Sources */,
+				08BD1A7819CABDEA00E65A05 /* ADLaunchLogoCharacterView.m in Sources */,
 				0898765B19138514009CEB3D /* ADAutoRotateView.m in Sources */,
 				08B60F3C18C385DC00A415CA /* UIColor+Extension.m in Sources */,
 				7f1708e9135ab712a98551a6 /* ADBackgroundLayerTableViewCell.m in Sources */,
@@ -3837,11 +3918,13 @@
 				08FF70C9189003AC00A7A09B /* ADPaintCollectionViewController.m in Sources */,
 				097a24bfe38a93ccf92d0a2b /* ADEyeDropperIndicatorView.m in Sources */,
 				0863C0271970326F00CDB283 /* ADShaderCylinderImage.m in Sources */,
+				08BD1A9019CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
 				08E505DA1956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
 				08F2E368197389B400C55F85 /* ADPaintReverseButton.m in Sources */,
 				08771E651927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				3c475975e807db0d73ebe205 /* ADSharedTableViewCell.m in Sources */,
 				08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */,
+				08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				0847F53018B07ECF0038869A /* ADUnitConverter.m in Sources */,
 				08FF70CD189019A400A7A09B /* ADPaintUIKitAnimation.m in Sources */,
 				080CBD5519A4FE2400282B91 /* ADPaintLayerData.m in Sources */,
@@ -3851,6 +3934,7 @@
 				33c3e02f55644e233c7e50c0 /* ADLayerTableViewCell.m in Sources */,
 				08E4E77F1951E9B4003C77DB /* ADTutorialNextButton.m in Sources */,
 				08fa420721319a2c16a6af4c /* ADBrushPropertyView.m in Sources */,
+				08BD1A6C19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */,
 				08AB75CC188F5ABA007DA20B /* ADPaintCollectionViewCell.m in Sources */,
 				08771E671927C3C100CBF7B3 /* ADCylinderProjectVirualDeviceCollectionView.m in Sources */,
 				08A0315F18DED0C2006EE308 /* ADRootCanvasView.m in Sources */,
@@ -3911,6 +3995,7 @@
 				d8bdff304e0f79a9f54c168b /* ADGrid.m in Sources */,
 				5a5db63ef5b4e6fc338c0164 /* ADLayerTableView.m in Sources */,
 				5870b9c890bac2d4959be73c /* ADPlayerView.m in Sources */,
+				08BD1A7019CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m in Sources */,
 				08E505E21956FD4200ED86BF /* ADTutorialPaintScreenGestureCollectionViewCell.m in Sources */,
 				08234EC318915F32008B4189 /* ADFileButton.m in Sources */,
 				8d64d8874378c84411e6a59e /* ADCylinderProjectView.m in Sources */,
@@ -3936,6 +4021,7 @@
 				08B17A311981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */,
 				08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
 				e21b4e595f0fb5cfb4d67bfc /* ADCrayons.m in Sources */,
+				08BD1A8819CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m in Sources */,
 				b9c7be3996399a503583fba3 /* ADDeleteButton.m in Sources */,
 				082060D6189D40090027247C /* RETexture.m in Sources */,
 				08A232B819C05DB8004FE1F6 /* ADHelpViewController.m in Sources */,
@@ -3956,6 +4042,7 @@
 				08F905DD194ACBA7002918AA /* ADCrystalGradientStyleButton.m in Sources */,
 				0814743C18B19A5C00BBC25A /* REAnimationClip.m in Sources */,
 				08A6FA4218BB7FB400D9A7EB /* ADSimpleIAPManager.m in Sources */,
+				08BD1A7F19CAC2FF00E65A05 /* ADLaunchLogoView_D_Draw.m in Sources */,
 				086BF7C1189E3CF50066C1F2 /* REMeshFilter.m in Sources */,
 				08EF9E5418A1E2B600376568 /* REResources.m in Sources */,
 				08696F2A1806229D00FB16A5 /* UIImage+Pixel.m in Sources */,
@@ -3971,6 +4058,7 @@
 				08E505E11956FD4200ED86BF /* ADTutorialPaintScreenGestureCollectionViewCell.m in Sources */,
 				082A6A0819C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.m in Sources */,
 				088E1D8418A26F700059002C /* ADShaderCylinder.m in Sources */,
+				08BD1A8F19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
 				9CFE0B9A14E5B12B00408F86 /* UIImage+RoundedCorner.m in Sources */,
 				0817B392163C38ED00BD52B2 /* ADPaintScreen.m in Sources */,
 				08F2E367197389B400C55F85 /* ADPaintReverseButton.m in Sources */,
@@ -3985,6 +4073,7 @@
 				08525110194D62200087F4AF /* ADTutorialManager.m in Sources */,
 				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
 				08F5DF1A19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */,
+				0868E42019CC34620082AEB5 /* ADSimpleAlertView.m in Sources */,
 				086BF05B18A12B2500948175 /* ADCylinderMesh.m in Sources */,
 				0808D9DB164559870000DF40 /* InfColorIndicatorView.m in Sources */,
 				08E505F2195722D900ED86BF /* ADTutorialBackgroundView.m in Sources */,
@@ -4006,6 +4095,8 @@
 				080BD0D91645FDC000B37C01 /* ADSelectBrushButton.m in Sources */,
 				080BD0DD164601B400B37C01 /* ADEyeDropper.m in Sources */,
 				0872BA461915C80700559E96 /* OpenGLTexture3D.m in Sources */,
+				08BD1A6F19CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m in Sources */,
+				08BD1A7719CABDEA00E65A05 /* ADLaunchLogoCharacterView.m in Sources */,
 				08397FC518B64929009A8F3C /* SKProduct+LocalizedPrice.m in Sources */,
 				08383D421931C06900EA3647 /* ADBrushSwapButton.m in Sources */,
 				0809EA45164946E00061233D /* ADUndoButton.m in Sources */,
@@ -4038,6 +4129,7 @@
 				0803D1FF189FF3EF0068B14B /* REObject.m in Sources */,
 				0863C0261970326F00CDB283 /* ADShaderCylinderImage.m in Sources */,
 				0847F52B18B066420038869A /* ADSetupTableViewCell.m in Sources */,
+				08BD1A8719CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m in Sources */,
 				082060D9189D44E40027247C /* REEntity.m in Sources */,
 				94997B8116819D13006E3661 /* ADPaintView.m in Sources */,
 				0829C01F168349F80009CD1C /* ADImageStack.m in Sources */,
@@ -4063,6 +4155,7 @@
 				082060D1189D38E40027247C /* RERenderer.m in Sources */,
 				0898765419137FA1009CEB3D /* ADSetupCylinderView.m in Sources */,
 				0888F8B8194A177500CB71D2 /* UILabel+Align.m in Sources */,
+				0868E41B19CC1DBE0082AEB5 /* ADLaunchLogoView_pencil.m in Sources */,
 				08EF8E6C18478E230027F305 /* ADColorPickModeButton.m in Sources */,
 				08F68F73194DC6D200470A3D /* ADTutorialPageButtonView.m in Sources */,
 				08CE1A6718968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */,
@@ -4176,6 +4269,7 @@
 				08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */,
 				087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */,
 				0847F103174FC31E008E795B /* ADLayerCopyButton.m in Sources */,
+				0835267519C9E93500CB7E6F /* ADLaunchLogoView.m in Sources */,
 				085539801751AA6E00DECF41 /* ADAnchorView.m in Sources */,
 				08E251B7189CBCC60039AAC2 /* ADShaderCylinderProject.m in Sources */,
 				080A046318A3434D004A4785 /* ADShaderNoLitTexture.m in Sources */,
@@ -4184,6 +4278,7 @@
 				08B444C1175B145F00787C18 /* ADPaintFrameViewGroup.m in Sources */,
 				08A0315A18DE8896006EE308 /* ADIconColorPermeateButton.m in Sources */,
 				080706E018B78F4800D9385F /* ADInAppPurchaseTableView.m in Sources */,
+				08BD1A8319CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				080276741967139C0022FD56 /* ADOpacityIndicatorView.m in Sources */,
 				0871E937176621450046D505 /* ADCommandManager.m in Sources */,
 				087512B31957D67600FC03CC /* ADTutorialBackgroundLeftEdgeView.m in Sources */,
@@ -4233,16 +4328,19 @@
 				08FE79F017C8EBA000D1EEBD /* ADMediaFrameView.m in Sources */,
 				08FE79F517C8ECAD00D1EEBD /* ADVideoFrameView.m in Sources */,
 				08FB9B111942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
+				08BD1A7B19CAC20200E65A05 /* ADLaunchLogoView_a2_Ana.m in Sources */,
 				08FE79FA17C8FF9900D1EEBD /* ADPaintButton.m in Sources */,
 				087D9B3F1981EC8B002392BA /* ADSetupCylinderRefPenButton.m in Sources */,
 				081EFBFD17CA1F3500D4FE46 /* ADAnamorphicButton.m in Sources */,
 				08C51C7A19C7E43100C74F54 /* ADSimpleTutorialView.m in Sources */,
 				081EFC0217CA253000D4FE46 /* ADAnamorphicSideViewButton.m in Sources */,
 				081EFC0517CA28EA00D4FE46 /* ADAnamorphicTopViewButton.m in Sources */,
+				08BD1A7319CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */,
 				0860668B17D2D8FB002EE42A /* ADNewButton.m in Sources */,
 				086B73AD194D3AC900870DBD /* ADTutorial.m in Sources */,
 				0879B3A5195C752F0062EF11 /* ADDeviceHardware.m in Sources */,
 				08AB75C5188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
+				08BD1A6B19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */,
 				0871D02A1812A27400A0D037 /* ADCrayons.m in Sources */,
 				0863C02219702CAE00CDB283 /* ADCylinderImage.m in Sources */,
 				0860669017D2DB60002EE42A /* ADDeleteButton.m in Sources */,

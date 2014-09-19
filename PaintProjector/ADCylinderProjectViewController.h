@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-//#import <iAd/iAd.h>
+
+#if UseiAd
+#import <iAd/iAd.h>
+#endif
+
 //GPUImage
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
@@ -105,12 +109,16 @@ REPropertyAnimationDelegate,
 ADCustomPercentDrivenInteractiveTransition,
 ADShareTableViewControllerDelegate,
 ADProductInfoTableViewControllerDelegate,
+#if UseiAd
+ADBannerViewDelegate,
+#endif
 ADInAppPurchaseTableViewControllerDelegate
 
 >
 {
-    //banner
-//    ADBannerView *_bannerView;
+#if UseiAd
+    ADBannerView *_bannerView;
+#endif
 }
 #pragma mark- 基础Base
 @property (retain, nonatomic) GLKViewController* glkViewController;
@@ -158,6 +166,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *allViews;
 @property (weak, nonatomic) IBOutlet ADDownToolBar *downToolBar;
 @property (weak, nonatomic) IBOutlet ADTopToolBar *topToolBar;
+@property (weak, nonatomic) IBOutlet ADTopToolBar *iAdBar;
 
 #pragma mark- 输入User Input
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;

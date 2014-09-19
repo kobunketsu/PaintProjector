@@ -9,6 +9,16 @@
 #ifndef PaintProjector_GlobalDefines_h
 #define PaintProjector_GlobalDefines_h
 
+//版本号
 #define DocVersion     @"1.1"
+
+//使用广告
+#define UseiAd 0
+
+//网站地址
+#define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
+#define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"
+#define PRODUCT_INFO_GALLERY @"http://www.pinterest.com/anadrawapp/artwork-by-anadraw/"
+#define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/community/"
 
 #endif

@@ -20,8 +20,11 @@
 
 - (void)setFrameOriginY:(CGFloat)originY;
 
+- (void)setFrameOrigin:(CGPoint)origin;
+
 - (void)setFrameSizeWidth:(CGFloat)width;
 
 - (void)setFrameSizeHeight:(CGFloat)height;
 
+- (void)setFrameSize:(CGSize)size;
 @end
