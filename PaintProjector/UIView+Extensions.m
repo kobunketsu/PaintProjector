@@ -80,4 +80,28 @@
     frame.size.height = size.height;
     self.frame = frame;
 }
+
+//MARK: dont support angle over M_2_PI
+- (void)spinViewAngle:(CGFloat)angle keyPath:(NSString *)keyPath duration:(CGFloat)duration delay:(CGFloat)delay option:(UIViewKeyframeAnimationOptions)option completion:(void (^)(BOOL finished))completion{
+    
+    CGFloat curAngle = ((NSNumber *)[self.layer valueForKeyPath:keyPath]).floatValue;
+    CGFloat count = (angle - curAngle) / DEGREES_TO_RADIANS(120);
+    CGFloat fracAngle = count - floorf(count);
+    
+    [UIView animateKeyframesWithDuration:duration delay:0.0
+                                 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear
+                              animations:^{
+                                  for (NSInteger i = 0; i < floorf(count); ++i) {
+                                      [UIView addKeyframeWithRelativeStartTime:((CGFloat)i / count) relativeDuration:(1.0 / count) animations:^{
+                                          [self.layer setValue:[NSNumber numberWithFloat:DEGREES_TO_RADIANS(120) * (i + 1)] forKeyPath:keyPath];
+                                      }];
+                                  }
+                                  
+                                  [UIView addKeyframeWithRelativeStartTime:(floorf(count) / count) relativeDuration:(fracAngle / count) animations:^{
+                                      [self.layer setValue:[NSNumber numberWithFloat:angle] forKeyPath:keyPath];
+                                  }];
+                              }
+                              completion:^(BOOL finished) {}];
+    
+}
 @end

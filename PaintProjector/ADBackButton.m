@@ -18,7 +18,10 @@
     }
     return self;
 }
-
+//- (void)setUserInteractionEnabled:(BOOL)userInteractionEnabled{
+//    DebugLog(@"setUserInteractionEnabled %i", userInteractionEnabled);
+//    super.userInteractionEnabled = userInteractionEnabled;
+//}
 - (void)setIsReversePaint:(BOOL)isReversePaint{
     _isReversePaint = isReversePaint;
     [self setNeedsDisplay];

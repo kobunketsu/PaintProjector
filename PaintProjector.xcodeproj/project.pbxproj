@@ -733,6 +733,8 @@
 		08E5857D1913D8DB002DBF68 /* ADSetupEyeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5857B1913D8DB002DBF68 /* ADSetupEyeView.m */; };
 		08E585821913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E585811913E791002DBF68 /* ADSetupUnitZoomView.m */; };
 		08E585831913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E585811913E791002DBF68 /* ADSetupUnitZoomView.m */; };
+		08E5E32919CD36E9000DE694 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5E32819CD36E9000DE694 /* ADNextPageButton.m */; };
+		08E5E32A19CD36E9000DE694 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5E32819CD36E9000DE694 /* ADNextPageButton.m */; };
 		08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */; };
 		08E7B0A017EAD32800A121B5 /* ADBrushPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */; };
 		08E9D27A193EB020002F4990 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D279193EB020002F4990 /* CoreMedia.framework */; };
@@ -1769,6 +1771,8 @@
 		08E5857B1913D8DB002DBF68 /* ADSetupEyeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupEyeView.m; sourceTree = "<group>"; };
 		08E585801913E791002DBF68 /* ADSetupUnitZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupUnitZoomView.h; sourceTree = "<group>"; };
 		08E585811913E791002DBF68 /* ADSetupUnitZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupUnitZoomView.m; sourceTree = "<group>"; };
+		08E5E32719CD36E9000DE694 /* ADNextPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADNextPageButton.h; sourceTree = "<group>"; };
+		08E5E32819CD36E9000DE694 /* ADNextPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADNextPageButton.m; sourceTree = "<group>"; };
 		08E6BB9D17EFA3E3003749FE /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		08E7B09E17EAD32700A121B5 /* ADBrushPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyViewController.h; sourceTree = "<group>"; };
@@ -3087,6 +3091,8 @@
 				087751BA180450B20034FEA7 /* ADCustomLayer.m */,
 				0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */,
 				0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */,
+				08E5E32719CD36E9000DE694 /* ADNextPageButton.h */,
+				08E5E32819CD36E9000DE694 /* ADNextPageButton.m */,
 			);
 			name = PaintScreen;
 			path = PaintProjector;
@@ -3941,6 +3947,7 @@
 				19ba8cb15b35fd1261697aef /* ADLayerImageView.m in Sources */,
 				0847F53418B0945E0038869A /* ADCylinderProjectUserInputParams.m in Sources */,
 				0cf76288bbdc25a1349b5c70 /* ADLayerToolView.m in Sources */,
+				08E5E32A19CD36E9000DE694 /* ADNextPageButton.m in Sources */,
 				08C58ED71976BF290047C1DC /* ADBrushManager.m in Sources */,
 				080276751967139C0022FD56 /* ADOpacityIndicatorView.m in Sources */,
 				291bfba0df1cd723a5c24dfc /* ADLayerVisibleButton.m in Sources */,
@@ -4048,6 +4055,7 @@
 				08696F2A1806229D00FB16A5 /* UIImage+Pixel.m in Sources */,
 				08397FC018B6479D009A8F3C /* ADInAppPurchaseManager.m in Sources */,
 				9C21AF2314E4579F00DB003E /* main.m in Sources */,
+				08E5E32919CD36E9000DE694 /* ADNextPageButton.m in Sources */,
 				0826EE8918B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */,
 				9C21AF2714E4579F00DB003E /* AppDelegate.m in Sources */,
 				08E104C818E326A100B777FB /* ADSharedPopoverArrowView.m in Sources */,

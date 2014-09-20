@@ -57,10 +57,10 @@
     //设置用户参数
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"AnamorphosisSetup"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
     
 #else
@@ -86,7 +86,6 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     }
-    
 
 #endif
     
@@ -339,11 +338,11 @@
 
     
     //完成教程
-    [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"PaintScreenTutorialDone", nil)];
-    
+     [tutorial addActionStep:@"PaintScreenCloseDoc" description:NSLocalizedString(@"PaintScreenCloseDoc", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
 
     //完成教程
-//    [self addHelpStepWithTutorial:tutorial];
+    [tutorial addPageStep:@"CylinderProjectTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"CylinderProjectTutorialDone", nil)];
+
 }
 
 - (void)initTutorialDrawAnamorphosis{
@@ -370,7 +369,18 @@
     [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];
     
     //完成教程
-    [tutorial addPageStep:@"PaintScreenTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"PaintScreenTutorialDone", nil)];
+    ADTutorialStep *step = [tutorial addActionStep:@"PaintScreenCloseDoc" description:NSLocalizedString(@"PaintScreenCloseDoc", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
+    
+    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5)];
+    inidcatorView.animated = false;
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"PaintScreenAnamorphosisTips", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
+    
+    //完成教程
+    [tutorial addPageStep:@"CylinderProjectTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil withNextButton:YES nextButtonName:NSLocalizedString(@"CylinderProjectTutorialDone", nil)];
+    
+
 }
 
 #pragma mark-

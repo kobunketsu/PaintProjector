@@ -479,6 +479,7 @@
 
 #pragma mark- 交互控制 UserInteraction
 - (void)lockInteraction:(BOOL)lock{
+    DebugLogFuncStart(@"lockInteraction %i", lock);
     self.rootView.userInteractionEnabled = !lock;
     self.mainToolBar.userInteractionEnabled = !lock;
     self.paintToolBar.userInteractionEnabled = !lock;
@@ -4709,13 +4710,21 @@
     else if (alertView.tag == 6) {
         switch (buttonIndex) {
             case 0:
+                [self tutorialStepNextImmediate:false];
                 [self closeDocWithSave];
+                
                 break;
             case 1:
                 [self closeDocCanceled];
+                if ([[ADSimpleTutorialManager current] isActive]) {
+                    [self willTutorialEnableUserInteraction:false withStep:[ADSimpleTutorialManager current].curTutorial.curStep];
+                }
+
                 break;
             case 2:
+                [self tutorialStepNextImmediate:false];
                 [self closeDocWithoutSave];
+                
                 break;
             default:
                 break;
@@ -4906,6 +4915,10 @@
     if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
         self.helpButton.userInteractionEnabled = true;
     }
+    else if ([step.name isEqualToString:@"PaintScreenCloseDoc"]){
+        self.closeButton.userInteractionEnabled = true;
+    }
+
     //打开制定按钮交互
 }
 
@@ -4917,7 +4930,13 @@
     else if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
         [step.indicatorView targetView:self.helpButton inRootView:self.view];
     }
-
+    else if ([step.name isEqualToString:@"PaintScreenCloseDoc"]){
+        [step.indicatorView targetView:self.closeButton inRootView:self.view];
+        
+        if (step.indicatorViews[1]) {
+            [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 800, 1, 1) inRootView:self.view];
+        }
+    }
     [step addToRootView:self.view];
 }
 

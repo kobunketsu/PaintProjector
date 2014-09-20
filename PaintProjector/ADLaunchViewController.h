@@ -27,6 +27,8 @@ UIViewControllerTransitioningDelegate>
 @property (weak, nonatomic) IBOutlet UIView *title_a_Draw;
 @property (weak, nonatomic) IBOutlet UIView *title_pencil;
 @property (weak, nonatomic) IBOutlet UIView *title_w_Draw;
+
+
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *title_characters;
 
 @end

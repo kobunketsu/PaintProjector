@@ -94,7 +94,7 @@
         [texMgr.textureCache removeObjectForKey:deleteTexKey];
     }
     else{
-        DebugLogWarn(@"deleteTexture key %u not found in cache(from nsdata).", texture);
+        DebugLogWarn(@"deleteTexture key %u not found in cache(because created from nsdata).", texture);
 //        [[REGLWrapper current]deleteTexture:texture];
     }
 }

@@ -188,8 +188,9 @@
         self.lastTexture = 0;
     }
     glFinish();
-    RELEASE_TEXTURE(tex);
 //    DebugLogWarn(@"glIsFramebufferOES %i",glIsFramebufferOES(tex));
+    RELEASE_TEXTURE(tex);
+
 }
 
 -(REShader*)createShader:(NSString*)name{

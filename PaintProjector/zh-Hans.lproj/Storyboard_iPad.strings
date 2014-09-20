@@ -248,7 +248,7 @@
 "dBk-v9-lg0.accessibilityLabel" = "File";
 
 /* Class = "IBUIButton"; normalTitle = "Manager"; ObjectID = "dBk-v9-lg0"; */
-"dBk-v9-lg0.normalTitle" = "编辑";
+"dBk-v9-lg0.normalTitle" = "编 辑";
 
 /* Class = "IBUIView"; accessibilityLabel = "swatchManagerHeader"; ObjectID = "e2e-ch-kJe"; */
 "e2e-ch-kJe.accessibilityLabel" = "swatchManagerHeader";
@@ -272,11 +272,11 @@
 "edV-eN-YWW.accessibilityLabel" = "Print";
 
 /* Class = "IBUIButton"; normalTitle = "CylinderProjectSetup"; ObjectID = "edV-eN-YWW"; */
-"edV-eN-YWW.normalTitle" = "高 级";
+"edV-eN-YWW.normalTitle" = "编 辑";
 
 /* Class = "IBUIButton"; accessibilityLabel = "New"; ObjectID = "egz-LW-xJQ"; */
 "egz-LW-xJQ.accessibilityLabel" = "New";
-"egz-LW-xJQ.normalTitle" = "新作";
+"egz-LW-xJQ.normalTitle" = "新 作";
 
 /* Class = "IBUIView"; accessibilityLabel = "MainToolBar"; ObjectID = "erO-nK-SuU"; */
 "erO-nK-SuU.accessibilityLabel" = "MainToolBar";

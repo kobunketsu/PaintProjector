@@ -37,6 +37,7 @@
 #define CylinderFadeInOutDuration 0.4
 #define CylinderFadeInOutDeallocDelay 0.4
 #define CylinderResetParamDuration 0.4
+#define CylinderResetDelay 0.2
 #define CylinderViewChangeDuration 1
 #define TempPaintFrameToPaintFadeInDelay 0.2
 #define TempPaintFrameToGalleryFadeInDuration 0.4
@@ -328,24 +329,14 @@ static float DeviceWidth = 0.154;
 
     //do some work
     if (self.isSetupMode) {
-        [self setupAnamorphParamsDoneAnimationCompletion:nil];
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+            [self transitionToGallery];
+        }];
     }
-    
-//    if (self.isTopViewMode) {
-//        self.isTopViewMode = !self.isTopViewMode;
-//
-//        REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-//        REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-//        [propAnim setCompletionBlock:^{
-//            [self transitionToGallery];
-//        }];
-//        RECamera.mainCamera.animation.clip = animClip;
-//        RECamera.mainCamera.animation.target = self;
-//        [RECamera.mainCamera.animation play];
-//    }
-//    else{
+    else{
         [self transitionToGallery];
-//    }
+    }
+
 }
 
 //- (IBAction)printButtonTouchUp:(UIButton *)sender {
@@ -367,9 +358,17 @@ static float DeviceWidth = 0.154;
 //        [self exportToAirPrint];
 //    }
 //}
+
 - (void)setupAnamorphParamsSave{
     [ADPaintFrameManager curGroup].curPaintDoc.userInputParams = [self.userInputParams copy];
     [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
+}
+- (void)setupAnamorphParamsBegan{
+    [self setupAnamorphParamsAnimationCompletion:^{
+        //no animation
+        [self lockInteraction:false];
+        [self tutorialStartCurrentStep];
+    }];
 }
 - (void)setupAnamorphParamsDone{
     [self setupAnamorphParamsDoneAnimationCompletion:^{
@@ -380,12 +379,31 @@ static float DeviceWidth = 0.154;
 }
 
 //提示是否需要保存
-- (void)alvertSaveUserInputParamsWithClickBlock:(AutoAlertViewClickHandler)clickHandler{
+- (void)alvertSaveUserInputParamsWithCompletionBlock:(AutoAlertViewClickHandler)completionBlock{
     //提示是否保存到模版
     ADSimpleAlertView *alertView = [[ADSimpleAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
     alertView.delegate = alertView;
-    alertView.tag = 2;
-    [alertView setClickHandler:clickHandler];
+//    alertView.tag = 2;
+    
+    AutoAlertViewClickHandler handler = ^(BOOL confirm) {
+        if (confirm) {
+            //Save UserInputParams
+            [self setupAnamorphParamsSave];
+            completionBlock(YES);
+        }
+        else{
+            //Dont Save. Exist to original userInputParams
+            [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+                [self flushUIUserInputParams];
+                [UIView animateWithDuration:0 delay:CylinderResetDelay options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                } completion:^(BOOL finished) {
+                    completionBlock(NO);
+                }];
+            }];
+        }
+    };
+    
+    [alertView setClickHandler:handler];
     [alertView show];
 }
 
@@ -399,28 +417,12 @@ static float DeviceWidth = 0.154;
     [self lockInteraction:true];
     
     if (self.isSetupMode) {
-        [self setupAnamorphParamsAnimationCompletion:^{
-            [self lockInteraction:false];
-            
-            [self tutorialStartCurrentStep];
-        }];
+        [self setupAnamorphParamsBegan];
     }
     else{
         //提示是否保存到模版
-        [self alvertSaveUserInputParamsWithClickBlock:^(BOOL confirm) {
-            if (confirm) {
-                //Save UserInputParams
-                [self setupAnamorphParamsSave];
-                [self setupAnamorphParamsDone];
-            }
-            else{
-                //Dont Save. Exist to original userInputParams
-                [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
-                    [self flushUIUserInputParams];
-                    [self setupAnamorphParamsDone];
-                    //        [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
-                }];
-            }
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+            [self setupAnamorphParamsDone];
        }];
     }
 }
@@ -439,28 +441,15 @@ static float DeviceWidth = 0.154;
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
     [self productInfo];
 }
-
-- (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    NSString *logString = self.isReversePaint ? @"reversePaintButtonTouchUp" : @"paintButtonTouchUp";
-    [RemoteLog logAction:logString identifier:sender];
-    
-    [self tutorialStepNextImmediate:false];
-    
-    //UI
-    [self lockInteraction:true];
-    sender.selected = true;
-    
-    //保存变形的参数
-    [self setupAnamorphParamsSave];
-    
+- (void)paint{
     //开始转换到绘图
     if (self.isReversePaint) {
         //hide cylinder
-//        self.cylinder.active = false;
-//        self.cylinderInterLight.active = false;
-//        self.cylinderTopLight.active = false;
-//        self.cylinderBottom.active = false;
-//        [self glkView:self.projectView drawInRect:self.projectView.frame];
+        //        self.cylinder.active = false;
+        //        self.cylinderInterLight.active = false;
+        //        self.cylinderTopLight.active = false;
+        //        self.cylinderBottom.active = false;
+        //        [self glkView:self.projectView drawInRect:self.projectView.frame];
         
         //创建临时paintDoc
         ADPaintDoc* paintDoc = [ADPaintFrameManager curGroup].curPaintDoc;
@@ -482,7 +471,7 @@ static float DeviceWidth = 0.154;
         ADPaintLayer *newLayer = [ADPaintLayer createBlankLayerWithSize:self.view.bounds.size transparent:true];
         NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
         paintDoc.reverseData.layers = layers;
-
+        
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
@@ -494,33 +483,28 @@ static float DeviceWidth = 0.154;
         [self setupAnamorphParamsDoneAnimationCompletion:^{
             [self transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
         }];
-
+        
     }
+}
 
+- (IBAction)paintButtonTouchUp:(UIButton *)sender {
+    NSString *logString = self.isReversePaint ? @"reversePaintButtonTouchUp" : @"paintButtonTouchUp";
+    [RemoteLog logAction:logString identifier:sender];
     
-    //do some work
-//    if (self.isTopViewMode) {
-//        self.isTopViewMode = !self.isTopViewMode;
-//        
-//        if (!self.setupButton.selected) {
-//            [self setupAnamorphParamsDoneCompletion:^{
-//                REAnimationClip *animClip = [RECamera.mainCamera.animation.clips valueForKey:@"topToBottomAnimClip"];
-//                REPropertyAnimation *propAnim = animClip.propertyAnimations.firstObject;
-//                [propAnim setCompletionBlock:^{
-//                    [self transitionToPaint];
-//                }];
-//                RECamera.mainCamera.animation.clip = animClip;
-//                RECamera.mainCamera.animation.target = self;
-//                [RECamera.mainCamera.animation play];
-//            }];
-//        }
-//        
-//
-//    }
-//    else{
-//
-//    }
-
+    [self tutorialStepNextImmediate:false];
+    
+    //UI
+    [self lockInteraction:true];
+    sender.selected = true;
+    
+    if (self.isSetupMode) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+            [self paint];
+        }];
+    }
+    else{
+        [self paint];
+    }
 }
 
 #pragma mark- 转换Transition
@@ -1172,15 +1156,21 @@ static float DeviceWidth = 0.154;
 
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.infoButton.selected = false;
-    
     AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
     [appDelegate initTutorialManager];
-    
-    if (self.delegate) {
-        [self.delegate willTransitionToTutorial];
+
+    if (self.isSetupMode) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+            if (self.delegate) {
+                [self.delegate willTransitionToTutorial];
+            }
+        }];
     }
-    //完成初始化后设置开始页面
-//    [self galleryButtonTouchUp:self.galleryButton];
+    else{
+        if (self.delegate) {
+            [self.delegate willTransitionToTutorial];
+        }
+    }
 }
 #pragma mark- 内容CylinderProject View
 
@@ -2908,35 +2898,35 @@ static float DeviceWidth = 0.154;
 }
 
 #pragma mark- 处理警告 UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    if (alertView.tag == 2) {
-
-        switch (buttonIndex) {
-            case 0:
-            {
-                //Dont Save. Exist to original userInputParams
-                [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
-                    [self flushUIUserInputParams];
-                    [self setupAnamorphParamsDone];
-                    //        [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
-                }];
-            }
-            break;
-            case 1:
-            {
-                //Save UserInputParams
-                [self setupAnamorphParamsSave];
-                [self setupAnamorphParamsDone];
-            }
-            break;
-
-            default:
-                break;
-        }
-        
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    
+//    if (alertView.tag == 2) {
+//
+//        switch (buttonIndex) {
+//            case 0:
+//            {
+//                //Dont Save. Exist to original userInputParams
+//                [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
+//                    [self flushUIUserInputParams];
+//                    [self setupAnamorphParamsDone];
+//                    //        [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
+//                }];
+//            }
+//            break;
+//            case 1:
+//            {
+//                //Save UserInputParams
+//                [self setupAnamorphParamsSave];
+//                [self setupAnamorphParamsDone];
+//            }
+//            break;
+//
+//            default:
+//                break;
+//        }
+//        
+//    }
+//}
 
 #pragma mark- 弹出框代理 UIPopoverViewControllerDelegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{

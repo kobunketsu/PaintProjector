@@ -50,6 +50,12 @@
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:srcRect];
     imageView.image = image;
+    //prevented to be clipped
+    imageView.layer.zPosition = 1000;
+    //add perspective
+    CATransform3D transform = imageView.layer.transform;
+    transform.m34 = -1.0 / 1000;
+    imageView.layer.transform = transform;
     [containerView addSubview:toView];
     [containerView sendSubviewToBack:toView];
     [containerView addSubview:imageView];
@@ -64,21 +70,25 @@
     DebugLogWarn(@"presentingAnimateTransition hiding all paintFrames");
     [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
         paintCollectionVC.view.alpha = 0;
-        
+
         for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
             [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
         }
-        
+
         [imageView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
-        //初始化
         DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect");
         toView.alpha = 1;
+        
+        [imageView spinViewAngle:DEGREES_TO_RADIANS(360) keyPath:@"transform.rotation.y" duration:PaintFrameMoveAnimationDuration delay:0 option:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear completion:^(BOOL finished) {
+        }];
+        
         [UIView animateWithDuration:PaintFrameMoveAnimationDuration animations:^{
             [imageView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
             imageView.frame = destRect;
+   
         } completion:^(BOOL finished) {
             DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect finished");
             //加入转换imageView用来fill containView 消失之后带来的问题
@@ -119,6 +129,7 @@
             DebugLog(@"transitionContext completed");
             //        }];
         }];
+        
     }];
     
 

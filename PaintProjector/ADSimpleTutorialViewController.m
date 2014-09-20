@@ -191,6 +191,7 @@
 
 
 - (IBAction)tutorialDoneButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"tutorialDoneButtonTouchUp" identifier:sender];
     //结束tutorialVC
     if (self.delegate) {
         [self.delegate willTutorialViewControllerDissmiss];
