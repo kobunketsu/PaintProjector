@@ -13,5 +13,5 @@
     UIColor *_color;
 }
 @property(retain, nonatomic) UIColor *color;
-
+@property(retain, nonatomic) UIColor *srcColor;
 @end

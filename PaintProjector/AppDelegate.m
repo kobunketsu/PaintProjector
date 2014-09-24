@@ -54,12 +54,25 @@
 //    [DBAccountManager setSharedManager:accountMgr];
 //
 #if DEBUG
-    //设置用户参数
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
+        //其他
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"UsingBrushId"];
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
+    }
+    
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
     
@@ -85,6 +98,10 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
+        
+        //其他
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"UsingBrushId"];
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
     }
 
 #endif
@@ -237,6 +254,9 @@
     
     //向后翻页
     [tutorial addActionStep:@"CylinderProjectNextImage" description:NSLocalizedString(@"CylinderProjectNextImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
+    
+    //向后翻页
+    [tutorial addActionStep:@"CylinderProjectPreviousImage" description:NSLocalizedString(@"CylinderProjectPreviousImage", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp];
     
     //放置设备
     [tutorial addActionStep:@"CylinderProjectPutDevice" description:NSLocalizedString(@"CylinderProjectPutDevice", nil) bounds:CGRectMake(0, 0, TutorialGrid*5, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown];

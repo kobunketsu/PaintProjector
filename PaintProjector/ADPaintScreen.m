@@ -97,8 +97,8 @@
 
 - (void)afterPresentation{
     //同时更新UI
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
         [self tutorialStartCurrentStep];
         [self transitionToTutorial];
     }];
@@ -155,13 +155,18 @@
     
     //指定当前笔刷
     self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
-    NSInteger brushId = [[NSUserDefaults standardUserDefaults] integerForKey:@"BrushId"];
+    NSInteger brushId = [[NSUserDefaults standardUserDefaults] integerForKey:@"UsingBrushId"];
     ADBrush *brush = self.brushTypeScrollView.brushTypes[brushId];
+//    ADBrush *brush = [[NSUserDefaults standardUserDefaults] objectForKey:@"UsingBrush"];
+//    if(!brush){
+//        brush = self.brushTypeScrollView.brushTypes[0];
+//    }
     ADBrush *brushCopy = [brush copy];
     [self.paintView setBrush:brushCopy];
     
-    ADBrush *eraser = self.brushTypeScrollView.brushTypes[1];
-    self.brushBackButton.brush = [eraser copy];
+    NSInteger backBrushId = [[NSUserDefaults standardUserDefaults] integerForKey:@"BackBrushId"];
+    ADBrush *backBrush = self.brushTypeScrollView.brushTypes[backBrushId];
+    self.brushBackButton.brush = [backBrush copy];
     
 }
 - (void)viewDidAppear:(BOOL)animated{
@@ -532,6 +537,7 @@
         case UIGestureRecognizerStateBegan: {
             DebugLog(@"EyeDrop Begin");
             if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
+                self.eyeDropperIndicatorView.srcColor = [self.paintView.brush.brushState.color copy];
                 CGPoint point = [self willGetEyeDropLocation];
                 [self.paintView eyeDropColor:point];
                 
@@ -890,13 +896,11 @@
                 self.clearEffectView.alpha = 1.0;
             } completion:^(BOOL finished) {
                 [self.paintView clearData];
-//                [self requestClearData];
                 self.clearEffectView.hidden = true;
                 
                 //工具栏
                 self.clearButton.highlighted = false;
                 [self.clearButton.layer setNeedsDisplay];
-//                [self updateFuzzyTransparentViews];
             }];
             break;
         }
@@ -1044,7 +1048,7 @@
     CGFloat x = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.x"]).floatValue;
     CGFloat y = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.y"]).floatValue;
     
-    DebugLogWarn(@"start to change layer");
+    DebugLog(@"start to change layer");
     DebugLog(@"before layer translation x:%.1f y:%.1f", x, y);
     DebugLog(@"before layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
     DebugLog(@"before layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
@@ -1187,9 +1191,9 @@
     }
     
     if (self.isPaintFullScreen) {
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
         //将layerPanel移到顶端
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
     }
 }
 
@@ -1875,7 +1879,7 @@
         //笔刷面板禁止绘图
         self.rootCanvasView.userInteractionEnabled = false;
         
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
 
         //突出当前选择的笔刷
         for (UIView *brushTypeView in self.brushTypeScrollView.subviews) {
@@ -2038,12 +2042,12 @@
     
     [self brushTypeBackButtonTouchUp:self.brushBackButton];
     
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
         
         if (self.isPaintFullScreen) {
-            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
             //将layerPanel移到顶端
-            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
         }
     }];
 }
@@ -2274,12 +2278,12 @@
 - (IBAction)selectBrushRadius:(ADRadiusButton *)sender {
     [RemoteLog logAction:@"selectBrushRadius" identifier:sender];
     self.paintView.brush.brushState.radius = sender.radius;
-    self.radiusSlider.value = (float)sender.radius;
+    [self.radiusSlider setValueByRadius:(float)sender.radius];
 }
 
-- (IBAction)slideBrushRadius:(UISlider *)sender {
+- (IBAction)slideBrushRadius:(ADRadiusSlider *)sender {
     [RemoteLog logAction:@"slideBrushRadius" identifier:sender];
-    self.paintView.brush.brushState.radius = sender.value;
+    self.paintView.brush.brushState.radius = [sender radiusByValue];
     
     //UI
     if (self.radiusIndicatorView.hidden) {
@@ -2323,7 +2327,8 @@
     //根据不同的brush，设置不同的参数
     if ([self.paintView.brush isKindOfClass:[ADFinger class]] ||
         [self.paintView.brush isKindOfClass:[ADOilBrush class]]) {
-        self.paintView.brush.brushState.wet = 1.0 - (float)sender.value;
+//        DebugLogWarn(@"brushState.wet %.1f", 1.0 - powf((float)sender.value, 2));
+        self.paintView.brush.brushState.wet =  MAX(1.0 - powf((float)sender.value, 3), 0.01);
     }
     else{
         self.paintView.brush.brushState.opacity = (float)sender.value;
@@ -2368,7 +2373,8 @@
     //根据不同的brush，设置不同的参数
     if ([self.paintView.brush isKindOfClass:[ADFinger class]] ||
         [self.paintView.brush isKindOfClass:[ADOilBrush class]]) {
-        self.opacitySlider.value = 1.0 - brushState.wet;
+//        DebugLogWarn(@"opacityValue %.1f", 1.0 - sqrtf(brushState.wet));
+        self.opacitySlider.value = 1.0 - powf(brushState.wet, 1.0/3.0);
     }
     else{
         self.opacitySlider.value = brushState.opacity;
@@ -2406,7 +2412,7 @@
     [self.sharedPopoverController dismissPopoverAnimated:true];
     
     UIView *brushButton = self.brushButton;
-    self.radiusSlider.value = self.brushButton.brush.brushState.radius;
+    [self.radiusSlider setValueByRadius:self.brushButton.brush.brushState.radius];
     [self setOpacitySliderValueWithBrushState:self.brushButton.brush.brushState];
     
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
@@ -2426,7 +2432,7 @@
 
 -(void)willBrushPropertyValueChanged:(ADBrushState*)brushState{
     //UI
-    self.radiusSlider.value = brushState.radius;
+    [self.radiusSlider setValueByRadius:brushState.radius];
     
     [self setOpacitySliderValueWithBrushState:brushState];
 }
@@ -2486,7 +2492,7 @@
     //取消自动展示
 //    [self autoShowBrushes:false];
     
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
         _state = PaintScreen_Normal;
         //笔刷面板打开绘图
@@ -2599,8 +2605,8 @@
 - (void)closeDoc{
     DebugLogFuncStart(@"closeDoc");
     [self.paintView transformCanvasReset];
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
         //blocked by paintDoc close;
         
         [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
@@ -2700,7 +2706,15 @@
     [self saveUserSwatch];
     
     //保存当前笔刷
-    [[NSUserDefaults standardUserDefaults] setInteger:self.paintView.brush.brushState.classId forKey:@"BrushId"];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.paintView.brush.brushState.classId forKey:@"UsingBrushId"];
+    
+//    NSMutableData *data = [[NSMutableData alloc] init];
+//    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+//    [archiver encodeObject:self.paintView.brush.brushState forKey:@"UsingBrushStateKey"];
+//    [[NSUserDefaults standardUserDefaults] setObject:archiver forKey:@"UsingBrushState"];
+    
+    //保存备用笔刷
+    [[NSUserDefaults standardUserDefaults] setInteger:self.brushBackButton.brush.brushState.classId forKey:@"BackBrushId"];
 }
 
 //TODO:实现代理
@@ -3164,12 +3178,13 @@
 }
 
 - (TransformInfo)transformImageWithPoint0:(CGPoint)p0 point1:(CGPoint)p1 enableTranslate:(BOOL)enableTranslate enableRotate:(BOOL)enableRotate enableScale:(BOOL)enableScale scaleMode:(ScaleMode)scaleMode enableAnchor:(BOOL)enableAnchor{
-//    DebugLog(@"transformImageWith p0 Tx:%.1f Ty:%.1f p1 Tx:%.1f Ty:%.1f", p0.x, p0.y, p1.x, p1.y);
+    DebugLog(@"transformImageWith p0 Tx:%.1f Ty:%.1f p1 Tx:%.1f Ty:%.1f", p0.x, p0.y, p1.x, p1.y);
     
     CGFloat rotate = 0;
     CGPoint scale = CGPointMake(1, 1);
     CGPoint translate = CGPointZero;
 //    CGPoint anchorPoint = CGPointZero;
+    
     
     if (enableTranslate) {
         CGPoint center = CGPointMake((p0.x + p1.x) * 0.5, (p0.y + p1.y) * 0.5);
@@ -3188,15 +3203,20 @@
     }
     
     if (enableScale) {
+        CGFloat reverseX = (p1.x - p0.x) * _twoFingerVecLast.x < 0 ? -1 : 1;
+        CGFloat reverseY = (p1.y - p0.y) * _twoFingerVecLast.y < 0 ? -1 : 1;
+        
         float s = GLKVector2Distance(GLKVector2Make(p0.x, p0.y), GLKVector2Make(p1.x, p1.y)) / _twoFingerDistanceBegan;
         if (scaleMode == ScaleMode_X) {
-            scale.x = s;
+            scale.x = s * reverseX;
+
         }
         else if (scaleMode == ScaleMode_Y) {
-            scale.y = s;
+            scale.y = s * reverseY;
         }
         else if (scaleMode == ScaleMode_XX) {
-            scale.x = scale.y = s;
+            scale.x = s * reverseX;
+            scale.y = s * reverseY;
         }
         else if (scaleMode == ScaleMode_XY) {
             //no rotation and free scale
@@ -3215,7 +3235,7 @@
             else{
                 scaleY = twoFingerVec.y / _twoFingerVecBegan.y;
             }
-            scale = CGPointMake(scaleX, scaleY);
+            scale = CGPointMake(scaleX * reverseX, scaleY * reverseY);
         }
 
     }
@@ -3492,7 +3512,7 @@
     self.transformButton.selected = true;
     [self.transformButton.layer setNeedsDisplay];
     
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
         [self lockInteraction:false];
     }];
 
@@ -3518,7 +3538,7 @@
     //隐藏MainToolBar PaintToolBar
     self.transformButton.selected = true;
     [self.transformButton.layer setNeedsDisplay];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
         self.mainToolBar.userInteractionEnabled = true;
     }];
 
@@ -3537,7 +3557,7 @@
     
     self.transformButton.selected = false;
     [self.transformButton.layer setNeedsDisplay];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:^{
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
         [self lockInteraction:false];
     }];
     
@@ -3945,7 +3965,6 @@
     });
 
     //UI
-//    [self updateFuzzyTransparentViews];
 }
 - (void) willSetBackgroundLayerClearColorFinished:(UIColor*)clearColor{
     self.paintView.paintData.backgroundLayer.clearColor = [clearColor copy];
@@ -4085,13 +4104,13 @@
                    });
 }
 
-- (IBAction)touchUpInsideUndoButton:(ADUndoButton *)sender{
-    [RemoteLog logAction:@"touchUpInsideUndoButton" identifier:sender];
+- (IBAction)undoButtonTouchUp:(ADUndoButton *)sender{
+    [RemoteLog logAction:@"undoButtonTouchUp" identifier:sender];
     [self undoDraw];
 }
 
-- (IBAction)touchUpInsideRedoButton:(UIButton *)sender {
-    [RemoteLog logAction:@"touchUpInsideRedoButton" identifier:sender];
+- (IBAction)redoButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"redoButtonTouchUp" identifier:sender];
     [self redoDraw];
 }
 
@@ -4125,7 +4144,7 @@
     //更新半径UI
     self.radiusSlider.minimumValue = brush.radiusSliderMinValue;
     self.radiusSlider.maximumValue = brush.radiusSliderMaxValue;
-    self.radiusSlider.value = brush.radius;
+    [self.radiusSlider setValueByRadius:brush.radius];
     
     [self setOpacitySliderValueWithBrushState:brush.brushState];
     
@@ -4165,10 +4184,10 @@
 }
 
 - (void) willStartUIEyeDrop{
-    _eyeDropperIndicatorView.hidden = false;
+    self.eyeDropperIndicatorView.hidden = false;
 
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
 }
 
 //not used
@@ -4244,8 +4263,8 @@
     [self.eyeDropperButton setColor:[UIColor clearColor]];
     
     if (!self.isPaintFullScreen) {
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:nil];
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:nil];
     }
 }
 
@@ -4282,7 +4301,7 @@
 }
 
 - (void) willUpdateUIToolBars{
-//    [self updateFuzzyTransparentViews];
+
 }
 
 //#pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
@@ -4401,10 +4420,7 @@
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"clearButtonTouchUp" identifier:sender];
-//    [(AutoRotateButton*)sender setHighlighted:false];
     
-//    [self.paintView clearData];
-//    [self updateFuzzyTransparentViews];
     [self requestClearData];
     [self.clearButton setNeedsDisplay];
     
@@ -4474,8 +4490,8 @@
             for (UIButton *button in self.fullScreenButtons) {
                 button.hidden = false;
             }
-            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.paintToolBar completion:nil];
-            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.mainToolBar completion:^{
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:nil];
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:^{
                 self.isPaintFullScreen = false;
             }];
 
@@ -4484,8 +4500,8 @@
 
     }
     else{
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:nil];
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:^{
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:^{
             for (UIButton *button in self.fullScreenButtons) {
                 button.hidden = false;
                 button.alpha = 0.0;
@@ -4521,6 +4537,7 @@
     else if ([popoverController.contentViewController isKindOfClass:[ADLayerTableViewController class]]) {
         self.layerButton.selected = false;
         [self.layerButton.layer setNeedsDisplay];
+
     }
     else if ([popoverController.contentViewController isKindOfClass:[ADImportTableViewController class]] ||
              [popoverController.contentViewController isKindOfClass:[UIImagePickerController class]]) {
@@ -4746,8 +4763,8 @@
         
         //如果是反向绘制，退出到cylinderProject的sideView
         if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
-            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil toView:nil completion:nil];
-            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil toView:nil completion:^{
+            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
                 [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
                 [self dismissViewControllerAnimated:true completion:^{
                     [self lockInteraction:false];
@@ -4933,7 +4950,7 @@
     else if ([step.name isEqualToString:@"PaintScreenCloseDoc"]){
         [step.indicatorView targetView:self.closeButton inRootView:self.view];
         
-        if (step.indicatorViews[1]) {
+        if (step.indicatorViews.count > 1) {
             [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 800, 1, 1) inRootView:self.view];
         }
     }
@@ -4956,19 +4973,6 @@
     [self showIndicator];
     
     [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    
-
-//    [self showHelpTips];
-//    [ADSimpleTutorialManager initialize];
-//    [ADSimpleTutorialManager current].delegate = self;
-//    ADSimpleTutorial *tutorial = (ADSimpleTutorial*)[[ADSimpleTutorialManager current] addTutorial:@"TutorialGesture" ofClass:@"ADSimpleTutorial"];
-//    AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
-//    [appDelegate addHelpStepWithTutorial:tutorial];
-//    [[ADSimpleTutorialManager current] activeTutorial:@"TutorialGesture"];
-//    
-//    [self tutorialSetup];
-//    [[ADSimpleTutorialManager current].curTutorial startCurrentStep];
-//    [self transitionToTutorial];
 }
 
 - (void)closeIndicator{
@@ -4987,7 +4991,7 @@
 - (void)showIndicator{
     self.helpViews = [[NSMutableArray alloc]init];
     for (NSInteger i = 0; i < 8; ++i) {
-        ADTutorialIndicatorView *indicatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*2, TutorialGrid*0.8)];
+        ADTutorialIndicatorView *indicatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*2, TutorialGrid*0.7)];
         indicatorView.animated = false;
         indicatorView.alpha = 0;
         indicatorView.arrowDirection = UIPopoverArrowDirectionDown;
@@ -5006,18 +5010,22 @@
                 break;
             case 2:
                 desc = @"PaintScreenHelpBrushRadius";
-                [indicatorView targetView:self.radiusSlider inRootView:self.view];
+                frame = [self.view convertRect:self.radiusSlider.bounds fromView:self.radiusSlider];
+                frame.origin.x += 60;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
                 break;
             case 3:
                 desc = @"PaintScreenHelpBrushOpacity";
-                [indicatorView targetView:self.opacitySlider inRootView:self.view];
+                
+                frame = [self.view convertRect:self.opacitySlider.bounds fromView:self.opacitySlider];
+                frame.origin.x -= 60;
+                [indicatorView targetViewFrame:frame inRootView:self.view];
                 break;
             case 4:
                 desc = @"PaintScreenHelpBrushColor";
-                indicatorView.arrowDirection = UIPopoverArrowDirectionRight;
+                indicatorView.arrowDirection = UIPopoverArrowDirectionUp;
                 frame = [self.view convertRect:self.paintColorButton.bounds fromView:self.paintColorButton];
-                frame.origin.x += 25;
-                frame.origin.y -= 20;
+                frame.origin.y -= 15;
                 [indicatorView targetViewFrame:frame inRootView:self.view];
                 break;
             case 5:
@@ -5032,10 +5040,15 @@
                 break;
             case 7:
                 desc = @"PaintScreenHelpFullScreen";
-                indicatorView.arrowDirection = UIPopoverArrowDirectionRight;
                 frame = [self.view convertRect:self.fullScreenButton.bounds fromView:self.fullScreenButton];
-                frame.origin.y -= 10;
+                frame.origin.x -= 13;
                 [indicatorView targetViewFrame:frame inRootView:self.view];
+                
+                
+//                indicatorView.arrowDirection = UIPopoverArrowDirectionRight;
+//                frame = [self.view convertRect:self.fullScreenButton.bounds fromView:self.fullScreenButton];
+//                frame.origin.y -= 10;
+//                [indicatorView targetViewFrame:frame inRootView:self.view];
                 break;
             default:
                 break;

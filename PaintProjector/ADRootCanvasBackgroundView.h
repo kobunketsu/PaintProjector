@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ADRootCanvasBackgroundViewLayer.h"
 @interface ADRootCanvasBackgroundView : UIView
 
 @end

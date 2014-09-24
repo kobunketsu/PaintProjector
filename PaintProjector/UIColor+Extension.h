@@ -12,6 +12,7 @@
 +(UIColor*)colorWithString:(NSString*)string;
 -(NSString*)colorString;
 
+-(UIColor*)blendColor:(UIColor*)color withAlpha:(CGFloat)alpha;
 #pragma mark- Common Colors
 + (UIColor*)selectableColor;
 @end

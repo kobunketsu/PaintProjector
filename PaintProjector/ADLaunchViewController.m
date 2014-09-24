@@ -462,4 +462,8 @@
 }
 #pragma mark-
 
+- (IBAction)testSliderSlide:(id)sender {
+//    self.backgroundView.blend = ((UISlider*)sender).value;
+//    [self.backgroundView setNeedsDisplay];
+}
 @end

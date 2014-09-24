@@ -21,6 +21,7 @@
 @property (copy, nonatomic) NSString *docPath;
 @property (copy, nonatomic) NSString *thumbImagePath;
 
+
 @property (retain, nonatomic) UIImage *thumbImage;
 @property (assign, nonatomic) CGSize defaultSize;
 + (NSString*)currentVersion;

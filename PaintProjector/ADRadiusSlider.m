@@ -34,8 +34,31 @@
     return self;
 }
 
+- (void)setValueByRadius:(CGFloat)radius{
+    CGFloat valueRange = self.maximumValue - self.minimumValue;
+    self.value = self.minimumValue + sqrtf(((radius - self.minimumValue) / valueRange)) * valueRange;
+}
+
+- (CGFloat)radiusByValue{
+    CGFloat valueRange = self.maximumValue - self.minimumValue;
+    CGFloat radius = self.minimumValue + powf(((self.value - self.minimumValue) / valueRange), 2) * valueRange;
+    return radius;
+}
+
+//- (void)setValue:(float)value{
+////    DebugLog(@"setValue %.1f", super.value);
+//    
+//    super.value = sqrtf((value / self.maximumValue)) * self.maximumValue;
+//}
+
+//- (CGFloat)value{
+////    DebugLog(@"value %.1f", super.value);
+//    return powf((super.value / self.maximumValue), 2) * self.maximumValue;
+//}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code

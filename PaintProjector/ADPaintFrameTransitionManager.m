@@ -67,20 +67,20 @@
     }
     
     //动画隐藏所有paintFrame
-    DebugLogWarn(@"presentingAnimateTransition hiding all paintFrames");
-    [UIView animateWithDuration:PaintFrameFadeAnimationDuration animations:^{
+    toView.alpha = 0;
+    DebugLog(@"presentingAnimateTransition hiding all paintFrames");
+    [UIView animateWithDuration:PaintFrameFadeAnimationDuration*2 animations:^{
         paintCollectionVC.view.alpha = 0;
-
+        toView.alpha = 1;
         for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
-            [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
+            [cell.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
         }
 
         [imageView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
     } completion:^(BOOL finished) {
-        DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect");
-        toView.alpha = 1;
+        DebugLog(@"presentingAnimateTransition translating transitionImageView to destRect");
         
         [imageView spinViewAngle:DEGREES_TO_RADIANS(360) keyPath:@"transform.rotation.y" duration:PaintFrameMoveAnimationDuration delay:0 option:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear completion:^(BOOL finished) {
         }];
@@ -90,7 +90,7 @@
             imageView.frame = destRect;
    
         } completion:^(BOOL finished) {
-            DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect finished");
+            DebugLog(@"presentingAnimateTransition translating transitionImageView to destRect finished");
             //加入转换imageView用来fill containView 消失之后带来的问题
             UIImageView *transitionImageView = [[UIImageView alloc]initWithFrame:destRect];
             transitionImageView.image = imageView.image;
@@ -115,7 +115,7 @@
                 for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                     ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
-                    [cell.paintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
+                    [cell.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
                 }
 //                [paintCollectionVC.curPaintFrameView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
                 
@@ -161,7 +161,7 @@
     [containerView addSubview:fromVC.view];
     
     //动画
-    DebugLogWarn(@"dismissingAnimateTransition translating transitionImageView to destRect");
+    DebugLog(@"dismissingAnimateTransition translating transitionImageView to destRect");
 //    if ([ADTutorialManager current].isActive) {
 //        //如果进入教程模式,将教程首页加到paintCollectionVC的子目录下
 //        [[ADTutorialManager current].curTutorial.curStep addToRootView:toView];

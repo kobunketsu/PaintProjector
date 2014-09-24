@@ -63,6 +63,8 @@
     if ([self.undoStack size] <=1) {//初始化中保留一个初始image
         return;
     }
+    DebugLogWarn(@"undoStack count %zu", self.undoStack.size);
+    
     //把undoStack的顶层的内容推到redoStack中
     [self.redoStack push:[self.undoStack pop]];
     

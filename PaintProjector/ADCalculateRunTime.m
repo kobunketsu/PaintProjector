@@ -25,6 +25,7 @@ CGFloat BNRTimeBlock (void (^block)(void)) {
     CGFloat result = (CGFloat)nanos / NSEC_PER_SEC;
     
 //    DebugLogProfile(@"isEqual: time: %f\n", result);
+    NSLog(@"isEqual: time: %f\n", result);
     
     return result;
 }

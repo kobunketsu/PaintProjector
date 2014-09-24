@@ -118,8 +118,8 @@ static float DeviceWidth = 0.154;
     
     [self.delegate willCompleteLaunchTransitionToCylinderProject];
     
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.iAdBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.downToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.iAdBar completion:nil];
     
     [self tutorialStartCurrentStep];
 }
@@ -472,9 +472,9 @@ static float DeviceWidth = 0.154;
         NSMutableArray *layers = [[NSMutableArray alloc]initWithObjects:newLayer, nil];
         paintDoc.reverseData.layers = layers;
         
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:^{
             [self transitionToPaint:paintDoc];
         }];
     }
@@ -529,10 +529,10 @@ static float DeviceWidth = 0.154;
     [self.delegate willTransitionToGallery];
     
     //ToolBar动画
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil];
     
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:^{
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:^{
         [self lockInteraction:false];
     }];
 }
@@ -581,7 +581,7 @@ static float DeviceWidth = 0.154;
         fromView.layer.anchorPoint = CGPointMake(rectCenter.x / fromView.frame.size.width, rectCenter.y / fromView.frame.size.height);
         fromView.layer.position = rectCenter;
         
-        DebugLogWarn(@"transitionToPaint fromView layer anchorPoint %@ position %@", NSStringFromCGPoint(fromView.layer.anchorPoint), NSStringFromCGPoint(fromView.layer.position));
+        DebugLog(@"transitionToPaint fromView layer anchorPoint %@ position %@", NSStringFromCGPoint(fromView.layer.anchorPoint), NSStringFromCGPoint(fromView.layer.position));
         
         //透明度动画
         transitionImageView.alpha = 0;
@@ -733,7 +733,7 @@ static float DeviceWidth = 0.154;
     //加载paintDoc保存的状态
     [self loadInputParams];
     
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:^{
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.topToolBar completion:^{
         if (block != nil) {
             block();
         }
@@ -748,7 +748,7 @@ static float DeviceWidth = 0.154;
     //恢复到初始状态
     [self resetInputParams];
     
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:nil toView:nil completion:^{
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.topToolBar completion:^{
         if (block != nil) {
             block();
         }
@@ -927,7 +927,7 @@ static float DeviceWidth = 0.154;
     }
     [self closeUserInputParamValueSlider];
 
-    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:self.downToolBar completion:nil];
     
     [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:true outView:self.setupParamsView inView:self.setupSceneView completion:^{
         [self lockInteraction:false];
@@ -943,7 +943,7 @@ static float DeviceWidth = 0.154;
         [self tutorialStartCurrentStep];
     }];
     
-    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.rootView switchDownToolBarToView:self.downToolBar completion:nil];
 }
 
 - (IBAction)setupCylinderRefObjectButtonTouchUp:(UIButton *)sender {
@@ -1148,6 +1148,7 @@ static float DeviceWidth = 0.154;
 #if TESTFLIGHT
 - (void) willOpenBetaTestFeedback{
     [self.sharedPopoverController dismissPopoverAnimated:true];
+    self.infoButton.selected = false;
     [[Questionnaire sharedInstance] show];
 }
 #endif
@@ -2498,7 +2499,7 @@ static float DeviceWidth = 0.154;
             
             //结束教程
             if([[ADSimpleTutorialManager current] isActive]){
-                if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"]) {
+                if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectPreviousImage"]) {
                     [self tutorialStepNextImmediate:YES];
                 }
             }
@@ -2646,9 +2647,9 @@ static float DeviceWidth = 0.154;
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         self.paintButton.selected = false;
-        self.paintScreenVC.closeButton.isReversePaint = self.isReversePaint;
         [self lockInteraction:false];
         
+        self.paintScreenVC.closeButton.isReversePaint = self.isReversePaint;
         [self.paintScreenVC openDoc:paintDoc];
         
         if (self.isReversePaint) {
@@ -2700,7 +2701,7 @@ static float DeviceWidth = 0.154;
     
     if(self.isSetupMode){
         //设定到默认的userInputParams
-        [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:nil completion:nil toView:self.topToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.topToolBar completion:nil];
     }
     
     if (self.isReversePaint) {
@@ -2725,12 +2726,12 @@ static float DeviceWidth = 0.154;
         CGRect rect = [self willGetCylinderMirrorFrame];
         CGFloat scale = self.view.frame.size.width / rect.size.width;
         [fromView.layer setValue:[NSNumber numberWithFloat:scale] forKeyPath:@"transform.scale"];
-        DebugLogWarn(@"willPaintScreenDissmissDoneWithPaintDoc translating");
+        DebugLog(@"willPaintScreenDissmissDoneWithPaintDoc translating");
         [UIView animateWithDuration:CylinderFadeInOutDuration delay:CylinderFadeInOutDeallocDelay options:UIViewAnimationOptionCurveEaseOut animations:^{
             [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         } completion:^(BOOL finished) {
             //实际动画时间超过设定时间，中间有class dealloc发生
-            DebugLogWarn(@"willPaintScreenDissmissDoneWithPaintDoc translation done");
+            DebugLog(@"willPaintScreenDissmissDoneWithPaintDoc translation done");
             fromView.layer.anchorPoint = CGPointMake(0.5, 0.5);
             fromView.layer.position = CGPointMake(fromView.bounds.size.width * 0.5, fromView.bounds.size.height * 0.5);
         }];
@@ -2768,6 +2769,25 @@ static float DeviceWidth = 0.154;
     RECamera.mainCamera.animation.target = self;
     [RECamera.mainCamera.animation play];
 
+    
+    //transition backgroundView
+//    [CATransaction begin];
+//    [CATransaction setAnimationDuration:0.6];
+//    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+//    [CATransaction setCompletionBlock:^{
+//        ((ADRootCanvasBackgroundViewLayer*)(self.rootView.backgroundView.layer)).blend = 0;
+//    }];
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"blend"];
+//    anim.toValue = [NSNumber numberWithFloat:0];
+//    anim.removedOnCompletion = NO;
+//    anim.fillMode = kCAFillModeForwards;
+//    [self.rootView.backgroundView.layer addAnimation:anim forKey:@"blend"];
+//    
+//    [((ADRootCanvasBackgroundViewLayer*)(self.rootView.backgroundView.layer)) addAnimation:anim forKey:@"blend"];
+//    [CATransaction commit];
+    
+    
+    
     //setup
     UIColor *color = [UIColor colorWithRed:72/255.0 green:110/255.0 blue:224/255.0 alpha:1];
 //    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = true;
@@ -2800,7 +2820,25 @@ static float DeviceWidth = 0.154;
     RECamera.mainCamera.animation.clip = animClip;
     RECamera.mainCamera.animation.target = self;
     [RECamera.mainCamera.animation play];
-
+    
+    //transition backgroundView
+//    [CATransaction begin];
+//    [CATransaction setAnimationDuration:0.6];
+//    [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
+//    [CATransaction setCompletionBlock:^{
+//        ((ADRootCanvasBackgroundViewLayer*)(self.rootView.backgroundView.layer)).blend = 1;
+//    }];
+//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"blend"];
+//    anim.toValue = [NSNumber numberWithFloat:1];
+//    anim.removedOnCompletion = NO;
+//    anim.fillMode = kCAFillModeForwards;
+//    [self.rootView.backgroundView.layer addAnimation:anim forKey:@"blend"];
+//    
+//    [((ADRootCanvasBackgroundViewLayer*)(self.rootView.backgroundView.layer)) addAnimation:anim forKey:@"blend"];
+//    [CATransaction commit];
+    
+    
+    
     //setup
 //    self.eyeDistanceButton.userInteractionEnabled = self.eyeHeightButton.userInteractionEnabled = false;
     //    [self.eyeDistanceButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -3024,8 +3062,8 @@ static float DeviceWidth = 0.154;
     self.projectView.userInteractionEnabled = enable;
     
     //打开制定按钮交互
-    if ([step.name isEqualToString:@"CylinderProjectNextImage"]){
-//        [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
+    if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
+        [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         self.projectView.userInteractionEnabled = true;
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
@@ -3106,8 +3144,8 @@ static float DeviceWidth = 0.154;
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
-    if ([step.name isEqualToString:@"CylinderProjectNextImage"]){
-//        [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
+    if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
+        [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
         mirrorRect.origin.y += 200;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.view];
@@ -3270,8 +3308,8 @@ static float DeviceWidth = 0.154;
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
     [RemoteLog logAction:@"bannerViewActionShouldBegin" identifier:nil];
     
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil toView:nil completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil];
+    [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.iAdBar completion:nil];
     return true;
 }
 #endif

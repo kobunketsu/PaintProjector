@@ -67,7 +67,7 @@
     // Drawing code
     ADTransformContentViewLayer *contentLayer = (ADTransformContentViewLayer *)layer;
 
-    DebugLogWarn(@"phase %.1f", contentLayer.phase);
+    DebugLog(@"phase %.1f", contentLayer.phase);
     UIGraphicsPushContext(ctx);
 
     UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: self.bounds];

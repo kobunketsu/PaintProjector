@@ -79,7 +79,41 @@
 //}
 
 - (void)dismissingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
-    [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+    
+//    ADCylinderProjectViewController *toVC = (ADCylinderProjectViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+//    
+//    ADPaintScreen *fromVC = (ADPaintScreen *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//    
+//    UIView *containerView = [transitionContext containerView];
+//    
+//    [containerView addSubview:toVC.view];
+//    
+//    //刷新当前画框内容
+//    if (fromVC.isReversePaint) {
+//    }
+//    else{
+//        NSString *path = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:fromVC.paintDoc.thumbImagePath];
+//        UIImageView *transitionImageView = (UIImageView *)[toVC.view subViewWithTag:100];
+//        transitionImageView.image = [UIImage imageWithContentsOfFile:path];
+//        
+//        transitionImageView.alpha = 1;
+        if ([transitionContext transitionWasCancelled]) {
+            
+        }
+        else {
+        }
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+        
+//        [UIView animateWithDuration:0.4 animations:^{
+//            transitionImageView.alpha = 1;
+//        }completion:^(BOOL finished) {
+//
+//        }];
+//    }
+    
+
+    
+    
 }
 
 //- (void)dismissingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{

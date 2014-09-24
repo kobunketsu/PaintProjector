@@ -34,9 +34,13 @@
 }
 
 + (void)log:(NSString *)name{
+#if DEBUG
+    DebugLogWarn(@"%@", name);
     CLSLog(name, nil);//debug release mode inside
-#if TESTFLIGHT
+#elif TESTFLIGHT
     TFLog(name, nil);
+    CLSLog(name, nil);//debug release mode inside
+#else
 #endif
 }
 @end

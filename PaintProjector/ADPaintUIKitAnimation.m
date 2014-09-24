@@ -13,25 +13,68 @@
 #define TopDownToolBarFadeAnimationDuration 0.4
 
 @implementation ADPaintUIKitAnimation
++ (void)view:(UIView*)view switchDownToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1{
+//    DebugLogFuncStart(@"switchDownToolBarFromView");
+    [fromView.layer removeAllAnimations];
+    
+//    fromView.center = CGPointMake(fromView.center.x, view.bounds.size.height - fromView.bounds.size.height * 0.5);
+    fromView.hidden = false;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        fromView.center = CGPointMake(fromView.center.x, view.bounds.size.height + fromView.bounds.size.height * 0.5);
+    }completion:^(BOOL finished){//显示TransformBar
+//        DebugLogWarn(@"switchDownToolBar completion finished:%i fromView:%@",finished, fromView);
+
+//        fromView.hidden = true;
+        
+        if (block1) {
+            block1();
+        }
+    }];
+}
++ (void)view:(UIView*)view switchDownToolBarToView:(ADTopToolBar*)toView completion: (void (^) (void)) block2{
+//    DebugLogFuncStart(@"switchDownToolBarToView");
+    [toView.layer removeAllAnimations];
+    
+//    toView.center = CGPointMake(toView.center.x, view.bounds.size.height + toView.bounds.size.height * 0.5);
+    toView.hidden = false;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        toView.center = CGPointMake(toView.center.x, view.bounds.size.height - toView.bounds.size.height * 0.5);
+    }completion:^(BOOL finished){
+//        DebugLogWarn(@"switchDownToolBar completion finished:%i toView:%@", finished, toView);
+        toView.hidden = false;
+        
+        if (block2) {
+            block2();
+        }
+    }];
+}
 
 + (void)view:(UIView*)view switchDownToolBarFromView:(ADDownToolBar*)fromView completion: (void (^) (void))block1 toView:(ADDownToolBar*)toView completion: (void (^) (void)) block2{
-    DebugLogFuncStart(@"switchDownToolBar");
+//    DebugLogFuncStart(@"switchDownToolBar");
     //如果存在另一个相同的动画，则需要等另一个动画结束之后才开始。加上一定延迟
     CGFloat delay = 0;
     
-    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    //立刻归位
+    if (fromView) {
+        [fromView.layer removeAllAnimations];
+    }
+    if (toView) {
+        [toView.layer removeAllAnimations];
+    }
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         if (fromView) {
             fromView.center = CGPointMake(fromView.center.x, view.bounds.size.height + fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
-        DebugLog(@"switchDownToolBar completion fromView:%@", fromView);
+//        DebugLogWarn(@"switchDownToolBar completion finished:%i fromView:%@",finished, fromView);
         if (fromView) {
             fromView.hidden = true;
         }
 
         if (toView) {
-//            [toView removeFuzzyTransparent];
-//            toView.hidden = true;
             toView.center = CGPointMake(toView.center.x, view.bounds.size.height + toView.bounds.size.height * 0.5);
             toView.hidden = false;
         }
@@ -39,38 +82,80 @@
         if (block1) {
             block1();
         }
-        
-        [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration animations:^{
+
+        [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             if (toView) {
                 toView.center = CGPointMake(toView.center.x, view.bounds.size.height - toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
-            DebugLog(@"switchDownToolBar completion toView:%@", toView);
+//            DebugLogWarn(@"switchDownToolBar completion finished:%i toView:%@", finished, toView);
             if (block2) {
                 block2();
             }
-//            [toView setFuzzyTransparentSourceView:view];
         }];
     }];
 }
 
-+ (void)view:(UIView*)view switchTopToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1 toView:(ADTopToolBar*)toView completion: (void (^) (void)) block2{
-    DebugLogFuncStart(@"switchTopToolBar");
-    CGFloat delay = 0;
+
++ (void)view:(UIView*)view switchTopToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1{
+//    DebugLogFuncStart(@"switchTopToolBarFromView");
+    [fromView.layer removeAllAnimations];
     
-    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    //    fromView.center = CGPointMake(fromView.center.x, view.bounds.size.height - fromView.bounds.size.height * 0.5);
+    fromView.hidden = false;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
+    }completion:^(BOOL finished){//显示TransformBar
+//        DebugLogWarn(@"switchDownToolBar completion finished:%i fromView:%@",finished, fromView);
+        
+        //        fromView.hidden = true;
+        
+        if (block1) {
+            block1();
+        }
+    }];
+}
++ (void)view:(UIView*)view switchTopToolBarToView:(ADTopToolBar*)toView completion: (void (^) (void)) block2{
+//    DebugLogFuncStart(@"switchTopToolBarToView");
+    [toView.layer removeAllAnimations];
+    
+    //    toView.center = CGPointMake(toView.center.x, view.bounds.size.height + toView.bounds.size.height * 0.5);
+    toView.hidden = false;
+    
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
+    }completion:^(BOOL finished){
+//        DebugLogWarn(@"switchDownToolBar completion finished:%i toView:%@", finished, toView);
+        toView.hidden = false;
+        
+        if (block2) {
+            block2();
+        }
+    }];
+}
++ (void)view:(UIView*)view switchTopToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1 toView:(ADTopToolBar*)toView completion: (void (^) (void)) block2{
+//    DebugLogFuncStart(@"switchTopToolBar");
+    CGFloat delay = 0;
+    //立刻归位
+    if (fromView) {
+        [fromView.layer removeAllAnimations];
+    }
+    if (toView) {
+        [toView.layer removeAllAnimations];
+    }
+
+    [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         if (fromView) {
             fromView.center = CGPointMake(fromView.center.x, -fromView.bounds.size.height * 0.5);
         }
     }completion:^(BOOL finished){//显示TransformBar
-        DebugLog(@"switchTopToolBar completion fromView:%@", fromView);
+//        DebugLogWarn(@"switchTopToolBar completion finished:%i fromView:%@", finished, fromView);
         if (fromView) {
             fromView.hidden = true;
         }
 
         if (toView) {
-//            [toView removeFuzzyTransparent];
-//            toView.hidden = true;
             toView.center = CGPointMake(toView.center.x, -toView.bounds.size.height * 0.5);
             toView.hidden = false;
         }
@@ -79,16 +164,15 @@
             block1();
         }
         
-        [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration animations:^{
+        [UIView animateWithDuration:TopDownToolBarFadeAnimationDuration delay:delay options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             if (toView) {
                 toView.center = CGPointMake(toView.center.x, toView.bounds.size.height * 0.5);
             }
         }completion:^(BOOL finished){
-            DebugLog(@"switchTopToolBar completion toView:%@", toView);
+//            DebugLogWarn(@"switchTopToolBar completion finished:%i toView:%@", finished, toView);
             if (block2) {
                 block2();
             }
-//            [toView setFuzzyTransparentSourceView:view];
         }];
         
     }];

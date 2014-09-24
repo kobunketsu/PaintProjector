@@ -101,6 +101,8 @@
 		0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */; };
 		0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */; };
 		0817B392163C38ED00BD52B2 /* ADPaintScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B38F163C38ED00BD52B2 /* ADPaintScreen.m */; };
+		0817B84A19D08A38006E74C1 /* ADBrushState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B84919D08A38006E74C1 /* ADBrushState.m */; };
+		0817B84B19D08A38006E74C1 /* ADBrushState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0817B84919D08A38006E74C1 /* ADBrushState.m */; };
 		0818DC2D18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m */; };
 		0818DC2E18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818DC2C18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m */; };
 		081A228A16D8555C00F39468 /* RETextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 081A228916D8555C00F39468 /* RETextureManager.m */; };
@@ -554,6 +556,12 @@
 		08B23D9B18560BBC0049584F /* ADTransformContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B23D9A18560BBC0049584F /* ADTransformContentView.m */; };
 		08B24FED170EC0E7007CA9D2 /* ADPaintLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEC170EC0E7007CA9D2 /* ADPaintLayer.m */; };
 		08B24FF0170ECA6E007CA9D2 /* ADPaintLayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B24FEF170ECA6E007CA9D2 /* ADPaintLayerManager.m */; };
+		08B26DF519CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B26DF419CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m */; };
+		08B26DF619CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B26DF419CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m */; };
+		08B26DF919CF145000512A34 /* RootCanvasFullPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B26DF719CF145000512A34 /* RootCanvasFullPattern.png */; };
+		08B26DFA19CF145000512A34 /* RootCanvasFullPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B26DF719CF145000512A34 /* RootCanvasFullPattern.png */; };
+		08B26DFB19CF145000512A34 /* RootCanvasFullPattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B26DF819CF145000512A34 /* RootCanvasFullPattern@2x.png */; };
+		08B26DFC19CF145000512A34 /* RootCanvasFullPattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B26DF819CF145000512A34 /* RootCanvasFullPattern@2x.png */; };
 		08B2A07C18A0930B003C888F /* REDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2A07B18A0930B003C888F /* REDisplay.m */; };
 		08B2A07D18A0930B003C888F /* REDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B2A07B18A0930B003C888F /* REDisplay.m */; };
 		08B2CFA818C0CA9E00D34C1E /* Swatches in Resources */ = {isa = PBXBuildFile; fileRef = 08B2CFA718C0CA9E00D34C1E /* Swatches */; };
@@ -1106,6 +1114,8 @@
 		0815818C196153F100AB1645 /* brushCrayonsShape_r64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brushCrayonsShape_r64.png; path = PaintProjector/Images/brushCrayonsShape_r64.png; sourceTree = SOURCE_ROOT; };
 		0817B38E163C38ED00BD52B2 /* ADPaintScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ADPaintScreen.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0817B38F163C38ED00BD52B2 /* ADPaintScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ADPaintScreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		0817B84819D08A38006E74C1 /* ADBrushState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushState.h; sourceTree = "<group>"; };
+		0817B84919D08A38006E74C1 /* ADBrushState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushState.m; sourceTree = "<group>"; };
 		0818DC2B18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADCustomPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		0818DC2C18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADCustomPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		081A228816D8555C00F39468 /* RETextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RETextureManager.h; path = PaintProjector/RETextureManager.h; sourceTree = "<group>"; };
@@ -1603,6 +1613,10 @@
 		08B24FEC170EC0E7007CA9D2 /* ADPaintLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintLayer.m; sourceTree = "<group>"; };
 		08B24FEE170ECA6E007CA9D2 /* ADPaintLayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintLayerManager.h; sourceTree = "<group>"; };
 		08B24FEF170ECA6E007CA9D2 /* ADPaintLayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintLayerManager.m; sourceTree = "<group>"; };
+		08B26DF319CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRootCanvasBackgroundViewLayer.h; sourceTree = "<group>"; };
+		08B26DF419CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRootCanvasBackgroundViewLayer.m; sourceTree = "<group>"; };
+		08B26DF719CF145000512A34 /* RootCanvasFullPattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RootCanvasFullPattern.png; path = PaintProjector/Images/RootCanvasFullPattern.png; sourceTree = SOURCE_ROOT; };
+		08B26DF819CF145000512A34 /* RootCanvasFullPattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RootCanvasFullPattern@2x.png"; path = "PaintProjector/Images/RootCanvasFullPattern@2x.png"; sourceTree = SOURCE_ROOT; };
 		08B2A07A18A0930B003C888F /* REDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = REDisplay.h; path = PaintProjector/REDisplay.h; sourceTree = "<group>"; };
 		08B2A07B18A0930B003C888F /* REDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REDisplay.m; path = PaintProjector/REDisplay.m; sourceTree = "<group>"; };
 		08B2CFA718C0CA9E00D34C1E /* Swatches */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Swatches; sourceTree = "<group>"; };
@@ -2043,6 +2057,8 @@
 		0822E32319A1CA380094081E /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				08B26DF719CF145000512A34 /* RootCanvasFullPattern.png */,
+				08B26DF819CF145000512A34 /* RootCanvasFullPattern@2x.png */,
 				08083DF419645A8600FDDDE8 /* paintFrame.png */,
 				08086DE718DC8BA200F03EB4 /* checkerUnit.png */,
 				08086E1218DC8BA300F03EB4 /* radiusSliderTracker.png */,
@@ -2667,6 +2683,8 @@
 				085539851751E15C00DECF41 /* Textures */,
 				081A2CE9163CD9F8006EC27A /* ADBrush.h */,
 				081A2CEA163CD9F8006EC27A /* ADBrush.m */,
+				0817B84819D08A38006E74C1 /* ADBrushState.h */,
+				0817B84919D08A38006E74C1 /* ADBrushState.m */,
 				08C58ED41976BF290047C1DC /* ADBrushManager.h */,
 				08C58ED51976BF290047C1DC /* ADBrushManager.m */,
 				0811271D194982A80057BD53 /* ADShaderBrush.h */,
@@ -3032,6 +3050,8 @@
 				08A0315D18DED0C2006EE308 /* ADRootCanvasView.m */,
 				08D639C3196A4F7C00AB3390 /* ADRootCanvasBackgroundView.h */,
 				08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */,
+				08B26DF319CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.h */,
+				08B26DF419CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m */,
 				08B11F5518A6558A00F303B5 /* ADPaintScreenTransitionManager.h */,
 				08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */,
 				082DF31616A166AA007656AA /* ADColorPickerView.h */,
@@ -3386,6 +3406,7 @@
 				08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A02195B0D64006EDCFC /* cylinderMain.png in Resources */,
 				08B8C34219C5EED100CB85BE /* tutorial0_r-Draw.png in Resources */,
+				08B26DFC19CF145000512A34 /* RootCanvasFullPattern@2x.png in Resources */,
 				0822E38519A1D3D70094081E /* AnaDrawAppIcon-72@2x.png in Resources */,
 				2bd9b4e63efc55eb48214f7c /* InfoPlist.strings in Resources */,
 				0822E38B19A1D3D70094081E /* AnaDrawAppiTunesArtwork@2x.png in Resources */,
@@ -3484,6 +3505,7 @@
 				08BFC0D51961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				08B8C31519C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
+				08B26DFA19CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
 				086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				a6559ed589dcc0977b6e52e4 /* cylinderCap.png in Resources */,
 				088313B2199D00E900C49B92 /* fanart-48.png in Resources */,
@@ -3536,6 +3558,7 @@
 				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
 				08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
 				08B8C34119C5EED100CB85BE /* tutorial0_r-Draw.png in Resources */,
+				08B26DFB19CF145000512A34 /* RootCanvasFullPattern@2x.png in Resources */,
 				0822E38419A1D3D70094081E /* AnaDrawAppIcon-72@2x.png in Resources */,
 				0852511F194D853D0087F4AF /* tutorial_viewDevice.png in Resources */,
 				0822E38A19A1D3D70094081E /* AnaDrawAppiTunesArtwork@2x.png in Resources */,
@@ -3634,6 +3657,7 @@
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
 				08B8C31419C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
+				08B26DF919CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				0875131119580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
 				088313B1199D00E900C49B92 /* fanart-48.png in Resources */,
@@ -3778,6 +3802,7 @@
 				08FB9B121942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
 				086CF4A01919E6EB000F1FBB /* RERenderSettings.m in Sources */,
 				083A810C19356FE30088980E /* RemoteLog.m in Sources */,
+				0817B84B19D08A38006E74C1 /* ADBrushState.m in Sources */,
 				08CEBB39195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */,
 				08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* ADEraser.m in Sources */,
@@ -4004,6 +4029,7 @@
 				5870b9c890bac2d4959be73c /* ADPlayerView.m in Sources */,
 				08BD1A7019CABA0F00E65A05 /* ADLaunchLogoView_A1_Ana.m in Sources */,
 				08E505E21956FD4200ED86BF /* ADTutorialPaintScreenGestureCollectionViewCell.m in Sources */,
+				08B26DF619CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m in Sources */,
 				08234EC318915F32008B4189 /* ADFileButton.m in Sources */,
 				8d64d8874378c84411e6a59e /* ADCylinderProjectView.m in Sources */,
 				08525111194D62200087F4AF /* ADTutorialManager.m in Sources */,
@@ -4112,6 +4138,7 @@
 				08E505DD1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.m in Sources */,
 				081A8C6E19A39CBF007F1B7D /* ADLogMemUsage.m in Sources */,
 				08F9B518164C0691001B3D3D /* ADBrushToolBar.m in Sources */,
+				0817B84A19D08A38006E74C1 /* ADBrushState.m in Sources */,
 				08FD1F99164DF509003738FC /* ADRedoButton.m in Sources */,
 				087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */,
 				0894FF8018AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */,
@@ -4148,6 +4175,7 @@
 				087B9E7D194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */,
 				0867EE121801A09700AACBFF /* ADChineseBrush.m in Sources */,
 				082060D5189D40090027247C /* RETexture.m in Sources */,
+				08B26DF519CEC59100512A34 /* ADRootCanvasBackgroundViewLayer.m in Sources */,
 				08B11F5718A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */,
 				08072EBF1692FD5100E49D2B /* ADBrushTypeButton.m in Sources */,
 				082DF31816A166AB007656AA /* ADColorPickerView.m in Sources */,
@@ -4446,7 +4474,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
+				PROVISIONING_PROFILE = "e19db331-7a8a-4943-86e7-9210069b4e31";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4487,8 +4515,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				PRODUCT_NAME = AnaDraw;
-				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c07cd439-64af-49e9-8567-5a65f7138a17";
+				PROVISIONING_PROFILE = "e19db331-7a8a-4943-86e7-9210069b4e31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e19db331-7a8a-4943-86e7-9210069b4e31";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",
@@ -5007,8 +5035,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "AnaDraw-cal";
-				PROVISIONING_PROFILE = "c07cd439-64af-49e9-8567-5a65f7138a17";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "c07cd439-64af-49e9-8567-5a65f7138a17";
+				PROVISIONING_PROFILE = "e19db331-7a8a-4943-86e7-9210069b4e31";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e19db331-7a8a-4943-86e7-9210069b4e31";
 				REZ_SEARCH_PATHS = (
 					"<Multiple",
 					"values>/**",

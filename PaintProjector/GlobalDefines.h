@@ -10,7 +10,7 @@
 #define PaintProjector_GlobalDefines_h
 
 //版本号
-#define DocVersion     @"1.1"
+#define DocVersion     @"1.11"
 
 //使用广告
 #define UseiAd 0

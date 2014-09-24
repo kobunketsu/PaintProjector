@@ -27,4 +27,16 @@
 + (UIColor*)selectableColor{
     return [UIColor colorWithRed:0 green:0.5 blue:1 alpha:1];
 }
+
+-(UIColor*)blendColor:(UIColor*)color withAlpha:(CGFloat)alpha{
+//    DebugLog(@"srcColor %@", self);
+//    DebugLog(@"targetColor %@", color);
+    const CGFloat* srcColors = CGColorGetComponents(self.CGColor);
+    const CGFloat* targetColors = CGColorGetComponents(color.CGColor);
+    CGFloat r = srcColors[0] * (1-alpha) + targetColors[0] * alpha;
+    CGFloat g = srcColors[1] * (1-alpha) + targetColors[1] * alpha;
+    CGFloat b = srcColors[2] * (1-alpha) + targetColors[2] * alpha;
+    CGFloat a = srcColors[3] * (1-alpha) + targetColors[3] * alpha;
+    return  [UIColor colorWithRed:r green:g blue:b alpha:a];
+}
 @end

@@ -32,6 +32,19 @@
     }
     return self;
 }
+
+
+- (void)setValueByOpacity:(CGFloat)opacity{
+    CGFloat valueRange = self.maximumValue - self.minimumValue;
+    self.value = self.minimumValue + sqrtf(((opacity - self.minimumValue) / valueRange)) * valueRange;
+}
+
+- (CGFloat)opacityByValue{
+    CGFloat valueRange = self.maximumValue - self.minimumValue;
+    CGFloat opacity = self.minimumValue + powf(((self.value - self.minimumValue) / valueRange), 2) * valueRange;
+    return opacity;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect

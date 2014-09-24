@@ -7,6 +7,9 @@
 //
 
 #import "ADEyeDropperIndicatorView.h"
+@interface ADEyeDropperIndicatorView()
+
+@end
 
 @implementation ADEyeDropperIndicatorView
 @synthesize color = _color;
@@ -16,74 +19,134 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _color = [UIColor whiteColor];
+        [self initCustom];
     }
     return self;
 }
 
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initCustom];
+    } 
+    return self;
+}
+
+- (void)initCustom{
+    _color = [UIColor blackColor];
+    _srcColor = [UIColor blackColor];
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    [self drawCanvas1WithFrame:rect srcColor:self.srcColor targetColor:self.color];
+}
+
+- (void)drawCanvas1WithFrame: (CGRect)frame srcColor:(UIColor*)sourceColor targetColor:(UIColor*)targetColor
+{
     //// General Declarations
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.5];
+//    UIColor* targetColor = [UIColor colorWithRed: 0.87 green: 0.224 blue: 0.224 alpha: 1];
+//    UIColor* sourceColor = [UIColor colorWithRed: 0.405 green: 0.827 blue: 0.136 alpha: 1];
+    
+    //// Gradient Declarations
+    CGFloat gradientLocations[] = {0.34, 0.67};
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)targetColor.CGColor, (id)sourceColor.CGColor], gradientLocations);
     
     //// Shadow Declarations
     UIColor* shadow = shadowColor2;
     CGSize shadowOffset = CGSizeMake(0.1, -0.1);
     CGFloat shadowBlurRadius = 10;
     
-    //// Bezier Drawing
-    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint: CGPointMake(44.8, 44.8)];
-    [bezierPath addCurveToPoint: CGPointMake(44.8, 104.2) controlPoint1: CGPointMake(28.4, 61.2) controlPoint2: CGPointMake(28.4, 87.8)];
-    [bezierPath addCurveToPoint: CGPointMake(104.2, 104.2) controlPoint1: CGPointMake(61.2, 120.6) controlPoint2: CGPointMake(87.8, 120.6)];
-    [bezierPath addCurveToPoint: CGPointMake(104.2, 44.8) controlPoint1: CGPointMake(120.6, 87.8) controlPoint2: CGPointMake(120.6, 61.2)];
-    [bezierPath addCurveToPoint: CGPointMake(44.8, 44.8) controlPoint1: CGPointMake(87.8, 28.4) controlPoint2: CGPointMake(61.2, 28.4)];
-    [bezierPath closePath];
-    [bezierPath moveToPoint: CGPointMake(119.75, 29.25)];
-    [bezierPath addCurveToPoint: CGPointMake(119.75, 119.75) controlPoint1: CGPointMake(144.75, 54.24) controlPoint2: CGPointMake(144.75, 94.76)];
-    [bezierPath addCurveToPoint: CGPointMake(29.25, 119.75) controlPoint1: CGPointMake(94.76, 144.75) controlPoint2: CGPointMake(54.24, 144.75)];
-    [bezierPath addCurveToPoint: CGPointMake(29.25, 29.25) controlPoint1: CGPointMake(4.25, 94.76) controlPoint2: CGPointMake(4.25, 54.24)];
-    [bezierPath addCurveToPoint: CGPointMake(119.75, 29.25) controlPoint1: CGPointMake(54.24, 4.25) controlPoint2: CGPointMake(94.76, 4.25)];
-    [bezierPath closePath];
+    //// ColorBlend Drawing
+    UIBezierPath* colorBlendPath = UIBezierPath.bezierPath;
+    [colorBlendPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 45.8)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 105.2) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 29.4, CGRectGetMinY(frame) + 62.2) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 29.4, CGRectGetMinY(frame) + 88.8)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 105.2, CGRectGetMinY(frame) + 105.2) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 62.2, CGRectGetMinY(frame) + 121.6) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 88.8, CGRectGetMinY(frame) + 121.6)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 105.2, CGRectGetMinY(frame) + 45.8) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 121.6, CGRectGetMinY(frame) + 88.8) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 121.6, CGRectGetMinY(frame) + 62.2)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 45.8) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 88.8, CGRectGetMinY(frame) + 29.4) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 62.2, CGRectGetMinY(frame) + 29.4)];
+    [colorBlendPath closePath];
+    [colorBlendPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 30.25)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 120.75) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 145.75, CGRectGetMinY(frame) + 55.24) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 145.75, CGRectGetMinY(frame) + 95.76)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 30.25, CGRectGetMinY(frame) + 120.75) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 95.76, CGRectGetMinY(frame) + 145.75) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 55.24, CGRectGetMinY(frame) + 145.75)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 30.25, CGRectGetMinY(frame) + 30.25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 5.25, CGRectGetMinY(frame) + 95.76) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 5.25, CGRectGetMinY(frame) + 55.24)];
+    [colorBlendPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 30.25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 55.24, CGRectGetMinY(frame) + 5.25) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 95.76, CGRectGetMinY(frame) + 5.25)];
+    [colorBlendPath closePath];
     CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
-    [_color setFill];
-    [bezierPath fill];
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
+    CGContextBeginTransparencyLayer(context, NULL);
+    [colorBlendPath addClip];
+    CGRect colorBlendBounds = CGPathGetPathBoundingBox(colorBlendPath.CGPath);
+    CGContextDrawLinearGradient(context, gradient,
+                                CGPointMake(CGRectGetMidX(colorBlendBounds), CGRectGetMinY(colorBlendBounds)),
+                                CGPointMake(CGRectGetMidX(colorBlendBounds), CGRectGetMaxY(colorBlendBounds)),
+                                0);
+    CGContextEndTransparencyLayer(context);
     CGContextRestoreGState(context);
     
-    [[UIColor whiteColor] setStroke];
-    bezierPath.lineWidth = 2;
-    [bezierPath stroke];
+    [UIColor.whiteColor setStroke];
+    colorBlendPath.lineWidth = 2;
+    [colorBlendPath stroke];
     
-    //// cross Drawing
-    UIBezierPath* crossPath = [UIBezierPath bezierPath];
-    [crossPath moveToPoint: CGPointMake(75, 74)];
-    [crossPath addLineToPoint: CGPointMake(94, 74)];
-    [crossPath addLineToPoint: CGPointMake(94, 76)];
-    [crossPath addLineToPoint: CGPointMake(75, 76)];
-    [crossPath addLineToPoint: CGPointMake(75, 95)];
-    [crossPath addLineToPoint: CGPointMake(73, 95)];
-    [crossPath addLineToPoint: CGPointMake(73, 76)];
-    [crossPath addLineToPoint: CGPointMake(54, 76)];
-    [crossPath addLineToPoint: CGPointMake(54, 74)];
-    [crossPath addLineToPoint: CGPointMake(73, 74)];
-    [crossPath addLineToPoint: CGPointMake(73, 55)];
-    [crossPath addLineToPoint: CGPointMake(75, 55)];
-    [crossPath addLineToPoint: CGPointMake(75, 74)];
-    [crossPath closePath];
+    
+    //// ColorFrame Drawing
+    UIBezierPath* colorFramePath = UIBezierPath.bezierPath;
+    [colorFramePath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 45.8)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 105.2) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 29.4, CGRectGetMinY(frame) + 62.2) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 29.4, CGRectGetMinY(frame) + 88.8)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 105.2, CGRectGetMinY(frame) + 105.2) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 62.2, CGRectGetMinY(frame) + 121.6) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 88.8, CGRectGetMinY(frame) + 121.6)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 105.2, CGRectGetMinY(frame) + 45.8) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 121.6, CGRectGetMinY(frame) + 88.8) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 121.6, CGRectGetMinY(frame) + 62.2)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 45.8, CGRectGetMinY(frame) + 45.8) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 88.8, CGRectGetMinY(frame) + 29.4) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 62.2, CGRectGetMinY(frame) + 29.4)];
+    [colorFramePath closePath];
+    [colorFramePath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 30.25)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 120.75) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 145.75, CGRectGetMinY(frame) + 55.24) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 145.75, CGRectGetMinY(frame) + 95.76)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 30.25, CGRectGetMinY(frame) + 120.75) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 95.76, CGRectGetMinY(frame) + 145.75) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 55.24, CGRectGetMinY(frame) + 145.75)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 30.25, CGRectGetMinY(frame) + 30.25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 5.25, CGRectGetMinY(frame) + 95.76) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 5.25, CGRectGetMinY(frame) + 55.24)];
+    [colorFramePath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 120.75, CGRectGetMinY(frame) + 30.25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 55.24, CGRectGetMinY(frame) + 5.25) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 95.76, CGRectGetMinY(frame) + 5.25)];
+    [colorFramePath closePath];
     CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
-    [[UIColor whiteColor] setFill];
-    [crossPath fill];
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
     CGContextRestoreGState(context);
-
+    
+    [UIColor.whiteColor setStroke];
+    colorFramePath.lineWidth = 2;
+    [colorFramePath stroke];
+    
+    
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(CGRectGetMinX(frame) + 55.25, CGRectGetMinY(frame) + 75, 40.5, 1)];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
+    [UIColor.whiteColor setFill];
+    [rectanglePath fill];
+    CGContextRestoreGState(context);
+    
+    
+    
+    //// Rectangle 2 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, CGRectGetMinX(frame) + 75.5, CGRectGetMinY(frame) + 75.25);
+    CGContextRotateCTM(context, -90 * M_PI / 180);
+    
+    UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(-20.25, -0.5, 40.5, 1)];
+    CGContextSaveGState(context);
+    CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
+    [UIColor.whiteColor setFill];
+    [rectangle2Path fill];
+    CGContextRestoreGState(context);
+    
+    
+    CGContextRestoreGState(context);
+    
+    
+    //// Cleanup
+    CGGradientRelease(gradient);
+    CGColorSpaceRelease(colorSpace);
 }
 
 - (void)setColor:(UIColor *)color {

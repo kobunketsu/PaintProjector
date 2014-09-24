@@ -156,7 +156,7 @@ static float NormalizeAngle (float angle)
 }
 
 + (CGFloat)beizerLengthSteps:(NSUInteger)numOfStep start:(CGPoint)start control:(CGPoint)control end:(CGPoint)end{
-    DebugLog(@"numOfStep %d", numOfStep);
+//    DebugLog(@"numOfStep %d", numOfStep);
     if (numOfStep == 0) {
         return 0;
     }
@@ -205,7 +205,7 @@ static float NormalizeAngle (float angle)
     return p;
 }
 + (CGFloat)beizer3LengthSteps:(NSUInteger)numOfStep start:(CGPoint)start control1:(CGPoint)control1 control2:(CGPoint)control2 end:(CGPoint)end{
-    DebugLog(@"numOfStep %d", numOfStep);
+//    DebugLog(@"numOfStep %d", numOfStep);
     if (numOfStep == 0) {
         return 0;
     }

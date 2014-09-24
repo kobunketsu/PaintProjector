@@ -33,7 +33,7 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    DebugLog(@"ClearGestureRecognizer touchesBegan count %d", touches.count);
+//    DebugLog(@"ClearGestureRecognizer touchesBegan count %d", touches.count);
     [super touchesBegan:touches withEvent:event];
 
     self.toucheCount += touches.count;

@@ -32,7 +32,7 @@
 }
 
 - (ADPaintDoc*)curPaintDoc{
-    DebugLogWarn(@"curPaintDoc index %d", self.curPaintIndex);
+    DebugLog(@"curPaintDoc index %d", self.curPaintIndex);
     if (!self.paintDocs) {
         return nil;
     }

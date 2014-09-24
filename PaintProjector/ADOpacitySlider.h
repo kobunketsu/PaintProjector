@@ -16,4 +16,6 @@
 
 - (void)setColor:(UIColor *)newValue;
 
+- (void)setValueByOpacity:(CGFloat)opacity;
+- (CGFloat)opacityByValue;
 @end

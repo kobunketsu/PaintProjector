@@ -152,7 +152,7 @@
         glViewport(0, 0, self.paintView.bounds.size.width, self.paintView.bounds.size.height);
         
         [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];DebugLogMem(@"did addLayerRenderTexturesFromTexture");
-        DebugLogWarn(@"layerTexture num:%d", self.layerTextures.count);
+        DebugLog(@"layerTexture num:%d", self.layerTextures.count);
         [self.paintData.layers addObject:newLayer];
     }
     [tempRT destroy];DebugLogMem(@"did destroy tempRT");

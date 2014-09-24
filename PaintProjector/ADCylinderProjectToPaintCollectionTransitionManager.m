@@ -69,7 +69,7 @@
     [containerView addSubview:transitionImageView];
     
     //动画
-    DebugLogWarn(@"presentingAnimateTransition translating transitionImageView to destRect");
+    DebugLog(@"presentingAnimateTransition translating transitionImageView to destRect");
     toView.alpha = 0;
     [UIView animateWithDuration:TempPaintFrameToGalleryTranslateDuration animations:^{
         transitionImageView.frame = destRect;

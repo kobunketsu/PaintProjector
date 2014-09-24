@@ -380,6 +380,13 @@
                                 <rect key="frame" x="534" y="430" width="80" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
+                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" id="g23-nl-QFO">
+                                <rect key="frame" x="259" y="497" width="250" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="testSliderSlide:" destination="dCD-DJ-bI0" eventType="valueChanged" id="mDy-9R-aIm"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -2065,7 +2072,7 @@ You will create unbelievable illusion.</string>
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Bfe-fw-T22" userLabel="RootCanvasView" customClass="ADRootCanvasView">
+                            <view contentMode="scaleToFill" id="Bfe-fw-T22" userLabel="RootCanvasView" customClass="ADRootCanvasBackgroundView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -2210,7 +2217,7 @@ You will create unbelievable illusion.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="ADBrushTypeButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6ac-sw-jok" userLabel="Brush" customClass="ADBrushTypeButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="UsingBrush"/>
@@ -2229,7 +2236,7 @@ You will create unbelievable illusion.</string>
                                                     <action selector="brushTypeButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="kB3-9u-9pj"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="ADBrushTypeButton">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gFo-DV-QR3" userLabel="BrushBack" customClass="ADBrushTypeButton">
                                                 <rect key="frame" x="66" y="40" width="66" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="BackupBrush"/>
@@ -2515,7 +2522,7 @@ You will create unbelievable illusion.</string>
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="touchUpInsideUndoButton:" destination="NUX-zI-YbL" eventType="touchUpInside" id="iA0-b9-dHu"/>
+                                                    <action selector="undoButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="JcA-mj-5Dq"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wGv-uB-mqP" userLabel="Redo Button" customClass="ADRedoButton">
@@ -2531,7 +2538,7 @@ You will create unbelievable illusion.</string>
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="touchUpInsideRedoButton:" destination="NUX-zI-YbL" eventType="touchUpInside" id="D1u-lV-TRD"/>
+                                                    <action selector="redoButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="KI4-qX-YOQ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -2852,7 +2859,7 @@ You will create unbelievable illusion.</string>
                         <outlet property="delegate" destination="NUX-zI-YbL" id="Ij1-v9-WwM"/>
                     </connections>
                 </panGestureRecognizer>
-                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="10" minimumPressDuration="0.5" id="oTk-me-Tqm" userLabel="LongPressGR PaintView">
+                <pongPressGestureRecognizer cancelsTouchesInView="NO" allowableMovement="10" minimumPressDuration="0.40000000000000002" id="oTk-me-Tqm" userLabel="LongPressGR PaintView">
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
@@ -3129,7 +3136,7 @@ You will create unbelievable illusion.</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                             <view hidden="YES" opaque="NO" contentMode="top" restorationIdentifier="" id="KoF-0M-tDF" userLabel="TopToolBar" customClass="ADTopToolBar">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <rect key="frame" x="0.0" y="-100" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" id="V80-LC-hYV" userLabel="SetupParamsView">

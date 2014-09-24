@@ -6,7 +6,7 @@ uniform highp vec4 ParamsExtend;//x:使用图形 y:杂点 z:使用涂抹 w:使�
 
 varying lowp vec4 DestinationColor; 
 varying highp vec4 oBrushParam;
-varying highp vec4 oBrushParam2;
+varying highp vec4 oBrushParam2;//w透明锁定
 
 void main ( )
 {
@@ -74,7 +74,13 @@ void main ( )
         //blend smudgeColor(preAlpha) with canvasColor using wet
         lowp vec4 absorbColor = texture2D(smudgeTexture, finalTexcoord);
         highp float paintBlend = shape * flow;
-
+        
+        //TODO:opacityLock
+//        paintBlend = paintBlend * oBrushParam2.w;
+//        if (oBrushParam2.w < 0) {
+//            paintBlend = min(gl_LastFragData[0].a, -paintBlend);
+//        }
+        
         lowp vec3 mixedColor = absorbColor.rgb * wet + (1.0 - wet) * paintColor.rgb;
         lowp float mixedAlpha = absorbColor.a * wet + (1.0 - wet) ;
 
@@ -94,7 +100,8 @@ void main ( )
 //    }
 //#endif
     
-    //debug
     gl_FragColor = vec4(finalColor.rgb, finalAlpha);
+    
+
 }
 

@@ -222,7 +222,7 @@ BrushTypePageControlDelegate
 @property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
 @property (weak, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
 @property (weak, nonatomic) IBOutlet ADEyeDropperIndicatorView *eyeDropperIndicatorView;
-@property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
+@property (weak, nonatomic) IBOutlet ADRadiusSlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet ADEyeDropperButton *eyeDropperButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *colorSlotsScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *layerButton;
@@ -274,7 +274,7 @@ BrushTypePageControlDelegate
 - (IBAction)selectColor:(ADColorButton *)sender;
 - (IBAction)selectColorConfirmed:(ADColorButton *)sender;
 - (IBAction)selectBrushRadius:(ADRadiusButton *)sender;
-- (IBAction)slideBrushRadius:(UISlider *)sender;
+- (IBAction)slideBrushRadius:(ADRadiusSlider *)sender;
 - (IBAction)radiusSliderTouchUpOutside:(ADRadiusSlider *)sender;
 - (IBAction)radiusSliderTouchDown:(ADRadiusSlider *)sender;
 - (IBAction)radiusSliderTouchUp:(ADRadiusSlider *)sender;
@@ -288,8 +288,8 @@ BrushTypePageControlDelegate
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender;
 - (IBAction)previousBrushTypePageButtonTouchUp:(UIButton *)sender;
 - (IBAction)nextBrushTypePageButtonTouchUp:(UIButton *)sender;
-- (IBAction)touchUpInsideUndoButton:(ADUndoButton *)sender;
-- (IBAction)touchUpInsideRedoButton:(UIButton *)sender;
+- (IBAction)undoButtonTouchUp:(ADUndoButton *)sender;
+- (IBAction)redoButtonTouchUp:(UIButton *)sender;
 - (IBAction)syncBrushView:(id)sender;
 - (IBAction)showPaint:(id)sender;
 - (IBAction)colorSlotsSwitchTouchUp:(UIButton *)sender;

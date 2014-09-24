@@ -46,7 +46,7 @@
 }
 
 -(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
-    DebugLogWarn(@"morph %.2f", ((ADLaunchLogoViewLayer *)layer).morph);
+    DebugLog(@"morph %.2f", ((ADLaunchLogoViewLayer *)layer).morph);
     [self drawCanvas1WithContext:ctx morph:((ADLaunchLogoViewLayer *)layer).morph];
 }
 

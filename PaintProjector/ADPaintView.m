@@ -942,7 +942,7 @@
     switch (self.state) {
         //在未确认是绘制触摸前，记录确定的一个触摸点(firstTouch)位置，避免将双触摸点判断为一个触摸点的两个连续的移动点
         case PaintView_TouchNone:{
-            DebugLog(@"state PaintView_TouchNone");
+//            DebugLog(@"state PaintView_TouchNone");
         
             CGPoint location = [self.firstTouch locationInView:self];
             location.y = self.bounds.size.height - location.y;
@@ -962,7 +962,7 @@
             break;
         }
         case PaintView_TouchPaint:{
-            DebugLog(@"state PaintView_TouchPaint");
+//            Debuglog(@"state PaintView_TouchPaint");
             //更新触摸点
             CGPoint location = [self.paintTouch locationInView:self];
             location.y = self.bounds.size.height - location.y;
@@ -1144,7 +1144,7 @@
 }
 
 - (void)_updateRender{
-//    DebugLog(@"[ UpdateRender layer count %d]", self.paintData.layers.count);
+    DebugLog(@"UpdateRender layer count %d", self.paintData.layers.count);
 
     DebugLogGLGroupStart(@"_updateRender Draw Final Framebuffer");
 
@@ -1185,7 +1185,7 @@
 
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
-//    DebugLog(@"[ copyCurLayerToCurPaintedLayer ]");
+    DebugLogFuncStart(@"copyCurLayerToCurPaintedLayer");
     DebugLogGLGroupStart(@"copyCurLayerToCurPaintedLayer");
 
 	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
@@ -1196,7 +1196,7 @@
 }
 
 - (void)copyCurPaintedLayerToCurLayer{
-//    DebugLog(@"[ copyCurPaintedLayerToCurLayer ]");
+    DebugLogFuncStart(@"copyCurPaintedLayerToCurLayer");
 	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
@@ -1283,6 +1283,12 @@
             return NO;
         }
     }
+    else if(state == PaintView_TouchEyeDrop){
+        //如果进入吸管时当前笔刷为橡皮的画，不进入state
+        if ([self.brush isKindOfClass:[ADEraser class]]) {
+            return NO;
+        }
+    }
     
     _state = state;
     return YES;
@@ -1301,7 +1307,7 @@
 }
 
 - (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw{
-    DebugLog(@"[ startDraw! isTapDraw %i]", isTapDraw);
+    DebugLog(@"startDraw! isTapDraw %i", isTapDraw);
 
     //UI
     [self.delegate willEnableDirectEyeDropper:!self.brush.brushState.isAirbrush];
@@ -1562,7 +1568,7 @@
     DebugLogGLGroupStart(@"willBeginUndo");
 
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
-    
+
     //清空实际图层，重新进行绘制
 	[[REGLWrapper current] bindFramebufferOES:self.curLayerTexture.frameBuffer discardHint:false clear:true];
     DebugLogGLGroupEnd();
@@ -1582,6 +1588,8 @@
     DebugLogGLGroupStart(@"willBeginRedo");
 
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
+//    //undo之前强制执行并清空命令
+//    glFinish();
     DebugLogGLGroupEnd();
 }
 
@@ -1610,8 +1618,9 @@
 //    [self drawScreenQuadWithTexture2DPremultiplied:_undoBaseTexture];
 }
 
+//将当前临时layerTexture画到undoBaseTexture中作为基准
 - (void) willEndWrapUndoBaseCommand{
-    DebugLog(@"willWrapUndoBaseCommand draw _curPaintedLayerTexture to _undoBaseFramebuffer");
+    DebugLogFuncStart(@"willWrapUndoBaseCommand draw _curPaintedLayerTexture to _undoBaseFramebuffer");
 
     DebugLogGLGroupStart(@"willWrapUndoBaseCommand");
 
@@ -1628,6 +1637,9 @@
     [self copyCurLayerToCurPaintedLayer];
     
     [self setVBOBrushForImmediate];
+
+    //MARK:修正两次打开图层后绘图出错的问题
+    [self copyCurPaintedLayerToCurLayer];
     
     DebugLogGLGroupEnd();
 }
@@ -1658,6 +1670,7 @@
 }
 
 - (void)resetUndoRedo{
+    DebugLogFuncStart(@"resetUndoRedo");
     //重置undo
     [self.commandManager clearAllCommands];
     [self willEndWrapUndoBaseCommand];
@@ -1752,7 +1765,12 @@
     //预编译部分Shader
     [self prewarmShaders];
     
-    [self setCurLayerIndex:self.paintData.layers.count - 1];
+    if (self.paintData.version.floatValue >= 1.11) {
+        [self setCurLayerIndex:self.paintData.curLayerIndex];
+    }
+    else{
+        [self setCurLayerIndex:self.paintData.layers.count - 1];
+    }
 
     //重置撤销
     [self resetUndoRedo];
@@ -1770,7 +1788,7 @@
 - (void) willExecuteOpenCommand:(ADOpenCommand*)openCommand{
     //do nothing
 }
-//将undobase的基点贴图纹理绘制到当前临时图层上
+//将undobase的基点贴图纹理绘制到当前临时图层上(临时贴图和原始贴图都已经被clear)
 - (void) willExecuteUndoBaseCommand:(ADUndoBaseCommand*)command{
     DebugLog(@"[ willExecuteUndoBaseCommand  copy command.texture to curPaintedLayer ]");
     
@@ -2094,6 +2112,7 @@
         return;
     }
     
+    self.paintData.curLayerIndex = newValue;
     _curLayerIndex = newValue;
     self.curLayerTexture = (RERenderTexture*)self.layerTextures[newValue];
    
@@ -2341,7 +2360,96 @@
     DebugLogGLGroupEnd();
 }
 
+//test
+//混合当前图层和下个图层
+- (void) drawTestLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
+    GLuint program = 0;
+    //    BOOL *lastProgramTransformIdentity;
+    
+    switch (blendMode) {
+        case kLayerBlendModeNormal:
+            program = _programPaintLayerBlendModeNormal;
+            //            lastProgramTransformIdentity = &_lastProgramLayerNormalTransformIdentity;
+            break;
+        case kLayerBlendModeMultiply:
+            program = _programPaintLayerBlendModeMultiply;
+            break;
+        case kLayerBlendModeScreen:
+            program = _programPaintLayerBlendModeScreen;
+            break;
+        case kLayerBlendModeOverlay:
+            program = _programPaintLayerBlendModeOverlay;
+            break;
+        case kLayerBlendModeDarken:
+            program = _programPaintLayerBlendModeDarken;
+            break;
+        case kLayerBlendModeLighten:
+            program = _programPaintLayerBlendModeLighten;
+            break;
+        case kLayerBlendModeColorDodge:
+            program = _programPaintLayerBlendModeColorDodge;
+            break;
+        case kLayerBlendModeColorBurn:
+            program = _programPaintLayerBlendModeColorBurn;
+            break;
+        case kLayerBlendModeSoftLight:
+            program = _programPaintLayerBlendModeSoftLight;
+            break;
+        case kLayerBlendModeHardLight:
+            program = _programPaintLayerBlendModeHardLight;
+            break;
+        case kLayerBlendModeDifference:
+            program = _programPaintLayerBlendModeDifference;
+            break;
+        case kLayerBlendModeExclusion:
+            program = _programPaintLayerBlendModeExclusion;
+            break;
+        case kLayerBlendModeHue:
+            program = _programPaintLayerBlendModeHue;
+            break;
+        case kLayerBlendModeSaturation:
+            program = _programPaintLayerBlendModeSaturation;
+            break;
+        case kLayerBlendModeColor:
+            program = _programPaintLayerBlendModeColor;
+            break;
+        case kLayerBlendModeLuminosity:
+            program = _programPaintLayerBlendModeLuminosity;
+            break;
+        default:
+            break;
+    }
+    
+    [[REGLWrapper current] useProgram:program uniformBlock:nil];
+    
+    //设置太麻烦，统一设数值
+    //    if (! (&lastProgramTransformIdentity)) {
+    GLKMatrix4 matrix = GLKMatrix4Scale(GLKMatrix4Identity, 0.25, 0.25, 1);
+    matrix = GLKMatrix4Translate(matrix, -2, -2, 0);
 
+    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, matrix.m);
+    //        (*lastProgramTransformIdentity) = true;
+    //    }
+    
+    if (self.lastProgramLayerTex != 0) {
+        glUniform1i(_texQuadUniform, 0);
+        self.lastProgramLayerTex = 0;
+    }
+    
+    //    if (self.lastProgramLayerAlpha != opacity) {
+    glUniform1f(_alphaQuadUniform, opacity);
+    //        self.lastProgramLayerAlpha = opacity;
+    //    }
+    
+    [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
+    
+    //already disable blend
+    [[REGLWrapper current] blendFunc:BlendFuncOpaqueAlphaBlend];
+    
+    [[REGLWrapper current] bindVertexArrayOES: _VAOQuad];
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+}
 //混合当前图层和下个图层
 - (void) drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
     GLuint program = 0;
@@ -2805,7 +2913,7 @@
     _imageScale = CGPointMake(scale.x * _imageSrcScale.x, scale.y * _imageSrcScale.y);
     
     
-//    DebugLog(@"freeTransformImageTranslateFinal Tx:%.2f Ty:%.2f  R:%.1f  Sx:%.1f Sy:%.1f Ax:%.1f Ay:%.1f", _imageTranslate.x, _imageTranslate.y, _imageRotate, _imageScale.x, _imageScale.y, _anchorTranslate.x, _anchorTranslate.y);
+    DebugLog(@"freeTransformImageTranslateFinal Tx:%.2f Ty:%.2f  R:%.1f  Sx:%.1f Sy:%.1f Ax:%.1f Ay:%.1f", _imageTranslate.x, _imageTranslate.y, _imageRotate, _imageScale.x, _imageScale.y, _anchorTranslate.x, _anchorTranslate.y);
     
     if (_state == PaintView_TouchTransformLayer) {
         [self drawCurLayerTransformed];

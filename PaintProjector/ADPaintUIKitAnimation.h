@@ -12,9 +12,13 @@
 @class ADTopToolBar;
 
 @interface ADPaintUIKitAnimation : NSObject
-
++ (void)view:(UIView*)view switchDownToolBarFromView:(ADDownToolBar*)fromView completion: (void (^) (void))block1;
++ (void)view:(UIView*)view switchDownToolBarToView:(ADDownToolBar*)toView completion: (void (^) (void)) block2;
 + (void)view:(UIView*)view switchDownToolBarFromView:(ADDownToolBar*)fromView completion: (void (^) (void))block1 toView:(ADDownToolBar*)toView completion: (void (^) (void)) block2;
 
+
++ (void)view:(UIView*)view switchTopToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1;
++ (void)view:(UIView*)view switchTopToolBarToView:(ADTopToolBar*)toView completion: (void (^) (void)) block2;
 + (void)view:(UIView*)view switchTopToolBarFromView:(ADTopToolBar*)fromView completion: (void (^) (void))block1 toView:(ADTopToolBar*)toView completion: (void (^) (void)) block2;
 
 + (void)view:(UIView*)view slideToolBarRightDirection:(BOOL)right outView:(UIView*)outView inView:(UIView*)inView completion: (void (^) (void)) block1;

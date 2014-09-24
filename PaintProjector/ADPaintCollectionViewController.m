@@ -306,7 +306,7 @@
         //优化UI交互，在didHighlightItemAtIndexPath动画调用结束之后进行。
         self.toViewPaintFrame = true;
 //        [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil toView:nil completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.downToolBar completion:nil];
     }
     //编辑状态
     else{
@@ -327,7 +327,7 @@
         cell.cellFrame.layer.shadowRadius = 3;
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 2);
     }completion:^(BOOL finished) {
-        DebugLogWarn(@"didHighlightItemAtIndexPath anim completed");
+        DebugLog(@"didHighlightItemAtIndexPath anim completed");
     }];
 
 //    [cell.layer setNeedsDisplay];
@@ -343,7 +343,7 @@
         cell.cellFrame.layer.shadowRadius = 10;
         cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 5);
     }completion:^(BOOL finished) {
-        DebugLogWarn(@"didUnhighlightItemAtIndexPath anim completed");
+        DebugLog(@"didUnhighlightItemAtIndexPath anim completed");
         if (self.toViewPaintFrame) {
             [self createActivityViewFromRect:cell];
             [self viewPaintFrame:cell.paintFrameView paintDirectly:false];
@@ -392,7 +392,7 @@
     //prepare seque
     [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
-        [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:nil completion:nil toView:self.downToolBar completion:nil];
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.downToolBar completion:nil];
     }];
 }
 
@@ -664,8 +664,24 @@
         if ([self.collectionView numberOfItemsInSection:0] == 0) {
             return;
         }
+        
+        //不同的Tutorial指定不同的图片
+        NSInteger index = 0;
+        if ([step.tutorialName isEqualToString:@"TutorialAnaDrawBasic"]) {
+            index = 0;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialAdvancedSetup"]) {
+            index = 1;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialDrawReflection"]) {
+            index = 2;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialDrawAnamorphosis"]) {
+            index = 2;
+        }
+        
         for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
-            if (i == TutorialPickImageIndex) {
+            if (i == index) {
                 continue;
             }
             UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -679,17 +695,25 @@
 
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];
-//        step.contentView.alpha = 0;
-//        __weak ADTutorialStep *stepWeak = step;
-//        [step setFadeInAnimationBlock:^{
-//            [UIView animateWithDuration:TutorialFadeInOutDuration animations:^{
-//                stepWeak.contentView.alpha = 1;
-//            }];
-//        }];
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
+        //不同的Tutorial指定不同的图片
+        NSInteger index = 0;
+        if ([step.tutorialName isEqualToString:@"TutorialAnaDrawBasic"]) {
+            index = 0;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialAdvancedSetup"]) {
+            index = 1;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialDrawReflection"]) {
+            index = 2;
+        }
+        else if ([step.tutorialName isEqualToString:@"TutorialDrawAnamorphosis"]) {
+            index = 2;
+        }
+        
         //对齐第一个image的底面
-        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:TutorialPickImageIndex inSection:0]];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
         CGRect rect = step.indicatorView.frame;
         rect.size.width = cell.frame.size.width;
         step.indicatorView.frame = rect;

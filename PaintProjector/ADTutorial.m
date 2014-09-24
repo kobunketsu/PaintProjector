@@ -13,6 +13,7 @@
 
 - (ADTutorialStep *)addStep:(NSString *)name{
     ADTutorialStep *step = [[ADTutorialStep alloc]init];
+    step.tutorialName = self.name;
     step.name = name;
     [self.steps addObject:step];
     return step;
@@ -53,7 +54,7 @@
     self.curStepIndex = -1;
 }
 -(void)setCurStepIndex:(NSInteger)curStepIndex{
-    DebugLogWarn(@"setCurStepIndex %d", curStepIndex);
+    DebugLog(@"setCurStepIndex %d", curStepIndex);
     _curStepIndex = curStepIndex;
     
     if (curStepIndex < 0 || curStepIndex >= self.steps.count) {

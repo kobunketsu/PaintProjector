@@ -12,4 +12,6 @@
 {
     ADRadiusIndicatorView *_indicatorView;
 }
+- (void)setValueByRadius:(CGFloat)radius;
+- (CGFloat)radiusByValue;
 @end

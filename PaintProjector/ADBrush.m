@@ -16,40 +16,6 @@
 #define curveTesselateScale 0.25
 #define curveFixJitterIter 20
 
-@class ADBrushState;
-@implementation ADBrushState
-
-- (id)copyWithZone:(NSZone *)zone{
-    ADBrushState *state = [[ADBrushState alloc] init];
-    state.classId = self.classId;
-    state.radius = self.radius;
-    state.radiusJitter = self.radiusJitter;
-    state.radiusFade = self.radiusFade;
-    state.hardness = self.hardness;
-    state.roundness = self.roundness;
-    state.angle = self.angle;
-    state.angleJitter = self.angleJitter;
-    state.angleFade = self.angleFade;
-    state.color = self.color;
-    state.opacity = self.opacity;
-    state.flow = self.flow;
-    state.flowJitter = self.flowJitter;
-    state.flowFade = self.flowFade;
-    state.seed = self.seed;
-    state.spacing = self.spacing;
-    state.scattering = self.scattering;
-    state.isPatternTexture = self.isPatternTexture;
-    state.isAirbrush = self.isAirbrush;
-    state.isShapeTexture = self.isShapeTexture;
-    state.isVelocitySensor = self.isVelocitySensor;
-    state.isRadiusMagnifySensor = self.isRadiusMagnifySensor;
-    state.wet = self.wet;
-    
-    return state;
-}
-
-@end
-
 @interface ADBrush()
 #pragma mark- Core
 @property (assign, nonatomic) CGFloat lastSegmentTailLength;//上一次片段未绘制的长度
@@ -373,6 +339,7 @@
             brushState.hardness != lastBrushState.hardness ||
             brushState.roundness != lastBrushState.roundness ||
             brushState.wet != lastBrushState.wet) {
+//            DebugLogWarn(@"prepareWithBrushState brushState.wet %.1f", brushState.wet);
             [self.material setVector:GLKVector4Make(0, brushState.hardness, brushState.roundness, brushState.wet) forPropertyName:@"Params"];
         }
         
@@ -498,7 +465,7 @@
     
 	//当前描画点
     self.curSegmentEndPoint = CGPointMake((start.x + end.x)*0.5, (start.y + end.y)*0.5);
-    DebugLog(@"renderSegment lastSegmentEndPoint x:%.0f y:%.0f | start x:%.0f y:%.0f | curSegmentEndPoint x:%.0f y:%.0f | end x:%.0f y:%.0f", self.lastSegmentEndPoint.x, self.lastSegmentEndPoint.y, start.x, start.y, self.curSegmentEndPoint.x, self.curSegmentEndPoint.y, end.x, end.y);
+//    DebugLog(@"renderSegment lastSegmentEndPoint x:%.0f y:%.0f | start x:%.0f y:%.0f | curSegmentEndPoint x:%.0f y:%.0f | end x:%.0f y:%.0f", self.lastSegmentEndPoint.x, self.lastSegmentEndPoint.y, start.x, start.y, self.curSegmentEndPoint.x, self.curSegmentEndPoint.y, end.x, end.y);
 
     //绘制间隔
     CGFloat spacing = brushState.radius * 2 * brushState.spacing;
@@ -601,9 +568,9 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         else{
             //max: atan(-paintDistance/30.0+0.5) = 2 - M_PI/2 = 0.43 (25 degree)--> -paintDistance/30.0 ~ 0
             //min: atan(-paintDistance/30.0+0.5) = - M_PI/2 = -1.57 (-90 degree)--> paintDistance ~ 60(2.07 * 30)
-            self.curStrokedFade = (atan(-self.curSegmentSpeed/30 + 0.5) + M_PI/2) / 2;
+            self.curStrokedFade = (atan(-self.curSegmentSpeed/15 + 0.5) + M_PI/2) / 2;
 //            self.curStrokedFade = (atan(-self.curStrokedLength/120 + 2) + M_PI/2) / 2;
-            DebugLogWarn(@"curStrokedFade %.1f", self.curSegmentSpeed);
+            DebugLog(@"curStrokedFade %.1f", self.curSegmentSpeed);
         }
     }
     
@@ -627,7 +594,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     //计算vertex data
     float x, y;
     float t = 0.0;
-    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
+//    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
 
     //非匀速绘制
     for(int i = 0; i < count; i++,t += 1.0 / (count))

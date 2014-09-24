@@ -29,15 +29,17 @@
 #define kTitleKey               @"Title"
 #define kVersionKey             @"Version"
 #define kLayerKey               @"Layers"
+#define kCurLayerIndexKey       @"CurLayerIndex"
 #define kBackgroundLayerKey     @"BackgroundLayer"
 #define kUserInputParamsKey     @"UserInputParams"
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:self.version forKey:kVersionKey];
+    [encoder encodeObject:DocVersion forKey:kVersionKey];
     if (self.version.floatValue <= ((NSString*)DocVersion).floatValue) {
         [encoder encodeObject:self.title forKey:kTitleKey];
         [encoder encodeObject:self.layers forKey:kLayerKey];
         [encoder encodeObject:self.backgroundLayer forKey:kBackgroundLayerKey];
+        [encoder encodeInteger:self.curLayerIndex forKey:kCurLayerIndexKey];
     }
     else{
         DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
@@ -52,6 +54,10 @@
             _title = [decoder decodeObjectForKey:kTitleKey];
             _layers = [decoder decodeObjectForKey:kLayerKey];
             _backgroundLayer = [decoder decodeObjectForKey:kBackgroundLayerKey];
+            
+            if (_version.floatValue >= 1.11) {
+                _curLayerIndex = [decoder decodeIntegerForKey:kCurLayerIndexKey];
+            }
         }
         else{
             DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
@@ -68,7 +74,7 @@
         data.title = self.title;
         data.layers = [[NSMutableArray alloc]initWithArray:self.layers copyItems:YES];
         data.backgroundLayer = [self.backgroundLayer copyWithZone:zone];
-
+        data.curLayerIndex = self.curLayerIndex;
     }
     else{
         DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);

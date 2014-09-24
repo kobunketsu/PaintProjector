@@ -22,5 +22,5 @@
 @property (copy) NSString *title;//标题
 @property (retain, nonatomic) NSMutableArray *layers;//绘画图层
 @property (retain, nonatomic) ADBackgroundLayer *backgroundLayer;//背景层
-
+@property (assign, nonatomic) NSInteger curLayerIndex;
 @end

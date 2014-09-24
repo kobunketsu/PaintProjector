@@ -273,4 +273,7 @@ typedef struct {
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer;
 //取色
 - (void)eyeDropColor:(CGPoint)point;
+
+- (void)copyCurLayerToCurPaintedLayer;
+- (void)copyCurPaintedLayerToCurLayer;
 @end

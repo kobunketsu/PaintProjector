@@ -34,7 +34,7 @@ static ADBrushState *brushStateFinger = nil;
 }
 
 - (void)setRadiusSliderValue{
-    self.radiusSliderMinValue = 5;
+    self.radiusSliderMinValue = 2;
     self.radiusSliderMaxValue = 40;
 }
 

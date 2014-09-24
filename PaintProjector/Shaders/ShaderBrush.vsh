@@ -2,7 +2,7 @@ attribute vec4 Position; //z 大小, w 角度
 attribute vec4 SourceColor;//颜色
 
 uniform mat4 Projection;
-uniform vec4 Params; //x: y:硬度 z:圆度 w:涂抹强度
+uniform vec4 Params; //x:透明锁定 y:硬度 z:圆度 w:涂抹强度
 
 varying lowp vec4 DestinationColor;//颜色
 varying highp vec4 oBrushParam; //x:角度 y:硬度 z:圆度 w:涂抹强度
@@ -22,5 +22,5 @@ void main(void) {
     oBrushParam.w = Params.w;//涂抹强度
     oBrushParam2.x = gl_PointSize;
     oBrushParam2.yz = Position.xy;
-
+    oBrushParam2.w = Params.x;
 }

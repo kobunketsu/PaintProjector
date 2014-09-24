@@ -70,7 +70,7 @@
 		return nil;
 	}
     
-    DebugLogWarn(@"create fbo:%u tex:%u  name:%@", rt, tex, texture.name);
+    DebugLog(@"create fbo:%u tex:%u  name:%@", rt, tex, texture.name);
     return texture;
 }
 
