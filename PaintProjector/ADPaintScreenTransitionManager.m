@@ -23,7 +23,9 @@
 
 - (void)presentingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     ADCylinderProjectViewController *fromVC = (ADCylinderProjectViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIView *fromView = fromVC.view;
+    UIView *fromView = fromVC.rootView;
+    
+    DebugLogWarn(@"presentingAnimateTransition fromVC scale %.1f", ((NSNumber*)[fromView.layer valueForKeyPath:@"transform.scale"]).floatValue);
     
     ADPaintScreen *toVC = (ADPaintScreen *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     [toVC prepareForPresentation];

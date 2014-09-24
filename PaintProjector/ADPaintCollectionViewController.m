@@ -539,7 +539,7 @@
         [self.cylinderProjectVC.cylinderProjectCur.animation play];
         
         //隐藏从paintCollectionVC transition 时添加的view
-        UIView *transitionImageView = [self.cylinderProjectVC.view subViewWithTag:100];
+        UIView *transitionImageView = [self.cylinderProjectVC.rootView subViewWithTag:100];
         if (transitionImageView) {
             [UIView animateWithDuration:TempPaintFrameToCylinderFadeOutDuration animations:^{
                 transitionImageView.alpha = 0;

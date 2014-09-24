@@ -26,10 +26,9 @@
 
 
 - (void)presentingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    ADCylinderProjectViewController *toVC = (ADCylinderProjectViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     //初始化view controller
-    ADCylinderProjectViewController *cylinderProjectVC = (ADCylinderProjectViewController *)toVC;
-    cylinderProjectVC.downToolBar.hidden = true;
+    toVC.downToolBar.hidden = true;
 
     UIView *toView = toVC.view;
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -95,7 +94,7 @@
             UIImageView *transitionImageView = [[UIImageView alloc]initWithFrame:destRect];
             transitionImageView.image = imageView.image;
             transitionImageView.tag = 100;
-            [toView addSubview:transitionImageView];
+            [toVC.rootView addSubview:transitionImageView];
             
             [imageView removeFromSuperview];
             imageView.alpha = 1;
@@ -139,7 +138,7 @@
 - (void)dismissingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    ADCylinderProjectViewController *fromVC = (ADCylinderProjectViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIView *containerView = [transitionContext containerView];
     
     ADPaintCollectionViewController *paintCollectionVC = (ADPaintCollectionViewController*)toVC;
@@ -152,7 +151,7 @@
     paintCollectionVC.pageControl.currentPage = (NSInteger)floorf((float)indexPath.row / (float)paintCollectionVC.numberOfPaintPerPage);
     
     //将paintFrameView转换到CylinderProject rootView
-    UIImageView *transitionImageView = (UIImageView *)[fromVC.view subViewWithTag:100];
+    UIImageView *transitionImageView = (UIImageView *)[fromVC.rootView subViewWithTag:100];
     [transitionImageView removeFromSuperview];
     
     //更新scroll位置
