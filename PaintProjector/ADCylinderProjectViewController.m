@@ -34,6 +34,8 @@
 #define FarClipDistance 10
 #define NearClipDistance 0.005
 
+#define PaintDocTitleMinWidth 160
+#define PaintDocTitleFadeInOutDuration 0.2
 #define CylinderFadeInOutDuration 0.4
 #define CylinderFadeInOutDeallocDelay 0.4
 #define CylinderResetParamDuration 0.4
@@ -65,6 +67,7 @@ static float DeviceWidth = 0.154;
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParamsNormal;
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParamsBrowse;//初始用户输入参数
 
+@property (copy, nonatomic) NSString *paintDocTitle;
 @end
 
 @implementation ADCylinderProjectViewController
@@ -120,8 +123,10 @@ static float DeviceWidth = 0.154;
     
     [ADPaintUIKitAnimation view:self.rootView switchDownToolBarToView:self.downToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.rootView switchTopToolBarToView:self.iAdBar completion:nil];
+    [self displayTitle:true withPaintDoc:[ADPaintFrameManager curGroup].curPaintDoc];
     
     [self tutorialStartCurrentStep];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -210,6 +215,8 @@ static float DeviceWidth = 0.154;
     
     [self loadRefObjectUserInputParams];
     
+    self.paintDocNameTextField.placeholder = NSLocalizedString(@"GiveAName", nil);
+    
     //加入广告
 #if UseiAd
     [self createAdBannerView];
@@ -260,17 +267,16 @@ static float DeviceWidth = 0.154;
 - (void)addBackgroundView{
     ADRootCanvasBackgroundView *backgroundView = [[ADRootCanvasBackgroundView alloc]initWithFrame:self.rootView.frame];
     self.rootView.backgroundView = backgroundView;
-//    [self.rootView addSubview:backgroundView];
-//    [self.projectView removeFromSuperview];
-//    [backgroundView addSubview:self.projectView];
-//    [self.rootView sendSubviewToBack:backgroundView];
-    [self.rootView insertSubview:backgroundView belowSubview:self.projectView];
+    [self.rootView addSubview:backgroundView];
+    [self.projectView removeFromSuperview];
+    [backgroundView addSubview:self.projectView];
+    [self.rootView sendSubviewToBack:backgroundView];
 }
 //运行中卸载占用内存的大背景图片
 - (void)destroyBackgroundView{
-//    [self.projectView removeFromSuperview];
-//    [self.rootView addSubview:self.projectView];
-//    [self.rootView sendSubviewToBack:self.projectView];
+    [self.projectView removeFromSuperview];
+    [self.rootView addSubview:self.projectView];
+    [self.rootView sendSubviewToBack:self.projectView];
     [self.rootView.backgroundView removeFromSuperview];
     self.rootView.backgroundView = nil;
 }
@@ -299,6 +305,11 @@ static float DeviceWidth = 0.154;
 }
 
 #pragma mark- 交互控制 UserInteraction
+- (void)lockButtonInteraction:(BOOL)lock{
+    self.iAdBar.userInteractionEnabled = !lock;
+    self.downToolBar.userInteractionEnabled = !lock;
+    self.topToolBar.userInteractionEnabled = !lock;
+}
 - (void)lockInteraction:(BOOL)lock{
     
     if (self.isSetupMode) {
@@ -307,7 +318,7 @@ static float DeviceWidth = 0.154;
     else{
         self.projectView.userInteractionEnabled = !lock;
     }
-
+    self.iAdBar.userInteractionEnabled = !lock;
     self.downToolBar.userInteractionEnabled = !lock;
     self.topToolBar.userInteractionEnabled = !lock;
 }
@@ -362,7 +373,7 @@ static float DeviceWidth = 0.154;
 
 - (void)setupAnamorphParamsSave{
     [ADPaintFrameManager curGroup].curPaintDoc.userInputParams = [self.userInputParams copy];
-    [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
+    [[ADPaintFrameManager curGroup].curPaintDoc saveInfo];
 }
 - (void)setupAnamorphParamsBegan{
     [self setupAnamorphParamsAnimationCompletion:^{
@@ -481,10 +492,14 @@ static float DeviceWidth = 0.154;
     }
     else{
         //reset userinput
-        [self setupAnamorphParamsDoneAnimationCompletion:^{
+        if(self.isSetupMode){
+            [self setupAnamorphParamsDoneAnimationCompletion:^{
+                [self transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
+            }];
+        }
+        else{
             [self transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
-        }];
-        
+        }
     }
 }
 
@@ -733,7 +748,7 @@ static float DeviceWidth = 0.154;
     self.isSetupMode = true;
     //加载paintDoc保存的状态
     [self loadInputParams];
-    
+    [self displayTitle:false withPaintDoc:[ADPaintFrameManager curGroup].curPaintDoc];
     [ADPaintUIKitAnimation view:self.rootView switchTopToolBarToView:self.topToolBar completion:^{
         if (block != nil) {
             block();
@@ -748,8 +763,8 @@ static float DeviceWidth = 0.154;
     self.isSetupMode = false;
     //恢复到初始状态
     [self resetInputParams];
-    
     [ADPaintUIKitAnimation view:self.rootView switchTopToolBarFromView:self.topToolBar completion:^{
+        [self displayTitle:true withPaintDoc:[ADPaintFrameManager curGroup].curPaintDoc];
         if (block != nil) {
             block();
         }
@@ -887,7 +902,7 @@ static float DeviceWidth = 0.154;
 
 //载入paintDoc保存的inputParams
 -(void)loadInputParams{
-    self.userInputParamsSrc = [[ADPaintFrameManager curGroup].curPaintDoc openUserInputParams];
+    self.userInputParamsSrc = [[ADPaintFrameManager curGroup].curPaintDoc openInfo];
     if (!self.userInputParamsSrc) {
         return;
     }
@@ -1842,13 +1857,13 @@ static float DeviceWidth = 0.154;
     CGPoint touchPoint = CGPointZero;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
+            [self lockButtonInteraction:true];
             touchPoint = [sender locationInView:self.rootView];
             //根据区域判断
 //            if ( touchPoint.y < rootView.bounds.size.height * 0.5) {
 //                sender.state = UIGestureRecognizerStateFailed;
 //                return;
 //            }
-            
             self.touchDirectionBegin = GLKVector2Make(touchPoint.x - self.rootView.center.x, touchPoint.y - self.rootView.center.y);
             self.touchDirectionBegin = GLKVector2Normalize(self.touchDirectionBegin);
         }
@@ -1882,6 +1897,7 @@ static float DeviceWidth = 0.154;
         }
             break;
         case UIGestureRecognizerStateEnded:{
+            [self lockButtonInteraction:false];
             CGFloat percent;
             CGPoint translation = [sender translationInView:sender.view];
             if (translation.x > 0) {
@@ -1917,6 +1933,10 @@ static float DeviceWidth = 0.154;
         }
             break;
         case UIGestureRecognizerStateCancelled:{
+            [self lockButtonInteraction:false];
+        }
+            break;
+        case UIGestureRecognizerStateFailed:{
         }
             break;
         default:
@@ -2464,6 +2484,9 @@ static float DeviceWidth = 0.154;
             self.cylinderProjectLast = nil;
             [ADPaintFrameManager curGroup].curPaintIndex ++;
             
+            //更新显示
+            [self changeTitleWithPaintDoc:[ADPaintFrameManager curGroup].curPaintDoc];
+            
             //结束教程
             if([[ADSimpleTutorialManager current] isActive]){
                 if ([[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"CylinderProjectNextImage"]) {
@@ -2497,6 +2520,9 @@ static float DeviceWidth = 0.154;
             self.cylinderProjectNext = nil;
             self.cylinderProjectLast = nil;
             [ADPaintFrameManager curGroup].curPaintIndex --;
+            
+            //更新显示
+            [self changeTitleWithPaintDoc:[ADPaintFrameManager curGroup].curPaintDoc];
             
             //结束教程
             if([[ADSimpleTutorialManager current] isActive]){
@@ -2739,7 +2765,7 @@ static float DeviceWidth = 0.154;
         }];
     }
     
-    [paintDoc close];
+    [paintDoc closeData];
 }
 
 
@@ -2993,8 +3019,91 @@ static float DeviceWidth = 0.154;
     
 }
 
+#pragma mark- 命名框UITextFieldDelegate
+- (void)setPaintDocNameTextFieldRect{
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:20]};
+    CGSize size = CGSizeMake(self.rootView.bounds.size.width, self.paintDocNameTextField.bounds.size.height);
+    CGRect rect = [self.paintDocNameTextField.text boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil];
+    [self.paintDocNameTextField setFrameSizeWidth:MIN(self.rootView.bounds.size.width, MAX(PaintDocTitleMinWidth, rect.size.width + 40))];
+    [self.paintDocNameTextField setCenterX:self.rootView.center.x];
+}
+- (void)changeTitleWithPaintDoc:(ADPaintDoc*)paintDoc{
+    NSString *title = paintDoc.title;
+
+    [UIView animateWithDuration:PaintDocTitleFadeInOutDuration animations:^{
+        self.paintDocNameTextField.alpha = 0;
+    }completion:^(BOOL finished) {
+        self.paintDocNameTextField.text = title;
+        [self setPaintDocNameTextFieldRect];
+        [UIView animateWithDuration:PaintDocTitleFadeInOutDuration animations:^{
+            self.paintDocNameTextField.alpha = 1;
+        }completion:^(BOOL finished) {
+        }];
+    }];
+    
+}
+
+- (void)displayTitle:(BOOL)display withPaintDoc:(ADPaintDoc*)paintDoc{
+    [self changeTitleWithPaintDoc:paintDoc];
+    
+    if (display) {
+        self.paintDocNameTextField.alpha = 0;
+        self.paintDocNameTextField.hidden = false;
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+            self.paintDocNameTextField.alpha = 1;
+        }];
+    }
+    else{
+        self.paintDocNameTextField.alpha = 1;
+        [UIView animateWithDuration:CylinderFadeInOutDuration animations:^{
+            self.paintDocNameTextField.alpha = 0;
+        }completion:^(BOOL finished) {
+            self.paintDocNameTextField.hidden = true;
+        }];
+    }
+
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [self lockInteraction:true];
+    
+    self.paintDocTitle = [ADPaintFrameManager curGroup].curPaintDoc.title;
+    self.paintDocNameTextField.textColor = [UIColor whiteColor];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self lockInteraction:false];
+    self.paintDocTitle = textField.text;
+    [self.paintDocNameTextField endEditing:true];
+    return YES;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [ADPaintFrameManager curGroup].curPaintDoc.title = self.paintDocTitle;
+    textField.text = self.paintDocTitle;
+
+    [[ADPaintFrameManager curGroup].curPaintDoc saveInfo];
+    [self lockInteraction:false];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+
+    [self setPaintDocNameTextFieldRect];
+    return YES;
+}
+
+
 #pragma mark- 教程 Tutorial
 //主教程入口设置
+//主教程入口设置
+- (void)tutorialLayout:(ADTutorial*)tutorial{
+    ADSimpleTutorial *simpleTutorial = (ADSimpleTutorial *)tutorial;
+    [simpleTutorial.cancelView removeFromSuperview];
+    simpleTutorial.cancelView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - simpleTutorial.cancelView.frame.size.height);
+    [self.rootView addSubview:simpleTutorial.cancelView];
+}
+
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
     if (![[ADSimpleTutorialManager current] isActive]) {
@@ -3009,6 +3118,8 @@ static float DeviceWidth = 0.154;
             }
         }
     }
+    
+    [self tutorialLayout:[ADSimpleTutorialManager current].curTutorial];
 }
 
 //在排版等准备完成以后,检查是否需要开始教程
@@ -3046,6 +3157,7 @@ static float DeviceWidth = 0.154;
         [[ADSimpleTutorialManager current].curTutorial stepNext:nil];
     }
 
+
 }
 #pragma mark- 教程步骤代理 TutorialStepDelegate
 - (void)willTutorialEnableUserInteraction:(BOOL)enable withStep:(ADTutorialStep *)step{
@@ -3062,6 +3174,7 @@ static float DeviceWidth = 0.154;
     }
     self.valueSlider.userInteractionEnabled = enable;
     self.projectView.userInteractionEnabled = enable;
+    self.paintDocNameTextField.userInteractionEnabled = enable;
     
     //打开制定按钮交互
     if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
@@ -3113,6 +3226,9 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"]) {
         self.eyePerspectiveView.userInteractionEnabled = true;
     }
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewAfterDraw"]) {
+        self.eyePerspectiveView.userInteractionEnabled = true;
+    }
     else if ([step.name isEqualToString:@"CylinderProjectCloseSetup"]) {
         self.setupButton.userInteractionEnabled = true;
     }
@@ -3146,6 +3262,7 @@ static float DeviceWidth = 0.154;
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
+    
     if ([step.name isEqualToString:@"CylinderProjectNextImage"] ||
         [step.name isEqualToString:@"CylinderProjectPreviousImage"]) {
         CGRect mirrorRect = [self willGetCylinderMirrorFrame];
@@ -3153,10 +3270,6 @@ static float DeviceWidth = 0.154;
         [step.indicatorView targetViewFrame:mirrorRect inRootView:self.rootView];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetup"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(560, 700);
-        step.contentView.frame = rect;
-        
         [step.indicatorView targetView:self.setupButton inRootView:self.rootView];
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupScene"]) {
@@ -3169,16 +3282,12 @@ static float DeviceWidth = 0.154;
         [step.indicatorView targetView:self.setupCylinderRefPenButton inRootView:self.rootView];
     }
     else if ([step.name isEqualToString:@"CylinderProjectPutDevice"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(500, 672);
-        step.contentView.frame = rect;
+
         
         [step.indicatorView targetView:self.topPerspectiveView inRootView:self.rootView];
     }
     else if ([step.name isEqualToString:@"CylinderProjectViewDevice"]) {
-        CGRect rect = step.contentView.frame;
-        rect.origin = CGPointMake(500, 728);
-        step.contentView.frame = rect;
+
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.rootView];
         
         ADTutorialIndicatorView *indicatorView = (ADTutorialIndicatorView *)step.indicatorViews[1];
@@ -3193,9 +3302,6 @@ static float DeviceWidth = 0.154;
             weakIndicatorView.textLabel.frame = frame;
         }];
             
-    }
-    else if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
-        step.contentView.center = CGPointMake(self.rootView.center.x, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - step.contentView.frame.size.height);
     }
     else if ([step.name isEqualToString:@"CylinderProjectSetupCylinderDiameter"]) {
         [step.indicatorView targetView:self.cylinderDiameterButton inRootView:self.rootView];
@@ -3255,7 +3361,8 @@ static float DeviceWidth = 0.154;
 //        CGRect thumbRect = [self.valueSlider convertRect:self.valueSlider.thumbRect toView:rootView];
 //        [step.indicatorView targetViewFrame:thumbRect inRootView:rootView];
     }
-    else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"]) {
+    else if ([step.name isEqualToString:@"CylinderProjectSideViewForEye"] ||
+            [step.name isEqualToString:@"CylinderProjectSideViewAfterDraw"]) {
         [step.indicatorView targetView:self.eyePerspectiveView inRootView:self.rootView];
     }
     else if ([step.name isEqualToString:@"CylinderProjectTopViewForZoom"]) {
@@ -3278,13 +3385,25 @@ static float DeviceWidth = 0.154;
     else if ([step.name isEqualToString:@"CylinderProjectPaint"]) {
         [step.indicatorView targetView:self.paintButton inRootView:self.rootView];
     }
+    else if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
+        step.contentView.center = CGPointMake(self.rootView.center.x, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - step.contentView.frame.size.height);
+        
+        UIView *cancelView = ((ADSimpleTutorial*)[ADSimpleTutorialManager current].curTutorial).cancelView;
+        [UIView animateWithDuration:TutorialButtonFadeInDuration animations:^{
+            cancelView.alpha = 0;
+        }completion:^(BOOL finished) {
+            ((ADSimpleTutorial*)[ADSimpleTutorialManager current].curTutorial).cancelView.hidden = true;
+            cancelView.alpha = 1;
+        }];
+    }
     
     [step addToRootView:self.rootView];
 }
 
 
 - (void)willTutorialEndWithStep:(ADTutorialStep*)step{
-    if ([step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
+    if ([step.name isEqualToString:@"CylinderProjectTutorialDone"] ||
+        [step.name isEqualToString:@"CylinderProjectTutorialDone"]) {
         self.transitioningDelegate = nil;
         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;        
     }

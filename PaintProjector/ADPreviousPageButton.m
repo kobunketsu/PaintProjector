@@ -36,9 +36,14 @@
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
+    
+    //// Subframes
+    CGRect frameNext = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 12) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 10) * 0.50000 + 0.5), 12, 10);
+    
+    
     //// previous Drawing
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMinX(frame) + 11, CGRectGetMinY(frame) + 44);
+    CGContextTranslateCTM(context, CGRectGetMinX(frameNext) + 0.50000 * CGRectGetWidth(frameNext), CGRectGetMinY(frameNext) + 5);
     CGContextRotateCTM(context, -90 * M_PI / 180);
     
     UIBezierPath* previousPath = UIBezierPath.bezierPath;

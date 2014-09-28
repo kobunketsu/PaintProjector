@@ -27,6 +27,7 @@
 - (ADPaintDoc*)createPaintDocInDirectory:(NSString*)dirName;
 - (ADPaintDoc*)clonePaintDoc:(ADPaintDoc*)paintDoc;
 - (void)deletePaintDoc:(ADPaintDoc*)paintDoc;
+- (void)renamePaintDoc:(ADPaintDoc*)paintDoc name:(NSString*)name;
 - (NSString *)nextPaintDocPathInDirectory:(NSString*)dirName;
 
 

@@ -73,7 +73,7 @@
         <scene sceneID="Cn7-8u-ZKA">
             <objects>
                 <viewController storyboardIdentifier="LayerTableViewController" id="6Bu-8d-dY7" customClass="ADLayerTableViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ZS3-UO-Ns9" userLabel="RootView" customClass="ADFuzzyTransparentView">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="ZS3-UO-Ns9" userLabel="RootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -159,23 +159,17 @@
                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="624" id="Jqh-lA-4Xi" userLabel="LayerTableView" customClass="ADLayerTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="44" sectionFooterHeight="624" id="Jqh-lA-4Xi" userLabel="LayerTableView" customClass="ADLayerTableView">
                                 <rect key="frame" x="0.0" y="44" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LayerTableViewCell" rowHeight="155" id="VIS-3A-lU4" userLabel="LayerTableViewCell" customClass="ADLayerTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LayerTableViewCell" rowHeight="155" id="VIS-3A-lU4" userLabel="LayerTableViewCell" customClass="ADLayerTableViewCell">
                                         <rect key="frame" x="0.0" y="44" width="768" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VIS-3A-lU4" id="USp-gZ-WdY">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="154"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view appearanceType="aqua" contentMode="scaleToFill" id="S4H-bD-hoy" userLabel="BackgroundView" customClass="ADLayerTableViewCellBackgroundView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="768" height="154"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                </view>
                                                 <view contentMode="scaleToFill" id="GiR-79-oU6" userLabel="LayerImageViewFrame">
                                                     <rect key="frame" x="3" y="4" width="111" height="145"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -235,8 +229,8 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="bgView" destination="S4H-bD-hoy" id="chU-0b-GxP"/>
                                             <outlet property="layerBlendModeButton" destination="fuU-1o-IoM" id="ar2-s8-fBI"/>
                                             <outlet property="layerImageView" destination="WBe-Io-Mjp" id="pt6-ur-qjU"/>
                                             <outlet property="layerImageViewFrame" destination="GiR-79-oU6" id="AaN-We-cuY"/>
@@ -301,7 +295,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="bgBackgroundView" destination="weg-Rg-6nb" id="Z7v-na-hmb"/>
                                             <outlet property="layerImageButton" destination="boW-yU-zeM" id="Wab-ty-t3o"/>
@@ -1455,43 +1449,43 @@
                                 </connections>
                             </collectionView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="What is anamorphosis" textAlignment="center" id="IV8-lJ-FSe" userLabel="Introduction0TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="A deformed image appears in its true shape" textAlignment="center" id="9DY-UI-AUd" userLabel="Introduction1TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Only when viewed in some magical way" textAlignment="center" id="8dm-io-dHH" userLabel="Introduction2TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="It has a long history from late Renaissance" textAlignment="center" id="t6C-jH-jZT" userLabel="Introduction3TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Loved by great artists like Salvador Dali" textAlignment="center" id="EZd-Rm-5x6" userLabel="Introduction4TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Now people all love this fashional form of art" textAlignment="center" id="LPd-Mb-Usx" userLabel="Introduction5TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Creating magical illusion art is not impossible" textAlignment="center" id="cxH-Qw-sL8" userLabel="Introduction6TextView">
-                                <rect key="frame" x="0.0" y="27" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1676,7 +1670,7 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fIU-AC-MEb" customClass="ADTutorialNextButton">
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fIU-AC-MEb" customClass="ADTutorialStepButton">
                                 <rect key="frame" x="593" y="935" width="150" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Learn More">
@@ -1826,7 +1820,7 @@ You will create unbelievable illusion.</string>
                                         <fontDescription key="fontDescription" name="SnellRoundhand" family="Snell Roundhand" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a91-OH-aKP" userLabel="StartTutorialButton" customClass="ADTutorialNextButton">
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="a91-OH-aKP" userLabel="StartTutorialButton" customClass="ADTutorialStepButton">
                                         <rect key="frame" x="593" y="932" width="150" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Start">
@@ -1871,6 +1865,10 @@ You will create unbelievable illusion.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="kYS-NG-hll" userLabel="StatusView" customClass="ADTutorialStatusView">
+                                                <rect key="frame" x="696" y="58" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
                                         </subviews>
                                     </view>
                                     <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="8Y1-L9-UoP" userLabel="AnaDrawBasicView">
@@ -1895,6 +1893,10 @@ You will create unbelievable illusion.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="ibw-Po-wFu" userLabel="StatusView" customClass="ADTutorialStatusView">
+                                                <rect key="frame" x="696" y="58" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
                                         </subviews>
                                     </view>
                                     <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="yoq-Kh-UVv" userLabel="AdvancedSetupView">
@@ -1922,6 +1924,10 @@ You will create unbelievable illusion.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" id="ycT-IK-F8o" userLabel="StatusView" customClass="ADTutorialStatusView">
+                                                <rect key="frame" x="696" y="58" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
                                         </subviews>
                                     </view>
                                     <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="7BG-yI-o8J" userLabel="DrawReflectionView">
@@ -1949,6 +1955,10 @@ You will create unbelievable illusion.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" id="R6n-zr-U0k" userLabel="StatusView" customClass="ADTutorialStatusView">
+                                                <rect key="frame" x="696" y="58" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
                                         </subviews>
                                     </view>
                                     <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="SHl-0s-34c" userLabel="DrawAnamorphosisView">
@@ -1976,9 +1986,13 @@ You will create unbelievable illusion.</string>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" id="xmR-WZ-bpy" userLabel="StatusView" customClass="ADTutorialStatusView">
+                                                <rect key="frame" x="696" y="58" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </view>
                                         </subviews>
                                     </view>
-                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfs-LW-277" userLabel="End" customClass="ADTutorialNextButton">
+                                    <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfs-LW-277" userLabel="End" customClass="ADTutorialStepButton">
                                         <rect key="frame" x="593" y="934" width="150" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Quit">
@@ -2058,6 +2072,16 @@ You will create unbelievable illusion.</string>
                         <outletCollection property="tutorialButtonGroups" destination="yoq-Kh-UVv" id="BhP-Hd-8wR"/>
                         <outletCollection property="tutorialButtonGroups" destination="7BG-yI-o8J" id="lSR-gW-9Xd"/>
                         <outletCollection property="tutorialButtonGroups" destination="SHl-0s-34c" id="Ehm-H6-VTL"/>
+                        <outletCollection property="tutorialAllViews" destination="kYS-NG-hll" id="HU2-xr-exP"/>
+                        <outletCollection property="tutorialAllViews" destination="ibw-Po-wFu" id="rVe-jS-D8n"/>
+                        <outletCollection property="tutorialAllViews" destination="ycT-IK-F8o" id="7Qk-jh-LeT"/>
+                        <outletCollection property="tutorialAllViews" destination="R6n-zr-U0k" id="ojI-PJ-Q6J"/>
+                        <outletCollection property="tutorialAllViews" destination="xmR-WZ-bpy" id="gqm-gQ-9pB"/>
+                        <outletCollection property="tutorialStatusViews" destination="kYS-NG-hll" id="l6y-5B-1Xd"/>
+                        <outletCollection property="tutorialStatusViews" destination="ibw-Po-wFu" id="IxB-DD-TY7"/>
+                        <outletCollection property="tutorialStatusViews" destination="ycT-IK-F8o" id="l78-4P-o4b"/>
+                        <outletCollection property="tutorialStatusViews" destination="R6n-zr-U0k" id="Hs4-gC-bfm"/>
+                        <outletCollection property="tutorialStatusViews" destination="xmR-WZ-bpy" id="zR5-QT-xv9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-Jf-VFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2665,32 +2689,12 @@ You will create unbelievable illusion.</string>
                                 <rect key="frame" x="678" y="878" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" id="jQk-7K-PJU" userLabel="RightUpToolBar">
-                                <rect key="frame" x="698" y="90" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </view>
-                            <view opaque="NO" contentMode="scaleToFill" id="cWt-qC-vWw" userLabel="LeftBottomToolBar">
-                                <rect key="frame" x="10" y="874" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="R3D-1T-r5K">
-                                <rect key="frame" x="192" y="256" width="384" height="512"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label="PaintScreen">
                             <bool key="isElement" value="YES"/>
                         </accessibility>
                         <gestureRecognizers/>
                     </view>
-                    <navigationItem key="navigationItem" title="Paint" id="1Oo-c7-eki">
-                        <barButtonItem key="leftBarButtonItem" title="Background" id="H0v-WU-UlP"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="zCG-rb-cGy">
-                            <connections>
-                                <action selector="showPaint:" destination="NUX-zI-YbL" id="DDm-Ug-qeZ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -2705,7 +2709,6 @@ You will create unbelievable illusion.</string>
                         <outlet property="brushTypePageControl" destination="kbv-IO-pfA" id="3IP-Th-NUR"/>
                         <outlet property="brushTypeScrollView" destination="ss0-3e-NKH" id="PW4-8W-Nql"/>
                         <outlet property="brushTypeView" destination="Juz-4R-WxS" id="zbq-Oe-D56"/>
-                        <outlet property="btnAction" destination="H0v-WU-UlP" id="SZg-LI-6lW"/>
                         <outlet property="clearButton" destination="6dc-Q8-cDV" id="dVE-Jq-KSK"/>
                         <outlet property="clearEffectView" destination="UZ5-WS-IWn" id="laM-z2-tRw"/>
                         <outlet property="closeButton" destination="AdD-j2-c1b" id="ECr-VZ-yX4"/>
@@ -2752,7 +2755,6 @@ You will create unbelievable illusion.</string>
                         <outlet property="tapGR1Touches2TapsRootCanvasView" destination="zQY-1r-Dfz" id="pHA-hT-goY"/>
                         <outlet property="tapGR2Touches2TapsRootCanvasView" destination="btS-GN-p3J" id="0GF-dZ-8IA"/>
                         <outlet property="tapGR3Touches1TapsRootCanvasView" destination="UHa-tB-uQ7" id="kLU-b9-dTb"/>
-                        <outlet property="testImageView" destination="R3D-1T-r5K" id="KO5-s4-OSP"/>
                         <outlet property="transformButton" destination="PEc-2b-GNU" id="diM-MJ-Bso"/>
                         <outlet property="undoButton" destination="1Zl-fu-rHb" id="BEb-Jb-N4N"/>
                         <outlet property="zoomCanvasLabel" destination="eKm-9L-VCE" id="csz-HI-C3g"/>
@@ -2951,15 +2953,41 @@ You will create unbelievable illusion.</string>
                                     <outlet property="delegate" destination="Lwt-Rt-8hS" id="mh6-lV-g2B"/>
                                 </connections>
                             </collectionView>
-                            <pageControl appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="SNu-kp-oVJ">
+                            <pageControl hidden="YES" appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="SNu-kp-oVJ">
                                 <rect key="frame" x="356" y="232" width="39" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pageControl>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GMt-Wj-Bba" userLabel="previousPageButton" customClass="ADPreviousPageButton">
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="previousPageButtonTouchUp:" destination="Lwt-Rt-8hS" eventType="touchUpInside" id="u29-Jg-Tf7"/>
+                                </connections>
+                            </button>
+                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yzV-pb-pyw" userLabel="nextPageButton" customClass="ADNextPageButton">
+                                <rect key="frame" x="696" y="0.0" width="44" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextPageButtonTouchUp:" destination="Lwt-Rt-8hS" eventType="touchUpInside" id="15c-Wh-sxA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="tjb-r1-2Y2" id="m1B-ev-81Y"/>
+                        <outlet property="nextPageButton" destination="yzV-pb-pyw" id="byF-bb-QXD"/>
                         <outlet property="pageControl" destination="SNu-kp-oVJ" id="r62-1M-IZU"/>
+                        <outlet property="previousPageButton" destination="GMt-Wj-Bba" id="TXJ-pe-CdV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZw-or-hjK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3109,15 +3137,15 @@ You will create unbelievable illusion.</string>
         <scene sceneID="SXy-0H-jhd">
             <objects>
                 <viewController storyboardIdentifier="CylinderProjectViewController" id="Ykg-qI-0AR" customClass="ADCylinderProjectViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="h4g-78-CMY" userLabel="RootView">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="h4g-78-CMY" userLabel="RootView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="x4A-rC-AJ7" customClass="ADCylinderProjectRootView">
+                            <view opaque="NO" contentMode="scaleToFill" id="x4A-rC-AJ7" customClass="ADCylinderProjectRootView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <glkView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" drawableStencilFormat="8" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="ADCylinderProjectView">
+                                    <glkView opaque="NO" clipsSubviews="YES" contentMode="center" drawableDepthFormat="24" drawableStencilFormat="8" drawableMultisample="4X" enableSetNeedsDisplay="NO" id="nbv-5J-Y5R" userLabel="CylinderProjectView" customClass="ADCylinderProjectView">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <gestureRecognizers/>
@@ -3649,8 +3677,21 @@ You will create unbelievable illusion.</string>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Give a name" textAlignment="center" minimumFontSize="20" id="RKg-HY-Huo" userLabel="NameTextField">
+                                        <rect key="frame" x="309" y="100" width="150" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.23026459059233451" green="0.23026459059233451" blue="0.23026459059233451" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="Ykg-qI-0AR" id="DZk-Wd-hcm"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <accessibility key="accessibilityConfiguration" label="CylinderRootView">
@@ -3674,6 +3715,7 @@ You will create unbelievable illusion.</string>
                         <outlet property="imageWidthButton" destination="3d5-8i-B14" id="7Ky-CT-6dt"/>
                         <outlet property="infoButton" destination="K8x-Wh-Rm8" id="YdK-N6-ecs"/>
                         <outlet property="paintButton" destination="w1V-2I-Uqb" id="5zA-05-3mE"/>
+                        <outlet property="paintDocNameTextField" destination="RKg-HY-Huo" id="dRC-Zy-nZl"/>
                         <outlet property="projectHeightButton" destination="pcI-iX-N3o" id="qMj-zL-Ajc"/>
                         <outlet property="projectParams" destination="ymr-xf-1aF" id="F52-Oj-cfL"/>
                         <outlet property="projectView" destination="nbv-5J-Y5R" id="14a-YC-o5O"/>

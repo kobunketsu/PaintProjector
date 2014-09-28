@@ -28,5 +28,9 @@
 
 - (void)setFrameSize:(CGSize)size;
 
+- (void)setCenterX:(CGFloat)x;
+
+- (void)setCenterY:(CGFloat)y;
+
 - (void)spinViewAngle:(CGFloat)angle keyPath:(NSString *)keyPath duration:(CGFloat)duration delay:(CGFloat)delay option:(UIViewKeyframeAnimationOptions)option completion:(void (^)(BOOL finished))completion;
 @end

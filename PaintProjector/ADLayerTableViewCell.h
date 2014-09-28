@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ADLayerDeleteButton.h"
 #import "ADLayerVisibleButton.h"
 #import "ADLayerBlendModeButton.h"
 #import "ADLayerImageView.h"
@@ -16,7 +17,6 @@
 
 @interface ADLayerTableViewCell : UITableViewCell
 //@property (copy, nonatomic) NSString *layerIdentifier;
-@property (weak, nonatomic) IBOutlet ADLayerTableViewCellBackgroundView *bgView;
 @property (weak, nonatomic) IBOutlet ADLayerVisibleButton *visibleButton;
 @property (weak, nonatomic) IBOutlet ADLayerOpacityLockButton *layerOpacityLockButton;
 @property (weak, nonatomic) IBOutlet ADLayerImageView *layerImageView;
@@ -27,5 +27,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *layerBlendModeButtonUp;
 @property (weak, nonatomic) IBOutlet UISlider *layerOpacitySlider;
+- (ADLayerDeleteButton *)deleteButton;
 - (void)setSelectedState:(BOOL)selected;
 @end

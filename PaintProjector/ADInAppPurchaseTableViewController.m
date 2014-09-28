@@ -365,8 +365,9 @@
 }
 #pragma mark- ADSimpleIAPManagerDelegate
 - (void)willNotifyUserIAPProductContentProvided{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
     alertView.tag = 1;
     [alertView show];
 }
+
 @end

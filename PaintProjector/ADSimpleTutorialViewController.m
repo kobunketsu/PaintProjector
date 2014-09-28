@@ -12,12 +12,8 @@
 #import "ADTextPopAnimator.h"
 #import "ADTutorialToPaintCollectionTransitionManager.h"
 #import "ADAnamorphosisBasicViewController.h"
+#import "ADTutorialStatusView.h"
 
-#define TutorialListFadeInDuration 0.6
-#define TutorialListFadeInSpringDamp 0.7
-#define TutorialListFadeInSpringVelocity 0.5
-#define TutorialTextFadeInDuration 0.6
-#define TutorialButtonFadeInDuration 0.4
 
 @interface ADSimpleTutorialViewController ()
 @property (retain, nonatomic) ADTextSplitter *tutorialListTitleTextSplitter;
@@ -107,6 +103,7 @@
     [self setTutorialButtons:nil];
     [self setTutorialButtonLabels:nil];
     [self setTutorialImageViews:nil];
+    [self setTutorialStatusViews:nil];
     [self setTutorialAllViews:nil];
     [self setTutorialButtonGroups:nil];
     [self setTutorialNextButton:nil];
@@ -121,6 +118,55 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)flushTutorialStatus{
+    for (ADTutorialStatusView *view in self.tutorialStatusViews) {
+        
+        //处理lock
+        if (view.tag == 4) {
+            view.locked = ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"];
+            if (view.locked) {
+                view.hidden = false;
+            }
+            else{
+                view.hidden = true;
+            }
+            [view setNeedsDisplay];
+        }
+        
+        //已经checked过的不再更新显示动画
+        if (!view.hidden) {
+            continue;
+        }
+        //从hidden true-->false的动画
+        switch (view.tag) {
+            case 0:
+                view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialAnamorphosisBasic"];
+                break;
+            case 1:
+                view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialAnaDrawBasic"];
+                break;
+            case 2:
+                view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialAdvancedSetup"];
+                break;
+            case 3:
+                view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialDrawReflection"];
+                break;
+            case 4:
+                view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialDrawAnamorphosis"];
+                break;
+            default:
+                break;
+        }
+        
+        view.alpha = 0;
+        [view.layer setValue:[NSNumber numberWithFloat:0.2] forKey:@"transform.scale"];
+        [UIView animateWithDuration:TutorialListTextFadeInDuration animations:^{
+            view.alpha = 1;
+            [view.layer setValue:[NSNumber numberWithFloat:1] forKey:@"transform.scale"];
+        }];
+    }
+
+}
 - (IBAction)startTutorialButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"startTutorialButtonTouchUp" identifier:sender];
     UIButton *button = (UIButton *)sender;
@@ -147,7 +193,7 @@
 }
 - (void)popTutorialTexts{
     self.tutorialNextButton.alpha = 0;
-    [UIView animateWithDuration:TutorialButtonFadeInDuration animations:^{
+    [UIView animateWithDuration:TutorialListButtonFadeInDuration animations:^{
         self.tutorialNextButton.alpha = 1;
         for (UIButton *button in self.tutorialButtons) {
             [button.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale.x"];
@@ -155,7 +201,8 @@
         }
         
     }completion:^(BOOL finished) {
-        [UIView animateWithDuration:TutorialTextFadeInDuration animations:^{
+        [self flushTutorialStatus];
+        [UIView animateWithDuration:TutorialListTextFadeInDuration animations:^{
             for (ADTextSplitter *textSplitter in self.tutorialListTextSplitters) {
                 for (UILabel *label in textSplitter.characters) {
                     [label.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale.x"];
@@ -210,6 +257,9 @@
 
 - (IBAction)tutorialAnamorphosisBasicButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"tutorialAnamorphosisBasicButtonTouchUp" identifier:sender];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialAnamorphosisBasic"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     self.selectedButton = sender;
     ADAnamorphosisBasicViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"AnamorphosisBasicViewController"];
     vc.delegate = self;
@@ -243,9 +293,14 @@
     [self tutorialStartFromButton:sender];
 }
 - (IBAction)tutorialDrawAnamorphosisButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"tutorialDrawAnamorphosisButtonTouchUp" identifier:sender];
     self.selectedButton = sender;
     
-     [RemoteLog logAction:@"tutorialDrawAnamorphosisButtonTouchUp" identifier:sender];
+    //IAP dependent
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
+        return;
+    }
+    
     [[ADSimpleTutorialManager current]activeTutorial:@"TutorialDrawAnamorphosis"];
     
     [self tutorialStartFromButton:sender];
@@ -264,19 +319,31 @@
 #pragma mark- ADAnamorphosisBasicViewControllerDelegate
 - (void)willTutorialAnamorphosisBasicDone{
     [self dismissViewControllerAnimated:true completion:^{
-        
+        [self flushTutorialStatus];
     }];
 }
 
 #pragma mark- tutorialManagerDelegate
-- (void)willTutorialManagerEndTutorial:(ADTutorial*)tutorial{
-    //如果看完过一篇tutorial，则认为完成教程了
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
+- (void)willTutorialManagerEndTutorial:(ADTutorial*)tutorial finished:(BOOL)finished{
+    if (finished) {
+        //如果看完过一篇tutorial，则认为完成教程了
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
+        
+        NSArray *tutorialNames = @[@"TutorialAnaDrawBasic", @"TutorialAdvancedSetup", @"TutorialDrawReflection", @"TutorialDrawAnamorphosis"];
+        for (NSString *tutorialName in tutorialNames) {
+            if ([tutorial.name isEqualToString:tutorialName]) {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:tutorialName];
+                break;
+            }
+        }
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     ((ADSimpleTutorial*)tutorial).curViewController.transitioningDelegate = self;
     //退回到初始界面
     [self dismissViewControllerAnimated:true completion:^{
-        
+        [self flushTutorialStatus];
     }];
 }
 

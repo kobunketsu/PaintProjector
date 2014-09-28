@@ -64,9 +64,9 @@
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
         
-        [color setStroke];
-        roundedRectanglePath.lineWidth = 1;
-        [roundedRectanglePath stroke];
+//        [color setStroke];
+//        roundedRectanglePath.lineWidth = 1;
+//        [roundedRectanglePath stroke];
         
         
         CGContextEndTransparencyLayer(context);
@@ -127,9 +127,9 @@
         CGContextEndTransparencyLayer(context);
         CGContextRestoreGState(context);
         
-        [color setStroke];
-        roundedRectanglePath.lineWidth = 1;
-        [roundedRectanglePath stroke];
+//        [color setStroke];
+//        roundedRectanglePath.lineWidth = 1;
+//        [roundedRectanglePath stroke];
         
         
         CGContextEndTransparencyLayer(context);

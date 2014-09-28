@@ -27,11 +27,23 @@
     }
     return self;
 }
+//在iOS8系统下textView位置需要调整
+- (void)adjustForiOS8{
+    for (UITextView *textView in self.introductionTextViews) {
+        [textView setFrameOriginY:textView.frame.origin.y - 30];
+    }
+    for (UITextView *textView in self.lifeArtTextViews) {
+        [textView setFrameOriginY:textView.frame.origin.y - 30];
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if([UIDevice currentDevice].systemVersion.floatValue >= 8.0){
+        [self adjustForiOS8];
+    }
     
     //localize text
     for (UITextView *textView in self.introductionTextViews) {

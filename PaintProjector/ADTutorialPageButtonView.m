@@ -7,7 +7,7 @@
 //
 
 #import "ADTutorialPageButtonView.h"
-#import "ADTutorialNextButton.h"
+#import "ADTutorialStepButton.h"
 
 @implementation ADTutorialPageButtonView
 
@@ -20,17 +20,30 @@
     return self;
 }
 
-- (void)initWithTutorial:(ADTutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image{
+- (void)initWithTutorial:(ADTutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image nextButton:(BOOL)nextButton nextButtonName:(NSString*)nextButtonName cancelButton:(BOOL)cancelButton cancelButtonName:(NSString*)cancelButtonName{
     [super initWithTutorial:tutorial description:desc bgImage:image];
-    
     CGFloat width = TutorialNextButtonWidth;CGFloat height = TutorialNextButtonHeight; CGFloat offset = TutorialNextButtonMargin;
-    CGFloat x = MAX(self.bounds.size.width - width - offset, 0);
-    CGFloat y = MAX(self.bounds.size.height - height - offset, 0);
-    _nextButton = [[ADTutorialNextButton alloc]initWithFrame:CGRectMake(x, y, width, height)];
+    if (nextButton) {
+        CGFloat x = MAX(self.bounds.size.width - width - offset, 0);
+        CGFloat y = MAX(self.bounds.size.height - height - offset, 0);
+        _nextButton = [[ADTutorialStepButton alloc]initWithFrame:CGRectMake(x, y, width, height)];
+        
+        [self addSubview:self.nextButton];
+        [self.nextButton setTitle:NSLocalizedString(@"TutorialNext", nil) forState:UIControlStateNormal];
+        [self.nextButton addTarget:self action:@selector(nextButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+        [self.nextButton setTitle:nextButtonName forState:UIControlStateNormal];
+    }
 
-    [self addSubview:self.nextButton];
-    [self.nextButton setTitle:NSLocalizedString(@"TutorialNext", nil) forState:UIControlStateNormal];
-    [self.nextButton addTarget:self action:@selector(nextButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+    if (cancelButton) {
+        CGFloat x = MAX(offset, 0);
+        CGFloat y = MAX(self.bounds.size.height - height - offset, 0);
+        _cancelButton = [[ADTutorialStepButton alloc]initWithFrame:CGRectMake(x, y, height, height)];
+        
+        [self addSubview:self.cancelButton];
+        [self.cancelButton setTitle:NSLocalizedString(@"TutorialCancel", nil) forState:UIControlStateNormal];
+        [self.cancelButton addTarget:self action:@selector(cancelButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
 }
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -45,5 +58,11 @@
 {
     [RemoteLog logAction:@"nextButtonTouchUp" identifier:sender];
     [self.delegate willStepNextImmediate];
+}
+
+- (void)cancelButtonTouchUp:(UIButton *)sender
+{
+    [RemoteLog logAction:@"cancelButtonTouchUp" identifier:sender];
+    [self.delegate willStepCancelImmediate];
 }
 @end

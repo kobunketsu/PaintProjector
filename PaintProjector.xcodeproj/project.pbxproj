@@ -182,6 +182,7 @@
 		0824E50819C467AC0065BB04 /* tutorial_lifeart_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 0824E50419C467AC0065BB04 /* tutorial_lifeart_04.png */; };
 		0824E50A19C470980065BB04 /* tutorial_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0824E50919C470980065BB04 /* tutorial_background.png */; };
 		0824E50B19C470980065BB04 /* tutorial_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0824E50919C470980065BB04 /* tutorial_background.png */; };
+		082543FB19D407C900B4BCA3 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 082543F919D407C900B4BCA3 /* Reveal.framework */; };
 		0826775418E1D6BB004DA2F4 /* ADPaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */; };
 		0826775718E1D6C5004DA2F4 /* ADPaintUIKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */; };
 		0826775A18E1D92E004DA2F4 /* ADCrystalGradientStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775918E1D92E004DA2F4 /* ADCrystalGradientStyleView.m */; };
@@ -238,6 +239,8 @@
 		082DF31816A166AB007656AA /* ADColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31716A166AA007656AA /* ADColorPickerView.m */; };
 		082DF31B16A1A647007656AA /* ADChalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31A16A1A647007656AA /* ADChalk.m */; };
 		082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
+		082F9C5E19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
+		082F9C5F19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
 		0832967E17ACD22600F8DCF2 /* ADPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0832967D17ACD22600F8DCF2 /* ADPlayerView.m */; };
 		08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
 		0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832E2741933A7EA004BD986 /* libTestFlight.a */; };
@@ -322,6 +325,10 @@
 		0860669617D2E235002EE42A /* ADBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860669517D2E235002EE42A /* ADBackButton.m */; };
 		0861490218D7442900661AD6 /* ADSetupButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0861490118D7442900661AD6 /* ADSetupButton.m */; };
 		0861490318D7442900661AD6 /* ADSetupButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0861490118D7442900661AD6 /* ADSetupButton.m */; };
+		0861873219D5417000C9A476 /* LayerEditControlDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 0861873119D5417000C9A476 /* LayerEditControlDelete.png */; };
+		0861873319D5417000C9A476 /* LayerEditControlDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 0861873119D5417000C9A476 /* LayerEditControlDelete.png */; };
+		0861873619D54EB200C9A476 /* ADLayerDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0861873519D54EB200C9A476 /* ADLayerDeleteButton.m */; };
+		0861873719D54EB200C9A476 /* ADLayerDeleteButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0861873519D54EB200C9A476 /* ADLayerDeleteButton.m */; };
 		0862133F174D06AD006704C8 /* ADLayerBlendModeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0862133E174D06AD006704C8 /* ADLayerBlendModeButton.m */; };
 		08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08621341174D1A9E006704C8 /* ADLayerBlendModePopoverController.m */; };
 		08624EFF18D3EBC400FD971E /* ADCylinderProjectToPaintCollectionTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08624EFE18D3EBC400FD971E /* ADCylinderProjectToPaintCollectionTransitionManager.m */; };
@@ -531,6 +538,8 @@
 		08A5CBBC189F36C900F4E226 /* REMeshFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 086BF7C0189E3CF50066C1F2 /* REMeshFilter.m */; };
 		08A5CBBF189F542300F4E226 /* REScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A5CBBE189F542300F4E226 /* REScene.m */; };
 		08A5CBC0189F542300F4E226 /* REScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A5CBBE189F542300F4E226 /* REScene.m */; };
+		08A6B9AB19D68CEF00810875 /* ADPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6B9AA19D68CEF00810875 /* ADPageControl.m */; };
+		08A6B9AC19D68CEF00810875 /* ADPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6B9AA19D68CEF00810875 /* ADPageControl.m */; };
 		08A6FA4218BB7FB400D9A7EB /* ADSimpleIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* ADSimpleIAPManager.m */; };
 		08A6FA4318BB7FB400D9A7EB /* ADSimpleIAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A6FA4118BB7FB400D9A7EB /* ADSimpleIAPManager.m */; };
 		08A724B81844ED3E00B9178B /* ADLayerTransformButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A724B71844ED3E00B9178B /* ADLayerTransformButton.m */; };
@@ -721,8 +730,8 @@
 		08E4D80819A71F0A00990523 /* twitter-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FC19A71F0A00990523 /* twitter-48.png */; };
 		08E4E7761951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
 		08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
-		08E4E77E1951E9B4003C77DB /* ADTutorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialNextButton.m */; };
-		08E4E77F1951E9B4003C77DB /* ADTutorialNextButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialNextButton.m */; };
+		08E4E77E1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
+		08E4E77F1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
 		08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m */; };
 		08E505DA1956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m */; };
 		08E505DD1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505DC1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.m */; };
@@ -1176,6 +1185,7 @@
 		0824E50319C467AC0065BB04 /* tutorial_lifeart_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_lifeart_03.png; path = PaintProjector/Images/tutorial_lifeart_03.png; sourceTree = "<group>"; };
 		0824E50419C467AC0065BB04 /* tutorial_lifeart_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_lifeart_04.png; path = PaintProjector/Images/tutorial_lifeart_04.png; sourceTree = "<group>"; };
 		0824E50919C470980065BB04 /* tutorial_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_background.png; path = PaintProjector/Images/tutorial_background.png; sourceTree = "<group>"; };
+		082543F919D407C900B4BCA3 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		0826775218E1D6BB004DA2F4 /* ADPaintUIKitStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintUIKitStyle.h; path = PaintProjector/ADPaintUIKitStyle.h; sourceTree = "<group>"; };
 		0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintUIKitStyle.m; path = PaintProjector/ADPaintUIKitStyle.m; sourceTree = "<group>"; };
 		0826775818E1D92E004DA2F4 /* ADCrystalGradientStyleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADCrystalGradientStyleView.h; path = PaintProjector/ADCrystalGradientStyleView.h; sourceTree = "<group>"; };
@@ -1217,6 +1227,8 @@
 		082DF31A16A1A647007656AA /* ADChalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADChalk.m; sourceTree = "<group>"; };
 		082DF31E16A1B89D007656AA /* InfColorPickerIndicatorMagnify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfColorPickerIndicatorMagnify.h; path = ../PaintProjector/InfColorPickerIndicatorMagnify.h; sourceTree = "<group>"; };
 		082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfColorPickerIndicatorMagnify.m; path = ../PaintProjector/InfColorPickerIndicatorMagnify.m; sourceTree = "<group>"; };
+		082F9C5C19D7B228006CC621 /* ADTutorialStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialStatusView.h; path = PaintProjector/ADTutorialStatusView.h; sourceTree = "<group>"; };
+		082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialStatusView.m; path = PaintProjector/ADTutorialStatusView.m; sourceTree = "<group>"; };
 		0830455F166B46EC00E8E35C /* ADImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageView.h; sourceTree = "<group>"; };
 		08304560166B46EC00E8E35C /* ADImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageView.m; sourceTree = "<group>"; };
 		0832967C17ACD22600F8DCF2 /* ADPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPlayerView.h; sourceTree = "<group>"; };
@@ -1330,6 +1342,9 @@
 		0860669517D2E235002EE42A /* ADBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBackButton.m; sourceTree = "<group>"; };
 		0861490018D7442900661AD6 /* ADSetupButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupButton.h; sourceTree = "<group>"; };
 		0861490118D7442900661AD6 /* ADSetupButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupButton.m; sourceTree = "<group>"; };
+		0861873119D5417000C9A476 /* LayerEditControlDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LayerEditControlDelete.png; path = PaintProjector/Images/LayerEditControlDelete.png; sourceTree = SOURCE_ROOT; };
+		0861873419D54EB200C9A476 /* ADLayerDeleteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerDeleteButton.h; sourceTree = "<group>"; };
+		0861873519D54EB200C9A476 /* ADLayerDeleteButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerDeleteButton.m; sourceTree = "<group>"; };
 		0862133D174D06AD006704C8 /* ADLayerBlendModeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModeButton.h; sourceTree = "<group>"; };
 		0862133E174D06AD006704C8 /* ADLayerBlendModeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeButton.m; sourceTree = "<group>"; };
 		08621340174D1A9D006704C8 /* ADLayerBlendModePopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModePopoverController.h; sourceTree = "<group>"; };
@@ -1578,6 +1593,8 @@
 		08A5CBB5189F36B300F4E226 /* REComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REComponent.m; path = PaintProjector/REComponent.m; sourceTree = "<group>"; };
 		08A5CBBD189F542300F4E226 /* REScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = REScene.h; path = PaintProjector/REScene.h; sourceTree = "<group>"; };
 		08A5CBBE189F542300F4E226 /* REScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REScene.m; path = PaintProjector/REScene.m; sourceTree = "<group>"; };
+		08A6B9A919D68CEF00810875 /* ADPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPageControl.h; path = PaintProjector/ADPageControl.h; sourceTree = "<group>"; };
+		08A6B9AA19D68CEF00810875 /* ADPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPageControl.m; path = PaintProjector/ADPageControl.m; sourceTree = "<group>"; };
 		08A6FA4018BB7FB400D9A7EB /* ADSimpleIAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleIAPManager.h; path = PaintProjector/ADSimpleIAPManager.h; sourceTree = "<group>"; };
 		08A6FA4118BB7FB400D9A7EB /* ADSimpleIAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleIAPManager.m; path = PaintProjector/ADSimpleIAPManager.m; sourceTree = "<group>"; };
 		08A6FA4918BB83E700D9A7EB /* BBXBeeblex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBXBeeblex.h; path = BBXBeeblex/BBXBeeblex.h; sourceTree = "<group>"; };
@@ -1769,8 +1786,8 @@
 		08E4D7FC19A71F0A00990523 /* twitter-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter-48.png"; path = "PaintProjector/Images/twitter-48.png"; sourceTree = SOURCE_ROOT; };
 		08E4E7741951C23C003C77DB /* ADBarStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADBarStyleKit.h; path = PaintProjector/ADBarStyleKit.h; sourceTree = "<group>"; };
 		08E4E7751951C23C003C77DB /* ADBarStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBarStyleKit.m; path = PaintProjector/ADBarStyleKit.m; sourceTree = "<group>"; };
-		08E4E77C1951E9B4003C77DB /* ADTutorialNextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialNextButton.h; path = PaintProjector/ADTutorialNextButton.h; sourceTree = "<group>"; };
-		08E4E77D1951E9B4003C77DB /* ADTutorialNextButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialNextButton.m; path = PaintProjector/ADTutorialNextButton.m; sourceTree = "<group>"; };
+		08E4E77C1951E9B4003C77DB /* ADTutorialStepButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialStepButton.h; path = PaintProjector/ADTutorialStepButton.h; sourceTree = "<group>"; };
+		08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialStepButton.m; path = PaintProjector/ADTutorialStepButton.m; sourceTree = "<group>"; };
 		08E505D71956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialPaintScreenGestureCollectionView.h; path = PaintProjector/ADTutorialPaintScreenGestureCollectionView.h; sourceTree = "<group>"; };
 		08E505D81956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialPaintScreenGestureCollectionView.m; path = PaintProjector/ADTutorialPaintScreenGestureCollectionView.m; sourceTree = "<group>"; };
 		08E505DB1956F68700ED86BF /* ADTutorialPaintScreenGestureCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialPaintScreenGestureCollectionViewController.h; path = PaintProjector/ADTutorialPaintScreenGestureCollectionViewController.h; sourceTree = "<group>"; };
@@ -1912,6 +1929,7 @@
 				216bdc3c68d81261b5f22507 /* Security.framework in Frameworks */,
 				3776f0375a7e90d2df5a69cd /* SystemConfiguration.framework in Frameworks */,
 				3e7dd8de6a810d08740e45cf /* libz.dylib in Frameworks */,
+				082543FB19D407C900B4BCA3 /* Reveal.framework in Frameworks */,
 				d71a8e1cade19b3db9ade7de /* libiconv.dylib in Frameworks */,
 				4c46996c1102229ecaa20f23 /* Accounts.framework in Frameworks */,
 				0832E27B1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
@@ -2057,6 +2075,7 @@
 		0822E32319A1CA380094081E /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				0861873119D5417000C9A476 /* LayerEditControlDelete.png */,
 				08B26DF719CF145000512A34 /* RootCanvasFullPattern.png */,
 				08B26DF819CF145000512A34 /* RootCanvasFullPattern@2x.png */,
 				08083DF419645A8600FDDDE8 /* paintFrame.png */,
@@ -2192,6 +2211,8 @@
 				08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */,
 				0868E41E19CC34620082AEB5 /* ADSimpleAlertView.h */,
 				0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */,
+				08A6B9A919D68CEF00810875 /* ADPageControl.h */,
+				08A6B9AA19D68CEF00810875 /* ADPageControl.m */,
 			);
 			name = SharedUITools;
 			sourceTree = "<group>";
@@ -2328,6 +2349,8 @@
 				0847F102174FC31D008E795B /* ADLayerCopyButton.m */,
 				08665CB81780F5B100CA4FCA /* ADLayerAddButton.h */,
 				08665CB91780F5B100CA4FCA /* ADLayerAddButton.m */,
+				0861873419D54EB200C9A476 /* ADLayerDeleteButton.h */,
+				0861873519D54EB200C9A476 /* ADLayerDeleteButton.m */,
 				08B080E71781BDCA000B7E60 /* ADLayerClearButton.h */,
 				08B080E81781BDCA000B7E60 /* ADLayerClearButton.m */,
 				08494ECF1781DC1200A256E8 /* ADLayerDeleteDoneButton.h */,
@@ -2595,8 +2618,8 @@
 				087B9E79194DE61900E1CA7A /* ADTutorialPageView.m */,
 				0852510E194D62200087F4AF /* ADTutorialManager.h */,
 				0852510F194D62200087F4AF /* ADTutorialManager.m */,
-				08E4E77C1951E9B4003C77DB /* ADTutorialNextButton.h */,
-				08E4E77D1951E9B4003C77DB /* ADTutorialNextButton.m */,
+				08E4E77C1951E9B4003C77DB /* ADTutorialStepButton.h */,
+				08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */,
 				08E505F0195722D900ED86BF /* ADTutorialBackgroundView.h */,
 				08E505F1195722D900ED86BF /* ADTutorialBackgroundView.m */,
 				087512B11957D67600FC03CC /* ADTutorialBackgroundLeftEdgeView.h */,
@@ -2623,6 +2646,8 @@
 				08C26B4B19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m */,
 				08ADF7BB19C73837000035A7 /* ADTutorialToPaintCollectionTransitionManager.h */,
 				08ADF7BC19C73837000035A7 /* ADTutorialToPaintCollectionTransitionManager.m */,
+				082F9C5C19D7B228006CC621 /* ADTutorialStatusView.h */,
+				082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */,
 			);
 			name = TutorialScreen;
 			sourceTree = "<group>";
@@ -3169,6 +3194,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				082543F919D407C900B4BCA3 /* Reveal.framework */,
 				0832F56D19BC21CD00FB98CE /* iAd.framework */,
 				08E9D27D193EB034002F4990 /* AVFoundation.framework */,
 				08E9D279193EB020002F4990 /* CoreMedia.framework */,
@@ -3480,6 +3506,7 @@
 				08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */,
 				44c3a468a4bf3475a7a36dc9 /* ADLayerToolView.xib in Resources */,
 				0822E38319A1D3D70094081E /* AnaDrawAppIcon-72.png in Resources */,
+				0861873319D5417000C9A476 /* LayerEditControlDelete.png in Resources */,
 				08B8C34019C5EED100CB85BE /* tutorial0_o-You.png in Resources */,
 				082A69F819C864F600862332 /* tutorial0_Y-You@2x.png in Resources */,
 				082A69EC19C864F600862332 /* tutorial0_n0-Wannaa@2x.png in Resources */,
@@ -3632,6 +3659,7 @@
 				0813AA1F19167BD4000C4D00 /* Models in Resources */,
 				08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */,
 				0822E38219A1D3D70094081E /* AnaDrawAppIcon-72.png in Resources */,
+				0861873219D5417000C9A476 /* LayerEditControlDelete.png in Resources */,
 				08B8C33F19C5EED100CB85BE /* tutorial0_o-You.png in Resources */,
 				082A69F719C864F600862332 /* tutorial0_Y-You@2x.png in Resources */,
 				082A69EB19C864F600862332 /* tutorial0_n0-Wannaa@2x.png in Resources */,
@@ -3810,6 +3838,7 @@
 				4e9779aa9b6bd2a3b1fd4cc6 /* ADPen.m in Sources */,
 				0876F494193215E600E7906B /* UIImage+Extensions.m in Sources */,
 				08EF9E5718A1E2C000376568 /* REResources.m in Sources */,
+				0861873719D54EB200C9A476 /* ADLayerDeleteButton.m in Sources */,
 				08D7464B19C68EBC008921AB /* UILabel+Extension.m in Sources */,
 				0847B69B19AB8E2C00C8F20F /* SKProductWrapper.m in Sources */,
 				08DEDCC4194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */,
@@ -3829,6 +3858,7 @@
 				c1d7b7961f820030662540f1 /* ADUltility.m in Sources */,
 				08E585831913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */,
 				08B11F5818A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */,
+				082F9C5F19D7B228006CC621 /* ADTutorialStatusView.m in Sources */,
 				086BF05F18A12B3100948175 /* ADPlaneMesh.m in Sources */,
 				1ca44ed5ff6f0be437e9f414 /* ADPaintCommand.m in Sources */,
 				0898765F1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */,
@@ -3899,6 +3929,7 @@
 				3ed089207f7784a398bf6d12 /* ADImportTableViewController.m in Sources */,
 				65eda761451e45ad70d4fb72 /* ADExportTableViewController.m in Sources */,
 				17b14fb94b0f8625fd6691c9 /* ADOpacitySlider.m in Sources */,
+				08A6B9AC19D68CEF00810875 /* ADPageControl.m in Sources */,
 				e8bf068d0fc58b89a6e034d9 /* ADPaintColorButton.m in Sources */,
 				08E007DD19BB134900C5DC27 /* Questionnaire.m in Sources */,
 				0813AA2619167C07000C4D00 /* REModelEntity.m in Sources */,
@@ -3963,7 +3994,7 @@
 				0824E50219C462F00065BB04 /* ADTutorialArtCollectionViewCell.m in Sources */,
 				08624F0018D3EBC400FD971E /* ADCylinderProjectToPaintCollectionTransitionManager.m in Sources */,
 				33c3e02f55644e233c7e50c0 /* ADLayerTableViewCell.m in Sources */,
-				08E4E77F1951E9B4003C77DB /* ADTutorialNextButton.m in Sources */,
+				08E4E77F1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */,
 				08fa420721319a2c16a6af4c /* ADBrushPropertyView.m in Sources */,
 				08BD1A6C19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */,
 				08AB75CC188F5ABA007DA20B /* ADPaintCollectionViewCell.m in Sources */,
@@ -4090,6 +4121,7 @@
 				9CFE0B9814E5B12B00408F86 /* UIImage+Alpha.m in Sources */,
 				9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */,
 				08E505E11956FD4200ED86BF /* ADTutorialPaintScreenGestureCollectionViewCell.m in Sources */,
+				082F9C5E19D7B228006CC621 /* ADTutorialStatusView.m in Sources */,
 				082A6A0819C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.m in Sources */,
 				088E1D8418A26F700059002C /* ADShaderCylinder.m in Sources */,
 				08BD1A8F19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
@@ -4160,6 +4192,7 @@
 				08C58ED61976BF290047C1DC /* ADBrushManager.m in Sources */,
 				086B73B1194D3AF600870DBD /* ADTutorialStep.m in Sources */,
 				08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */,
+				08A6B9AB19D68CEF00810875 /* ADPageControl.m in Sources */,
 				087103081914B1390030A5BF /* NSString+Unit.m in Sources */,
 				0803D1FF189FF3EF0068B14B /* REObject.m in Sources */,
 				0863C0261970326F00CDB283 /* ADShaderCylinderImage.m in Sources */,
@@ -4250,7 +4283,7 @@
 				08DEDCC3194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */,
 				08086F0F18DC95A800F03EB4 /* iRate.m in Sources */,
 				085EFD4E1732BDD900F0395D /* ADPaintColorButton.m in Sources */,
-				08E4E77E1951E9B4003C77DB /* ADTutorialNextButton.m in Sources */,
+				08E4E77E1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */,
 				0871A830192A56E200BB8558 /* ADBrushPropertyTableViewCell.m in Sources */,
 				083F862E1734AF7B00DDE6BC /* ADRadiusButton.m in Sources */,
 				083F86651735083F00DDE6BC /* ADRadiusSlider.m in Sources */,
@@ -4389,6 +4422,7 @@
 				0860669317D2DE40002EE42A /* ADCopyButton.m in Sources */,
 				0860669617D2E235002EE42A /* ADBackButton.m in Sources */,
 				0898765E1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */,
+				0861873619D54EB200C9A476 /* ADLayerDeleteButton.m in Sources */,
 				086BF7C6189E3D730066C1F2 /* REMeshRenderer.m in Sources */,
 				08E06CBB1965BDD800A63017 /* ADPinView.m in Sources */,
 				0899C43B18575299006E5DEE /* ADTransformAnchorView.m in Sources */,
@@ -4494,6 +4528,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4658,6 +4693,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4703,6 +4739,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4786,6 +4823,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4911,6 +4949,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4932,6 +4971,12 @@
 					"$(PROJECT_DIR)/GPUImage",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-lz",
+					"-framework",
+					Reveal,
+				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "823a8f79-a610-465a-b486-2063694a3ba9";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "823a8f79-a610-465a-b486-2063694a3ba9";
@@ -4958,6 +5003,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5003,6 +5049,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5059,6 +5106,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";

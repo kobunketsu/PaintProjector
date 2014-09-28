@@ -12,5 +12,11 @@
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout>
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+- (IBAction)nextPageButtonTouchUp:(UIButton *)sender;
+- (IBAction)previousPageButtonTouchUp:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *previousPageButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextPageButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @end

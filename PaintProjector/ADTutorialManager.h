@@ -40,5 +40,5 @@ static ADTutorialManager *tutorialManager = nil;
 @end
 
 @protocol ADTutorialManagerDelegate
-- (void)willTutorialManagerEndTutorial:(ADTutorial*)tutorial;
+- (void)willTutorialManagerEndTutorial:(ADTutorial*)tutorial finished:(BOOL)finished;
 @end

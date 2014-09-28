@@ -15,4 +15,6 @@
 @interface ADTutorialPageButtonView : ADTutorialPageView
 //进入下一步的按钮
 @property (retain, nonatomic) UIButton *nextButton;
+@property (retain, nonatomic) UIButton *cancelButton;
+- (void)initWithTutorial:(ADTutorial*)tutorial description:(NSString *)desc bgImage:(UIImage *)image nextButton:(BOOL)nextButton nextButtonName:(NSString*)nextButtonName cancelButton:(BOOL)cancelButton cancelButtonName:(NSString*)cancelButtonName;
 @end

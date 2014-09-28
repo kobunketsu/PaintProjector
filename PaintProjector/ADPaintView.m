@@ -2349,12 +2349,12 @@
     //如果是当前绘图层
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
-//        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f Current Painted!", index, _curPaintedLayerTexture, layer.blendMode, layer.opacity);
+        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f Current Painted!", index, self.curPaintedLayerTexture.texID, layer.blendMode, layer.opacity);
         [self drawLayerWithTex:self.curPaintedLayerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
     else{
         RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index];
-//        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, numTex.intValue,  layer.blendMode, layer.opacity);
+        DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, layerTexture.texID,  layer.blendMode, layer.opacity);
         [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
     }
     DebugLogGLGroupEnd();
@@ -2574,8 +2574,14 @@
     //合成图层(暂时不考虑混合模式)
     [self drawPaintLayerAtIndex:index];
     
-    //删除当前图层 (并更新)
-    [self deleteLayerAtIndex:index immediate:true];
+    //删除当前图层
+    [self deleteLayerAtIndex:index immediate:false];
+    
+    //设定新当前层
+    [self setCurLayerIndex:index - 1];
+    
+    //更新
+    [self _updateRender];
 }
 
 - (CGRect)calculateLayerContentRect{

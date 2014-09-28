@@ -93,9 +93,9 @@ const float LayerTableViewWidth = 256;
     //[self selectRowForCurLayer];
     
     //设定好半透明的源图
-    UIView *sourceView = [self.delegate willGetFuzzyTransparentSourceView];
-    self.rootView.sourceView = sourceView;
-    self.rootView.delegate = self;
+//    UIView *sourceView = [self.delegate willGetFuzzyTransparentSourceView];
+//    self.rootView.sourceView = sourceView;
+//    self.rootView.delegate = self;
 }
 
 
@@ -156,7 +156,17 @@ const float LayerTableViewWidth = 256;
         
         cell.isAccessibilityElement = true;
         cell.accessibilityIdentifier = layer.identifier;
-//        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
+        cell.backgroundView = [[ADLayerTableViewCellBackgroundView alloc]initWithFrame:cell.bounds];
+        
+//        for (UIView *view in cell.subviews) {
+//            if ([NSStringFromClass([view class ]) isEqualToString:@"UITableViewCellEditControl"]) {
+//                ((UIImageView*)view.subviews[0]).hidden = true;
+//                UIImageView *imageView = (UIImageView*)view.subviews[1];
+//                DebugLog(@"imageView rect %@", NSStringFromCGRect(imageView.frame));
+//                imageView.image = [UIImage imageNamed:@"LayerEditControlDelete.png"];
+//            }
+//        }
+        
         return cell;
     }
 }
@@ -301,6 +311,8 @@ const float LayerTableViewWidth = 256;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     DebugLogFuncStart(@"willDisplayCell layer index %d", [self layerIndexForRow:indexPath.row]);
+    //强制刷新替换cell里的editControl
+    [cell setNeedsLayout];
     
     CGFloat colorRGBA[4];
     if (self.backgroundLayer.visible) {
@@ -754,6 +766,13 @@ const float LayerTableViewWidth = 256;
             ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
             ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
             [button.layer setNeedsDisplay];
+        }
+        
+        if([cell deleteButton]){
+            ((ADCustomLayer*)cell.deleteButton.layer).baseColorR = colorRGBA[0];
+            ((ADCustomLayer*)cell.deleteButton.layer).baseColorG = colorRGBA[1];
+            ((ADCustomLayer*)cell.deleteButton.layer).baseColorB = colorRGBA[2];
+            [cell.deleteButton.layer setNeedsDisplay];
         }
         
         [cell setSelectedState:cell.isSelected];

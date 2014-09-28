@@ -20,6 +20,7 @@ typedef void(^TutorialStepAnimationBlock)(void);
 @property(retain, nonatomic)ADTutorialIndicatorView *indicatorView;//主指示器
 @property(retain, nonatomic)NSMutableArray *indicatorViews;
 @property (nonatomic, copy) TutorialStepAnimationBlock fadeInAnimationBlock;
+@property (assign, nonatomic) BOOL cancelable;
 - (void)start;
 - (void)end;
 //加入到教程内容的根UIView下

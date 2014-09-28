@@ -8,6 +8,8 @@
 
 #import "ADHelpViewController.h"
 #import "ADHelpCollectionViewCell.h"
+//#import "ADPageControl.h"
+
 #define Patch_PageControl 10
 #define NumberOfPage 3
 @interface ADHelpViewController ()
@@ -29,6 +31,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+//    CGSize size = self.preferredContentSize;
+//    size.width -= 22;
+//    ADPageControl *pageControl = [[ADPageControl alloc]initWithScrollView:self.collectionView size:size];
+//    [pageControl initCustom];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +116,35 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     self.pageControl.currentPage = floorf((scrollView.contentOffset.x + Patch_PageControl)/ (scrollView.contentSize.width / NumberOfPage));
+    
+    self.nextPageButton.hidden = self.previousPageButton.hidden = false;
+    if (self.pageControl.currentPage == 2) {
+        self.nextPageButton.hidden = true;
+    }
+    if (self.pageControl.currentPage == 0) {
+        self.previousPageButton.hidden = true;
+    }
 }
 
+- (IBAction)nextPageButtonTouchUp:(UIButton *)sender {
+    CGPoint contentOffset = self.collectionView.contentOffset;
+    contentOffset.x += self.collectionView.contentSize.width / 3.0;
+    self.collectionView.contentOffset = contentOffset;
+    
+    self.previousPageButton.hidden = false;
+    if (self.pageControl.currentPage == 2) {
+        self.nextPageButton.hidden = true;
+    }
+}
+
+- (IBAction)previousPageButtonTouchUp:(UIButton *)sender {
+    CGPoint contentOffset = self.collectionView.contentOffset;
+    contentOffset.x -= self.collectionView.contentSize.width / 3.0;
+    self.collectionView.contentOffset = contentOffset;
+    
+    self.nextPageButton.hidden = false;
+    if (self.pageControl.currentPage == 0) {
+        self.previousPageButton.hidden = true;
+    }
+}
 @end

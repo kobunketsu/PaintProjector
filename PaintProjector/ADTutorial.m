@@ -44,6 +44,7 @@
     if (self) {
         _steps = [[NSMutableArray alloc]init];
         _curStepIndex = -1;
+
     }
     return self;
 }
@@ -112,9 +113,18 @@
     }];
 }
 
+- (void)cancel{
+    if (self.delegate) {
+        [self.delegate willTutorialEnd:self finished:false];
+    }
+    
+    //dealloc
+    self.curStepIndex = -1;
+}
+
 - (void)end{
     if (self.delegate) {
-        [self.delegate willTutorialEnd:self];
+        [self.delegate willTutorialEnd:self finished:true];
     }
     
     //dealloc
@@ -127,5 +137,9 @@
     [self stepNext:^{
         [self.curStep start];
     }];
+}
+
+- (void)willStepCancelImmediate{
+    [self cancel];
 }
 @end

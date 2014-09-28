@@ -100,6 +100,7 @@ UIViewControllerTransitioningDelegate,
 UIPopoverControllerDelegate,
 UIAlertViewDelegate,
 MFMailComposeViewControllerDelegate,
+UITextFieldDelegate,
 //ADBannerViewDelegate,
 REDisplayDelegate,
 ADPaintScreenTransitionManagerDelegate,
@@ -166,6 +167,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet ADDownToolBar               * downToolBar;
 @property (weak, nonatomic) IBOutlet ADTopToolBar                * topToolBar;
 @property (weak, nonatomic) IBOutlet ADTopToolBar                * iAdBar;
+@property (weak, nonatomic) IBOutlet UITextField *paintDocNameTextField;
 
 #pragma mark- 输入User Input
 @property (retain, nonatomic) ADCylinderProjectUserInputParams *userInputParams;

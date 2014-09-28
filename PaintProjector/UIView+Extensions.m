@@ -81,6 +81,18 @@
     self.frame = frame;
 }
 
+- (void)setCenterX:(CGFloat)x{
+    CGPoint center = self.center;
+    center.x = x;
+    self.center = center;
+}
+
+- (void)setCenterY:(CGFloat)y{
+    CGPoint center = self.center;
+    center.y = y;
+    self.center = center;
+}
+
 //MARK: dont support angle over M_2_PI
 - (void)spinViewAngle:(CGFloat)angle keyPath:(NSString *)keyPath duration:(CGFloat)duration delay:(CGFloat)delay option:(UIViewKeyframeAnimationOptions)option completion:(void (^)(BOOL finished))completion{
     

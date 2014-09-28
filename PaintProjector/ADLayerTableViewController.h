@@ -53,7 +53,7 @@ UIAlertViewDelegate
 
 @property (weak, nonatomic) IBOutlet UIView *toolBar;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet ADFuzzyTransparentView *rootView;
+@property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) ADLayerBlendModeTableViewController *blendModeTableViewController;
 @property (assign, nonatomic)float tableViewWidth;
 @property (assign, nonatomic)float tableViewHeightMax;

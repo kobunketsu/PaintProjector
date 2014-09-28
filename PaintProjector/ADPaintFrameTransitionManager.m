@@ -21,7 +21,7 @@
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     // transition animation time between grid and stack layout
-    return 1.5;
+    return 2.0;
 }
 
 
@@ -66,18 +66,22 @@
     }
     
     //动画隐藏所有paintFrame
-    toView.alpha = 0;
+
+//    paintCollectionVC.view.alpha = 0;
     DebugLog(@"presentingAnimateTransition hiding all paintFrames");
     [UIView animateWithDuration:PaintFrameFadeAnimationDuration*2 animations:^{
         paintCollectionVC.view.alpha = 0;
-        toView.alpha = 1;
         for (int i = 0; i < [ADPaintFrameManager curGroup].paintDocs.count; ++i) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell*)[paintCollectionVC.collectionView cellForItemAtIndexPath:indexPath];
             [cell.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
         }
-
         [imageView.layer setValue:[NSNumber numberWithFloat:1.0] forKeyPath:@"transform.scale"];
+    }];
+    
+    toView.alpha = 0;
+    [UIView animateWithDuration:CylinderProjectFadeAnimationDuration animations:^{
+        toView.alpha = 1;
     } completion:^(BOOL finished) {
         DebugLog(@"presentingAnimateTransition translating transitionImageView to destRect");
         

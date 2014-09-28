@@ -12,6 +12,12 @@
 #import "ADTutorialPageButtonView.h"
 #import "ADTextSplitter.h"
 
+#define TutorialListFadeInDuration 0.6
+#define TutorialListFadeInSpringDamp 0.7
+#define TutorialListFadeInSpringVelocity 0.5
+#define TutorialListTextFadeInDuration 0.6
+#define TutorialListButtonFadeInDuration 0.4
+#define TutorialButtonFadeInDuration 0.2
 
 @interface ADSimpleTutorialViewController : UIViewController
 <
@@ -52,6 +58,7 @@ ADTextSplitterDelegate
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialButtonGroups;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *tutorialButtons;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *tutorialButtonLabels;
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialStatusViews;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *tutorialImageViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialAllViews;
 @property (retain, nonatomic) NSMutableArray *tutorialListTextSplitters;

@@ -35,7 +35,7 @@
 //OpenGLES调用的log
     #define _DebugLogGL(s, ...) NSLog(XCODE_COLORS_ESCAPE @"bg255,0,255;" @"<%p %@:(%d)> %@" XCODE_COLORS_RESET, self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
     #define _DebugLogGLGroupStart(s, ...) glPushGroupMarkerEXT(0, [[NSString stringWithFormat:(s), ##__VA_ARGS__] UTF8String]); _DebugLogGL(s, ##__VA_ARGS__);
-    #define _DebugLogGLGroupEnd() glPopGroupMarkerEXT()
+    #define _DebugLogGLGroupEnd() glPopGroupMarkerEXT();
     #define DebugLogGLSnapshotStart [[REGLWrapper current].context presentRenderbuffer:GL_RENDERBUFFER];
     #define DebugLogGLSnapshotEnd DebugLogGLSnapshotStart
     #define DebugLogGLLabel(type,object,length,label) glLabelObjectEXT(type,object,length,label)
@@ -70,9 +70,9 @@
 #define DebugLogIBAction(s,...)         _DebugLogIBAction(s, ##__VA_ARGS__)
 #define DebugLogFuncStart(s,...)        _DebugLogFuncStart(s, ##__VA_ARGS__)
 #define DebugLogFuncUpdate(s,...)       //_DebugLogFuncUpdate(s, ##__VA_ARGS__)
-#define DebugLogGL(s,...)               //_DebugLogGL(s, ##__VA_ARGS__)
-#define DebugLogGLGroupStart(s,...)     //_DebugLogGLGroupStart(s, ##__VA_ARGS__)
-#define DebugLogGLGroupEnd()            //_DebugLogGLGroupEnd()
+#define DebugLogGL(s,...)               _DebugLogGL(s, ##__VA_ARGS__)
+#define DebugLogGLGroupStart(s,...)     _DebugLogGLGroupStart(s, ##__VA_ARGS__)
+#define DebugLogGLGroupEnd()            _DebugLogGLGroupEnd()
 #define DebugLogProfile(s,...)          _DebugLogProfile(s, ##__VA_ARGS__)
 
 #endif

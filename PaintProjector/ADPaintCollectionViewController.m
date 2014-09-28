@@ -571,6 +571,12 @@
 
 #pragma mark- 教程 Tutorial
 //主教程入口设置
+- (void)tutorialLayout:(ADTutorial*)tutorial{
+    ADSimpleTutorial *simpleTutorial = (ADSimpleTutorial *)tutorial;
+    [simpleTutorial.cancelView removeFromSuperview];
+    simpleTutorial.cancelView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - simpleTutorial.cancelView.frame.size.height);
+    [self.rootView addSubview:simpleTutorial.cancelView];
+}
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
     if (![[ADSimpleTutorialManager current] isActive]) {
@@ -596,6 +602,8 @@
     
     self.pageControl.currentPage = 0;
     self.collectionView.contentOffset = CGPointZero;
+    
+    [self tutorialLayout:[ADSimpleTutorialManager current].curTutorial];
 }
 
 //在排版等准备完成以后,检查是否需要开始教程
@@ -655,11 +663,13 @@
     //只要是教程,就需要关闭所有其他工具
     self.downToolBar.userInteractionEnabled = enable;
     self.collectionView.userInteractionEnabled = enable;
+    self.collectionView.scrollEnabled = enable;
     
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
     }
     else if ([step.name isEqualToString:@"PaintCollectionPickImage"]) {
         self.collectionView.userInteractionEnabled = true;
+        self.collectionView.scrollEnabled = false;
         //打开关闭第一个作品的交互
         if ([self.collectionView numberOfItemsInSection:0] == 0) {
             return;
@@ -692,7 +702,8 @@
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willTutorialLayoutWithStep");
-
+    step.contentView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - step.contentView.frame.size.height);
+    
     if ([step.name isEqualToString:@"PaintCollectionWelcome"]) {
         [step.contentView bringSubviewToFront:((ADTutorialPageButtonView*)step.contentView).nextButton];
     }

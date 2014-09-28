@@ -37,6 +37,10 @@ static ADPaintFrameViewGroup *curGroup = nil;
 
 +(void)deletePaintDocAtIndices:(NSArray *)indices;
 
+//+(void)renamePaintDocAtCurIndex:(NSString *)name;
+
+//+(void)renamePaintDocAtIndices:(NSArray *)indices name:(NSString *)name;
+
 + (void)loadPaintFrameView:(ADPaintFrameView*)paintFrameView byIndex:(int)index;
 + (void)unloadPaintFrameView:(ADPaintFrameView*)paintFrameView;
 

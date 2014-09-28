@@ -20,6 +20,8 @@
 - (void)stepNext:(void (^)(void))block;
 //进入下一步并直接开始
 - (void)stepNextImmediate;
+//中止
+- (void)cancel;
 //结束
 - (void)end;
 //添加步骤
@@ -35,5 +37,5 @@
 @end
 
 @protocol ADTutorialDelegate
-- (void)willTutorialEnd:(ADTutorial *)tutorial;
+- (void)willTutorialEnd:(ADTutorial *)tutorial finished:(BOOL)finished;
 @end

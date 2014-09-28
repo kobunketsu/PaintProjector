@@ -29,26 +29,24 @@
 
 - (void)drawCanvas1WithFrame: (CGRect)frame;
 {
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
     //// Color Declarations
     UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
-    //// next Drawing
-    CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMinX(frame) + 11, CGRectGetMinY(frame) + 44);
-    CGContextRotateCTM(context, 90 * M_PI / 180);
     
+    //// Subframes
+    CGRect frameNext = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 12) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 10) * 0.50000 + 0.5), 12, 10);
+    
+    
+    //// next Drawing
     UIBezierPath* nextPath = UIBezierPath.bezierPath;
-    [nextPath moveToPoint: CGPointMake(-0, -5.5)];
-    [nextPath addLineToPoint: CGPointMake(-4.76, 2.75)];
-    [nextPath addLineToPoint: CGPointMake(4.76, 2.75)];
+    [nextPath moveToPoint: CGPointMake(CGRectGetMinX(frameNext) + 0.95833 * CGRectGetWidth(frameNext), CGRectGetMinY(frameNext) + 5)];
+    [nextPath addLineToPoint: CGPointMake(CGRectGetMinX(frameNext) + 0.27083 * CGRectGetWidth(frameNext), CGRectGetMinY(frameNext) + 0.24)];
+    [nextPath addLineToPoint: CGPointMake(CGRectGetMinX(frameNext) + 0.27083 * CGRectGetWidth(frameNext), CGRectGetMinY(frameNext) + 9.76)];
+    [nextPath addLineToPoint: CGPointMake(CGRectGetMinX(frameNext) + 0.95833 * CGRectGetWidth(frameNext), CGRectGetMinY(frameNext) + 5)];
     [nextPath closePath];
     [color setFill];
     [nextPath fill];
-    
-    CGContextRestoreGState(context);
 }
+
 
 @end

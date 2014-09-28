@@ -8,6 +8,7 @@
 
 #import "ADLayerTableViewCell.h"
 #import "ADPaintUIKitStyle.h"
+
 const float LayerTableViewWidth = 256;
 
 @implementation ADLayerTableViewCell
@@ -41,26 +42,68 @@ const float LayerTableViewWidth = 256;
     [self setSelectedState:selected];
 }
 
+- (ADLayerDeleteButton*)deleteButton{
+    ADLayerDeleteButton *deleteButton = nil;
+    UIView *rootView = nil;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //iOS 8.0 no UITableViewCellScrollView
+        rootView = self;
+    }
+    else{
+        //iOS 7.0 contain UITableViewCellScrollView
+        rootView = self.subviews[0];
+    }
+    for (UIView *view in rootView.subviews) {
+        if ([NSStringFromClass([view class ]) isEqualToString:@"UITableViewCellEditControl"] && view.subviews.count > 0) {
+            if([view.subviews[0] isKindOfClass:[ADLayerDeleteButton class]]){
+                deleteButton = view.subviews[0];
+            }
+        }
+    }
+    return deleteButton;
+}
+
 - (void)layoutSubviews
 {
+    DebugLogSystem(@"layoutSubviews");
     [super layoutSubviews];
  
+
     //修正IOS7 AutoLayout下deleteButton 和reorder button消失问题
-    for (UIView *subview in self.subviews) {
-        for (UIView *subview2 in subview.subviews) {
-            if ([NSStringFromClass([subview2 class]) isEqualToString:@"UITableViewCellDeleteConfirmationView"]){ // move delete confirmation view
-                CGRect frame = subview2.frame;
-                frame.origin.x = LayerTableViewWidth;
-                subview2.frame = frame;
-                [subview bringSubviewToFront:subview2];
-                
+    UIView *rootView = nil;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //iOS 8.0 no UITableViewCellScrollView
+        rootView = self;
+    }
+    else{
+        //iOS 7.0 contain UITableViewCellScrollView
+        rootView = self.subviews[0];
+    }
+    for (UIView *view in rootView.subviews) {
+            if ([NSStringFromClass([view class]) isEqualToString:@"UITableViewCellDeleteConfirmationView"]){ // move
+                [view setFrameOriginX:LayerTableViewWidth];
+                [self bringSubviewToFront:view];
             }
-            else if ([NSStringFromClass([subview2 class]) isEqualToString:@"UITableViewCellReorderControl"]){
-                CGRect frame = subview2.frame;
-                frame.origin.x = LayerTableViewWidth - subview2.bounds.size.width;
-                subview2.frame = frame;
-                [subview bringSubviewToFront:subview2];
+//            else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellReorderControl"]){
+//                [subview setFrameOriginX:LayerTableViewWidth - self.bounds.size.width];
+//                [self bringSubviewToFront:subview];
+//            }
+        
+        if ([NSStringFromClass([view class ]) isEqualToString:@"UITableViewCellEditControl"] && view.subviews.count > 0) {
+            for (UIView *subView in view.subviews) {
+                [subView removeFromSuperview];
             }
+            ADLayerDeleteButton *deleteButton = [[ADLayerDeleteButton alloc]initWithFrame:CGRectMake(0, 0, self.visibleButton.bounds.size.width, self.visibleButton.bounds.size.height)];
+            deleteButton.userInteractionEnabled = false;
+            deleteButton.center = CGPointMake(view.bounds.size.width * 0.5, view.bounds.size.height * 0.5);
+            [deleteButton setFrameOriginX:0];
+            //assign color
+            ((ADCustomLayer*)deleteButton.layer).baseColorR = ((ADCustomLayer*)self.visibleButton.layer).baseColorR;
+            ((ADCustomLayer*)deleteButton.layer).baseColorG = ((ADCustomLayer*)self.visibleButton.layer).baseColorG;
+            ((ADCustomLayer*)deleteButton.layer).baseColorB= ((ADCustomLayer*)self.visibleButton.layer).baseColorB;
+            [deleteButton.layer setNeedsDisplay];
+            [view addSubview:deleteButton];
+            
         }
     }
     
@@ -91,6 +134,13 @@ const float LayerTableViewWidth = 256;
 ////            subview.frame = newFrame;
 ////        }
 //    }
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    //    DebugLogWarn(@"drawRect");
+    // Drawing code
+    [ADPaintUIKitStyle drawCrystalGradientInView:self];
 }
 
 - (void)willTransitionToState:(UITableViewCellStateMask)state {

@@ -22,4 +22,5 @@ typedef void(^TutorialLayoutCompletionBlock)(void);
 
 @protocol ADTutorialViewDelegate
 - (void)willStepNextImmediate;
+- (void)willStepCancelImmediate;
 @end

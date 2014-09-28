@@ -34,6 +34,7 @@
 #import "ADHelpViewController.h"
 #import "AppDelegate.h"
 
+
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
 #define LayerToolButtonSize 40
@@ -2531,10 +2532,10 @@
     //制定绘制的paintData
     if (self.isReversePaint) {
         [self.paintView setOpenData:self.paintDoc.reverseData];
-        self.reversePaint = [[ADReversePaint alloc]initWithPaintView:self.paintView srcPaintData:[self.paintDoc open]];
+        self.reversePaint = [[ADReversePaint alloc]initWithPaintView:self.paintView srcPaintData:[self.paintDoc openData]];
     }
     else{
-        [self.paintView setOpenData:[self.paintDoc open]];
+        [self.paintView setOpenData:[self.paintDoc openData]];
     }
     
     self.paintView.paintData.backgroundLayer.delegate = self;
@@ -2556,7 +2557,9 @@
 - (void)saveDoc{
     //在paintView完成上传paintData后更新到paintDoc中，并保存paintDoc到磁盘,
     //将当前PaintDoc文件保存到.psf
-    [self.paintDoc save];
+    [self.paintDoc saveInfo];
+    
+    [self.paintDoc saveData];
     
     //刷新预览文件
     [self.paintDoc saveThumbImage:[self.paintView snapshotScreenToUIImageOutputSize:CGSizeMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5)]];
@@ -3887,6 +3890,7 @@
     [self.paintView uploadLayerDatas];
     return true;
 }
+
 - (BOOL)willMergeLayerDataAtIndex:(int)index{
     if(![self checkIndexAvailable:index]){
         return false;
@@ -3896,8 +3900,11 @@
         return false;
     }
     
+    DebugLogGLSnapshotStart
     [self.paintView mergeLayerAtIndex:index];
     [self.paintView uploadLayerDataAtIndex:index - 1];
+    DebugLogGLSnapshotEnd
+    
     return true;
 }
 
@@ -4858,8 +4865,19 @@
 
 #pragma mark- 教程 Tutorial
 //主教程入口设置
+- (void)tutorialLayout:(ADTutorial*)tutorial{
+    ADSimpleTutorial *simpleTutorial = (ADSimpleTutorial *)tutorial;
+    [simpleTutorial.cancelView removeFromSuperview];
+    simpleTutorial.cancelView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.paintToolBar.frame.size.height - simpleTutorial.cancelView.frame.size.height);
+    [self.rootView addSubview:simpleTutorial.cancelView];
+}
+
 - (void)tutorialSetup{
     DebugLogFuncStart(@"tutorialSetup");
+    if (![[ADSimpleTutorialManager current] isActive]) {
+        return;
+    }
+    
     for (ADSimpleTutorial *tutorial in [ADSimpleTutorialManager current].tutorials.objectEnumerator) {
         tutorial.curViewController = self;        
         for (ADTutorialStep *step in tutorial.steps) {
@@ -4868,6 +4886,8 @@
             }
         }
     }
+    
+    [self tutorialLayout:[ADSimpleTutorialManager current].curTutorial];
 }
 
 - (void)tutorialStartCurrentStep{
@@ -4877,6 +4897,7 @@
     }
     
     [[ADSimpleTutorialManager current].curTutorial startCurrentStep];
+
 }
 
 //在排版等准备完成以后,检查是否需要开始教程
@@ -4941,10 +4962,12 @@
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
     DebugLogFuncStart(@"willLayoutWithStep");
-    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
-        step.contentView.center = CGPointMake(self.view.center.x, self.view.bounds.size.height - self.paintToolBar.frame.size.height - step.contentView.frame.size.height);
-    }
-    else if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
+    step.contentView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.paintToolBar.frame.size.height - step.contentView.frame.size.height);
+    
+//    if ([step.name isEqualToString:@"PaintScreenTutorialDone"]) {
+//        step.contentView.center = CGPointMake(self.view.center.x, self.view.bounds.size.height - self.paintToolBar.frame.size.height - step.contentView.frame.size.height);
+//    }
+    if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
         [step.indicatorView targetView:self.helpButton inRootView:self.view];
     }
     else if ([step.name isEqualToString:@"PaintScreenCloseDoc"]){
@@ -4973,6 +4996,7 @@
     [self showIndicator];
     
     [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    
 }
 
 - (void)closeIndicator{

@@ -103,14 +103,14 @@
     [self.tutorials removeObjectForKey:name];
 }
 #pragma mark- 教程代理 TutorialDelegate
-- (void)willTutorialEnd:(ADTutorial *)tutorial{
+- (void)willTutorialEnd:(ADTutorial *)tutorial finished:(BOOL)finished{
     DebugLogFuncStart(@"willTutorialEnd %@", tutorial.name);
    
 //    tutorial = nil;
 //    self.curTutorial = nil;
     
     if (self.delegate) {
-        [self.delegate willTutorialManagerEndTutorial:tutorial];
+        [self.delegate willTutorialManagerEndTutorial:tutorial finished:finished];
     }
 }
 @end

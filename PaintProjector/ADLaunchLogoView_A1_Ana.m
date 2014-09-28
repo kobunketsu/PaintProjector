@@ -21,7 +21,8 @@
 
 - (void)initCustom{
     [super initCustom];
-    self.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+//    self.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+    self.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.000].CGColor;
 }
 
 // Only override drawRect: if you perform custom drawing.

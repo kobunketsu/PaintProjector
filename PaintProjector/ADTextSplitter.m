@@ -37,6 +37,8 @@
     if (self) {
         _perWord = perWord;
         _delegate = delegate;
+        
+        //调整位置
         if (self.delegate) {
             [self.delegate willAdjustTextView:textView];
         }

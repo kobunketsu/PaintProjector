@@ -82,6 +82,7 @@ static ADPaintDocManager* sharedInstance = nil;
 //            DebugLog(@"paintDoc date %@", date);
             
             ADPaintDoc* paintDoc =[[ADPaintDoc alloc]initWithDocPath:docPath];
+            [paintDoc openInfo];
             [paintDocs addObject:paintDoc];
         }
     }
@@ -136,14 +137,17 @@ static ADPaintDocManager* sharedInstance = nil;
 - (ADPaintDoc*)createPaintDocInDirectory:(NSString*)dirName{
     NSString* docPath = [self nextPaintDocPathInDirectory:dirName];    //得到新的路径
     ADPaintDoc* paintDoc =[[ADPaintDoc alloc]initWithDocPath:docPath];
+    //创建头文件
+    [paintDoc saveInfo];
+    
     //创建数据
     [paintDoc newData];
-
-    //保存到磁盘
-    [paintDoc save];
+    
+    //保存数据
+    [paintDoc saveData];
     
     //创建图标
-    [paintDoc newAndSaveThumbImage];
+    [paintDoc newSaveThumbImage];
     
     return paintDoc;
 }
@@ -184,10 +188,14 @@ static ADPaintDocManager* sharedInstance = nil;
     [paintDoc delete];
 }
 
+- (void)renamePaintDoc:(ADPaintDoc*)paintDoc name:(NSString*)name{
+    
+}
 - (ADPaintDoc*)clonePaintDoc:(ADPaintDoc*)paintDoc{
     NSString *dirPath = [paintDoc.docPath stringByDeletingLastPathComponent];
     NSString* docPath = [self nextPaintDocPathInDirectory:dirPath];
     NSString* docThumbPath = [[docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"png"];
+    NSString* docInfoPath = [[docPath stringByDeletingPathExtension]stringByAppendingPathExtension:@"inf"];
 
     //TODO:如果已经有xx_copy文件存在，会报错
 //    NSString* docPath = [[paintDoc.docPath stringByDeletingPathExtension]stringByAppendingString:@"_copy.psf"];    //得到新的路径
@@ -203,6 +211,7 @@ static ADPaintDocManager* sharedInstance = nil;
         return nil;
     }
     
+    //copy thumb file
     NSString* srcThumbFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.thumbImagePath];
     NSString* copyThumbFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:docThumbPath];
 
@@ -210,6 +219,16 @@ static ADPaintDocManager* sharedInstance = nil;
         DebugLogError(@"Error clonePaintDoc Thumb: %@", [error localizedDescription]);
         return nil;
     }
+    
+    //copy inf file
+    NSString* srcInfoFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:paintDoc.infoPath];
+    NSString* copyInfoFullPath = [[ADUltility applicationDocumentDirectory] stringByAppendingPathComponent:docInfoPath];
+    
+    if (![[NSFileManager defaultManager]copyItemAtPath:srcInfoFullPath toPath:copyInfoFullPath error:&error]) {
+        DebugLogError(@"Error clonePaintDoc Info: %@", [error localizedDescription]);
+        return nil;
+    }
+    
     
     ADPaintDoc* clonePaintDoc = [[ADPaintDoc alloc]initWithDocPath:docPath];
     return clonePaintDoc;
