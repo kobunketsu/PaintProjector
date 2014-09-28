@@ -553,7 +553,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 {
     DebugLogFuncUpdate(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
     size_t numOfSegmentPoint = [self numOfSegmentPointFromStart:start toEnd:end brushState:brushState isTapDraw:isTapDraw];
-    
+    DebugLogWarn(@"numOfSegmentPoint %zu", numOfSegmentPoint);
     //绘图Fade
     if (self.brushState.isVelocitySensor) {
         if (self.brushState.isRadiusMagnifySensor) {

@@ -1185,10 +1185,9 @@
 
 //将临时buffer的内容拷贝到当前层
 - (void)copyCurLayerToCurPaintedLayer{
-    DebugLogFuncStart(@"copyCurLayerToCurPaintedLayer");
     DebugLogGLGroupStart(@"copyCurLayerToCurPaintedLayer");
 
-	[[REGLWrapper current] bindFramebufferOES: self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
+	[[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
     
     [self drawSquareQuadWithTexture2DPremultiplied:self.curLayerTexture.texID];
     
@@ -1378,7 +1377,7 @@
 //    DebugLog(@"[ willStartDraw ]");
     DebugLogGLGroupStart(@"paintView willStartDraw brushId %d", brushState.classId);
     
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushState.classId];
+    ADBrush *brush = self.brushTypes[brushState.classId];
     [brush startDraw:startPoint];
     
     if (brushState.wet > 0 && !isUndoBaseWrapped) {
@@ -1405,7 +1404,7 @@
 //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
     
     size_t count = 0;
-    ADBrush *brush = [self.brushTypes objectAtIndex:cmd.brushState.classId];
+    ADBrush *brush = self.brushTypes[cmd.brushState.classId];
     brush.curSegmentEndPoint = brush.lastSegmentEndPoint = [cmd.paintPaths[0] CGPointValue];
     
     if (cmd.paintPaths.count == 1) {
@@ -1475,7 +1474,7 @@
     }
     
     
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushState.classId];
+    ADBrush *brush = self.brushTypes[brushState.classId];
     [brush prepareWithBrushState:brushState lastBrushState:self.lastBrushState];
     self.lastBrushState = brushState;
     
@@ -1487,7 +1486,7 @@
 
 //    DebugLogGLGroupStart(@"paintView willFillData");
     
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushId];
+    ADBrush *brush = self.brushTypes[brushId];
     [brush fillDataFromPoint:start toPoint:end segmentOffset:segmentOffset brushState:brushState isTapDraw:isTapDraw isImmediate:isImmediate];
 //    DebugLogGLGroupEnd();
 }
@@ -1497,7 +1496,7 @@
 
     DebugLogGLGroupStart(@"paintView willRenderDraw");
     
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushId];
+    ADBrush *brush = self.brushTypes[brushId];
     [brush renderImmediate:isImmediate];
     
     DebugLogGLGroupEnd();
@@ -1825,7 +1824,7 @@
 }
 
 - (void) willUpdateSmudgeTextureWithBrushState:(ADBrushState*)brushState location:(CGPoint)point inRect:(CGRect)rect ofFBO:(GLuint)fbo ofTexture:(GLuint)texture ofVAO:(GLuint)vao{
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushState.classId];
+    ADBrush *brush = self.brushTypes[brushState.classId];
     
     if (!brush.smudgeTexture) {
         [brush createSmudgeFramebuffers];
@@ -3092,7 +3091,7 @@
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
     //使用合成brush的blendMode
-    ADBrush *brush = [self.brushTypes objectAtIndex:brushState.classId];
+    ADBrush *brush = self.brushTypes[brushState.classId];
     [brush setBlendMode];
 
     [[REGLWrapper current] bindVertexArrayOES: quad];

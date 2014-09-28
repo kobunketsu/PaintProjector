@@ -54,7 +54,7 @@
         return;
     }
     
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(firstQuestion, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(firstQuestion, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
     [alertView show];
     return;
 }
@@ -70,7 +70,7 @@
     
     if (self.curIndex >= self.questions.count) {
         //Questionnaire over
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ThankYouForFeedback", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Submit", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"ThankYouForFeedback", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Submit", nil) otherButtonTitles:nil, nil];
         alertView.tag = 1;
         alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         //add additional feedback box
@@ -82,7 +82,7 @@
     else{
         //record answer
         NSString *nextQuestion = self.questions[self.curIndex];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(nextQuestion, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(nextQuestion, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"YES", nil), nil];
         [alertView show];
     }
 }

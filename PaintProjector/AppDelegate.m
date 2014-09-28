@@ -84,6 +84,7 @@
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialDrawReflection"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialDrawAnamorphosis"];
     
+    [[NSUserDefaults standardUserDefaults] synchronize];
 #else
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
@@ -103,7 +104,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"TutorialWatched"];
         
         //IAP功能
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
         

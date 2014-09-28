@@ -37,7 +37,7 @@ static ADBrushState *brushStatePencil = nil;
 }
 
 - (void)resetDefaultBrushState{
-    self.brushState.radius = 3;
+    self.brushState.radius = 1;
     self.brushState.radiusFade = 0;
     self.brushState.radiusJitter = 0;
     self.brushState.opacity = 1.0;

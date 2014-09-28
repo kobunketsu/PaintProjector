@@ -192,7 +192,7 @@
             [self.activityView removeFromSuperview];
             self.activityView = nil;
         }
-        self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        self.alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [self.alertView show];
     }
 }
@@ -209,7 +209,7 @@
     [RemoteLog logAction:@"IAPRestoreButtonTouchUp" identifier:sender];
     if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
     else{
@@ -219,7 +219,7 @@
             NetworkStatus netStatus = [reach currentReachabilityStatus];
             if (netStatus == NotReachable) {
                 DebugLog(@"没有网络连接, 无法恢复产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
                 [alertView show];
             }
             else{
@@ -228,7 +228,7 @@
         }
         else{
             DebugLog(@"设备禁止IAP");
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
             [alertView show];
         }
     }

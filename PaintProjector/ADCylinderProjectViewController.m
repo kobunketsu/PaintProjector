@@ -393,7 +393,7 @@ static float DeviceWidth = 0.154;
 //提示是否需要保存
 - (void)alvertSaveUserInputParamsWithCompletionBlock:(AutoAlertViewClickHandler)completionBlock{
     //提示是否保存到模版
-    ADSimpleAlertView *alertView = [[ADSimpleAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
+    ADSimpleAlertView *alertView = [[ADSimpleAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
     alertView.delegate = alertView;
 //    alertView.tag = 2;
     
@@ -667,7 +667,7 @@ static float DeviceWidth = 0.154;
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.shareButton.selected = false;
         NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -683,7 +683,7 @@ static float DeviceWidth = 0.154;
 -(void) didSelectPostToEmail {
     [RemoteLog logAction:@"didSelectPostToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }

@@ -158,10 +158,6 @@
     self.paintView.brushTypes = self.brushTypeScrollView.brushTypes;
     NSInteger brushId = [[NSUserDefaults standardUserDefaults] integerForKey:@"UsingBrushId"];
     ADBrush *brush = self.brushTypeScrollView.brushTypes[brushId];
-//    ADBrush *brush = [[NSUserDefaults standardUserDefaults] objectForKey:@"UsingBrush"];
-//    if(!brush){
-//        brush = self.brushTypeScrollView.brushTypes[0];
-//    }
     ADBrush *brushCopy = [brush copy];
     [self.paintView setBrush:brushCopy];
     
@@ -2467,21 +2463,22 @@
     NSString *string = [NSString stringWithFormat:@"selectBrushDone BrushId %d", button.brush.brushState.classId];
     [RemoteLog logAction:string identifier:sender];
     
-    ADBrush *brush = button.brush;
+    ADBrush *brushTemplate = button.brush;
     
     //检查笔刷是否可用
-    if (!brush.available) {
+    if (!brushTemplate.available) {
         [self willSelectBrushCanceled:sender];
         
-        [self openIAPWithProductFeatureIndex:brush.iapProductFeatureId];
+        [self openIAPWithProductFeatureIndex:brushTemplate.iapProductFeatureId];
         
         return;
     }
     
+    
     //UI
-    ADBrush *brushCopy = [brush copy];
+    ADBrush *brushCopy = [brushTemplate copy];
     //得到上一个记录的同类型的brushState
-    ADBrushState *brushState =[[brush class] brushStateTemplate];
+    ADBrushState *brushState =[[brushTemplate class] brushStateTemplate];
     if (brushState) {
         brushCopy.brushState = [brushState copy];
     }
@@ -2840,7 +2837,7 @@
                  [self enterTransformImageState:rect];
              }
              else{
-                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
+                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
                  alertView.tag = 2;
                  [alertView show];
              }
@@ -3008,7 +3005,7 @@
         
         return YES;
     }else {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
         [alert show];
         return NO;
     }
@@ -3052,7 +3049,7 @@
 -(void) didSelectExportToEmail{
     [RemoteLog logAction:@"didSelectExportToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
@@ -3150,7 +3147,7 @@
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.exportButton.selected = false;
         NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(messageKey, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -3643,7 +3640,7 @@
 #pragma marl- 清楚 Clear
 - (void)requestClearData{
     
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"ClearAllLayersWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"ClearAllLayersWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
     alertView.tag = 3;
     [alertView show];
 }
@@ -3790,7 +3787,7 @@
     if(self.isReversePaint){
         if (self.paintDoc.data.layers.count + self.paintDoc.reverseData.layers.count >= layerMaxCount) {
             NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"ReverseLayersAvailable", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
             alertView.tag = 5;
             [alertView show];
             return false;
@@ -3799,7 +3796,7 @@
     else{
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
             NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersAvailable", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
             alertView.tag = 5;
             [alertView show];
             return false;
@@ -4143,6 +4140,7 @@
 }
 
 - (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush{
+    DebugLogFuncStart(@"willChangeFromBrush %d to brush %d", srcBrush.brushState.classId, targetBrush.brushState.classId);
     //保存srcBrush对应的类的模版brushState
     [[srcBrush class]setBrushStateTemplate:srcBrush.brushState];
 }

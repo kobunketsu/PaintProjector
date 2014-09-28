@@ -319,6 +319,9 @@
 #pragma mark- ADAnamorphosisBasicViewControllerDelegate
 - (void)willTutorialAnamorphosisBasicDone{
     [self dismissViewControllerAnimated:true completion:^{
+        //如果看完过一篇tutorial，则认为完成教程了
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
+        
         [self flushTutorialStatus];
     }];
 }

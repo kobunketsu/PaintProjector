@@ -66,7 +66,7 @@
     float offsetX = (width - 66) * 0.5;
     for (int i = 0; i < [self.brushTypes count]; ++i) {
         ADBrushTypeButton * button = [[ADBrushTypeButton alloc] initWithFrame:CGRectMake(width*i + offsetX, 20, buttonWidth, buttonHeight)];
-        button.brush = [self.brushTypes objectAtIndex:i];
+        button.brush = self.brushTypes[i];
         //        [button setImage:brush.iconImage forState:UIControlStateNormal];
         //        [button setBackgroundColor:[UIColor whiteColor]];
         
