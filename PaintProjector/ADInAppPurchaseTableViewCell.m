@@ -58,20 +58,17 @@
     [self.brushPreview prepareBrush:brush];
 }
 
+//仅删除brush对象，内部的gl resource共享其他同类型笔刷，不调用tearDownGL删除
 - (void)destroyBrush{
     DebugLogFuncStart(@"destroyBrush");
-    if (self.brush) {
-        [self.brush tearDownGL];
-        self.brush = nil;
-    }
+    self.brush = nil;
 }
 
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
-//    [self destroyBrush];
-//    [self.brushPreview tearDownGL];
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];

@@ -2341,8 +2341,9 @@
         } completion:^(BOOL finished) {
         }];
     }
-    
-    [self.opacityIndicatorView setOpacity:self.paintView.brush.brushState.opacity];
+  
+    [self.opacityIndicatorView setOpacity:sender.value];
+
 }
 
 - (IBAction)opacitySliderTouchDown:(ADOpacitySlider *)sender {
@@ -2469,6 +2470,8 @@
     if (!brushTemplate.available) {
         [self willSelectBrushCanceled:sender];
         
+        //TODO:BrushPreview中有修改了brush的内容
+//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"ExpandedBrushPackageAvailable"];
         [self openIAPWithProductFeatureIndex:brushTemplate.iapProductFeatureId];
         
         return;
@@ -4230,30 +4233,27 @@
 
 - (CGPoint) willGetEyeDropLocation{
     //更新触摸点
-    CGPoint location = [self.paintView.firstTouch locationInView:self.paintView];
-    location.y = self.paintView.bounds.size.height - location.y;
-    DebugLog(@"willGetEyeDropLocation %@", NSStringFromCGPoint(location));
+    CGPoint locationInRootView = [self.paintView.firstTouch locationInView:self.rootCanvasView];
     CGPoint eyeDropLocation = CGPointZero;
     if (IsOffsetEyeDropper) {
-        CGPoint locationInRootView = [self.paintView convertPoint:location toView:self.rootCanvasView];
+//        DebugLogWarn(@"willGetEyeDropLocation in rootCanvasView %@", NSStringFromCGPoint(locationInRootView));
+        CGPoint offset = CGPointMake(0, -40);
         
-        CGPoint eyeDropLocationInRootView = CGPointZero; float offset = 40;
-        eyeDropLocationInRootView = CGPointMake(locationInRootView.x, locationInRootView.y + offset);
-        
-        eyeDropLocation = [self.paintView convertPoint:eyeDropLocationInRootView fromView:self.rootCanvasView];
-    }
-    else{
-        eyeDropLocation = location;
+        locationInRootView = CGPointMake(locationInRootView.x + offset.x, locationInRootView.y + offset.y);
+//        DebugLogWarn(@"offseted location in rootCanvasView %@", NSStringFromCGPoint(locationInRootView));
     }
     
-    DebugLog(@"willGetEyeDropLocation final %@", NSStringFromCGPoint(eyeDropLocation));
+    eyeDropLocation = [self.paintView convertPoint:locationInRootView fromView:self.rootCanvasView];
+    eyeDropLocation.y = self.paintView.bounds.size.height - eyeDropLocation.y;
+    
+//    DebugLogWarn(@"willGetEyeDropLocation final in paintView %@", NSStringFromCGPoint(eyeDropLocation));
     return eyeDropLocation;
 }
 
 - (void) willEyeDroppingUI:(CGPoint)point Color:(UIColor *)uiColor{
-    DebugLog(@"point x:%.2f y:%.2f", point.x, point.y);
+    DebugLogWarn(@"willEyeDroppingUI paintView center x:%.2f y:%.2f", point.x, point.y);
     CGPoint center = [self.rootCanvasView convertPoint:point fromView:self.paintView];
-    DebugLog(@"center x:%.2f y:%.2f", center.x, center.y);
+    DebugLogWarn(@"willEyeDroppingUI rootCanvasView center x:%.2f y:%.2f", center.x, center.y);
     _eyeDropperIndicatorView.center = center;
     [_eyeDropperIndicatorView setColor:uiColor];
     [self.eyeDropperButton setColor:uiColor];
@@ -4691,14 +4691,13 @@
 - (void)openIAPWithProductFeatureIndex:(NSInteger)index{
     DebugLogFuncStart(@"openIAPWithProductFeatureIndex %d",index);
     [RemoteLog logAction:[NSString stringWithFormat:@"openIAPWithProductFeatureIndex %d",index] identifier:nil];
-    self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
+    self.iapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
     self.iapVC.brushPreviewDelegate = self.paintView;
     self.iapVC.iapProPackageFeature = (IAPProPackageFeature)index;
 
     [self presentViewController:self.iapVC animated:true completion:^{
 //        DebugLog(@"presentViewController:self.iapVC completed");
-       
     }];
 }
 - (void)IAPTransactionSucceeded:(id)arg{

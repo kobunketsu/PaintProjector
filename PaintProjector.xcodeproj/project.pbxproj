@@ -972,7 +972,6 @@
 		c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C21AF1814E4579F00DB003E /* Foundation.framework */; };
 		ca53a460052690d799e70353 /* ADUndoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0809EA44164946DF0061233D /* ADUndoButton.m */; };
 		cbbf0dc46bdbbadad4735fba /* ADBrushTypeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08072EBB1692BDFD00E49D2B /* ADBrushTypeScrollView.m */; };
-		ccb3eb9ece33921ac23aff70 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F7DF0318596DD100BFA2D5 /* calabash.framework */; };
 		d0dce5301693b12b9a439723 /* ADLayerBlendModePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085FB3D1177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m */; };
 		d44a0eace57255f8a4bbf0af /* ADColorSaveToSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08869ACF177DE9660010E0AA /* ADColorSaveToSlotView.m */; };
 		d49d525c256327ff8afbc786 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B71177ECE900039B5E5 /* Settings.bundle */; };
@@ -1840,7 +1839,6 @@
 		08F5F3F618B868160009AD0C /* ADInAppPurchaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADInAppPurchaseTableViewCell.m; path = PaintProjector/ADInAppPurchaseTableViewCell.m; sourceTree = "<group>"; };
 		08F68F71194DC6D200470A3D /* ADTutorialPageButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialPageButtonView.h; path = PaintProjector/ADTutorialPageButtonView.h; sourceTree = "<group>"; };
 		08F68F72194DC6D200470A3D /* ADTutorialPageButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialPageButtonView.m; path = PaintProjector/ADTutorialPageButtonView.m; sourceTree = "<group>"; };
-		08F7DF0318596DD100BFA2D5 /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		08F905C9194AC982002918AA /* iap_brushMarkerHard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushMarkerHard.png; path = PaintProjector/Images/iap_brushMarkerHard.png; sourceTree = "<group>"; };
 		08F905CA194AC982002918AA /* iap_brushChineseBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushChineseBrush.png; path = PaintProjector/Images/iap_brushChineseBrush.png; sourceTree = "<group>"; };
 		08F905CB194AC982002918AA /* iap_brushAirbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushAirbrush.png; path = PaintProjector/Images/iap_brushAirbrush.png; sourceTree = "<group>"; };
@@ -1952,7 +1950,6 @@
 				08631127192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
 				34f095e74d7370ccc4f294ba /* CoreGraphics.framework in Frameworks */,
 				5e613c7afd7ea243ad969c20 /* DBChooser.framework in Frameworks */,
-				ccb3eb9ece33921ac23aff70 /* calabash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3205,7 +3202,6 @@
 				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
 				080D245D18B6E5C400161756 /* StoreKit.framework */,
 				08631125192CDF71004233B2 /* Crashlytics.framework */,
-				08F7DF0318596DD100BFA2D5 /* calabash.framework */,
 				088B40181792FB7F002750EA /* DBChooser.framework */,
 				08A932CA16FE9EBF00A75938 /* MessageUI.framework */,
 				083DD3E216776CAF00050793 /* MobileCoreServices.framework */,

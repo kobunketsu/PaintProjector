@@ -51,11 +51,13 @@
     brush.shader = self.shader;
     brush.material = self.material;
     brush.patternTextureSize = self.patternTextureSize;
+//brush destroy会连带一起destroy
     brush.shapeTexture = self.shapeTexture;
     brush.maskTexture = self.maskTexture;
     brush.patternTexture = self.patternTexture;
     brush.smudgeTexture = self.smudgeTexture;
     brush.smudgeBackTexture = self.smudgeBackTexture;
+//brush destroy会连带一起destroy
     brush.radiusSliderMaxValue = self.radiusSliderMaxValue;
     brush.radiusSliderMinValue = self.radiusSliderMinValue;
     brush.canvasSize = self.canvasSize;
@@ -104,6 +106,7 @@
     DebugLogFuncStart(@"tearDownGL");
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
+    //shared gl resource take careful!!!
     [self.maskTexture destroy];
     self.maskTexture = nil;
     [self.shapeTexture destroy];
@@ -412,7 +415,7 @@
 }
 
 -(void) setBrushShapeTexture:(NSString*)textureName{
-    if (textureName == NULL) {
+    if (!textureName) {
         self.brushState.isShapeTexture = false;
         return;
     }
@@ -426,8 +429,13 @@
     
 }
 
-- (void)setPatternTextureWithImage: (NSString*)patterName{
+- (void)setPatternTextureWithImage:(NSString*)patterName{
+    if (!patterName) {
+        self.brushState.isPatternTexture = false;
+        return;
+    }
     _patternTexture = [RETexture textureFromImageName:patterName reload:false];
+    self.brushState.isPatternTexture = (_patternTexture != nil);
     self.patternTextureSize = _patternTexture.width;
 }
 

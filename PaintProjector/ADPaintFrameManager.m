@@ -121,6 +121,7 @@
         return [p1 compare:p2];
     }];
     
+    //插在后部
     NSInteger indexOffset = 0;
     for (NSNumber *num in sortedIndices) {
         NSInteger index = num.intValue;
@@ -128,7 +129,8 @@
         NSInteger targetIndex = index + indexOffset;
         ADPaintDoc *paintDoc = curGroup.paintDocs[targetIndex];
         ADPaintDoc *newPaintDoc = [[ADPaintDocManager sharedInstance] clonePaintDoc:paintDoc];
-        [self insertPaintDoc:newPaintDoc atIndex:targetIndex];
+        NSInteger insertAfter = 1;
+        [self insertPaintDoc:newPaintDoc atIndex:targetIndex+insertAfter];
         indexOffset ++;
     }
     sortedIndices = nil;

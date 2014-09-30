@@ -134,7 +134,7 @@ typedef struct {
 - (void)setRadius:(CGFloat)newValue;
 - (void)setBrushCommonTextures;
 - (void)setBrushShapeTexture:(NSString*)textureName;
-- (void)setPatternTextureWithImage: (NSString*)patterName;
+- (void)setPatternTextureWithImage:(NSString*)patterName;
 - (UIColor *)color;
 - (void)setColor:(UIColor *)newValue;
 - (void)setBlendMode;
