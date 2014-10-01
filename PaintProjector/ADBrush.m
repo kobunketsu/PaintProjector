@@ -339,11 +339,13 @@
         //第一次设置 ，或者切换brush种类，或者brush属性发生变化，都设置uniforms
         if (lastBrushState == NULL ||
             brushState.classId != lastBrushState.classId ||
+            brushState.isOpacityLocked != lastBrushState.isOpacityLocked ||
             brushState.hardness != lastBrushState.hardness ||
             brushState.roundness != lastBrushState.roundness ||
             brushState.wet != lastBrushState.wet) {
 //            DebugLogWarn(@"prepareWithBrushState brushState.wet %.1f", brushState.wet);
-            [self.material setVector:GLKVector4Make(0, brushState.hardness, brushState.roundness, brushState.wet) forPropertyName:@"Params"];
+            float opacityLock = ((ADPaintLayer*)(self.paintView.paintData.layers[self.paintView.paintData.curLayerIndex])).opacityLock ? 1.0 : 0.0;
+            [self.material setVector:GLKVector4Make(opacityLock, brushState.hardness, brushState.roundness, brushState.wet) forPropertyName:@"Params"];
         }
         
         if (lastBrushState == NULL ||

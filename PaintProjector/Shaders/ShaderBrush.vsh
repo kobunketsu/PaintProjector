@@ -12,8 +12,11 @@ void main(void) {
     gl_Position =  vec4(Position.xy,0,1) * Projection;
     highp float scale = 1.0 + (1.0 - Params.y) * 0.25 * (1.0 - Params.x);
     gl_PointSize = Position.z * scale;
+    //有涂抹功能情况下取消缩放调整
+    if (Params.w > 0.0) {
+        gl_PointSize = Position.z;
+    }
 
-    
     DestinationColor = SourceColor;
     oBrushParam = vec4(0,0,0,0);
     oBrushParam.x = Position.w;//角度

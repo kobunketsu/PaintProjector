@@ -35,7 +35,7 @@
 #define kIsShapeTextureKey              @"isShapeTexture"
 #define kIsVelocitySensorKey              @"isVelocitySensor"
 #define kIsRadiusMagnifySensorKey              @"isRadiusMagnifySensor"
-
+#define kIsOpacityLockedKey              @"isOpacityLocked"
 @implementation ADBrushState
 
 
@@ -64,7 +64,7 @@
     state.isVelocitySensor = self.isVelocitySensor;
     state.isRadiusMagnifySensor = self.isRadiusMagnifySensor;
     state.wet = self.wet;
-    
+    state.isOpacityLocked = self.isOpacityLocked;
     return state;
 }
 
@@ -92,6 +92,7 @@
         [aCoder encodeBool:self.isShapeTexture forKey:kIsShapeTextureKey];
         [aCoder encodeBool:self.isVelocitySensor forKey:kIsVelocitySensorKey];
         [aCoder encodeBool:self.isRadiusMagnifySensor forKey:kIsRadiusMagnifySensorKey];
+        [aCoder encodeBool:self.isOpacityLocked forKey:kIsOpacityLockedKey];
         [aCoder encodeFloat:self.wet forKey:kWetKey];
         const float*colors = CGColorGetComponents(self.color.CGColor);
         [aCoder encodeFloat:colors[0] forKey:kColorRKey];
@@ -131,6 +132,7 @@
             _isShapeTexture = [aDecoder decodeBoolForKey:kIsShapeTextureKey];
             _isVelocitySensor = [aDecoder decodeBoolForKey:kIsVelocitySensorKey];
             _isRadiusMagnifySensor = [aDecoder decodeBoolForKey:kIsRadiusMagnifySensorKey];
+            _isOpacityLocked = [aDecoder decodeBoolForKey:kIsOpacityLockedKey];
             _wet = [aDecoder decodeFloatForKey:kWetKey];
             CGFloat r = [aDecoder decodeFloatForKey:kColorRKey];
             CGFloat g = [aDecoder decodeFloatForKey:kColorGKey];

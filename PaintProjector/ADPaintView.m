@@ -89,6 +89,8 @@
 @property (retain, nonatomic) UIImageView* debugAlphaView;
 #endif
 
+#pragma mark- debug
+//@property (retain, nonatomic) UIView *debugView;
 @end
 
 @implementation ADPaintView
@@ -1454,6 +1456,11 @@
 }
 
 
+//修正brushState内容
+-(void)modifyBrushState:(ADBrushState*)brushState{
+    brushState.isOpacityLocked = ((ADPaintLayer*)(self.paintData.layers[self.paintData.curLayerIndex])).opacityLock;
+}
+
 //执行周期为一个移动单位
 - (void) willBeforeDrawBrushState:(ADBrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willBeforeDraw ]");
@@ -1473,6 +1480,7 @@
         [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:false];
     }
     
+    [self modifyBrushState:brushState];
     
     ADBrush *brush = self.brushTypes[brushState.classId];
     [brush prepareWithBrushState:brushState lastBrushState:self.lastBrushState];

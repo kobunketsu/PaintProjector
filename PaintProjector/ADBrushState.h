@@ -35,5 +35,5 @@
 @property (assign, nonatomic)bool isAirbrush;
 @property (assign, nonatomic)bool isVelocitySensor;
 @property (assign, nonatomic)bool isRadiusMagnifySensor;
-
+@property (assign, nonatomic)bool isOpacityLocked;
 @end

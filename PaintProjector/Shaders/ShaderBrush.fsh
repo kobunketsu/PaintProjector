@@ -75,17 +75,17 @@ void main ( )
         lowp vec4 absorbColor = texture2D(smudgeTexture, finalTexcoord);
         highp float paintBlend = shape * flow;
         
-        //TODO:opacityLock
-//        paintBlend = paintBlend * oBrushParam2.w;
-//        if (oBrushParam2.w < 0) {
-//            paintBlend = min(gl_LastFragData[0].a, -paintBlend);
-//        }
-        
         lowp vec3 mixedColor = absorbColor.rgb * wet + (1.0 - wet) * paintColor.rgb;
         lowp float mixedAlpha = absorbColor.a * wet + (1.0 - wet) ;
-
+        
         finalColor.rgb = mixedColor * paintBlend + gl_LastFragData[0].rgb * (1.0 - paintBlend);
+
         finalAlpha = mixedAlpha * paintBlend + gl_LastFragData[0].a * (1.0 - paintBlend);
+        //TODO:opacityLock
+        if (oBrushParam2.w > 0.0) {
+            finalAlpha = gl_LastFragData[0].a;
+        }
+        
     }
 //#endif
     
@@ -99,7 +99,7 @@ void main ( )
 //        }
 //    }
 //#endif
-    
+
     gl_FragColor = vec4(finalColor.rgb, finalAlpha);
     
 
