@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "ADLaunchLogoViewLayer.h"
 @interface ADLaunchLogoView : UIView
-- (void)animateLogoToTitle;
+
 @end

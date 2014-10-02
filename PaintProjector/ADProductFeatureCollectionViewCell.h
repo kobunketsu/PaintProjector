@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *brushButtons;
 @property (weak, nonatomic) IBOutlet UILabel *tryLabel;
-- (IBAction)resetButtonTouchUp:(UIButton *)sender;
 
 @end
 

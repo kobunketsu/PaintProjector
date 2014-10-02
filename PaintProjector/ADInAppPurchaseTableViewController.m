@@ -201,12 +201,12 @@
 
 #pragma mark - UI
 - (IBAction)doneButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"IAPDoneButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAP_doneButtonTouchUp" identifier:sender];
     [self.delegate willIAPPurchaseDone];
 }
 
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"IAPRestoreButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAP_restoreButtonTouchUp" identifier:sender];
     if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
@@ -355,7 +355,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 1) {
-        [RemoteLog logAction:@"IAP bought confirmed" identifier:nil];
+        [RemoteLog logAction:@"IAP_boughtConfirmed" identifier:nil];
     }
 }
 

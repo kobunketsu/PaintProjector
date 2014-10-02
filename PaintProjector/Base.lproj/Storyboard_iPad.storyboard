@@ -193,7 +193,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="layerOpacityLockButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="uoL-yj-OPh"/>
+                                                        <action selector="lockLayerOpacityButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="j6B-hp-pW2"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qQh-uO-E1O" userLabel="VisibleButton" customClass="ADLayerVisibleButton">
@@ -208,7 +208,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="layerVisibleButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="ahq-bO-FcQ"/>
+                                                        <action selector="viewLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="lb4-RO-HNE"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fuU-1o-IoM" userLabel="BlendButton" customClass="ADLayerBlendModeButton">
@@ -223,7 +223,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="layerBlendModeButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="Hti-aK-G0d"/>
+                                                        <action selector="blendLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="JB1-BY-HAH"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -272,7 +272,7 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="backgroundLayerImageButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="FDI-bd-IZb"/>
+                                                                <action selector="setBackgroundLayerImageButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="60s-Pa-b4u"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -289,7 +289,7 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="backgroundLayerVisibleButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="Xca-Nc-8rD"/>
+                                                        <action selector="viewbackgroundLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="Gn5-54-7u3"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -417,22 +417,22 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="PWz-9E-omm" customClass="ADPaintCollectionView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="bDx-eb-2i8" customClass="ADPaintCollectionViewFlowLayout">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="15" id="bDx-eb-2i8" customClass="ADPaintCollectionViewFlowLayout">
                                     <size key="itemSize" width="220" height="305"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="45" minY="8" maxX="45" maxY="100"/>
+                                    <inset key="sectionInset" minX="45" minY="20" maxX="45" maxY="110"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PaintCollectionViewCell" reuseIdentifier="PaintCollectionViewCell" id="x3E-rr-5gw" customClass="ADPaintCollectionViewCell">
-                                        <rect key="frame" x="45" y="8" width="220" height="305"/>
+                                        <rect key="frame" x="45" y="20" width="220" height="305"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paintFrame.png" id="uRi-Lg-wHo" customClass="ADPaintCollectionViewCellFrame">
-                                                    <rect key="frame" x="3" y="3" width="214" height="298"/>
+                                                    <rect key="frame" x="3" y="3" width="214" height="284"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <button userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Rs-q3-ZDJ" userLabel="Paint Frame View" customClass="ADPaintFrameView">
@@ -2126,11 +2126,11 @@ You will create unbelievable illusion.</string>
                                             <outletCollection property="gestureRecognizers" destination="oTk-me-Tqm" appends="YES" id="qNT-y2-p1w"/>
                                         </connections>
                                     </view>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="1U1-UR-ry1" userLabel="LockCanvasRotationView" customClass="ADLockCanvasRotationView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="1U1-UR-ry1" userLabel="LockCanvasRotationView">
                                         <rect key="frame" x="290" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="8Hs-7h-sFJ" userLabel="RotateCanvasView" customClass="ADRotateCanvasView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="8Hs-7h-sFJ" userLabel="RotateCanvasView">
                                         <rect key="frame" x="290" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
@@ -2145,7 +2145,7 @@ You will create unbelievable illusion.</string>
                                         <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="hTx-tv-WMO" userLabel="ZoomCanvasView" customClass="ADZoomCanvasView">
+                                    <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="hTx-tv-WMO" userLabel="ZoomCanvasView">
                                         <rect key="frame" x="429" y="20" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </view>
@@ -3397,7 +3397,7 @@ You will create unbelievable illusion.</string>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJU-fr-5RP" userLabel="ProjectWidthButton">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PJU-fr-5RP" userLabel="ProjectWidthButton">
                                                                         <rect key="frame" x="0.0" y="12" width="118" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal">
@@ -3421,7 +3421,7 @@ You will create unbelievable illusion.</string>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pcI-iX-N3o" userLabel="ProjectHeightButton">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pcI-iX-N3o" userLabel="ProjectHeightButton">
                                                                         <rect key="frame" x="0.0" y="12" width="118" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal">
@@ -3445,7 +3445,7 @@ You will create unbelievable illusion.</string>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22v-i6-tDY" userLabel="UnitZoomButton">
+                                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22v-i6-tDY" userLabel="UnitZoomButton">
                                                                         <rect key="frame" x="0.0" y="0.0" width="118" height="67"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal" title="test">
@@ -3537,7 +3537,7 @@ You will create unbelievable illusion.</string>
                                                             <action selector="setupCylinderRefObjectButtonTouchUp:" destination="Ykg-qI-0AR" eventType="touchUpInside" id="q7I-1J-joe"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WaL-wJ-MUc" userLabel="SetupCylinderBackButton" customClass="ADSetupCylinderBackButton">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WaL-wJ-MUc" userLabel="SetupCylinderBackButton" customClass="ADSetupCylinderBackButton">
                                                         <rect key="frame" x="640" y="0.0" width="128" height="80"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3777,7 +3777,7 @@ You will create unbelievable illusion.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="paintFrame.png" width="210" height="295"/>
+        <image name="paintFrame.png" width="210" height="280"/>
         <image name="tutorial0_D-Do.png" width="37" height="43"/>
         <image name="tutorial0_D-Draw.png" width="37" height="43"/>
         <image name="tutorial0_W-Wannaa.png" width="57" height="43"/>

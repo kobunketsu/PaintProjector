@@ -40,13 +40,13 @@
     [_nextButton addTarget:self action:@selector(nextButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)nextButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"nextPageButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CMN_nextPageButtonTouchUp" identifier:sender];
     CGPoint contentOffset = self.scrollView.contentOffset;
     contentOffset.x += (self.scrollView.contentSize.width / 3.0);
     self.scrollView.contentOffset = contentOffset;
 }
 
 - (void)previousButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"previousPageButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CMN_previousPageButtonTouchUp" identifier:sender];
 }
 @end

@@ -401,7 +401,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)addLayerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"addLayerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"LAYER_addLayerButtonTouchUp" identifier:sender];
     
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
@@ -409,7 +409,7 @@ const float LayerTableViewWidth = 256;
     if([self.delegate willInsertLayerDataAtIndex:layerIndex]){
         //UI
        
-        DebugLog(@"insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
+        DebugLog(@"LAYER_insertSectionRowsAtIndexPaths %d", self.curLayerIndexPath.row-1);
         [self.tableView beginUpdates];
         
         [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:self.curLayerIndexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -428,7 +428,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"copyLayerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"LAYER_copyLayerButtonTouchUp" identifier:sender];
     
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
@@ -449,7 +449,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"mergeLayerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"LAYER_mergeLayerButtonTouchUp" identifier:sender];
     
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
 
@@ -470,7 +470,7 @@ const float LayerTableViewWidth = 256;
 }
 
 - (IBAction)clearLayerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"clearLayerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"LAYER_clearLayerButtonTouchUp" identifier:sender];
     
     NSInteger layerIndex = [self layerIndexForRow:self.curLayerIndexPath.row];
     
@@ -484,14 +484,8 @@ const float LayerTableViewWidth = 256;
     }
 }
 
-- (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender {
-}
-
-- (IBAction)deleteDoneLayerButtonTouchUp:(UIButton *)sender {
-}
-
-- (IBAction)layerBlendModeButtonTouchUp:(ADLayerBlendModeButton *)sender {
-    [RemoteLog logAction:@"layerBlendModeButtonTouchUp" identifier:sender];
+- (IBAction)blendLayerButtonTouchUp:(ADLayerBlendModeButton *)sender {
+    [RemoteLog logAction:@"LAYER_blendLayerButtonTouchUp" identifier:sender];
     
     int row = [self rowForLayerIndex:sender.tag];
     if (self.inBlendModeRow == row) {
@@ -548,25 +542,22 @@ const float LayerTableViewWidth = 256;
     [self selectRowAtIndexPath:self.curLayerIndexPath];
 }
 
-- (IBAction)backgroundLayerImageButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"backgroundLayerImageButtonTouchUp" identifier:sender];
+- (IBAction)setBackgroundLayerImageButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"LAYER_setBackgroundLayerImageButtonTouchUp" identifier:sender];
     
     self.backgroundLayerButton = sender;
     [self.delegate willSetBackgroundLayerClearColor:sender colorPickerControllerDelegate:self];
 }
 
-- (IBAction)backgroundLayerVisibleButtonTouchUp:(ADLayerVisibleButton *)sender {
-    [RemoteLog logAction:@"backgroundLayerVisibleButtonTouchUp" identifier:sender];
+- (IBAction)viewBackgroundLayerButtonTouchUp:(ADLayerVisibleButton *)sender {
+    [RemoteLog logAction:@"LAYER_viewBackgroundLayerButtonTouchUp" identifier:sender];
     
     sender.isVisible = !sender.isVisible;
     [self.delegate willSetBackgroundLayerVisible:sender.isVisible];
 }
 
-- (IBAction)layerTransformButtonTouchUp:(UIButton *)sender {
-}
-
-- (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"layerVisibleButtonTouchUp" identifier:sender];
+- (IBAction)viewLayerButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"LAYER_viewLayerButtonTouchUp" identifier:sender];
     
     ADLayerVisibleButton *button = (ADLayerVisibleButton *)sender;
     button.isVisible = !button.isVisible;
@@ -574,20 +565,14 @@ const float LayerTableViewWidth = 256;
     [self.delegate willSetLayerAtIndex:button.tag visible:button.isVisible];
 }
 
-- (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"layerOpacityLockButtonTouchUp" identifier:sender];
+- (IBAction)lockLayerOpacityButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"LAYER_lockLayerOpacityButtonTouchUp" identifier:sender];
     
     ADLayerOpacityLockButton *button = (ADLayerOpacityLockButton *)sender;
     button.isOpacityLocked = !button.isOpacityLocked;
     
     DebugLog(@"SetLayerAtIndex Index %d opacityLock %i", button.tag, button.isOpacityLocked);
     [self.delegate willSetLayerAtIndex:button.tag opacityLock:button.isOpacityLocked];
-}
-
-- (IBAction)layerOpacitySliderSlide:(UISlider *)sender {
-    [RemoteLog logAction:@"layerOpacitySliderSlide" identifier:sender];
-    
-    [self.delegate willSetLayerAtIndex:sender.tag opacity:sender.value];
 }
 
 - (float)tableViewWidth {

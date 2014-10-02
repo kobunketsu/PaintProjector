@@ -489,7 +489,7 @@
 
 #pragma mark- 手势 Gestures 绘图
 - (IBAction)handlePan1TouchesPaintView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePan1TouchesPaintView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan1TouchesPaintView" identifier:sender];
     
 ////    DebugLog(@"handlePan1TouchesPaintView");
 //    if (_state != PaintScreen_Normal) {
@@ -516,7 +516,7 @@
 //    }
 }
 - (IBAction)handleLongPressPaintView:(UILongPressGestureRecognizer *)sender{
-    [RemoteLog logAction:@"handlePan1TouchesPaintView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan1TouchesPaintView" identifier:sender];
     
     if (_state != PaintScreen_Normal) {
         return;
@@ -559,7 +559,7 @@
 }
 
 - (IBAction)handleTap1Touches1TapsPaintView:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleTap1Touches1TapsPaintView" identifier:sender];
+    [RemoteLog logAction:@"PS_handleTap1Touches1TapsPaintView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -579,7 +579,7 @@
 
 #pragma mark
 - (IBAction)handlePan1TouchesRootCanvasView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePan1TouchesRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan1TouchesRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Transform) {
         return;
     }
@@ -732,7 +732,7 @@
 }
 
 - (IBAction)handlePan2TouchesRootCanvasView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePan2TouchesRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan2TouchesRootCanvasView" identifier:sender];
     if (_state == PaintScreen_Normal) {
         [self handlePan2TouchesRootCanvasViewInStateNormal:sender];
     }
@@ -742,7 +742,7 @@
 }
 
 - (IBAction)handlePan3TouchesRootCanvasView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePan3TouchesRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan3TouchesRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -865,7 +865,7 @@
 
 
 - (IBAction)handlePan3TouchesClearRootCanvasView:(ADClearGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePan3TouchesClearRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePan3TouchesClearRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -924,7 +924,7 @@
 
 
 - (IBAction)handleLongPress2TouchesRootCanvasView:(UILongPressGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleLongPress2TouchesRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handleLongPress2TouchesRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -967,7 +967,7 @@
 }
 
 - (IBAction)handleTap2Touches2TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleTap2Touches2TapsRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handleTap2Touches2TapsRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -977,7 +977,7 @@
 }
 
 - (IBAction)handleTap3Touches1TapsRootCanvasView:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleTap3Touches1TapsRootCanvasView" identifier:sender];
+    [RemoteLog logAction:@"PS_handleTap3Touches1TapsRootCanvasView" identifier:sender];
     if (_state != PaintScreen_Normal) {
         return;
     }
@@ -1295,7 +1295,7 @@
     [self showAllTransformAnchorViews];
 }
 - (IBAction)handlePanTransformAnchorView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePanAnchorView" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePanAnchorView" identifier:sender];
     if (_state != PaintScreen_Transform) {
         return;
     }
@@ -1395,7 +1395,7 @@
 }
 #pragma mark- 手势 Gestures 其他(无需判断状态)
 - (IBAction)handleLongPressPaintColorButton:(UILongPressGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleLongPressPaintColorButton" identifier:sender];
+    [RemoteLog logAction:@"PS_handleLongPressPaintColorButton" identifier:sender];
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {
             //吸出颜色
@@ -1532,7 +1532,7 @@
 }
 
 - (IBAction)handlePanTopDownToolBar:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePanTopDownToolBar" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePanTopDownToolBar" identifier:sender];
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
             self.downToolBarFrame = self.paintToolBar.frame;
@@ -1563,7 +1563,7 @@
     }
 }
 - (IBAction)handleLongPressBrushButton:(UILongPressGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleLongPressBrushButton" identifier:sender];
+    [RemoteLog logAction:@"PS_handleLongPressBrushButton" identifier:sender];
     ADBrushTypeButton *brushTypeButton = (ADBrushTypeButton *)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
@@ -1594,7 +1594,7 @@
 
 
 - (IBAction)handle2TapsColorSlot:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handle2TapsColorSlot" identifier:sender];
+    [RemoteLog logAction:@"PS_handle2TapsColorSlot" identifier:sender];
     ADColorButton* colorButton = (ADColorButton*)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -1627,7 +1627,7 @@
 }
 
 - (IBAction)handleTapColorSlot:(UITapGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleTapColorSlot" identifier:sender];
+    [RemoteLog logAction:@"PS_handleTapColorSlot" identifier:sender];
     ADColorButton* colorButton = (ADColorButton*)sender.view;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
@@ -1650,7 +1650,7 @@
     }    
 }
 - (IBAction)handleLongPressColorSlot:(UILongPressGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handleLongPressColorSlot" identifier:sender];
+    [RemoteLog logAction:@"PS_handleLongPressColorSlot" identifier:sender];
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
@@ -1727,7 +1727,7 @@
 //}
 
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePanPaintColorButton" identifier:sender];
+    [RemoteLog logAction:@"PS_handlePanPaintColorButton" identifier:sender];
     if (sender.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [sender locationInView:sender.view];
         CGPoint locationInRootView = CGPointMake(sender.view.superview.frame.origin.x + location.x, sender.view.superview.frame.origin.y + location.y);
@@ -1899,12 +1899,12 @@
 }
 
 - (IBAction)brushTypeButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeButtonTouchUp" identifier:sender];
     [self brushTypeSelected];
 }
 
 - (IBAction)brushTypeButtonTouchDown:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeButtonTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeButtonTouchDown" identifier:sender];
     self.brushButtonTempRect = sender.frame;
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 20, sender.frame.size.width, sender.frame.size.height);        
@@ -1913,19 +1913,19 @@
 }
 
 - (IBAction)brushTypeButtonTouchCancel:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeButtonTouchCancel" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeButtonTouchCancel" identifier:sender];
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
     }completion:nil];
 }
 
 - (IBAction)brushTypePageControlValueChanged:(UIPageControl *)sender {
-    [RemoteLog logAction:@"brushTypePageControlValueChanged" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypePageControlValueChanged" identifier:sender];
     [self scrollBrushTypeScrollViewByPage:sender.currentPage];
 }
 
 - (IBAction)previousBrushTypePageButtonTouchUp:(UIButton *)sender{
-    [RemoteLog logAction:@"previousBrushTypePageButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_previousBrushTypePageButtonTouchUp" identifier:sender];
     if (self.brushTypePageControl.currentPage == 0) {
         return;
     }
@@ -1934,7 +1934,7 @@
     [self scrollBrushTypeScrollViewByPage:self.brushTypePageControl.currentPage];
 }
 - (IBAction)nextBrushTypePageButtonTouchUp:(UIButton *)sender{
-    [RemoteLog logAction:@"nextBrushTypePageButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_nextBrushTypePageButtonTouchUp" identifier:sender];
     if (self.brushTypePageControl.currentPage >= self.brushTypePageControl.numberOfPages) {
         return;
     }
@@ -1954,7 +1954,7 @@
 
 
 - (IBAction)brushTypeBackButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeBackButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeBackButtonTouchUp" identifier:sender];
     ADBrushTypeButton *tempButton = self.brushBackButton;
     self.brushBackButton = self.brushButton;
     self.brushButton = tempButton;
@@ -2006,7 +2006,7 @@
 }
 
 - (IBAction)brushTypeBackButtonTouchCancel:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeBackButtonTouchCancel" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeBackButtonTouchCancel" identifier:sender];
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 40, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 0, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
@@ -2014,7 +2014,7 @@
     }];
 }
 - (IBAction)brushTypeBackButtonTouchDown:(UIButton *)sender {
-    [RemoteLog logAction:@"brushTypeBackButtonTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_brushTypeBackButtonTouchDown" identifier:sender];
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         sender.frame = CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, sender.frame.size.height);
         self.brushButton.frame = CGRectMake(self.brushButton.frame.origin.x, 40, self.brushButton.frame.size.width, self.brushButton.frame.size.height);
@@ -2226,7 +2226,7 @@
 }
 
 - (IBAction)swatchManagerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"swatchManagerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_swatchManagerButtonTouchUp" identifier:sender];
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ExpandedSwatchManagerAvailable"]) {
         //调色板管理功能可用
         self.swatchManagerVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"SwatchManagerViewController"];
@@ -2244,16 +2244,16 @@
 
 #pragma mark- 笔刷颜色Color
 - (IBAction)selectColor:(ADColorButton *)sender {
-    [RemoteLog logAction:@"selectColor" identifier:sender];
+    [RemoteLog logAction:@"PS_selectColor" identifier:sender];
     [sender enableHighlighted:true];
 }
 
 - (IBAction)selectColorConfirmed:(ADColorButton *)sender {
-    [RemoteLog logAction:@"selectColorConfirmed" identifier:sender];
+    [RemoteLog logAction:@"PS_selectColorConfirmed" identifier:sender];
     [sender enableHighlighted:false];
 }
 - (IBAction)selectColorToBlend:(ADColorButton *)sender {
-    [RemoteLog logAction:@"selectColorToBlend" identifier:sender];
+    [RemoteLog logAction:@"PS_selectColorToBlend" identifier:sender];
     const CGFloat* srcColors = CGColorGetComponents(sender.color.CGColor);
     const CGFloat* dstColors = CGColorGetComponents(self.paintColorButton.color.CGColor);
     float blend = 0.1;
@@ -2268,18 +2268,18 @@
 }
 
 - (IBAction)selectColorCancel:(ADColorButton *)sender {
-    [RemoteLog logAction:@"selectColorCancel" identifier:sender];
+    [RemoteLog logAction:@"PS_selectColorCancel" identifier:sender];
     [sender enableHighlighted:false];
 }
 #pragma mark- 笔刷半径Radius
 - (IBAction)selectBrushRadius:(ADRadiusButton *)sender {
-    [RemoteLog logAction:@"selectBrushRadius" identifier:sender];
+    [RemoteLog logAction:@"PS_selectBrushRadius" identifier:sender];
     self.paintView.brush.brushState.radius = sender.radius;
     [self.radiusSlider setValueByRadius:(float)sender.radius];
 }
 
 - (IBAction)slideBrushRadius:(ADRadiusSlider *)sender {
-    [RemoteLog logAction:@"slideBrushRadius" identifier:sender];
+    [RemoteLog logAction:@"PS_slideBrushRadius" identifier:sender];
     self.paintView.brush.brushState.radius = [sender radiusByValue];
     
     //UI
@@ -2299,12 +2299,12 @@
 
 
 - (IBAction)radiusSliderTouchDown:(ADRadiusSlider *)sender {
-    [RemoteLog logAction:@"radiusSliderTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_radiusSliderTouchDown" identifier:sender];
     self.radiusIndicatorView.hidden = false;
 }
 
 - (IBAction)radiusSliderTouchUp:(ADRadiusSlider *)sender {
-    [RemoteLog logAction:@"radiusSliderTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_radiusSliderTouchUp" identifier:sender];
     if (!self.radiusIndicatorView.hidden) {
         [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         self.radiusIndicatorView.hidden = true;
@@ -2312,7 +2312,7 @@
 }
 
 - (IBAction)radiusSliderTouchUpOutside:(ADRadiusSlider *)sender {
-    [RemoteLog logAction:@"radiusSliderTouchUpOutside" identifier:sender];
+    [RemoteLog logAction:@"PS_radiusSliderTouchUpOutside" identifier:sender];
     if (!self.radiusIndicatorView.hidden) {
         [self.radiusIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         self.radiusIndicatorView.hidden = true;
@@ -2320,7 +2320,7 @@
 }
 #pragma mark- 笔刷透明Opacity
 - (IBAction)slideBrushOpacity:(UISlider *)sender {
-    [RemoteLog logAction:@"slideBrushOpacity" identifier:sender];
+    [RemoteLog logAction:@"PS_slideBrushOpacity" identifier:sender];
     //根据不同的brush，设置不同的参数
     if ([self.paintView.brush isKindOfClass:[ADFinger class]] ||
         [self.paintView.brush isKindOfClass:[ADOilBrush class]]) {
@@ -2347,12 +2347,12 @@
 }
 
 - (IBAction)opacitySliderTouchDown:(ADOpacitySlider *)sender {
-    [RemoteLog logAction:@"opacitySliderTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_opacitySliderTouchDown" identifier:sender];
     self.opacityIndicatorView.hidden = false;
 }
 
 - (IBAction)opacitySliderTouchUp:(ADOpacitySlider *)sender {
-    [RemoteLog logAction:@"opacitySliderTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_opacitySliderTouchUp" identifier:sender];
     if (!self.opacityIndicatorView.hidden) {
         [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         self.opacityIndicatorView.hidden = true;
@@ -2360,7 +2360,7 @@
 }
 
 - (IBAction)opacitySliderTouchUpOutside:(ADOpacitySlider *)sender {
-    [RemoteLog logAction:@"opacitySliderTouchUpOutside" identifier:sender];
+    [RemoteLog logAction:@"PS_opacitySliderTouchUpOutside" identifier:sender];
     if (!self.opacityIndicatorView.hidden) {
         [self.opacityIndicatorView.layer setValue:[NSNumber numberWithFloat:0.1] forKeyPath:@"transform.scale"];
         self.opacityIndicatorView.hidden = true;
@@ -2461,7 +2461,7 @@
     DebugLogFuncStart(@"willSelectBrushDone");
     
     ADBrushTypeButton* button = (ADBrushTypeButton*)sender;
-    NSString *string = [NSString stringWithFormat:@"selectBrushDone BrushId %d", button.brush.brushState.classId];
+    NSString *string = [NSString stringWithFormat:@"PS_selectBrushDone BrushId %d", button.brush.brushState.classId];
     [RemoteLog logAction:string identifier:sender];
     
     ADBrush *brushTemplate = button.brush;
@@ -2515,11 +2515,11 @@
 }
 #pragma mark-
 - (IBAction)syncBrushView:(id)sender {
-    [RemoteLog logAction:@"syncBrushView" identifier:sender];
+    [RemoteLog logAction:@"PS_syncBrushView" identifier:sender];
 }
 
 - (IBAction)showPaint:(id)sender {
-    [RemoteLog logAction:@"showPaint" identifier:sender];
+    [RemoteLog logAction:@"PS_showPaint" identifier:sender];
 //    [paintView testSave];
 }
 
@@ -2772,7 +2772,7 @@
 
 #pragma mark- 导入 Import
 - (IBAction)importButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"importButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_importButtonTouchUp" identifier:sender];
     
     if (![self checkInsertAvailable]) {
         return;
@@ -2792,13 +2792,13 @@
 }
 
 -(void) didSelectImportPhoto{
-    [RemoteLog logAction:@"didSelectImportPhoto" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectImportPhoto" identifier:nil];
     [self.sharedPopoverController dismissPopoverAnimated:true];    
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
 
 -(void) didSelectImportCamera{
-    [RemoteLog logAction:@"didSelectImportCamera" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectImportCamera" identifier:nil];
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.importButton.selected = false;
     [self.importButton.layer setNeedsDisplay];
@@ -2806,7 +2806,7 @@
 }
 
 -(void) didSelectImportDropbox{
-    [RemoteLog logAction:@"didSelectImportDropbox" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectImportDropbox" identifier:nil];
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.importButton.selected = false;
     [self.importButton.layer setNeedsDisplay];
@@ -2893,7 +2893,7 @@
 #pragma mark- 取图片 UIImagePickerControllerDelegate
 // For responding to the user tapping Cancel.
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
-    [RemoteLog logAction:@"imagePickerControllerDidCancel" identifier:picker];
+    [RemoteLog logAction:@"PS_imagePickerControllerDidCancel" identifier:picker];
     [self dismissViewControllerAnimated:true completion:^{
         self.cameraImagePickerVC = nil;
     }];
@@ -2930,7 +2930,7 @@
 //        DebugLog(@"camera image w %f h %f", w, h);
         
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            [RemoteLog logAction:@"imagePickerControllerDidFinishPickingImageFromCamera" identifier:picker];
+            [RemoteLog logAction:@"PS_imagePickerControllerDidFinishPickingImageFromCamera" identifier:picker];
             // Save the new image (original or edited) to the Camera Roll
             ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
             [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
@@ -2957,7 +2957,7 @@
             }];
         }
         else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
-            [RemoteLog logAction:@"imagePickerControllerDidFinishPickingImageFromPhotoLibrary" identifier:picker];
+            [RemoteLog logAction:@"PS_imagePickerControllerDidFinishPickingImageFromPhotoLibrary" identifier:picker];
             finalImage = imageToSave;
             if (self.subPopoverController) {
                 [self.subPopoverController dismissPopoverAnimated:true];
@@ -3023,19 +3023,19 @@
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     if(result == MFMailComposeResultCancelled)
-        [RemoteLog logAction:@"Mail cancelled" identifier:controller];
+        [RemoteLog logAction:@"PS_Mail cancelled" identifier:controller];
     else if(result == MFMailComposeResultSaved)
-        [RemoteLog logAction:@"Mail saved" identifier:controller];
+        [RemoteLog logAction:@"PS_Mail saved" identifier:controller];
     else if(result == MFMailComposeResultSent)
-        [RemoteLog logAction:@"Mail sent" identifier:controller];
+        [RemoteLog logAction:@"PS_Mail sent" identifier:controller];
     else if(result == MFMailComposeResultFailed)
-        [RemoteLog logAction:@"Mail failed" identifier:controller];
+        [RemoteLog logAction:@"PS_Mail failed" identifier:controller];
     
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
 - (IBAction)exportButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"exportButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_exportButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     ADExportTableViewController* exportTableViewController = [[ADExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -3050,7 +3050,7 @@
 }
 
 -(void) didSelectExportToEmail{
-    [RemoteLog logAction:@"didSelectExportToEmail" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectExportToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
@@ -3093,7 +3093,7 @@
 }
 
 -(void) didSelectExportToPhotoLibrary{
-    [RemoteLog logAction:@"didSelectExportToPhotoLibrary" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectExportToPhotoLibrary" identifier:nil];
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
     UIImage *image = [self.paintView snapshotScreenToUIImageOutputSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
@@ -3102,14 +3102,14 @@
 }
 
 -(void) didSelectExportToDropbox{
-    [RemoteLog logAction:@"didSelectExportToDropbox" identifier:nil];
+    [RemoteLog logAction:@"PS_didSelectExportToDropbox" identifier:nil];
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
 //    [self exportToEmail];
 }
 
 - (void)didSelectExportToSocialName:(NSString*)socialName{
-    [RemoteLog logAction:[NSString stringWithFormat:@"didSelectPostTo%@", socialName] identifier:nil];
+    [RemoteLog logAction:[NSString stringWithFormat:@"PS_didSelectPostTo%@", socialName] identifier:nil];
     self.exportButton.selected = false;
     [self.exportButton.layer setNeedsDisplay];
     
@@ -3140,7 +3140,7 @@
         [controller addURL:appURL];
         
         [controller setCompletionHandler:^(SLComposeViewControllerResult result){
-            [RemoteLog logAction:[NSString stringWithFormat:@"exported to %@", socialName] identifier:nil];
+            [RemoteLog logAction:[NSString stringWithFormat:@"PS_exported to %@", socialName] identifier:nil];
         }];
         [self.sharedPopoverController dismissPopoverAnimated:true];
         [self presentViewController:controller animated:YES completion:^{
@@ -3575,7 +3575,7 @@
 }
 
 - (IBAction)transformButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"transformButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_transformButtonTouchUp" identifier:sender];
     
     if (_state == PaintScreen_Normal) {
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
@@ -3650,7 +3650,7 @@
 #pragma mark- 图层 Layer
 
 - (IBAction)layerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"layerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_layerButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     self.layerTableViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"LayerTableViewController"];
@@ -3703,7 +3703,7 @@
 
 
 - (IBAction)createLayerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"createLayerButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_createLayerButtonTouchUp" identifier:sender];
     [self insertLayerAtIndex:[self curLayerIndex]];
 }
 
@@ -4012,7 +4012,7 @@
 //}
 
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"fullScreenButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_fullScreenButtonTouchUp" identifier:sender];
 //    [(AutoRotateButton*)sender setHighlighted:false];
     
     if (_state == PaintScreen_Normal) {
@@ -4021,13 +4021,13 @@
 }
 
 - (IBAction)brushSwapButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"brushSwapButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_brushSwapButtonTouchUp" identifier:sender];
     [self swapBrushType];
 }
 
 #pragma mark- 退出 SaveClose
 - (IBAction)saveAndCloseButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"saveAndCloseButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_saveAndCloseButtonTouchUp" identifier:sender];
     
     //禁止所有屏幕上的操作
     [self lockInteraction:true];
@@ -4112,12 +4112,12 @@
 }
 
 - (IBAction)undoButtonTouchUp:(ADUndoButton *)sender{
-    [RemoteLog logAction:@"undoButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_undoButtonTouchUp" identifier:sender];
     [self undoDraw];
 }
 
 - (IBAction)redoButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"redoButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_redoButtonTouchUp" identifier:sender];
     [self redoDraw];
 }
 
@@ -4328,13 +4328,13 @@
 }
 #pragma mark- 取色界面 Pick Color UI Operation
 - (IBAction)colorSlotsSwitchTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"colorSlotsSwitchTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_colorSlotsSwitchTouchUp" identifier:sender];
     [self.brushOpacityView setHidden:![self.brushOpacityView isHidden]];
     _colorSlotsViewHidden = [self.brushOpacityView isHidden];
 }
 
 - (IBAction)colorPickerSwitchTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"colorPickerSwitchTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_colorPickerSwitchTouchUp" identifier:sender];
     if(self.colorPickerView.sourceView!=NULL){
         self.colorPickerView.sourceView.backgroundColor = self.infColorPickerController.resultColor;
         if(self.colorPickerView.sourceView == _paintColorView){
@@ -4350,7 +4350,7 @@
     }
 }
 - (IBAction)colorPickerLockTapped:(UIButton *)sender {
-    [RemoteLog logAction:@"colorPickerLockTapped" identifier:sender];
+    [RemoteLog logAction:@"PS_colorPickerLockTapped" identifier:sender];
     self.colorPickerView.locked = !self.colorPickerView.locked;
 }
 
@@ -4368,7 +4368,7 @@
 //    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 - (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"paintColorButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_paintColorButtonTouchUp" identifier:sender];
 //    if (colorPickerView.hidden) {
 //        colorPickerView.hidden = false;
 //        colorPickerView.sourceView = _paintColorView;
@@ -4410,21 +4410,21 @@
 
 - (IBAction) takeBarValue: (InfColorBarPicker*) sender
 {
-    [RemoteLog logAction:@"takeBarValue" identifier:sender];
+    [RemoteLog logAction:@"PS_takeBarValue" identifier:sender];
     [self.infColorPickerController takeBarValue:sender];
 }
 
 //-----------------------------------------------------------------------
 - (IBAction) takeSquareValue: (InfColorSquarePicker*) sender
 {
-    [RemoteLog logAction:@"takeSquareValue" identifier:sender];
+    [RemoteLog logAction:@"PS_takeSquareValue" identifier:sender];
     [self.infColorPickerController takeSquareValue:sender];
 }
 
 #pragma mark- 工具栏
 
 - (IBAction)clearButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"clearButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_clearButtonTouchUp" identifier:sender];
     
     [self requestClearData];
     [self.clearButton setNeedsDisplay];
@@ -4432,13 +4432,13 @@
 }
 
 - (IBAction)clearButtonTouchDown:(UIButton *)sender {
-    [RemoteLog logAction:@"clearButtonTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_clearButtonTouchDown" identifier:sender];
     [self.clearButton setNeedsDisplay];
 }
 
 
 - (IBAction)eyeDropperButtonTouchDown:(UIButton *)sender {
-    [RemoteLog logAction:@"eyeDropperButtonTouchDown" identifier:sender];
+    [RemoteLog logAction:@"PS_eyeDropperButtonTouchDown" identifier:sender];
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 0, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
@@ -4446,7 +4446,7 @@
 
 //TODO:需要在其他按钮按下时取消取色状态
 - (IBAction)eyeDropperButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"eyeDropperButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_eyeDropperButtonTouchUp" identifier:sender];
     if (self.paintView.state != PaintView_TouchEyeDrop) {
         if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
             _state = PaintScreen_PickColor;
@@ -4472,7 +4472,7 @@
 }
 
 - (IBAction)eyeDropperButtonTouchCancel:(UIButton *)sender {
-    [RemoteLog logAction:@"eyeDropperButtonTouchCancel" identifier:sender];
+    [RemoteLog logAction:@"PS_eyeDropperButtonTouchCancel" identifier:sender];
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
@@ -4689,8 +4689,7 @@
 //}
 #pragma mark- 内购 IAP
 - (void)openIAPWithProductFeatureIndex:(NSInteger)index{
-    DebugLogFuncStart(@"openIAPWithProductFeatureIndex %d",index);
-    [RemoteLog logAction:[NSString stringWithFormat:@"openIAPWithProductFeatureIndex %d",index] identifier:nil];
+    [RemoteLog logAction:[NSString stringWithFormat:@"PS_openIAPWithProductFeatureIndex %d",index] identifier:nil];
     self.iapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
     self.iapVC.brushPreviewDelegate = self.paintView;
@@ -4979,7 +4978,7 @@
 
 #pragma mark- 帮助 Help
 - (IBAction)helpButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"helpButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PS_helpButtonTouchUp" identifier:sender];
     [self tutorialStepNextImmediate:false];
     
     ((UIButton*)sender).selected = true;

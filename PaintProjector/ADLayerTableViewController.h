@@ -22,7 +22,6 @@
 - (BOOL) willSetCurLayerDataAtIndex:(int)index;
 - (BOOL) willInsertLayerDataAtIndex:(int)index;
 - (BOOL) willInsertCopyLayerDataAtIndex:(int)index;
-- (BOOL) willEraseLayerDataAtIndex:(int)index;
 - (BOOL) willDeleteLayerDataAtIndex:(int)index;
 - (BOOL) willClearLayerDataAtIndex:(int)index;
 - (BOOL) willMergeLayerDataAtIndex:(int)index;
@@ -81,17 +80,15 @@ UIAlertViewDelegate
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender;
 //合并图层按钮
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender;
-//删除图层按钮
-- (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender;
-//删除确认图层按钮
-- (IBAction)deleteDoneLayerButtonTouchUp:(UIButton *)sender;
-//设置图层透明度
-- (IBAction)layerOpacitySliderSlide:(UISlider *)sender;
 //设置图层混合模式
-- (IBAction)layerBlendModeButtonTouchUp:(UIButton *)sender;
+- (IBAction)blendLayerButtonTouchUp:(UIButton *)sender;
 //设置图层可见性
-- (IBAction)layerVisibleButtonTouchUp:(UIButton *)sender;
-- (IBAction)layerOpacityLockButtonTouchUp:(UIButton *)sender;
+- (IBAction)viewLayerButtonTouchUp:(UIButton *)sender;
+- (IBAction)lockLayerOpacityButtonTouchUp:(UIButton *)sender;
+////删除图层按钮
+//- (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender;
+////删除确认图层按钮
+//- (IBAction)deleteDoneLayerButtonTouchUp:(UIButton *)sender;
 
 #pragma mark- Layer Display
 //@property (weak, nonatomic) UIImage *tempImageForLayerTableViewCellDisplay;

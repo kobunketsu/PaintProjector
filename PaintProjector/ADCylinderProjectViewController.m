@@ -334,7 +334,7 @@ static float DeviceWidth = 0.154;
 
 - (IBAction)galleryButtonTouchUp:(UIButton *)sender {
 //    DebugLogIBAction(sender, @"galleryButtonTouchUp");
-    [RemoteLog logAction:@"galleryButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_galleryButtonTouchUp" identifier:sender];
     
     sender.selected = true;
     [self lockInteraction:true];
@@ -421,7 +421,7 @@ static float DeviceWidth = 0.154;
 
 
 - (IBAction)setupButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"setupButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_setupButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
 
@@ -440,14 +440,14 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)shareButtonTouchUp:(UIButton *)sender {
-   [RemoteLog logAction:@"shareButtonTouchUp" identifier:sender];
+   [RemoteLog logAction:@"CP_shareButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     [self share];
 }
 
 - (IBAction)infoButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"infoButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_infoButtonTouchUp" identifier:sender];
     sender.selected = true;
     
     //TODO:产品名称, 介绍Anamorphosis 展示产品支持主页, 欢迎界面(教程),
@@ -504,7 +504,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)paintButtonTouchUp:(UIButton *)sender {
-    NSString *logString = self.isReversePaint ? @"reversePaintButtonTouchUp" : @"paintButtonTouchUp";
+    NSString *logString = self.isReversePaint ? @"CP_reversePaintButtonTouchUp" : @"CP_paintButtonTouchUp";
     [RemoteLog logAction:logString identifier:sender];
     
     [self tutorialStepNextImmediate:false];
@@ -625,7 +625,7 @@ static float DeviceWidth = 0.154;
 }
 #pragma mark- 分享 share Delegate
 -(void)didSelectPostToSocialName:(NSString*)socialName{
-    [RemoteLog logAction:[NSString stringWithFormat:@"didSelectPostTo%@", socialName] identifier:nil];
+    [RemoteLog logAction:[NSString stringWithFormat:@"CP_didSelectPostToSocialName:%@", socialName] identifier:nil];
     NSString *serviceType = nil;
     if ([socialName isEqualToString:@"Facebook"]) {
         serviceType = SLServiceTypeFacebook;
@@ -673,15 +673,15 @@ static float DeviceWidth = 0.154;
 }
 -(void)sharedToSocial:(NSString*)socialName completion:(SLComposeViewControllerResult) result{
     if (result == SLComposeViewControllerResultCancelled) {
-        [RemoteLog logAction:[NSString stringWithFormat:@"shared to %@ canceled", socialName] identifier:nil];
+        [RemoteLog logAction:[NSString stringWithFormat:@"CP_sharedToSocial:%@ canceled", socialName] identifier:nil];
     }
     else{
-        [RemoteLog logAction:[NSString stringWithFormat:@"shared to %@", socialName] identifier:nil];
+        [RemoteLog logAction:[NSString stringWithFormat:@"CP_sharedToSocial:%@", socialName] identifier:nil];
     }
 }
 
--(void) didSelectPostToEmail {
-    [RemoteLog logAction:@"didSelectPostToEmail" identifier:nil];
+-(void)didSelectPostToEmail {
+    [RemoteLog logAction:@"CP_didSelectPostToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
         [alertView show];
@@ -727,13 +727,13 @@ static float DeviceWidth = 0.154;
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     if(result == MFMailComposeResultCancelled)
-        [RemoteLog logAction:@"Mail cancelled" identifier:controller];
+        [RemoteLog logAction:@"CP_Mail cancelled" identifier:controller];
     else if(result == MFMailComposeResultSaved)
-        [RemoteLog logAction:@"Mail saved" identifier:controller];
+        [RemoteLog logAction:@"CP_Mail saved" identifier:controller];
     else if(result == MFMailComposeResultSent)
-        [RemoteLog logAction:@"Mail sent" identifier:controller];
+        [RemoteLog logAction:@"CP_Mail sent" identifier:controller];
     else if(result == MFMailComposeResultFailed)
-        [RemoteLog logAction:@"Mail failed" identifier:controller];
+        [RemoteLog logAction:@"CP_Mail failed" identifier:controller];
     
     [self dismissViewControllerAnimated:true completion:^{
     }];
@@ -792,7 +792,8 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)userInputParamButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"userInputParamButtonTouchUp" identifier:sender];
+    NSString *logString = [NSString stringWithFormat:@"CP_userInputParamButtonTouchUp tag:%d", sender.tag];
+    [RemoteLog logAction:logString identifier:sender];
     
     for (UIButton *button in self.allUserInputParamButtons) {
         if (![button isEqual:sender]) {
@@ -859,7 +860,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)userInputParamSliderValueChanged:(UISlider *)sender {
-    [RemoteLog logAction:@"userInputParamSliderValueChanged" identifier:sender];
+    [RemoteLog logAction:@"CP_userInputParamSliderValueChanged" identifier:sender];
 
     [self setValue:[NSNumber numberWithFloat:sender.value] forKeyPath:self.userInputParamkeyPath];
     
@@ -872,21 +873,21 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)userInputParamSliderTouchUp:(UISlider *)sender {
-    [RemoteLog logAction:@"userInputParamSliderTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_userInputParamSliderTouchUp" identifier:sender];
     [self tutorialStartCurrentStep];
     
     [self userInputParamSliderTouchEnd];
 }
 
 - (IBAction)userInputParamSliderTouchUpOutside:(UISlider *)sender {
-    [RemoteLog logAction:@"userInputParamSliderTouchUpOutside" identifier:sender];
+    [RemoteLog logAction:@"CP_userInputParamSliderTouchUpOutside" identifier:sender];
     [self tutorialStartCurrentStep];
     
     [self userInputParamSliderTouchEnd];
 }
 
 - (IBAction)userInputParamSliderTouchCancel:(UISlider *)sender {
-    [RemoteLog logAction:@"userInputParamSliderTouchCancel" identifier:sender];
+    [RemoteLog logAction:@"CP_userInputParamSliderTouchCancel" identifier:sender];
     [self tutorialStartCurrentStep];
     
     [self userInputParamSliderTouchEnd];
@@ -896,7 +897,7 @@ static float DeviceWidth = 0.154;
 //    [[ADPaintFrameManager curGroup].curPaintDoc saveUserInputParams];
 }
 - (IBAction)userInputParamSliderTouchDown:(UISlider *)sender {
-    [RemoteLog logAction:@"userInputParamSliderTouchDown" identifier:sender];
+    [RemoteLog logAction:@"CP_userInputParamSliderTouchDown" identifier:sender];
     [self tutorialStepNextImmediate:false];
 }
 
@@ -927,7 +928,7 @@ static float DeviceWidth = 0.154;
 
 #pragma mark- 设置场景 Setup Scene
 - (IBAction)setupCylinderButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"setupCylinderButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_setupCylinderButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
     
@@ -963,7 +964,8 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)setupCylinderRefObjectButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"setupCylinderRefObjectButtonTouchUp" identifier:sender];
+    NSString *logString = [NSString stringWithFormat:@"CP_setupCylinderRefObjectButtonTouchUp tag:%d", sender.tag];
+    [RemoteLog logAction:logString identifier:sender];
     
     ADCylinderProjectUserInputParams *params = nil;
     switch (sender.tag) {
@@ -1132,14 +1134,14 @@ static float DeviceWidth = 0.154;
 #pragma mark- 产品信息代理 info Delegate
 
 - (void) willOpenWelcomGuideURL{
-    [RemoteLog logAction:@"willOpenWelcomGuideURL" identifier:nil];
+    [RemoteLog logAction:@"CP_willOpenWelcomGuideURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }
 }
 - (void) willOpenUserManualURL{
-    [RemoteLog logAction:@"willOpenUserManualURL" identifier:nil];
+    [RemoteLog logAction:@"CP_willOpenUserManualURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_USERMANUAL];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
@@ -1147,14 +1149,14 @@ static float DeviceWidth = 0.154;
 }
 
 - (void) willOpenSupportURL{
-    [RemoteLog logAction:@"willOpenSupportURL" identifier:nil];
+    [RemoteLog logAction:@"CP_willOpenSupportURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_COMMUNITY];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
     }
 }
 - (void) willOpenGalleryURL{
-    [RemoteLog logAction:@"willOpenGalleryURL" identifier:nil];
+    [RemoteLog logAction:@"CP_willOpenGalleryURL" identifier:nil];
     NSURL *url = [NSURL URLWithString:PRODUCT_INFO_GALLERY];
     if([[UIApplication sharedApplication] canOpenURL:url]){
         [[UIApplication sharedApplication] openURL:url];
@@ -1169,7 +1171,7 @@ static float DeviceWidth = 0.154;
 }
 #endif
 - (void)willOpenTutorial{
-    [RemoteLog logAction:@"willOpenTutorial" identifier:nil];
+    [RemoteLog logAction:@"CP_willOpenTutorial" identifier:nil];
 
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.infoButton.selected = false;
@@ -1842,7 +1844,7 @@ static float DeviceWidth = 0.154;
 #endif
 
 - (IBAction)handlePanCylinderProjectView:(UIPanGestureRecognizer *)sender {
-    [RemoteLog logAction:@"handlePanCylinderProjectView" identifier:sender];
+    [RemoteLog logAction:@"CP_handlePanCylinderProjectView" identifier:sender];
     
     //顶视图模式下忽略圆柱体区域的触摸手势
     if (!self.eyePerspectiveView.hidden) {
@@ -2777,7 +2779,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)sideViewButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"sideViewButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_sideViewButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
     
@@ -2829,7 +2831,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)topViewButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"topViewButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_topViewButtonTouchUp" identifier:sender];
     
     [self tutorialStepNextImmediate:false];
     
@@ -2955,8 +2957,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (void)openIAP{
-    DebugLogFuncStart(@"openIAP");
-    [RemoteLog logAction:@"Open IAP" identifier:nil];
+    [RemoteLog logAction:@"CP_OpenIAP" identifier:nil];
     self.iapVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"inAppPurchaseTableViewController"];
     self.iapVC.delegate = self;
     [self presentViewController:self.iapVC animated:true completion:^{
@@ -3005,7 +3006,7 @@ static float DeviceWidth = 0.154;
 }
 
 - (IBAction)virtualDeviceButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"virtualDeviceButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"CP_virtualDeviceButtonTouchUp" identifier:sender];
     
     ADCylinderProjectVirtualDeviceCollectionViewController* virtualDeviceCollectionViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"CylinderProjectVirtualDeviceCollectionViewController"];
 //    virtualDeviceCollectionViewController.delegate = self;
@@ -3427,7 +3428,7 @@ static float DeviceWidth = 0.154;
 
 #pragma mark- 广告代理ADBannerViewDelegate
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave{
-    [RemoteLog logAction:@"bannerViewActionShouldBegin" identifier:nil];
+    [RemoteLog logAction:@"CP_bannerViewActionShouldBegin" identifier:nil];
     
     [ADPaintUIKitAnimation view:rootView switchDownToolBarFromView:self.downToolBar completion:nil];
     [ADPaintUIKitAnimation view:rootView switchTopToolBarFromView:self.iAdBar completion:nil];

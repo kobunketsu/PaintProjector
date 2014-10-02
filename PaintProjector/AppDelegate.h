@@ -12,8 +12,7 @@
 #define TutorialGrid 64
 
 @interface AppDelegate : UIResponder
-<UIApplicationDelegate,
-ADTutorialManagerDelegate>
+<UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 - (void)initTutorialManager;

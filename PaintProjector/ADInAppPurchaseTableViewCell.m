@@ -183,7 +183,7 @@
 }
 #pragma mark- IBAction
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"buyProductButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAP_buyProductButtonTouchUp" identifier:sender];
     
     if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
@@ -305,11 +305,11 @@
 
 #pragma mark- Reset
 - (IBAction)brushResetButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"brushResetButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAP_brushResetButtonTouchUp" identifier:sender];
     [self.brushPreview reset];
 }
 - (IBAction)brushColorButtonTouchUp:(ADColorButton *)sender {
-    [RemoteLog logAction:@"brushColorButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"IAP_brushColorButtonTouchUp" identifier:sender];
     self.brush.color = sender.color;
 }
 @end

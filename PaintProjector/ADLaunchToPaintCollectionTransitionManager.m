@@ -53,11 +53,11 @@
 
 - (void)dismissingAnimateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
     
-    ADSimpleTutorialViewController *toVC = (ADSimpleTutorialViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    UIView *containerView = [transitionContext containerView];
+//    ADSimpleTutorialViewController *toVC = (ADSimpleTutorialViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+//    
+//    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//    
+//    UIView *containerView = [transitionContext containerView];
     if ([transitionContext transitionWasCancelled]) {
         
     }

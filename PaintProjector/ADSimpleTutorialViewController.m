@@ -18,6 +18,7 @@
 @interface ADSimpleTutorialViewController ()
 @property (retain, nonatomic) ADTextSplitter *tutorialListTitleTextSplitter;
 @property (retain, nonatomic) ADTutorialToPaintCollectionTransitionManager *transitionManager;
+@property (retain, nonatomic) NSArray *tutorialNames;
 @end
 
 @implementation ADSimpleTutorialViewController
@@ -35,6 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tutorialNames = @[@"TutorialAnaDrawBasic", @"TutorialAdvancedSetup", @"TutorialDrawReflection", @"TutorialDrawAnamorphosis"];
     
     //localize text
     self.anaDrawWelcomeLabel.text = NSLocalizedString(@"TutorialWelcome", nil);
@@ -168,7 +170,7 @@
 
 }
 - (IBAction)startTutorialButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"startTutorialButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_startTutorialButtonTouchUp" identifier:sender];
     UIButton *button = (UIButton *)sender;
     button.userInteractionEnabled = false;
     
@@ -238,7 +240,20 @@
 
 
 - (IBAction)tutorialDoneButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialDoneButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialDoneButtonTouchUp" identifier:sender];
+    
+    //检查用户是否有看完所有的教程
+    BOOL isTutorialsAllRead = true;
+    for (NSString *tutorialName in self.tutorialNames) {
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:tutorialName]){
+            isTutorialsAllRead = false;
+            break;
+        }
+    }
+    if (isTutorialsAllRead) {
+        [RemoteLog logAction:@"TU_isTutorialsAllRead" identifier:nil];
+    }
+    
     //结束tutorialVC
     if (self.delegate) {
         [self.delegate willTutorialViewControllerDissmiss];
@@ -256,7 +271,7 @@
 }
 
 - (IBAction)tutorialAnamorphosisBasicButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialAnamorphosisBasicButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialAnamorphosisBasicButtonTouchUp" identifier:sender];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialAnamorphosisBasic"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -270,14 +285,14 @@
 }
 
 - (IBAction)tutorialAnaDrawBasicButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialAnaDrawBasicButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialAnaDrawBasicButtonTouchUp" identifier:sender];
     
     [[ADSimpleTutorialManager current]activeTutorial:@"TutorialAnaDrawBasic"];
     
     [self tutorialStartFromButton:sender];
 }
 - (IBAction)tutorialAdvancedSetupButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialAdvancedSetupButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialAdvancedSetupButtonTouchUp" identifier:sender];
     self.selectedButton = sender;
     
     [[ADSimpleTutorialManager current]activeTutorial:@"TutorialAdvancedSetup"];
@@ -285,7 +300,7 @@
     [self tutorialStartFromButton:sender];
 }
 - (IBAction)tutorialDrawReflectionButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialDrawReflectionButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialDrawReflectionButtonTouchUp" identifier:sender];
     self.selectedButton = sender;
     
     [[ADSimpleTutorialManager current]activeTutorial:@"TutorialDrawReflection"];
@@ -293,7 +308,7 @@
     [self tutorialStartFromButton:sender];
 }
 - (IBAction)tutorialDrawAnamorphosisButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"tutorialDrawAnamorphosisButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialDrawAnamorphosisButtonTouchUp" identifier:sender];
     self.selectedButton = sender;
     
     //IAP dependent
@@ -329,11 +344,13 @@
 #pragma mark- tutorialManagerDelegate
 - (void)willTutorialManagerEndTutorial:(ADTutorial*)tutorial finished:(BOOL)finished{
     if (finished) {
+        NSString *logStr = [NSString stringWithFormat:@"TU_finishTutorial:%@", tutorial.name];
+        [RemoteLog logAction:logStr identifier:nil];
+        
         //如果看完过一篇tutorial，则认为完成教程了
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];
         
-        NSArray *tutorialNames = @[@"TutorialAnaDrawBasic", @"TutorialAdvancedSetup", @"TutorialDrawReflection", @"TutorialDrawAnamorphosis"];
-        for (NSString *tutorialName in tutorialNames) {
+        for (NSString *tutorialName in self.tutorialNames) {
             if ([tutorial.name isEqualToString:tutorialName]) {
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:tutorialName];
                 break;

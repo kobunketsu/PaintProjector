@@ -53,7 +53,7 @@
 }
 #pragma mark - Action
 - (IBAction)backButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"backButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"SWATCH_backButtonTouchUp" identifier:sender];
     [self.delegate willSetSwatchFile:nil];
 }
 
@@ -69,7 +69,7 @@
         url = self.swatchURLs[index];
     }
     
-    NSString *string = [NSString stringWithFormat:@"swatchChartButtonTouchUp url:%@", [url.absoluteString lastPathComponent]];
+    NSString *string = [NSString stringWithFormat:@"SWATCH_swatchChartButtonTouchUp url:%@", [[url.absoluteString lastPathComponent] stringByDeletingPathExtension]];
     [RemoteLog logAction:string identifier:sender];
     
     //交互动画
@@ -82,7 +82,7 @@
 }
 
 - (IBAction)swatchChartButtonTouchDown:(UIButton *)sender {
-    [RemoteLog logAction:@"swatchChartButtonTouchDown" identifier:sender];
+    [RemoteLog logAction:@"SWATCH_swatchChartButtonTouchDown" identifier:sender];
     //交互动画
     [UIView animateWithDuration:0.1 animations:^{
         sender.layer.transform = CATransform3DMakeScale(1.2, 1.2, 1.2);
@@ -90,7 +90,7 @@
 }
 
 - (IBAction)swatchChartButtonTouchCancel:(UIButton *)sender {
-    [RemoteLog logAction:@"swatchChartButtonTouchCancel" identifier:sender];
+    [RemoteLog logAction:@"SWATCH_swatchChartButtonTouchCancel" identifier:sender];
     //交互动画
     [UIView animateWithDuration:0.1 animations:^{
         sender.layer.transform = CATransform3DIdentity;

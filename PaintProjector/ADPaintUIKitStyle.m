@@ -27,7 +27,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.05];
-    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+//    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     CGGradientRef gradientPink = nil;
     if (button.selected || button.highlighted) {
@@ -88,7 +88,7 @@
     UIColor* gradientColor4 = [UIColor colorWithRed: 0.84 green: 0.821 blue: 0.821 alpha: 1];
     UIColor* gradientColor5 = [UIColor colorWithRed: 0.746 green: 0.773 blue: 0.782 alpha: 1];
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.05];
-    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+//    UIColor* color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
     
     //// Gradient Declarations
     NSArray* gradientPinkColors = [NSArray arrayWithObjects:

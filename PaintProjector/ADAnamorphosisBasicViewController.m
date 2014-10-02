@@ -94,7 +94,7 @@
     }
 }
 - (IBAction)DoneButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"TutorialAnamorphosisBasicDoneButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialAnamorphosisBasicDoneButtonTouchUp" identifier:sender];
     
 //    [self.navigationController popToRootViewControllerAnimated:true];
     if (self.delegate) {

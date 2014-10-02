@@ -33,7 +33,4 @@
 //    DebugLog(@"rect %@", NSStringFromCGRect(self.frame));
 //}
 
-- (IBAction)resetButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"resetButtonTouchUp" identifier:sender];
-}
 @end

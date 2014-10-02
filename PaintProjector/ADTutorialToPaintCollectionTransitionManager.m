@@ -88,7 +88,7 @@
     
     ADSimpleTutorialViewController *toVC = (ADSimpleTutorialViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+//    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     
     UIView *containerView = [transitionContext containerView];
     

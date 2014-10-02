@@ -21,7 +21,8 @@
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
-
+#define PaintFramePickOperationDamping 0.3
+#define PaintFramePickOperationVelcotiy 0.5
 
 @interface ADPaintCollectionViewController ()
 //圆柱体投影VC
@@ -275,6 +276,9 @@
     
     ADPaintCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PaintCollectionViewCell" forIndexPath:indexPath];
     
+    cell.cellFrame.layer.shadowRadius = 10;
+    cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 10);
+    
     if (!self.editMode) {
         [self cell:cell markSelected:false];
     }
@@ -321,6 +325,7 @@
     DebugLogSystem(@"didHighlightItemAtIndexPath row %i", indexPath.row);
     //保证动画不受影响
     ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    
     [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         
         [cell.layer setValue:[NSNumber numberWithFloat:PaintFrameFadeOutScale] forKeyPath:@"transform.scale"];
@@ -337,11 +342,11 @@
     DebugLogSystem(@"didUnHighlightItemAtIndexPath row %i", indexPath.row);
     
     ADPaintCollectionViewCell *cell = (ADPaintCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    [UIView animateWithDuration:PaintFramePickOperationHalfDuration * 0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:PaintFramePickOperationHalfDuration*2 delay:0 usingSpringWithDamping:PaintFramePickOperationDamping initialSpringVelocity:PaintFramePickOperationVelcotiy options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [cell.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
         
         cell.cellFrame.layer.shadowRadius = 10;
-        cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 5);
+        cell.cellFrame.layer.shadowOffset = CGSizeMake(0, 10);
     }completion:^(BOOL finished) {
         DebugLog(@"didUnhighlightItemAtIndexPath anim completed");
         if (self.toViewPaintFrame) {
@@ -419,13 +424,13 @@
 #pragma mark- Tool Bar
 
 - (IBAction)fileButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"fileButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PC_fileButtonTouchUp" identifier:sender];
     
     self.editMode = !self.editMode;
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"copyButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PC_copyButtonTouchUp" identifier:sender];
     
     //插入拷贝paintDoc到paintDocs中，
     if (self.curPaintFrameView.paintDoc == nil) {
@@ -456,7 +461,7 @@
 }
 
 - (IBAction)deleteButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"deleteButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PC_deleteButtonTouchUp" identifier:sender];
     
     NSMutableArray *indices = [[NSMutableArray alloc]init];
     for (NSIndexPath *indexPath in self.selectedIndices) {
@@ -475,7 +480,7 @@
 }
 
 - (IBAction)newButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"newButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"PC_newButtonTouchUp" identifier:sender];
     
     //在present到cylinderProject之后恢复userInteractionEnable
     [self lockInteraction:true];

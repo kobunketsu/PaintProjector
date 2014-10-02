@@ -56,13 +56,13 @@
 
 - (void)nextButtonTouchUp:(UIButton *)sender
 {
-    [RemoteLog logAction:@"nextButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialNextButtonTouchUp" identifier:sender];
     [self.delegate willStepNextImmediate];
 }
 
 - (void)cancelButtonTouchUp:(UIButton *)sender
 {
-    [RemoteLog logAction:@"cancelButtonTouchUp" identifier:sender];
+    [RemoteLog logAction:@"TU_tutorialCancelButtonTouchUp" identifier:sender];
     [self.delegate willStepCancelImmediate];
 }
 @end
