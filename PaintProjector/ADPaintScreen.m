@@ -2585,6 +2585,7 @@
 
     //反向绘制转换并合成paintDoc
     if (self.isReversePaint) {
+        //reversePaintData.layer-->texture
         self.paintDoc.data = [self.reversePaint combineReversePaintData];DebugLogMem(@"did combineReversePaintDataWithSrcPaintData");
         [self saveDoc];DebugLogMem(@"did saveDoc");
 //        self.paintDoc.data = nil;

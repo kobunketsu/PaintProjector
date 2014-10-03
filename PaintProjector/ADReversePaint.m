@@ -46,23 +46,23 @@
     DebugLogGLGroupStart(@"combineReversePaintDataWithSrcPaintData");
 
     //创建资源
-    [self createReversePaintResource];DebugLogMem(@"did createReversePaintResource");
-    self.paintData = [_srcPaintData copy];DebugLogMem(@"did _srcPaintData copy to self.paintData");//合成数据的初始从正向数据中拷贝
-    [self createSrcLayerRenderTextures];DebugLogMem(@"did createLayerRenderTextures");
+    [self createReversePaintResource];//DebugLogMem(@"did createReversePaintResource");
+    self.paintData = [_srcPaintData copy];//DebugLogMem(@"did _srcPaintData copy to self.paintData");//合成数据的初始从正向数据中拷贝
+    [self createSrcLayerRenderTextures];//DebugLogMem(@"did createLayerRenderTextures");
 
     //合成反向绘制的内容到正向绘制的拷贝中，合成成新的paintData给paintDoc.data
     //add combined layerTexture and paintData layer
-    [self combineReverseToSrc];DebugLogMem(@"did combine");
+    [self combineReverseToSrc];//DebugLogMem(@"did combine");
 //        DebugLogGLSnapshotStart
     //layerTexture -> finalFramebuffer必须是合成后的效果，用于缩略图
-    [self updateRender];DebugLogMem(@"did updateRender");
+    [self updateRender];//DebugLogMem(@"did updateRender");
 //        DebugLogGLSnapshotEnd
     //layerTexture -> paintData.layer.data
-    [self uploadReverseLayerDatas];DebugLogMem(@"did uploadLayerDatas");
+    [self uploadReverseLayerDatas];//DebugLogMem(@"did uploadLayerDatas");
 
     //删除资源
-    [self deleteSrcLayerRenderTextures];DebugLogMem(@"did deleteLayerRenderTextures");
-    [self destroyReversePaintResource];DebugLogMem(@"did destroyReversePaintResource");
+    [self deleteSrcLayerRenderTextures];//DebugLogMem(@"did deleteLayerRenderTextures");
+    [self destroyReversePaintResource];//DebugLogMem(@"did destroyReversePaintResource");
 
     DebugLogGLGroupEnd();
     return self.paintData;
@@ -120,18 +120,16 @@
 - (void)combineReverseToSrc{
     DebugLogGLGroupStart(@"combine");
 
-    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"cylinderImageReflectionTex" size:self.paintView.viewGLSize mipmap:Interpolation_Linear wrapMode:WrapMode_Clamp];DebugLogMem(@"did create tempRT");
+    RERenderTexture *tempRT = [RERenderTexture textureWithName:@"cylinderImageReflectionTex" size:self.paintView.viewGLSize mipmap:Interpolation_Linear wrapMode:WrapMode_Clamp];//DebugLogMem(@"did create tempRT");
     self.cylinderImage.reflectionTex = tempRT;
 
     
     //在合成层内插入反向绘制的RenderTexture
     for (int i = 0; i < self.reversePaintData.layers.count; ++i) {
-        ADPaintLayer *newLayer = [self.reversePaintData.layers[i] copy];DebugLogMem(@"did reversePaintData Layer %d",i);
+        ADPaintLayer *newLayer = [self.reversePaintData.layers[i] copy];//DebugLogMem(@"did reversePaintData Layer %d",i);
         newLayer.dirty = true;
         
-        //TODO: 该texture可以应该可以直接从_paintView.paintData中对应的texture取出
-        //        RERenderTexture* texture = self.paintView.layerTextures[i];//(premultiply)
-        RERenderTexture* texture = [RERenderTexture textureFromData:newLayer.data name:@"test"];
+        RERenderTexture* texture = self.paintView.layerTextures[i];
         
         //创建一个临时renderTexture, 更改viewport后，将texture描画到临时renderTexture上，reflectionTex使用临时rt
         CGFloat heightScale = (self.paintView.bounds.size.height + ToSeeCylinderTopPixelOffset) / self.paintView.bounds.size.height;
@@ -139,23 +137,23 @@
         CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale;
         glViewport(0, offsetY, self.paintView.bounds.size.height, height);
         
-        DebugLogGLSnapshotStart
+        
         [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
         [[REGLWrapper current] setImageInterpolation:Interpolation_Linear];
-        [self.paintView drawQuad:self.paintView.VAOScreenQuad texture2D:texture.texID premultiplied:true alpha:1.0];
+        [self.paintView drawQuad:self.paintView.VAOQuad texture2D:texture.texID premultiplied:true alpha:1.0];
         //        [[REGLWrapper current]blendFunc:BlendFuncAlphaBlendPremultiplied];
-        [self.reversePaintCamera render];DebugLogMem(@"did reversePaintCamera render");
+//        DebugLogGLSnapshotStart
+        [self.reversePaintCamera render];//DebugLogMem(@"did reversePaintCamera render");
+//        DebugLogGLSnapshotEnd
         [[REGLWrapper current] setImageInterpolationFinished];
-        DebugLogGLSnapshotEnd
-        [texture destroy];
         
         glViewport(0, 0, self.paintView.bounds.size.width, self.paintView.bounds.size.height);
         
-        [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];DebugLogMem(@"did addLayerRenderTexturesFromTexture");
+        [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];//DebugLogMem(@"did addLayerRenderTexturesFromTexture");
         DebugLog(@"layerTexture num:%d", self.layerTextures.count);
         [self.paintData.layers addObject:newLayer];
     }
-    [tempRT destroy];DebugLogMem(@"did destroy tempRT");
+    [tempRT destroy];//DebugLogMem(@"did destroy tempRT");
 
     DebugLogGLGroupEnd();
 }

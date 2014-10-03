@@ -69,7 +69,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
     }
     
-    [self copyCollectionFromMainBundleToUserDocument];
+//    [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];

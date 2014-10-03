@@ -53,7 +53,10 @@ void main()
     //uv range out of (0,1) clamp to border color in code
     lowp vec4 cRefl = texture2D(reflectionTex, vec2(u, v));
 
-    gl_FragColor.rgb = cRefl.rgb;
+    //none premultiplied rgb value
+    lowp vec3 srcColor = cRefl.rgb / cRefl.a;
+    srcColor.rgb = clamp(srcColor.rgb, vec3(0,0,0), vec3(1.0, 1.0, 1.0));
+    gl_FragColor.rgb = srcColor;
     //debug
     gl_FragColor.a = cRefl.a;
 }

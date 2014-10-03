@@ -34,7 +34,7 @@
 #define FarClipDistance 10
 #define NearClipDistance 0.005
 
-#define PaintDocTitleMinWidth 160
+#define PaintDocTitleMinWidth 200
 #define PaintDocTitleFadeInOutDuration 0.2
 #define CylinderFadeInOutDuration 0.4
 #define CylinderFadeInOutDeallocDelay 0.4
@@ -645,10 +645,24 @@ static float DeviceWidth = 0.154;
         
         NSString *postText = NSLocalizedString(@"ShareMessageBody", nil);
         [controller setInitialText:postText];
+        
+        BOOL topToolBarHidden = self.topToolBar.hidden;
+        BOOL downToolBarHidden = self.downToolBar.hidden;
+        BOOL iAdBarHidden = self.iAdBar.hidden;
+        self.topToolBar.hidden = self.downToolBar.hidden = self.iAdBar.hidden = true;
+        
         @autoreleasepool {
-            UIImage *image = [self.projectView snapshot];
+            UIGraphicsBeginImageContextWithOptions(self.rootView.frame.size, false, 0);
+            [self.rootView drawViewHierarchyInRect:self.rootView.bounds afterScreenUpdates:true];
+            UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+            UIGraphicsEndImageContext();
+//            UIImage *image = [self.rootView snapshot];
             [controller addImage:image];
         }
+        
+        self.topToolBar.hidden = topToolBarHidden;
+        self.downToolBar.hidden = downToolBarHidden;
+        self.iAdBar.hidden = iAdBarHidden;
         
         NSURL *appURL = [NSURL URLWithString:PRODUCT_INFO_INTRODUCTION];
         [controller addURL:appURL];
@@ -699,7 +713,7 @@ static float DeviceWidth = 0.154;
         NSString *realWidth = [NSString unitStringFromFloat:DeviceWidth / self.userInputParams.unitZoom];
         NSString *realHeight = [NSString unitStringFromFloat:(DeviceWidth / self.eyeTopAspect) / self.userInputParams.unitZoom];
         NSString *deviceDiameter = [NSString unitStringFromFloat:self.userInputParams.cylinderDiameter];
-        NSString *messageDetail = [NSString stringWithFormat:@"\n%@: %@\n %@: %@\n %@: %@",
+        NSString *messageDetail = [NSString stringWithFormat:@"<br>%@<br>%@: %@<br> %@: %@<br> %@: %@", NSLocalizedString(@"ExportHint", nil),
                                    NSLocalizedString(@"RealWidth", nil), realWidth, NSLocalizedString(@"RealHeight", nil), realHeight, NSLocalizedString(@"DeviceDiameter", nil), deviceDiameter];
         
         messageBody = [messageBody stringByAppendingString:messageDetail];
@@ -707,8 +721,17 @@ static float DeviceWidth = 0.154;
 
     [picker setMessageBody:messageBody isHTML:YES];
 
+    BOOL topToolBarHidden = self.topToolBar.hidden;
+    BOOL downToolBarHidden = self.downToolBar.hidden;
+    BOOL iAdBarHidden = self.iAdBar.hidden;
+    self.topToolBar.hidden = self.downToolBar.hidden = self.iAdBar.hidden = true;
+    
     @autoreleasepool {
-        UIImage *image = [self.projectView snapshot];
+//        UIImage *image = [self.projectView snapshot];
+        UIGraphicsBeginImageContextWithOptions(self.rootView.frame.size, false, 0);
+        [self.rootView drawViewHierarchyInRect:self.rootView.bounds afterScreenUpdates:true];
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+        UIGraphicsEndImageContext();
         //convert UIImage to NSData to add it as attachment
         NSData *imageData = UIImagePNGRepresentation(image);
         
@@ -717,6 +740,10 @@ static float DeviceWidth = 0.154;
         [picker addAttachmentData:imageData mimeType:@"image/png" fileName:@"image.png"];
     }
 
+    self.topToolBar.hidden = topToolBarHidden;
+    self.downToolBar.hidden = downToolBarHidden;
+    self.iAdBar.hidden = iAdBarHidden;
+    
     //showing MFMailComposerView here
     [self.sharedPopoverController dismissPopoverAnimated:true];
     self.shareButton.selected = false;
@@ -3022,10 +3049,10 @@ static float DeviceWidth = 0.154;
 
 #pragma mark- 命名框UITextFieldDelegate
 - (void)setPaintDocNameTextFieldRect{
-    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:20]};
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:30]};
     CGSize size = CGSizeMake(self.rootView.bounds.size.width, self.paintDocNameTextField.bounds.size.height);
     CGRect rect = [self.paintDocNameTextField.text boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil];
-    [self.paintDocNameTextField setFrameSizeWidth:MIN(self.rootView.bounds.size.width, MAX(PaintDocTitleMinWidth, rect.size.width + 40))];
+    [self.paintDocNameTextField setFrameSizeWidth:MIN(self.rootView.bounds.size.width, MAX(PaintDocTitleMinWidth, rect.size.width + 30*2))];
     [self.paintDocNameTextField setCenterX:self.rootView.center.x];
 }
 - (void)changeTitleWithPaintDoc:(ADPaintDoc*)paintDoc{

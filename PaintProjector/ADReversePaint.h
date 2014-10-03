@@ -14,6 +14,7 @@
 
 @interface ADReversePaint : NSObject
 @property(retain, nonatomic)ADReversePaintInputData *reversePaintInputData;
+@property (weak, nonatomic)NSMutableArray *reverseLayerTextures;//反向绘制过程中的layerTexture的引用
 @property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
 - (id)initWithPaintView:(ADPaintView*)paintView srcPaintData:(ADPaintData*)srcPaintData;
 - (ADPaintData *)combineReversePaintData;

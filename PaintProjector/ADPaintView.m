@@ -566,7 +566,7 @@
 {
     DebugLogFuncStart(@"createFramebufferTextures");
     glClearColor(0, 0, 0, 0);
-    
+//    DebugLogGLSnapshotStart
     [self createFinalFramebufferTexture];
     //从paintData创建显示用的layer texture
     [self createLayerRenderTextures];
@@ -576,6 +576,7 @@
     [self createBrushRenderTexture];
     
     [self createUndoBaseRenderTexture];
+//    DebugLogGLSnapshotEnd
 }
 
 - (void)destroyFrameBufferTextures{
@@ -1535,6 +1536,8 @@
         //图层透明度锁定
         ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
         CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
+        
+        //none premultiplied data saved to layerTexture
         [self drawQuad:_VAOQuad brush:brushState texture2D:self.brushTexture.texID alpha:opacity];
     }
     
@@ -1719,6 +1722,7 @@
     layer.data = nil;
 //    @autoreleasepool {
     UIImage* image = [self snapshotFramebufferToUIImage:layerFramebuffer];
+        //data是none premultiplied
         layer.data = (NSData*)UIImagePNGRepresentation(image);//+4m MALLOC_LARGE
         image = nil;
 //    }
@@ -2053,12 +2057,14 @@
         
         name = [NSString stringWithFormat:@"layerTextureSrc_%d", i];
         RETexture *dataTexture = [RETexture textureFromData:layer.data name:name];
+        
+        //如果图像源是premultiplied的话会导致边缘变黑 layer的源头是从UIImagePNGPresentation来的rgb不是premultiplied
         [self drawQuad:_VAOScreenQuad texture2D:dataTexture.texID premultiplied:false alpha:1.0];
         [dataTexture destroy];
         
         [self.layerTextures addObject:layerTexture];
     }
-
+    
     if (self.paintData.backgroundLayer.data) {
         NSString *name = @"backgroundLayerTexture";
         RERenderTexture *layerTexture = [RERenderTexture textureWithName:name size:self.viewGLSize mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
@@ -3172,10 +3178,6 @@
     [self drawQuad:_VAOQuad texture2D:texture premultiplied:true alpha:1.0];
 }
 
-- (void) drawSquareQuadWithTexture2D:(GLuint)texture{
-    [self drawQuad:_VAOQuad texture2D:texture premultiplied:false alpha:1.0];
-}
-
 - (void) drawScreenQuadTransformMatrix:(GLKMatrix4)transformMatrix texture2DPremultiplied:(GLuint)texture{
     [self drawQuad:_VAOScreenQuad transformMatrix:transformMatrix texture2DPremultiplied:texture];
 }
@@ -3190,11 +3192,12 @@
 }
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer
 {
+//    DebugLogGLSnapshotStart
 	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
     [[REGLWrapper current] bindFramebufferOES: framebuffer discardHint:false clear:false];
     CGSize viewportSize = self.bounds.size;
     UIImage *image = [ADUltility snapshot:self Context:[REGLWrapper current].context InViewportSize:viewportSize ToOutputSize:viewportSize];
-    
+//    DebugLogGLSnapshotEnd
     return image;
 }
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size
