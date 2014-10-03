@@ -1898,6 +1898,7 @@
 }
 
 - (void)drawAirBrush{
+    CGRect frame = self.bounds;
     //// General Declarations
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -1907,65 +1908,47 @@
     CGFloat firColorRGBA[4];
     [firColor getRed: &firColorRGBA[0] green: &firColorRGBA[1] blue: &firColorRGBA[2] alpha: &firColorRGBA[3]];
     
-    UIColor* firColor_h1 = [UIColor colorWithRed: (firColorRGBA[0] * 0.7 + 0.3) green: (firColorRGBA[1] * 0.7 + 0.3) blue: (firColorRGBA[2] * 0.7 + 0.3) alpha: (firColorRGBA[3] * 0.7 + 0.3)];
-    UIColor* firColor_h2 = [UIColor colorWithRed: (firColorRGBA[0] * 1 + 0) green: (firColorRGBA[1] * 1 + 0) blue: (firColorRGBA[2] * 1 + 0) alpha: (firColorRGBA[3] * 1 + 0)];
+    UIColor* firColor_h1 = [UIColor colorWithRed: (firColorRGBA[0] * 0.4 + 0.6) green: (firColorRGBA[1] * 0.4 + 0.6) blue: (firColorRGBA[2] * 0.4 + 0.6) alpha: (firColorRGBA[3] * 0.4 + 0.6)];
     UIColor* firColor_g = [firColor colorWithAlphaComponent: 0.5];
-    UIColor* firColor_screen_g1 = [UIColor colorWithRed: 0.964 green: 0.964 blue: 0.964 alpha: 1];
-    UIColor* firColor_screem_g4 = [UIColor colorWithRed: 0.427 green: 0.427 blue: 0.427 alpha: 1];
-    UIColor* firColor_screen_g3 = [UIColor colorWithRed: 0.585 green: 0.563 blue: 0.563 alpha: 1];
+    UIColor* firColor_screen_g1 = [UIColor colorWithRed: 0.931 green: 0.931 blue: 0.931 alpha: 1];
+    UIColor* firColor_screem_g4 = [UIColor colorWithRed: 0.069 green: 0.069 blue: 0.069 alpha: 1];
+    UIColor* firColor_screen_g3 = [UIColor colorWithRed: 0.228 green: 0.218 blue: 0.218 alpha: 1];
+    UIColor* color = [UIColor colorWithRed: 0.505 green: 0.505 blue: 0.505 alpha: 1];
     
     //// Gradient Declarations
-    NSArray* screenGradientColors = [NSArray arrayWithObjects:
-                                     (id)firColor_screen_g3.CGColor,
-                                     (id)[UIColor colorWithRed: 0.775 green: 0.764 blue: 0.764 alpha: 1].CGColor,
-                                     (id)firColor_screen_g1.CGColor, nil];
     CGFloat screenGradientLocations[] = {0.25, 0.43, 0.69};
-    CGGradientRef screenGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)screenGradientColors, screenGradientLocations);
-    NSArray* screenGradient2Colors = [NSArray arrayWithObjects:
-                                      (id)firColor_screen_g1.CGColor,
-                                      (id)[UIColor colorWithRed: 0.775 green: 0.764 blue: 0.764 alpha: 1].CGColor,
-                                      (id)firColor_screen_g3.CGColor,
-                                      (id)firColor_screem_g4.CGColor, nil];
+    CGGradientRef screenGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)firColor_screen_g3.CGColor, (id)[UIColor colorWithRed: 0.579 green: 0.574 blue: 0.574 alpha: 1].CGColor, (id)firColor_screen_g1.CGColor], screenGradientLocations);
     CGFloat screenGradient2Locations[] = {0, 0.41, 0.74, 1};
-    CGGradientRef screenGradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)screenGradient2Colors, screenGradient2Locations);
-    NSArray* screenGradient3Colors = [NSArray arrayWithObjects:
-                                      (id)firColor_screen_g3.CGColor,
-                                      (id)firColor_screen_g1.CGColor,
-                                      (id)firColor_screen_g3.CGColor,
-                                      (id)firColor_screem_g4.CGColor, nil];
+    CGGradientRef screenGradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)firColor_screen_g1.CGColor, (id)[UIColor colorWithRed: 0.579 green: 0.574 blue: 0.574 alpha: 1].CGColor, (id)firColor_screen_g3.CGColor, (id)firColor_screem_g4.CGColor], screenGradient2Locations);
     CGFloat screenGradient3Locations[] = {0, 0.35, 0.86, 1};
-    CGGradientRef screenGradient3 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)screenGradient3Colors, screenGradient3Locations);
+    CGGradientRef screenGradient3 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)firColor_screen_g3.CGColor, (id)firColor_screen_g1.CGColor, (id)firColor_screen_g3.CGColor, (id)firColor_screem_g4.CGColor], screenGradient3Locations);
     
     //// Shadow Declarations
     UIColor* shadow = firColor_g;
     CGSize shadowOffset = CGSizeMake(0.1, 5.1);
     CGFloat shadowBlurRadius = 10;
     
-    //// Frames
-    CGRect frame = CGRectMake(0, 0, 66, 100);
-    
-    
     //// Group
     {
         //// Airbrush
         {
             CGContextSaveGState(context);
-            CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
+            CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
             CGContextBeginTransparencyLayer(context, NULL);
             
             
             //// Bezier Drawing
-            UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-            [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 24.19, CGRectGetMinY(frame) + 14)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 42.1, CGRectGetMinY(frame) + 14)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 42.1, CGRectGetMinY(frame) + 12)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 24.19, CGRectGetMinY(frame) + 12)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 24.19, CGRectGetMinY(frame) + 14)];
+            UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+            [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 23, CGRectGetMinY(frame) + 14)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 43, CGRectGetMinY(frame) + 14)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 41, CGRectGetMinY(frame) + 12)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 25, CGRectGetMinY(frame) + 12)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 23, CGRectGetMinY(frame) + 14)];
             [bezierPath closePath];
             [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 19.13, CGRectGetMinY(frame) + 30)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46.52, CGRectGetMinY(frame) + 30)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46.52, CGRectGetMinY(frame) + 28)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 19.13, CGRectGetMinY(frame) + 28)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 47, CGRectGetMinY(frame) + 30)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46, CGRectGetMinY(frame) + 28)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 20, CGRectGetMinY(frame) + 28)];
             [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 19.13, CGRectGetMinY(frame) + 30)];
             [bezierPath closePath];
             [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 58)];
@@ -1979,7 +1962,7 @@
             
             
             //// Bezier 4 Drawing
-            UIBezierPath* bezier4Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier4Path = UIBezierPath.bezierPath;
             [bezier4Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 20.13, CGRectGetMinY(frame) + 28)];
             [bezier4Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 46, CGRectGetMinY(frame) + 28)];
             [bezier4Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 42.81, CGRectGetMinY(frame) + 14)];
@@ -2004,7 +1987,7 @@
             [bezier4Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 26, CGRectGetMinY(frame) + 5)];
             [bezier4Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 25, CGRectGetMinY(frame) + 12)];
             [bezier4Path closePath];
-            [firColor_h2 setFill];
+            [color setFill];
             [bezier4Path fill];
             
             
@@ -2021,7 +2004,7 @@
             
             
             //// Bezier 7 Drawing
-            UIBezierPath* bezier7Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier7Path = UIBezierPath.bezierPath;
             [bezier7Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 33, CGRectGetMinY(frame) + 100)];
             [bezier7Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 53, CGRectGetMinY(frame) + 100)];
             [bezier7Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 53, CGRectGetMinY(frame) + 56)];
@@ -2039,7 +2022,7 @@
             
             
             //// Bezier 6 Drawing
-            UIBezierPath* bezier6Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier6Path = UIBezierPath.bezierPath;
             [bezier6Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 43, CGRectGetMinY(frame) + 56)];
             [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 36, CGRectGetMinY(frame) + 5)];
             [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 40, CGRectGetMinY(frame) + 5)];
@@ -2061,7 +2044,7 @@
             
             
             //// Bezier 5 Drawing
-            UIBezierPath* bezier5Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier5Path = UIBezierPath.bezierPath;
             [bezier5Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 37, CGRectGetMinY(frame) + 5)];
             [bezier5Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 44, CGRectGetMinY(frame) + 56)];
             [bezier5Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 33, CGRectGetMinY(frame) + 56)];
@@ -2091,7 +2074,7 @@
             
             
             //// Bezier 3 Drawing
-            UIBezierPath* bezier3Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
             [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 33, CGRectGetMinY(frame) + 100)];
             [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 100)];
             [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 56)];
@@ -2109,7 +2092,7 @@
             
             
             //// Bezier 8 Drawing
-            UIBezierPath* bezier8Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier8Path = UIBezierPath.bezierPath;
             [bezier8Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 23, CGRectGetMinY(frame) + 56)];
             [bezier8Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 30, CGRectGetMinY(frame) + 5)];
             [bezier8Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 26, CGRectGetMinY(frame) + 5)];
@@ -2131,7 +2114,7 @@
             
             
             //// Bezier 9 Drawing
-            UIBezierPath* bezier9Path = [UIBezierPath bezierPath];
+            UIBezierPath* bezier9Path = UIBezierPath.bezierPath;
             [bezier9Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 29, CGRectGetMinY(frame) + 5)];
             [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 22, CGRectGetMinY(frame) + 56)];
             [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 33, CGRectGetMinY(frame) + 56)];
@@ -2159,7 +2142,6 @@
     CGGradientRelease(screenGradient2);
     CGGradientRelease(screenGradient3);
     CGColorSpaceRelease(colorSpace);
-    
 }
 
 - (void)drawChalk{

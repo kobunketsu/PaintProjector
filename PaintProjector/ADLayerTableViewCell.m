@@ -8,6 +8,7 @@
 
 #import "ADLayerTableViewCell.h"
 #import "ADPaintUIKitStyle.h"
+#import "ADLayerDeleteDoneButton.h"
 
 const float LayerTableViewWidth = 256;
 
@@ -69,6 +70,10 @@ const float LayerTableViewWidth = 256;
     [super layoutSubviews];
  
 
+    CGFloat r = ((ADCustomLayer*)self.visibleButton.layer).baseColorR;
+    CGFloat g = ((ADCustomLayer*)self.visibleButton.layer).baseColorG;
+    CGFloat b = ((ADCustomLayer*)self.visibleButton.layer).baseColorB;
+    
     //修正IOS7 AutoLayout下deleteButton 和reorder button消失问题
     UIView *rootView = nil;
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -82,6 +87,24 @@ const float LayerTableViewWidth = 256;
     for (UIView *view in rootView.subviews) {
             if ([NSStringFromClass([view class]) isEqualToString:@"UITableViewCellDeleteConfirmationView"]){ // move
                 [view setFrameOriginX:LayerTableViewWidth];
+                
+                //添加自定义DeleteConfirmButton
+                view.backgroundColor = [UIColor whiteColor];
+                UIView *actionButton = view.subviews.firstObject;
+                if (actionButton) {
+                    actionButton.backgroundColor = [UIColor whiteColor];
+                    ADLayerDeleteDoneButton *deleteButton = [[ADLayerDeleteDoneButton alloc]initWithFrame:CGRectMake(4, 56, 44, 44)];
+                    deleteButton.userInteractionEnabled = false;
+                    ((ADCustomLayer*)deleteButton.layer).baseColorR = r;
+                    ((ADCustomLayer*)deleteButton.layer).baseColorG = g;
+                    ((ADCustomLayer*)deleteButton.layer).baseColorB = b;
+                    [deleteButton.layer setNeedsDisplay];
+                    for (UIView *subView in actionButton.subviews) {
+                        [subView removeFromSuperview];
+                    }
+                    [actionButton addSubview:deleteButton];
+                }
+               
                 [self bringSubviewToFront:view];
             }
 //            else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellReorderControl"]){
@@ -98,9 +121,9 @@ const float LayerTableViewWidth = 256;
             deleteButton.center = CGPointMake(view.bounds.size.width * 0.5, view.bounds.size.height * 0.5);
             [deleteButton setFrameOriginX:0];
             //assign color
-            ((ADCustomLayer*)deleteButton.layer).baseColorR = ((ADCustomLayer*)self.visibleButton.layer).baseColorR;
-            ((ADCustomLayer*)deleteButton.layer).baseColorG = ((ADCustomLayer*)self.visibleButton.layer).baseColorG;
-            ((ADCustomLayer*)deleteButton.layer).baseColorB= ((ADCustomLayer*)self.visibleButton.layer).baseColorB;
+            ((ADCustomLayer*)deleteButton.layer).baseColorR = r;
+            ((ADCustomLayer*)deleteButton.layer).baseColorG = g;
+            ((ADCustomLayer*)deleteButton.layer).baseColorB = b;
             [deleteButton.layer setNeedsDisplay];
             [view addSubview:deleteButton];
             

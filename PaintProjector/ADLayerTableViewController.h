@@ -80,11 +80,16 @@ UIAlertViewDelegate
 - (IBAction)copyLayerButtonTouchUp:(UIButton *)sender;
 //合并图层按钮
 - (IBAction)mergeLayerButtonTouchUp:(UIButton *)sender;
-//设置图层混合模式
+//图层混合模式
 - (IBAction)blendLayerButtonTouchUp:(UIButton *)sender;
-//设置图层可见性
+//图层可见性
 - (IBAction)viewLayerButtonTouchUp:(UIButton *)sender;
+//背景图层可见性
+- (IBAction)viewBackgroundLayerButtonTouchUp:(ADLayerVisibleButton *)sender;
+//锁图层透明度
 - (IBAction)lockLayerOpacityButtonTouchUp:(UIButton *)sender;
+//背景图层
+- (IBAction)setBackgroundLayerImageButtonTouchUp:(UIButton *)sender;
 ////删除图层按钮
 //- (IBAction)deleteLayerButtonTouchUp:(UIButton *)sender;
 ////删除确认图层按钮

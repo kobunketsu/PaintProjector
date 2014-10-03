@@ -6,8 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface ADLayerDeleteDoneButton : UIButton
+#import "ADIconColorPermeateButton.h"
+@interface ADLayerDeleteDoneButton : ADIconColorPermeateButton
 
 @end

@@ -946,7 +946,7 @@ static float DeviceWidth = 0.154;
 
     [ADPaintUIKitAnimation view:self.rootView switchDownToolBarFromView:self.downToolBar completion:nil];
     
-    [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:true outView:self.setupParamsView inView:self.setupSceneView completion:^{
+    [ADPaintUIKitAnimation view:self.rootView slideToolBarRightDirection:false outView:self.setupParamsView inView:self.setupSceneView completion:^{
         [self lockInteraction:false];
         
         [self tutorialStartCurrentStep];
@@ -3173,6 +3173,7 @@ static float DeviceWidth = 0.154;
     for (UIButton *button in self.setupCylinderRefObjButtons) {
         button.userInteractionEnabled = enable;
     }
+    self.setupCylinderRefBackButton.userInteractionEnabled = enable;
     self.valueSlider.userInteractionEnabled = enable;
     self.projectView.userInteractionEnabled = enable;
     self.paintDocNameTextField.userInteractionEnabled = enable;

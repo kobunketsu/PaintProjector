@@ -76,7 +76,7 @@
     
     
     //// Subframes
-    CGRect iconNormal = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 45.43) * 0.51395 - 0.07) + 0.57, CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45.69) * 0.49665 + 0.28) + 0.22, 45.43, 45.69);
+    CGRect iconNormal = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 45.43) * 0.48605 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45.69) * 0.49665 + 0.28) + 0.22, 45.43, 45.69);
     
     
     //// IconNormal
@@ -89,62 +89,47 @@
         
         //// Group 5
         {
-            //// IconNormal 2
+            //// Bezier 3 Drawing
+            UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
+            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 25.86, CGRectGetMinY(iconNormal) + 2.92)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 8.81, CGRectGetMinY(iconNormal) + 19.91)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 45.43, CGRectGetMinY(iconNormal) + 19.91)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 45.43, CGRectGetMinY(iconNormal) + 24.45)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 9, CGRectGetMinY(iconNormal) + 24.91)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 26, CGRectGetMinY(iconNormal) + 42.91)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 23.03, CGRectGetMinY(iconNormal) + 45.69)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 21.91)];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 23.03, CGRectGetMinY(iconNormal))];
+            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 25.86, CGRectGetMinY(iconNormal) + 2.92)];
+            [bezier3Path closePath];
+            CGContextSaveGState(context);
+            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
+            [iconColor setFill];
+            [bezier3Path fill];
+            
+            ////// Bezier 3 Inner Shadow
+            CGContextSaveGState(context);
+            UIRectClip(bezier3Path.bounds);
+            CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
+            
+            CGContextSetAlpha(context, CGColorGetAlpha([iconHighlight CGColor]));
+            CGContextBeginTransparencyLayer(context, NULL);
             {
-                CGContextSaveGState(context);
-                CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, [glow CGColor]);
+                UIColor* opaqueShadow = [iconHighlight colorWithAlphaComponent: 1];
+                CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, [opaqueShadow CGColor]);
+                CGContextSetBlendMode(context, kCGBlendModeSourceOut);
                 CGContextBeginTransparencyLayer(context, NULL);
                 
-                
-                //// Group
-                {
-                    //// Bezier Drawing
-                    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-                    [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 19.57, CGRectGetMinY(iconNormal) + 2.92)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 36.61, CGRectGetMinY(iconNormal) + 19.91)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 19.91)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 24.45)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 36.43, CGRectGetMinY(iconNormal) + 24.91)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 19.43, CGRectGetMinY(iconNormal) + 42.91)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 22.4, CGRectGetMinY(iconNormal) + 45.69)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 45.43, CGRectGetMinY(iconNormal) + 21.91)];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 22.4, CGRectGetMinY(iconNormal))];
-                    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 19.57, CGRectGetMinY(iconNormal) + 2.92)];
-                    [bezierPath closePath];
-                    CGContextSaveGState(context);
-                    CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
-                    [iconColor setFill];
-                    [bezierPath fill];
-                    
-                    ////// Bezier Inner Shadow
-                    CGContextSaveGState(context);
-                    UIRectClip(bezierPath.bounds);
-                    CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-                    
-                    CGContextSetAlpha(context, CGColorGetAlpha([iconHighlight CGColor]));
-                    CGContextBeginTransparencyLayer(context, NULL);
-                    {
-                        UIColor* opaqueShadow = [iconHighlight colorWithAlphaComponent: 1];
-                        CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, [opaqueShadow CGColor]);
-                        CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-                        CGContextBeginTransparencyLayer(context, NULL);
-                        
-                        [opaqueShadow setFill];
-                        [bezierPath fill];
-                        
-                        CGContextEndTransparencyLayer(context);
-                    }
-                    CGContextEndTransparencyLayer(context);
-                    CGContextRestoreGState(context);
-                    
-                    CGContextRestoreGState(context);
-                    
-                }
-                
+                [opaqueShadow setFill];
+                [bezier3Path fill];
                 
                 CGContextEndTransparencyLayer(context);
-                CGContextRestoreGState(context);
             }
+            CGContextEndTransparencyLayer(context);
+            CGContextRestoreGState(context);
+            
+            CGContextRestoreGState(context);
+            
         }
         
         
@@ -152,6 +137,8 @@
         CGContextRestoreGState(context);
     }
 }
+
+
 
 
 - (void)drawSelectedWithFrame: (CGRect)frame;
@@ -189,7 +176,7 @@
     
     
     //// Subframes
-    CGRect iconNormal2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 45.43) * 0.51395 - 0.07) + 0.57, CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45.69) * 0.49665 + 0.28) + 0.22, 45.43, 45.69);
+    CGRect iconNormal2 = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 45.43) * 0.53466 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45.69) * 0.49665 + 0.28) + 0.22, 45.43, 45.69);
     
     
     //// IconNormal 2
@@ -203,16 +190,16 @@
         {
             //// Bezier Drawing
             UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-            [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 19.57, CGRectGetMinY(iconNormal2) + 2.92)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 36.61, CGRectGetMinY(iconNormal2) + 19.91)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2), CGRectGetMinY(iconNormal2) + 19.91)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2), CGRectGetMinY(iconNormal2) + 24.45)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 36.43, CGRectGetMinY(iconNormal2) + 24.91)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 19.43, CGRectGetMinY(iconNormal2) + 42.91)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 22.4, CGRectGetMinY(iconNormal2) + 45.69)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 45.43, CGRectGetMinY(iconNormal2) + 21.91)];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 22.4, CGRectGetMinY(iconNormal2))];
-            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 19.57, CGRectGetMinY(iconNormal2) + 2.92)];
+            [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 25.86, CGRectGetMinY(iconNormal2) + 2.92)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 8.81, CGRectGetMinY(iconNormal2) + 19.91)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 45.43, CGRectGetMinY(iconNormal2) + 19.91)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 45.43, CGRectGetMinY(iconNormal2) + 24.45)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 9, CGRectGetMinY(iconNormal2) + 24.91)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 26, CGRectGetMinY(iconNormal2) + 42.91)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 23.03, CGRectGetMinY(iconNormal2) + 45.69)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2), CGRectGetMinY(iconNormal2) + 21.91)];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 23.03, CGRectGetMinY(iconNormal2))];
+            [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal2) + 25.86, CGRectGetMinY(iconNormal2) + 2.92)];
             [bezierPath closePath];
             CGContextSaveGState(context);
             CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);

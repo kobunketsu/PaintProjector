@@ -25,52 +25,46 @@
 - (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor
 {
     //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = ctx;
     
     //// Color Declarations
     UIColor* shadowColor2 = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.2];
+//    UIColor* iconColor = [UIColor colorWithRed: 0.574 green: 0.574 blue: 0.574 alpha: 1];
     
     //// Shadow Declarations
     UIColor* shadow = shadowColor2;
     CGSize shadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat shadowBlurRadius = 0;
     
-    //// Bezier 5 Drawing
-    UIBezierPath* bezier5Path = UIBezierPath.bezierPath;
-    [bezier5Path moveToPoint: CGPointMake(27.01, 9.34)];
-    [bezier5Path addLineToPoint: CGPointMake(35.33, 9.37)];
-    [bezier5Path addCurveToPoint: CGPointMake(37, 9.95) controlPoint1: CGPointMake(36.25, 9.37) controlPoint2: CGPointMake(37, 9.19)];
-    [bezier5Path addCurveToPoint: CGPointMake(35.33, 12.62) controlPoint1: CGPointMake(37, 10.7) controlPoint2: CGPointMake(36.25, 12.62)];
-    [bezier5Path addLineToPoint: CGPointMake(33.7, 12.62)];
-    [bezier5Path addLineToPoint: CGPointMake(33.03, 33.62)];
-    [bezier5Path addCurveToPoint: CGPointMake(30.36, 37) controlPoint1: CGPointMake(33.03, 35.49) controlPoint2: CGPointMake(31.84, 37)];
-    [bezier5Path addLineToPoint: CGPointMake(13.64, 37)];
-    [bezier5Path addCurveToPoint: CGPointMake(10.97, 33.62) controlPoint1: CGPointMake(12.16, 37) controlPoint2: CGPointMake(10.97, 35.49)];
-    [bezier5Path addLineToPoint: CGPointMake(10.3, 12.62)];
-    [bezier5Path addLineToPoint: CGPointMake(8.67, 12.62)];
-    [bezier5Path addCurveToPoint: CGPointMake(7, 9.95) controlPoint1: CGPointMake(7.75, 12.62) controlPoint2: CGPointMake(7, 10.64)];
-    [bezier5Path addCurveToPoint: CGPointMake(8.67, 9.37) controlPoint1: CGPointMake(7, 9.25) controlPoint2: CGPointMake(7.75, 9.37)];
-    [bezier5Path addLineToPoint: CGPointMake(17.03, 9.37)];
-    [bezier5Path addCurveToPoint: CGPointMake(19.36, 7) controlPoint1: CGPointMake(17.03, 9.37) controlPoint2: CGPointMake(18.44, 7)];
-    [bezier5Path addLineToPoint: CGPointMake(24.7, 7)];
-    [bezier5Path addCurveToPoint: CGPointMake(27.01, 9.34) controlPoint1: CGPointMake(25.56, 7) controlPoint2: CGPointMake(26.86, 9.08)];
-    [bezier5Path closePath];
-    [bezier5Path moveToPoint: CGPointMake(27.61, 21.26)];
-    [bezier5Path addLineToPoint: CGPointMake(16.31, 21.26)];
-    [bezier5Path addCurveToPoint: CGPointMake(14.99, 22.65) controlPoint1: CGPointMake(15.58, 21.26) controlPoint2: CGPointMake(14.99, 21.88)];
-    [bezier5Path addLineToPoint: CGPointMake(14.99, 23.35)];
-    [bezier5Path addCurveToPoint: CGPointMake(16.31, 24.75) controlPoint1: CGPointMake(14.99, 24.12) controlPoint2: CGPointMake(15.58, 24.75)];
-    [bezier5Path addLineToPoint: CGPointMake(27.61, 24.75)];
-    [bezier5Path addCurveToPoint: CGPointMake(28.94, 23.35) controlPoint1: CGPointMake(28.34, 24.75) controlPoint2: CGPointMake(28.94, 24.12)];
-    [bezier5Path addLineToPoint: CGPointMake(28.94, 22.65)];
-    [bezier5Path addCurveToPoint: CGPointMake(27.61, 21.26) controlPoint1: CGPointMake(28.94, 21.88) controlPoint2: CGPointMake(28.34, 21.26)];
-    [bezier5Path closePath];
+    //// Bezier 2 Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 27.79, 7);
+    CGContextRotateCTM(context, 90 * M_PI / 180);
+    
+    UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
+    [bezier2Path moveToPoint: CGPointMake(12, 15.79)];
+    [bezier2Path addLineToPoint: CGPointMake(30, 15.79)];
+    [bezier2Path addLineToPoint: CGPointMake(30, -4.21)];
+    [bezier2Path addLineToPoint: CGPointMake(12, -4.21)];
+    [bezier2Path addLineToPoint: CGPointMake(12, 15.79)];
+    [bezier2Path closePath];
+    [bezier2Path moveToPoint: CGPointMake(0, -3.21)];
+    [bezier2Path addLineToPoint: CGPointMake(0, 11.11)];
+    [bezier2Path addCurveToPoint: CGPointMake(3.5, 14.79) controlPoint1: CGPointMake(0, 13.14) controlPoint2: CGPointMake(1.57, 14.79)];
+    [bezier2Path addLineToPoint: CGPointMake(9, 14.79)];
+    [bezier2Path addLineToPoint: CGPointMake(9, -4.21)];
+    [bezier2Path addLineToPoint: CGPointMake(1, -4.21)];
+    [bezier2Path addLineToPoint: CGPointMake(0, -3.21)];
+    [bezier2Path closePath];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, [shadow CGColor]);
     [iconColor setFill];
-    [bezier5Path fill];
+    [bezier2Path fill];
     CGContextRestoreGState(context);
-  
+    
+    
+    CGContextRestoreGState(context);
+
 }
 
 

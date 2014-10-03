@@ -270,6 +270,8 @@
 		08402CB41701E1F000DE952A /* ADPaintData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08402CB31701E1F000DE952A /* ADPaintData.m */; };
 		084228A618A7CADA0046BA61 /* UIView+Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 084228A518A7CADA0046BA61 /* UIView+Tag.m */; };
 		084228A718A7CADA0046BA61 /* UIView+Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 084228A518A7CADA0046BA61 /* UIView+Tag.m */; };
+		084347EE19DE7EF100023299 /* ADLasso.m in Sources */ = {isa = PBXBuildFile; fileRef = 084347ED19DE7EF100023299 /* ADLasso.m */; };
+		084347EF19DE7EF100023299 /* ADLasso.m in Sources */ = {isa = PBXBuildFile; fileRef = 084347ED19DE7EF100023299 /* ADLasso.m */; };
 		08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
 		08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
 		084691031747C80300E50554 /* ADLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691021747C80200E50554 /* ADLayerTableViewCell.m */; };
@@ -1269,6 +1271,8 @@
 		0842289F18A7A4F50046BA61 /* REAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REAnimation.m; path = PaintProjector/REAnimation.m; sourceTree = "<group>"; };
 		084228A418A7CADA0046BA61 /* UIView+Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Tag.h"; sourceTree = "<group>"; };
 		084228A518A7CADA0046BA61 /* UIView+Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Tag.m"; sourceTree = "<group>"; };
+		084347EC19DE7EF100023299 /* ADLasso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLasso.h; sourceTree = "<group>"; };
+		084347ED19DE7EF100023299 /* ADLasso.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLasso.m; sourceTree = "<group>"; };
 		08439D24195405EF0022E2A7 /* tutorial_bookBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_bookBG.png; path = PaintProjector/Images/tutorial_bookBG.png; sourceTree = "<group>"; };
 		084691011747C80200E50554 /* ADLayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerTableViewCell.h; sourceTree = "<group>"; };
 		084691021747C80200E50554 /* ADLayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerTableViewCell.m; sourceTree = "<group>"; };
@@ -2290,6 +2294,15 @@
 			name = IAP;
 			sourceTree = "<group>";
 		};
+		084347EB19DE7E9900023299 /* Lasso */ = {
+			isa = PBXGroup;
+			children = (
+				084347EC19DE7EF100023299 /* ADLasso.h */,
+				084347ED19DE7EF100023299 /* ADLasso.m */,
+			);
+			name = Lasso;
+			sourceTree = "<group>";
+		};
 		084690FC1747AD7400E50554 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3051,6 +3064,7 @@
 		08FD1F9E164E454A003738FC /* PaintScreen */ = {
 			isa = PBXGroup;
 			children = (
+				084347EB19DE7E9900023299 /* Lasso */,
 				08770E0319BC8860008C379B /* Help */,
 				08F385DA19AD8C9800FE0ED0 /* ReversePaint */,
 				0822E39C19A1D9AF0094081E /* Unused */,
@@ -4060,6 +4074,7 @@
 				08234EC318915F32008B4189 /* ADFileButton.m in Sources */,
 				8d64d8874378c84411e6a59e /* ADCylinderProjectView.m in Sources */,
 				08525111194D62200087F4AF /* ADTutorialManager.m in Sources */,
+				084347EF19DE7EF100023299 /* ADLasso.m in Sources */,
 				08C17B7A19C52C0600FF9A55 /* ADTextSplitter.m in Sources */,
 				908eb62bd1bbda2ebb3316a5 /* ADPlayButton.m in Sources */,
 				08E06CBC1965BDD800A63017 /* ADPinView.m in Sources */,
@@ -4232,6 +4247,7 @@
 				08D0A15E19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */,
 				08A5CBB6189F36B300F4E226 /* REComponent.m in Sources */,
 				082060E5189D4CE70027247C /* RETransform.m in Sources */,
+				084347EE19DE7EF100023299 /* ADLasso.m in Sources */,
 				08B9104818AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */,
 				088B073F183EEBA80099C6A9 /* ADBackgroundLayer.m in Sources */,
 				0818DC2D18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m in Sources */,
