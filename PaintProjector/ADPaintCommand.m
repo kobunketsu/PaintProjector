@@ -91,7 +91,6 @@
     DebugLogGLGroupEnd();
 }
 -(void)execute{
-//    DebugLog(@"[ execute]");
     DebugLogGLGroupStart(@"PaintCommand execute");
     
     if ([self.paintPaths count]==0) {
@@ -164,6 +163,7 @@
 }
 
 - (void)drawImmediateFrom:(CGPoint)startPoint to:(CGPoint)endPoint{
+//    DebugLogGLSnapshotStart
     //调用PaintCommandDelegate的片段代码
     [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:false isImmediate:true];
     
@@ -182,7 +182,7 @@
     self.curSegmentOffset ++;
     DebugLogGLGroupEnd();
     //合成finalFramebuffer结果
-//    DebugLogGLSnapshotStart
+
     [self.delegate willAfterDraw:self.brushState refresh:true retainBacking:true];
 //    DebugLogGLSnapshotEnd
 }

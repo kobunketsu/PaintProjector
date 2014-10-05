@@ -1805,7 +1805,7 @@
 }
 //将undobase的基点贴图纹理绘制到当前临时图层上(临时贴图和原始贴图都已经被clear)
 - (void) willExecuteUndoBaseCommand:(ADUndoBaseCommand*)command{
-    DebugLog(@"[ willExecuteUndoBaseCommand  copy command.texture to curPaintedLayer ]");
+    DebugLog(@"willExecuteUndoBaseCommand  copy command.texture to curPaintedLayer");
     
     DebugLogGLGroupStart(@"willExecuteUndoBaseCommand");
 
@@ -3029,18 +3029,31 @@
     
     return anchor;
 }
+
+#pragma mark- TransformCommandDelegate
 - (void)transformImageWithCommand:(ADTransformCommand*)command{
-    if (command.isLayer) {
-        [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
-        
-        [self drawQuad:_VAOQuad transformMatrix:command.transformedImageMatrix texture2DPremultiplied:self.curLayerTexture.texID];
+    if (command.isUndoBaseWrapped) {
+        if (command.isLayer) {
+            [[REGLWrapper current] bindFramebufferOES:self.undoBaseTexture.frameBuffer discardHint:true clear:true];
+            [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
+            
+            [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:true];
+            [self drawQuad:_VAOQuad transformMatrix:command.transformedImageMatrix texture2DPremultiplied:self.undoBaseTexture.texID];
+        }
+    }
+    else{
+        if (command.isLayer) {
+            [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
+            
+            [self drawQuad:_VAOQuad transformMatrix:command.transformedImageMatrix texture2DPremultiplied:self.curLayerTexture.texID];
+        }
     }
 }
-#pragma mark- TransformCommandDelegate
-
 - (void)willTransformImageWithCommand:(ADTransformCommand*)command{
     [self transformImageWithCommand:command];
-    [self copyCurPaintedLayerToCurLayer];
+    if(!command.isUndoBaseWrapped){
+        [self copyCurPaintedLayerToCurLayer];
+    }
 }
 
 #pragma mark- Opengl Draw Tools

@@ -19,7 +19,7 @@
     return self;
 }
 -(void)execute{
-    DebugLog(@"[ undoBaseCommand execute ]");
+    DebugLogFuncStart(@"execute");
     [self.delegate willExecuteUndoBaseCommand:self];
 
     [super endExecute];

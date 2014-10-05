@@ -3926,10 +3926,10 @@
         return false;
     }
     
-    DebugLogGLSnapshotStart
+//    DebugLogGLSnapshotStart
     [self.paintView mergeLayerAtIndex:index];
     [self.paintView uploadLayerDataAtIndex:index - 1];
-    DebugLogGLSnapshotEnd
+//    DebugLogGLSnapshotEnd
     
     return true;
 }
