@@ -100,8 +100,11 @@
     //同时更新UI
     [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
-        [self tutorialStartCurrentStep];
-        [self transitionToTutorial];
+        //如果有商店，只在商店结束后显示教程
+        if (!self.iapVC) {
+            [self tutorialStartCurrentStep];
+            [self transitionToTutorial];
+        }
     }];
 }
 
@@ -4790,17 +4793,24 @@
         //切换到原来的renderbuffer
         [self.paintView prepareDrawEnv];
         
-        //如果是反向绘制，退出到cylinderProject的sideView
-        if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
-            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
-            [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
-                [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
-                [self dismissViewControllerAnimated:true completion:^{
-                    [self lockInteraction:false];
-                    [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
-                    self.reversePaint = nil;
+        //在教程的情况下必定会跟着教程退出
+        if ([[ADSimpleTutorialManager current] isActive]) {
+            [self tutorialStartCurrentStep];
+            [self transitionToTutorial];
+        }
+        else{
+            //如果是反向绘制，退出到cylinderProject的sideView
+            if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
+                [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+                [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
+                    [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
+                    [self dismissViewControllerAnimated:true completion:^{
+                        [self lockInteraction:false];
+                        [self.delegate willPaintScreenDissmissDoneWithPaintDoc:self.paintDoc];
+                        self.reversePaint = nil;
+                    }];
                 }];
-            }];
+            }
         }
     }];
 }
@@ -4891,6 +4901,7 @@
     ADSimpleTutorial *simpleTutorial = (ADSimpleTutorial *)tutorial;
     [simpleTutorial.cancelView removeFromSuperview];
     simpleTutorial.cancelView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.paintToolBar.frame.size.height - simpleTutorial.cancelView.frame.size.height);
+    simpleTutorial.cancelView.hidden = false;
     [self.rootView addSubview:simpleTutorial.cancelView];
 }
 

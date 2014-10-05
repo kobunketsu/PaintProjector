@@ -3124,7 +3124,9 @@ static float DeviceWidth = 0.154;
     ADSimpleTutorial *simpleTutorial = (ADSimpleTutorial *)tutorial;
     [simpleTutorial.cancelView removeFromSuperview];
     simpleTutorial.cancelView.center = CGPointMake(TutorialNextButtonHeight*0.5, self.rootView.bounds.size.height - self.downToolBar.frame.size.height - simpleTutorial.cancelView.frame.size.height);
+    simpleTutorial.cancelView.hidden = false;
     [self.rootView addSubview:simpleTutorial.cancelView];
+    
 }
 
 - (void)tutorialSetup{

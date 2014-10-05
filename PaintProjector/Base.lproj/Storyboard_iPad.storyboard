@@ -1850,6 +1850,7 @@ Create your unbelievable art!</string>
                                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Rq-hF-ljj" userLabel="AnamorphosisBasicButton" customClass="ADCrystalGradientStyleButton">
                                                 <rect key="frame" x="50" y="30" width="918" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="tutorialAnamorphosisBasicButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="8Ha-KC-NHV"/>
                                                 </connections>
@@ -1858,13 +1859,22 @@ Create your unbelievable art!</string>
                                                 <rect key="frame" x="22" y="-20" width="160" height="160"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Basic Knowledge of Anamorphosis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3k4-p8-Ra1" userLabel="AnamorphosisBasicLabel">
+                                            <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction of Anamorphosis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3k4-p8-Ra1" userLabel="AnamorphosisBasicLabel">
                                                 <rect key="frame" x="205" y="0.0" width="563" height="160"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_ButtonImage.png" id="iaJ-Lj-une">
+                                                <rect key="frame" x="618" y="72" width="150" height="58"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
                                             <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="kYS-NG-hll" userLabel="StatusView" customClass="ADTutorialStatusView">
                                                 <rect key="frame" x="696" y="58" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1878,6 +1888,7 @@ Create your unbelievable art!</string>
                                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FDU-rI-c8e" userLabel="AnaDrawBasicButton" customClass="ADCrystalGradientStyleButton">
                                                 <rect key="frame" x="51" y="30" width="918" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="tutorialAnaDrawBasicButtonTouchUp:" destination="2bY-OT-P2o" eventType="touchUpInside" id="vCU-6G-keZ"/>
                                                 </connections>
@@ -1893,6 +1904,15 @@ Create your unbelievable art!</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial1_ButtonImage.png" id="ieU-wG-heW">
+                                                <rect key="frame" x="580" y="30" width="178" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
                                             <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="ibw-Po-wFu" userLabel="StatusView" customClass="ADTutorialStatusView">
                                                 <rect key="frame" x="696" y="58" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1906,6 +1926,7 @@ Create your unbelievable art!</string>
                                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="e9m-cF-0d1" userLabel="AdvancedSetupButton" customClass="ADCrystalGradientStyleButton">
                                                 <rect key="frame" x="51" y="30" width="918" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1924,6 +1945,15 @@ Create your unbelievable art!</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial2_ButtonImage.png" id="pe4-xx-pBx">
+                                                <rect key="frame" x="539" y="30" width="180" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
                                             <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" id="ycT-IK-F8o" userLabel="StatusView" customClass="ADTutorialStatusView">
                                                 <rect key="frame" x="696" y="58" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1937,6 +1967,7 @@ Create your unbelievable art!</string>
                                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L1b-wx-Qev" userLabel="DrawReflectionButton" customClass="ADCrystalGradientStyleButton">
                                                 <rect key="frame" x="51" y="30" width="918" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1955,6 +1986,15 @@ Create your unbelievable art!</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial3_ButtonImage.png" id="FoM-Mb-ZrZ">
+                                                <rect key="frame" x="505" y="30" width="174" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
                                             <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" id="R6n-zr-U0k" userLabel="StatusView" customClass="ADTutorialStatusView">
                                                 <rect key="frame" x="696" y="58" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1968,6 +2008,7 @@ Create your unbelievable art!</string>
                                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mEC-BM-IUZ" userLabel="DrawAnamorphosisButton" customClass="ADCrystalGradientStyleButton">
                                                 <rect key="frame" x="50" y="30" width="918" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1986,10 +2027,42 @@ Create your unbelievable art!</string>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView appearanceType="aqua" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial4_ButtonImage.png" id="Tsi-wE-j1P">
+                                                <rect key="frame" x="506" y="30" width="112" height="82"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="alpha">
+                                                        <integer key="value" value="0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
                                             <view hidden="YES" appearanceType="aqua" opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" id="xmR-WZ-bpy" userLabel="StatusView" customClass="ADTutorialStatusView">
                                                 <rect key="frame" x="696" y="58" width="44" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </view>
+                                            <label hidden="YES" appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hRx-ho-yK1">
+                                                <rect key="frame" x="636" y="37" width="44" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment>
+                                                        <string key="content">Pro
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.49803921569999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="24" name="HelveticaNeue-Italic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Edition">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.49803921569999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="11" name="HelveticaNeue-Italic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </view>
                                     <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="dfs-LW-277" userLabel="End" customClass="ADTutorialStepButton">
@@ -2015,6 +2088,7 @@ Create your unbelievable art!</string>
                         <outlet property="bookBGImageView" destination="59l-3A-hf8" id="9Jd-Jm-eVQ"/>
                         <outlet property="pickupImageTargetView" destination="Abs-xt-YaV" id="eRa-xQ-cmE"/>
                         <outlet property="pickupImageView" destination="dJS-vB-9wN" id="as4-p2-Ac3"/>
+                        <outlet property="proEditionLabel" destination="hRx-ho-yK1" id="LpR-Rz-QL6"/>
                         <outlet property="putDeviceImageTargetView" destination="R3h-Ee-VpY" id="RuG-Z5-di9"/>
                         <outlet property="putDeviceImageView" destination="PqT-Jl-phK" id="asR-2N-8gb"/>
                         <outlet property="setup2ImageView" destination="pzH-z2-DWE" id="t8I-61-PR1"/>
@@ -2082,6 +2156,13 @@ Create your unbelievable art!</string>
                         <outletCollection property="tutorialStatusViews" destination="ycT-IK-F8o" id="l78-4P-o4b"/>
                         <outletCollection property="tutorialStatusViews" destination="R6n-zr-U0k" id="Hs4-gC-bfm"/>
                         <outletCollection property="tutorialStatusViews" destination="xmR-WZ-bpy" id="zR5-QT-xv9"/>
+                        <outletCollection property="tutorialAllViews" destination="hRx-ho-yK1" id="abs-w4-S6n"/>
+                        <outletCollection property="tutorialStatusViews" destination="hRx-ho-yK1" id="MDp-I7-qv9"/>
+                        <outletCollection property="tutorialButtonBgImageViews" destination="iaJ-Lj-une" id="aAb-6R-BOy"/>
+                        <outletCollection property="tutorialButtonBgImageViews" destination="ieU-wG-heW" id="BWC-kK-M9y"/>
+                        <outletCollection property="tutorialButtonBgImageViews" destination="pe4-xx-pBx" id="kUy-wN-pJ1"/>
+                        <outletCollection property="tutorialButtonBgImageViews" destination="FoM-Mb-ZrZ" id="ssf-9d-kyc"/>
+                        <outletCollection property="tutorialButtonBgImageViews" destination="Tsi-wE-j1P" id="eZe-o0-ZsH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-Jf-VFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3778,6 +3859,7 @@ Create your unbelievable art!</string>
     </scenes>
     <resources>
         <image name="paintFrame.png" width="210" height="280"/>
+        <image name="tutorial0_ButtonImage.png" width="150" height="58"/>
         <image name="tutorial0_D-Do.png" width="37" height="43"/>
         <image name="tutorial0_D-Draw.png" width="37" height="43"/>
         <image name="tutorial0_W-Wannaa.png" width="57" height="43"/>
@@ -3797,6 +3879,10 @@ Create your unbelievable art!</string>
         <image name="tutorial0_t-it.png" width="21" height="44"/>
         <image name="tutorial0_u-You.png" width="30" height="33"/>
         <image name="tutorial0_w-Draw.png" width="48" height="32"/>
+        <image name="tutorial1_ButtonImage.png" width="178" height="100"/>
+        <image name="tutorial2_ButtonImage.png" width="180" height="100"/>
+        <image name="tutorial3_ButtonImage.png" width="174" height="100"/>
+        <image name="tutorial4_ButtonImage.png" width="112" height="82"/>
         <image name="tutorial_background.png" width="768" height="1024"/>
         <image name="tutorial_bookBG.png" width="670" height="500"/>
         <image name="tutorial_pickImage.png" width="191" height="251"/>

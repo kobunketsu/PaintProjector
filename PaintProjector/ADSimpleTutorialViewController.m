@@ -123,18 +123,6 @@
 - (void)flushTutorialStatus{
     for (ADTutorialStatusView *view in self.tutorialStatusViews) {
         
-        //处理lock
-        if (view.tag == 4) {
-            view.locked = ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"];
-            if (view.locked) {
-                view.hidden = false;
-            }
-            else{
-                view.hidden = true;
-            }
-            [view setNeedsDisplay];
-        }
-        
         //已经checked过的不再更新显示动画
         if (!view.hidden) {
             continue;
@@ -156,6 +144,8 @@
             case 4:
                 view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialDrawAnamorphosis"];
                 break;
+            case 5:
+                view.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"];
             default:
                 break;
         }
@@ -205,6 +195,10 @@
     }completion:^(BOOL finished) {
         [self flushTutorialStatus];
         [UIView animateWithDuration:TutorialListTextFadeInDuration animations:^{
+            for (UIImageView *view in self.tutorialButtonBgImageViews) {
+                view.alpha = 0.6;
+            }
+            
             for (ADTextSplitter *textSplitter in self.tutorialListTextSplitters) {
                 for (UILabel *label in textSplitter.characters) {
                     [label.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale.x"];
@@ -312,9 +306,9 @@
     self.selectedButton = sender;
     
     //IAP dependent
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
-        return;
-    }
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
+//        return;
+//    }
     
     [[ADSimpleTutorialManager current]activeTutorial:@"TutorialDrawAnamorphosis"];
     

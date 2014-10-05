@@ -47,7 +47,9 @@
             }
             view.alpha = 0;
         }
-        
+        for (UIView *view in fromVC.tutorialButtonBgImageViews) {
+            view.alpha = 0;
+        }
 
         for (UIView *group in fromVC.tutorialButtonGroups) {
             if ([fromVC.selectedButton.superview isEqual:group]) {
@@ -114,7 +116,9 @@
                 for (UIView *view in toVC.tutorialAllViews) {
                     view.alpha = 1;
                 }
-                
+                for (UIView *view in toVC.tutorialButtonBgImageViews) {
+                    view.alpha = 0.6;
+                }
                 //slide other views to normal
                 for (UIView *group in toVC.tutorialButtonGroups) {
                     [group setFrameOriginX:0];

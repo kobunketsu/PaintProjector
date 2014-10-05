@@ -759,6 +759,16 @@
 		08E9D27A193EB020002F4990 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D279193EB020002F4990 /* CoreMedia.framework */; };
 		08E9D27E193EB034002F4990 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D27D193EB034002F4990 /* AVFoundation.framework */; };
 		08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EDD50B17AD23B70023E08A /* cylinderCap.png */; };
+		08EF178F19E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
+		08EF179019E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
+		08EF179119E198280020EAEC /* tutorial4_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178B19E198270020EAEC /* tutorial4_ButtonImage.png */; };
+		08EF179219E198280020EAEC /* tutorial4_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178B19E198270020EAEC /* tutorial4_ButtonImage.png */; };
+		08EF179319E198280020EAEC /* tutorial0_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178C19E198270020EAEC /* tutorial0_ButtonImage.png */; };
+		08EF179419E198280020EAEC /* tutorial0_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178C19E198270020EAEC /* tutorial0_ButtonImage.png */; };
+		08EF179519E198280020EAEC /* tutorial2_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178D19E198270020EAEC /* tutorial2_ButtonImage.png */; };
+		08EF179619E198280020EAEC /* tutorial2_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178D19E198270020EAEC /* tutorial2_ButtonImage.png */; };
+		08EF179719E198280020EAEC /* tutorial3_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178E19E198270020EAEC /* tutorial3_ButtonImage.png */; };
+		08EF179819E198280020EAEC /* tutorial3_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178E19E198270020EAEC /* tutorial3_ButtonImage.png */; };
 		08EF8E6C18478E230027F305 /* ADColorPickModeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EF8E6B18478E230027F305 /* ADColorPickModeButton.m */; };
 		08EF9E5418A1E2B600376568 /* REResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EF9E5318A1E2B600376568 /* REResources.m */; };
 		08EF9E5718A1E2C000376568 /* REResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 08EF9E5318A1E2B600376568 /* REResources.m */; };
@@ -1815,6 +1825,11 @@
 		08E9D27D193EB034002F4990 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		08EDD50B17AD23B70023E08A /* cylinderCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderCap.png; path = Images/cylinderCap.png; sourceTree = "<group>"; };
 		08EDD50D17AD296B0023E08A /* cylinderMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderMain.png; path = Images/cylinderMain.png; sourceTree = "<group>"; };
+		08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial1_ButtonImage.png; path = PaintProjector/Images/tutorial1_ButtonImage.png; sourceTree = "<group>"; };
+		08EF178B19E198270020EAEC /* tutorial4_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial4_ButtonImage.png; path = PaintProjector/Images/tutorial4_ButtonImage.png; sourceTree = "<group>"; };
+		08EF178C19E198270020EAEC /* tutorial0_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial0_ButtonImage.png; path = PaintProjector/Images/tutorial0_ButtonImage.png; sourceTree = "<group>"; };
+		08EF178D19E198270020EAEC /* tutorial2_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial2_ButtonImage.png; path = PaintProjector/Images/tutorial2_ButtonImage.png; sourceTree = "<group>"; };
+		08EF178E19E198270020EAEC /* tutorial3_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial3_ButtonImage.png; path = PaintProjector/Images/tutorial3_ButtonImage.png; sourceTree = "<group>"; };
 		08EF8E6A18478E230027F305 /* ADColorPickModeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADColorPickModeButton.h; sourceTree = "<group>"; };
 		08EF8E6B18478E230027F305 /* ADColorPickModeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADColorPickModeButton.m; sourceTree = "<group>"; };
 		08EF9E5218A1E2B600376568 /* REResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = REResources.h; path = PaintProjector/REResources.h; sourceTree = "<group>"; };
@@ -2429,6 +2444,11 @@
 		08525114194D852F0087F4AF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */,
+				08EF178B19E198270020EAEC /* tutorial4_ButtonImage.png */,
+				08EF178C19E198270020EAEC /* tutorial0_ButtonImage.png */,
+				08EF178D19E198270020EAEC /* tutorial2_ButtonImage.png */,
+				08EF178E19E198270020EAEC /* tutorial3_ButtonImage.png */,
 				082A69D219C864F600862332 /* tutorial0_a-Draw@2x.png */,
 				082A69D319C864F600862332 /* tutorial0_D-Draw@2x.png */,
 				082A69D419C864F600862332 /* tutorial0_D-Do@2x.png */,
@@ -3424,6 +3444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08EF179619E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69FA19C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33419C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
@@ -3461,6 +3482,7 @@
 				08B8C32E19C5EED100CB85BE /* tutorial0_a0-Wannaa.png in Resources */,
 				0815818819614F1C00AB1645 /* brushPencilShape_r64.png in Resources */,
 				08B8C33819C5EED100CB85BE /* tutorial0_i-it.png in Resources */,
+				08EF179419E198280020EAEC /* tutorial0_ButtonImage.png in Resources */,
 				08086F0E18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				0824E4FA19C462980065BB04 /* tutorial_lifeart_02.png in Resources */,
@@ -3530,6 +3552,7 @@
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
 				0822E39919A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
+				08EF179219E198280020EAEC /* tutorial4_ButtonImage.png in Resources */,
 				08B8C32C19C5EED100CB85BE /* tutorial0_a-Draw.png in Resources */,
 				08983D9418BCCCE00001C334 /* ProductList.plist in Resources */,
 				085B167919BB5D21002FA10B /* feedback-48.png in Resources */,
@@ -3544,6 +3567,7 @@
 				08B8C31519C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08B26DFA19CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
+				08EF179019E198280020EAEC /* tutorial1_ButtonImage.png in Resources */,
 				086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				a6559ed589dcc0977b6e52e4 /* cylinderCap.png in Resources */,
 				088313B2199D00E900C49B92 /* fanart-48.png in Resources */,
@@ -3551,6 +3575,7 @@
 				0822E39719A1D3D70094081E /* AnaDrawSpotlightIcon-50.png in Resources */,
 				0858A8ED19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */,
 				08B8C34C19C5EED100CB85BE /* tutorial0_Y-You.png in Resources */,
+				08EF179819E198280020EAEC /* tutorial3_ButtonImage.png in Resources */,
 				0875131219580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
 				082A69F419C864F600862332 /* tutorial0_t-it@2x.png in Resources */,
 				0879B3A2195C5CA70062EF11 /* cylinderBottom.png in Resources */,
@@ -3577,6 +3602,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08EF179519E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69F919C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33319C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
 				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
@@ -3614,6 +3640,7 @@
 				08B8C32D19C5EED100CB85BE /* tutorial0_a0-Wannaa.png in Resources */,
 				08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */,
 				08B8C33719C5EED100CB85BE /* tutorial0_i-it.png in Resources */,
+				08EF179319E198280020EAEC /* tutorial0_ButtonImage.png in Resources */,
 				08E539FF195AF849006EDCFC /* cylinderTopLight.png in Resources */,
 				0832E27E1933A7EA004BD986 /* release_notes.md in Resources */,
 				0824E4F919C462980065BB04 /* tutorial_lifeart_02.png in Resources */,
@@ -3683,6 +3710,7 @@
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
 				0822E39819A1D3D70094081E /* AnaDrawSpotlightIcon-50@2x.png in Resources */,
+				08EF179119E198280020EAEC /* tutorial4_ButtonImage.png in Resources */,
 				08B8C32B19C5EED100CB85BE /* tutorial0_a-Draw.png in Resources */,
 				088B40191792FB7F002750EA /* DBChooser.bundle in Resources */,
 				085B167819BB5D21002FA10B /* feedback-48.png in Resources */,
@@ -3697,6 +3725,7 @@
 				08B8C31419C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				08B26DF919CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
+				08EF178F19E198280020EAEC /* tutorial1_ButtonImage.png in Resources */,
 				08086ED218DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				0875131119580D4700FC03CC /* tutorial_gesture3FingerDown.png in Resources */,
 				088313B1199D00E900C49B92 /* fanart-48.png in Resources */,
@@ -3704,6 +3733,7 @@
 				0822E39619A1D3D70094081E /* AnaDrawSpotlightIcon-50.png in Resources */,
 				0858A8EC19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */,
 				08B8C34B19C5EED100CB85BE /* tutorial0_Y-You.png in Resources */,
+				08EF179719E198280020EAEC /* tutorial3_ButtonImage.png in Resources */,
 				0879B3A1195C5CA70062EF11 /* cylinderBottom.png in Resources */,
 				082A69F319C864F600862332 /* tutorial0_t-it@2x.png in Resources */,
 				0875131919580D4700FC03CC /* tutorial_gesture3FingerZ.png in Resources */,

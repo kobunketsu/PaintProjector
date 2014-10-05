@@ -54,11 +54,13 @@ ADTextSplitterDelegate
 @property (weak, nonatomic) IBOutlet UIView *pickupImageTargetView;
 @property (weak, nonatomic) IBOutlet UIView *viewDeviceSrcImageTargetView;
 @property (weak, nonatomic) IBOutlet UIView *putDeviceImageTargetView;
+@property (weak, nonatomic) IBOutlet UILabel *proEditionLabel;
 
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialButtonGroups;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *tutorialButtons;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *tutorialButtonLabels;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialStatusViews;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *tutorialButtonBgImageViews;
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *tutorialImageViews;
 @property (strong, nonatomic) IBOutletCollection(UIView) NSArray *tutorialAllViews;
 @property (retain, nonatomic) NSMutableArray *tutorialListTextSplitters;
