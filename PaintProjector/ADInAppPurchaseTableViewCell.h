@@ -11,7 +11,9 @@
 #import "ADSimpleIAPManager.h"
 
 @protocol ADInAppPurchaseTableViewCellDelegate
-- (ADBrush *) willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
+- (void)willStartPurchase;
+- (void)willBuyProductByIndex:(NSInteger)productIndex orRestoreAll:(BOOL)restore;
+- (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
 @end
 
 @interface ADInAppPurchaseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegate>

@@ -182,7 +182,9 @@
     self.curSegmentOffset ++;
     DebugLogGLGroupEnd();
     //合成finalFramebuffer结果
+//    DebugLogGLSnapshotStart
     [self.delegate willAfterDraw:self.brushState refresh:true retainBacking:true];
+//    DebugLogGLSnapshotEnd
 }
 
 - (void)drawImmediateEnd{                            

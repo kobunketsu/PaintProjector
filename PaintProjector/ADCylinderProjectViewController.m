@@ -26,6 +26,7 @@
 #import "iRate.h"
 #import "ADSimpleAlertView.h"
 
+
 #if TESTFLIGHT
 #import "Questionnaire.h"
 #endif
@@ -652,11 +653,8 @@ static float DeviceWidth = 0.154;
         self.topToolBar.hidden = self.downToolBar.hidden = self.iAdBar.hidden = true;
         
         @autoreleasepool {
-            UIGraphicsBeginImageContextWithOptions(self.rootView.frame.size, false, 0);
-            [self.rootView drawViewHierarchyInRect:self.rootView.bounds afterScreenUpdates:true];
-            UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
-            UIGraphicsEndImageContext();
-//            UIImage *image = [self.rootView snapshot];
+//            UIImage *image = [self.projectView snapshot];
+            UIImage *image = [self.rootView snapshotImageAfterScreenUpdate:true];
             [controller addImage:image];
         }
         
@@ -728,10 +726,7 @@ static float DeviceWidth = 0.154;
     
     @autoreleasepool {
 //        UIImage *image = [self.projectView snapshot];
-        UIGraphicsBeginImageContextWithOptions(self.rootView.frame.size, false, 0);
-        [self.rootView drawViewHierarchyInRect:self.rootView.bounds afterScreenUpdates:true];
-        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
-        UIGraphicsEndImageContext();
+        UIImage *image = [self.rootView snapshotImageAfterScreenUpdate:true];
         //convert UIImage to NSData to add it as attachment
         NSData *imageData = UIImagePNGRepresentation(image);
         

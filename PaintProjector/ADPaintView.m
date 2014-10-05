@@ -236,6 +236,10 @@
     DebugLogSystem(@"dealloc");
 }
 
+-(void)applicationDidBecomeActive{
+    DebugLogSystem(@"applicationDidBecomeActive");
+}
+
 -(void)applicationWillResignActive{
     DebugLogSystem(@"applicationWillResignActive");
     //remove animation timer

@@ -50,12 +50,12 @@
 }
 
 - (void)setSelectedState:(BOOL)selected{
-    if (selected) {
-        self.layerImageViewFrame.backgroundColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:1.0];
-    }
-    else{
+//    if (selected) {
+//        self.layerImageViewFrame.backgroundColor = [UIColor colorWithRed:0 green:0.5 blue:1.0 alpha:1.0];
+//    }
+//    else{
         self.layerImageViewFrame.backgroundColor = [UIColor clearColor];
-    }
+//    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

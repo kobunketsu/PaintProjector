@@ -187,7 +187,9 @@ typedef struct {
 - (void)initGL;
 - (void)tearDownGL;
 - (void)destroy;
-//准备进入后台，停止所有OpenGLES操作
+//进入激活
+-(void)applicationDidBecomeActive;
+//退出激活，停止所有OpenGLES操作
 - (void)applicationWillResignActive;
 //进入后台，释放OpenGLES资源
 - (void)applicationDidEnterBackground;

@@ -1085,41 +1085,41 @@
         <scene sceneID="Lue-Ap-Qtt">
             <objects>
                 <tableViewController storyboardIdentifier="inAppPurchaseTableViewController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="wte-jo-21G" customClass="ADInAppPurchaseTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="320" sectionHeaderHeight="30" sectionFooterHeight="22" id="r39-tl-ia0" customClass="ADInAppPurchaseTableView">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="350" sectionHeaderHeight="30" sectionFooterHeight="22" id="r39-tl-ia0" customClass="ADInAppPurchaseTableView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inAppPurchaseTableViewCell" id="qly-wV-BSN" customClass="ADInAppPurchaseTableViewCell">
-                                <rect key="frame" x="0.0" y="30" width="768" height="320"/>
+                                <rect key="frame" x="0.0" y="30" width="768" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qly-wV-BSN" id="uQV-eE-hsj">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="320"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="qly-wV-BSN" id="uQV-eE-hsj">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="350"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CV7-nP-a9f" customClass="ADProductFeatureCollectionView">
-                                            <rect key="frame" x="0.0" y="44" width="768" height="286"/>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="CV7-nP-a9f" customClass="ADProductFeatureCollectionView">
+                                            <rect key="frame" x="0.0" y="44" width="768" height="316"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="FTr-Tf-nix">
-                                                <size key="itemSize" width="500" height="285"/>
+                                                <size key="itemSize" width="500" height="315"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productFeatureCollectionViewCell" id="xdW-Xc-Jla" customClass="ADProductFeatureCollectionViewCell">
-                                                    <rect key="frame" x="0.0" y="1" width="500" height="285"/>
+                                                    <rect key="frame" x="0.0" y="1" width="500" height="315"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="500" height="285"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="500" height="315"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lTj-r4-RiW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="500" height="275"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="500" height="305"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" id="xlG-hp-GlH" userLabel="IntroView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="220" height="275"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
                                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="951-Fp-uIp">
@@ -1144,7 +1144,7 @@
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BXU-rT-2Pa" userLabel="ResetButton" customClass="ADColorButton">
-                                                                        <rect key="frame" x="50" y="100" width="50" height="50"/>
+                                                                        <rect key="frame" x="25" y="100" width="50" height="50"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal" title="Clear">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1258,7 +1258,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </view>
                                         <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="die-be-WBV">
-                                            <rect key="frame" x="100" y="290" width="39" height="37"/>
+                                            <rect key="frame" x="231" y="313" width="39" height="37"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
                                                 <action selector="pageControlValueChanged:" destination="qly-wV-BSN" eventType="valueChanged" id="hu1-Zt-6ef"/>
@@ -1767,16 +1767,16 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CiT-Ho-F8z" userLabel="WhatIsAnaDrawLabel">
+                                    <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CiT-Ho-F8z" userLabel="WhatIsAnaDrawLabel">
                                         <rect key="frame" x="0.0" y="700" width="768" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <attributedString key="attributedText">
                                             <fragment>
                                                 <string key="content">AnaDraw is a drawing app which allow you to draw anamorphic images.
 
-Learn how to use the powerful tools to view and draw by following this tutorial step by step.
+Following the tutorials, you will learn how to use the powerful tools to draw anamorphic image.
 
-You will create unbelievable illusion.</string>
+Create your unbelievable art!</string>
                                                 <attributes>
                                                     <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <font key="NSFont" size="17" name="HelveticaNeue"/>

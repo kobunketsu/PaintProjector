@@ -117,5 +117,11 @@
     
 }
 
-
+- (UIImage*)snapshotImageAfterScreenUpdate:(BOOL)afterScreenUpdates{
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:afterScreenUpdates];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();    //origin downleft
+    UIGraphicsEndImageContext();
+    return image;
+}
 @end

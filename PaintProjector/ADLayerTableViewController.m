@@ -374,6 +374,14 @@ const float LayerTableViewWidth = 256;
     }
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == [self rowForBackgroundLayer]) {
+        return nil;
+    }
+    else{
+        return indexPath;
+    }
+}
 //- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
 //    if (self.inBlendModeRow == section) {
 //        return self.tableView.sectionFooterHeight;

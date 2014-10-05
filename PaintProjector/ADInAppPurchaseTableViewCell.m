@@ -163,7 +163,7 @@
             cell.colorButton4.color = [UIColor blackColor];
             break;
         case 7:
-            cell.imageView.image = [UIImage imageNamed:@"Pro_pallete.png"];
+            cell.imageView.image = [UIImage imageNamed:@"iap_pallete.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription7", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle7", nil);
             for (UIButton *button in cell.brushButtons) {
@@ -184,58 +184,9 @@
 #pragma mark- IBAction
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"IAP_buyProductButtonTouchUp" identifier:sender];
-    
-    if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
-        DebugLog(@"越狱设备禁止IAP");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-    else{
-        if ([[ADSimpleIAPManager sharedInstance] canMakePurchases]) {
-            DebugLog(@"可以进行购买");
-            
-            Reachability *reach = [Reachability reachabilityForInternetConnection];
-            NetworkStatus netStatus = [reach currentReachabilityStatus];
-            if (netStatus == NotReachable) {
-                DebugLog(@"没有网络连接, 无法购买产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-            else{
-                SKProductWrapper *productWrapper = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:sender.tag];
-                __block SKProduct *product = productWrapper.product;
-                if (!product) {
-                    //之前一直是断网状态下读取本地SKProductWrapper,内部的SKProduct为空, 重新联网刷新product数据
-                    [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
-                        if (success) {
-                            DebugLog(@"有网络连接, 得到并购买产品");
-                            product = (SKProduct *)products[sender.tag];
-                            [[ADSimpleIAPManager sharedInstance] purchaseProduct:product];
-                        }
-                        else{
-                            DebugLog(@"有网络连接, 但无法得到产品");
-                            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                            [alertView show];
-                        }
-                    }];
-                }
-                else{
-                    DebugLog(@"有网络连接, 直接购买产品");
-#if DEBUG
-                    [[ADSimpleIAPManager sharedInstance] testflightPurchase];
-#elif TESTFLIGHT
-                    [[ADSimpleIAPManager sharedInstance] testflightPurchase];
-#else
-                    [[ADSimpleIAPManager sharedInstance] purchaseProduct:product];
-#endif
-                }
-            }
-        }
-        else{
-            DebugLog(@"设备禁止IAP");
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            [alertView show];
-        }
+   
+    if (self.delegate) {
+        [self.delegate willBuyProductByIndex:sender.tag orRestoreAll:false];
     }
 }
 #pragma mark- Scroll

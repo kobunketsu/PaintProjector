@@ -33,4 +33,6 @@
 - (void)setCenterY:(CGFloat)y;
 
 - (void)spinViewAngle:(CGFloat)angle keyPath:(NSString *)keyPath duration:(CGFloat)duration delay:(CGFloat)delay option:(UIViewKeyframeAnimationOptions)option completion:(void (^)(BOOL finished))completion;
+
+- (UIImage*)snapshotImageAfterScreenUpdate:(BOOL)afterScreenUpdates;
 @end

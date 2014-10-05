@@ -292,6 +292,8 @@
 		0849CEA81735503D004B30C6 /* ADRadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */; };
 		0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
 		0849FF43199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
+		084B25BD19DFE89A006192B3 /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 084B25BC19DFE89A006192B3 /* iap_pallete.png */; };
+		084B25BE19DFE89A006192B3 /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 084B25BC19DFE89A006192B3 /* iap_pallete.png */; };
 		084D5405170338A60052F510 /* ADPaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* ADPaintDoc.m */; };
 		084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* ADPaintDocManager.m */; };
 		084F8EC8173BDD9D007676C3 /* ADBrushTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F8EC7173BDD9D007676C3 /* ADBrushTypeViewController.m */; };
@@ -692,8 +694,6 @@
 		08DE436017B3D37300E9C72B /* ADPlayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DE435F17B3D37300E9C72B /* ADPlayButton.m */; };
 		08DEDCC3194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */; };
 		08DEDCC4194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */; };
-		08DEDCCB194B55FE00155A91 /* Pro_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 08DEDCCA194B55FE00155A91 /* Pro_pallete.png */; };
-		08DEDCCC194B55FE00155A91 /* Pro_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 08DEDCCA194B55FE00155A91 /* Pro_pallete.png */; };
 		08DF53CA195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
 		08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */; };
 		08E007DC19BB134900C5DC27 /* Questionnaire.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E007DB19BB134900C5DC27 /* Questionnaire.m */; };
@@ -1299,6 +1299,7 @@
 		0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRadiusIndicatorView.m; sourceTree = "<group>"; };
 		0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPreviousPageButton.h; sourceTree = "<group>"; };
 		0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPreviousPageButton.m; sourceTree = "<group>"; };
+		084B25BC19DFE89A006192B3 /* iap_pallete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_pallete.png; path = PaintProjector/Images/iap_pallete.png; sourceTree = "<group>"; };
 		084D5403170338A60052F510 /* ADPaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDoc.h; sourceTree = "<group>"; };
 		084D5404170338A60052F510 /* ADPaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintDoc.m; sourceTree = "<group>"; };
 		084D540817033C260052F510 /* ADPaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDocManager.h; sourceTree = "<group>"; };
@@ -1754,7 +1755,6 @@
 		08DE435F17B3D37300E9C72B /* ADPlayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPlayButton.m; sourceTree = "<group>"; };
 		08DEDCC1194B4C2600155A91 /* UIView+VisibilityAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VisibilityAnimation.h"; sourceTree = "<group>"; };
 		08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VisibilityAnimation.m"; sourceTree = "<group>"; };
-		08DEDCCA194B55FE00155A91 /* Pro_pallete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pro_pallete.png; path = PaintProjector/Images/Pro_pallete.png; sourceTree = "<group>"; };
 		08DF53C8195E99B800CFE6A2 /* ADSimpleTutorialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleTutorialManager.h; path = PaintProjector/ADSimpleTutorialManager.h; sourceTree = "<group>"; };
 		08DF53C9195E99B800CFE6A2 /* ADSimpleTutorialManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorialManager.m; path = PaintProjector/ADSimpleTutorialManager.m; sourceTree = "<group>"; };
 		08E007DA19BB134900C5DC27 /* Questionnaire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Questionnaire.h; path = PaintProjector/Questionnaire.h; sourceTree = "<group>"; };
@@ -2952,13 +2952,13 @@
 			isa = PBXGroup;
 			children = (
 				08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */,
-				08DEDCCA194B55FE00155A91 /* Pro_pallete.png */,
 				08F905C9194AC982002918AA /* iap_brushMarkerHard.png */,
 				08F905CA194AC982002918AA /* iap_brushChineseBrush.png */,
 				08F905CB194AC982002918AA /* iap_brushAirbrush.png */,
 				08F905CC194AC982002918AA /* iap_brushCrayons.png */,
 				08F905CD194AC982002918AA /* iap_brushFinger.png */,
 				08F905CE194AC982002918AA /* iap_brushOilBrush.png */,
+				084B25BC19DFE89A006192B3 /* iap_pallete.png */,
 				0851DF25197920BA000391B3 /* iap_reversePaint.png */,
 			);
 			name = Images;
@@ -3525,6 +3525,7 @@
 				08E4D7FE19A71F0A00990523 /* camera-48.png in Resources */,
 				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
+				084B25BE19DFE89A006192B3 /* iap_pallete.png in Resources */,
 				0829651C19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
@@ -3569,7 +3570,6 @@
 				08086ED318DC8BA300F03EB4 /* radiusSliderTracker.png in Resources */,
 				089457D119BCB641004FBDAC /* AnaDrawLaunch.png in Resources */,
 				08F905D6194AC982002918AA /* iap_brushCrayons.png in Resources */,
-				08DEDCCC194B55FE00155A91 /* Pro_pallete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3678,6 +3678,7 @@
 				08E4D7FD19A71F0A00990523 /* camera-48.png in Resources */,
 				08CF37D6197D61C30017D43A /* iap_brushPreviewBg.png in Resources */,
 				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
+				084B25BD19DFE89A006192B3 /* iap_pallete.png in Resources */,
 				0829651B19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
@@ -3722,7 +3723,6 @@
 				086FBF0A1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
 				089457D019BCB641004FBDAC /* AnaDrawLaunch.png in Resources */,
 				08F905D5194AC982002918AA /* iap_brushCrayons.png in Resources */,
-				08DEDCCB194B55FE00155A91 /* Pro_pallete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

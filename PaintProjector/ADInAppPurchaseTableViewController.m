@@ -108,9 +108,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.superViewBounds = CGRectMake(0, 0, 500, 350);
+    self.superViewBounds = CGRectMake(0, 0, 500, 380);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionFailed:) name:kInAppPurchaseManagerTransactionFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionCanceled:) name:kInAppPurchaseManagerTransactionCanceledNotification object:nil];
     
     ((ADSimpleIAPManager *)[ADSimpleIAPManager sharedInstance]).delegate = self;
  
@@ -119,7 +121,9 @@
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionCanceledNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,12 +131,23 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)lockInteraction:(BOOL)lock{
+    self.view.userInteractionEnabled = !lock;
+}
 #pragma mark - 交易Purchase
 
 - (void)IAPTransactionSucceeded:(id)arg{
     DebugLog(@"购买产品成功,刷新产品显示");
     [self.tableView reloadData];
+    [self lockInteraction:false];
+}
+- (void)IAPTransactionFailed:(id)arg{
+    DebugLog(@"购买产品失败");
+    [self lockInteraction:false];
+}
+- (void)IAPTransactionCanceled:(id)arg{
+    DebugLog(@"购买产品取消");
+    [self lockInteraction:false];
 }
 
 - (void)reload{
@@ -207,31 +222,7 @@
 
 - (IBAction)restoreButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"IAP_restoreButtonTouchUp" identifier:sender];
-    if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
-        DebugLog(@"越狱设备禁止IAP");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-    else{
-        if ([[ADSimpleIAPManager sharedInstance] canMakePurchases]) {
-            DebugLog(@"可以进行恢复");
-            Reachability *reach = [Reachability reachabilityForInternetConnection];
-            NetworkStatus netStatus = [reach currentReachabilityStatus];
-            if (netStatus == NotReachable) {
-                DebugLog(@"没有网络连接, 无法恢复产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                [alertView show];
-            }
-            else{
-                [[ADSimpleIAPManager sharedInstance] restorePurchase];   
-            }
-        }
-        else{
-            DebugLog(@"设备禁止IAP");
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            [alertView show];
-        }
-    }
+    [self willBuyProductByIndex:0 orRestoreAll:true];
 }
 
 #pragma mark - Table view data source
@@ -362,6 +353,79 @@
 #pragma mark- InAppPurchaseTableViewCellDelegate
 - (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
     return [self.delegate willGetBrushByIAPFeatureIndex:feature];
+}
+-(void)willStartPurchase{
+    [self lockInteraction:true];
+}
+
+- (void)buyProduct:(SKProduct *)product orRestoreAll:(BOOL)restore{
+    if (restore) {
+        DebugLog(@"恢复产品");
+        [[ADSimpleIAPManager sharedInstance] restorePurchase];
+    }
+    else{
+        DebugLog(@"购买产品");
+        [[ADSimpleIAPManager sharedInstance] purchaseProduct:product];
+    }
+}
+
+- (void)willBuyProductByIndex:(NSInteger)productIndex orRestoreAll:(BOOL)restore{
+#if TESTFLIGHT //|| DEBUG
+    DebugLog(@"测试直接提供IAP");
+    [[ADSimpleIAPManager sharedInstance] testflightPurchase];
+    return;
+#endif
+    
+    if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
+        DebugLog(@"越狱设备禁止IAP");
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+    else{
+        if ([[ADSimpleIAPManager sharedInstance] canMakePurchases]) {
+            DebugLog(@"设备已打开IAP");
+            
+            Reachability *reach = [Reachability reachabilityForInternetConnection];
+            NetworkStatus netStatus = [reach currentReachabilityStatus];
+            if (netStatus == NotReachable) {
+                DebugLog(@"没有网络连接, 无法购买产品");
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+            else{
+                DebugLog(@"有网络连接");
+                SKProductWrapper *productWrapper = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:productIndex];
+                __block SKProduct *product = productWrapper.product;
+                if (!product) {
+                    //有产品为空，说明未更新过产品
+                    DebugLog(@"申请下载产品列表");
+                    //之前一直是断网状态下读取本地SKProductWrapper,内部的SKProduct为空, 重新联网刷新product数据
+                    [[ADSimpleIAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+                        if (success) {
+                            DebugLog(@"下载到最新的产品列表");
+                            [self lockInteraction:true];
+                            [self buyProduct:(SKProduct *)products[productIndex] orRestoreAll:restore];
+                        }
+                        else{
+                            DebugLog(@"但无法得到产品列表");
+                            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+                            [alertView show];
+                        }
+                    }];
+                }
+                else{
+                    DebugLog(@"本地有最新的产品列表");
+                    [self lockInteraction:true];
+                    [self buyProduct:product orRestoreAll:restore];
+                }
+            }
+        }
+        else{
+            DebugLog(@"设备禁止IAP");
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    }
 }
 #pragma mark- ADSimpleIAPManagerDelegate
 - (void)willNotifyUserIAPProductContentProvided{

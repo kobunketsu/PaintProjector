@@ -77,7 +77,7 @@ static ADSimpleIAPManager* sharedInstance = nil;
 
 - (void)provideContent:(NSString *)productIdentifier{
     [super provideContent:productIdentifier];
-    
+    DebugLogFuncStart(@"解锁内容");
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
     
     if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
@@ -93,10 +93,18 @@ static ADSimpleIAPManager* sharedInstance = nil;
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
     if (self.delegate) {
         [self.delegate willNotifyUserIAPProductContentProvided];
     }
+    else{
+        //延迟交易的情况下，新启动的session还没有初始化delegate(ADIAPTableViewController)
+        [self notifyUserIAPProductContentProvided];
+    }
+}
+
+- (void)notifyUserIAPProductContentProvided{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 #pragma mark- testflight

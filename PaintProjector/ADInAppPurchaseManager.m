@@ -155,6 +155,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)purchaseProduct:(SKProduct*)product
 {
+    DebugLog(@"将购买产品加入购买列表");
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
     [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
@@ -167,6 +168,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 }
 
 - (void)restorePurchase{
+    DebugLog(@"恢复购买");
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -214,7 +216,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // The transaction has been successfully validated
                 // and is unique.
                 
-                DebugLog(@"Transaction data: %@", bbxTransaction.validatedTransactionData);
+                DebugLog(@"交易数据: %@", bbxTransaction.validatedTransactionData);
                 transactionResult = TransactionValidated;
                 DebugLog(@"验证交易成功,提供产品下载");
                 if (restore) {
@@ -238,6 +240,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // most likely due to some transient networking issues.
                 transactionResult = TransactionServerError;
                 DebugLogWarn(@"验证交易服务器错误,请稍后尝试");
+                [self cancelTransaction:transaction];
             }
             else {
                 
@@ -290,12 +293,16 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)provideContent:(NSString *)productIdentifier
 {
-    DebugLogFuncStart(@"解锁内容");
+    
     [_purchasedProductIdentifiers addObject:productIdentifier];
 }
 //
 // removes the transaction from the queue and posts a notification with the transaction result
 //
+- (void)cancelTransaction:(SKPaymentTransaction *)transaction{
+    DebugLogFuncStart(@"取消交易");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionCanceledNotification object:self userInfo:nil];
+}
 - (void)finishTransaction:(SKPaymentTransaction *)transaction wasSuccessful:(BOOL)wasSuccessful
 {
     DebugLogFuncStart(@"结束交易");
@@ -319,7 +326,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"完成交易");
+    DebugLogFuncStart(@"完成交易,验证收据中");
     [self validateReceipt:transaction restore:NO];
 }
 //
@@ -327,8 +334,12 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"恢复交易");
+    DebugLogFuncStart(@"恢复交易,验证收据中");
     [self validateReceipt:transaction restore:YES];
+}
+
+- (void)waitContinueTransaction{
+    DebugLogFuncStart(@"等待继续交易");
 }
 //
 // called when a transaction has failed
@@ -386,6 +397,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     {
         // this is fine, the user just cancelled, so don’t notify
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        [self cancelTransaction:transaction];
     }
 }
 #pragma mark -
@@ -395,7 +407,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-    DebugLogFuncStart(@"paymentQueue updatedTransactions");
+    DebugLogFuncStart(@"付款队列更新交易状态");
     for (SKPaymentTransaction *transaction in transactions)
     {
         switch (transaction.transactionState)
@@ -410,6 +422,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 [self restoreTransaction:transaction];
                 break;
             default:
+                [self waitContinueTransaction];
                 break;
         }
     }

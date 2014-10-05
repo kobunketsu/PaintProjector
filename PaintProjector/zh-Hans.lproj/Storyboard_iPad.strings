@@ -412,8 +412,8 @@
 /* Class = "IBUILabel"; text = "Width"; ObjectID = "v58-lm-HT2"; */
 "v58-lm-HT2.text" = "顶视宽度";
 
-/* Class = "IBUILabel"; text = "Width"; ObjectID = "RgY-E0-Q0o"; */
-"RgY-E0-Q0o.text" = "顶视深度";
+/* Class = "IBUILabel"; text = "Height"; ObjectID = "RgY-E0-Q0o"; */
+"RgY-E0-Q0o.text" = "顶视高度";
 
 /* Class = "IBUILabel"; text = "Try here"; ObjectID = "jJd-6j-mPn"; */
 "jJd-6j-mPn.text" = "在这里试用";

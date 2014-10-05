@@ -228,6 +228,14 @@
     //通知程序退出激活状态
     [[NSNotificationCenter defaultCenter]
      addObserver:self
+     selector:@selector(applicationDidBecomeActive:)
+     name:UIApplicationDidBecomeActiveNotification
+     object:nil];
+    
+
+    //通知程序退出激活状态
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
      selector:@selector(applicationWillResignActive:)
      name:UIApplicationWillResignActiveNotification
      object:nil];
@@ -436,6 +444,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
@@ -452,17 +462,32 @@
 
 - (void)applicationDidEnterBackground:(id)sender{
     DebugLogSystem(@"applicationDidEnterBackground");
+    
     //TODO:删除一些OpenGL资源,让其他App可以使用OpenGLES资源,使用glFinish 保证直接删除
     [self.paintView applicationDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
     DebugLogSystem(@"applicationWillEnterForeground");
+    
     [self.paintView applicationWillEnterForeground];
+}
+
+-(void)applicationDidBecomeActive:(id)sender{
+    DebugLogSystem(@"applicationDidBecomeActive");
+    if (self.iapVC) {
+        return;
+    }
+    [self.paintView applicationDidBecomeActive];
 }
 
 -(void)applicationWillResignActive:(id)sender{
     DebugLogSystem(@"applicationWillResignActive");
+    //TODO:很多种情况会发生applicationWillResignActive，并不是所有情况都需要autoSave
+    if (self.iapVC) {
+        return;
+    }
+    
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     [self prepareForAutoSave];
     

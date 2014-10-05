@@ -12,6 +12,10 @@
 #import "ADFinger.h"
 #import "ADOilBrush.h"
 
+@interface ADBrushPreview()
+@property (assign, nonatomic) CGPoint starDrawLocation;
+@end
+
 @implementation ADBrushPreview
 
 + (Class) layerClass
@@ -110,15 +114,15 @@
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
     DebugLogSystem(@"applicationWillEnterForeground");
-    [EAGLContext setCurrentContext:[REGLWrapper current].context];
-    
-    [self setupGL];
-    
-    [self prepareBrush:self.brush];
-    
-    [self _updateRender];
-    
-    glFinish();
+//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+//    
+//    [self setupGL];
+//    
+//    [self prepareBrush:self.brush];
+//    
+//    [self _updateRender];
+//    
+//    glFinish();
 }
 
 -(void)applicationDidBecomeActive:(id)sender{
@@ -127,6 +131,10 @@
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     [self setupGL];
+    
+    [self prepareBrush:self.brush];
+    
+    [self _updateRender];
     
     glFinish();
     
@@ -373,6 +381,7 @@
 #pragma mark- Action Draw
 - (void)startDraw:(CGPoint)startPoint{
     DebugLogFuncStart(@"startDraw %@", NSStringFromCGPoint(startPoint));
+    self.starDrawLocation = startPoint;
     self.paintCommand = [[ADPaintCommand alloc]initWithBrushState:self.brush.brushState];
     self.paintCommand.delegate = self;
     [self.paintCommand drawImmediateStart:startPoint];
@@ -407,15 +416,15 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     DebugLogSystem(@"touchesBegan %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self];
-    location.y = self.bounds.size.height - location.y;
-    [self startDraw:location];
+//    UITouch *touch = [touches anyObject];
+//    CGPoint location = [touch locationInView:self];
+//    location.y = self.bounds.size.height - location.y;
+//    [self startDraw:location];
 }
-
+//MARK:touchesBegan和touchesMoved之间有比较大的时间间隔
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    DebugLogSystem(@"touchesMoved %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]));
+    DebugLogSystem(@"touchesMoved current %@ previous %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]), NSStringFromCGPoint([(UITouch*)[touches anyObject] previousLocationInView:self]));
     UITouch *touch = [touches anyObject];
     //更新触摸点
     CGPoint location = [touch locationInView:self];
@@ -424,7 +433,13 @@
     previousLocation.y = self.bounds.size.height - previousLocation.y;
     //将previousLocation加入到drawPath中，用来连接previousLocation到drawPath.lastObject，绘制完清空path
     
-    [self drawFromPoint:previousLocation toPoint:location isTapDraw:false];
+    //将touchesBegan的点连接起来
+    if (!self.paintCommand) {
+        [self startDraw:location];
+    }
+    else{
+        [self drawFromPoint:previousLocation toPoint:location isTapDraw:false];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
