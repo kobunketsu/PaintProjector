@@ -74,6 +74,7 @@
 @property (assign, nonatomic) CGPoint transformContentViewSrcCenter;//当前变换框的中心
 @property (assign, nonatomic) CGFloat transformContentViewSrcRotate;//当前变换框的中心
 @property (assign, nonatomic) CGRect transformContentViewSrcBounds;//当前变换框的大小
+@property (weak, nonatomic) UIView *transformAnchorViewExclusive;//避免同时两个transformAnchorView一起工作
 @property (retain, nonatomic) NSMutableArray *transformAnchorViews;
 @property (assign, nonatomic) CGFloat transformAnchorViewSize;
 @property (assign, nonatomic) CGPoint curTransformAnchorViewSrcCenter;//当前变换点的中心
@@ -1327,10 +1328,16 @@
     if (_state != PaintScreen_Transform) {
         return;
     }
+    
+    if(self.transformAnchorViewExclusive && ![self.transformAnchorViewExclusive isEqual:sender.view]){
+        return;
+    }
+    
     NSUInteger index = sender.view.tag;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
         {
+//            DebugLogWarn(@"handlePanTransformAnchorView UIGestureRecognizerStateBegan %@", sender);
             CGPoint p0 = sender.view.center;
             p0 = [self.paintView convertPoint:p0 fromView:self.rootCanvasView];
             self.curTransformAnchorViewSrcCenter = p0;
@@ -1348,6 +1355,7 @@
             [self transformImageStartWithPoint0:p0 point1:p1 forceImageCenterAnchor:false];
             
             //UI
+            self.transformAnchorViewExclusive = sender.view;
             [self showTransformAnchorViewExclusiveByIndex:index];
             break;
         }
@@ -1368,14 +1376,14 @@
             ADTransformAnchorView *view = (ADTransformAnchorView *)[self.transformAnchorViews objectAtIndex:8 - index];
             CGPoint p1 = view.center;
             p1 = [self.paintView convertPoint:p1 fromView:self.rootCanvasView];
-            //            DebugLog(@"paintView space p0 %@  p1 %@", NSStringFromCGPoint(p0), NSStringFromCGPoint(p1));
+//            DebugLog(@"paintView space p0 %@  p1 %@", NSStringFromCGPoint(p0), NSStringFromCGPoint(p1));
             
             //转换到transformContent的坐标系下
             CGPoint p0Canvas = [self.rootCanvasView convertPoint:p0 fromView:self.paintView];
             CGPoint p1Canvas = [self.rootCanvasView convertPoint:p1 fromView:self.paintView];
             CGPoint p0Local = [self.transformContentView convertPoint:p0 fromView:self.paintView];
             CGPoint p1Local = [self.transformContentView convertPoint:p1 fromView:self.paintView];
-            //            DebugLog(@"transformContentView space p0Local %@  p1Local %@", NSStringFromCGPoint(p0Local), NSStringFromCGPoint(p1Local));
+//            DebugLog(@"transformContentView space p0Local %@  p1Local %@", NSStringFromCGPoint(p0Local), NSStringFromCGPoint(p1Local));
             
             
             CGRect bounds = self.transformContentView.bounds;
@@ -1410,6 +1418,7 @@
         {
             [self updateAllTransformAnchorViews];
             [self showAllTransformAnchorViews];
+            self.transformAnchorViewExclusive = nil;
             break;
         }
         case UIGestureRecognizerStateFailed:
@@ -3491,12 +3500,14 @@
     
 }
 - (void)showTransformAnchorViewExclusiveByIndex:(NSInteger)index{
+    DebugLogWarn(@"showTransformAnchorViewExclusiveByIndex %d", index);
     for (ADTransformAnchorView *view in self.transformAnchorViews) {
         if (view.tag == index) {
             view.hidden = false;
             continue;
         }
         view.hidden = true;
+
     }
     
 }

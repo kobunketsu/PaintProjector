@@ -36,6 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.tutorialNames = @[@"TutorialAnaDrawBasic", @"TutorialAdvancedSetup", @"TutorialDrawReflection", @"TutorialDrawAnamorphosis"];
     
     //localize text
@@ -67,6 +68,14 @@
     self.transitionManager = [[ADTutorialToPaintCollectionTransitionManager alloc]init];
 }
 
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    //根据语言版本调整proEditionLabel的位置
+    NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    if([language isEqualToString:@"zh-Hans"]){
+        [self.proEditionLabel setFrameOriginX:600];
+    }
+}
 - (void)viewWillAppear:(BOOL)animated{
 //    [self preparePopTutorialTexts];
 }

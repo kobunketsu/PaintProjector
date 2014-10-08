@@ -2805,7 +2805,7 @@ static float DeviceWidth = 0.154;
     
     [self tutorialStepNextImmediate:false];
     
-    [self restoreBrightness];
+//    [self restoreBrightness];
     
     [self deselectUserInputParams];
     
@@ -2857,7 +2857,8 @@ static float DeviceWidth = 0.154;
     
     [self tutorialStepNextImmediate:false];
     
-    [self fitBrightness];
+    //MARK:在以后的版本中打开
+//    [self fitBrightness];
     
     [self deselectUserInputParams];
     

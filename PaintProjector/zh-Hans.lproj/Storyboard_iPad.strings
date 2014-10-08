@@ -453,3 +453,12 @@
 
 /* Class = "IBUIButton"; normalTitle = "Help"; ObjectID = "oDv-8N-C1w"; */
 "oDv-8N-C1w.normalTitle" = "帮助";
+
+/* Class = "IBUILabel"; text = "Pro"; ObjectID = "hRx-ho-yK1"; */
+"hRx-ho-yK1.text" = "专业版";
+
+/* Class = "IBUILabel"; text = "Editon"; ObjectID = "mps-yt-xYL"; */
+"mps-yt-xYL.text" = "";
+
+/* Class = "IBUILabel"; text = "By  Istvan Orosz"; ObjectID = "mhu-mP-dfk"; */
+"mhu-mP-dfk.text" = "画家：Istvan Orosz";

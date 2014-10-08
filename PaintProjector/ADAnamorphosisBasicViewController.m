@@ -114,6 +114,7 @@
 }
 
 - (void)transitionFromSloganToSlogan2ByPercentage:(CGFloat)percentage{
+    DebugLogFuncStart(@"transitionFromSloganToSlogan2ByPercentage %.2f", percentage);
     for (int i = 0; i < self.sloganCharacters.count; ++i) {
         UIView *view = self.sloganCharacters[i];
         CGRect srcFrame = ((NSValue*)(self.sloganCharacterSrcFrames[i])).CGRectValue;
