@@ -313,7 +313,7 @@
 "6dc-Q8-cDV.normalTitle" = "纸 篓";
 
 /* Class = "IBUIButton"; normalTitle = "Done"; ObjectID = "geC-fO-fTo"; */
-"geC-fO-fTo.normalTitle" = "完成";
+"geC-fO-fTo.normalTitle" = "关闭";
 
 /* Class = "IBUIView"; accessibilityLabel = "CylinderRootView"; ObjectID = "h4g-78-CMY"; */
 "h4g-78-CMY.accessibilityLabel" = "CylinderRootView";

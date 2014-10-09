@@ -66,16 +66,18 @@
     self.tutorialListView.hidden = true;
     
     self.transitionManager = [[ADTutorialToPaintCollectionTransitionManager alloc]init];
-}
-
-- (void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
+    
     //根据语言版本调整proEditionLabel的位置
     NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
     if([language isEqualToString:@"zh-Hans"]){
         [self.proEditionLabel setFrameOriginX:600];
     }
 }
+
+//- (void)viewWillLayoutSubviews{
+//    [super viewWillLayoutSubviews];
+//
+//}
 - (void)viewWillAppear:(BOOL)animated{
 //    [self preparePopTutorialTexts];
 }

@@ -557,7 +557,6 @@
                     [self.cylinderProjectVC transitionToPaint:[ADPaintFrameManager curGroup].curPaintDoc];
                 }
                 else{
-                    [self.cylinderProjectVC lockInteraction:false];
                 }
             }];
         }
@@ -693,7 +692,7 @@
             index = 2;
         }
         else if ([step.tutorialName isEqualToString:@"TutorialDrawAnamorphosis"]) {
-            index = 2;
+            index = 3;
         }
         
         for (NSInteger i = 0; i < [self.collectionView numberOfItemsInSection:0]; ++i) {
@@ -726,7 +725,7 @@
             index = 2;
         }
         else if ([step.tutorialName isEqualToString:@"TutorialDrawAnamorphosis"]) {
-            index = 2;
+            index = 3;
         }
         
         //对齐第一个image的底面
