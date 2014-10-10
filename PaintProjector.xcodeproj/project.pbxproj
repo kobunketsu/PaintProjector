@@ -762,8 +762,6 @@
 		08E5E32A19CD36E9000DE694 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5E32819CD36E9000DE694 /* ADNextPageButton.m */; };
 		08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */; };
 		08E7B0A017EAD32800A121B5 /* ADBrushPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */; };
-		08E9D27A193EB020002F4990 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D279193EB020002F4990 /* CoreMedia.framework */; };
-		08E9D27E193EB034002F4990 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E9D27D193EB034002F4990 /* AVFoundation.framework */; };
 		08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EDD50B17AD23B70023E08A /* cylinderCap.png */; };
 		08EF178F19E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
 		08EF179019E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
@@ -1833,8 +1831,6 @@
 		08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		08E7B09E17EAD32700A121B5 /* ADBrushPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyViewController.h; sourceTree = "<group>"; };
 		08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPropertyViewController.m; sourceTree = "<group>"; };
-		08E9D279193EB020002F4990 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		08E9D27D193EB034002F4990 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		08EDD50B17AD23B70023E08A /* cylinderCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderCap.png; path = Images/cylinderCap.png; sourceTree = "<group>"; };
 		08EDD50D17AD296B0023E08A /* cylinderMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderMain.png; path = Images/cylinderMain.png; sourceTree = "<group>"; };
 		08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial1_ButtonImage.png; path = PaintProjector/Images/tutorial1_ButtonImage.png; sourceTree = "<group>"; };
@@ -1989,8 +1985,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0832F56F19BC277100FB98CE /* iAd.framework in Frameworks */,
-				08E9D27E193EB034002F4990 /* AVFoundation.framework in Frameworks */,
-				08E9D27A193EB020002F4990 /* CoreMedia.framework in Frameworks */,
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
@@ -3245,8 +3239,6 @@
 			children = (
 				082543F919D407C900B4BCA3 /* Reveal.framework */,
 				0832F56D19BC21CD00FB98CE /* iAd.framework */,
-				08E9D27D193EB034002F4990 /* AVFoundation.framework */,
-				08E9D279193EB020002F4990 /* CoreMedia.framework */,
 				08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */,
 				08086DBD18DC8A9900F03EB4 /* libbeeblex.a */,
 				088DAE17187DB0BC001B3855 /* libz.dylib */,
@@ -4763,6 +4755,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = DISTRIBUTION;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (

@@ -156,7 +156,7 @@
                 view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"TutorialDrawAnamorphosis"];
                 break;
             case 5:
-                view.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"];
+                view.hidden = false;//[[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"];
             default:
                 break;
         }

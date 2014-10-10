@@ -567,7 +567,8 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     //绘图Fade
     if (self.brushState.isVelocitySensor) {
         if (self.brushState.isRadiusMagnifySensor) {
-            CGFloat curStrokedFade = MAX(self.curSegmentSpeed / 10.0, 1.0);
+            CGFloat strokeFadeScale = 4.0;
+            CGFloat curStrokedFade = MAX(self.curSegmentSpeed / strokeFadeScale, 1.0);
             if (curStrokedFade < self.lastStrokedFade) {
                 self.curStrokedFade = MAX(curStrokedFade, self.lastStrokedFade - 1.0 / self.brushState.radius);
             }

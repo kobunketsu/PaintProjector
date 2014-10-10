@@ -104,7 +104,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "TestFlight"
+      buildConfiguration = "Distribution"
       customArchiveName = "AnaDraw"
       revealArchiveInOrganizer = "YES">
       <PostActions>

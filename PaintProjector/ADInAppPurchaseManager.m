@@ -199,7 +199,11 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     }
     
     BBXIAPTransaction *bbxTransaction = [[BBXIAPTransaction alloc] initWithTransaction:transaction];
+#if DISTRIBUTION
+    bbxTransaction.useSandbox = NO;
+#else
     bbxTransaction.useSandbox = YES;
+#endif
     
     [bbxTransaction validateWithCompletionBlock:^(NSError *error) {
         
