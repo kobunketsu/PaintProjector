@@ -421,6 +421,9 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
             case SKPaymentTransactionStateRestored:
                 [self restoreTransaction:transaction];
                 break;
+            case SKPaymentTransactionStatePurchasing:
+                [self waitContinueTransaction];
+                break;
             default:
                 [self waitContinueTransaction];
                 break;

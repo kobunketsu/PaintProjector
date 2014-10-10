@@ -56,8 +56,13 @@ static ADSimpleIAPManager* sharedInstance = nil;
             //无法联网得到产品列表，从本地cache读取预先存储的产品列表
             NSArray *productDatas = (NSArray *)[[NSUserDefaults standardUserDefaults] objectForKey:kIAPProductListKey];
             if (!productDatas) {
+                //本地没有产品cache
+                if (completionHandler) {
+                    completionHandler(NO, products);
+                }
             }
             else{
+                //本地有产品cache
                 //NSData array 转换 SKProductWrapper array
                 NSMutableArray *products = [[NSMutableArray alloc]initWithCapacity:productDatas.count];
                 for (NSData *productData in productDatas) {
@@ -66,10 +71,10 @@ static ADSimpleIAPManager* sharedInstance = nil;
                     [products addObject:productWrapper];
                 }
                 [[ADSimpleIAPManager sharedInstance] setProductsFromLocal:products];
-            }
-           
-            if (completionHandler) {
-                completionHandler(NO, products);
+
+                if (completionHandler) {
+                    completionHandler(NO, products);
+                }
             }
         }
     }];

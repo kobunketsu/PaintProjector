@@ -71,7 +71,7 @@
     
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ReversePaint"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
@@ -407,7 +407,7 @@
     //完成教程
     ADTutorialStep *step = [tutorial addActionStep:@"PaintScreenCloseDoc" description:NSLocalizedString(@"PaintScreenCloseDoc", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp cancelable:true];
     
-    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5)];
+    ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*7, TutorialGrid*2.5)];
     inidcatorView.animated = false;
     inidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"PaintScreenAnamorphosisTips", nil) bgImage:nil];

@@ -168,9 +168,14 @@
                     [self.tableView reloadData];
                 }
                 else{
-                    DebugLog(@"获得产品列表更新失败,显示本地保存的产品列表");
-//                    self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-//                    [self.alertView show];
+                    if (!products) {
+                        DebugLog(@"获得产品列表更新失败,没有本地保存的产品列表，请求联网");
+                        self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+                        [self.alertView show];
+                    }
+                    else{
+                        DebugLog(@"获得产品列表更新失败,显示本地保存的产品列表");
+                    }
                 }
                 
                 //关闭Loading指示器

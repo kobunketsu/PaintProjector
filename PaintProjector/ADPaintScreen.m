@@ -5018,7 +5018,7 @@
         [step.indicatorView targetView:self.closeButton inRootView:self.view];
         
         if (step.indicatorViews.count > 1) {
-            [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 800, 1, 1) inRootView:self.view];
+            [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 750, 1, 1) inRootView:self.view];
         }
     }
     [step addToRootView:self.view];

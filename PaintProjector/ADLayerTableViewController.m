@@ -546,7 +546,7 @@ const float LayerTableViewWidth = 256;
     [self.tableView scrollToRowAtIndexPath:self.curSetupIndexPath atScrollPosition:UITableViewScrollPositionTop animated:true];
 
     self.preferredContentSize = CGSizeMake(self.tableViewWidth, self.tableViewHeight);
-    
+//    DebugLogWarn(@"preferredContentSize %@", NSStringFromCGSize(self.preferredContentSize));
     [self selectRowAtIndexPath:self.curLayerIndexPath];
 }
 
@@ -591,7 +591,7 @@ const float LayerTableViewWidth = 256;
 //    DebugLog(@"toolBar height %.1f", self.toolBar.bounds.size.height);
     float height = LayerTableViewCellHeight * [self.layers count] + BackgroundLayerTableViewCellHeight + self.toolBar.bounds.size.height;
     if (self.inBlendModeRow >= 0) {
-        height += self.blendModeTableViewController.tableViewHeight;
+        height = LayerTableViewCellHeight  + self.toolBar.bounds.size.height + self.blendModeTableViewController.tableViewHeight;
     }
 //    DebugLog(@"tableViewHeight %.1f", MIN(self.tableViewHeightMax, height));
     return MIN(self.tableViewHeightMax, height);
