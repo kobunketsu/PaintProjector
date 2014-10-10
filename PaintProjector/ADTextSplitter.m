@@ -63,7 +63,7 @@
         UILabel *label = [[UILabel alloc]initFromTextView:textView];
         label.frame = finalBounds;
         label.text = [textView.text substringWithRange:range];
-        
+
 //        label.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
 //        label.shadowOffset = CGSizeMake(0, 2);
         

@@ -9,7 +9,7 @@
 #import "ADSimpleTutorialViewController.h"
 #import "ADSimpleTutorialManager.h"
 #import "ADPaintCollectionViewController.h"
-#import "ADTextPopAnimator.h"
+#import "ADTextSqueezePopAnimator.h"
 #import "ADTutorialToPaintCollectionTransitionManager.h"
 #import "ADAnamorphosisBasicViewController.h"
 #import "ADTutorialStatusView.h"

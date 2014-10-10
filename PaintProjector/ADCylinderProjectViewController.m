@@ -2695,7 +2695,7 @@ static float DeviceWidth = 0.154;
     }
     
     //打开绘图面板动画，从cylinder的中心放大过度到paintScreenViewController
-    DebugLogWarn(@"openPaintDoc fromVC scale %.1f", ((NSNumber*)[self.rootView.layer valueForKeyPath:@"transform.scale"]).floatValue);
+//    DebugLogWarn(@"openPaintDoc fromVC scale %.1f", ((NSNumber*)[self.rootView.layer valueForKeyPath:@"transform.scale"]).floatValue);
     [self presentViewController:self.paintScreenVC animated:true completion:^{
         DebugLog(@"presentViewController paintScreenVC completionBlock");
         self.paintButton.selected = false;

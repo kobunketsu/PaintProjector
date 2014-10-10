@@ -9,12 +9,18 @@
 #import "ADAnamorphosisBasicViewController.h"
 #import "ADPaintCollectionViewController.h"
 #import "ADTutorialArtCollectionViewCell.h"
-#import "ADTextPopAnimator.h"
+#import "ADTextSqueezePopAnimator.h"
+#import "ADViewScalePopAnimator.h"
+#import "ADViewRotatePopAnimator.h"
 
 @interface ADAnamorphosisBasicViewController ()
 @property (retain, nonatomic) NSMutableArray *sloganCharacterSrcFrames;
-@property (retain, nonatomic) ADTextPopAnimator *galleryTextPopAnimator;
-@property (retain, nonatomic) ADTextPopAnimator *lifeArtTextPopAnimator;
+@property (retain, nonatomic) ADTextSqueezePopAnimator *galleryTextPopAnimator;
+//@property (retain, nonatomic) ADTextSqueezePopAnimator *lifeArtTextPopAnimator;
+@property (retain, nonatomic) ADViewScalePopAnimator *sloganViewPopAnimator;
+@property (retain, nonatomic) ADViewScalePopAnimator *lifeArtViewPopAnimator;
+@property (retain, nonatomic) ADViewRotatePopAnimator *lifeArtViewFadeAnimator;
+@property (retain, nonatomic) NSMutableArray *lifeArtViews;
 @end
 
 @implementation ADAnamorphosisBasicViewController
@@ -32,9 +38,9 @@
     for (UITextView *textView in self.introductionTextViews) {
         [textView setFrameOriginY:textView.frame.origin.y - 30];
     }
-    for (UITextView *textView in self.lifeArtTextViews) {
-        [textView setFrameOriginY:textView.frame.origin.y - 30];
-    }
+//    for (UITextView *textView in self.lifeArtTextViews) {
+//        [textView setFrameOriginY:textView.frame.origin.y - 30];
+//    }
 }
 
 - (void)viewDidLoad
@@ -51,11 +57,11 @@
         NSString *localizedText = NSLocalizedString(text, nil);
         textView.text = localizedText;
     }
-    for (UITextView *textView in self.lifeArtTextViews) {
-        NSString *text = [NSString stringWithFormat:@"TutorialAnamorphosisInLife%d", textView.tag];
-        NSString *localizedText = NSLocalizedString(text, nil);
-        textView.text = localizedText;
-    }
+//    for (UITextView *textView in self.lifeArtTextViews) {
+//        NSString *text = [NSString stringWithFormat:@"TutorialAnamorphosisInLife%d", textView.tag];
+//        NSString *localizedText = NSLocalizedString(text, nil);
+//        textView.text = localizedText;
+//    }
     
     self.sloganCharacterSrcFrames = [[NSMutableArray alloc]init];
     for (UIView *view in self.sloganCharacters) {
@@ -65,11 +71,28 @@
     self.galleryArtCollectionView.backgroundColor = [UIColor clearColor];
     self.galleryArtPageControl.numberOfPages = [self.galleryArtCollectionView numberOfItemsInSection:0];
     self.lifeArtCollectionView.backgroundColor = [UIColor clearColor];
-    self.lifeArtPageControl.numberOfPages = ceilf([self.lifeArtCollectionView numberOfItemsInSection:0] * 0.5);
+//    self.lifeArtPageControl.numberOfPages = ceilf([self.lifeArtCollectionView numberOfItemsInSection:0] * 0.5);
     
-    self.galleryTextPopAnimator = [[ADTextPopAnimator alloc]initWithTextView:self.introductionTextViews];
-    self.lifeArtTextPopAnimator = [[ADTextPopAnimator alloc]initWithTextView:self.lifeArtTextViews];
+    self.galleryTextPopAnimator = [[ADTextSqueezePopAnimator alloc]initWithTextView:self.introductionTextViews];
+//    self.lifeArtTextPopAnimator = [[ADTextSqueezePopAnimator alloc]initWithTextView:self.lifeArtTextViews];
+    self.sloganViewPopAnimator = [[ADViewScalePopAnimator alloc]initWithView:self.sloganCharacters];
+    [self.sloganViewPopAnimator popByPercentage:0];
     
+    self.lifeArtViews = [[NSMutableArray alloc]init];
+    self.lifeArtViewPopAnimator = [[ADViewScalePopAnimator alloc]initWithView:self.lifeArtViews];
+    self.lifeArtViewFadeAnimator = [[ADViewRotatePopAnimator alloc]initWithView:self.lifeArtViews];
+    
+    self.nextButton.layer.shadowOpacity = 0.3;
+    self.nextButton.layer.shadowOffset = CGSizeMake(0, 0);
+    self.nextButton.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+    self.nextButton.layer.shadowRadius = 10;
+    self.nextButton.userInteractionEnabled = false;
+    self.nextButton.alpha = 0;
+//    [self.nextButton.layer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"transform.scale.x"];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.lifeArtViewFadeAnimator initCustom];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,13 +116,38 @@
         
     }
 }
+- (void)doneButtonTouchStart{
+    ADTextSplitter *splitter = self.galleryTextPopAnimator.textSplitters[10];
+    for (UILabel *label in splitter.characters) {
+        label.textColor = [UIColor whiteColor];
+    }
+}
+- (void)doneButtonTouchEnd{
+    ADTextSplitter *splitter = self.galleryTextPopAnimator.textSplitters[10];
+    for (UILabel *label in splitter.characters) {
+        label.textColor = [UIColor selectableColor];
+    }
+}
+- (IBAction)doneButtonTouchUpOutside:(id)sender {
+    [self doneButtonTouchEnd];
+}
+
 - (IBAction)DoneButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"TU_tutorialAnamorphosisBasicDoneButtonTouchUp" identifier:sender];
     
-//    [self.navigationController popToRootViewControllerAnimated:true];
+    [self doneButtonTouchEnd];
+    
     if (self.delegate) {
         [self.delegate willTutorialAnamorphosisBasicDone];
     }
+}
+
+- (IBAction)doneButtonTouchDown:(id)sender {
+    [self doneButtonTouchStart];
+}
+
+- (IBAction)doneButtonTouchCancel:(id)sender {
+    [self doneButtonTouchEnd];
 }
 
 -(UIView*)characterViewInSloganViews:(NSArray*)views byTag:(NSInteger)tag{
@@ -122,6 +170,36 @@
         if (targetView) {
             CGRect destFrame = targetView.frame;
             [view setFrameLerpFromRect:srcFrame toRect:destFrame percentage:percentage];
+            
+            //放大个别的字母
+            if (view.tag == 2) {
+                //o
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.5 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 3) {
+                //y
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.5 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 4) {
+                //o
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.5 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 5) {
+                //u
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.25 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 9) {
+                //n
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.5 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 11) {
+                //n
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI)*0.5 + 1] forKeyPath:@"transform.scale"];
+            }
+            else if (view.tag == 17) {
+                //t
+                [view.layer setValue:[NSNumber numberWithFloat:sin(percentage * M_PI) + 1] forKeyPath:@"transform.scale"];
+            }
         }
     }
     
@@ -134,7 +212,7 @@
 #pragma mark- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView.tag == 1) {
-        return 7;
+        return 11;
     }
     else if (collectionView.tag == 2) {
         return 4;
@@ -185,6 +263,13 @@
                 imageName = @"tutorial_gallery_jontyHurwitz_07.png";
                 authorName = @"Jonty Hurwitz";
                 break;
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                imageName = nil;
+                authorName = nil;
+                break;
             default:
                 break;
         }
@@ -224,6 +309,11 @@
         cell.imageNameLabel.text =  NSLocalizedString(imageNameLabel, nil);
         cell.imageNameLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         cell.imageNameLabel.shadowOffset = CGSizeMake(0, 2);
+        
+        if (![self.lifeArtViews containsObject:cell.shadowView]) {
+            [self.lifeArtViews addObject:cell.shadowView];
+            [cell.shadowView.layer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"transform.scale"];
+        }
     }
     else{
         return cell;
@@ -250,7 +340,32 @@
         curPage = MIN(MAX(0, curPage), self.galleryArtPageControl.numberOfPages-1);
 
         self.galleryArtPageControl.currentPage = floorf(curPage);
+        //出字幕
         [self.galleryTextPopAnimator popTextByPercentage:curPage];
+       
+        self.nextButton.userInteractionEnabled = false;
+        //出宣传语
+        if (curPage >= 6 && curPage < 7) {
+            CGFloat percent = MAX(0, curPage - 6);
+            [self.sloganViewPopAnimator popByPercentage:percent];
+        }
+        else if (curPage >= 7 && curPage < 8) {
+            CGFloat percent = curPage - 7;
+            [self transitionFromSloganToSlogan2ByPercentage:percent];
+        }
+        else if (curPage >= 8 && curPage < 9) {
+            CGFloat percent = MAX(0, curPage - 8 );
+            [self.sloganViewPopAnimator fadeOutByPercentage:percent];
+            [self.lifeArtViewPopAnimator popByPercentage:percent];
+        }
+        else if (curPage >= 9 && curPage < 10) {
+            CGFloat percent = MAX(0, curPage - 9);
+            [self.lifeArtViewFadeAnimator fadeOutByPercentage:percent];
+            self.nextButton.alpha = percent;
+        }
+        else if ((curPage - 10) < 0.001){
+            self.nextButton.userInteractionEnabled = true;
+        }
     }
     else if (scrollView.tag == 2){
         CGSize contentSize = self.lifeArtCollectionView.contentSize;
@@ -261,8 +376,8 @@
         percentage = MIN(MAX(percentage, 0), 1);
         [self transitionFromSloganToSlogan2ByPercentage:percentage];
         
-        self.lifeArtPageControl.currentPage = floorf(percentage);
-        [self.lifeArtTextPopAnimator popTextByPercentage:percentage];
+//        self.lifeArtPageControl.currentPage = floorf(percentage);
+//        [self.lifeArtTextPopAnimator popTextByPercentage:percentage];
     }
 }
 

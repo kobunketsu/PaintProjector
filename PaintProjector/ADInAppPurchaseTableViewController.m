@@ -252,8 +252,9 @@
         DebugLogError(@"no product available!");
         return nil;
     }
-    //产品名字
-    cell.productName.text = product.localizedTitle;
+    //产品名字 减去-之后的部分
+    NSString *productName = [product.localizedTitle componentsSeparatedByString:@"-"].firstObject;
+    cell.productName.text = productName;
 
     //产品价格
     cell.buyProductButton.tag = indexPath.row;

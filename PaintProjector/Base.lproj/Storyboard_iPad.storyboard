@@ -1337,24 +1337,24 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" id="uto-pB-TfM" userLabel="GalleryArtCollectionView">
-                                <rect key="frame" x="0.0" y="108" width="768" height="360"/>
+                                <rect key="frame" x="0.0" y="-1" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="288" minimumInteritemSpacing="10" id="FKW-8U-CDY">
-                                    <size key="itemSize" width="480" height="360"/>
+                                    <size key="itemSize" width="480" height="1024"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="144" minY="0.0" maxX="144" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell appearanceType="aqua" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TutorialArtCollectionViewCell" id="iQH-UN-a4v" customClass="ADTutorialArtCollectionViewCell">
-                                        <rect key="frame" x="144" y="0.0" width="480" height="360"/>
+                                        <rect key="frame" x="144" y="0.0" width="480" height="1024"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="1024"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="1J1-7J-vIi" userLabel="ShadowView">
-                                                    <rect key="frame" x="12" y="9" width="456" height="342"/>
+                                                    <rect key="frame" x="12" y="341" width="456" height="342"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view appearanceType="aqua" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="iFr-Mz-7LA" userLabel="FrameView">
@@ -1392,18 +1392,18 @@
                                     <outlet property="delegate" destination="6Ui-9q-rua" id="86C-Iu-YrP"/>
                                 </connections>
                             </collectionView>
-                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" id="QMY-ac-Prd" userLabel="LifeArtCollectionView">
-                                <rect key="frame" x="0.0" y="530" width="768" height="350"/>
+                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" id="QMY-ac-Prd" userLabel="LifeArtCollectionView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="0.0" id="2pa-Ni-1DH">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="200" minimumInteritemSpacing="0.0" id="2pa-Ni-1DH">
                                     <size key="itemSize" width="360" height="270"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="150" maxX="20" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LifeArtCollectionViewCell" id="rCw-we-mr8" customClass="ADTutorialArtCollectionViewCell">
-                                        <rect key="frame" x="16" y="40" width="360" height="270"/>
+                                        <rect key="frame" x="20" y="150" width="360" height="270"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="360" height="270"/>
@@ -1449,49 +1449,74 @@
                                 </connections>
                             </collectionView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="What is anamorphosis" textAlignment="center" id="IV8-lJ-FSe" userLabel="Introduction0TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="A deformed image appears in its true shape" textAlignment="center" id="9DY-UI-AUd" userLabel="Introduction1TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Only when viewed in some magical way" textAlignment="center" id="8dm-io-dHH" userLabel="Introduction2TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="It has a long history from late Renaissance" textAlignment="center" id="t6C-jH-jZT" userLabel="Introduction3TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Loved by great artists like Salvador Dali" textAlignment="center" id="EZd-Rm-5x6" userLabel="Introduction4TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Now people all love this fashional form of art" textAlignment="center" id="LPd-Mb-Usx" userLabel="Introduction5TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Creating magical illusion art is not impossible" textAlignment="center" id="cxH-Qw-sL8" userLabel="Introduction6TextView">
-                                <rect key="frame" x="0.0" y="30" width="768" height="50"/>
+                                <rect key="frame" x="0.0" y="225" width="768" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="7" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="center" id="RUC-Oz-kQ9" userLabel="Introduction7TextView">
+                                <rect key="frame" x="0.0" y="487" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="8" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" textAlignment="center" id="7Z2-xA-hoT" userLabel="Introduction8TextView">
+                                <rect key="frame" x="0.0" y="487" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="9" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Everyone can draw these with AnaDraw" textAlignment="center" id="ADR-wF-3Xs" userLabel="Introduction9TextView">
+                                <rect key="frame" x="0.0" y="480" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Put your illusion art into life" textAlignment="center" id="GJj-Tz-Fzy" userLabel="Introduction10TextView">
+                                <rect key="frame" x="0.0" y="480" width="768" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.0" green="0.49803921569999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <view appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="u1R-Wq-PmM">
-                                <rect key="frame" x="0.0" y="495" width="768" height="56"/>
+                                <rect key="frame" x="0.0" y="484" width="768" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view hidden="YES" appearanceType="aqua" opaque="NO" contentMode="scaleToFill" id="YjU-gt-ie4" userLabel="Slogan2View">
@@ -1604,12 +1629,12 @@
                                                 <rect key="frame" x="295" y="22" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" tag="9" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n1-Wannaa.png" id="Kox-jb-ikk" userLabel="n-Wannaa">
-                                                <rect key="frame" x="329" y="22" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
                                             <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a1-Wannaa.png" id="Hmi-Uo-5lo" userLabel="a-Wannaa">
                                                 <rect key="frame" x="362" y="22" width="29" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="9" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_n1-Wannaa.png" id="Kox-jb-ikk" userLabel="n-Wannaa">
+                                                <rect key="frame" x="329" y="22" width="30" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tutorial0_a2-Wannaa.png" id="80w-2C-ByB" userLabel="a-Wannaa">
@@ -1645,39 +1670,23 @@
                                 </subviews>
                             </view>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="SVs-qL-bst" userLabel="GalleryArtPageControl">
-                                <rect key="frame" x="364" y="462" width="39" height="37"/>
+                                <rect key="frame" x="364" y="949" width="39" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" id="JiA-rX-ySi" userLabel="LifeArtPageControl">
-                                <rect key="frame" x="364" y="835" width="39" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </pageControl>
-                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Everyone can draw these with AnaDraw" textAlignment="center" id="OjA-BW-UfI" userLabel="LifeArt0TextView">
-                                <rect key="frame" x="0.0" y="860" width="768" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Put your illusion art into life" textAlignment="center" id="PWV-2a-Vrg" userLabel="LifeArt1TextView">
-                                <rect key="frame" x="0.0" y="860" width="768" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fIU-AC-MEb" customClass="ADTutorialStepButton">
-                                <rect key="frame" x="593" y="935" width="150" height="64"/>
+                                <rect key="frame" x="159" y="462" width="450" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Learn More">
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="DoneButtonTouchUp:" destination="6Ui-9q-rua" eventType="touchUpInside" id="f8K-wv-5hA"/>
+                                    <action selector="doneButtonTouchCancel:" destination="6Ui-9q-rua" eventType="touchCancel" id="8LW-mW-luv"/>
+                                    <action selector="doneButtonTouchDown:" destination="6Ui-9q-rua" eventType="touchDown" id="kef-OD-nr4"/>
+                                    <action selector="doneButtonTouchUpOutside:" destination="6Ui-9q-rua" eventType="touchUpOutside" id="DD3-4w-xvz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1687,17 +1696,7 @@
                     <connections>
                         <outlet property="galleryArtCollectionView" destination="uto-pB-TfM" id="Dkf-C8-khf"/>
                         <outlet property="galleryArtPageControl" destination="SVs-qL-bst" id="knj-zZ-zJD"/>
-                        <outlet property="introduction0TextView" destination="IV8-lJ-FSe" id="0SV-YR-UxP"/>
-                        <outlet property="introduction1TextView" destination="9DY-UI-AUd" id="JgI-uD-vFd"/>
-                        <outlet property="introduction2TextView" destination="8dm-io-dHH" id="HFS-gQ-P5W"/>
-                        <outlet property="introduction3TextView" destination="t6C-jH-jZT" id="4An-fY-aW5"/>
-                        <outlet property="introduction4TextView" destination="EZd-Rm-5x6" id="qWf-xg-n3G"/>
-                        <outlet property="introduction5TextView" destination="LPd-Mb-Usx" id="zUH-8L-hSn"/>
-                        <outlet property="introduction6TextView" destination="cxH-Qw-sL8" id="f1k-kc-m2a"/>
-                        <outlet property="lifeArt0TextView" destination="OjA-BW-UfI" id="0tH-Zv-3OR"/>
-                        <outlet property="lifeArt1TextView" destination="PWV-2a-Vrg" id="hTI-Nw-ZlQ"/>
                         <outlet property="lifeArtCollectionView" destination="QMY-ac-Prd" id="lx9-MO-iad"/>
-                        <outlet property="lifeArtPageControl" destination="JiA-rX-ySi" id="xjy-GZ-seu"/>
                         <outlet property="nextButton" destination="fIU-AC-MEb" id="p1z-oq-KN1"/>
                         <outletCollection property="sloganCharacters2" destination="lpv-pD-jSX" id="Mqm-fo-YCF"/>
                         <outletCollection property="sloganCharacters2" destination="P6m-Ps-dBm" id="F1W-K2-Q46"/>
@@ -1740,8 +1739,10 @@
                         <outletCollection property="introductionTextViews" destination="EZd-Rm-5x6" id="vqY-D6-VBb"/>
                         <outletCollection property="introductionTextViews" destination="LPd-Mb-Usx" id="EWW-8L-sNq"/>
                         <outletCollection property="introductionTextViews" destination="cxH-Qw-sL8" id="UUK-gN-XjH"/>
-                        <outletCollection property="lifeArtTextViews" destination="OjA-BW-UfI" id="kPc-L5-KLo"/>
-                        <outletCollection property="lifeArtTextViews" destination="PWV-2a-Vrg" id="ZXY-O2-Sb9"/>
+                        <outletCollection property="introductionTextViews" destination="RUC-Oz-kQ9" id="oHP-Yt-Qtu"/>
+                        <outletCollection property="introductionTextViews" destination="7Z2-xA-hoT" id="DOv-nj-bvl"/>
+                        <outletCollection property="introductionTextViews" destination="ADR-wF-3Xs" id="eAJ-3B-h81"/>
+                        <outletCollection property="introductionTextViews" destination="GJj-Tz-Fzy" id="SBK-Zg-2ih"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwq-tN-uhZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

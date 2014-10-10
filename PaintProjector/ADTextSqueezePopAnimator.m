@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ADTextPopAnimator.h"
+#import "ADTextSqueezePopAnimator.h"
 
 
-@implementation ADTextPopAnimator
+@implementation ADTextSqueezePopAnimator
 //text的载体在外部创建？还是内部创建
 - (id)initWithTextView:(NSArray *)textViews{
     self = [super init];

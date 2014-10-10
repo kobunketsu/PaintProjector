@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ADTextSplitter.h"
 
-@interface ADTextPopAnimator : NSObject
+@interface ADTextSqueezePopAnimator : NSObject
 @property(retain, nonatomic) NSMutableArray *textSplitters;
 - (id)initWithTextView:(NSArray *)textViews;
 - (void)popTextByPercentage:(CGFloat)percentage;

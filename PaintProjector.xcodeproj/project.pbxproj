@@ -316,6 +316,8 @@
 		0858A8ED19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */; };
 		085B167819BB5D21002FA10B /* feedback-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 085B167719BB5D21002FA10B /* feedback-48.png */; };
 		085B167919BB5D21002FA10B /* feedback-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 085B167719BB5D21002FA10B /* feedback-48.png */; };
+		085BE16619E6C50000FA86BF /* ADViewScalePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */; };
+		085BE16719E6C50000FA86BF /* ADViewScalePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */; };
 		085C0C4A18D8A77F001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085C0C4B18D8A780001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085EFD4E1732BDD900F0395D /* ADPaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */; };
@@ -469,6 +471,10 @@
 		087FE74A173E2F9C009B34A2 /* ADMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE749173E2F9B009B34A2 /* ADMarker.m */; };
 		08802F601766A4BF00276B15 /* ADCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F5F1766A4BF00276B15 /* ADCommand.m */; };
 		08802F6B1766FCFF00276B15 /* ADOpenCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 08802F6A1766FCFF00276B15 /* ADOpenCommand.m */; };
+		0880676D19E7670400AAE1C7 /* ADViewPopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */; };
+		0880676E19E7670400AAE1C7 /* ADViewPopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */; };
+		0880677119E767D800AAE1C7 /* ADViewRotatePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */; };
+		0880677219E767D800AAE1C7 /* ADViewRotatePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */; };
 		088313A8199CF52A00C49B92 /* homepage-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313A7199CF52A00C49B92 /* homepage-48.png */; };
 		088313A9199CF52A00C49B92 /* homepage-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313A7199CF52A00C49B92 /* homepage-48.png */; };
 		088313AB199CFA5B00C49B92 /* tutorial-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AA199CFA5B00C49B92 /* tutorial-48.png */; };
@@ -658,8 +664,8 @@
 		08C0F6C51917EDEA00AF3687 /* OpenGLWaveFrontGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */; };
 		08C17B7919C52C0600FF9A55 /* ADTextSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */; };
 		08C17B7A19C52C0600FF9A55 /* ADTextSplitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */; };
-		08C17B7D19C53AC200FF9A55 /* ADTextPopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */; };
-		08C17B7E19C53AC200FF9A55 /* ADTextPopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */; };
+		08C17B7D19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */; };
+		08C17B7E19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */; };
 		08C26B4C19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C26B4B19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m */; };
 		08C26B4D19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C26B4B19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m */; };
 		08C51C7A19C7E43100C74F54 /* ADSimpleTutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C51C7919C7E43100C74F54 /* ADSimpleTutorialView.m */; };
@@ -1337,6 +1343,8 @@
 		0857779816C62DC80040B152 /* RECamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RECamera.m; path = PaintProjector/RECamera.m; sourceTree = "<group>"; };
 		0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gesture1FingerDrag.png; path = PaintProjector/Images/tutorial_gesture1FingerDrag.png; sourceTree = "<group>"; };
 		085B167719BB5D21002FA10B /* feedback-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "feedback-48.png"; path = "PaintProjector/Images/feedback-48.png"; sourceTree = SOURCE_ROOT; };
+		085BE16419E6C50000FA86BF /* ADViewScalePopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADViewScalePopAnimator.h; path = PaintProjector/ADViewScalePopAnimator.h; sourceTree = "<group>"; };
+		085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADViewScalePopAnimator.m; path = PaintProjector/ADViewScalePopAnimator.m; sourceTree = "<group>"; };
 		085EFD4C1732BDD900F0395D /* ADPaintColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintColorButton.h; sourceTree = "<group>"; };
 		085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintColorButton.m; sourceTree = "<group>"; };
 		085FB3D0177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModePopoverBackgroundView.h; sourceTree = "<group>"; };
@@ -1514,6 +1522,10 @@
 		08802F5F1766A4BF00276B15 /* ADCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADCommand.m; sourceTree = "<group>"; };
 		08802F691766FCFE00276B15 /* ADOpenCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADOpenCommand.h; sourceTree = "<group>"; };
 		08802F6A1766FCFF00276B15 /* ADOpenCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOpenCommand.m; sourceTree = "<group>"; };
+		0880676B19E7670400AAE1C7 /* ADViewPopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADViewPopAnimator.h; path = PaintProjector/ADViewPopAnimator.h; sourceTree = "<group>"; };
+		0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADViewPopAnimator.m; path = PaintProjector/ADViewPopAnimator.m; sourceTree = "<group>"; };
+		0880676F19E767D800AAE1C7 /* ADViewRotatePopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADViewRotatePopAnimator.h; path = PaintProjector/ADViewRotatePopAnimator.h; sourceTree = "<group>"; };
+		0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADViewRotatePopAnimator.m; path = PaintProjector/ADViewRotatePopAnimator.m; sourceTree = "<group>"; };
 		088313A7199CF52A00C49B92 /* homepage-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "homepage-48.png"; path = "PaintProjector/Images/homepage-48.png"; sourceTree = SOURCE_ROOT; };
 		088313AA199CFA5B00C49B92 /* tutorial-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tutorial-48.png"; path = "PaintProjector/Images/tutorial-48.png"; sourceTree = SOURCE_ROOT; };
 		088313AD199CFC5700C49B92 /* community-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "community-48.png"; path = "PaintProjector/Images/community-48.png"; sourceTree = SOURCE_ROOT; };
@@ -1715,8 +1727,8 @@
 		08C0F6C31917EDEA00AF3687 /* OpenGLWaveFrontGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLWaveFrontGroup.m; path = OpenGLWaveFrontObj/OpenGLWaveFrontGroup.m; sourceTree = "<group>"; };
 		08C17B7719C52C0600FF9A55 /* ADTextSplitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTextSplitter.h; path = PaintProjector/ADTextSplitter.h; sourceTree = "<group>"; };
 		08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTextSplitter.m; path = PaintProjector/ADTextSplitter.m; sourceTree = "<group>"; };
-		08C17B7B19C53AC200FF9A55 /* ADTextPopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTextPopAnimator.h; path = PaintProjector/ADTextPopAnimator.h; sourceTree = "<group>"; };
-		08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTextPopAnimator.m; path = PaintProjector/ADTextPopAnimator.m; sourceTree = "<group>"; };
+		08C17B7B19C53AC200FF9A55 /* ADTextSqueezePopAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTextSqueezePopAnimator.h; path = PaintProjector/ADTextSqueezePopAnimator.h; sourceTree = "<group>"; };
+		08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTextSqueezePopAnimator.m; path = PaintProjector/ADTextSqueezePopAnimator.m; sourceTree = "<group>"; };
 		08C26B4A19BDF2D300722ACB /* ADAnamorphosisBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADAnamorphosisBasicViewController.h; path = PaintProjector/ADAnamorphosisBasicViewController.h; sourceTree = "<group>"; };
 		08C26B4B19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADAnamorphosisBasicViewController.m; path = PaintProjector/ADAnamorphosisBasicViewController.m; sourceTree = "<group>"; };
 		08C51C7819C7E43100C74F54 /* ADSimpleTutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleTutorialView.h; path = PaintProjector/ADSimpleTutorialView.h; sourceTree = "<group>"; };
@@ -2223,8 +2235,14 @@
 				08F905DC194ACBA7002918AA /* ADCrystalGradientStyleButton.m */,
 				08C17B7719C52C0600FF9A55 /* ADTextSplitter.h */,
 				08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */,
-				08C17B7B19C53AC200FF9A55 /* ADTextPopAnimator.h */,
-				08C17B7C19C53AC200FF9A55 /* ADTextPopAnimator.m */,
+				0880676B19E7670400AAE1C7 /* ADViewPopAnimator.h */,
+				0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */,
+				08C17B7B19C53AC200FF9A55 /* ADTextSqueezePopAnimator.h */,
+				08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */,
+				085BE16419E6C50000FA86BF /* ADViewScalePopAnimator.h */,
+				085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */,
+				0880676F19E767D800AAE1C7 /* ADViewRotatePopAnimator.h */,
+				0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */,
 				0868E41E19CC34620082AEB5 /* ADSimpleAlertView.h */,
 				0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */,
 				08A6B9A919D68CEF00810875 /* ADPageControl.h */,
@@ -3846,6 +3864,7 @@
 				c456e2548edf55cffb75735a /* ADTransformContentViewLayer.m in Sources */,
 				080706DB18B7888C00D9385F /* ADPaintFrameTransitionManager.m in Sources */,
 				271344d8c9546fa3680b2e80 /* ADColorButton.m in Sources */,
+				0880676E19E7670400AAE1C7 /* ADViewPopAnimator.m in Sources */,
 				44e07334b6d516780130c2bd /* InfColorBarPicker.m in Sources */,
 				3610c8f26df35f53c2ca9f3f /* InfColorIndicatorView.m in Sources */,
 				5e923c9fc715b0f227dbe51f /* InfColorPickerRootView.m in Sources */,
@@ -3871,6 +3890,7 @@
 				086CF4A01919E6EB000F1FBB /* RERenderSettings.m in Sources */,
 				083A810C19356FE30088980E /* RemoteLog.m in Sources */,
 				0817B84B19D08A38006E74C1 /* ADBrushState.m in Sources */,
+				0880677219E767D800AAE1C7 /* ADViewRotatePopAnimator.m in Sources */,
 				08CEBB39195A71B400247F8B /* ADShaderUnlitTransparentAdditive.m in Sources */,
 				08DF53CB195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */,
 				3d12b89547d7d3e942d70f7a /* ADEraser.m in Sources */,
@@ -4009,6 +4029,7 @@
 				0898765B19138514009CEB3D /* ADAutoRotateView.m in Sources */,
 				08B60F3C18C385DC00A415CA /* UIColor+Extension.m in Sources */,
 				7f1708e9135ab712a98551a6 /* ADBackgroundLayerTableViewCell.m in Sources */,
+				085BE16719E6C50000FA86BF /* ADViewScalePopAnimator.m in Sources */,
 				593da15714dbd9b0b661ae58 /* ADBrushTypeViewController.m in Sources */,
 				b21d4aae8a4506914f03a4e3 /* ADSharedPopoverBackgroundView.m in Sources */,
 				58949f9b36532bac22797155 /* ADSharedPopoverController.m in Sources */,
@@ -4083,7 +4104,7 @@
 				08B9104D18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */,
 				c103e14c3f1cdab16147a434 /* ADLayerBlendModeButton2.m in Sources */,
 				25be846064d64219dbd3cf30 /* ADLayerAddButton.m in Sources */,
-				08C17B7E19C53AC200FF9A55 /* ADTextPopAnimator.m in Sources */,
+				08C17B7E19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m in Sources */,
 				08061C1F18A372F60050B708 /* REBaseEffect.m in Sources */,
 				087D9B341981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */,
 				08A232BC19C05E0B004FE1F6 /* ADHelpView.m in Sources */,
@@ -4163,6 +4184,7 @@
 				9CFE0B9914E5B12B00408F86 /* UIImage+Resize.m in Sources */,
 				08E505E11956FD4200ED86BF /* ADTutorialPaintScreenGestureCollectionViewCell.m in Sources */,
 				082F9C5E19D7B228006CC621 /* ADTutorialStatusView.m in Sources */,
+				0880677119E767D800AAE1C7 /* ADViewRotatePopAnimator.m in Sources */,
 				082A6A0819C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.m in Sources */,
 				088E1D8418A26F700059002C /* ADShaderCylinder.m in Sources */,
 				08BD1A8F19CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
@@ -4177,6 +4199,7 @@
 				0804E2F7163D910300D86624 /* ADBrushView.m in Sources */,
 				088FD61E18569CEA00B64ABF /* ADTransformContentViewLayer.m in Sources */,
 				0808D9BE1644EC6F0000DF40 /* ADColorButton.m in Sources */,
+				085BE16619E6C50000FA86BF /* ADViewScalePopAnimator.m in Sources */,
 				08525110194D62200087F4AF /* ADTutorialManager.m in Sources */,
 				0808D9DA164559870000DF40 /* InfColorBarPicker.m in Sources */,
 				08F5DF1A19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */,
@@ -4302,7 +4325,7 @@
 				083A810B19356FE30088980E /* RemoteLog.m in Sources */,
 				08E104C418E31F3B00B777FB /* ADSharedTableView.m in Sources */,
 				08ABA3B619B85C4C00435239 /* ADSetupCylinderBackButton.m in Sources */,
-				08C17B7D19C53AC200FF9A55 /* ADTextPopAnimator.m in Sources */,
+				08C17B7D19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m in Sources */,
 				084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */,
 				08A3F3DB1850A756007922D2 /* REGLWrapper.m in Sources */,
 				087D9B3B1981EBD5002392BA /* ADSetupCylinderRefCanButton.m in Sources */,
@@ -4334,6 +4357,7 @@
 				08F3A6901736089C002E063A /* ADTopToolBar.m in Sources */,
 				08F3A695173613A6002E063A /* ADTransformButton.m in Sources */,
 				08A79C151925A58D00E4EA6E /* ADLayerOpacityLockButton.m in Sources */,
+				0880676D19E7670400AAE1C7 /* ADViewPopAnimator.m in Sources */,
 				08F3A69817362A43002E063A /* ADLayerButton.m in Sources */,
 				0847F52218B0558A0038869A /* ADSetupViewController.m in Sources */,
 				08CE4BFA18D7D2C1008C4904 /* ADInfoButton.m in Sources */,
