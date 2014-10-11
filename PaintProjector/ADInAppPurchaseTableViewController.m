@@ -112,7 +112,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionFailed:) name:kInAppPurchaseManagerTransactionFailedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionCanceled:) name:kInAppPurchaseManagerTransactionCanceledNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionEnded:) name:kInAppPurchaseManagerTransactionEndedNotification object:nil];
     
     ((ADSimpleIAPManager *)[ADSimpleIAPManager sharedInstance]).delegate = self;
  
@@ -123,7 +123,7 @@
     DebugLogSystem(@"dealloc");
     [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionFailedNotification object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionCanceledNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kInAppPurchaseManagerTransactionEndedNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,8 +145,8 @@
     DebugLog(@"购买产品失败");
     [self lockInteraction:false];
 }
-- (void)IAPTransactionCanceled:(id)arg{
-    DebugLog(@"购买产品取消");
+- (void)IAPTransactionEnded:(id)arg{
+    DebugLog(@"购买产品结束");
     [self lockInteraction:false];
 }
 

@@ -193,14 +193,14 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UISlider                      * valueSlider;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray * allUserInputParamButtons;
 @property (weak, nonatomic) IBOutlet UIView                        * eyeParams;
-@property (weak, nonatomic) IBOutlet UIView                        * eyeDistanceParam;
+@property (weak, nonatomic) IBOutlet UIView                        * eyeDepthParam;
 @property (weak, nonatomic) IBOutlet UIView                        * eyeHeightParam;
 @property (weak, nonatomic) IBOutlet UIView                        * projectParams;
 @property (weak, nonatomic) IBOutlet UIButton                      * cylinderDiameterButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * cylinderHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * imageWidthButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * imageHeightButton;
-@property (weak, nonatomic) IBOutlet UIButton                      * eyeDistanceButton;
+@property (weak, nonatomic) IBOutlet UIButton                      * eyeDepthButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * eyeHeightButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * eyeZoomButton;
 @property (weak, nonatomic) IBOutlet UIButton                      * projectWidthButton;

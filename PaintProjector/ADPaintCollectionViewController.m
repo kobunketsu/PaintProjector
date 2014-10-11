@@ -17,12 +17,14 @@
 #import "AppDelegate.h"
 
 
+#define TutorialImageNumMin 4
 #define TutorialPickImageIndex 1
 #define launchImageViewToCylinderFadeOutDuration 0.3
 #define TempPaintFrameToCylinderFadeOutDuration 1
 #define PaintFramePickOperationHalfDuration 0.2
 #define PaintFramePickOperationDamping 0.3
 #define PaintFramePickOperationVelcotiy 0.5
+
 
 @interface ADPaintCollectionViewController ()
 //圆柱体投影VC
@@ -598,7 +600,7 @@
     }
     
     //教程基本要素，需要两张图片来说明操作, 如果文件数量少于两个, 则从app中拷贝两份到用户目录中,重新加载PaintFrameManager
-    if ([self.collectionView numberOfItemsInSection:0] < 2) {
+    if ([self.collectionView numberOfItemsInSection:0] < TutorialImageNumMin) {
         AppDelegate *appDelegate = (AppDelegate *)([UIApplication sharedApplication].delegate);
         [appDelegate copyCollectionFromMainBundleToUserDocument];
         [ADPaintFrameManager destroy];

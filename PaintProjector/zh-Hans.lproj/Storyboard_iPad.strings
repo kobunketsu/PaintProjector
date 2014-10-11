@@ -106,7 +106,7 @@
 "El4-ji-yc7.text" = "散布";
 
 /* Class = "IBUILabel"; text = "Distance"; ObjectID = "Esf-aZ-s2a"; */
-"Esf-aZ-s2a.text" = "视点距离";
+"Esf-aZ-s2a.text" = "视点深度";
 
 /* Class = "IBUILabel"; text = "Noise"; ObjectID = "Fhb-Nh-7Gn"; */
 "Fhb-Nh-7Gn.text" = "抖动";
@@ -303,7 +303,7 @@
 "gGv-Cb-oTh.text" = "视点高度";
 
 /* Class = "IBUILabel"; text = "Distance"; ObjectID = "gNO-uE-8VL"; */
-"gNO-uE-8VL.text" = "视点距离";
+"gNO-uE-8VL.text" = "视点深度";
 
 /* Class = "IBUIButton"; accessibilityLabel = "ClearLayer"; ObjectID = "gYK-6m-KN5"; */
 "gYK-6m-KN5.accessibilityLabel" = "ClearLayer";

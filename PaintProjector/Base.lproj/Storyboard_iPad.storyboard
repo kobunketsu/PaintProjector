@@ -3380,18 +3380,18 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="0.0" y="6" width="66" height="66"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </view>
-                                                            <view opaque="NO" contentMode="scaleToFill" id="PLH-Rl-3VI" userLabel="EyeDistance">
+                                                            <view opaque="NO" contentMode="scaleToFill" id="PLH-Rl-3VI" userLabel="EyeDepth">
                                                                 <rect key="frame" x="66" y="-5" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Esf-aZ-s2a" userLabel="EyeDistanceLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Esf-aZ-s2a" userLabel="EyeDepthLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pVY-ih-kio" userLabel="EyeDistanceButton">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pVY-ih-kio" userLabel="EyeDepthButton">
                                                                         <rect key="frame" x="0.0" y="12" width="118" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <state key="normal">
@@ -3777,8 +3777,8 @@ Create your unbelievable art!</string>
                         <outlet property="cylinderDiameterButton" destination="1On-Dl-NSe" id="OVW-gd-4NZ"/>
                         <outlet property="cylinderHeightButton" destination="i42-kf-iWd" id="9gd-o0-Nor"/>
                         <outlet property="downToolBar" destination="jlQ-I2-QJ2" id="euy-X6-fFa"/>
-                        <outlet property="eyeDistanceButton" destination="pVY-ih-kio" id="Ihk-cU-fJm"/>
-                        <outlet property="eyeDistanceParam" destination="PLH-Rl-3VI" id="EGa-Oh-OfS"/>
+                        <outlet property="eyeDepthButton" destination="pVY-ih-kio" id="Sby-8Q-kN9"/>
+                        <outlet property="eyeDepthParam" destination="PLH-Rl-3VI" id="kQB-7S-NaZ"/>
                         <outlet property="eyeHeightButton" destination="b03-DM-4Xa" id="9Le-E5-Dxe"/>
                         <outlet property="eyeHeightParam" destination="Jkm-cL-zX5" id="F6H-Ye-91B"/>
                         <outlet property="eyeParams" destination="LB6-9v-gmY" id="oZi-MD-CfA"/>

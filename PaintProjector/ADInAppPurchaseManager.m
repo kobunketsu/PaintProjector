@@ -194,6 +194,9 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     if (![BBXIAPTransaction canValidateTransactions]) {
         transactionResult = TransactionNoNetwork;
         DebugLogWarn(@"没有网络连接,无法验证交易.请连接网络后尝试");
+        //TODO:需要修现在的问题
+        //无法finishTransaction, 等待下次调用completeTransaction
+        [self endTransaction:transaction];
         return; // There is no connectivity to reach the server.
         // You should try the validation at a later date.
     }
@@ -243,8 +246,8 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
                 // The error was not caused by a problem with the data, but is
                 // most likely due to some transient networking issues.
                 transactionResult = TransactionServerError;
-                DebugLogWarn(@"验证交易服务器错误,请稍后尝试");
-                [self cancelTransaction:transaction];
+                DebugLogWarn(@"验证交易服务器错误,请稍后尝试 %@", error.localizedDescription);
+                [self endTransaction:transaction];
             }
             else {
                 
@@ -303,9 +306,9 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 // removes the transaction from the queue and posts a notification with the transaction result
 //
-- (void)cancelTransaction:(SKPaymentTransaction *)transaction{
-    DebugLogFuncStart(@"取消交易");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionCanceledNotification object:self userInfo:nil];
+- (void)endTransaction:(SKPaymentTransaction *)transaction{
+    DebugLogFuncStart(@"关闭交易");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionEndedNotification object:self userInfo:nil];
 }
 - (void)finishTransaction:(SKPaymentTransaction *)transaction wasSuccessful:(BOOL)wasSuccessful
 {
@@ -330,16 +333,28 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"完成交易,验证收据中");
+    DebugLogFuncStart(@"完成交易");
+#if VALIDATERECEIPT_BEEBLEX
+    DebugLogFuncStart(@"验证收据中");
     [self validateReceipt:transaction restore:NO];
+#else
+    [self provideContent:transaction.payment.productIdentifier];
+    [self finishTransaction:transaction wasSuccessful:YES];
+#endif
 }
 //
 // called when a transaction has been restored and and successfully completed
 //
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"恢复交易,验证收据中");
+    DebugLogFuncStart(@"恢复交易");
+#if VALIDATERECEIPT_BEEBLEX
+    DebugLogFuncStart(@"验证收据中");
     [self validateReceipt:transaction restore:YES];
+#else
+    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
+    [self finishTransaction:transaction wasSuccessful:YES];
+#endif
 }
 
 - (void)waitContinueTransaction{
@@ -401,7 +416,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     {
         // this is fine, the user just cancelled, so don’t notify
         [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        [self cancelTransaction:transaction];
+        [self endTransaction:transaction];
     }
 }
 #pragma mark -

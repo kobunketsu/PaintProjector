@@ -13,7 +13,7 @@
 #define kInAppPurchaseManagerProductsFetchedNotification @"kInAppPurchaseManagerProductsFetchedNotification"
 
 // add a couple notifications sent out when the transaction completes
-#define kInAppPurchaseManagerTransactionCanceledNotification @"kInAppPurchaseManagerTransactionCanceledNotification"
+#define kInAppPurchaseManagerTransactionEndedNotification @"kInAppPurchaseManagerTransactionEndedNotification"
 #define kInAppPurchaseManagerTransactionFailedNotification @"kInAppPurchaseManagerTransactionFailedNotification"
 #define kInAppPurchaseManagerTransactionSucceededNotification @"kInAppPurchaseManagerTransactionSucceededNotification"
 
