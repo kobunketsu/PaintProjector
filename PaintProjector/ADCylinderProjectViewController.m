@@ -2725,10 +2725,14 @@ static float DeviceWidth = 0.154;
             self.paintScreenVC.reversePaint.reversePaintInputData.reflectionTexUVSpace = uvSpace;
             
             //reversePaint IAP
-            if(![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]){
-                [self.paintScreenVC openIAPWithProductFeatureIndex:0];
+            if ([ADSimpleTutorialManager current].isActive) {
+                //教程免费试用
             }
-            
+            else{
+                if(![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]){
+                    [self.paintScreenVC openIAPWithProductFeatureIndex:0];
+                }
+            }
         }
     }];
 }
@@ -3435,6 +3439,10 @@ static float DeviceWidth = 0.154;
             ((ADSimpleTutorial*)[ADSimpleTutorialManager current].curTutorial).cancelView.hidden = true;
             cancelView.alpha = 1;
         }];
+        
+        if(step.indicatorView){
+            [step.indicatorView targetView:self.paintButton inRootView:self.rootView];
+        }
     }
     
     [step addToRootView:self.rootView];

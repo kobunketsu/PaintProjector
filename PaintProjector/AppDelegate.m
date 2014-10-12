@@ -402,6 +402,8 @@
     //查看手势
      [tutorial addActionStep:@"PaintScreenHelpTips" description:NSLocalizedString(@"PaintScreenHelpTips", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp cancelable:true];
 
+    //简单绘制
+//    [tutorial addPageStep:@"PaintScreenStartDraw" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil nextButton:YES nextButtonName:NSLocalizedString(@"PaintScreenStartDraw", nil) cancelButton:NO cancelButtonName:nil];
     
     //完成教程
      [tutorial addActionStep:@"PaintScreenCloseDoc" description:NSLocalizedString(@"PaintScreenCloseDoc", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp cancelable:true];
@@ -434,20 +436,25 @@
     //开始绘制图片
     [tutorial addActionStep:@"CylinderProjectPaint" description:NSLocalizedString(@"CylinderProjectReversePaint", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown cancelable:true];
     
-    //完成教程
+    //关闭绘图
     ADTutorialStep *step = [tutorial addActionStep:@"PaintScreenCloseDoc" description:NSLocalizedString(@"PaintScreenCloseDoc", nil) bounds:CGRectMake(0, 0, TutorialGrid*4, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionUp cancelable:true];
     
     ADTutorialIndicatorView *inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*7, TutorialGrid*2.5)];
     inidcatorView.animated = false;
-    inidcatorView.arrowDirection = UIPopoverArrowDirectionUp;
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
     [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"PaintScreenAnamorphosisTips", nil) bgImage:nil];
     [step addIndicatorView:inidcatorView];
     
-    //完成教程
+    //提示结果
     [tutorial addActionStep:@"CylinderProjectSideViewAfterDraw" description:NSLocalizedString(@"CylinderProjectSideViewAfterDraw", nil) bounds:CGRectMake(0, 0, TutorialGrid*6, TutorialGrid*1.5) arrowDirection:UIPopoverArrowDirectionDown cancelable:true];
     
     //完成教程
-    [tutorial addPageStep:@"CylinderProjectTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil nextButton:YES nextButtonName:NSLocalizedString(@"CylinderProjectTutorialDone", nil) cancelButton:NO cancelButtonName:nil];
+    step = [tutorial addPageStep:@"CylinderProjectTutorialDone" description:nil pageBounds:CGRectMake(0, 0, TutorialNextButtonWidth, TutorialNextButtonHeight) pageImage:nil nextButton:YES nextButtonName:NSLocalizedString(@"CylinderProjectTutorialDone", nil) cancelButton:NO cancelButtonName:nil];
+    inidcatorView = [[ADTutorialIndicatorView alloc]initWithFrame:CGRectMake(0, 0, TutorialGrid*4.5, TutorialGrid*2)];
+    inidcatorView.animated = false;
+    inidcatorView.arrowDirection = UIPopoverArrowDirectionDown;
+    [inidcatorView initWithTutorial:tutorial description:NSLocalizedString(@"CylinderProjectTutorialIAPHint", nil) bgImage:nil];
+    [step addIndicatorView:inidcatorView];
 }
 
 #pragma mark-

@@ -100,6 +100,9 @@
 - (void)afterPresentation{
     //同时更新UI
     [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+    if ([ADSimpleTutorialManager current].isActive) {
+        [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+    }
     [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
         //如果有商店，只在商店结束后显示教程
         if (!self.iapVC) {
@@ -1222,6 +1225,9 @@
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
         //将layerPanel移到顶端
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+        if ([ADSimpleTutorialManager current].isActive) {
+            [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+        }
     }
 }
 
@@ -1891,7 +1897,9 @@
         self.rootCanvasView.userInteractionEnabled = false;
         
         [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
-
+        if ([ADSimpleTutorialManager current].isActive) {
+            [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+        }
         //突出当前选择的笔刷
         for (UIView *brushTypeView in self.brushTypeScrollView.subviews) {
             brushTypeView.frame = CGRectMake(brushTypeView.frame.origin.x, 20, brushTypeView.frame.size.width, brushTypeView.frame.size.height);
@@ -2059,8 +2067,6 @@
         
         if (self.isPaintFullScreen) {
             [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
-            //将layerPanel移到顶端
-            [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
         }
     }];
 }
@@ -2508,6 +2514,9 @@
 //    [self autoShowBrushes:false];
     
     [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+    if ([ADSimpleTutorialManager current].isActive) {
+        [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+    }
     [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
         _state = PaintScreen_Normal;
         [Flurry endTimedEvent:@"PS_inSelectBrush" withParameters:nil];
@@ -2614,11 +2623,18 @@
 //关闭界面
 -(void)close{
     DebugLogFuncStart(@"close");
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Save", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"DontSave", nil), nil];
-    alertView.tag = 6;
-    [alertView show];
-    
     [self saveWorkSpace];
+    
+    //教程中直接保存关闭
+    if ([ADSimpleTutorialManager current].isActive) {
+        [self closeDocWithSave];
+        [self tutorialStepNextImmediate:false];
+    }
+    else{
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Save", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"DontSave", nil), nil];
+        alertView.tag = 6;
+        [alertView show];
+    }
 }
 
 //关闭界面和文档
@@ -2626,6 +2642,10 @@
     DebugLogFuncStart(@"closeDoc");
     [self.paintView transformCanvasReset];
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+    if ([ADSimpleTutorialManager current].isActive) {
+        [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+    }
+    
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
         //blocked by paintDoc close;
         
@@ -2640,6 +2660,7 @@
             }
         }];
     }];
+
 }
 
 - (void)closeDocCanceled{
@@ -4219,6 +4240,9 @@
     self.eyeDropperIndicatorView.hidden = false;
 
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+    if ([ADSimpleTutorialManager current].isActive) {
+        [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+    }
     [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
 }
 
@@ -4293,6 +4317,9 @@
     
     if (!self.isPaintFullScreen) {
         [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+        if ([ADSimpleTutorialManager current].isActive) {
+            [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+        }
         [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:nil];
     }
 }
@@ -4514,7 +4541,9 @@
                 self.isPaintFullScreen = false;
                 [Flurry endTimedEvent:@"PS_inFullScreen" withParameters:nil];
             }];
-
+            if ([ADSimpleTutorialManager current].isActive) {
+                [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+            }
         }];
     }
     else{
@@ -4533,6 +4562,9 @@
                 [Flurry logEvent:@"PS_inFullScreen" withParameters:nil timed:true];
             }];
         }];
+        if ([ADSimpleTutorialManager current].isActive) {
+            [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+        }
         
     }
 }
@@ -4745,21 +4777,13 @@
     else if (alertView.tag == 6) {
         switch (buttonIndex) {
             case 0:
-                [self tutorialStepNextImmediate:false];
                 [self closeDocWithSave];
-                
                 break;
             case 1:
                 [self closeDocCanceled];
-                if ([[ADSimpleTutorialManager current] isActive]) {
-                    [self willTutorialEnableUserInteraction:false withStep:[ADSimpleTutorialManager current].curTutorial.curStep];
-                }
-
                 break;
             case 2:
-                [self tutorialStepNextImmediate:false];
                 [self closeDocWithoutSave];
-                
                 break;
             default:
                 break;
@@ -4781,13 +4805,16 @@
         
         //在教程的情况下必定会跟着教程退出
         if ([[ADSimpleTutorialManager current] isActive]) {
-            [self tutorialStartCurrentStep];
-            [self transitionToTutorial];
+//            [self tutorialStartCurrentStep];
+//            [self transitionToTutorial];
         }
         else{
             //如果是反向绘制，退出到cylinderProject的sideView
             if (self.isReversePaint && ![[NSUserDefaults standardUserDefaults] boolForKey:@"ReversePaint"]) {
                 [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
+                if ([ADSimpleTutorialManager current].isActive) {
+                    [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
+                }
                 [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:^{
                     [self.delegate willPaintScreenDissmissWithPaintDoc:self.paintDoc];
                     [self dismissViewControllerAnimated:true completion:^{
@@ -4965,18 +4992,23 @@
     for (UIButton *button in self.topToolBarButtons) {
         button.userInteractionEnabled = enable;
     }
-//    self.mainToolBar.userInteractionEnabled = enable;
     self.paintToolBar.userInteractionEnabled = enable;
     self.rootCanvasView.userInteractionEnabled = enable;
     
+    //打开制定按钮交互
     if ([step.name isEqualToString:@"PaintScreenHelpTips"]){
         self.helpButton.userInteractionEnabled = true;
     }
     else if ([step.name isEqualToString:@"PaintScreenCloseDoc"]){
-        self.closeButton.userInteractionEnabled = true;
+        self.paintToolBar.userInteractionEnabled = true;
+        self.rootCanvasView.userInteractionEnabled = true;
+        for (UIButton *button in self.topToolBarButtons) {
+            button.userInteractionEnabled = true;
+        }
     }
-
-    //打开制定按钮交互
+    else if ([step.name isEqualToString:@"PaintScreenStartDraw"]){
+        
+    }
 }
 
 - (void)willTutorialLayoutWithStep:(ADTutorialStep *)step{
@@ -4993,16 +5025,25 @@
         [step.indicatorView targetView:self.closeButton inRootView:self.view];
         
         if (step.indicatorViews.count > 1) {
-            [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 750, 1, 1) inRootView:self.view];
+            [step.indicatorViews[1] targetViewFrame:CGRectMake(384, 350, 1, 1) inRootView:self.view];
         }
     }
+    else if ([step.name isEqualToString:@"PaintScreenStartDraw"]){
+        step.contentView.center = self.rootCanvasView.center;
+    }
+
     [step addToRootView:self.view];
 }
 
 #pragma mark- 帮助 Help
 - (IBAction)helpButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"PS_helpButtonTouchUp" identifier:sender];
-    [self tutorialStepNextImmediate:false];
+    if ([ADSimpleTutorialManager current].isActive &&
+        [[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"PaintScreenHelpTips"]) {
+        //PaintScreenHelpTips之后的step也可以按此按钮
+        [self tutorialStepNextImmediate:false];
+    }
+
     
     ((UIButton*)sender).selected = true;
     

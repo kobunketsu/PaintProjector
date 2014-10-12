@@ -12,6 +12,9 @@
 #define IndicatorSwing 20
 #define IndicatorSwingTime 0.4
 
+@interface ADTutorialIndicatorView()
+@property (assign, nonatomic) CGRect srcFrame;
+@end
 @implementation ADTutorialIndicatorView
 
 - (id)initWithFrame:(CGRect)frame
@@ -20,11 +23,27 @@
     if (self) {
         // Initialization code
         self.opaque = false;
-        self.arrowDirection = UIPopoverArrowDirectionUp;
-        self.animated = true;
-//        self.targetFrame = CGRectZero;
+        _arrowDirection = UIPopoverArrowDirectionUp;
+        _animated = true;
+
+        self.srcFrame = self.frame;
+        [[NSNotificationCenter defaultCenter]
+         addObserver:self selector:@selector(applicationDidEnterBackground:)
+         name:UIApplicationDidEnterBackgroundNotification
+         object:nil];
+
     }
     return self;
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)applicationDidEnterBackground:(id)sender{
+    if (self.animated) {
+        self.frame = self.srcFrame;
+    }
 }
 
 - (void)layoutSubviews{
@@ -34,7 +53,6 @@
     CGRect frame = self.bounds;
     if (self.arrowDirection == UIPopoverArrowDirectionUp) {
         self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 8, CGRectGetMinY(frame) + 14, CGRectGetWidth(frame) - 16, CGRectGetHeight(frame) - 18);
-        
     }
     else if (self.arrowDirection == UIPopoverArrowDirectionDown) {
         self.textLabel.frame = CGRectMake(CGRectGetMinX(frame) + 8, CGRectGetMinY(frame) + 4, CGRectGetWidth(frame) - 16, CGRectGetHeight(frame) - 18);
@@ -53,7 +71,7 @@
     if (self.animated) {
         //增加整体动画
         //保存源frame，在EnterBackground后退出动画时归位
-        CGRect srcframe = self.frame;
+        self.srcFrame = self.frame;
         CGRect destframe = self.frame;
         
         CGFloat swing = IndicatorSwing;
@@ -70,10 +88,10 @@
             destframe.origin.x -= swing;
         }
         
+        [self.layer removeAllAnimations];
         [UIView animateWithDuration:IndicatorSwingTime delay:0 options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
             self.frame = destframe;
         } completion:^(BOOL finished) {
-            self.frame = srcframe;
         }];
     }
     

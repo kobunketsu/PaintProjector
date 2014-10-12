@@ -2080,7 +2080,6 @@ Create your unbelievable art!</string>
                         <outlet property="bookBGImageView" destination="59l-3A-hf8" id="9Jd-Jm-eVQ"/>
                         <outlet property="pickupImageTargetView" destination="Abs-xt-YaV" id="eRa-xQ-cmE"/>
                         <outlet property="pickupImageView" destination="dJS-vB-9wN" id="as4-p2-Ac3"/>
-                        <outlet property="proEditionLabel" destination="hRx-ho-yK1" id="LpR-Rz-QL6"/>
                         <outlet property="putDeviceImageTargetView" destination="R3h-Ee-VpY" id="RuG-Z5-di9"/>
                         <outlet property="putDeviceImageView" destination="PqT-Jl-phK" id="asR-2N-8gb"/>
                         <outlet property="setup2ImageView" destination="pzH-z2-DWE" id="t8I-61-PR1"/>
@@ -2148,15 +2147,11 @@ Create your unbelievable art!</string>
                         <outletCollection property="tutorialStatusViews" destination="ycT-IK-F8o" id="l78-4P-o4b"/>
                         <outletCollection property="tutorialStatusViews" destination="R6n-zr-U0k" id="Hs4-gC-bfm"/>
                         <outletCollection property="tutorialStatusViews" destination="xmR-WZ-bpy" id="zR5-QT-xv9"/>
-                        <outletCollection property="tutorialAllViews" destination="hRx-ho-yK1" id="abs-w4-S6n"/>
-                        <outletCollection property="tutorialStatusViews" destination="hRx-ho-yK1" id="MDp-I7-qv9"/>
                         <outletCollection property="tutorialButtonBgImageViews" destination="iaJ-Lj-une" id="aAb-6R-BOy"/>
                         <outletCollection property="tutorialButtonBgImageViews" destination="ieU-wG-heW" id="BWC-kK-M9y"/>
                         <outletCollection property="tutorialButtonBgImageViews" destination="pe4-xx-pBx" id="kUy-wN-pJ1"/>
                         <outletCollection property="tutorialButtonBgImageViews" destination="FoM-Mb-ZrZ" id="ssf-9d-kyc"/>
                         <outletCollection property="tutorialButtonBgImageViews" destination="Tsi-wE-j1P" id="eZe-o0-ZsH"/>
-                        <outletCollection property="tutorialAllViews" destination="mps-yt-xYL" id="BKB-bq-Aga"/>
-                        <outletCollection property="tutorialStatusViews" destination="mps-yt-xYL" id="Xv7-VC-mYM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-Jf-VFY" userLabel="First Responder" sceneMemberID="firstResponder"/>

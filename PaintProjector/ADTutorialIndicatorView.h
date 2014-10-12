@@ -18,4 +18,5 @@
 - (void)targetViewFrame:(CGRect)frame inRootView:(UIView*)rootView;
 //指示器指向一个UIView
 - (void)targetView:(UIView *)targetView inRootView:(UIView*)rootView;
+
 @end

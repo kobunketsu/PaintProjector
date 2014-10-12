@@ -292,8 +292,6 @@
 		0849CEA81735503D004B30C6 /* ADRadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */; };
 		0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
 		0849FF43199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
-		084B25BD19DFE89A006192B3 /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 084B25BC19DFE89A006192B3 /* iap_pallete.png */; };
-		084B25BE19DFE89A006192B3 /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 084B25BC19DFE89A006192B3 /* iap_pallete.png */; };
 		084D5405170338A60052F510 /* ADPaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* ADPaintDoc.m */; };
 		084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* ADPaintDocManager.m */; };
 		084F8EC8173BDD9D007676C3 /* ADBrushTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F8EC7173BDD9D007676C3 /* ADBrushTypeViewController.m */; };
@@ -686,6 +684,8 @@
 		08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */; };
 		08D0A15E19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D0A15D19BDAF18002EBA17 /* ADSimpleTutorialViewController.m */; };
 		08D0A15F19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D0A15D19BDAF18002EBA17 /* ADSimpleTutorialViewController.m */; };
+		08D1A2C919EAE08700CD6F2F /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D1A2CC19EAE08700CD6F2F /* iap_pallete.png */; };
+		08D1A2CA19EAE08700CD6F2F /* iap_pallete.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D1A2CC19EAE08700CD6F2F /* iap_pallete.png */; };
 		08D4B8BA18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4B8BB18C56611008F5293 /* Default.swatch in Resources */ = {isa = PBXBuildFile; fileRef = 08D4B8B918C56611008F5293 /* Default.swatch */; };
 		08D4F68C19712FC900A81063 /* ADReversePaintInputData.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */; };
@@ -1313,7 +1313,6 @@
 		0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRadiusIndicatorView.m; sourceTree = "<group>"; };
 		0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPreviousPageButton.h; sourceTree = "<group>"; };
 		0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPreviousPageButton.m; sourceTree = "<group>"; };
-		084B25BC19DFE89A006192B3 /* iap_pallete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_pallete.png; path = PaintProjector/Images/iap_pallete.png; sourceTree = "<group>"; };
 		084D5403170338A60052F510 /* ADPaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDoc.h; sourceTree = "<group>"; };
 		084D5404170338A60052F510 /* ADPaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintDoc.m; sourceTree = "<group>"; };
 		084D540817033C260052F510 /* ADPaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDocManager.h; sourceTree = "<group>"; };
@@ -1749,6 +1748,8 @@
 		08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushPreviewBg.png; path = PaintProjector/Images/iap_brushPreviewBg.png; sourceTree = "<group>"; };
 		08D0A15C19BDAF18002EBA17 /* ADSimpleTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSimpleTutorialViewController.h; path = PaintProjector/ADSimpleTutorialViewController.h; sourceTree = "<group>"; };
 		08D0A15D19BDAF18002EBA17 /* ADSimpleTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorialViewController.m; path = PaintProjector/ADSimpleTutorialViewController.m; sourceTree = "<group>"; };
+		08D1A2CB19EAE08700CD6F2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/iap_pallete.png; sourceTree = "<group>"; };
+		08D1A2CD19EAE08E00CD6F2F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zh-Hans"; path = "zh-Hans.lproj/iap_pallete.png"; sourceTree = "<group>"; };
 		08D4B8B918C56611008F5293 /* Default.swatch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Default.swatch; sourceTree = "<group>"; };
 		08D4F68A19712FC900A81063 /* ADReversePaintInputData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADReversePaintInputData.h; sourceTree = "<group>"; };
 		08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADReversePaintInputData.m; sourceTree = "<group>"; };
@@ -2990,7 +2991,7 @@
 				08F905CC194AC982002918AA /* iap_brushCrayons.png */,
 				08F905CD194AC982002918AA /* iap_brushFinger.png */,
 				08F905CE194AC982002918AA /* iap_brushOilBrush.png */,
-				084B25BC19DFE89A006192B3 /* iap_pallete.png */,
+				08D1A2CC19EAE08700CD6F2F /* iap_pallete.png */,
 				0851DF25197920BA000391B3 /* iap_reversePaint.png */,
 			);
 			name = Images;
@@ -3557,7 +3558,7 @@
 				08E4D7FE19A71F0A00990523 /* camera-48.png in Resources */,
 				0815818E196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
 				0815818B196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
-				084B25BE19DFE89A006192B3 /* iap_pallete.png in Resources */,
+				08D1A2CA19EAE08700CD6F2F /* iap_pallete.png in Resources */,
 				0829651C19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				d49d525c256327ff8afbc786 /* Settings.bundle in Resources */,
 				797b15ad07e8ca4039181a95 /* Workspace.plist in Resources */,
@@ -3715,7 +3716,7 @@
 				08E4D7FD19A71F0A00990523 /* camera-48.png in Resources */,
 				08CF37D6197D61C30017D43A /* iap_brushPreviewBg.png in Resources */,
 				0815818D196153F100AB1645 /* brushCrayonsShape_r64.png in Resources */,
-				084B25BD19DFE89A006192B3 /* iap_pallete.png in Resources */,
+				08D1A2C919EAE08700CD6F2F /* iap_pallete.png in Resources */,
 				0829651B19B45AE300BB619F /* cylinderProjectShadow.png in Resources */,
 				0815818A196153DC00AB1645 /* brushCrayonsGrain_r64.png in Resources */,
 				08983D9318BCCCE00001C334 /* ProductList.plist in Resources */,
@@ -4527,6 +4528,16 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		08D1A2CC19EAE08700CD6F2F /* iap_pallete.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08D1A2CB19EAE08700CD6F2F /* Base */,
+				08D1A2CD19EAE08E00CD6F2F /* zh-Hans */,
+			);
+			name = iap_pallete.png;
+			path = PaintProjector/Images;
+			sourceTree = "<group>";
+		};
 		9C21AF1F14E4579F00DB003E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5012,10 +5023,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
-					DEBUG,
-					VALIDATERECEIPT_BEEBLEX,
-				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = DEBUG;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				HEADER_SEARCH_PATHS = (
