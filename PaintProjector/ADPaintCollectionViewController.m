@@ -71,8 +71,11 @@
     DebugLogSystem(@"viewWillDisappear");
 }
 
+    
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
+    [Flurry logEvent:@"PC_inPaintCollection" withParameters:nil timed:true];
+    [Flurry logPageView];
     
     if (!self.isLaunchTransitioned) {
         [self launchTransitionToCylinderProject];
@@ -85,6 +88,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
+    [Flurry endTimedEvent:@"PC_inPaintCollection" withParameters:nil];
+    
     [self destroyBackgroundView];
     
     [self.selectedIndices removeAllObjects];
@@ -425,10 +430,16 @@
 }
 #pragma mark- Tool Bar
 
-- (IBAction)fileButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"PC_fileButtonTouchUp" identifier:sender];
+- (IBAction)editButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"PC_editButtonTouchUp" identifier:sender];
     
     self.editMode = !self.editMode;
+    if (self.editMode) {
+        [Flurry logEvent:@"PC_inEditing" withParameters:nil timed:true];
+    }
+    else{
+        [Flurry endTimedEvent:@"PC_inEditing" withParameters:nil];
+    }
 }
 
 - (IBAction)copyButtonTouchUp:(id)sender {

@@ -47,6 +47,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"PS_inExport" withParameters:nil timed:true];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"PS_inExport" withParameters:nil];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

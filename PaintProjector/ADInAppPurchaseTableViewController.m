@@ -98,6 +98,12 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"IAP_inIAP" withParameters:nil timed:true];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"IAP_inIAP" withParameters:nil];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

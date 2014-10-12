@@ -129,6 +129,11 @@
 		
         eaglLayer.backgroundColor = [UIColor clearColor].CGColor;
         
+        //放大时显示出像素
+        eaglLayer.magnificationFilter = kCAFilterNearest;
+        //缩小时过滤画质
+        eaglLayer.minificationFilter = kCAFilterTrilinear;
+        
         self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawFrame:)];
         self.displayLink.frameInterval = 300;
         [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];

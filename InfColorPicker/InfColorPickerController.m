@@ -186,6 +186,12 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 //	[ controller presentModalViewController: nav animated: YES ];
 }
 
+//- (void)viewDidAppear:(BOOL)animated{
+//    [Flurry logEvent:@"PS_inColorPicker" withParameters:nil timed:true];
+//}
+//- (void)viewDidDisappear:(BOOL)animated{
+//    [Flurry endTimedEvent:@"PS_inColorPicker" withParameters:nil];
+//}
 //------------------------------------------------------------------------------
 #pragma mark	IB actions
 //------------------------------------------------------------------------------

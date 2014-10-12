@@ -119,6 +119,8 @@ static float DeviceWidth = 0.154;
 
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidAppear ]");
+    [Flurry logEvent:@"CP_inCylinderProject" withParameters:nil timed:true];
+    [Flurry logPageView];
     
     [self.delegate willCompleteLaunchTransitionToCylinderProject];
     
@@ -143,6 +145,8 @@ static float DeviceWidth = 0.154;
 
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"[ viewDidDisappear ]");
+    [Flurry endTimedEvent:@"CP_inCylinderProject" withParameters:nil];
+    
     [self destroyBackgroundView];
 }
 
@@ -427,6 +431,13 @@ static float DeviceWidth = 0.154;
     [self tutorialStepNextImmediate:false];
 
     self.isSetupMode = !self.isSetupMode;
+    if (self.isSetupMode) {
+        [Flurry logEvent:@"CP_inSetup" withParameters:nil timed:true];
+    }
+    else{
+        [Flurry endTimedEvent:@"CP_inSetup" withParameters:nil];
+    }
+    
     [self lockInteraction:true];
     
     if (self.isSetupMode) {
@@ -3088,6 +3099,7 @@ static float DeviceWidth = 0.154;
 
 }
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
+    [Flurry logEvent:@"CP_inChangeTitle" withParameters:nil timed:true];
     [self lockInteraction:true];
     
     self.paintDocTitle = [ADPaintFrameManager curGroup].curPaintDoc.title;
@@ -3104,6 +3116,7 @@ static float DeviceWidth = 0.154;
     return YES;
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField{
+    [Flurry endTimedEvent:@"CP_inChangeTitle" withParameters:nil];
     [ADPaintFrameManager curGroup].curPaintDoc.title = self.paintDocTitle;
     textField.text = self.paintDocTitle;
 

@@ -193,8 +193,8 @@
 		0826EE8A18B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */; };
 		0826EE8D18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
 		0826EE8E18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
-		0828471D199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
-		0828471E199F346500953E01 /* BrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* BrushTypePageControl.m */; };
+		0828471D199F346500953E01 /* ADBrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* ADBrushTypePageControl.m */; };
+		0828471E199F346500953E01 /* ADBrushTypePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0828471C199F346500953E01 /* ADBrushTypePageControl.m */; };
 		0829651B19B45AE300BB619F /* cylinderProjectShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0829651A19B45AE300BB619F /* cylinderProjectShadow.png */; };
 		0829651C19B45AE300BB619F /* cylinderProjectShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0829651A19B45AE300BB619F /* cylinderProjectShadow.png */; };
 		0829C01F168349F80009CD1C /* ADImageStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0829C01E168349F80009CD1C /* ADImageStack.m */; };
@@ -676,8 +676,6 @@
 		08C65E7E1950124500961551 /* ADSimpleTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* ADSimpleTutorial.m */; };
 		08CA01C1189BD8F300524D81 /* ADShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01C0189BD8F300524D81 /* ADShareButton.m */; };
 		08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */ = {isa = PBXBuildFile; fileRef = 08CAFECA17C9B5BD0097B2A4 /* Collection */; };
-		08CBF66519362DC7002934F6 /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */; };
-		08CBF66619362DC7002934F6 /* libFlurry_5.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */; };
 		08CE1A6718968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */; };
 		08CE1A6818968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */; };
 		08CE4BFA18D7D2C1008C4904 /* ADInfoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BF918D7D2C1008C4904 /* ADInfoButton.m */; };
@@ -696,6 +694,8 @@
 		08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */; };
 		08D7464A19C68EBC008921AB /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D7464919C68EBC008921AB /* UILabel+Extension.m */; };
 		08D7464B19C68EBC008921AB /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D7464919C68EBC008921AB /* UILabel+Extension.m */; };
+		08D7E99519EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */; };
+		08D7E99619EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */; };
 		08D836A51737FF5D00B68990 /* ADClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A41737FF5D00B68990 /* ADClearButton.m */; };
 		08DE436017B3D37300E9C72B /* ADPlayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DE435F17B3D37300E9C72B /* ADPlayButton.m */; };
 		08DEDCC3194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */; };
@@ -1211,8 +1211,8 @@
 		0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionView.m; path = PaintProjector/ADProductFeatureCollectionView.m; sourceTree = "<group>"; };
 		0826EE8B18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADProductFeatureCollectionViewCell.h; path = PaintProjector/ADProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
 		0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionViewCell.m; path = PaintProjector/ADProductFeatureCollectionViewCell.m; sourceTree = "<group>"; };
-		0828471B199F346500953E01 /* BrushTypePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushTypePageControl.h; sourceTree = "<group>"; };
-		0828471C199F346500953E01 /* BrushTypePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrushTypePageControl.m; sourceTree = "<group>"; };
+		0828471B199F346500953E01 /* ADBrushTypePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushTypePageControl.h; sourceTree = "<group>"; };
+		0828471C199F346500953E01 /* ADBrushTypePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushTypePageControl.m; sourceTree = "<group>"; };
 		0829651A19B45AE300BB619F /* cylinderProjectShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderProjectShadow.png; path = Images/cylinderProjectShadow.png; sourceTree = "<group>"; };
 		0829C01D168349F80009CD1C /* ADImageStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageStack.h; sourceTree = "<group>"; };
 		0829C01E168349F80009CD1C /* ADImageStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageStack.m; sourceTree = "<group>"; };
@@ -1738,8 +1738,6 @@
 		08CA01BF189BD8F300524D81 /* ADShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShareButton.h; sourceTree = "<group>"; };
 		08CA01C0189BD8F300524D81 /* ADShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShareButton.m; sourceTree = "<group>"; };
 		08CAFECA17C9B5BD0097B2A4 /* Collection */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Collection; path = PaintProjector/Collection; sourceTree = "<group>"; };
-		08CBF66319362DC7002934F6 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_5.0.0.a; path = Flurry/libFlurry_5.0.0.a; sourceTree = "<group>"; };
 		08CE1A6518968A350019A1AB /* ADPaintHighlightedFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintHighlightedFrameView.h; path = PaintProjector/ADPaintHighlightedFrameView.h; sourceTree = "<group>"; };
 		08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintHighlightedFrameView.m; path = PaintProjector/ADPaintHighlightedFrameView.m; sourceTree = "<group>"; };
 		08CE4BF818D7D2C1008C4904 /* ADInfoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADInfoButton.h; sourceTree = "<group>"; };
@@ -1758,6 +1756,8 @@
 		08D639C4196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRootCanvasBackgroundView.m; sourceTree = "<group>"; };
 		08D7464819C68EBC008921AB /* UILabel+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extension.h"; sourceTree = "<group>"; };
 		08D7464919C68EBC008921AB /* UILabel+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extension.m"; sourceTree = "<group>"; };
+		08D7E99319EA6EB8001D66DE /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_5.4.0.a; path = Flurry/libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		08D8368F1737E2E600B68990 /* ADFreeTransformButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFreeTransformButton.h; sourceTree = "<group>"; };
 		08D836901737E2E600B68990 /* ADFreeTransformButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFreeTransformButton.m; sourceTree = "<group>"; };
 		08D836941737E4D200B68990 /* ADMoveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADMoveButton.h; sourceTree = "<group>"; };
@@ -1969,12 +1969,12 @@
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
 				1006c97abc68dc68ec02f9f6 /* AssetsLibrary.framework in Frameworks */,
-				08CBF66619362DC7002934F6 /* libFlurry_5.0.0.a in Frameworks */,
 				08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
 				c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */,
 				08631127192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
+				08D7E99619EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */,
 				34f095e74d7370ccc4f294ba /* CoreGraphics.framework in Frameworks */,
 				5e613c7afd7ea243ad969c20 /* DBChooser.framework in Frameworks */,
 			);
@@ -1988,7 +1988,6 @@
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
 				0868B203172995EB00BF4688 /* Accounts.framework in Frameworks */,
-				08CBF66519362DC7002934F6 /* libFlurry_5.0.0.a in Frameworks */,
 				0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				0868B205172995EB00BF4688 /* libsqlite3.dylib in Frameworks */,
 				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
@@ -2008,6 +2007,7 @@
 				9C21AF6114E4596F00DB003E /* CFNetwork.framework in Frameworks */,
 				9C21AF1714E4579F00DB003E /* UIKit.framework in Frameworks */,
 				9C21AF1914E4579F00DB003E /* Foundation.framework in Frameworks */,
+				08D7E99519EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */,
 				9C21AF1B14E4579F00DB003E /* CoreGraphics.framework in Frameworks */,
 				088B401A1792FB7F002750EA /* DBChooser.framework in Frameworks */,
 			);
@@ -2804,8 +2804,8 @@
 				0871A82B192A569600BB8558 /* ADBrushPropertyTableView.m */,
 				0871A82E192A56E200BB8558 /* ADBrushPropertyTableViewCell.h */,
 				0871A82F192A56E200BB8558 /* ADBrushPropertyTableViewCell.m */,
-				0828471B199F346500953E01 /* BrushTypePageControl.h */,
-				0828471C199F346500953E01 /* BrushTypePageControl.m */,
+				0828471B199F346500953E01 /* ADBrushTypePageControl.h */,
+				0828471C199F346500953E01 /* ADBrushTypePageControl.m */,
 			);
 			name = Brush;
 			sourceTree = "<group>";
@@ -2966,7 +2966,7 @@
 		08CBF66219362DC7002934F6 /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
-				08CBF66319362DC7002934F6 /* Flurry.h */,
+				08D7E99319EA6EB8001D66DE /* Flurry.h */,
 			);
 			path = Flurry;
 			sourceTree = "<group>";
@@ -3239,9 +3239,9 @@
 			children = (
 				082543F919D407C900B4BCA3 /* Reveal.framework */,
 				0832F56D19BC21CD00FB98CE /* iAd.framework */,
-				08CBF66419362DC7002934F6 /* libFlurry_5.0.0.a */,
 				08086DBD18DC8A9900F03EB4 /* libbeeblex.a */,
 				088DAE17187DB0BC001B3855 /* libz.dylib */,
+				08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */,
 				081D3BBE17B130A6003D1D21 /* libiconv.dylib */,
 				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
 				080D245D18B6E5C400161756 /* StoreKit.framework */,
@@ -4062,7 +4062,7 @@
 				291bfba0df1cd723a5c24dfc /* ADLayerVisibleButton.m in Sources */,
 				0861490318D7442900661AD6 /* ADSetupButton.m in Sources */,
 				08B2A07D18A0930B003C888F /* REDisplay.m in Sources */,
-				0828471E199F346500953E01 /* BrushTypePageControl.m in Sources */,
+				0828471E199F346500953E01 /* ADBrushTypePageControl.m in Sources */,
 				ae562571891c95d007ed289c /* ADLayerOpacitySlider.m in Sources */,
 				08D639C6196A4F7C00AB3390 /* ADRootCanvasBackgroundView.m in Sources */,
 				bf4c2ea3f33c32c54f09c908 /* ADLayerBlendModeButton.m in Sources */,
@@ -4205,7 +4205,7 @@
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
 				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
 				0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */,
-				0828471D199F346500953E01 /* BrushTypePageControl.m in Sources */,
+				0828471D199F346500953E01 /* ADBrushTypePageControl.m in Sources */,
 				0813AA2519167C07000C4D00 /* REModelEntity.m in Sources */,
 				0808D9E0164559870000DF40 /* InfSourceColorView.m in Sources */,
 				08A232B719C05DB8004FE1F6 /* ADHelpViewController.m in Sources */,

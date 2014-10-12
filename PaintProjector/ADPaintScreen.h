@@ -38,7 +38,7 @@
 #import "ADClearButton.h"
 #import "ADBrushToolBar.h"
 #import "ADLayerButton.h"
-#import "BrushTypePageControl.h"
+#import "ADBrushTypePageControl.h"
 
 //Other ViewController
 //#import "CylinderProjectViewController.h"
@@ -214,7 +214,7 @@ BrushTypePageControlDelegate
 @property (weak, nonatomic) IBOutlet ADDownToolBar *paintToolBar;
 @property (weak, nonatomic) IBOutlet UIView *paintToolView;
 //@property (weak, nonatomic) IBOutlet DownToolBar *brushTypeBar;
-@property (weak, nonatomic) IBOutlet BrushTypePageControl *brushTypePageControl;
+@property (weak, nonatomic) IBOutlet ADBrushTypePageControl *brushTypePageControl;
 @property( weak, nonatomic) IBOutlet UIButton* previousBrushTypePageButton;
 @property( weak, nonatomic) IBOutlet UIButton* nextBrushTypePageButton;
 @property (weak, nonatomic) IBOutlet UIView *brushDetailView;

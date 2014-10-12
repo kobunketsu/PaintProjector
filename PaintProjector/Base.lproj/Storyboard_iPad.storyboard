@@ -480,7 +480,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="fileButtonTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="msf-KX-yll"/>
+                                            <action selector="editButtonTouchUp:" destination="ZXj-eQ-u2Q" eventType="touchUpInside" id="Dxz-BO-wZO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5W3-Hm-oJT" userLabel="CopyButton" customClass="ADCopyButton" colorLabel="IBBuiltInLabel-Red">
@@ -2280,7 +2280,7 @@ Create your unbelievable art!</string>
                                                     <outlet property="delegate" destination="NUX-zI-YbL" id="o16-Uw-s3z"/>
                                                 </connections>
                                             </scrollView>
-                                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl" customClass="BrushTypePageControl">
+                                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" id="kbv-IO-pfA" userLabel="BrushTypePageControl" customClass="ADBrushTypePageControl">
                                                 <rect key="frame" x="364" y="0.0" width="39" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>

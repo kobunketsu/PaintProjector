@@ -74,16 +74,16 @@
     }
 }
 
-//- (void)viewWillLayoutSubviews{
-//    [super viewWillLayoutSubviews];
-//
-//}
 - (void)viewWillAppear:(BOOL)animated{
-//    [self preparePopTutorialTexts];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-//    [self popTutorialTexts];
+    [Flurry logEvent:@"TU_inTutorialList" withParameters:nil timed:true];
+    [Flurry logPageView];    
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"TU_inTutorialList" withParameters:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -271,7 +271,8 @@
     ADPaintCollectionViewController *vc =  [self.storyboard instantiateViewControllerWithIdentifier:@"PaintCollectionViewController"];
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:true completion:^{
-        
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[ADSimpleTutorialManager current].curTutorial.name, @"TutorialName",nil];
+        [Flurry logEvent:@"TU_inTutorial" withParameters:params timed:true];
     }];
 }
 
@@ -285,7 +286,8 @@
     vc.delegate = self;
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:true completion:^{
-        
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[ADSimpleTutorialManager current].curTutorial.name, @"TutorialName",nil];
+        [Flurry logEvent:@"TU_inTutorial" withParameters:params timed:true];
     }];
 }
 
@@ -368,6 +370,7 @@
     ((ADSimpleTutorial*)tutorial).curViewController.transitioningDelegate = self;
     //退回到初始界面
     [self dismissViewControllerAnimated:true completion:^{
+        [Flurry endTimedEvent:@"TU_inTutorial" withParameters:nil];
         [self flushTutorialStatus];
     }];
 }

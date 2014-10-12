@@ -46,7 +46,12 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"CP_inProductInfo" withParameters:nil timed:true];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"CP_inProductInfo" withParameters:nil];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

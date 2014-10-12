@@ -55,7 +55,7 @@ ADTutorialStepDelegate
 
 - (IBAction)pageControlValueChanged:(UIPageControl *)sender;
 #pragma mark- Tool Bar
-- (IBAction)fileButtonTouchUp:(id)sender;
+- (IBAction)editButtonTouchUp:(id)sender;
 
 - (IBAction)copyButtonTouchUp:(id)sender;
 

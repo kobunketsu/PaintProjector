@@ -45,6 +45,14 @@
     
     self.filteredSwatchURLs = [NSMutableArray arrayWithCapacity:[self.swatchURLs count]];
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"SWATCH_inSwatch" withParameters:nil timed:true];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"SWATCH_inSwatch" withParameters:nil];
+   
+}
 
 - (void)didReceiveMemoryWarning
 {

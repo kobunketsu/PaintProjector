@@ -172,9 +172,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     DebugLogSystem(@"viewDidAppear");
-
-    
+    [Flurry logEvent:@"PS_inPaintScreen" withParameters:nil timed:true];
+    [Flurry logPageView];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     DebugLogSystem(@"viewWillDisappear");
 
@@ -199,6 +200,7 @@
 }
 -(void)viewDidDisappear:(BOOL)animated{
     DebugLogSystem(@"viewDidDisappear");
+    [Flurry endTimedEvent:@"PaintScreen" withParameters:nil];
 }
 -(void)viewDidLayoutSubviews{
     DebugLogSystem(@"viewDidLayoutSubviews");
@@ -1883,31 +1885,6 @@
 }
 
 - (void)brushTypeSelected{
-    //选定笔刷种类
-    //使用popoverController方式
-//    BrushTypeViewController* brushTypeViewController = [[BrushTypeViewController alloc]initWithStyle:UITableViewStylePlain];
-////    self.brushTypeView.hidden = false;
-////    brushTypeViewController.view = self.brushTypeView;
-//    brushTypeViewController.delegate = self;
-//    
-//    brushTypeViewController.contentSizeForViewInPopover = CGSizeMake(130, 320);
-//    
-//    self.sharedPopoverController = [[PaintScreenPopoverController alloc]initWithContentViewController:brushTypeViewController];
-//    CGRect rect = CGRectMake(brushButton.bounds.origin.x, brushButton.bounds.origin.y, brushButton.bounds.size.width, brushButton.bounds.size.height);
-//    [self.sharedPopoverController presentPopoverFromRect:rect inView:brushButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
-    //使用弹出UIView方式
-//    if(_state == PaintScreen_Normal){
-//        _state = PaintScreen_EditingBrush;
-//        brushView.hidden = false;
-//        self.brushTypeView.hidden = false;
-//    }
-//    else if(_state == PaintScreen_EditingBrush){
-//        _state = PaintScreen_Normal;
-//        brushView.hidden = true;
-//        self.brushTypeView.hidden = true;
-//    }
-    
     //使用切换ToolBar方式
     if(_state == PaintScreen_Normal){
         //笔刷面板禁止绘图
@@ -1929,14 +1906,14 @@
         //切换成横移动画
         [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
             _state = PaintScreen_SelectBrush;
-            
-//            [self autoShowBrushes:true];
+            [Flurry logEvent:@"PS_inSelectBrush" withParameters:nil timed:true];
         }];
     }
 }
 
 - (IBAction)brushTypeButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_brushTypeButtonTouchUp" identifier:sender];
+    
     [self brushTypeSelected];
 }
 
@@ -1968,6 +1945,7 @@
     }
     
     self.brushTypePageControl.currentPage --;
+    
     [self scrollBrushTypeScrollViewByPage:self.brushTypePageControl.currentPage];
 }
 - (IBAction)nextBrushTypePageButtonTouchUp:(UIButton *)sender{
@@ -1977,6 +1955,7 @@
     }
     
     self.brushTypePageControl.currentPage ++;
+    
     [self scrollBrushTypeScrollViewByPage:self.brushTypePageControl.currentPage];
 }
 
@@ -2475,8 +2454,11 @@
 #pragma mark- 笔刷种类代理 BrushTypeScrollView Delegate (Refresh UI)
 -(void)willBrushTypeScrollViewDidScroll:(UIScrollView *)scrollView{
     //    DebugLog(@"willBrushTypeScrollViewDidScroll");
-    
-    self.brushTypePageControl.currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
+    NSInteger currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
+    if (self.brushTypePageControl.currentPage != currentPage) {
+        
+        self.brushTypePageControl.currentPage = currentPage;
+    }
 }
 
 -(void)willSelectBrush:(id)sender{
@@ -2502,18 +2484,13 @@
     [RemoteLog logAction:string identifier:sender];
     
     ADBrush *brushTemplate = button.brush;
-    
     //检查笔刷是否可用
     if (!brushTemplate.available) {
         [self willSelectBrushCanceled:sender];
-        
-        //TODO:BrushPreview中有修改了brush的内容
-//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"ExpandedBrushPackageAvailable"];
         [self openIAPWithProductFeatureIndex:brushTemplate.iapProductFeatureId];
         
         return;
     }
-    
     
     //UI
     ADBrush *brushCopy = [brushTemplate copy];
@@ -2533,6 +2510,8 @@
     [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
     [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
         _state = PaintScreen_Normal;
+        [Flurry endTimedEvent:@"PS_inSelectBrush" withParameters:nil];
+        [Flurry endTimedEvent:@"PS_inBrushTypePage" withParameters:nil];
         //笔刷面板打开绘图
         self.rootCanvasView.userInteractionEnabled = true;
     }];
@@ -3618,6 +3597,7 @@
     [RemoteLog logAction:@"PS_transformButtonTouchUp" identifier:sender];
     
     if (_state == PaintScreen_Normal) {
+        [Flurry logEvent:@"PS_inTransform" withParameters:nil timed:true];
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
         CGRect rect = [self.paintView calculateLayerContentRect];
 
@@ -3635,6 +3615,7 @@
         [self enterTransformLayerState:rect];
     }
     else if (_state == PaintScreen_Transform){
+        [Flurry endTimedEvent:@"PS_inTransform" withParameters:nil];
         [self lockInteraction:true];
 
         PaintingViewState paintViewState = self.paintView.state;
@@ -3995,9 +3976,13 @@
 - (void) willSetBackgroundLayerClearColor:(UIButton*)button colorPickerControllerDelegate:(ADLayerTableViewController*)controllerDelegate{
     if(self.subPopoverController != nil && [self.subPopoverController isPopoverVisible]) return; //已经打开
     
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([ADBackgroundLayer class]), @"fromButton",nil];
+    [Flurry logEvent:@"PS_inColorPicker" withParameters:params timed:true];
+    
     self.infColorPickerController.delegate = controllerDelegate;
     self.infColorPickerController.sourceColor = button.backgroundColor;//覆盖当前笔刷色
     self.subPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
+    self.subPopoverController.delegate = self;
     [self.subPopoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
     
 //    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
@@ -4053,7 +4038,6 @@
 
 - (IBAction)fullScreenButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_fullScreenButtonTouchUp" identifier:sender];
-//    [(AutoRotateButton*)sender setHighlighted:false];
     
     if (_state == PaintScreen_Normal) {
         [self togglePaintFullScreen];
@@ -4398,30 +4382,20 @@
 - (void)openColorPicker:(UIColor*)color inColorButton:(ADColorButton*)colorButton{
     if(self.sharedPopoverController != nil && [self.sharedPopoverController isPopoverVisible]) return; //已经打开
     
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([colorButton class]), @"fromButton",nil];
+    [Flurry logEvent:@"PS_inColorPicker" withParameters:params timed:true];
+    
     self.colorPickerSrcButton = colorButton;
     self.infColorPickerController.delegate = self;
     self.infColorPickerController.sourceColor = color;//覆盖当前笔刷色
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
+    self.sharedPopoverController.delegate = self;
     [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
-//    FuzzyTransparentView* rootView = (FuzzyTransparentView*)self.infColorPickerController.view;
-//    [rootView updateFuzzyTransparentFromView:self.rootCanvasView];
 }
 - (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_paintColorButtonTouchUp" identifier:sender];
-//    if (colorPickerView.hidden) {
-//        colorPickerView.hidden = false;
-//        colorPickerView.sourceView = _paintColorView;
-//        _state = PaintScreen_PickColor;
-//    }
-//    else{
-//        colorPickerView.hidden = true;
-//        _state = PaintScreen_Normal;
-//    }
-    
+   
     [self openColorPicker:self.paintColorButton.color inColorButton:self.paintColorButton];
-    
-    
 }
 
 //------------------------------------------------------------------------------
@@ -4538,11 +4512,10 @@
             [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:nil];
             [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:^{
                 self.isPaintFullScreen = false;
+                [Flurry endTimedEvent:@"PS_inFullScreen" withParameters:nil];
             }];
 
         }];
-        
-
     }
     else{
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
@@ -4557,6 +4530,7 @@
                 }
             }completion:^(BOOL finished) {
                 self.isPaintFullScreen = true;
+                [Flurry logEvent:@"PS_inFullScreen" withParameters:nil timed:true];
             }];
         }];
         
@@ -4600,10 +4574,11 @@
         [self closeIndicator];
         
         [self tutorialStartCurrentStep];
-        
-
     }
-//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+    else if ([popoverController.contentViewController isKindOfClass:[InfColorPickerController class]]) {
+        //not written in InfColorPickerController for tracking trigger source
+        [Flurry endTimedEvent:@"PS_inColorPicker" withParameters:nil];
+    }
 }
 
 

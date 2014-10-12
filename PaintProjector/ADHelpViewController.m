@@ -36,7 +36,12 @@
 //    ADPageControl *pageControl = [[ADPageControl alloc]initWithScrollView:self.collectionView size:size];
 //    [pageControl initCustom];
 }
-
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"PS_inHelp" withParameters:nil timed:true];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"PS_inHelp" withParameters:nil];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -70,7 +70,12 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(int)blendMode inSection:0];
     [self.tableView selectRowAtIndexPath:indexPath animated:true scrollPosition:UITableViewScrollPositionNone];
 }
-
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"Layer_inBlendMode" withParameters:nil timed:true];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"Layer_inBlendMode" withParameters:nil];
+}
 - (void)layerOpacitySliderSlide:(ADLayerOpacitySlider *)sender {
     [self.delegate willSetLayerOpacity:sender.value];
 }

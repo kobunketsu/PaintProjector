@@ -37,7 +37,12 @@ const float LayerTableViewWidth = 256;
     [self addObserver:self forKeyPath:@"backgroundLayer.clearColor" options:NSKeyValueObservingOptionOld context:nil];
     [self updateIconColors];
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [Flurry logEvent:@"LAYER_inLayer" withParameters:nil timed:true];
+}
 - (void)viewDidDisappear:(BOOL)animated{
+    [Flurry endTimedEvent:@"LAYER_inLayer" withParameters:nil];
+    
     [self removeObserver:self forKeyPath:@"backgroundLayer.clearColor"];
 }
 - (void)dealloc{

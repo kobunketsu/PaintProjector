@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, IAPProPackageFeature)
     Pro_AirBrush,
     Pro_ChineseBrush,
     Pro_OilBrush,
+    Pro_Swatches,
 };
 
 

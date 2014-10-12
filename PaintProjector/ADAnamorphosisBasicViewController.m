@@ -91,8 +91,15 @@
 //    [self.nextButton.layer setValue:[NSNumber numberWithFloat:0] forKeyPath:@"transform.scale.x"];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated{
+//    [Flurry logEvent:@"TU_inAnamorphosisBasic" withParameters:nil timed:true];
+    
     [self.lifeArtViewFadeAnimator initCustom];
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+//    [Flurry endTimedEvent:@"TU_inAnamorphosisBasic" withParameters:nil];
 }
 
 - (void)didReceiveMemoryWarning

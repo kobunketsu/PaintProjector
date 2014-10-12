@@ -36,14 +36,33 @@
 {
     DebugLogSystem(@"applicationDidFinishLaunchingWithOptions");
     
+    //更新发布版本
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    float curVersion = [[NSUserDefaults standardUserDefaults] floatForKey:@"BundleVersion"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];//
+    float curBuild = [[NSUserDefaults standardUserDefaults] floatForKey:@"BundleBuild"];
+    
+    if (curVersion < version.floatValue) {
+        [self bundleVersionUpdated:version.floatValue];
+        [self bundleBuildUpdated:build.floatValue];
+    }
+    else if (curVersion == version.floatValue){
+        //发布版本不变情况下，更新开发版
+        if (curBuild < build.floatValue) {
+            [self bundleBuildUpdated:build.floatValue];
+        }
+    }
+    else{
+        
+    }
+    
     [BBXBeeblex initializeWithAPIKey:@"OWEwODU3ZWVjNzU3NmNkMjg2MDFiODg1ODE3NThjNTk2MTliYTE3ZDM5YTA2MDcwODI4YWRjN2FiMzgwNzAwMDc1YmI1ZDFkMTE0Njk2YzBhMDNkYzhhNTY1M2NiY2I1NGFjM2U2MDMyMzYxYTcyYjU5ZTRmNzBjMjU3ZWYzNWUsLS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE1cW5mN0hka29UZXRVeEYwOHM2Qwp2ME95NEtOd3F4bGVvcW5wd3pUa1orUXVQTWhkU0xXQ1NSUHhOUjNRYjlzeVEvVHhkS1hWTUt2VjJicldWZE42ClhnNUxQT2NjZ0l6ZWFQQWp2UXdjcGc2KzZmOFlKTFpEUGtudzAxeGhZZkRCajJqNzY3NFNRVmNVenB1QUZqYVEKeEV2Zm5DUkxIZUh5SnNWTm1YZGp1clZJOW9xTERVcnk5S3hEdkVXMENyKzBqK0NaYzlkMytxOXBBRXdVRUxlaApSY3g2cTdjMmxtL0c1NU9LTkw0NmVqcTgrK3VTTEJSL0pkWUF5MFR2MnY4bkdHQURhb2tjUG9XMUVVdjk1Z0gyCnBqTC8vSzNDY1dpZUo0U2d0NVRnZFBPNmhhS3NaTk5lZDVxNmZ6Vm9LWlB6WVdPcnk4dGluclNGSFZtckt1TTMKeXdJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0t"];
     
     [Flurry setCrashReportingEnabled:NO];
     [Flurry startSession:@"M8DMDS5GW352GZQ4TN3B"];
     
-    [TestFlight takeOff:@"d99fa9e3-3923-4f55-acea-0a1e077b133f"];
-    
 #if TESTFLIGHT
+    [TestFlight takeOff:@"d99fa9e3-3923-4f55-acea-0a1e077b133f"];
     [self initQuestionnaire];
 #endif
     
@@ -53,6 +72,7 @@
 //    [[DBAccountManager alloc] initWithAppKey:@"08yvvqxgb9k6jbl" secret:@"8sdk2e91z8nv2vy"];
 //    [DBAccountManager setSharedManager:accountMgr];
 //
+    
 #if DEBUG
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
@@ -258,6 +278,16 @@
 //        if (error) {
 //            DebugLogError(@"Error fileManager copyItemAtPath:toPath: %@", [error localizedDescription]);
 //        }
+}
+#pragma mark- Version
+- (void)bundleVersionUpdated:(CGFloat)newVersion{
+    DebugLogWarn(@"bundleVersionUpdated %.1f", newVersion);
+    [[NSUserDefaults standardUserDefaults] setFloat:newVersion forKey:@"BundleVersion"];
+}
+
+- (void)bundleBuildUpdated:(CGFloat)newBuild{
+    DebugLogWarn(@"bundleBuildUpdated %.1f", newBuild);
+    [[NSUserDefaults standardUserDefaults] setFloat:newBuild forKey:@"BundleBuild"];
 }
 
 #pragma mark- Tutorial

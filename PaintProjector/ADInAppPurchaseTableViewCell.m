@@ -47,6 +47,9 @@
 
 - (void)prepareBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
     DebugLogFuncStart(@"prepareBrushByIAPFeatureIndex %d", feature);
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:feature], @"PageIndex",nil];
+    [Flurry logEvent:@"IAP_inPage" withParameters:params timed:true];
+    
     ADBrush *brush = [self.delegate willGetBrushByIAPFeatureIndex:feature];
     if (!brush) {
         return;
@@ -67,6 +70,7 @@
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
+    [Flurry endTimedEvent:@"IAP_inPage" withParameters:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -231,6 +235,11 @@
    
     if (self.pageControl.currentPage != currentPage) {
         DebugLog(@"self.pageControl.currentPage changed!");
+
+        [Flurry endTimedEvent:@"IAP_inPage" withParameters:nil];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:currentPage], @"PageIndex",nil];
+        [Flurry logEvent:@"IAP_inPage" withParameters:params timed:true];
+        
         self.pageControl.currentPage = currentPage;
         if (![self isBrushPageIndex:currentPage] ) {
             self.brushPreview.hidden = true;
