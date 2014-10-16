@@ -30,7 +30,14 @@
     ADPaintScreen *toVC = (ADPaintScreen *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     [toVC prepareForPresentation];
     
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+//        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+    BOOL canceled = [transitionContext transitionWasCancelled];
+    [transitionContext completeTransition:!canceled];
+    if (!canceled){
+        //MARK:ios8 bug patch
+        [[UIApplication sharedApplication].keyWindow addSubview: toVC.view];
+    }
+    
     [fromView.layer setValue:[NSNumber numberWithFloat:1] forKeyPath:@"transform.scale"];
     
     [toVC afterPresentation];

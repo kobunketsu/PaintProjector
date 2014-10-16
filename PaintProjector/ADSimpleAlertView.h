@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^AutoAlertViewClickHandler)(BOOL confirm);
+typedef void (^ADAlertViewActionHandler)(NSInteger actionIndex);
 
 @interface ADSimpleAlertView : UIAlertView
 <UIAlertViewDelegate>
 {
 }
 
-@property (copy, nonatomic) AutoAlertViewClickHandler clickHandler;
+@property (copy, nonatomic) ADAlertViewActionHandler actionHandler;
 
 @end

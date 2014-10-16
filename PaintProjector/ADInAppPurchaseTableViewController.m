@@ -10,10 +10,11 @@
 #import "ADInAppPurchaseTableViewCell.h"
 #import "ADSimpleIAPManager.h"
 #import "Reachability.h"
+#import "ADAlertController.h"
 
 @interface ADInAppPurchaseTableViewController ()
 @property(retain, nonatomic)UIActivityIndicatorView *activityView;
-@property(retain, nonatomic)UIAlertView *alertView;
+//@property(retain, nonatomic)UIAlertView *alertView;
 
 @end
 
@@ -176,8 +177,7 @@
                 else{
                     if (!products) {
                         DebugLog(@"获得产品列表更新失败,没有本地保存的产品列表，请求联网");
-                        self.alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                        [self.alertView show];
+                        [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
                     }
                     else{
                         DebugLog(@"获得产品列表更新失败,显示本地保存的产品列表");
@@ -218,8 +218,7 @@
             [self.activityView removeFromSuperview];
             self.activityView = nil;
         }
-        self.alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [self.alertView show];
+        [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
     }
 }
 
@@ -351,16 +350,16 @@
 //    return 66;
 //}
 
-#pragma mark- UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    [self.delegate willIAPPurchaseDone];
-}
+//#pragma mark- UIAlertViewDelegate
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+//    [self.delegate willIAPPurchaseDone];
+//}
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 1) {
-        [RemoteLog logAction:@"IAP_boughtConfirmed" identifier:nil];
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    if (alertView.tag == 1) {
+//        [RemoteLog logAction:@"IAP_boughtConfirmed" identifier:nil];
+//    }
+//}
 
 #pragma mark- InAppPurchaseTableViewCellDelegate
 - (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
@@ -390,8 +389,7 @@
     
     if ([[ADSimpleIAPManager sharedInstance] isDeviceJailBroken]) {
         DebugLog(@"越狱设备禁止IAP");
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByJailbreakDevice", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
     }
     else{
         if ([[ADSimpleIAPManager sharedInstance] canMakePurchases]) {
@@ -401,8 +399,7 @@
             NetworkStatus netStatus = [reach currentReachabilityStatus];
             if (netStatus == NotReachable) {
                 DebugLog(@"没有网络连接, 无法购买产品");
-                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                [alertView show];
+                [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByNoInternetAccess", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
             }
             else{
                 DebugLog(@"有网络连接");
@@ -420,8 +417,7 @@
                         }
                         else{
                             DebugLog(@"但无法得到产品列表");
-                            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-                            [alertView show];
+                            [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
                         }
                     }];
                 }
@@ -434,16 +430,16 @@
         }
         else{
             DebugLog(@"设备禁止IAP");
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            [alertView show];
+            [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByDevice", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
         }
     }
 }
 #pragma mark- ADSimpleIAPManagerDelegate
 - (void)willNotifyUserIAPProductContentProvided{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-    alertView.tag = 1;
-    [alertView show];
+    [ADAlertController alertControllerWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self actionHandler:^(NSInteger actionIndex) {
+        [RemoteLog logAction:@"IAP_boughtConfirmed" identifier:nil];
+        [self.delegate willIAPPurchaseDone];
+    } cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
 }
 
 @end

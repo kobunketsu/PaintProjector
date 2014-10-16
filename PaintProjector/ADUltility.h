@@ -44,6 +44,8 @@
 //void logMemoryInfo();
 
 + (GLKMatrix4)MatrixLerpFrom:(GLKMatrix4)fromMatrix to:(GLKMatrix4)toMatrix blend:(float)blend;
+
++(NSArray *)array_VA_ARGS:(id)args, ...;
 @end
 /*
 ;

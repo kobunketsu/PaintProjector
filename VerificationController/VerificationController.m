@@ -1,6 +1,8 @@
 #import "VerificationController.h"
 #import "NSData+Base64.h"
-
+#include <CommonCrypto/CommonDigest.h>
+#include <Security/Security.h>
+#include <AssertMacros.h>
 static VerificationController *singleton;
 
 @implementation VerificationController {
@@ -491,9 +493,7 @@ static VerificationController *singleton;
 #pragma mark
 #pragma mark Check Receipt signature
 
-#include <CommonCrypto/CommonDigest.h>
-#include <Security/Security.h>
-#include <AssertMacros.h>
+
 unsigned int iTS_intermediate_der_len = 1039;
 
 unsigned char iTS_intermediate_der[] = {

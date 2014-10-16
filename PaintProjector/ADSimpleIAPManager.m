@@ -7,6 +7,7 @@
 //
 
 #import "ADSimpleIAPManager.h"
+#import "ADAlertController.h"
 
 //#define kInAppPurchaseProUpgradeProductId @"AnaDrawProVersionPackage"
 #define kProductWrapperKey @"SKProductWrapper"
@@ -108,8 +109,7 @@ static ADSimpleIAPManager* sharedInstance = nil;
 }
 
 - (void)notifyUserIAPProductContentProvided{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-    [alertView show];
+    [ADAlertController alertControllerWithTitle:NSLocalizedString(@"ThankForPurchaseTitle", nil) message:NSLocalizedString(@"ThankForPurchase", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
 }
 
 #pragma mark- testflight

@@ -33,6 +33,7 @@
 #import "ADBrushManager.h"
 #import "ADHelpViewController.h"
 #import "AppDelegate.h"
+#import "ADAlertController.h"
 
 
 #define EditBrushSizeConfirmPixels 5
@@ -2258,9 +2259,6 @@
     }
     else{
         [self openIAPWithProductFeatureIndex:7];
-//        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:NSLocalizedString(@"SwatchIAP", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Pro Version", nil), nil];
-//        alertView.tag = 1;
-//        [alertView show];
     }
 }
 
@@ -2631,9 +2629,21 @@
         [self tutorialStepNextImmediate:false];
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Save", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"DontSave", nil), nil];
-        alertView.tag = 6;
-        [alertView show];
+        [ADAlertController alertControllerWithTitle:nil message:nil delegate:self actionHandler:^(NSInteger actionIndex) {
+            switch (actionIndex) {
+                case 0:
+                    [self closeDocWithSave];
+                    break;
+                case 1:
+                    [self closeDocCanceled];
+                    break;
+                case 2:
+                    [self closeDocWithoutSave];
+                    break;
+                default:
+                    break;
+            }
+        } cancelButtonTitle:NSLocalizedString(@"Save", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil),NSLocalizedString(@"DontSave", nil), nil];
     }
 }
 
@@ -2878,9 +2888,7 @@
                  [self enterTransformImageState:rect];
              }
              else{
-                 UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil, nil];
-                 alertView.tag = 2;
-                 [alertView show];
+                 [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"InvalidImageWarning", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
              }
              
          } else {
@@ -3046,8 +3054,7 @@
         
         return YES;
     }else {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
-        [alert show];
+         [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"NoAccessPhotoLibrary", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"Close", nil) otherButtonTitles:nil];
         return NO;
     }
 }
@@ -3090,8 +3097,7 @@
 -(void) didSelectExportToEmail{
     [RemoteLog logAction:@"PS_didSelectExportToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+         [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
         return;
     }
     
@@ -3188,8 +3194,8 @@
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.exportButton.selected = false;
         NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        
+         [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
     }
 }
 
@@ -3685,9 +3691,14 @@
 #pragma marl- 清楚 Clear
 - (void)requestClearData{
     
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"ClearAllLayersWarning", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
-    alertView.tag = 3;
-    [alertView show];
+     [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"ClearAllLayersWarning", nil) delegate:self actionHandler:^(NSInteger actionIndex) {
+         switch (actionIndex) {
+             case 1:
+                 [RemoteLog logAction:@"paintView clearData" identifier:nil];
+                 [self.paintView clearData];
+                 break;
+         }
+     } cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
 }
 #pragma mark- 图层 Layer
 
@@ -3832,18 +3843,17 @@
     if(self.isReversePaint){
         if (self.paintDoc.data.layers.count + self.paintDoc.reverseData.layers.count >= layerMaxCount) {
             NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"ReverseLayersAvailable", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            alertView.tag = 5;
-            [alertView show];
+            
+         [ADAlertController alertControllerWithTitle:@"" message:message delegate:self.sharedPopoverController.contentViewController actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
             return false;
         }
     }
     else{
         if (self.paintDoc.data.layers.count >= layerMaxCount) {
             NSString *message = [NSString stringWithFormat:@"%@ %d %@",NSLocalizedString(@"Maximum", nil), layerMaxCount, NSLocalizedString(@"LayersAvailable", nil)];
-            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:message delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-            alertView.tag = 5;
-            [alertView show];
+            
+            [ADAlertController alertControllerWithTitle:@"" message:message delegate:self.sharedPopoverController.contentViewController actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            
             return false;
         }
     }
@@ -4754,42 +4764,42 @@
     }
 }
 
-#pragma mark- 处理警告 UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag == 3){
-        switch (buttonIndex) {
-            case 1:
-                [RemoteLog logAction:@"paintView clearData" identifier:nil];
-                [self.paintView clearData];
-                break;
-        }
-    }
-    else if (alertView.tag == 5) {
-        switch (buttonIndex) {
-            case 1:
-                [self openIAPWithProductFeatureIndex:7];
-                break;
-                
-            default:
-                break;
-        }
-    }
-    else if (alertView.tag == 6) {
-        switch (buttonIndex) {
-            case 0:
-                [self closeDocWithSave];
-                break;
-            case 1:
-                [self closeDocCanceled];
-                break;
-            case 2:
-                [self closeDocWithoutSave];
-                break;
-            default:
-                break;
-        }
-    }
-}
+//#pragma mark- 处理警告 UIAlertViewDelegate
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    if (alertView.tag == 3){
+//        switch (buttonIndex) {
+//            case 1:
+//                [RemoteLog logAction:@"paintView clearData" identifier:nil];
+//                [self.paintView clearData];
+//                break;
+//        }
+//    }
+//    else if (alertView.tag == 5) {
+//        switch (buttonIndex) {
+//            case 1:
+//                [self openIAPWithProductFeatureIndex:7];
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//    }
+//    else if (alertView.tag == 6) {
+//        switch (buttonIndex) {
+//            case 0:
+//                [self closeDocWithSave];
+//                break;
+//            case 1:
+//                [self closeDocCanceled];
+//                break;
+//            case 2:
+//                [self closeDocWithoutSave];
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+//}
 
 #pragma mark- 购买代理InAppPurchaseTableViewControllerDelegate
 - (void)willIAPPurchaseDone{

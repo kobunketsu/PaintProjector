@@ -11,7 +11,8 @@
 #import "ADSimpleIAPManager.h"
 
 @interface ADInAppPurchaseTableViewController : UITableViewController
-<UIAlertViewDelegate,
+<
+//UIAlertViewDelegate,
 SimpleIAPManagerDelegate,
 ADInAppPurchaseTableViewCellDelegate>
 @property (assign, nonatomic) id delegate;

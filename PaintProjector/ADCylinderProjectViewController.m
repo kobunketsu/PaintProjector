@@ -24,7 +24,7 @@
 #import "ADDeviceHardware.h"
 #import "ADReversePaintInputData.h"
 #import "iRate.h"
-#import "ADSimpleAlertView.h"
+#import "ADAlertController.h"
 
 
 #if TESTFLIGHT
@@ -346,7 +346,7 @@ static float DeviceWidth = 0.154;
 
     //do some work
     if (self.isSetupMode) {
-        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(NSInteger actionIndex) {
             [self transitionToGallery];
         }];
     }
@@ -396,32 +396,27 @@ static float DeviceWidth = 0.154;
 }
 
 //提示是否需要保存
-- (void)alvertSaveUserInputParamsWithCompletionBlock:(AutoAlertViewClickHandler)completionBlock{
+- (void)alvertSaveUserInputParamsWithCompletionBlock:(ADAlertViewActionHandler)completionBlock{
     //提示是否保存到模版
-    ADSimpleAlertView *alertView = [[ADSimpleAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
-    alertView.delegate = alertView;
-//    alertView.tag = 2;
-    
-    AutoAlertViewClickHandler handler = ^(BOOL confirm) {
-        if (confirm) {
-            //Save UserInputParams
-            [self setupAnamorphParamsSave];
-            completionBlock(YES);
-        }
-        else{
+    [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"SaveUserInputParams", nil) delegate:self actionHandler:^(NSInteger actionIndex) {
+        if (actionIndex == 0) {
             //Dont Save. Exist to original userInputParams
             [self animationToTarget:self.userInputParams params:self.userInputParamsSrc.propertyNameValueDic duration:CylinderResetParamDuration timing:REPropertyAnimationTimingEaseOut completionDelegate:self completionBlock:^{
                 [self flushUIUserInputParams];
                 [UIView animateWithDuration:0 delay:CylinderResetDelay options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 } completion:^(BOOL finished) {
-                    completionBlock(NO);
+                    completionBlock(0);
                 }];
             }];
+
         }
-    };
-    
-    [alertView setClickHandler:handler];
-    [alertView show];
+        else if(actionIndex == 1){
+            //Save UserInputParams
+            [self setupAnamorphParamsSave];
+            completionBlock(1);
+        }
+    } cancelButtonTitle:NSLocalizedString(@"Restore", nil) otherButtonTitles:NSLocalizedString(@"Save", nil), nil];
+
 }
 
 
@@ -445,7 +440,7 @@ static float DeviceWidth = 0.154;
     }
     else{
         //提示是否保存到模版
-        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(NSInteger actionIndex) {
             [self setupAnamorphParamsDone];
        }];
     }
@@ -526,7 +521,7 @@ static float DeviceWidth = 0.154;
     sender.selected = true;
     
     if (self.isSetupMode) {
-        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(NSInteger actionIndex) {
             [self paint];
         }];
     }
@@ -690,8 +685,8 @@ static float DeviceWidth = 0.154;
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.shareButton.selected = false;
         NSString *messageKey = [NSString stringWithFormat:@"%@NotInstalled", socialName];
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        
+        [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(messageKey, nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil)  otherButtonTitles:nil];
     }
 }
 -(void)sharedToSocial:(NSString*)socialName completion:(SLComposeViewControllerResult) result{
@@ -706,8 +701,8 @@ static float DeviceWidth = 0.154;
 -(void)didSelectPostToEmail {
     [RemoteLog logAction:@"CP_didSelectPostToEmail" identifier:nil];
     if (![MFMailComposeViewController canSendMail]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        
+        [ADAlertController alertControllerWithTitle:@"" message:NSLocalizedString(@"MailAccountNotAvailabel", nil) delegate:self actionHandler:nil cancelButtonTitle:NSLocalizedString(@"OK", nil)  otherButtonTitles:nil];
         return;
     }
     
@@ -1212,7 +1207,7 @@ static float DeviceWidth = 0.154;
     [appDelegate initTutorialManager];
 
     if (self.isSetupMode) {
-        [self alvertSaveUserInputParamsWithCompletionBlock:^(BOOL confirm) {
+        [self alvertSaveUserInputParamsWithCompletionBlock:^(NSInteger actionIndex) {
             if (self.delegate) {
                 [self.delegate willTransitionToTutorial];
             }
@@ -3002,7 +2997,7 @@ static float DeviceWidth = 0.154;
     }];
 }
 
-#pragma mark- 处理警告 UIAlertViewDelegate
+//#pragma mark- 处理警告 UIAlertViewDelegate
 //- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
 //    
 //    if (alertView.tag == 2) {

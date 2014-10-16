@@ -87,7 +87,7 @@
             glDetachShader(self.program, fragShader);
             glDeleteShader(fragShader);
         }
-        DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programCylinder" UTF8String]);
+        //DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programCylinder" UTF8String]);
     }
     return self;
 }

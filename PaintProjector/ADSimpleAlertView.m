@@ -43,10 +43,9 @@
 
 #pragma mark- UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    BOOL confirm = buttonIndex == 0 ? false : true;
-    if (self.clickHandler) {
-        self.clickHandler(confirm);
-        self.clickHandler = nil;
+    if (self.actionHandler) {
+        self.actionHandler(buttonIndex);
+        self.actionHandler = nil;
     }
 }
 
