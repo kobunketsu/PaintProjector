@@ -41,8 +41,6 @@
 		08083DF319644AA200FDDDE8 /* brushMarkerSquareShape_r64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08083DF119644AA200FDDDE8 /* brushMarkerSquareShape_r64.png */; };
 		08083DF519645A8600FDDDE8 /* paintFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 08083DF419645A8600FDDDE8 /* paintFrame.png */; };
 		08083DF619645A8600FDDDE8 /* paintFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 08083DF419645A8600FDDDE8 /* paintFrame.png */; };
-		08086DBE18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08086DBD18DC8A9900F03EB4 /* libbeeblex.a */; };
-		08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08086DBD18DC8A9900F03EB4 /* libbeeblex.a */; };
 		08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */; };
 		08086E5918DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DD518DC8BA200F03EB4 /* brush_dryTip_64.png */; };
 		08086E6818DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 08086DDD18DC8BA200F03EB4 /* brushSoftFallOff.png */; };
@@ -492,6 +490,10 @@
 		088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B741E17F4787A0039ABC4 /* InfColorPickerRootView.m */; };
 		088BC19617EBDCD0007CC49A /* ADBrushPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BC19517EBDCD0007CC49A /* ADBrushPreview.m */; };
 		088CC7D4177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088CC7D3177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m */; };
+		088D28FB19EF9C10005A386E /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FA427919EF923100AB80E5 /* VerificationController.m */; };
+		088D28FC19EF9C10005A386E /* VerificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FA427919EF923100AB80E5 /* VerificationController.m */; };
+		088D290019EF9EAB005A386E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FA427719EF923100AB80E5 /* NSData+Base64.m */; };
+		088D290119EF9EAC005A386E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FA427719EF923100AB80E5 /* NSData+Base64.m */; };
 		088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE17187DB0BC001B3855 /* libz.dylib */; };
 		088E1D8418A26F700059002C /* ADShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ADShaderCylinder.m */; };
 		088E1D8518A26F700059002C /* ADShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ADShaderCylinder.m */; };
@@ -1877,6 +1879,10 @@
 		08F905DC194ACBA7002918AA /* ADCrystalGradientStyleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADCrystalGradientStyleButton.m; path = PaintProjector/ADCrystalGradientStyleButton.m; sourceTree = "<group>"; };
 		08F9B516164C0691001B3D3D /* ADBrushToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushToolBar.h; sourceTree = "<group>"; };
 		08F9B517164C0691001B3D3D /* ADBrushToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushToolBar.m; sourceTree = "<group>"; };
+		08FA427619EF923100AB80E5 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		08FA427719EF923100AB80E5 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		08FA427819EF923100AB80E5 /* VerificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationController.h; sourceTree = "<group>"; };
+		08FA427919EF923100AB80E5 /* VerificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationController.m; sourceTree = "<group>"; };
 		08FB9B0F1942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintCollectionViewFlowLayout.h; path = PaintProjector/ADPaintCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		08FB9B101942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionViewFlowLayout.m; path = PaintProjector/ADPaintCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		08FD0A1E1952EF0500643DC3 /* tutorial_main.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_main.png; path = PaintProjector/Images/tutorial_main.png; sourceTree = "<group>"; };
@@ -1970,7 +1976,6 @@
 				8a48889428c5f05ffe199b9a /* QuartzCore.framework in Frameworks */,
 				d9b2dca764298f4e564dce85 /* CoreImage.framework in Frameworks */,
 				1006c97abc68dc68ec02f9f6 /* AssetsLibrary.framework in Frameworks */,
-				08086DBF18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
 				4224f241872aadc336420512 /* CFNetwork.framework in Frameworks */,
 				4b727493103a118dab239e46 /* UIKit.framework in Frameworks */,
 				c61d9e36cb11deeeb240a26a /* Foundation.framework in Frameworks */,
@@ -2001,7 +2006,6 @@
 				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
 				080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */,
 				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
-				08086DBE18DC8A9900F03EB4 /* libbeeblex.a in Frameworks */,
 				9C427B0E14FA4DBA00C708B8 /* SystemConfiguration.framework in Frameworks */,
 				9C60DA8914E53C7100442413 /* CoreImage.framework in Frameworks */,
 				9C21AF6B14E45AAB00DB003E /* AssetsLibrary.framework in Frameworks */,
@@ -2295,6 +2299,7 @@
 		08397FC218B6490F009A8F3C /* IAP */ = {
 			isa = PBXGroup;
 			children = (
+				08FA427519EF923100AB80E5 /* VerificationController */,
 				08E0610D193F7DA000BDD2BA /* Images */,
 				08983D9718BCCD1B0001C334 /* Reachability.h */,
 				08983D9818BCCD1B0001C334 /* Reachability.m */,
@@ -3092,6 +3097,17 @@
 				08D4F68B19712FC900A81063 /* ADReversePaintInputData.m */,
 			);
 			name = ReversePaint;
+			sourceTree = "<group>";
+		};
+		08FA427519EF923100AB80E5 /* VerificationController */ = {
+			isa = PBXGroup;
+			children = (
+				08FA427619EF923100AB80E5 /* NSData+Base64.h */,
+				08FA427719EF923100AB80E5 /* NSData+Base64.m */,
+				08FA427819EF923100AB80E5 /* VerificationController.h */,
+				08FA427919EF923100AB80E5 /* VerificationController.m */,
+			);
+			path = VerificationController;
 			sourceTree = "<group>";
 		};
 		08FD1F9E164E454A003738FC /* PaintScreen */ = {
@@ -3974,6 +3990,7 @@
 				08A5CBBC189F36C900F4E226 /* REMeshFilter.m in Sources */,
 				086B73B2194D3AF600870DBD /* ADTutorialStep.m in Sources */,
 				0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */,
+				088D28FB19EF9C10005A386E /* VerificationController.m in Sources */,
 				08A5CBC0189F542300F4E226 /* REScene.m in Sources */,
 				082060DE189D455C0027247C /* ADCylinderProject.m in Sources */,
 				3e9af69b87333d5ed310511e /* ADOilBrush.m in Sources */,
@@ -4140,6 +4157,7 @@
 				08B17A311981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */,
 				08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
 				e21b4e595f0fb5cfb4d67bfc /* ADCrayons.m in Sources */,
+				088D290119EF9EAC005A386E /* NSData+Base64.m in Sources */,
 				08BD1A8819CAC60800E65A05 /* ADLaunchLogoView_a_Draw.m in Sources */,
 				b9c7be3996399a503583fba3 /* ADDeleteButton.m in Sources */,
 				082060D6189D40090027247C /* RETexture.m in Sources */,
@@ -4288,6 +4306,7 @@
 				0857779916C62DC80040B152 /* RECamera.m in Sources */,
 				08AFD4CE17F33DA600B9492B /* ADFuzzyTransparentView.m in Sources */,
 				0803469517F8F81E007852A6 /* ADClearGestureRecognizer.m in Sources */,
+				088D290019EF9EAB005A386E /* NSData+Base64.m in Sources */,
 				08C65E7D1950124500961551 /* ADSimpleTutorial.m in Sources */,
 				0807A63A18C77D3300AA3FA5 /* ADSwatchManagerTableView.m in Sources */,
 				08D0A15E19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */,
@@ -4361,6 +4380,7 @@
 				087D9B371981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */,
 				0802D10C17367ACA003259E6 /* ADImportButton.m in Sources */,
 				0802D11117368411003259E6 /* ADExportButton.m in Sources */,
+				088D28FC19EF9C10005A386E /* VerificationController.m in Sources */,
 				0802D11417368D8A003259E6 /* ADGalleryButton.m in Sources */,
 				0802D11717369821003259E6 /* ADEyeDropperButton.m in Sources */,
 				08D836A51737FF5D00B68990 /* ADClearButton.m in Sources */,

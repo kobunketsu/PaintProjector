@@ -7,8 +7,13 @@
 //
 
 #import "ADInAppPurchaseManager.h"
+
+#if VALIDATERECEIPT_BEEBLEX
 #import "BBXBeeblex.h"
 #import "BBXIAPTransaction.h"
+#else
+#import "VerificationController.h"
+#endif
 
 typedef NS_ENUM(NSInteger, BBTransactionResult) {
     TransactionValidated        = 0,
@@ -188,8 +193,8 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     return false;
 }
 
-#pragma mark- Beeblex Verifying receipts
-- (void)validateReceipt:(SKPaymentTransaction *)transaction restore:(BOOL)restore {
+#if VALIDATERECEIPT_BEEBLEX
+- (void)BBXValidateReceipt:(SKPaymentTransaction *)transaction restore:(BOOL)restore {
     __block BBTransactionResult transactionResult = 2;
     if (![BBXIAPTransaction canValidateTransactions]) {
         transactionResult = TransactionNoNetwork;
@@ -202,11 +207,11 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     }
     
     BBXIAPTransaction *bbxTransaction = [[BBXIAPTransaction alloc] initWithTransaction:transaction];
-#if DISTRIBUTION
-    bbxTransaction.useSandbox = NO;
-#else
-    bbxTransaction.useSandbox = YES;
-#endif
+    #if DISTRIBUTION
+        bbxTransaction.useSandbox = NO;
+    #else
+        bbxTransaction.useSandbox = YES;
+    #endif
     
     [bbxTransaction validateWithCompletionBlock:^(NSError *error) {
         
@@ -261,6 +266,27 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
        
     }];
 }
+#else
+- (void)validateReceipt:(SKPaymentTransaction *)transaction restore:(BOOL)restore {
+    VerificationController * verifier = [VerificationController sharedInstance];
+    [verifier verifyPurchase:transaction completionHandler:^(BOOL success) {
+        if (success) {
+            DebugLog(@"验证交易成功,提供产品下载");
+            if (restore) {
+                [self provideContent:transaction.originalTransaction.payment.productIdentifier];
+            }
+            else{
+                [self provideContent:transaction.payment.productIdentifier];
+            }
+            
+            [self finishTransaction:transaction wasSuccessful:YES];
+        } else {
+            DebugLogWarn(@"验证交易失败");
+            [self finishTransaction:transaction wasSuccessful:NO];
+        }
+    }];
+}
+#endif
 
 #pragma mark-
 #pragma Purchase helpers
@@ -334,12 +360,13 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
     DebugLogFuncStart(@"完成交易");
-#if VALIDATERECEIPT_BEEBLEX
     DebugLogFuncStart(@"验证收据中");
-    [self validateReceipt:transaction restore:NO];
+#if VALIDATERECEIPT_BEEBLEX
+    [self BBXValidateReceipt:transaction restore:NO];
 #else
-    [self provideContent:transaction.payment.productIdentifier];
-    [self finishTransaction:transaction wasSuccessful:YES];
+    [self validateReceipt:transaction restore:NO];
+//    [self provideContent:transaction.payment.productIdentifier];
+//    [self finishTransaction:transaction wasSuccessful:YES];
 #endif
 }
 //
@@ -348,12 +375,13 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
     DebugLogFuncStart(@"恢复交易");
-#if VALIDATERECEIPT_BEEBLEX
     DebugLogFuncStart(@"验证收据中");
-    [self validateReceipt:transaction restore:YES];
+#if VALIDATERECEIPT_BEEBLEX
+    [self BBXValidateReceipt:transaction restore:YES];
 #else
-    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
-    [self finishTransaction:transaction wasSuccessful:YES];
+    [self validateReceipt:transaction restore:NO];
+//    [self provideContent:transaction.originalTransaction.payment.productIdentifier];
+//    [self finishTransaction:transaction wasSuccessful:YES];
 #endif
 }
 
