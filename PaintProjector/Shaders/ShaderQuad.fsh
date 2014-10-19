@@ -10,9 +10,14 @@ void main ( )
     //can lock transparency
     lowp vec4 sampColor = texture2D(texture, oTexcoord0);
     gl_FragColor.rgb = sampColor.rgb;
-    gl_FragColor.a = sampColor.a * alpha;
-//    if (alpha < 0.0) {
-//        gl_FragColor.a = min(gl_LastFragData[0].a, -gl_FragColor.a);
-//    }
+    lowp float finalAlpha = 0.0;
+    if (alpha < 0.0) {
+        finalAlpha = - alpha;
+        gl_FragColor.rgb *= gl_LastFragData[0].a;
+    }
+    else{
+        finalAlpha = alpha;
+    }
+    gl_FragColor.a = sampColor.a * finalAlpha;
 }
 
