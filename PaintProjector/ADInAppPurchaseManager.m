@@ -359,8 +359,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"完成交易");
-    DebugLogFuncStart(@"验证收据中");
+    DebugLogFuncStart(@"完成交易,验证收据中");
 #if VALIDATERECEIPT_BEEBLEX
     [self BBXValidateReceipt:transaction restore:NO];
 #else
@@ -374,8 +373,7 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 //
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
-    DebugLogFuncStart(@"恢复交易");
-    DebugLogFuncStart(@"验证收据中");
+    DebugLogFuncStart(@"恢复交易,验证收据中");
 #if VALIDATERECEIPT_BEEBLEX
     [self BBXValidateReceipt:transaction restore:YES];
 #else

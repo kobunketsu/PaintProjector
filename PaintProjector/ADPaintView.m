@@ -1543,8 +1543,9 @@
         
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
-        ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
-        CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
+//        ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
+//        CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
+        CGFloat opacity = brushState.opacity;
         
         //none premultiplied data saved to layerTexture
         [self drawQuad:_VAOQuad brush:brushState texture2D:self.brushTexture.texID alpha:opacity];
@@ -3105,7 +3106,7 @@
 #endif
 
 
-
+//draw brush texture to curPaintedTexture
 - (void) drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
     [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
@@ -3128,7 +3129,7 @@
 
     //使用合成brush的blendMode
     ADBrush *brush = self.brushTypes[brushState.classId];
-    [brush setBlendMode];
+    [brush setBlendModeWithBrushState:brushState];
 
     [[REGLWrapper current] bindVertexArrayOES: quad];
 	glDrawArrays(GL_TRIANGLES, 0, 6);

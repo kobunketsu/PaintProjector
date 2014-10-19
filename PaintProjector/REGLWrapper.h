@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, BlendFuncType) {
     BlendFuncOpaque,
     BlendFuncOpaqueAlphaBlend,
     BlendFuncAlphaBlend,
+    BlendFuncAlphaBlendLocked,
     BlendFuncAlphaBlendPremultiplied,
     BlendFuncErase,
 };

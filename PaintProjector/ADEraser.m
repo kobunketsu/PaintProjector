@@ -34,7 +34,7 @@ static ADBrushState *brushStateEraser = nil;
     return true;
 }
 
-- (void)setBlendMode{
+- (void)setBlendModeWithBrushState:(ADBrushState*)brushState{
     [[REGLWrapper current] blendFunc:BlendFuncErase];
 }
 

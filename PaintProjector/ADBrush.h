@@ -137,7 +137,7 @@ typedef struct {
 - (void)setPatternTextureWithImage:(NSString*)patterName;
 - (UIColor *)color;
 - (void)setColor:(UIColor *)newValue;
-- (void)setBlendMode;
+- (void)setBlendModeWithBrushState:(ADBrushState*)brushState;
 
 - (void)startDraw:(CGPoint)startLocation;
 - (void)prepareWithBrushState:(ADBrushState*)brushState lastBrushState:(ADBrushState*)lastBrushState;

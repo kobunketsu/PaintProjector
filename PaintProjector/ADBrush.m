@@ -164,8 +164,14 @@
     _paintView = paintView;
 }
 
-- (void)setBlendMode{
-    [[REGLWrapper current] blendFunc:BlendFuncAlphaBlend];
+- (void)setBlendModeWithBrushState:(ADBrushState*)brushState{
+    if (brushState.isOpacityLocked) {
+        [[REGLWrapper current] blendFunc:BlendFuncAlphaBlendLocked];
+    }
+    else{
+        [[REGLWrapper current] blendFunc:BlendFuncAlphaBlend];
+    }
+
 }
 
 - (CGFloat)radius {
