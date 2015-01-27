@@ -1,0 +1,28 @@
+//
+// Prefix header for all source files of the 'PaintProjector' target in the 'PaintProjector' project
+//
+
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <Availability.h>
+
+#ifndef __IPHONE_7_0
+#warning "This project uses features only available in iOS SDK 7.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "GlobalDefines.h"
+    #import "ADUltility.h"
+    #import "MiscDefines.h"
+    #import "LogDefine.h"
+    #import "ADBarStyleKit.h"
+    #import "Extension.h"
+    #import "RemoteLog.h"
+    #import "ADMathHelper.h"
+    #import "ConstantsAndMacros.h"
+    #import "ADLogMemUsage.h"
+#endif
+
+
+

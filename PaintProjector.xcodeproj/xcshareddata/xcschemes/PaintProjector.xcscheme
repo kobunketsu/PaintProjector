@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0510"
+   version = "1.8">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
+               BuildableName = "AnaDraw.app"
+               BlueprintName = "PaintProjector"
+               ReferencedContainer = "container:PaintProjector.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "087B9DDF19A0E12D000B0213"
+               BuildableName = "PaintProjector Tests.xctest"
+               BlueprintName = "PaintProjector Tests"
+               ReferencedContainer = "container:PaintProjector.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
+            BuildableName = "AnaDraw.app"
+            BlueprintName = "PaintProjector"
+            ReferencedContainer = "container:PaintProjector.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      enablesOpenGLESFrameCapture = "YES"
+      enableOpenGLFrameCaptureMode = "1"
+      allowLocationSimulation = "NO">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
+            BuildableName = "AnaDraw.app"
+            BlueprintName = "PaintProjector"
+            ReferencedContainer = "container:PaintProjector.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "MallocStackLogging"
+            value = "YES"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
+            BuildableName = "AnaDraw.app"
+            BlueprintName = "PaintProjector"
+            ReferencedContainer = "container:PaintProjector.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "TestFlight"
+      customArchiveName = "AnaDraw"
+      revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/bash&#10;#&#10;# (Above line comes out when placing in Xcode scheme)&#10;#&#10;# Valid and working as of 10/29/2013&#10;# Xcode 5.0.1, XCode Server&#10;#&#10;&#10;API_TOKEN=&quot;bedb4db1b59d1907a87d7da94161c943_MTU1MzUxNTIwMTQtMDEtMDggMDU6MjE6MTguMDYxODQ1&quot;&#10;TEAM_TOKEN=&quot;932a0849464cb8f89bda90b9d9f66954_MzIxNjQwMjAxNC0wMS0wOCAwODo1OTo0MC42NzYxMzg&quot;&#10;DISTRIBUTION_LISTS=&quot;Wenji Hu&quot;&#10;PROVISIONING_PROFILE=&quot;/Library/Server/Xcode/Data/ProvisioningProfiles/PaintProjectorDistribution.mobileprovision&quot;&#10;#EXAMPLE:&quot;/Library/Server/Xcode/Data/ProvisioningProfiles/DocLink_InHouse_2013.mobileprovision&quot;&#10;&#10;SIGNING_IDENTITY=&quot;iPhone Distribution: Wenjie Hu (P8U4FN6M4B)&quot;&#10;#EXAMPLE:&quot;iPhone Distribution: Unwired Revolution, LLC.&quot;&#10;&#10;# DO NOT EDIT BELOW HERE!&#10;########################################&#10;DSYM=&quot;/tmp/Archive.xcarchive/dSYMs/${PRODUCT_NAME}.app.dSYM&quot;&#10;&#10;IPA=&quot;/tmp/${PRODUCT_NAME}.ipa&quot;&#10;&#10;APP=&quot;/tmp/Archive.xcarchive/Products/Applications/${PRODUCT_NAME}.app&quot;&#10;&#10;# Clear out any old copies of the Archive&#10;echo &quot;Removing old Archive files from /tmp...&quot;;&#10;/bin/rm -rf /tmp/Archive.xcarchive*&#10;&#10;#Copy over the latest build the bot just created&#10;echo &quot;Copying latest Archive to /tmp/...&quot;;&#10;LATESTBUILD=$(ls -1rt /Library/Server/Xcode/Data/BotRuns | tail -1)&#10;/bin/cp -Rp &quot;/Library/Server/Xcode/Data/BotRuns/${LATESTBUILD}/output/Archive.xcarchive&quot; &quot;/tmp/&quot;&#10;&#10;echo &quot;Creating .ipa for ${PRODUCT_NAME}&quot;&#10;/bin/rm &quot;${IPA}&quot;&#10;/usr/bin/xcrun -sdk iphoneos PackageApplication -v &quot;${APP}&quot; -o &quot;${IPA}&quot; --sign &quot;${SIGNING_IDENTITY}&quot; --embed &quot;${PROVISIONING_PROFILE}&quot;&#10;&#10;echo &quot;Done with IPA creation.&quot;&#10;&#10;echo &quot;Zipping .dSYM for ${PRODUCT_NAME}&quot;&#10;/bin/rm &quot;${DSYM}.zip&quot;&#10;/usr/bin/zip -r &quot;${DSYM}.zip&quot; &quot;${DSYM}&quot;&#10;&#10;echo &quot;Created .dSYM for ${PRODUCT_NAME}&quot;&#10;&#10;echo &quot;*** Uploading ${PRODUCT_NAME} to TestFlight ***&quot;&#10;/usr/bin/curl &quot;http://testflightapp.com/api/builds.json&quot; \&#10;-F file=@&quot;${IPA}&quot; \&#10;-F dsym=@&quot;${DSYM}.zip&quot; \&#10;-F api_token=&quot;${API_TOKEN}&quot; \&#10;-F team_token=&quot;${TEAM_TOKEN}&quot; \&#10;-F distribution_lists=&quot;${DISTRIBUTION_LISTS}&quot; \&#10;-F notes=&quot;Build uploaded automatically from Xcode Server Bot.&quot;&#10;&#10;echo &quot;TestFlight upload finished!&quot;"
+               shellToInvoke = "/bin/bash">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "9C21AF1114E4579F00DB003E"
+                     BuildableName = "AnaDraw.app"
+                     BlueprintName = "PaintProjector"
+                     ReferencedContainer = "container:PaintProjector.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+   </ArchiveAction>
+</Scheme>

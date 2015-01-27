@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Test</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Test</string>
+			<key>File</key>
+			<string>testChild</string>
+			<key>Key</key>
+			<string>test</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<string>d2</string>
+				<string>d3</string>
+			</array>
+			<key>Title</key>
+			<string>About</string>
+			<key>Titles</key>
+			<array>
+				<string>Declare2</string>
+				<string>Declare3</string>
+			</array>
+			<key>Key</key>
+			<string>About</string>
+			<key>DefaultValue</key>
+			<string>AA</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Preference</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Restore Preference</string>
+			<key>Key</key>
+			<string>RestorePreference</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>
