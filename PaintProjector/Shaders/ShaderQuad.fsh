@@ -12,6 +12,7 @@ void main ( )
     gl_FragColor.rgb = sampColor.rgb;
     lowp float finalAlpha = 0.0;
     if (alpha < 0.0) {
+        //dest alpha multiply color
         finalAlpha = - alpha;
         gl_FragColor.rgb *= gl_LastFragData[0].a;
     }

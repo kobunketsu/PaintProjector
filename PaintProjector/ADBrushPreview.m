@@ -556,6 +556,7 @@
         [[REGLWrapper current] bindFramebufferOES:self.brushTexture.frameBuffer discardHint:true clear:false];
     }
     
+    
 //    Brush *brush = self.brush;
 //    UIColor *color = [brushState.color copy];
 //    brushState.color = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
@@ -595,7 +596,7 @@
     DebugLogGLGroupStart(@"brushPreview willAfterDraw");
 
     if (self.brush.brushState.wet > 0) {
-        
+//        [self.delegate resetBrush:brushState];
     }
     else{
         //绑定最终显示buffer

@@ -80,6 +80,8 @@
 		080CBD5419A4FE2400282B91 /* ADPaintLayerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 080CBD5319A4FE2400282B91 /* ADPaintLayerData.m */; };
 		080CBD5519A4FE2400282B91 /* ADPaintLayerData.m in Sources */ = {isa = PBXBuildFile; fileRef = 080CBD5319A4FE2400282B91 /* ADPaintLayerData.m */; };
 		080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080D245D18B6E5C400161756 /* StoreKit.framework */; };
+		080D70F21A7A067600B6AC87 /* ADHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080D70F11A7A067600B6AC87 /* ADHintView.m */; };
+		080D70F31A7A067600B6AC87 /* ADHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 080D70F11A7A067600B6AC87 /* ADHintView.m */; };
 		0811271F194982A80057BD53 /* ADShaderBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811271E194982A80057BD53 /* ADShaderBrush.m */; };
 		08112720194982A80057BD53 /* ADShaderBrush.m in Sources */ = {isa = PBXBuildFile; fileRef = 0811271E194982A80057BD53 /* ADShaderBrush.m */; };
 		0813AA1F19167BD4000C4D00 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 0813AA1E19167BD4000C4D00 /* Models */; };
@@ -1134,6 +1136,8 @@
 		080CBD5219A4FE2400282B91 /* ADPaintLayerData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintLayerData.h; sourceTree = "<group>"; };
 		080CBD5319A4FE2400282B91 /* ADPaintLayerData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintLayerData.m; sourceTree = "<group>"; };
 		080D245D18B6E5C400161756 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		080D70F01A7A067600B6AC87 /* ADHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADHintView.h; path = PaintProjector/ADHintView.h; sourceTree = "<group>"; };
+		080D70F11A7A067600B6AC87 /* ADHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADHintView.m; path = PaintProjector/ADHintView.m; sourceTree = "<group>"; };
 		0811271D194982A80057BD53 /* ADShaderBrush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderBrush.h; sourceTree = "<group>"; };
 		0811271E194982A80057BD53 /* ADShaderBrush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderBrush.m; sourceTree = "<group>"; };
 		0813AA1E19167BD4000C4D00 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = PaintProjector/Models; sourceTree = "<group>"; };
@@ -2267,6 +2271,8 @@
 				0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */,
 				08A6B9A919D68CEF00810875 /* ADPageControl.h */,
 				08A6B9AA19D68CEF00810875 /* ADPageControl.m */,
+				080D70F01A7A067600B6AC87 /* ADHintView.h */,
+				080D70F11A7A067600B6AC87 /* ADHintView.m */,
 			);
 			name = SharedUITools;
 			sourceTree = "<group>";
@@ -4065,6 +4071,7 @@
 				78de4268fcc15d5b14c9bd04 /* ADImportButton.m in Sources */,
 				ac9c2f2536b4c665eb857130 /* ADExportButton.m in Sources */,
 				0894FF8118AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */,
+				080D70F31A7A067600B6AC87 /* ADHintView.m in Sources */,
 				088E1D8518A26F700059002C /* ADShaderCylinder.m in Sources */,
 				08F5DF1B19824F22007B3F12 /* NSObject+PropertyAnimation.m in Sources */,
 				08B9104918AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */,
@@ -4461,6 +4468,7 @@
 				084691411748C4CA00E50554 /* ADLayerToolView.m in Sources */,
 				08672139174A6AA8005A9FE0 /* ADLayerVisibleButton.m in Sources */,
 				08511B09174BD39E00C97202 /* ADLayerOpacitySlider.m in Sources */,
+				080D70F21A7A067600B6AC87 /* ADHintView.m in Sources */,
 				0862133F174D06AD006704C8 /* ADLayerBlendModeButton.m in Sources */,
 				08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */,
 				087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */,

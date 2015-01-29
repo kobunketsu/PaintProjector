@@ -1468,6 +1468,7 @@
 
 //修正brushState内容
 -(void)modifyBrushState:(ADBrushState*)brushState{
+    //当前图层的锁定修改了笔的状态，导致笔在新的
     brushState.isOpacityLocked = ((ADPaintLayer*)(self.paintData.layers[self.paintData.curLayerIndex])).opacityLock;
 }
 
@@ -1526,7 +1527,7 @@
     DebugLogGLGroupStart(@"paintView willAfterDraw");
 
     if (brushState.wet > 0) {
-        
+
     }
     else{
         //绑定最终显示buffer
@@ -1544,7 +1545,7 @@
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
         ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
-        CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
+        CGFloat opacity = brushState.opacity * (layer.opacityLock ? 1 : 1);
 //        CGFloat opacity = brushState.opacity;
         
         //none premultiplied data saved to layerTexture
@@ -3106,8 +3107,18 @@
 #endif
 
 
+//- (void)resetBrush:(ADBrushState*)brushState{
+//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+////    if (self.lastProgramQuadAlpha != 1) {
+//        glUniform1f(_alphaQuadUniform, 1);
+//        self.lastProgramQuadAlpha = 1;
+////    }
+//    ADBrush *brush = self.brushTypes[brushState.classId];
+//    [brush setBlendModeWithBrushState:brushState];
+//}
+
 //draw brush texture to curPaintedTexture
-- (void) drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
+- (void)drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
     [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
     if (!_lastProgramQuadTransformIdentity) {

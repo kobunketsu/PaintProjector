@@ -33,7 +33,7 @@
 #import "ADBrushManager.h"
 #import "ADHelpViewController.h"
 #import "AppDelegate.h"
-
+#import "ADHintView.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -3127,6 +3127,8 @@
         DebugLogWriteSuccess(@"didFinishSaving");
         //更新UI
         [self.sharedPopoverController dismissPopoverAnimated:true];
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ExportToPhotoLibrary", nil) parentView:self.rootView] show];
+        
     }
 }
 
