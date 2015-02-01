@@ -1526,7 +1526,7 @@ static float DeviceWidth = 0.154;
 - (void)createCylinder{
     //create cylinder
     
-    ADShaderCylinder *shaderCylinder = (ADShaderCylinder *)[[REGLWrapper current]createShader:@"ADShaderCylinder"];
+    ADShaderCylinder *shaderCylinder = (ADShaderCylinder *)[[REGLWrapper current]shader:@"ADShaderCylinder" predefines:nil];
     REMaterial *matMain = [[REMaterial alloc]initWithShader:shaderCylinder];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderMain.png" reload:false].name;
@@ -1582,7 +1582,7 @@ static float DeviceWidth = 0.154;
     REModelEntity *cylinderTopLight = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderTopLight.transform.parent = self.cylinder.transform;
     
-    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]createShader:@"ADShaderUnlitTransparentAdditive"];
+    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]shader:@"ADShaderUnlitTransparentAdditive" predefines:nil];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     mat.transparent = true;
     RETexture *texMain = [[RETexture alloc]init];
@@ -1618,7 +1618,7 @@ static float DeviceWidth = 0.154;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderBottom" ofType:@"obj"];
     REModelEntity *cylinderBottom = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderBottom.transform.parent = self.cylinder.transform;
-    ADShaderNoLitTexture *shader = (ADShaderNoLitTexture *)[[REGLWrapper current]createShader:@"ADShaderNoLitTexture"];
+    ADShaderNoLitTexture *shader = (ADShaderNoLitTexture *)[[REGLWrapper current]shader:@"ADShaderNoLitTexture" predefines:nil];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderBottom.png" reload:false].name;
@@ -1637,7 +1637,7 @@ static float DeviceWidth = 0.154;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Models/cylinderInterLight" ofType:@"obj"];
     REModelEntity *cylinderInterLight = [REAssetDatabase LoadAssetAtPath:path ofType:[REModelEntity class]];
     cylinderInterLight.transform.parent = self.cylinder.transform;
-    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]createShader:@"ADShaderUnlitTransparentAdditive"];
+    ADShaderUnlitTransparentAdditive *shader = (ADShaderUnlitTransparentAdditive *)[[REGLWrapper current]shader:@"ADShaderUnlitTransparentAdditive" predefines:nil];
     REMaterial *mat = [[REMaterial alloc]initWithShader:shader];
     RETexture *texMain = [[RETexture alloc]init];
     texMain.texID = [RETextureManager textureInfoFromImageName:@"cylinderInterLight.png" reload:false].name;
@@ -1682,7 +1682,7 @@ static float DeviceWidth = 0.154;
 
 - (ADCylinderProject *)createCylinderProjectWithRow:(NSInteger)row Column:(NSInteger)column{
     
-    ADShaderCylinderProject *shaderCylinderProject = (ADShaderCylinderProject *)[[REGLWrapper current]createShader:@"ADShaderCylinderProject"];
+    ADShaderCylinderProject *shaderCylinderProject = (ADShaderCylinderProject *)[[REGLWrapper current]shader:@"ADShaderCylinderProject" predefines:nil];
     REMaterial *matCylinderProject = [[REMaterial alloc]initWithShader:shaderCylinderProject];
 //    matCylinderProject.faceMode = RE_DoubleFace;
     

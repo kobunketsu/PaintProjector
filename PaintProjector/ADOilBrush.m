@@ -62,7 +62,7 @@ static ADBrushState *brushStateOilBrush = nil;
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"brush_dryTip_64.png"];
+    [self setShapeTextureWithName:@"brush_dryTip_64.png"];
 }
 
 - (BOOL)free{

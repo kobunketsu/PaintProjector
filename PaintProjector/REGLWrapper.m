@@ -9,6 +9,7 @@
 //用来优化OpenGLES指令效率的包裹器
 #import "REGLWrapper.h"
 #import "REShader.h"
+#import "REMaterial.h"
 
 @implementation REGLWrapper
 +(REGLWrapper*)current{
@@ -42,6 +43,7 @@
     DebugLogSystem(@"init");
     if ((self = [super init])) {
         _shaderCaches = [[NSMutableDictionary alloc]init];
+        _materailCaches = [[NSMutableDictionary alloc]init];
         _activeSlotTex = [[NSMutableDictionary alloc]init];
         _context = [self createBestEAGLContext];
         _lastFadeMode = RE_FrontFace;
@@ -52,10 +54,12 @@
 
 - (void)dealloc{
     DebugLogSystem(@"dealloc");
-    for (REShader *shader in self.shaderCaches) {
-        [self deleteShader:NSStringFromClass([shader class])];
-    }
+    //resource class remove program
+    [_shaderCaches removeAllObjects];
     _shaderCaches = nil;
+    
+    [_materailCaches removeAllObjects];
+    _materailCaches = nil;
     
     _activeSlotTex = nil;
     [EAGLContext setCurrentContext:nil];
@@ -193,34 +197,95 @@
 
 }
 
--(REShader*)createShader:(NSString*)name{
-    REShader *shader = (REShader *)[self.shaderCaches valueForKey:name];
+
+-(REShader*)shader:(NSString*)name predefines:(NSArray*)predefines{
+    NSString *key = nil;
+    if(predefines){
+        NSString *predefineString = [predefines componentsJoinedByString:@"_"];
+        key = [name stringByAppendingFormat:@"_%@", predefineString];
+    }
+    else{
+        key = name;
+    }
+    
+    REShader *shader = (REShader *)[self.shaderCaches valueForKey:key];
     if(shader){
         return shader;
     }
     else{
-        REShader *shader = [[NSClassFromString(name) alloc] init];
+        REShader *shader = [[NSClassFromString(name) alloc] initWithPredefines:predefines];
         if (!shader) {
             DebugLogError(@"createShader %@ failed", name);
             return nil;
         }
         shader.name = name;
-        [self.shaderCaches setValue:shader forKey:name];
+        
+
+        [self.shaderCaches setValue:shader forKey:key];
         
         return shader;
     }
 }
 
-- (void)deleteShader:(NSString*)name{
-    if (![self.shaderCaches valueForKey:name]) {
+
+- (void)deleteShader:(NSString*)name predefines:(NSArray*)predefines{
+    NSString *key = nil;
+    if(predefines){
+        NSString *predefineString = [predefines componentsJoinedByString:@"_"];
+        key = [name stringByAppendingFormat:@"_%@", predefineString];
+    }
+    else{
+        key = name;
+    }
+    
+    if (![self.shaderCaches valueForKey:key]) {
         return;
     }
     
-    REShader *shader = (REShader *)[self.shaderCaches valueForKey:name];
-    [self.shaderCaches removeObjectForKey:name];
+    REShader *shader = (REShader *)[self.shaderCaches valueForKey:key];
+    DebugLogWarn(@"delete shader key %@", key);
+    [self.shaderCaches removeObjectForKey:key];
     [shader destroy];
     shader = nil;
 }
+
+-(REMaterial*)material:(NSString*)name{
+    return (REMaterial *)[self.materailCaches valueForKey:name];
+}
+
+-(REMaterial*)createMaterial:(NSString*)name withShader:(REShader*)shader{
+    
+    REMaterial *material = (REMaterial *)[self.materailCaches valueForKey:name];
+    if(material){
+        return material;
+    }
+    else{
+        REMaterial *material = [[REMaterial alloc]initWithShader:shader];
+        if (!material) {
+            DebugLogError(@"create material %@ failed", name);
+            return nil;
+        }
+        material.name = name;
+        
+        
+        [self.materailCaches setValue:material forKey:name];
+        
+        return material;
+    }
+}
+
+- (void)deleteMaterial:(NSString*)name{
+    NSString *key = name;
+    if (![self.materailCaches valueForKey:key]) {
+        return;
+    }
+    
+    REMaterial *material = (REMaterial *)[self.materailCaches valueForKey:key];
+    [self.materailCaches removeObjectForKey:key];
+    [material destroy];
+    material = nil;
+}
+
 
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block1{
     if(program != self.lastProgram){
@@ -235,6 +300,7 @@
 }
 
 -(void)deleteProgram:(GLuint)program{
+    
     if (self.lastProgram == program) {
         self.lastProgram = 0;
     }
@@ -340,7 +406,7 @@
 }
 
 #pragma mark- compile shader
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSString*)preDefines
+- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSArray*)preDefines
 {
     //    NSString *shaderKey;
     //    if (preDefines!=NULL) {
@@ -367,8 +433,7 @@
     NSString *fileStr = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil];
     NSString* sourceStr = [[NSString alloc]init];
     if(preDefines !=NULL ){
-        NSArray* aPreDefines = [preDefines componentsSeparatedByString:@"|"];
-        for (NSString* define in aPreDefines) {
+        for (NSString* define in preDefines) {
             if ([define isEqualToString:@""]) {
                 continue;
             }

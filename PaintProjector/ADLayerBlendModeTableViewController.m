@@ -12,8 +12,8 @@
 #import "ADLayerBlendModeTableViewCell.h"
 #import "ADLayerOpacitySlider.h"
 
-#define LayerBlendModeCellHeight 39
-#define LayerBlendModeCount 16
+#define LayerBlendModeCellHeight 34
+#define LayerBlendModeCount 18
 
 @interface ADLayerBlendModeTableViewController ()
 
@@ -125,43 +125,49 @@
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Screen", nil);
             break;
         case 3:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Overlay", nil);
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Add", nil);
             break;
         case 4:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Darken", nil);
-            break;
-        case 5:
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Lighten", nil);
             break;
-        case 6:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"ColorDodge", nil);
-            break;
-        case 7:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"ColorBurn", nil);
-            break;
-        case 8:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"SoftLight", nil);
-            break;
-        case 9:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"HardLight", nil);
-            break;
-        case 10:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Difference", nil);
-            break;
-        case 11:
+        case 5:
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Exclusion", nil);
             break;
+        case 6:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Difference", nil);
+            break;
+        case 7:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Substract", nil);
+            break;
+        case 8:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"LinearBurn", nil);
+            break;
+        case 9:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"ColorDodge", nil);
+            break;
+        case 10:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"ColorBurn", nil);
+            break;
+        case 11:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Overlay", nil);
+            break;
         case 12:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Hue", nil);
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"HardLight", nil);
             break;
         case 13:
-            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Saturation", nil);
-            break;
-        case 14:
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Color", nil);
             break;
-        case 15:
+        case 14:
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Luminosity", nil);
+            break;
+        case 15:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"SoftLight", nil);
+            break;
+        case 16:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Hue", nil);
+            break;
+        case 17:
+            cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Saturation", nil);
             break;
         default:
             break;

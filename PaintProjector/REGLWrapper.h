@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 @class REShader;
+@class REMaterial;
 
 typedef NS_ENUM(NSInteger, BlendFuncType) {
     BlendFuncAdditive,
@@ -95,9 +96,9 @@ static REGLWrapper* glWrapper = nil;
 
 -(void)deleteTexture:(GLuint)tex;
 
--(REShader*)createShader:(NSString*)name;
+-(REShader*)shader:(NSString*)name predefines:(NSArray*)predefines;
 
--(void)deleteShader:(NSString*)name;
+-(void)deleteShader:(NSString*)name predefines:(NSArray*)predefines;
 
 -(void)useProgram:(GLuint)program uniformBlock:(void (^) (void))block;
 
@@ -110,10 +111,20 @@ static REGLWrapper* glWrapper = nil;
 - (void)setImageWrapMode:(WrapMode)wrapMode;
 
 - (void)setFaceMode:(REFaceMode)faceMode;
-#pragma mark- compile shader
+
+-(REMaterial*)material:(NSString*)name;
+
+-(REMaterial*)createMaterial:(NSString*)name withShader:(REShader*)shader;
+
+- (void)deleteMaterial:(NSString*)name;
+
+#pragma mark- shader
 @property (retain, nonatomic) NSMutableDictionary *shaderCaches;//用关键字记录所有shader
 
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSString*)preDefines;
+- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file preDefines:(NSArray*)preDefines;
 - (BOOL)linkProgram:(GLuint)prog;
 - (BOOL)validateProgram:(GLuint)prog;
+
+#pragma mark- material
+@property (retain, nonatomic) NSMutableDictionary *materailCaches;//用关键字记录所有material
 @end

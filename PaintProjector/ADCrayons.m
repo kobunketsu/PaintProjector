@@ -60,8 +60,8 @@ static ADBrushState *brushStateCrayons = nil;
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"brushCrayonsShape_r64.png"];
-    [self setPatternTextureWithImage:@"brushCrayonsGrain_r64.png"];
+    [self setShapeTextureWithName:@"brushCrayonsShape_r64.png"];
+    [self setPatternTextureWithName:@"brushCrayonsGrain_r64.png"];
 }
 
 - (BOOL)free{

@@ -54,6 +54,7 @@
     for (int i = 0; i < resources.count; ++i) {
         REObject *object = resources[i];
         [REObject destroy:object];
+
         DebugLog(@"unloaded asset %@", object);
     }
     [resources removeAllObjects];

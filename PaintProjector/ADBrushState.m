@@ -30,6 +30,7 @@
 #define kSpacingKey              @"spacing"
 #define kScatteringKey              @"scattering"
 #define kWetKey              @"wet"
+#define kWaterColorBlendKey              @"waterColorBlend"
 #define kIsPatternTextureKey              @"isPatternTexture"
 #define kIsAirbrushKey              @"isAirbrush"
 #define kIsShapeTextureKey              @"isShapeTexture"
@@ -64,6 +65,7 @@
     state.isVelocitySensor = self.isVelocitySensor;
     state.isRadiusMagnifySensor = self.isRadiusMagnifySensor;
     state.wet = self.wet;
+    state.waterColorBlend = self.waterColorBlend;
     state.isOpacityLocked = self.isOpacityLocked;
     return state;
 }
@@ -94,6 +96,7 @@
         [aCoder encodeBool:self.isRadiusMagnifySensor forKey:kIsRadiusMagnifySensorKey];
         [aCoder encodeBool:self.isOpacityLocked forKey:kIsOpacityLockedKey];
         [aCoder encodeFloat:self.wet forKey:kWetKey];
+        [aCoder encodeFloat:self.waterColorBlend forKey:kWaterColorBlendKey];
         const float*colors = CGColorGetComponents(self.color.CGColor);
         [aCoder encodeFloat:colors[0] forKey:kColorRKey];
         [aCoder encodeFloat:colors[1] forKey:kColorGKey];
@@ -134,6 +137,7 @@
             _isRadiusMagnifySensor = [aDecoder decodeBoolForKey:kIsRadiusMagnifySensorKey];
             _isOpacityLocked = [aDecoder decodeBoolForKey:kIsOpacityLockedKey];
             _wet = [aDecoder decodeFloatForKey:kWetKey];
+            _waterColorBlend = [aDecoder decodeFloatForKey:kWaterColorBlendKey];
             CGFloat r = [aDecoder decodeFloatForKey:kColorRKey];
             CGFloat g = [aDecoder decodeFloatForKey:kColorGKey];
             CGFloat b = [aDecoder decodeFloatForKey:kColorBKey];

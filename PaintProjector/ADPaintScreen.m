@@ -1191,13 +1191,14 @@
         [self beginButtonIBAction:self.paintColorButton];
         [self paintColorButtonTouchUp:nil];
         [self performSelector:@selector(endButtonIBAction:) withObject:self.paintColorButton afterDelay:PaintScreenIBActionAnimationDuration];
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickColor", nil) parentView:self.rootView]show];
     }
     else if (translation.y < 0 && abs(translation.x / translation.y) < 1.0){
         //打开图层快捷方式
         [self beginButtonIBAction:self.layerButton];
         [self layerButtonTouchUp:nil];
         [self performSelector:@selector(endButtonIBAction:) withObject:self.layerButton afterDelay:PaintScreenIBActionAnimationDuration];
-        
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickLayer", nil) parentView:self.rootView]show];
     }
 
 }
@@ -4181,6 +4182,17 @@
 -(void)willEnableUIUndo:(BOOL)enable{
     self.undoButton.alpha = enable ? 1 : 0;
     self.undoButton.enabled = enable;
+}
+
+- (void) willFinishUIRedo{
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickRedo", nil) parentView:self.rootView]show];
+}
+- (void) willFinishUIUndo{
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickUndo", nil) parentView:self.rootView]show];
+}
+
+- (void) willFinishUIClear{
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickClear", nil) parentView:self.rootView]show];
 }
 
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{

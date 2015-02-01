@@ -63,7 +63,7 @@ static ADBrushState *brushStateMarkerSquare = nil;
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"brushMarkerSquareShape_r64.png"];
+    [self setShapeTextureWithName:@"brushMarkerSquareShape_r64.png"];
 }
 
 - (BOOL)free{

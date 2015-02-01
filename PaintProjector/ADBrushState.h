@@ -30,6 +30,7 @@
 @property (assign, nonatomic)float spacing;
 @property (assign, nonatomic)float scattering;
 @property (assign, nonatomic)float wet;
+@property (assign, nonatomic)float waterColorBlend;
 @property (assign, nonatomic)bool isShapeTexture;
 @property (assign, nonatomic)bool isPatternTexture;
 @property (assign, nonatomic)bool isAirbrush;

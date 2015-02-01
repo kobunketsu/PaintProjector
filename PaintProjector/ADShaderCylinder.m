@@ -9,10 +9,9 @@
 #import "ADShaderCylinder.h"
 
 @implementation ADShaderCylinder
-- (id)init{
-    self = [super init];
+- (id)initWithPredefines:(NSArray *)predefines{
+    self = [super initWithPredefines:predefines];
     if(self){
-        self.uniformPropertyDic = [[NSMutableDictionary alloc]init];
         
         GLuint vertShader, fragShader;
         NSString *vertShaderPathname, *fragShaderPathname;
@@ -87,7 +86,7 @@
             glDetachShader(self.program, fragShader);
             glDeleteShader(fragShader);
         }
-        DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [@"programCylinder" UTF8String]);
+        [self compileShaderCompleted];
     }
     return self;
 }

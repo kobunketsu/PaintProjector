@@ -61,6 +61,10 @@ typedef struct {
 - (void) willEnableUIRedo:(BOOL)enable;
 - (void) willEnableUIUndo:(BOOL)enable;
 
+- (void) willFinishUIRedo;
+- (void) willFinishUIUndo;
+- (void) willFinishUIClear;
+
 - (void) willChangeUIPaintColor:(UIColor*) resultColor;
 - (void) willChangeUIBrush:(ADBrush*) brush;
 - (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush;
@@ -121,34 +125,13 @@ typedef struct {
     GLuint _debugVertexBuffer2;
     GLuint _debugVertexArray2;
 
-    GLuint _programQuad;
-    GLuint _texQuadUniform;
-    GLuint _alphaQuadUniform;
+//    GLuint _programQuad;
+//    GLuint _texQuadUniform;
+//    GLuint _alphaQuadUniform;
     GLuint _colorQuadUniform;
-    GLuint _tranformImageMatrixUniform;
-    
-//    GLKMatrix4 _transformedImageMatrix;
-    
-//    GLuint _programBackgroundLayer;
-    GLuint _programPaintLayerBlendModeNormal;
-    GLuint _programPaintLayerBlendModeMultiply;
-    GLuint _programPaintLayerBlendModeScreen;
-    GLuint _programPaintLayerBlendModeOverlay;
-    GLuint _programPaintLayerBlendModeDarken;
-    GLuint _programPaintLayerBlendModeLighten;
-    GLuint _programPaintLayerBlendModeColorDodge;
-    GLuint _programPaintLayerBlendModeColorBurn;
-    GLuint _programPaintLayerBlendModeSoftLight;
-    GLuint _programPaintLayerBlendModeHardLight;
-    GLuint _programPaintLayerBlendModeDifference;
-    GLuint _programPaintLayerBlendModeExclusion;
-    GLuint _programPaintLayerBlendModeHue;
-    GLuint _programPaintLayerBlendModeSaturation;
-    GLuint _programPaintLayerBlendModeColor;
-    GLuint _programPaintLayerBlendModeLuminosity;
-    
-//    BOOL _lastProgramLayerNormalTransformIdentity;
+//    GLuint _tranformImageMatrixUniform;
 
+    GLuint _programQuadBlendBrush;
 #if DEBUG_VIEW_COLORALPHA
     GLuint _programQuadDebugAlpha;
     GLuint _programQuadDebugColor;
@@ -174,12 +157,12 @@ typedef struct {
 @property (assign, nonatomic) GLuint backgroundTexture;//背景内容
 @property (retain, nonatomic) ADPaintData *paintData;//正向绘制数据
 @property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
-
 @property (retain, nonatomic)ADCommandManager *commandManager;
 @property (assign, nonatomic, readonly)PaintingViewState state;
 @property (weak, nonatomic)NSMutableArray *brushTypes;
 @property (retain, nonatomic)ADBrush *brush;
 @property (weak, nonatomic)ADEyeDropper *eyeDropper;
+@property (retain, nonatomic) REMaterial *quadMat;
 
 #pragma mark GL资源
 - (void)swapVBO;
@@ -269,7 +252,7 @@ typedef struct {
 - (void)resetUndoRedo;
 #pragma ultility
 - (void)drawQuad:(GLuint)quad texture2D:(GLuint)texture premultiplied:(BOOL)premultiplied alpha:(GLfloat)alpha;
-- (void)drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity;
+- (void)drawLayerWithTex:(GLuint)texture blend:(LayerBlendMode)blendMode opacity:(float)opacity;
 #pragma mark 其他Misc
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer;

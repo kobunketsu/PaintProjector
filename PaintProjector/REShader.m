@@ -11,9 +11,11 @@
 #import "REGLWrapper.h"
 
 @implementation REShader
-- (id)init{
+- (id)initWithPredefines:(NSArray *)predefines{
     self = [super init];
     if (self) {
+        _preDefines = predefines;
+        self.uniformPropertyDic = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
@@ -33,6 +35,15 @@
     [self.uniformPropertyDic removeAllObjects];
     self.uniformPropertyDic = nil;
     
-    [[REGLWrapper current] deleteProgram:_program];
+    [[REGLWrapper current] deleteProgram:self.program];
+}
+
+- (void)compileShaderCompleted{
+    NSString *key = NSStringFromClass([self class]);
+    if(_preDefines){
+        key = [NSString stringWithFormat:@"%@_%@", key, [self.preDefines componentsJoinedByString:@"_"]];
+    }
+    
+    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [key UTF8String]);
 }
 @end

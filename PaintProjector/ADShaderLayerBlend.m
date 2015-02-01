@@ -1,40 +1,37 @@
 //
-//  ShaderBrush.m
+//  ADShaderLayerBlend.m
 //  PaintProjector
 //
-//  Created by 胡 文杰 on 6/12/14.
-//  Copyright (c) 2014 WenjiHu. All rights reserved.
+//  Created by 文杰 胡 on 1/30/15.
+//  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADShaderBrush.h"
-#import "REGLWrapper.h"
+#import "ADShaderLayerBlend.h"
 
-@implementation ADShaderBrush
+@implementation ADShaderLayerBlend
 - (id)initWithPredefines:(NSArray *)predefines{
     self = [super initWithPredefines:predefines];
     if(self){
         
-        GLuint vertShader, fragShader;
+        GLuint program, vertShader, fragShader;
         NSString *vertShaderPathname, *fragShaderPathname;
-
+        
         // Create shader program.
-        GLuint program = glCreateProgram();
+        program = glCreateProgram();
         self.program = program;
-        NSString *programBrushName = [NSString stringWithFormat:@"programBrush%@", self.class];
-        DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, self.program, 0, [programBrushName UTF8String]);
-
+        
         // Create and compile vertex shader.
-        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
+        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
         if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:predefines]) {
-            DebugLog(@"Failed to compile vertex shader");
-            return nil;
+            DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
+            return NO;
         }
         
         // Create and compile fragment shader.
-        fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
+        fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderPaintLayerBlend" ofType:@"fsh"];
         if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:predefines]) {
-            DebugLog(@"Failed to compile fragment shader");
-            return nil;
+            DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
+            return NO;
         }
         
         // Attach vertex shader to program.
@@ -42,12 +39,11 @@
         
         // Attach fragment shader to program.
         glAttachShader(program, fragShader);
-        
+    
         // Bind attribute locations.
         // This needs to be done prior to linking.
         glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
-        glBindAttribLocation(program, GLKVertexAttribColor, "SourceColor");
-        
+        glBindAttribLocation(program, GLKVertexAttribTexCoord0, "Texcoord");
         // Link program.
         if (![[REGLWrapper current] linkProgram:program]) {
             DebugLog(@"Failed to link program: %d", program);
@@ -65,16 +61,14 @@
                 program = 0;
             }
             
-            return nil;
+            return NO;
         }
         
         // Get uniform locations.
-        [self setUniformForKey:@"smudgeTexture"];
-        [self setUniformForKey:@"maskTexture"];
-        [self setUniformForKey:@"patternTexture"];
-        [self setUniformForKey:@"Params"];
-        [self setUniformForKey:@"ParamsExtend"];
-        [self setUniformForKey:@"Projection"];
+        
+        [self setUniformForKey:@"texture"];
+        [self setUniformForKey:@"alpha"];
+        [self setUniformForKey:@"transformMatrix"];
         
         // Release vertex and fragment shaders.
         if (vertShader) {
@@ -86,11 +80,17 @@
             glDeleteShader(fragShader);
         }
         
+        [[REGLWrapper current]useProgram:program uniformBlock:^{
+            NSNumber *num = [self.uniformPropertyDic objectForKey:@"transformMatrix"];
+            if (num != nil) {
+                glUniformMatrix4fv(num.intValue, 1, 0, GLKMatrix4Identity.m);
+            }
+        }];
+        
         [self compileShaderCompleted];
     }
-    
     return self;
+
 }
-
-
 @end
+

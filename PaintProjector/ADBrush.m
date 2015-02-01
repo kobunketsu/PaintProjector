@@ -89,18 +89,27 @@
 }
 - (void)initGL{
     //Shader
-//    _shaderPreDefines = @"";
-//    if(![self loadShader]){
-//        DebugLogError(@"Brush init loadShader failed");
-//    }
-
-    _shader = (ADShaderBrush*)[[REGLWrapper current] createShader:@"ADShaderBrush"];
+    [self resetDefaultTextures];
+    
+    NSMutableArray *predefines = [[NSMutableArray alloc]init];
+    if(self.brushState.isPatternTexture){
+        [predefines addObject:@"Pattern"];
+    }
+    if(self.brushState.isShapeTexture){
+        [predefines addObject:@"Shape"];
+    }
+    if(self.brushState.wet > 0){
+        [predefines addObject:@"Wet"];
+    }
+    if(self.brushState.waterColorBlend > 0){
+        [predefines addObject:@"WaterColorBlend"];
+    }
+        
+    _shader = (ADShaderBrush*)[[REGLWrapper current] shader:@"ADShaderBrush" predefines:predefines];
+    DebugLogWarn(@"brush %@ createShader %@",self.name, predefines);
     _material = [[REMaterial alloc]initWithShader:_shader];
     
     [self setCanvasSize:self.paintView.bounds.size];
-    
-    [self resetDefaultTextures];
-    
 }
 - (void)tearDownGL{
     DebugLogFuncStart(@"tearDownGL");
@@ -357,9 +366,9 @@
         if (lastBrushState == NULL ||
             brushState.classId != lastBrushState.classId ||
             brushState.isShapeTexture != lastBrushState.isShapeTexture ||
-            brushState.isPatternTexture != lastBrushState.isPatternTexture ||
+            brushState.waterColorBlend != lastBrushState.waterColorBlend ||
             brushState.wet != lastBrushState.wet) {
-            [self.material setVector:GLKVector4Make((float)brushState.isShapeTexture, (float)brushState.isPatternTexture, brushState.wet, self.patternTextureSize) forPropertyName:@"ParamsExtend"];
+            [self.material setVector:GLKVector4Make((float)brushState.isShapeTexture, (float)brushState.waterColorBlend, brushState.wet, self.patternTextureSize) forPropertyName:@"ParamsExtend"];
         }
         
         //srcAlpha + (1 - srcAlpha) * dstAlpha --> no overrideAlpha
@@ -422,7 +431,7 @@
     self.vertexBuffer = (BrushVertex *)glMapBufferOES(GL_ARRAY_BUFFER, GL_WRITE_ONLY_OES);
 }
 
--(void) setBrushShapeTexture:(NSString*)textureName{
+-(void) setShapeTextureWithName:(NSString*)textureName{
     if (!textureName) {
         self.brushState.isShapeTexture = false;
         return;
@@ -437,7 +446,7 @@
     
 }
 
-- (void)setPatternTextureWithImage:(NSString*)patterName{
+- (void)setPatternTextureWithName:(NSString*)patterName{
     if (!patterName) {
         self.brushState.isPatternTexture = false;
         return;
@@ -899,7 +908,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 
 - (void)resetDefaultTextures{
     [self setBrushCommonTextures];
-    [self setBrushShapeTexture:nil];
+    [self setShapeTextureWithName:nil];
 }
 
 #pragma mark- Smudge

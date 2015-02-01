@@ -457,7 +457,7 @@
     NSString *path = @"BrushPatternTexture";
     path = [path stringByAppendingPathComponent:imageName.lastPathComponent];
 
-    [self.brush setBrushShapeTexture:path];
+    [self.brush setShapeTextureWithName:path];
     
     float size = [self brushPatternSizeFromFileName:imageName.lastPathComponent];
     self.brush.brushState.radius = size * 0.5;

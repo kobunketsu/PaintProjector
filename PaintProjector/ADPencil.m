@@ -60,8 +60,8 @@ static ADBrushState *brushStatePencil = nil;
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"brushPencilShape_r64.png"];
-    [self setPatternTextureWithImage:@"brushPencilGrain_r64.png"];
+    [self setShapeTextureWithName:@"brushPencilShape_r64.png"];
+    [self setPatternTextureWithName:@"brushPencilGrain_r64.png"];
 }
 
 - (BOOL)free{

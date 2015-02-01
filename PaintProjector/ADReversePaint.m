@@ -71,7 +71,7 @@
 - (void)createReversePaintResource{
     DebugLogGLGroupStart(@"createReversePaintResource");
     
-    ADShaderCylinderImage *shaderCylinderImage = (ADShaderCylinderImage *)[[REGLWrapper current]createShader:@"ADShaderCylinderImage"];
+    ADShaderCylinderImage *shaderCylinderImage = (ADShaderCylinderImage *)[[REGLWrapper current]shader:@"ADShaderCylinderImage" predefines:nil];
     REMaterial *matCylinderImage = [[REMaterial alloc]initWithShader:shaderCylinderImage];
     matCylinderImage.faceMode = RE_BackFace;
     
@@ -171,7 +171,7 @@
         //隐藏层不绘制
         if(!layer.visible) continue;
         RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[i];
-        [self.paintView drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+        [self.paintView drawLayerWithTex:layerTexture.texID blend:layer.blendMode opacity:layer.opacity];
     }
 //        DebugLogGLSnapshotEnd    
     DebugLogGLGroupEnd();

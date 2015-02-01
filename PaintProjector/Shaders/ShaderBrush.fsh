@@ -2,7 +2,7 @@
 uniform sampler2D smudgeTexture;
 uniform sampler2D maskTexture;
 uniform sampler2D patternTexture;
-uniform highp vec4 ParamsExtend;//x:使用图形 y:杂点 z:使用涂抹 w:使用图章大小
+uniform highp vec4 ParamsExtend;//x:使用图形 y:水色混合 z:使用涂抹 w:使用图章大小
 
 varying lowp vec4 DestinationColor; 
 varying highp vec4 oBrushParam;
@@ -35,12 +35,14 @@ void main ( )
     //blend with curPaintedLayer src_alpha src_alpha_inv
     lowp float shape = 1.0;
 //#ifdef Shape
-    if (ParamsExtend.x > 0.0){
+    
+#ifdef Shape
+//    if (ParamsExtend.x > 0.0){
         //shape
         shape = texture2D(maskTexture, finalTexcoord).a;
-    }
-//#else
-    else{
+//    }
+#else
+//    else{
         highp float distUV = length(texcoord);    //(0, 0.5)
         //hardness
         highp float hardness = oBrushParam.y;
@@ -52,25 +54,27 @@ void main ( )
         highp float tcFallOff = clamp(distUV * 2.0, 0.0, 1.0);
         highp float softAlpha = texture2D(maskTexture, vec2(tcFallOff, 0.5)).r;
         shape = hardAlpha * hardness + softAlpha * (1.0 - hardness);
-    }
-//#endif
+//    }
+#endif
     
 //pattern
     //convert texcoord into texcoord space
     lowp float patternAlpha = 1.0;
     highp vec2 patternCoord = vec2(0.0, 0.0);
-    if (ParamsExtend.w > 0.0){
+#ifdef Pattern
+//    if (ParamsExtend.w > 0.0){
         patternCoord = (oBrushParam2.yz + vec2(gl_PointCoord.x - 0.5, 0.5 - gl_PointCoord.y) * oBrushParam2.x) / ParamsExtend.w;
         patternAlpha = texture2D(patternTexture, patternCoord).r;
-    }
+//    }
+#endif
     shape *= patternAlpha;
     finalAlpha *= shape;
 //    finalColor = vec3(patternCoord.rg, 0.0);
 //    finalAlpha = 1.0;
     
     //smudge
-//#ifdef Smudge
-    if (ParamsExtend.z > 0.0){
+#ifdef Wet
+//    if (ParamsExtend.z > 0.0){
         //blend smudgeColor(preAlpha) with canvasColor using wet
         lowp vec4 absorbColor = texture2D(smudgeTexture, finalTexcoord);
         highp float paintBlend = shape * flow;
@@ -86,9 +90,27 @@ void main ( )
             finalAlpha = gl_LastFragData[0].a;
         }
         
-    }
-//#endif
+//    }
+#endif
     
+#ifdef WaterColor
+    float v_Material = ParamsExtend.y;
+    vec3 v_FillColor = finalColor;
+    float fillAlpha = patternAlpha;
+    vec4 col;
+    col.rgb = (1.0 - v_Material) * fillAlpha.a * v_FillColor;
+    col.a = v_Material * edgeAlpha.a;
+    
+    vec4 lastFrag = gl_LastFragData[0];
+    
+    //blend
+    gl_FragColor = col + (1.0 - col) * lastFrag;
+#else
+    gl_FragColor = vec4(finalColor.rgb, finalAlpha);
+#endif
+}
+
+
 //#ifdef Dissolve
 //    if (ParamsExtend.y > 0.0){
 //        highp float dissolve = 1.0;
@@ -100,8 +122,4 @@ void main ( )
 //    }
 //#endif
 
-    gl_FragColor = vec4(finalColor.rgb, finalAlpha);
-    
-
-}
 

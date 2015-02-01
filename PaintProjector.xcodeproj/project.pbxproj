@@ -189,6 +189,8 @@
 		0826775B18E1D92E004DA2F4 /* ADCrystalGradientStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775918E1D92E004DA2F4 /* ADCrystalGradientStyleView.m */; };
 		0826775F18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775E18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m */; };
 		0826776018E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826775E18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m */; };
+		0826ED821A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826ED811A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m */; };
+		0826ED831A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826ED811A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m */; };
 		0826EE8918B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */; };
 		0826EE8A18B98A230074FC9F /* ADProductFeatureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */; };
 		0826EE8D18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0826EE8C18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m */; };
@@ -451,6 +453,14 @@
 		087B9E7D194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087B9E7C194DF2A900E1CA7A /* ADTutorialIndicatorView.m */; };
 		087B9E7E194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087B9E7C194DF2A900E1CA7A /* ADTutorialIndicatorView.m */; };
 		087BB3A31730AB4B006C0A33 /* ADOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* ADOpacitySlider.m */; };
+		087C532A1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */; };
+		087C532B1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */; };
+		087C532C1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */; };
+		087C532D1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */; };
+		087C532E1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */; };
+		087C532F1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */; };
+		087C53301A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */; };
+		087C53311A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */; };
 		087C5AB316B2CF2E005F954A /* ADFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* ADFinger.m */; };
 		087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* ADLayerMergeButton.m */; };
 		087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
@@ -499,6 +509,8 @@
 		088E1D8B18A278A40059002C /* ADCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8918A278A40059002C /* ADCylinder.m */; };
 		088E57B61790D7C900464F61 /* ADProjectViewRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E57B51790D7C900464F61 /* ADProjectViewRange.m */; };
 		088FD61E18569CEA00B64ABF /* ADTransformContentViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088FD61D18569CEA00B64ABF /* ADTransformContentViewLayer.m */; };
+		0890B8241A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */; };
+		0890B8251A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */; };
 		08930E1D1787F2B9001525B1 /* ADAutoRotateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08930E1C1787F2B9001525B1 /* ADAutoRotateButton.m */; };
 		089457D019BCB641004FBDAC /* AnaDrawLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 089457CE19BCB641004FBDAC /* AnaDrawLaunch.png */; };
 		089457D119BCB641004FBDAC /* AnaDrawLaunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 089457CE19BCB641004FBDAC /* AnaDrawLaunch.png */; };
@@ -1223,6 +1235,8 @@
 		0826775918E1D92E004DA2F4 /* ADCrystalGradientStyleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADCrystalGradientStyleView.m; path = PaintProjector/ADCrystalGradientStyleView.m; sourceTree = "<group>"; };
 		0826775D18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerTableViewCellBackgroundView.h; sourceTree = "<group>"; };
 		0826775E18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerTableViewCellBackgroundView.m; sourceTree = "<group>"; };
+		0826ED801A7B5B8E00A9F4D9 /* ADShaderLayerBlend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderLayerBlend.h; sourceTree = "<group>"; };
+		0826ED811A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderLayerBlend.m; sourceTree = "<group>"; };
 		0826EE8718B98A230074FC9F /* ADProductFeatureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADProductFeatureCollectionView.h; path = PaintProjector/ADProductFeatureCollectionView.h; sourceTree = "<group>"; };
 		0826EE8818B98A230074FC9F /* ADProductFeatureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADProductFeatureCollectionView.m; path = PaintProjector/ADProductFeatureCollectionView.m; sourceTree = "<group>"; };
 		0826EE8B18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADProductFeatureCollectionViewCell.h; path = PaintProjector/ADProductFeatureCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1509,6 +1523,10 @@
 		087BB3A21730AB4B006C0A33 /* ADOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOpacitySlider.m; sourceTree = "<group>"; };
 		087BCD1D196923290006DE29 /* ADScaleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADScaleButton.h; sourceTree = "<group>"; };
 		087BCD1E196923290006DE29 /* ADScaleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADScaleButton.m; sourceTree = "<group>"; };
+		087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-edge-45x45.png"; path = "PaintProjector/Images/Watercolor-edge-45x45.png"; sourceTree = SOURCE_ROOT; };
+		087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-edge-90x90.png"; path = "PaintProjector/Images/Watercolor-edge-90x90.png"; sourceTree = SOURCE_ROOT; };
+		087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-fill-70x70.png"; path = "PaintProjector/Images/Watercolor-fill-70x70.png"; sourceTree = SOURCE_ROOT; };
+		087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-fill-140x140.png"; path = "PaintProjector/Images/Watercolor-fill-140x140.png"; sourceTree = SOURCE_ROOT; };
 		087C5AB116B2CF2E005F954A /* ADFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFinger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* ADFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFinger.m; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* ADLayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerMergeButton.h; sourceTree = "<group>"; };
@@ -1576,6 +1594,8 @@
 		088E57B51790D7C900464F61 /* ADProjectViewRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADProjectViewRange.m; sourceTree = "<group>"; };
 		088FD61C18569CEA00B64ABF /* ADTransformContentViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformContentViewLayer.h; sourceTree = "<group>"; };
 		088FD61D18569CEA00B64ABF /* ADTransformContentViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformContentViewLayer.m; sourceTree = "<group>"; };
+		0890B8221A7CBEFB006C59AB /* ADShaderCompositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderCompositor.h; sourceTree = "<group>"; };
+		0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderCompositor.m; sourceTree = "<group>"; };
 		08930E1B1787F2B9001525B1 /* ADAutoRotateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADAutoRotateButton.h; path = PaintProjector/ADAutoRotateButton.h; sourceTree = "<group>"; };
 		08930E1C1787F2B9001525B1 /* ADAutoRotateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADAutoRotateButton.m; path = PaintProjector/ADAutoRotateButton.m; sourceTree = "<group>"; };
 		089457CE19BCB641004FBDAC /* AnaDrawLaunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AnaDrawLaunch.png; path = PaintProjector/Images/AnaDrawLaunch.png; sourceTree = SOURCE_ROOT; };
@@ -2430,6 +2450,8 @@
 				089D8E9C1840A24C00CCF11A /* ADBackgroundLayerTableViewCell.m */,
 				0826775D18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.h */,
 				0826775E18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m */,
+				0826ED801A7B5B8E00A9F4D9 /* ADShaderLayerBlend.h */,
+				0826ED811A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -2671,6 +2693,10 @@
 				08086DE118DC8BA200F03EB4 /* chalkStroke.png */,
 				08086DE218DC8BA200F03EB4 /* chalkStroke02.png */,
 				08086E0318DC8BA300F03EB4 /* noise.png */,
+				087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */,
+				087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */,
+				087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */,
+				087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */,
 			);
 			name = Textures;
 			path = UI;
@@ -3173,6 +3199,8 @@
 				084691001747AEEA00E50554 /* Export */,
 				087C5AB616B2DC91005F954A /* Brush */,
 				087C8E5F18BF7ABD001A3331 /* Swatch */,
+				0890B8221A7CBEFB006C59AB /* ADShaderCompositor.h */,
+				0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */,
 				0817B38E163C38ED00BD52B2 /* ADPaintScreen.h */,
 				0817B38F163C38ED00BD52B2 /* ADPaintScreen.m */,
 				94997B7F16819D12006E3661 /* ADPaintView.h */,
@@ -3520,6 +3548,7 @@
 				08EF179619E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69FA19C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33419C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
+				087C532D1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */,
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
 				08751305195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				082A69F619C864F600862332 /* tutorial0_W-Wannaa@2x.png in Resources */,
@@ -3528,10 +3557,12 @@
 				08B8C34619C5EED100CB85BE /* tutorial0_u-You.png in Resources */,
 				0875131419580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
+				087C532B1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */,
 				082D39FD1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08E505EC19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				0822E39119A1D3D70094081E /* AnaDrawSettingIcon-29@2x.png in Resources */,
+				087C53311A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */,
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A02195B0D64006EDCFC /* cylinderMain.png in Resources */,
@@ -3545,6 +3576,7 @@
 				08086EB518DC8BA300F03EB4 /* noise.png in Resources */,
 				08B8C34A19C5EED100CB85BE /* tutorial0_W-Wannaa.png in Resources */,
 				08525120194D853D0087F4AF /* tutorial_viewDevice.png in Resources */,
+				087C532F1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */,
 				088313AF199CFC5700C49B92 /* community-48.png in Resources */,
 				082A6A0219C864F600862332 /* tutorial0_u-You@2x.png in Resources */,
 				08F905DA194AC982002918AA /* iap_brushOilBrush.png in Resources */,
@@ -3681,6 +3713,7 @@
 				08EF179519E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69F919C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33319C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
+				087C532C1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */,
 				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
 				08751304195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				082A69F519C864F600862332 /* tutorial0_W-Wannaa@2x.png in Resources */,
@@ -3689,10 +3722,12 @@
 				08B8C34519C5EED100CB85BE /* tutorial0_u-You.png in Resources */,
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
 				0875131319580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
+				087C532A1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */,
 				082D39FC1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08E505EB19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				08FD0A1F1952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A01195B0D64006EDCFC /* cylinderMain.png in Resources */,
+				087C53301A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */,
 				0822E39019A1D3D70094081E /* AnaDrawSettingIcon-29@2x.png in Resources */,
 				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
 				08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
@@ -3706,6 +3741,7 @@
 				08F905D9194AC982002918AA /* iap_brushOilBrush.png in Resources */,
 				08B8C34919C5EED100CB85BE /* tutorial0_W-Wannaa.png in Resources */,
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
+				087C532E1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				082A6A0119C864F600862332 /* tutorial0_u-You@2x.png in Resources */,
 				088313AE199CFC5700C49B92 /* community-48.png in Resources */,
@@ -3862,7 +3898,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "find \"${SRCROOT}\" \\( -name \"*.m\" \\) -and \\( -path \"${SRCROOT}/Pods/*\" -prune -o -\nprint0 \\) | xargs -0 wc -l | awk '$1 > 400 && $2 != \"total\" {for(i=2;i!=NF;i++){printf \"%s%s\", $i, \" \"} print $NF \":1: warning: File more than 400 lines (\" $1 \"), consider refactoring.\" }'";
 		};
 		8c024a53dc97acb54fb27d17 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4005,6 +4041,7 @@
 				08CE1A6818968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */,
 				087D9B381981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */,
 				0847F52C18B066420038869A /* ADSetupTableViewCell.m in Sources */,
+				0826ED831A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m in Sources */,
 				7d3679a32694854662870645 /* RECamera.m in Sources */,
 				6a4c0c455bf23bc91890bab1 /* ADFuzzyTransparentView.m in Sources */,
 				c25abf19aa976a475aa4c235 /* ADClearGestureRecognizer.m in Sources */,
@@ -4117,6 +4154,7 @@
 				08FF70CD189019A400A7A09B /* ADPaintUIKitAnimation.m in Sources */,
 				080CBD5519A4FE2400282B91 /* ADPaintLayerData.m in Sources */,
 				a819809116ba726ba068c0f2 /* ADLayerTableViewController.m in Sources */,
+				0890B8251A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */,
 				0824E50219C462F00065BB04 /* ADTutorialArtCollectionViewCell.m in Sources */,
 				08624F0018D3EBC400FD971E /* ADCylinderProjectToPaintCollectionTransitionManager.m in Sources */,
 				33c3e02f55644e233c7e50c0 /* ADLayerTableViewCell.m in Sources */,
@@ -4288,6 +4326,7 @@
 				0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */,
 				08D4F0E91A77606B00B42B77 /* RRVerificationController.m in Sources */,
 				08D7464A19C68EBC008921AB /* UILabel+Extension.m in Sources */,
+				0890B8241A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */,
 				08F280C4189E76D900DF744C /* ADPlaneMesh.m in Sources */,
 				080BD0D91645FDC000B37C01 /* ADSelectBrushButton.m in Sources */,
 				080BD0DD164601B400B37C01 /* ADEyeDropper.m in Sources */,
@@ -4485,6 +4524,7 @@
 				080706E018B78F4800D9385F /* ADInAppPurchaseTableView.m in Sources */,
 				08BD1A8319CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				080276741967139C0022FD56 /* ADOpacityIndicatorView.m in Sources */,
+				0826ED821A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m in Sources */,
 				0871E937176621450046D505 /* ADCommandManager.m in Sources */,
 				087512B31957D67600FC03CC /* ADTutorialBackgroundLeftEdgeView.m in Sources */,
 				08802F601766A4BF00276B15 /* ADCommand.m in Sources */,

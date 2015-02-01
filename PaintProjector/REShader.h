@@ -12,7 +12,9 @@
 @interface REShader : REObject
 @property (assign, nonatomic) GLuint program;
 @property (retain, nonatomic) NSMutableDictionary* uniformPropertyDic;
-//@property (copy, nonatomic) NSString *shaderPreDefines;
+@property (retain, nonatomic) NSArray *preDefines;
 - (void)setUniformForKey:(NSString*)key;
 - (void)setBlendMode;
+- (id)initWithPredefines:(NSArray *)predefines;
+- (void)compileShaderCompleted;
 @end

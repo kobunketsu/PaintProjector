@@ -57,13 +57,13 @@ static ADBrushState *brushStateChineseBrush = nil;
     self.brushState.isPatternTexture = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
-    self.brushState.wet = 0;
-    
+    self.brushState.wet = 0;    
 }
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setBrushShapeTexture:@"chineseBrush.png"];
+    [self setShapeTextureWithName:@"Watercolor-edge-45x45.png"];
+    [self setPatternTextureWithName:@"Watercolor-fill-70x70"];
 }
 
 - (BOOL)free{

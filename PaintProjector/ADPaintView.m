@@ -162,6 +162,7 @@
         _lastProgramQuadTex = -1;
         _lastProgramLayerTex = -1;
         
+        
 #if DEBUG_VIEW_COLORALPHA
         //        [self createDebugQuadVerticesbuffer];
         //        [self createDebugQuadVerticesbuffer2];
@@ -188,7 +189,7 @@
 -(void)initGL{
     DebugLogFuncStart(@"initGL");
     
-//    [GLWrapper destroy];
+//    [REGLWrapper destroy];
     [REGLWrapper initialize];
     [[REGLWrapper current].context setDebugLabel:@"PaintView Context"];
     [RETextureManager initialize];
@@ -610,164 +611,113 @@
 - (void)loadPrograms{
     DebugLogFuncStart(@"loadPrograms");
     //确保不重复load两次
-    if (_programQuad == 0) {
-        [self loadShaderQuad];
-        
-        [[REGLWrapper current] useProgram:_programQuad uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-            _lastProgramQuadTransformIdentity = true;
-        }];
-    }
+    REMaterial *material = [[REGLWrapper current] createMaterial:@"Compositor" withShader:
+                            [[REGLWrapper current]shader:@"ADShaderCompositor" predefines:nil]];
+    self.quadMat = material;
     
-//    if (_programBackgroundLayer == 0) {
-//        _programBackgroundLayer = [self loadShaderBackgroundLayer];
-//    }
 
-    if (_programPaintLayerBlendModeNormal == 0) {
-        _programPaintLayerBlendModeNormal = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeNormal"];
-        
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeNormal uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-//            _lastProgramLayerNormalTransformIdentity = true;
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendNormal" withShader:
+                            [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Normal"]]];
     
-    if (_programPaintLayerBlendModeMultiply == 0) {
-        _programPaintLayerBlendModeMultiply = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeMultiply"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeMultiply uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendMultiply" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Multiply"]]];
     
-    if (_programPaintLayerBlendModeScreen == 0) {
-        _programPaintLayerBlendModeScreen = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeScreen"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeScreen uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendScreen" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Screen"]]];
     
-    if (_programPaintLayerBlendModeOverlay == 0) {
-        _programPaintLayerBlendModeOverlay = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeOverlay"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeOverlay uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendAdd" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Add"]]];
     
-    if (_programPaintLayerBlendModeDarken == 0) {
-        _programPaintLayerBlendModeDarken = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDarken"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeDarken uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendLighten" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Lighten"]]];
     
-    if (_programPaintLayerBlendModeLighten == 0) {
-        _programPaintLayerBlendModeLighten = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLighten"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeLighten uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendExclusion" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Exclusion"]]];
     
-    if (_programPaintLayerBlendModeColorDodge == 0) {
-        _programPaintLayerBlendModeColorDodge = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorDodge"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeColorDodge uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendDifference" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Difference"]]];
     
-    if (_programPaintLayerBlendModeColorBurn == 0) {
-        _programPaintLayerBlendModeColorBurn = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColorBurn"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeColorBurn uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendSubtract" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Subtract"]]];
     
-    if (_programPaintLayerBlendModeSoftLight == 0) {
-        _programPaintLayerBlendModeSoftLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSoftLight"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeSoftLight uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendLinearBurn" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"LinearBurn"]]];
     
-    if (_programPaintLayerBlendModeHardLight == 0) {
-        _programPaintLayerBlendModeHardLight = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHardLight"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeHardLight uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendColorDodge" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"ColorDodge"]]];
     
-    if (_programPaintLayerBlendModeDifference == 0) {
-        _programPaintLayerBlendModeDifference = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeDifference"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeDifference uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendColorBurn" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"ColorBurn"]]];
     
-    if (_programPaintLayerBlendModeExclusion == 0) {
-        _programPaintLayerBlendModeExclusion = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeExclusion"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeExclusion uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendOverlay" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Overlay"]]];
+
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendHardLight" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"HardLight"]]];
     
-    if (_programPaintLayerBlendModeHue == 0) {
-        _programPaintLayerBlendModeHue = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeHue"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeHue uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendColor" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Color"]]];
+
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendLuminosity" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Luminosity"]]];
     
-    if (_programPaintLayerBlendModeSaturation == 0) {
-        _programPaintLayerBlendModeSaturation = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeSaturation"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeSaturation uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendSoftLight" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"SoftLight"]]];
     
-    if (_programPaintLayerBlendModeColor == 0) {
-        _programPaintLayerBlendModeColor = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeColor"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeColor uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendHue" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Hue"]]];
     
-    if (_programPaintLayerBlendModeLuminosity == 0) {
-        _programPaintLayerBlendModeLuminosity = [self loadShaderPaintLayer:@"ShaderPaintLayerBlendModeLuminosity"];
-        [[REGLWrapper current] useProgram:_programPaintLayerBlendModeLuminosity uniformBlock:^{
-            glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        }];
-    }
+    material = [[REGLWrapper current] createMaterial:@"LayerBlendSaturation" withShader:
+                [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Saturation"]]];
     
-#if DEBUG_VIEW_COLORALPHA
-//    [self loadShaderQuadDebugAlpha];
-//    [self loadShaderQuadDebugColor];
-#endif
+    
 }
 
 - (void)destroyPrograms{
     DebugLogFuncStart(@"destroyPrograms");
     
-    [[REGLWrapper current] deleteProgram:_programQuad];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeColor];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeColorBurn];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeColorDodge];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeDarken];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeDifference];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeExclusion];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeHardLight];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeHue];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeLighten];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeLuminosity];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeMultiply];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeNormal];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeOverlay];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeSaturation];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeScreen];
-    [[REGLWrapper current] deleteProgram:_programPaintLayerBlendModeSoftLight];
-    
-#if DEBUG_VIEW_COLORALPHA
-//    RELEASE_PROGRAM(_programQuadDebugAlpha);
-//    RELEASE_PROGRAM(_programQuadDebugColor);
-#endif
+//    [[REGLWrapper current] deleteProgram:_programQuad];
+    [[REGLWrapper current] deleteShader:@"ADShaderCompositor" predefines:nil];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Normal"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Multiply"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Screen"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Add"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Lighten"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Exclusion"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Difference"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Substract"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"LinearBurn"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"ColorDodge"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"ColorBurn"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Overlay"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"HardLight"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Color"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Luminosity"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"SoftLight"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Hue"]];
+    [[REGLWrapper current] deleteShader:@"ADShaderLayerBlend" predefines:@[@"Saturation"]];
+
+
+
+    [[REGLWrapper current] deleteMaterial:@"Compositor"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendNormal"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendMultiply"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendScreen"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendAdd"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendLighten"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendExclusion"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendDifference"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendSubstract"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendLinearBurn"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendColorDodge"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendColorBurn"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendOverlay"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendHardLight"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendColor"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendLuminosity"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendSoftLight"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendHue"];
+    [[REGLWrapper current] deleteMaterial:@"LayerBlendSaturation"];
 }
 
 - (void)prewarmShaders{
@@ -1600,6 +1550,8 @@
     DebugLogGLGroupStart(@"WillFinishUndo");
 
     [self finishUndoRedo];
+    
+    [self.delegate willFinishUIUndo];
     DebugLogGLGroupEnd();
     
 }
@@ -1619,6 +1571,8 @@
     DebugLogGLGroupStart(@"willFinishRedo");
 
     [self finishUndoRedo];
+    
+    [self.delegate willFinishUIRedo];
     DebugLogGLGroupEnd();
 }
 - (void) willEnableRedo:(BOOL)enable{
@@ -1891,7 +1845,7 @@
     
     [[REGLWrapper current] bindVertexArrayOES:vao];
     
-    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
     GLKMatrix4 transform = GLKMatrix4MakeScale((float)rect.size.width / (float)(copyRadius*2), (float)rect.size.height / (float)(copyRadius*2), 1.0);
     
@@ -1899,18 +1853,21 @@
     float y =  -(float)(point.y - rect.size.height * 0.5) / (float)(rect.size.height * 0.5);
     transform = GLKMatrix4Translate(transform, x, y, 0);
     
-    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transform.m);
-    _lastProgramQuadTransformIdentity = false;
+    [self.quadMat setMatrix:transform forPropertyName:@"transformMatrix"];
+    [self.quadMat setInt:0 forPropertyName:@"texture"];
+    [self.quadMat setFloat:1 forPropertyName:@"alpha"];
     
-    if (self.lastProgramQuadTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramQuadTex = 0;
-    }
-    
-    if (self.lastProgramQuadAlpha != 1) {
-        glUniform1f(_alphaQuadUniform, 1);
-        self.lastProgramQuadAlpha = 1;
-    }
+//    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transform.m);
+//    _lastProgramQuadTransformIdentity = false;
+//    if (self.lastProgramQuadTex != 0) {
+//        glUniform1i(_texQuadUniform, 0);
+//        self.lastProgramQuadTex = 0;
+//    }
+//    
+//    if (self.lastProgramQuadAlpha != 1) {
+//        glUniform1f(_alphaQuadUniform, 1);
+//        self.lastProgramQuadAlpha = 1;
+//    }
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
@@ -2230,6 +2187,8 @@
     [self drawSquareQuadWithTexture2DPremultiplied:self.curPaintedLayerTexture.texID];
     
     [self resetUndoRedo];
+    
+    [self.delegate willFinishUIClear];
 }
 
 // Erases the screen
@@ -2350,7 +2309,7 @@
         glClear(GL_COLOR_BUFFER_BIT);
     }
     else if (self.paintData.backgroundLayer.data) {
-        [self drawLayerWithTex:self.backgroundLayerTexture.texID blend:kCGBlendModeNormal opacity:1.0];
+        [self drawLayerWithTex:self.backgroundLayerTexture.texID blend:kLayerBlendModeNormal opacity:1.0];
     }
     else{
         const CGFloat* colors = CGColorGetComponents(self.paintData.backgroundLayer.clearColor.CGColor);
@@ -2374,182 +2333,85 @@
     if (_curLayerIndex == index) {
         //_paintTexturebuffer是黑底混合的图，使用ONE ONE_MINUS_SRCALPHA混合
         DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f Current Painted!", index, self.curPaintedLayerTexture.texID, layer.blendMode, layer.opacity);
-        [self drawLayerWithTex:self.curPaintedLayerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+        [self drawLayerWithTex:self.curPaintedLayerTexture.texID blend:layer.blendMode opacity:layer.opacity];
     }
     else{
         RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[index];
         DebugLog(@"drawLayerAtIndex: %d Texture: %d blendMode: %d opacity: %.2f", index, layerTexture.texID,  layer.blendMode, layer.opacity);
-        [self drawLayerWithTex:layerTexture.texID blend:(CGBlendMode)layer.blendMode opacity:layer.opacity];
+        [self drawLayerWithTex:layerTexture.texID blend:layer.blendMode opacity:layer.opacity];
     }
     DebugLogGLGroupEnd();
 }
 
-//test
+
 //混合当前图层和下个图层
-- (void) drawTestLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
-    GLuint program = 0;
-    //    BOOL *lastProgramTransformIdentity;
+- (void) drawLayerWithTex:(GLuint)texture blend:(LayerBlendMode)blendMode opacity:(float)opacity{
+    REMaterial *material;
     
     switch (blendMode) {
         case kLayerBlendModeNormal:
-            program = _programPaintLayerBlendModeNormal;
-            //            lastProgramTransformIdentity = &_lastProgramLayerNormalTransformIdentity;
+            material = [[REGLWrapper current]material:@"LayerBlendNormal"];
             break;
         case kLayerBlendModeMultiply:
-            program = _programPaintLayerBlendModeMultiply;
+            material = [[REGLWrapper current]material:@"LayerBlendMultiply"];
             break;
         case kLayerBlendModeScreen:
-            program = _programPaintLayerBlendModeScreen;
+            material = [[REGLWrapper current]material:@"LayerBlendScreen"];
             break;
-        case kLayerBlendModeOverlay:
-            program = _programPaintLayerBlendModeOverlay;
-            break;
-        case kLayerBlendModeDarken:
-            program = _programPaintLayerBlendModeDarken;
+        case kLayerBlendModeAdd:
+            material = [[REGLWrapper current]material:@"LayerBlendAdd"];
             break;
         case kLayerBlendModeLighten:
-            program = _programPaintLayerBlendModeLighten;
-            break;
-        case kLayerBlendModeColorDodge:
-            program = _programPaintLayerBlendModeColorDodge;
-            break;
-        case kLayerBlendModeColorBurn:
-            program = _programPaintLayerBlendModeColorBurn;
-            break;
-        case kLayerBlendModeSoftLight:
-            program = _programPaintLayerBlendModeSoftLight;
-            break;
-        case kLayerBlendModeHardLight:
-            program = _programPaintLayerBlendModeHardLight;
-            break;
-        case kLayerBlendModeDifference:
-            program = _programPaintLayerBlendModeDifference;
+            material = [[REGLWrapper current]material:@"LayerBlendLighten"];
             break;
         case kLayerBlendModeExclusion:
-            program = _programPaintLayerBlendModeExclusion;
+            material = [[REGLWrapper current]material:@"LayerBlendExclusion"];
             break;
-        case kLayerBlendModeHue:
-            program = _programPaintLayerBlendModeHue;
+        case kLayerBlendModeDifference:
+            material = [[REGLWrapper current]material:@"LayerBlendDifference"];
             break;
-        case kLayerBlendModeSaturation:
-            program = _programPaintLayerBlendModeSaturation;
+        case kLayerBlendModeSubstract:
+            material = [[REGLWrapper current]material:@"LayerBlendSubstract"];
+            break;
+        case kLayerBlendModeLinearBurn:
+            material = [[REGLWrapper current]material:@"LayerBlendLinearBurn"];
+            break;
+        case kLayerBlendModeColorDodge:
+            material = [[REGLWrapper current]material:@"LayerBlendColorDodge"];
+            break;
+        case kLayerBlendModeColorBurn:
+            material = [[REGLWrapper current]material:@"LayerBlendColorBurn"];
+            break;
+        case kLayerBlendModeOverlay:
+            material = [[REGLWrapper current]material:@"LayerBlendOverlay"];
+            break;
+        case kLayerBlendModeHardLight:
+            material = [[REGLWrapper current]material:@"LayerBlendHardLight"];
             break;
         case kLayerBlendModeColor:
-            program = _programPaintLayerBlendModeColor;
+            material = [[REGLWrapper current]material:@"LayerBlendColor"];
             break;
         case kLayerBlendModeLuminosity:
-            program = _programPaintLayerBlendModeLuminosity;
+            material = [[REGLWrapper current]material:@"LayerBlendLuminosity"];
+            break;
+        case kLayerBlendModeSoftLight:
+            material = [[REGLWrapper current]material:@"LayerBlendSoftLight"];
+            break;
+        case kLayerBlendModeHue:
+            material = [[REGLWrapper current]material:@"LayerBlendHue"];
+            break;
+        case kLayerBlendModeSaturation:
+            material = [[REGLWrapper current]material:@"LayerBlendSaturation"];
             break;
         default:
             break;
     }
-    
-    [[REGLWrapper current] useProgram:program uniformBlock:nil];
-    
-    //设置太麻烦，统一设数值
-    //    if (! (&lastProgramTransformIdentity)) {
-    GLKMatrix4 matrix = GLKMatrix4Scale(GLKMatrix4Identity, 0.25, 0.25, 1);
-    matrix = GLKMatrix4Translate(matrix, -2, -2, 0);
 
-    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, matrix.m);
-    //        (*lastProgramTransformIdentity) = true;
-    //    }
-    
-    if (self.lastProgramLayerTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramLayerTex = 0;
-    }
-    
-    //    if (self.lastProgramLayerAlpha != opacity) {
-    glUniform1f(_alphaQuadUniform, opacity);
-    //        self.lastProgramLayerAlpha = opacity;
-    //    }
-    
-    [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
-    
-    //already disable blend
-    [[REGLWrapper current] blendFunc:BlendFuncOpaqueAlphaBlend];
-    
-    [[REGLWrapper current] bindVertexArrayOES: _VAOQuad];
-    
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-//混合当前图层和下个图层
-- (void) drawLayerWithTex:(GLuint)texture blend:(CGBlendMode)blendMode opacity:(float)opacity{
-    GLuint program = 0;
-//    BOOL *lastProgramTransformIdentity;
-    
-    switch (blendMode) {
-        case kLayerBlendModeNormal:
-            program = _programPaintLayerBlendModeNormal;
-//            lastProgramTransformIdentity = &_lastProgramLayerNormalTransformIdentity;
-            break;
-        case kLayerBlendModeMultiply:
-            program = _programPaintLayerBlendModeMultiply;
-            break;
-        case kLayerBlendModeScreen:
-            program = _programPaintLayerBlendModeScreen;
-            break;
-        case kLayerBlendModeOverlay:
-            program = _programPaintLayerBlendModeOverlay;
-            break;
-        case kLayerBlendModeDarken:
-            program = _programPaintLayerBlendModeDarken;
-            break;
-        case kLayerBlendModeLighten:
-            program = _programPaintLayerBlendModeLighten;
-            break;
-        case kLayerBlendModeColorDodge:
-            program = _programPaintLayerBlendModeColorDodge;
-            break;
-        case kLayerBlendModeColorBurn:
-            program = _programPaintLayerBlendModeColorBurn;
-            break;
-        case kLayerBlendModeSoftLight:
-            program = _programPaintLayerBlendModeSoftLight;
-            break;
-        case kLayerBlendModeHardLight:
-            program = _programPaintLayerBlendModeHardLight;
-            break;
-        case kLayerBlendModeDifference:
-            program = _programPaintLayerBlendModeDifference;
-            break;
-        case kLayerBlendModeExclusion:
-            program = _programPaintLayerBlendModeExclusion;
-            break;
-        case kLayerBlendModeHue:
-            program = _programPaintLayerBlendModeHue;
-            break;
-        case kLayerBlendModeSaturation:
-            program = _programPaintLayerBlendModeSaturation;
-            break;
-        case kLayerBlendModeColor:
-            program = _programPaintLayerBlendModeColor;
-            break;
-        case kLayerBlendModeLuminosity:
-            program = _programPaintLayerBlendModeLuminosity;
-            break;
-        default:
-            break;
-    }
-    
-    [[REGLWrapper current] useProgram:program uniformBlock:nil];
-
-    //设置太麻烦，统一设数值
-//    if (! (&lastProgramTransformIdentity)) {
-        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-//        (*lastProgramTransformIdentity) = true;
-//    }
-    
-    if (self.lastProgramLayerTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramLayerTex = 0;
-    }
-    
-//    if (self.lastProgramLayerAlpha != opacity) {
-        glUniform1f(_alphaQuadUniform, opacity);
-//        self.lastProgramLayerAlpha = opacity;
-//    }
+    [[REGLWrapper current] useProgram:material.shader.program uniformBlock:^{
+        [material setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
+        [material setInt:0 forPropertyName:@"texture"];
+        [material setFloat:opacity forPropertyName:@"alpha"];
+    }];
 
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
@@ -3119,22 +2981,28 @@
 
 //draw brush texture to curPaintedTexture
 - (void)drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
-    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+//    
+//    if (!_lastProgramQuadTransformIdentity) {
+//        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+//        _lastProgramQuadTransformIdentity = true;
+//    }
+//    
+//    if (self.lastProgramQuadTex != 0) {
+//        glUniform1i(_texQuadUniform, 0);
+//        self.lastProgramQuadTex = 0;
+//    }
+//    
+//    if (self.lastProgramQuadAlpha != alpha) {
+//        glUniform1f(_alphaQuadUniform, alpha);
+//        self.lastProgramQuadAlpha = alpha;
+//    }
     
-    if (!_lastProgramQuadTransformIdentity) {
-        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        _lastProgramQuadTransformIdentity = true;
-    }
+    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
-    if (self.lastProgramQuadTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramQuadTex = 0;
-    }
-    
-    if (self.lastProgramQuadAlpha != alpha) {
-        glUniform1f(_alphaQuadUniform, alpha);
-        self.lastProgramQuadAlpha = alpha;
-    }
+    [self.quadMat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
+    [self.quadMat setInt:0 forPropertyName:@"texture"];
+    [self.quadMat setFloat:alpha forPropertyName:@"alpha"];
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
@@ -3148,22 +3016,27 @@
 
 - (void)drawQuad:(GLuint)quad texture2D:(GLuint)texture premultiplied:(BOOL)premultiplied alpha:(GLfloat)alpha{
 
-    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
     
-    if (!_lastProgramQuadTransformIdentity) {
-        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-        _lastProgramQuadTransformIdentity = true;
-    }
+    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
-    if (self.lastProgramQuadTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramQuadTex = 0;
-    }
+    [self.quadMat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
+    [self.quadMat setInt:0 forPropertyName:@"texture"];
+    [self.quadMat setFloat:alpha forPropertyName:@"alpha"];
     
-    if (self.lastProgramQuadAlpha != alpha) {
-        glUniform1f(_alphaQuadUniform, alpha);
-        self.lastProgramQuadAlpha = alpha;
-    }
+//    if (!_lastProgramQuadTransformIdentity) {
+//        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
+//        _lastProgramQuadTransformIdentity = true;
+//    }
+//    
+//    if (self.lastProgramQuadTex != 0) {
+//        glUniform1i(_texQuadUniform, 0);
+//        self.lastProgramQuadTex = 0;
+//    }
+//    
+//    if (self.lastProgramQuadAlpha != alpha) {
+//        glUniform1f(_alphaQuadUniform, alpha);
+//        self.lastProgramQuadAlpha = alpha;
+//    }
 
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
@@ -3180,20 +3053,26 @@
 }
 
 - (void) drawQuad:(GLuint)quad transformMatrix:(GLKMatrix4)transformMatrix texture2DPremultiplied:(GLuint)texture{
-    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
+//    
+//    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transformMatrix.m);
+//    _lastProgramQuadTransformIdentity = false;
+//    
+//    if (self.lastProgramQuadTex != 0) {
+//        glUniform1i(_texQuadUniform, 0);
+//        self.lastProgramQuadTex = 0;
+//    }
+//    
+//    if (self.lastProgramQuadAlpha != 1) {
+//        glUniform1f(_alphaQuadUniform, 1);
+//        self.lastProgramQuadAlpha = 1;
+//    }
     
-    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transformMatrix.m);
-    _lastProgramQuadTransformIdentity = false;
+    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
-    if (self.lastProgramQuadTex != 0) {
-        glUniform1i(_texQuadUniform, 0);
-        self.lastProgramQuadTex = 0;
-    }
-    
-    if (self.lastProgramQuadAlpha != 1) {
-        glUniform1f(_alphaQuadUniform, 1);
-        self.lastProgramQuadAlpha = 1;
-    }
+    [self.quadMat setMatrix:transformMatrix forPropertyName:@"transformMatrix"];
+    [self.quadMat setInt:0 forPropertyName:@"texture"];
+    [self.quadMat setFloat:1 forPropertyName:@"alpha"];
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     
@@ -3245,147 +3124,148 @@
 
 
 #pragma mark- Shader
-- (GLuint)loadShaderPaintLayer:(NSString*)fragShaderName{
-    GLuint program, vertShader, fragShader;
-    NSString *vertShaderPathname, *fragShaderPathname;
-    
-    // Create shader program.
-    program = glCreateProgram();
-    
-    // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
-        return NO;
-    }
-    
-    // Create and compile fragment shader.
-    fragShaderName = [@"Shaders/" stringByAppendingString:fragShaderName];
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:fragShaderName ofType:@"fsh"];
-    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
-        return NO;
-    }
-    
-    // Attach vertex shader to program.
-    glAttachShader(program, vertShader);
-    
-    // Attach fragment shader to program.
-    glAttachShader(program, fragShader);
-    
-    // Bind attribute locations.
-    // This needs to be done prior to linking.
-    glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
-    glBindAttribLocation(program, GLKVertexAttribTexCoord0, "Texcoord");
-    // Link program.
-    if (![[REGLWrapper current] linkProgram:program]) {
-        DebugLog(@"Failed to link program: %d", program);
-        
-        if (vertShader) {
-            glDeleteShader(vertShader);
-            vertShader = 0;
-        }
-        if (fragShader) {
-            glDeleteShader(fragShader);
-            fragShader = 0;
-        }
-        if (program) {
-            glDeleteProgram(program);
-            program = 0;
-        }
-        
-        return NO;
-    }
-    
-    // Get uniform locations.
-    _texQuadUniform = glGetUniformLocation(program, "texture");
-    _alphaQuadUniform = glGetUniformLocation(program, "alpha");
-    _tranformImageMatrixUniform = glGetUniformLocation(program, "transformMatrix");
-    
-    // Release vertex and fragment shaders.
-    if (vertShader) {
-        glDetachShader(program, vertShader);
-        glDeleteShader(vertShader);
-    }
-    if (fragShader) {
-        glDetachShader(program, fragShader);
-        glDeleteShader(fragShader);
-    }
-    
-    NSString* programLabel = [NSString stringWithFormat:@"program%@",fragShaderName];
-    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
-    return program;
-}
+//- (GLuint)loadShaderPaintLayer:(NSString*)fragShaderName{
+//    GLuint program, vertShader, fragShader;
+//    NSString *vertShaderPathname, *fragShaderPathname;
+//    
+//    // Create shader program.
+//    program = glCreateProgram();
+//    
+//    // Create and compile vertex shader.
+//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
+//    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+//        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
+//        return NO;
+//    }
+//    
+//    // Create and compile fragment shader.
+//    fragShaderName = [@"Shaders/" stringByAppendingString:fragShaderName];
+//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:fragShaderName ofType:@"fsh"];
+//    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+//        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
+//        return NO;
+//    }
+//    
+//    // Attach vertex shader to program.
+//    glAttachShader(program, vertShader);
+//    
+//    // Attach fragment shader to program.
+//    glAttachShader(program, fragShader);
+//    
+//    // Bind attribute locations.
+//    // This needs to be done prior to linking.
+//    glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
+//    glBindAttribLocation(program, GLKVertexAttribTexCoord0, "Texcoord");
+//    // Link program.
+//    if (![[REGLWrapper current] linkProgram:program]) {
+//        DebugLog(@"Failed to link program: %d", program);
+//        
+//        if (vertShader) {
+//            glDeleteShader(vertShader);
+//            vertShader = 0;
+//        }
+//        if (fragShader) {
+//            glDeleteShader(fragShader);
+//            fragShader = 0;
+//        }
+//        if (program) {
+//            glDeleteProgram(program);
+//            program = 0;
+//        }
+//        
+//        return NO;
+//    }
+//    
+//    // Get uniform locations.
+//    _texQuadUniform = glGetUniformLocation(program, "texture");
+//    _alphaQuadUniform = glGetUniformLocation(program, "alpha");
+//    _tranformImageMatrixUniform = glGetUniformLocation(program, "transformMatrix");
+//    
+//    // Release vertex and fragment shaders.
+//    if (vertShader) {
+//        glDetachShader(program, vertShader);
+//        glDeleteShader(vertShader);
+//    }
+//    if (fragShader) {
+//        glDetachShader(program, fragShader);
+//        glDeleteShader(fragShader);
+//    }
+//    
+//    NSString* programLabel = [NSString stringWithFormat:@"program%@",fragShaderName];
+//    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
+//    return program;
+//}
 
-- (BOOL)loadShaderQuad
-{
-    GLuint vertShader, fragShader;
-    NSString *vertShaderPathname, *fragShaderPathname;
-    
-    // Create shader program.
-    _programQuad = glCreateProgram();
-    
-    // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
-        return NO;
-    }
-    
-    // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"fsh"];
-    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
-        return NO;
-    }
-    
-    // Attach vertex shader to program.
-    glAttachShader(_programQuad, vertShader);
-    
-    // Attach fragment shader to program.
-    glAttachShader(_programQuad, fragShader);
-    
-    // Bind attribute locations.
-    // This needs to be done prior to linking.
-    glBindAttribLocation(_programQuad, GLKVertexAttribPosition, "Position");
-    glBindAttribLocation(_programQuad, GLKVertexAttribTexCoord0, "Texcoord");
-    // Link program.
-    if (![[REGLWrapper current] linkProgram:_programQuad]) {
-        DebugLog(@"Failed to link program: %d", _programQuad);
-        
-        if (vertShader) {
-            glDeleteShader(vertShader);
-            vertShader = 0;
-        }
-        if (fragShader) {
-            glDeleteShader(fragShader);
-            fragShader = 0;
-        }
-        if (_programQuad) {
-            glDeleteProgram(_programQuad);
-            _programQuad = 0;
-        }
-        
-        return NO;
-    }
-    
-    // Get uniform locations.
-    _texQuadUniform = glGetUniformLocation(_programQuad, "texture");
-    _alphaQuadUniform = glGetUniformLocation(_programQuad, "alpha");
-    _tranformImageMatrixUniform = glGetUniformLocation(_programQuad, "transformMatrix");
+//- (BOOL)loadShaderQuad
+//{
+//    GLuint vertShader, fragShader;
+//    NSString *vertShaderPathname, *fragShaderPathname;
+//    
+//    // Create shader program.
+//    _programQuad = glCreateProgram();
+//    
+//    // Create and compile vertex shader.
+//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
+//    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
+//        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
+//        return NO;
+//    }
+//    
+//    // Create and compile fragment shader.
+//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"fsh"];
+//    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
+//        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
+//        return NO;
+//    }
+//    
+//    // Attach vertex shader to program.
+//    glAttachShader(_programQuad, vertShader);
+//    
+//    // Attach fragment shader to program.
+//    glAttachShader(_programQuad, fragShader);
+//    
+//    // Bind attribute locations.
+//    // This needs to be done prior to linking.
+//    glBindAttribLocation(_programQuad, GLKVertexAttribPosition, "Position");
+//    glBindAttribLocation(_programQuad, GLKVertexAttribTexCoord0, "Texcoord");
+//    // Link program.
+//    if (![[REGLWrapper current] linkProgram:_programQuad]) {
+//        DebugLog(@"Failed to link program: %d", _programQuad);
+//        
+//        if (vertShader) {
+//            glDeleteShader(vertShader);
+//            vertShader = 0;
+//        }
+//        if (fragShader) {
+//            glDeleteShader(fragShader);
+//            fragShader = 0;
+//        }
+//        if (_programQuad) {
+//            glDeleteProgram(_programQuad);
+//            _programQuad = 0;
+//        }
+//        
+//        return NO;
+//    }
+//    
+//    // Get uniform locations.
+//    _texQuadUniform = glGetUniformLocation(_programQuad, "texture");
+//    _alphaQuadUniform = glGetUniformLocation(_programQuad, "alpha");
+//    _tranformImageMatrixUniform = glGetUniformLocation(_programQuad, "transformMatrix");
+//
+//    // Release vertex and fragment shaders.
+//    if (vertShader) {
+//        glDetachShader(_programQuad, vertShader);
+//        glDeleteShader(vertShader);
+//    }
+//    if (fragShader) {
+//        glDetachShader(_programQuad, fragShader);
+//        glDeleteShader(fragShader);
+//    }
+//    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, _programQuad, 0, [@"programQuad" UTF8String]);
+//    return YES;
+//}
 
-    // Release vertex and fragment shaders.
-    if (vertShader) {
-        glDetachShader(_programQuad, vertShader);
-        glDeleteShader(vertShader);
-    }
-    if (fragShader) {
-        glDetachShader(_programQuad, fragShader);
-        glDeleteShader(fragShader);
-    }
-    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, _programQuad, 0, [@"programQuad" UTF8String]);
-    return YES;
-}
 
 #if DEBUG_VIEW_COLORALPHA
 - (BOOL)loadShaderQuadDebugAlpha
