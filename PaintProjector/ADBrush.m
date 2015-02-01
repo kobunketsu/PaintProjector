@@ -106,7 +106,7 @@
     }
         
     _shader = (ADShaderBrush*)[[REGLWrapper current] shader:@"ADShaderBrush" predefines:predefines];
-    DebugLogWarn(@"brush %@ createShader %@",self.name, predefines);
+//    DebugLogWarn(@"brush %@ createShader %@",self.name, predefines);
     _material = [[REMaterial alloc]initWithShader:_shader];
     
     [self setCanvasSize:self.paintView.bounds.size];
@@ -419,6 +419,10 @@
     if (brushState.wet > 0){
         //if use gl_LastFragData, please use glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
         [[REGLWrapper current] blendFunc:BlendFuncOpaque];
+    }
+    else if (brushState.waterColorBlend > 0){
+        //if use gl_LastFragData, please use glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+        [[REGLWrapper current] blendFunc:BlendFuncAdditive];
     }
     else{
         //draw to brushbuffer
@@ -743,145 +747,6 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     }
 //    glFlush(); 引起Logical Buffer Store问题
 }
-
-
-//- (BOOL)loadShaderNew
-//{
-//    const GLchar *source;
-//    NSString *vertShaderPathname, *fragShaderPathname;
-//    NSString *fileStr;
-//    
-//    //vertex shader
-//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
-//    fileStr = [NSString stringWithContentsOfFile:vertShaderPathname encoding:NSUTF8StringEncoding error:nil];
-//    source = (GLchar *)[fileStr UTF8String];
-//    _vertexProgram = glCreateShaderProgramvEXT(GL_VERTEX_SHADER, 1, &source);
-//    
-//    glBindAttribLocation(_vertexProgram, GLKVertexAttribPosition, "Position");
-//    glBindAttribLocation(_vertexProgram, GLKVertexAttribColor, "SourceColor");
-//    _projectionUniform = glGetUniformLocation(_vertexProgram, "Projection");
-//    _paramsUniform = glGetUniformLocation(_vertexProgram, "Params");
-//    
-//    //fragment shader
-//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
-//    fileStr = [NSString stringWithContentsOfFile:fragShaderPathname encoding:NSUTF8StringEncoding error:nil];
-//    source = (GLchar *)[fileStr UTF8String];
-//    _fragmentProgram =  glCreateShaderProgramvEXT(GL_FRAGMENT_SHADER, 1, &source);
-//    
-//    _maskTextureUniform = glGetUniformLocation(_fragmentProgram, "maskTexture");
-//    _noiseTextureUniform = glGetUniformLocation(_fragmentProgram, "noiseTexture");
-//    _smudgeTextureUniform = glGetUniformLocation(_fragmentProgram, "smudgeTexture");
-//    _params2Uniform = glGetUniformLocation(_fragmentProgram, "ParamsExtend");
-//    
-//    
-//    // Construct a program pipeline object and configure it to use the shaders
-//    glGenProgramPipelinesEXT(1, &_ppo);
-//    glBindProgramPipelineEXT(_ppo);
-//    glUseProgramStagesEXT(_ppo, GL_VERTEX_SHADER_BIT_EXT, _vertexProgram);
-//    glUseProgramStagesEXT(_ppo, GL_FRAGMENT_SHADER_BIT_EXT, _fragmentProgram);
-//    
-//    return YES;
-//}
-
-
-//- (BOOL)loadShader
-//{
-//    __block GLuint vertShader, fragShader;
-//    __block NSString *vertShaderPathname, *fragShaderPathname;
-//    __block NSString *programBrushLabel = [NSString stringWithFormat:@"programBrush%@", self.class];
-//    
-//    // Create shader program.
-//    if(_programBrush == 0){
-//        GLuint program = glCreateProgram();
-//        _programBrush = program;
-//#if DEBUG
-//        glLabelObjectEXT(GL_PROGRAM_OBJECT_EXT, program, 0, [programBrushLabel UTF8String]);
-//#endif
-//        
-//        //preprocess define
-//        //    if (self.brushState.isShapeTexture) {
-//        //        self.shaderPreDefines = [self.shaderPreDefines stringByAppendingString:@"|Pattern"];
-//        //    }
-//        //    if (self.brushState.isDissolve) {
-//        //        self.shaderPreDefines = [self.shaderPreDefines stringByAppendingString:@"|Dissolve"];
-//        //    }
-//        //    if (self.brushState.wet > 0) {
-//        //        self.shaderPreDefines = [self.shaderPreDefines stringByAppendingString:@"|Smudge"];
-//        //    }
-//        
-//        // Create and compile vertex shader.
-//        vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"vsh"];
-//        if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:self.shaderPreDefines]) {
-//            DebugLog(@"Failed to compile vertex shader");
-//            return NO;
-//        }
-//        
-//        // Create and compile fragment shader.
-//        fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderBrush" ofType:@"fsh"];
-//        if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:self.shaderPreDefines]) {
-//            DebugLog(@"Failed to compile fragment shader");
-//            return NO;
-//        }
-//        
-//        // Attach vertex shader to program.
-//        glAttachShader(program, vertShader);
-//        
-//        // Attach fragment shader to program.
-//        glAttachShader(program, fragShader);
-//        
-//        // Bind attribute locations.
-//        // This needs to be done prior to linking.
-//        glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
-//        glBindAttribLocation(program, GLKVertexAttribColor, "SourceColor");
-//        
-//        // Link program.
-//        if (![[REGLWrapper current] linkProgram:program]) {
-//            DebugLog(@"Failed to link program: %d", program);
-//            
-//            if (vertShader) {
-//                glDeleteShader(vertShader);
-//                vertShader = 0;
-//            }
-//            if (fragShader) {
-//                glDeleteShader(fragShader);
-//                fragShader = 0;
-//            }
-//            if (program) {
-//                glDeleteProgram(program);
-//                program = 0;
-//            }
-//            
-//            return NO;
-//        }
-//        
-//        // Get uniform locations.
-//        _smudgeTextureUniform = glGetUniformLocation(program, "smudgeTexture");
-//        _maskTextureUniform = glGetUniformLocation(program, "maskTexture");
-//        _patternTextureUniform = glGetUniformLocation(program, "patternTexture");
-//        _paramsUniform = glGetUniformLocation(program, "Params");
-//        _params2Uniform = glGetUniformLocation(program, "ParamsExtend");
-//        _projectionUniform = glGetUniformLocation(program, "Projection");
-//        
-//        // Release vertex and fragment shaders.
-//        if (vertShader) {
-//            glDetachShader(program, vertShader);
-//            glDeleteShader(vertShader);
-//        }
-//        if (fragShader) {
-//            glDetachShader(program, fragShader);
-//            glDeleteShader(fragShader);
-//        }
-//        
-//    }
-//    
-//    if (_programBrush == 0) {
-//        return NO;
-//    }
-//    else{
-//        return YES;
-//    }
-//}
-
 
 - (void)resetDefaultBrushState{
     self.brushState.opacity = 1;

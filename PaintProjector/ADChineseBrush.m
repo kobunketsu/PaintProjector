@@ -40,30 +40,31 @@ static ADBrushState *brushStateChineseBrush = nil;
 
 - (void)resetDefaultBrushState{
     self.brushState.opacity = 1;
-    self.brushState.flow = 0.1;
-    self.brushState.flowJitter = 1.0;
+    self.brushState.flow = 0.2;
+    self.brushState.flowJitter = 0;
     self.brushState.flowFade = 0.0;
     self.brushState.radius = 16;
     self.brushState.radiusJitter = 0.5;
     self.brushState.radiusFade = 0.0;
-    self.brushState.hardness = 0.2;
+    self.brushState.hardness = 0;
     self.brushState.roundness = 1.0;
     self.brushState.angle = 360;
     self.brushState.angleJitter = 1.0;
     self.brushState.angleFade = 0.0;
-    self.brushState.spacing = 0.05;
-    self.brushState.scattering = 2;
-    self.brushState.isAirbrush = true;
+    self.brushState.spacing = 0.025;
+    self.brushState.scattering = 0;
+    self.brushState.isAirbrush = false;
     self.brushState.isPatternTexture = false;
     self.brushState.isVelocitySensor = false;
     self.brushState.isRadiusMagnifySensor = false;    
-    self.brushState.wet = 0;    
+    self.brushState.wet = 0;
+    self.brushState.waterColorBlend = 0.5;
 }
 
 - (void)resetDefaultTextures{
     [super resetDefaultTextures];
-    [self setShapeTextureWithName:@"Watercolor-edge-45x45.png"];
-    [self setPatternTextureWithName:@"Watercolor-fill-70x70"];
+    [self setShapeTextureWithName:@"brush_waterColorEdge.png"];
+    [self setPatternTextureWithName:@"brush_waterColorFill.png"];
 }
 
 - (BOOL)free{

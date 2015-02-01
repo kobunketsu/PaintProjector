@@ -74,6 +74,7 @@
 @property (assign, nonatomic) BOOL isRotateSnapFit;
 @property (assign, nonatomic) BOOL isTranslateSnapFit;
 @property (retain, nonatomic) ADTransformCommand *transformCommand;
+
 #pragma mark- 文件File
 - (void)close;
 
@@ -615,6 +616,12 @@
                             [[REGLWrapper current]shader:@"ADShaderCompositor" predefines:nil]];
     self.quadMat = material;
     
+    
+    material = [[REGLWrapper current] createMaterial:@"BrushComposeBase" withShader:
+                            [[REGLWrapper current]shader:@"ADShaderBrushCompose" predefines:nil]];
+    
+    material = [[REGLWrapper current] createMaterial:@"BrushComposeWaterColorBlend" withShader:
+                [[REGLWrapper current]shader:@"ADShaderBrushCompose" predefines:@[@"WaterColorBlend"]]];
 
     material = [[REGLWrapper current] createMaterial:@"LayerBlendNormal" withShader:
                             [[REGLWrapper current]shader:@"ADShaderLayerBlend" predefines:@[@"Normal"]]];
@@ -2981,28 +2988,26 @@
 
 //draw brush texture to curPaintedTexture
 - (void)drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
-//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
-//    
-//    if (!_lastProgramQuadTransformIdentity) {
-//        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-//        _lastProgramQuadTransformIdentity = true;
-//    }
-//    
-//    if (self.lastProgramQuadTex != 0) {
-//        glUniform1i(_texQuadUniform, 0);
-//        self.lastProgramQuadTex = 0;
-//    }
-//    
-//    if (self.lastProgramQuadAlpha != alpha) {
-//        glUniform1f(_alphaQuadUniform, alpha);
-//        self.lastProgramQuadAlpha = alpha;
-//    }
-    
-    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
-    
-    [self.quadMat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
-    [self.quadMat setInt:0 forPropertyName:@"texture"];
-    [self.quadMat setFloat:alpha forPropertyName:@"alpha"];
+//    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:^{
+//        [self.quadMat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
+//        [self.quadMat setInt:0 forPropertyName:@"texture"];
+//        [self.quadMat setFloat:alpha forPropertyName:@"alpha"];
+//    }];
+    REMaterial *mat = nil;
+    if(brushState.waterColorBlend > 0){
+        mat = [[REGLWrapper current]material:@"BrushComposeWaterColorBlend"];
+    }
+    else{
+        mat = [[REGLWrapper current]material:@"BrushComposeBase"];
+    }
+    [[REGLWrapper current] useProgram:mat.shader.program uniformBlock:^{
+        [mat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
+        [mat setInt:0 forPropertyName:@"texture"];
+        
+        const float*colors = CGColorGetComponents(brushState.color.CGColor);
+        GLKVector4 vec = GLKVector4Make(colors[0], colors[1], colors[2], alpha);
+        [mat setVector:vec forPropertyName:@"color"];
+    }];
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
@@ -3022,21 +3027,6 @@
     [self.quadMat setMatrix:GLKMatrix4Identity forPropertyName:@"transformMatrix"];
     [self.quadMat setInt:0 forPropertyName:@"texture"];
     [self.quadMat setFloat:alpha forPropertyName:@"alpha"];
-    
-//    if (!_lastProgramQuadTransformIdentity) {
-//        glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, GLKMatrix4Identity.m);
-//        _lastProgramQuadTransformIdentity = true;
-//    }
-//    
-//    if (self.lastProgramQuadTex != 0) {
-//        glUniform1i(_texQuadUniform, 0);
-//        self.lastProgramQuadTex = 0;
-//    }
-//    
-//    if (self.lastProgramQuadAlpha != alpha) {
-//        glUniform1f(_alphaQuadUniform, alpha);
-//        self.lastProgramQuadAlpha = alpha;
-//    }
 
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
 
@@ -3053,21 +3043,7 @@
 }
 
 - (void) drawQuad:(GLuint)quad transformMatrix:(GLKMatrix4)transformMatrix texture2DPremultiplied:(GLuint)texture{
-//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
-//    
-//    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transformMatrix.m);
-//    _lastProgramQuadTransformIdentity = false;
-//    
-//    if (self.lastProgramQuadTex != 0) {
-//        glUniform1i(_texQuadUniform, 0);
-//        self.lastProgramQuadTex = 0;
-//    }
-//    
-//    if (self.lastProgramQuadAlpha != 1) {
-//        glUniform1f(_alphaQuadUniform, 1);
-//        self.lastProgramQuadAlpha = 1;
-//    }
-    
+
     [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
     [self.quadMat setMatrix:transformMatrix forPropertyName:@"transformMatrix"];
@@ -3124,147 +3100,6 @@
 
 
 #pragma mark- Shader
-//- (GLuint)loadShaderPaintLayer:(NSString*)fragShaderName{
-//    GLuint program, vertShader, fragShader;
-//    NSString *vertShaderPathname, *fragShaderPathname;
-//    
-//    // Create shader program.
-//    program = glCreateProgram();
-//    
-//    // Create and compile vertex shader.
-//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-//    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Create and compile fragment shader.
-//    fragShaderName = [@"Shaders/" stringByAppendingString:fragShaderName];
-//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:fragShaderName ofType:@"fsh"];
-//    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Attach vertex shader to program.
-//    glAttachShader(program, vertShader);
-//    
-//    // Attach fragment shader to program.
-//    glAttachShader(program, fragShader);
-//    
-//    // Bind attribute locations.
-//    // This needs to be done prior to linking.
-//    glBindAttribLocation(program, GLKVertexAttribPosition, "Position");
-//    glBindAttribLocation(program, GLKVertexAttribTexCoord0, "Texcoord");
-//    // Link program.
-//    if (![[REGLWrapper current] linkProgram:program]) {
-//        DebugLog(@"Failed to link program: %d", program);
-//        
-//        if (vertShader) {
-//            glDeleteShader(vertShader);
-//            vertShader = 0;
-//        }
-//        if (fragShader) {
-//            glDeleteShader(fragShader);
-//            fragShader = 0;
-//        }
-//        if (program) {
-//            glDeleteProgram(program);
-//            program = 0;
-//        }
-//        
-//        return NO;
-//    }
-//    
-//    // Get uniform locations.
-//    _texQuadUniform = glGetUniformLocation(program, "texture");
-//    _alphaQuadUniform = glGetUniformLocation(program, "alpha");
-//    _tranformImageMatrixUniform = glGetUniformLocation(program, "transformMatrix");
-//    
-//    // Release vertex and fragment shaders.
-//    if (vertShader) {
-//        glDetachShader(program, vertShader);
-//        glDeleteShader(vertShader);
-//    }
-//    if (fragShader) {
-//        glDetachShader(program, fragShader);
-//        glDeleteShader(fragShader);
-//    }
-//    
-//    NSString* programLabel = [NSString stringWithFormat:@"program%@",fragShaderName];
-//    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, program, 0, [programLabel UTF8String]);
-//    return program;
-//}
-
-//- (BOOL)loadShaderQuad
-//{
-//    GLuint vertShader, fragShader;
-//    NSString *vertShaderPathname, *fragShaderPathname;
-//    
-//    // Create shader program.
-//    _programQuad = glCreateProgram();
-//    
-//    // Create and compile vertex shader.
-//    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"vsh"];
-//    if (![[REGLWrapper current] compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile vertex shader %@", vertShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Create and compile fragment shader.
-//    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shaders/ShaderQuad" ofType:@"fsh"];
-//    if (![[REGLWrapper current] compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname preDefines:nil]) {
-//        DebugLog(@"Failed to compile fragment shader %@", fragShaderPathname);
-//        return NO;
-//    }
-//    
-//    // Attach vertex shader to program.
-//    glAttachShader(_programQuad, vertShader);
-//    
-//    // Attach fragment shader to program.
-//    glAttachShader(_programQuad, fragShader);
-//    
-//    // Bind attribute locations.
-//    // This needs to be done prior to linking.
-//    glBindAttribLocation(_programQuad, GLKVertexAttribPosition, "Position");
-//    glBindAttribLocation(_programQuad, GLKVertexAttribTexCoord0, "Texcoord");
-//    // Link program.
-//    if (![[REGLWrapper current] linkProgram:_programQuad]) {
-//        DebugLog(@"Failed to link program: %d", _programQuad);
-//        
-//        if (vertShader) {
-//            glDeleteShader(vertShader);
-//            vertShader = 0;
-//        }
-//        if (fragShader) {
-//            glDeleteShader(fragShader);
-//            fragShader = 0;
-//        }
-//        if (_programQuad) {
-//            glDeleteProgram(_programQuad);
-//            _programQuad = 0;
-//        }
-//        
-//        return NO;
-//    }
-//    
-//    // Get uniform locations.
-//    _texQuadUniform = glGetUniformLocation(_programQuad, "texture");
-//    _alphaQuadUniform = glGetUniformLocation(_programQuad, "alpha");
-//    _tranformImageMatrixUniform = glGetUniformLocation(_programQuad, "transformMatrix");
-//
-//    // Release vertex and fragment shaders.
-//    if (vertShader) {
-//        glDetachShader(_programQuad, vertShader);
-//        glDeleteShader(vertShader);
-//    }
-//    if (fragShader) {
-//        glDetachShader(_programQuad, fragShader);
-//        glDeleteShader(fragShader);
-//    }
-//    DebugLogGLLabel(GL_PROGRAM_OBJECT_EXT, _programQuad, 0, [@"programQuad" UTF8String]);
-//    return YES;
-//}
 
 
 #if DEBUG_VIEW_COLORALPHA

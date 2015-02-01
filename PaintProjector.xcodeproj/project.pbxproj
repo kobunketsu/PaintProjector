@@ -453,14 +453,6 @@
 		087B9E7D194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087B9E7C194DF2A900E1CA7A /* ADTutorialIndicatorView.m */; };
 		087B9E7E194DF2A900E1CA7A /* ADTutorialIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087B9E7C194DF2A900E1CA7A /* ADTutorialIndicatorView.m */; };
 		087BB3A31730AB4B006C0A33 /* ADOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* ADOpacitySlider.m */; };
-		087C532A1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */; };
-		087C532B1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */; };
-		087C532C1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */; };
-		087C532D1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */; };
-		087C532E1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */; };
-		087C532F1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */; };
-		087C53301A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */; };
-		087C53311A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */ = {isa = PBXBuildFile; fileRef = 087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */; };
 		087C5AB316B2CF2E005F954A /* ADFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* ADFinger.m */; };
 		087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* ADLayerMergeButton.m */; };
 		087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
@@ -685,6 +677,12 @@
 		08C65E7D1950124500961551 /* ADSimpleTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* ADSimpleTutorial.m */; };
 		08C65E7E1950124500961551 /* ADSimpleTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* ADSimpleTutorial.m */; };
 		08CA01C1189BD8F300524D81 /* ADShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01C0189BD8F300524D81 /* ADShareButton.m */; };
+		08CA38CA1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */; };
+		08CA38CB1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */; };
+		08CA38D11A7E658D00E3E0DC /* brush_waterColorEdge.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */; };
+		08CA38D21A7E658D00E3E0DC /* brush_waterColorEdge.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */; };
+		08CA38D31A7E658D00E3E0DC /* brush_waterColorFill.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CA38D01A7E658D00E3E0DC /* brush_waterColorFill.png */; };
+		08CA38D41A7E658D00E3E0DC /* brush_waterColorFill.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CA38D01A7E658D00E3E0DC /* brush_waterColorFill.png */; };
 		08CAFECB17C9B5BD0097B2A4 /* Collection in Resources */ = {isa = PBXBuildFile; fileRef = 08CAFECA17C9B5BD0097B2A4 /* Collection */; };
 		08CE1A6718968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */; };
 		08CE1A6818968A350019A1AB /* ADPaintHighlightedFrameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */; };
@@ -1523,10 +1521,6 @@
 		087BB3A21730AB4B006C0A33 /* ADOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADOpacitySlider.m; sourceTree = "<group>"; };
 		087BCD1D196923290006DE29 /* ADScaleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADScaleButton.h; sourceTree = "<group>"; };
 		087BCD1E196923290006DE29 /* ADScaleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADScaleButton.m; sourceTree = "<group>"; };
-		087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-edge-45x45.png"; path = "PaintProjector/Images/Watercolor-edge-45x45.png"; sourceTree = SOURCE_ROOT; };
-		087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-edge-90x90.png"; path = "PaintProjector/Images/Watercolor-edge-90x90.png"; sourceTree = SOURCE_ROOT; };
-		087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-fill-70x70.png"; path = "PaintProjector/Images/Watercolor-fill-70x70.png"; sourceTree = SOURCE_ROOT; };
-		087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Watercolor-fill-140x140.png"; path = "PaintProjector/Images/Watercolor-fill-140x140.png"; sourceTree = SOURCE_ROOT; };
 		087C5AB116B2CF2E005F954A /* ADFinger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFinger.h; sourceTree = "<group>"; };
 		087C5AB216B2CF2E005F954A /* ADFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFinger.m; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* ADLayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerMergeButton.h; sourceTree = "<group>"; };
@@ -1772,6 +1766,10 @@
 		08C65E7C1950124500961551 /* ADSimpleTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorial.m; path = PaintProjector/ADSimpleTutorial.m; sourceTree = "<group>"; };
 		08CA01BF189BD8F300524D81 /* ADShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShareButton.h; sourceTree = "<group>"; };
 		08CA01C0189BD8F300524D81 /* ADShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShareButton.m; sourceTree = "<group>"; };
+		08CA38C81A7E1FCB00E3E0DC /* ADShaderBrushCompose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderBrushCompose.h; sourceTree = "<group>"; };
+		08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderBrushCompose.m; sourceTree = "<group>"; };
+		08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_waterColorEdge.png; path = PaintProjector/Images/brush_waterColorEdge.png; sourceTree = SOURCE_ROOT; };
+		08CA38D01A7E658D00E3E0DC /* brush_waterColorFill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_waterColorFill.png; path = PaintProjector/Images/brush_waterColorFill.png; sourceTree = SOURCE_ROOT; };
 		08CAFECA17C9B5BD0097B2A4 /* Collection */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Collection; path = PaintProjector/Collection; sourceTree = "<group>"; };
 		08CE1A6518968A350019A1AB /* ADPaintHighlightedFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintHighlightedFrameView.h; path = PaintProjector/ADPaintHighlightedFrameView.h; sourceTree = "<group>"; };
 		08CE1A6618968A350019A1AB /* ADPaintHighlightedFrameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintHighlightedFrameView.m; path = PaintProjector/ADPaintHighlightedFrameView.m; sourceTree = "<group>"; };
@@ -2682,6 +2680,8 @@
 		085539851751E15C00DECF41 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */,
+				08CA38D01A7E658D00E3E0DC /* brush_waterColorFill.png */,
 				08BFC0D31961A4A000E4CE22 /* brushPencilGrain_r64.png */,
 				0815818619614F1C00AB1645 /* brushPencilShape_r64.png */,
 				08158189196153DC00AB1645 /* brushCrayonsGrain_r64.png */,
@@ -2693,10 +2693,6 @@
 				08086DE118DC8BA200F03EB4 /* chalkStroke.png */,
 				08086DE218DC8BA200F03EB4 /* chalkStroke02.png */,
 				08086E0318DC8BA300F03EB4 /* noise.png */,
-				087C53261A7A7CD000E835A9 /* Watercolor-edge-45x45.png */,
-				087C53271A7A7CD000E835A9 /* Watercolor-edge-90x90.png */,
-				087C53281A7A7CD000E835A9 /* Watercolor-fill-70x70.png */,
-				087C53291A7A7CD000E835A9 /* Watercolor-fill-140x140.png */,
 			);
 			name = Textures;
 			path = UI;
@@ -2816,6 +2812,8 @@
 				08C58ED51976BF290047C1DC /* ADBrushManager.m */,
 				0811271D194982A80057BD53 /* ADShaderBrush.h */,
 				0811271E194982A80057BD53 /* ADShaderBrush.m */,
+				08CA38C81A7E1FCB00E3E0DC /* ADShaderBrushCompose.h */,
+				08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */,
 				08FDC8BB16513BB2008F35E8 /* ADPencil.h */,
 				08FDC8BC16513BB2008F35E8 /* ADPencil.m */,
 				0871D0281812A27400A0D037 /* ADCrayons.h */,
@@ -3548,7 +3546,6 @@
 				08EF179619E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69FA19C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33419C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
-				087C532D1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */,
 				0872FED81938CE3D006CD51A /* Storyboard_iPad.storyboard in Resources */,
 				08751305195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				082A69F619C864F600862332 /* tutorial0_W-Wannaa@2x.png in Resources */,
@@ -3557,12 +3554,10 @@
 				08B8C34619C5EED100CB85BE /* tutorial0_u-You.png in Resources */,
 				0875131419580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
 				0832E27F1933A7EA004BD986 /* release_notes.md in Resources */,
-				087C532B1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */,
 				082D39FD1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08086E6918DC8BA300F03EB4 /* brushSoftFallOff.png in Resources */,
 				08E505EC19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				0822E39119A1D3D70094081E /* AnaDrawSettingIcon-29@2x.png in Resources */,
-				087C53311A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */,
 				0813AA2019167BD4000C4D00 /* Models in Resources */,
 				08FD0A201952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A02195B0D64006EDCFC /* cylinderMain.png in Resources */,
@@ -3576,7 +3571,6 @@
 				08086EB518DC8BA300F03EB4 /* noise.png in Resources */,
 				08B8C34A19C5EED100CB85BE /* tutorial0_W-Wannaa.png in Resources */,
 				08525120194D853D0087F4AF /* tutorial_viewDevice.png in Resources */,
-				087C532F1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */,
 				088313AF199CFC5700C49B92 /* community-48.png in Resources */,
 				082A6A0219C864F600862332 /* tutorial0_u-You@2x.png in Resources */,
 				08F905DA194AC982002918AA /* iap_brushOilBrush.png in Resources */,
@@ -3634,6 +3628,7 @@
 				08E4D80219A71F0A00990523 /* facebook-48.png in Resources */,
 				082A69F019C864F600862332 /* tutorial0_o-You@2x.png in Resources */,
 				08E4D80419A71F0A00990523 /* photoLibaray-48.png in Resources */,
+				08CA38D41A7E658D00E3E0DC /* brush_waterColorFill.png in Resources */,
 				0824E4F819C462980065BB04 /* tutorial_lifeart_01.png in Resources */,
 				0822E39519A1D3D70094081E /* AnaDrawSpotlightIcon-40@2x.png in Resources */,
 				0852511C194D853D0087F4AF /* tutorial_putDevice.png in Resources */,
@@ -3671,6 +3666,7 @@
 				0832E27D1933A7EA004BD986 /* README.md in Resources */,
 				08086E8118DC8BA300F03EB4 /* chineseBrush.png in Resources */,
 				08BFC0D51961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
+				08CA38D21A7E658D00E3E0DC /* brush_waterColorEdge.png in Resources */,
 				08B8C31519C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				0875131819580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08B26DFA19CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
@@ -3713,7 +3709,6 @@
 				08EF179519E198280020EAEC /* tutorial2_ButtonImage.png in Resources */,
 				082A69F919C864F600862332 /* tutorial0_i-it@2x.png in Resources */,
 				08B8C33319C5EED100CB85BE /* tutorial0_D-Do.png in Resources */,
-				087C532C1A7A7CD000E835A9 /* Watercolor-edge-90x90.png in Resources */,
 				08664935192AF15700A6EB41 /* Localizable.strings in Resources */,
 				08751304195806BC00FC03CC /* tutorial_gesture2FingerDoubleTap.png in Resources */,
 				082A69F519C864F600862332 /* tutorial0_W-Wannaa@2x.png in Resources */,
@@ -3722,12 +3717,10 @@
 				08B8C34519C5EED100CB85BE /* tutorial0_u-You.png in Resources */,
 				0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */,
 				0875131319580D4700FC03CC /* tutorial_gesture3FingerLeft.png in Resources */,
-				087C532A1A7A7CD000E835A9 /* Watercolor-edge-45x45.png in Resources */,
 				082D39FC1993DB55002B7B83 /* tutorial_viewDeviceSrc.png in Resources */,
 				08E505EB19570D3400ED86BF /* tutorial_gesture2FingerDrag.png in Resources */,
 				08FD0A1F1952EF0500643DC3 /* tutorial_main.png in Resources */,
 				08E53A01195B0D64006EDCFC /* cylinderMain.png in Resources */,
-				087C53301A7A7CD000E835A9 /* Watercolor-fill-140x140.png in Resources */,
 				0822E39019A1D3D70094081E /* AnaDrawSettingIcon-29@2x.png in Resources */,
 				9C21AF2114E4579F00DB003E /* InfoPlist.strings in Resources */,
 				08086E5818DC8BA300F03EB4 /* brush_dryTip_64.png in Resources */,
@@ -3741,7 +3734,6 @@
 				08F905D9194AC982002918AA /* iap_brushOilBrush.png in Resources */,
 				08B8C34919C5EED100CB85BE /* tutorial0_W-Wannaa.png in Resources */,
 				08086E8018DC8BA300F03EB4 /* chineseBrush.png in Resources */,
-				087C532E1A7A7CD000E835A9 /* Watercolor-fill-70x70.png in Resources */,
 				08D4B8BA18C56611008F5293 /* Default.swatch in Resources */,
 				082A6A0119C864F600862332 /* tutorial0_u-You@2x.png in Resources */,
 				088313AE199CFC5700C49B92 /* community-48.png in Resources */,
@@ -3799,6 +3791,7 @@
 				08E4D80119A71F0A00990523 /* facebook-48.png in Resources */,
 				082A69EF19C864F600862332 /* tutorial0_o-You@2x.png in Resources */,
 				08E4D80319A71F0A00990523 /* photoLibaray-48.png in Resources */,
+				08CA38D31A7E658D00E3E0DC /* brush_waterColorFill.png in Resources */,
 				0824E4F719C462980065BB04 /* tutorial_lifeart_01.png in Resources */,
 				0822E39419A1D3D70094081E /* AnaDrawSpotlightIcon-40@2x.png in Resources */,
 				08525119194D853D0087F4AF /* tutorial_pickImage.png in Resources */,
@@ -3836,6 +3829,7 @@
 				08BFC0D41961A4A000E4CE22 /* brushPencilGrain_r64.png in Resources */,
 				0875131719580D4700FC03CC /* tutorial_gesture3FingerUp.png in Resources */,
 				08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */,
+				08CA38D11A7E658D00E3E0DC /* brush_waterColorEdge.png in Resources */,
 				08B8C31419C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */,
 				086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */,
 				08B26DF919CF145000512A34 /* RootCanvasFullPattern.png in Resources */,
@@ -4016,6 +4010,7 @@
 				08E585831913E791002DBF68 /* ADSetupUnitZoomView.m in Sources */,
 				08B11F5818A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */,
 				082F9C5F19D7B228006CC621 /* ADTutorialStatusView.m in Sources */,
+				08CA38CB1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */,
 				086BF05F18A12B3100948175 /* ADPlaneMesh.m in Sources */,
 				1ca44ed5ff6f0be437e9f414 /* ADPaintCommand.m in Sources */,
 				0898765F1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */,
@@ -4510,6 +4505,7 @@
 				080D70F21A7A067600B6AC87 /* ADHintView.m in Sources */,
 				0862133F174D06AD006704C8 /* ADLayerBlendModeButton.m in Sources */,
 				08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */,
+				08CA38CA1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */,
 				087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */,
 				08D4F0E51A77606B00B42B77 /* RRBase64Manager.m in Sources */,
 				0847F103174FC31E008E795B /* ADLayerCopyButton.m in Sources */,

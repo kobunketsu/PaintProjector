@@ -164,6 +164,7 @@ typedef struct {
 @property (weak, nonatomic)ADEyeDropper *eyeDropper;
 @property (retain, nonatomic) REMaterial *quadMat;
 
+
 #pragma mark GL资源
 - (void)swapVBO;
 //初始化OpenGLES资源
