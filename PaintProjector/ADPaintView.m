@@ -1502,7 +1502,7 @@
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
         ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
-        CGFloat opacity = brushState.opacity * (layer.opacityLock ? 1 : 1);
+        CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
 //        CGFloat opacity = brushState.opacity;
         
         //none premultiplied data saved to layerTexture

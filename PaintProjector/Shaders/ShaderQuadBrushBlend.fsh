@@ -30,17 +30,23 @@ void main ( )
     gl_FragColor.a = xFormedMask * finalAlpha;
 #else
     lowp vec4 sampColor = texture2D(texture0, oTexcoord0);
-    gl_FragColor.rgb = sampColor.rgb;
     
-    float finalAlpha = 0.0;
+    
+    float brushAlpha = 0.0;
     if (color.a < 0.0) {
-        finalAlpha = - color.a;
-        gl_FragColor.rgb *= gl_LastFragData[0].a;
+        //locked
+        brushAlpha = - color.a;
+        
+        gl_FragColor.rgb = sampColor.rgb * gl_LastFragData[0].a;
+//        gl_FragColor.rgb = vec3(1,0,0);
+        gl_FragColor.a = sampColor.a * brushAlpha;
     }
     else{
-        finalAlpha = color.a;
+        brushAlpha = color.a;
+        gl_FragColor.rgb = sampColor.rgb;
+        gl_FragColor.a = sampColor.a * brushAlpha;
     }
-    gl_FragColor.a = sampColor.a * finalAlpha;
+
 #endif
 }
 
