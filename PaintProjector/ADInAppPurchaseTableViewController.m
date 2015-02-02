@@ -144,14 +144,17 @@
 
 - (void)IAPTransactionSucceeded:(id)arg{
     DebugLog(@"购买产品成功,刷新产品显示");
+    [self showActivityView:false];
     [self.tableView reloadData];
     [self lockInteraction:false];
 }
 - (void)IAPTransactionFailed:(id)arg{
+    [self showActivityView:false];
     DebugLog(@"购买产品失败");
     [self lockInteraction:false];
 }
 - (void)IAPTransactionEnded:(id)arg{
+    [self showActivityView:false];
     DebugLog(@"购买产品结束");
     [self lockInteraction:false];
 }
@@ -185,20 +188,12 @@
                 }
                 
                 //关闭Loading指示器
-                if (self.activityView) {
-                    [self.activityView stopAnimating];
-                    [self.activityView removeFromSuperview];
-                    self.activityView = nil;
-                }
+                [self showActivityView:false];
             }];
     
             //显示Loading指示器
-            self.activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            [self.tableView addSubview:self.activityView];
-            self.activityView.center = CGPointMake(self.superViewBounds.size.width * 0.5, self.superViewBounds.size.height * 0.5);
-            self.activityView.hidesWhenStopped = true;
-            [self.activityView startAnimating];
-            
+            [self showActivityView:true];
+        
             //查询超时处理
 //            [self performSelector:@selector(requestProductsTimeOut:) withObject:nil afterDelay:10.0];
 //        }
@@ -352,6 +347,26 @@
 //}
 
 #pragma mark- UIAlertViewDelegate
+- (void)showActivityView:(BOOL)show{
+    if(show){
+        //显示Loading指示器
+        self.activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [self.tableView addSubview:self.activityView];
+        self.activityView.center = CGPointMake(self.superViewBounds.size.width * 0.5, self.superViewBounds.size.height * 0.5);
+        self.activityView.hidesWhenStopped = true;
+        [self.activityView startAnimating];
+    }
+    else{
+        //关闭Loading指示器
+        if (self.activityView) {
+            [self.activityView stopAnimating];
+            [self.activityView removeFromSuperview];
+            self.activityView = nil;
+        }
+    }
+}
+
+#pragma mark- UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     [self.delegate willIAPPurchaseDone];
 }
@@ -363,6 +378,10 @@
 }
 
 #pragma mark- InAppPurchaseTableViewCellDelegate
+- (void)willScrolledToProductFeature:(IAPProPackageFeature)feature{
+    self.iapProPackageFeature = feature;
+}
+
 - (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature{
     return [self.delegate willGetBrushByIAPFeatureIndex:feature];
 }
@@ -371,6 +390,8 @@
 }
 
 - (void)buyProduct:(SKProduct *)product orRestoreAll:(BOOL)restore{
+    [self showActivityView:true];
+    
     if (restore) {
         DebugLog(@"恢复产品");
         [[ADSimpleIAPManager sharedInstance] restorePurchase];
@@ -423,7 +444,11 @@
                             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:NSLocalizedString(@"IAPUnavailableByRetreiveProductsFailure", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
                             [alertView show];
                         }
+                        
+                        [self showActivityView:false];
                     }];
+                    
+                    [self showActivityView:true];
                 }
                 else{
                     DebugLog(@"本地有最新的产品列表");

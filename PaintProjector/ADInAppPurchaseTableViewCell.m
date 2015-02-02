@@ -19,6 +19,7 @@
 {
     
 }
+
 @end
 
 @implementation ADInAppPurchaseTableViewCell
@@ -89,6 +90,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    DebugLog(@"cellForItemAtIndexPath %d", indexPath.row);
     static NSString *cellIdentifier = @"productFeatureCollectionViewCell";
     NSString *productFeatureDescription = nil;
     NSString *productFeatureTitle = nil;
@@ -241,6 +243,8 @@
         [Flurry logEvent:@"IAP_inPage" withParameters:params timed:true];
         
         self.pageControl.currentPage = currentPage;
+        [self.delegate willScrolledToProductFeature:currentPage];
+        
         if (![self isBrushPageIndex:currentPage] ) {
             self.brushPreview.hidden = true;
         }

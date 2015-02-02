@@ -14,6 +14,7 @@
 - (void)willStartPurchase;
 - (void)willBuyProductByIndex:(NSInteger)productIndex orRestoreAll:(BOOL)restore;
 - (ADBrush *)willGetBrushByIAPFeatureIndex:(IAPProPackageFeature)feature;
+- (void)willScrolledToProductFeature:(IAPProPackageFeature)feature;
 @end
 
 @interface ADInAppPurchaseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *productName;
 @property (weak, nonatomic) IBOutlet UIButton *buyProductButton;
 @property (retain, nonatomic) NSArray *productFeatures;
+
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender;
 
 - (BOOL)isBrushPage:(UIScrollView *)scrollView;
