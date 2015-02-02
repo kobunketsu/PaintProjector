@@ -114,20 +114,6 @@
 
 - (void)applicationWillEnterForeground:(NSNotification *)note{
     DebugLogSystem(@"applicationWillEnterForeground");
-//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
-//    
-//    [self setupGL];
-//    
-//    [self prepareBrush:self.brush];
-//    
-//    [self _updateRender];
-//    
-//    glFinish();
-}
-
--(void)applicationDidBecomeActive:(id)sender{
-    DebugLogSystem(@"applicationDidBecomeActive");
-    //在购买iap时会调用
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     [self setupGL];
@@ -135,6 +121,20 @@
     [self prepareBrush:self.brush];
     
     [self _updateRender];
+    
+    glFinish();
+}
+
+-(void)applicationDidBecomeActive:(id)sender{
+    DebugLogSystem(@"applicationDidBecomeActive");
+//    //在购买iap时会调用
+//    [EAGLContext setCurrentContext:[REGLWrapper current].context];
+//    
+//    [self setupGL];
+//    
+//    [self prepareBrush:self.brush];
+//    
+//    [self _updateRender];
     
     glFinish();
     

@@ -17,7 +17,10 @@
 - (void)willScrolledToProductFeature:(IAPProPackageFeature)feature;
 @end
 
-@interface ADInAppPurchaseTableViewCell : UITableViewCell<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ADInAppPurchaseTableViewCell : UITableViewCell
+<UICollectionViewDataSource,
+UICollectionViewDelegate,
+UIAlertViewDelegate>
 @property (assign, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UITableView *productFeatureTableView;
 @property (weak, nonatomic) IBOutlet UICollectionView *productFeatureCollectionView;

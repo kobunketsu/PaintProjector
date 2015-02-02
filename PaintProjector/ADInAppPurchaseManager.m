@@ -179,10 +179,11 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
 // call this to diable IAP
 //
 - (BOOL)isDeviceJailBroken{
-    if ([[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app"]) {
-        DebugLogError(@"Jialbreak detected");
-        return true;
-    }
+    //MARK:允许越狱用户可以内购
+//    if ([[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app"]) {
+//        DebugLogError(@"Jialbreak detected");
+//        return true;
+//    }
     return false;
 }
 
@@ -428,4 +429,28 @@ typedef NS_ENUM(NSInteger, BBTransactionResult) {
     }
 }
 
+// Sent when transactions are removed from the queue (via finishTransaction:).
+- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions{
+    DebugLogFuncStart(@"付款队列移除交易状态");
+//    for (SKPaymentTransaction *transaction in transactions) {
+//        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+//        [self endTransaction:transaction];
+//    }
+}
+
+// Sent when an error is encountered while adding transactions from the user's purchase history back to the queue.
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
+    DebugLogFuncStart(@"付款队列恢复失败");
+    [self endTransaction:nil];
+    DebugLog(@"transaction %d", queue.transactions.count);
+
+}
+
+// Sent when all transactions from the user's purchase history have successfully been added back to the queue.
+- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue{
+    DebugLogFuncStart(@"付款队列恢复成功");
+//    for (SKPaymentTransaction *transaction in queue.transactions) {
+//        [self finishTransaction:transaction wasSuccessful:YES];
+//    }
+}
 @end

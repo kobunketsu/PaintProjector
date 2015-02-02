@@ -1196,12 +1196,22 @@
                                                                 </subviews>
                                                             </view>
                                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jJd-6j-mPn">
-                                                                <rect key="frame" x="310" y="235" width="90" height="21"/>
+                                                                <rect key="frame" x="310" y="275" width="90" height="21"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="N03-no-uhy" userLabel="GetFreeBrushButton" customClass="ADTutorialStepButton">
+                                                                <rect key="frame" x="10" y="245" width="120" height="49"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <state key="normal" title="Get It Free">
+                                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="getFreeBrushButtonTouchUp:" destination="qly-wV-BSN" eventType="touchUpInside" id="bAK-jk-eF0"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
@@ -1211,6 +1221,7 @@
                                                         <outlet property="colorButton3" destination="LI3-K1-1Pm" id="quY-Fx-9MT"/>
                                                         <outlet property="colorButton4" destination="dFx-tg-Am3" id="VwB-Ww-SsL"/>
                                                         <outlet property="descriptionLabel" destination="exi-9z-UfO" id="Nkn-Qz-MvD"/>
+                                                        <outlet property="getFreeButton" destination="N03-no-uhy" id="V8v-Rb-4Bp"/>
                                                         <outlet property="imageView" destination="lTj-r4-RiW" id="2hE-kA-TF0"/>
                                                         <outlet property="resetButton" destination="BXU-rT-2Pa" id="2tt-Mh-Xud"/>
                                                         <outlet property="titleLabel" destination="951-Fp-uIp" id="TyE-xy-pOA"/>
@@ -2865,7 +2876,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2901,7 +2912,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2919,7 +2930,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2935,7 +2946,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>

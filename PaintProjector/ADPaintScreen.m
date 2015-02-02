@@ -346,7 +346,7 @@
     [self.brushTypeScrollView addBrushType:oilBrush];
 
     
-    const NSInteger numOfBrushPerPage = 6;
+    const NSInteger numOfBrushPerPage = 7;
     [self.brushTypeScrollView initSubviewsWithNumOfBrushPerPage:numOfBrushPerPage];
     self.brushTypeScrollView.brushTypePageControl = self.brushTypePageControl;
     self.brushTypePageControl.delegate = self;
@@ -1910,7 +1910,15 @@
         
         //切换到相应的page
         self.brushTypePageControl.currentPage = (NSInteger)(floorf((float)self.paintView.brush.brushState.classId / 6.0));
-        self.brushTypeScrollView.contentOffset = CGPointMake(self.brushTypePageControl.currentPage * self.brushTypeScrollView.frame.size.width, 0);
+        
+        float widthPerPage = self.brushTypeScrollView.frame.size.width;
+        float offset = self.brushTypePageControl.currentPage * widthPerPage;
+        //如果最后页的数量不满，则把最后页填满
+        if(self.brushTypePageControl.currentPage == self.brushTypePageControl.numberOfPages - 1){
+            float maxOffset = self.brushTypeScrollView.contentSize.width - widthPerPage;
+            offset = MIN(maxOffset, offset);
+        }
+        self.brushTypeScrollView.contentOffset = CGPointMake(offset, 0);
         
         //切换成横移动画
         [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
@@ -1969,8 +1977,18 @@
 }
 
 - (void)scrollBrushTypeScrollViewByPage:(NSInteger)pageIndex{
+    float widthPerPage = self.brushTypeScrollView.frame.size.width;
+    float offset = pageIndex * widthPerPage;
+    
+    //如果最后页的数量不满，则把最后页填满
+    if(pageIndex == self.brushTypePageControl.numberOfPages - 1){
+        float maxOffset = self.brushTypeScrollView.contentSize.width - widthPerPage;
+        offset = MIN(maxOffset, offset);
+    }
+
+    
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.brushTypeScrollView.contentOffset = CGPointMake(pageIndex * self.brushTypeScrollView.frame.size.width, 0);
+        self.brushTypeScrollView.contentOffset = CGPointMake(offset, 0);
     } completion:^(BOOL finished) {
 //        self.previousBrushTypePageButton.hidden = pageIndex == 0;
 //        self.nextBrushTypePageButton.hidden = (pageIndex == self.brushTypePageControl.numberOfPages - 1);
@@ -2461,7 +2479,7 @@
 #pragma mark- 笔刷种类代理 BrushTypeScrollView Delegate (Refresh UI)
 -(void)willBrushTypeScrollViewDidScroll:(UIScrollView *)scrollView{
     //    DebugLog(@"willBrushTypeScrollViewDidScroll");
-    NSInteger currentPage = floorf(scrollView.contentOffset.x / scrollView.frame.size.width);
+    NSInteger currentPage = ceilf(scrollView.contentOffset.x / scrollView.frame.size.width);
     if (self.brushTypePageControl.currentPage != currentPage) {
         
         self.brushTypePageControl.currentPage = currentPage;

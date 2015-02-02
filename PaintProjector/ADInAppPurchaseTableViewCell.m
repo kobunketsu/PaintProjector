@@ -103,6 +103,9 @@
     cell.tryLabel.hidden = false;
     cell.titleLabel.textColor = [UIColor colorWithRed:50/255.0 green:50 / 255.0 blue:50 / 255.0 alpha:1];
     
+    cell.getFreeButton.hidden = ![self isBrushPageIndex:indexPath.row];
+    cell.getFreeButton.tag = indexPath.row;
+
     switch (indexPath.row) {
         case 0:
             cell.imageView.image = [UIImage imageNamed:@"iap_reversePaint.png"];
@@ -187,6 +190,36 @@
 
     return cell;
 }
+
+- (IBAction)getFreeBrushButtonTouchUp:(id)sender {
+    UIButton *button = sender;
+    NSString *brushType = nil;
+    if (button.tag == 0) {
+        brushType = @"ExpandedBrushCrayonsAvailable";
+    }
+    else if (button.tag == 1) {
+        brushType = @"ExpandedBrushFingerAvailable";
+    }
+    else if (button.tag == 2) {
+        brushType = @"ExpandedBrushMarkerAvailable";
+    }
+    else if (button.tag == 3) {
+        brushType = @"ExpandedBrushAirbrushAvailable";
+    }
+    else if (button.tag == 4) {
+        brushType = @"ExpandedBrushChineseBrushAvailable";
+    }
+    else if (button.tag == 5) {
+        brushType = @"ExpandedBrushOilBrushAvailable";
+    }
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:brushType, @"Type",nil];
+    
+    [Flurry logEvent:@"IAP_brushGetItFreeButtonTouchUp" withParameters:params];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"IAPGetItFreeTitle", nil) message:NSLocalizedString(@"IAPGetItFreeDesc", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"IAPGetItFreeAction", nil), nil];
+    alertView.tag = 0;
+    [alertView show];
+}
+
 #pragma mark- IBAction
 - (IBAction)buyProductButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"IAP_buyProductButtonTouchUp" identifier:sender];
@@ -275,6 +308,19 @@
 - (IBAction)brushColorButtonTouchUp:(ADColorButton *)sender {
     [RemoteLog logAction:@"IAP_brushColorButtonTouchUp" identifier:sender];
     self.brush.color = sender.color;
+}
+#pragma mark- UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == 0){
+        if(buttonIndex == 1){
+            [RemoteLog logAction:@"IAP_brushGetItFreeConfirmed" identifier:nil];
+            //打开主页
+            NSURL *url = [NSURL URLWithString:URL_APPSTORE];
+            if([[UIApplication sharedApplication] canOpenURL:url]){
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    }
 }
 @end
 

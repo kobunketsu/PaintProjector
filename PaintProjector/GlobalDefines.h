@@ -16,10 +16,13 @@
 #define UseiAd 0
 
 //网站地址
+#define URL_APPSTORE @"https://itunes.apple.com/app/id885877961"
+#define SHARED_SECRET @"018df296739246cc93b9ef67068c10cb"
+
 #define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
 #define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"
 #define PRODUCT_INFO_GALLERY @"http://www.pinterest.com/anadrawapp/artwork-by-anadraw/"
 #define PRODUCT_INFO_COMMUNITY @"http://www.dreapp.com/community/"
 
-#define SHARED_SECRET @"018df296739246cc93b9ef67068c10cb"
+
 #endif

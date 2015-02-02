@@ -8,6 +8,9 @@
 
 #import "ADBrushTypeScrollView.h"
 
+#define ButtonWidth 66
+#define ButtonHeight 100
+
 @implementation ADBrushTypeScrollView
 
 - (id)initWithFrame:(CGRect)frame
@@ -29,6 +32,11 @@
     return self;    
 
 }
+
+//- (void)setContentOffset:(CGPoint)contentOffset{
+//    
+//    super.contentOffset = contentOffset;
+//}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -60,12 +68,11 @@
     //    float frameHeight = self.frame.size.width * [_brushTypes count];
     //    self.frame = CGRectMake(self.frame.origin.x, frameBase - frameHeight, self.frame.size.width, frameHeight);
     
-    float buttonWidth = 66;
-    float buttonHeight = 100;
+
     float width = (float)self.bounds.size.width / (CGFloat)numOfBrush;
-    float offsetX = (width - 66) * 0.5;
+    float offsetX = (width - ButtonWidth) * 0.5;
     for (int i = 0; i < [self.brushTypes count]; ++i) {
-        ADBrushTypeButton * button = [[ADBrushTypeButton alloc] initWithFrame:CGRectMake(width*i + offsetX, 20, buttonWidth, buttonHeight)];
+        ADBrushTypeButton * button = [[ADBrushTypeButton alloc] initWithFrame:CGRectMake(width*i + offsetX, 20, ButtonWidth, ButtonHeight)];
         button.brush = self.brushTypes[i];
         //        [button setImage:brush.iconImage forState:UIControlStateNormal];
         //        [button setBackgroundColor:[UIColor whiteColor]];
