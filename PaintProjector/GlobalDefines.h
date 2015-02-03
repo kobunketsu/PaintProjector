@@ -10,7 +10,8 @@
 #define PaintProjector_GlobalDefines_h
 
 //版本号
-#define DocVersion     @"1.11"
+#define DocVersion     @"1.12"
+#define DocVersionErrorMessage @"new doc version %.2f not supported in current version. %.2f"
 
 //使用广告
 #define UseiAd 0

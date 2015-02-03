@@ -58,7 +58,7 @@
         params.unitZoom = self.unitZoom;
     }
     else{
-        DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+        DebugLogError(DocVersionErrorMessage, _version.floatValue, ((NSString*)DocVersion).floatValue);
         return nil;
     }
 
@@ -89,7 +89,7 @@
         [encoder encodeFloat:self.unitZoom forKey:kUnitZoomKey];
     }
     else{
-        DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+        DebugLogError(DocVersionErrorMessage, _version.floatValue, ((NSString*)DocVersion).floatValue);
         return;
     }
 }
@@ -110,7 +110,7 @@
             _unitZoom = [decoder decodeFloatForKey:kUnitZoomKey];
         }
         else{
-            DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+            DebugLogError(DocVersionErrorMessage, _version.floatValue, ((NSString*)DocVersion).floatValue);
             return nil;
         }
     }

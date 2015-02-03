@@ -699,7 +699,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 
         self.vertexBuffer[index].Position[0] = x;
         self.vertexBuffer[index].Position[1] = y;
-        self.vertexBuffer[index].Position[2] = radius * 2;
+        self.vertexBuffer[index].Position[2] = radius * 2 * [UIScreen mainScreen].scale;
         self.vertexBuffer[index].Position[3] = DEGREES_TO_RADIANS(angle);   //angle
         
         // Set the brush color using premultiplied alpha values

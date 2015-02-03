@@ -135,8 +135,9 @@
         CGFloat heightScale = (self.paintView.bounds.size.height + ToSeeCylinderTopPixelOffset) / self.paintView.bounds.size.height;
         CGFloat height = self.paintView.bounds.size.height / heightScale;
         CGFloat offsetY = -ToSeeCylinderTopViewportPixelOffsetY / heightScale;
-        glViewport(0, offsetY, self.paintView.bounds.size.height, height);
         
+        float scale = [UIScreen mainScreen].scale;
+        glViewport(0, offsetY * scale, self.paintView.bounds.size.height * scale, height * scale);
         
         [[REGLWrapper current]bindFramebufferOES:tempRT.frameBuffer discardHint:true clear:true];
         [[REGLWrapper current] setImageInterpolation:Interpolation_Linear];
@@ -147,7 +148,7 @@
 //        DebugLogGLSnapshotEnd
         [[REGLWrapper current] setImageInterpolationFinished];
         
-        glViewport(0, 0, self.paintView.bounds.size.width, self.paintView.bounds.size.height);
+        glViewport(0, 0, self.paintView.pixelBoundSize.width, self.paintView.pixelBoundSize.height);
         
         [self addLayerRenderTexturesFromTexture:self.reversePaintCamera.targetTexture];//DebugLogMem(@"did addLayerRenderTexturesFromTexture");
         DebugLog(@"layerTexture num:%d", self.layerTextures.count);

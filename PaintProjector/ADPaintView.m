@@ -84,7 +84,7 @@
 - (void)createFramebufferTextures;
 
 #pragma mark- 工具Tools
-- (UIImage*)snapshotPaintToUIImage;
+//- (UIImage*)snapshotPaintToUIImage;
 #if DEBUG_VIEW_COLORALPHA
 @property (retain, nonatomic) UIImageView* imageView;
 @property (retain, nonatomic) UIImageView* debugAlphaView;
@@ -387,8 +387,8 @@
     [[REGLWrapper current] bindBuffer: _VBOQuad];
     DebugLogGLLabel(GL_BUFFER_OBJECT_EXT, _VBOQuad, 0, "VBOQuad");
     //scale quadVertices by view size
-    CGFloat w = self.bounds.size.width;
-    CGFloat h = self.bounds.size.height;
+    CGFloat w = self.pixelBoundSize.width;
+    CGFloat h = self.pixelBoundSize.height;
     
     //(0,h)--(w,h)
     //  |      |
@@ -1211,8 +1211,10 @@
     // Read pixel data from the framebuffer
     glPixelStorei(GL_PACK_ALIGNMENT, 4);
     
-
-    glReadPixels(point.x, point.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    float glPointX = point.x * [UIScreen mainScreen].scale;
+    float glPointY = point.y * [UIScreen mainScreen].scale;
+    glReadPixels(glPointX, glPointY, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    
     CGFloat components[4];
     components[0] = (float)data[0] / 255.0f;
     components[1] = (float)data[1] / 255.0f;
@@ -1265,8 +1267,8 @@
 - (void)prepareDrawEnv{
     //设置renderbuffer
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _finalRenderbuffer);
-    
-    glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
+
+    glViewport(0, 0, self.pixelBoundSize.width, self.pixelBoundSize.height);
     
     //保证切换到当前canvase的大小
     for (ADBrush* brush in self.brushTypes) {
@@ -1496,14 +1498,12 @@
             //do not clear!
             [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:true clear:false];
         }
-        
 //        DebugLog(@"draw curLayerTexture %d on curPaintedLayerFramebuffer %d Tex %d Opacity %.1f", _curLayerTexture, _curPaintedLayerFramebuffer, _curPaintedLayerTexture, brushState.opacity);
         
         //_brushTexture 描画后，_curPaintedLayerFramebuffer成为alpha premultiply buffer
         //图层透明度锁定
         ADPaintLayer *layer = self.paintData.layers[_curLayerIndex];
         CGFloat opacity = brushState.opacity * (layer.opacityLock ? -1 : 1);
-//        CGFloat opacity = brushState.opacity;
         
         //none premultiplied data saved to layerTexture
         [self drawQuad:_VAOQuad brush:brushState texture2D:self.brushTexture.texID alpha:opacity];
@@ -1734,13 +1734,13 @@
 //打开文件
 - (void)open{
     DebugLogFuncStart(@"open doc");
-    self.contentScaleFactor = 1.0;
+    self.contentScaleFactor = [UIScreen mainScreen].scale;
     
     [EAGLContext setCurrentContext:[REGLWrapper current].context];
     
     //before opengles
-    _viewGLSize = MAX(self.bounds.size.width, self.bounds.size.height);
-    glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
+    _viewGLSize = MAX(self.pixelBoundSize.width, self.pixelBoundSize.height);
+    glViewport(0, 0, self.pixelBoundSize.width, self.pixelBoundSize.height);
     
     //删除之前的buffer
     [self destroyFrameBufferTextures];
@@ -1847,7 +1847,8 @@
     GLuint lastProgram = [REGLWrapper current].lastProgram;
     BlendFuncType lastBlendFuncType = [REGLWrapper current].lastBlendFuncType;
     
-    glViewport(0, 0, copyRadius*2, copyRadius*2);
+    float scale = [UIScreen mainScreen].scale;
+    glViewport(0, 0, copyRadius*2*scale, copyRadius*2*scale);
     [[REGLWrapper current] bindFramebufferOES:brush.smudgeTexture.frameBuffer discardHint:true clear:true];
     
     [[REGLWrapper current] bindVertexArrayOES:vao];
@@ -1883,7 +1884,7 @@
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
     //恢复到之前的状态
-    glViewport(0, 0, rect.size.width, rect.size.height);
+    glViewport(0, 0, rect.size.width*scale, rect.size.height*scale);
     
     [[REGLWrapper current] bindFramebufferOES:fbo discardHint:true clear:false];
     
@@ -2488,12 +2489,13 @@
     RERenderTexture *layerTexture = (RERenderTexture *)self.layerTextures[self.curLayerIndex];
     [[REGLWrapper current] bindFramebufferOES: layerTexture.frameBuffer discardHint:false clear:false];
     
-    NSInteger w = (NSInteger)self.bounds.size.width;
-    NSInteger h = (NSInteger)self.bounds.size.height;
+    NSInteger w = self.pixelBoundSize.width;
+    NSInteger h = self.pixelBoundSize.height;
     GLubyte *data = (GLubyte*)malloc(4 * sizeof(GLubyte) * w * h);
     // Read pixel data from the framebuffer
     glPixelStorei(GL_PACK_ALIGNMENT, 4);
     glFinish();
+    
     glReadPixels(0, 0, w, h, GL_RGBA, GL_UNSIGNED_BYTE, data);
     for (int y = 0; y < h; ++y) {
         for (int x = 0; x < w; ++x) {
@@ -2524,6 +2526,13 @@
         height = 0;
     }
     
+    
+    //convert from gl point to uiview point
+    float scale = [UIScreen mainScreen].scale;
+    minX = minX / scale;
+    maxY = maxY / scale;
+    width = width / scale;
+    height = height / scale;
     CGRect rect = CGRectMake(minX, self.bounds.size.height - maxY, width, height);
     DebugLog(@"calculateLayerContentRect result %@", NSStringFromCGRect(rect));
 
@@ -2645,7 +2654,10 @@
     
     //处理UIImage 尺寸过大的问题 如果图片尺寸大于屏幕尺寸，适配到屏幕大小
     self.toTransformImageTex = [RETexture textureFromUIImage:uiImage name:nil];
+    
+    
     float widthScale = 0; float heightScale = 0;
+    
     if (self.toTransformImageTex.width > self.toTransformImageTex.height) {
         widthScale = (float)self.toTransformImageTex.width / (float)self.bounds.size.width;
 
@@ -2793,7 +2805,13 @@
     
     //project
     float aspect = (float)self.bounds.size.width / (float)self.bounds.size.height;
-    self.transformCommand.transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), mat);
+    if(_imageScale.x < _imageScale.y){
+        self.transformCommand.transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1 / aspect, 1, 1), mat);
+    }
+    else{
+        self.transformCommand.transformedImageMatrix = GLKMatrix4Multiply(GLKMatrix4MakeScale(1, aspect, 1), mat);
+    }
+
     
     [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:true];
     
@@ -2976,16 +2994,6 @@
 #endif
 
 
-//- (void)resetBrush:(ADBrushState*)brushState{
-//    [[REGLWrapper current] useProgram:_programQuad uniformBlock:nil];
-////    if (self.lastProgramQuadAlpha != 1) {
-//        glUniform1f(_alphaQuadUniform, 1);
-//        self.lastProgramQuadAlpha = 1;
-////    }
-//    ADBrush *brush = self.brushTypes[brushState.classId];
-//    [brush setBlendModeWithBrushState:brushState];
-//}
-
 //draw brush texture to curPaintedTexture
 - (void)drawQuad:(GLuint)quad brush:(ADBrushState*)brushState texture2D:(GLuint)texture alpha:(GLfloat)alpha{
 //    [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:^{
@@ -3071,14 +3079,6 @@
     [self drawQuad:_VAOScreenQuad transformMatrix:transformMatrix texture2DPremultiplied:texture];
 }
 #pragma mark- snapshot
-- (UIImage*)snapshotPaintToUIImage
-{
-	[EAGLContext setCurrentContext:[REGLWrapper current].context];//之前有丢失context的现象出现
-    [[REGLWrapper current] bindFramebufferOES:self.curPaintedLayerTexture.frameBuffer discardHint:false clear:false];
-    UIImage *image = [ADUltility snapshot:self Context:[REGLWrapper current].context InViewportSize:self.bounds.size ToOutputSize:CGSizeMake(self.viewGLSize, self.viewGLSize)];
-
-    return image;
-}
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer
 {
 //    DebugLogGLSnapshotStart

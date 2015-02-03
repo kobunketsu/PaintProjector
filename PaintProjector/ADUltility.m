@@ -311,23 +311,6 @@ static ADUltility* sharedInstance = nil;
     CFRelease(destination);
 }
 #pragma mark UIImage Tools
-//+ (NSData*)dataSnapshotInRect:(CGRect)rect{
-//    CGFloat x = rect.origin.x;
-//    CGFloat y = rect.origin.y;
-//    NSInteger width = rect.size.width;
-//    NSInteger height = rect.size.height;
-//    
-//    NSInteger dataLength = width * height * 4;
-//    GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
-//    glViewport(x, y, width, height);
-//    // Read pixel data from the framebuffer
-//    glPixelStorei(GL_PACK_ALIGNMENT, 4);
-//    glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-//    CFDataRef dataRef = CFDataCreateWithBytesNoCopy(NULL, data, dataLength, NULL);
-//    
-//    NSData *nsdata = (__bridge NSData*)dataRef;
-//    return nsdata;
-//}
 static void providerReleaseData(void *info, const void *data, size_t size)
 {
     free((void *)data);
@@ -342,14 +325,18 @@ static void providerReleaseData(void *info, const void *data, size_t size)
 //	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &_backingHeight);
 //    
     //取Bindbuffer的对应texture的尺寸，读取texturebuffer的内容
-    NSInteger width = viewportSize.width;NSInteger height = viewportSize.height;
+    float contentScale = [UIScreen mainScreen].scale;
+    NSInteger width = viewportSize.width * contentScale;
+    NSInteger height = viewportSize.height * contentScale;
+    NSInteger outWidth = outputSize.width * contentScale;
+    NSInteger outHeight = outputSize.height * contentScale;
+    
     NSInteger x = 0, y = 0;
     NSInteger dataLength = width * height * 4;
     GLubyte *data = (GLubyte*)malloc(dataLength * sizeof(GLubyte));
-    glViewport(x, y, viewportSize.width, viewportSize.height);
+    glViewport(x, y, width, height);
     // Read pixel data from the framebuffer
     glPixelStorei(GL_PACK_ALIGNMENT, 4);
-
     glReadPixels(x, y, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
     // Create a CGImage with the pixel data
@@ -368,18 +355,18 @@ static void providerReleaseData(void *info, const void *data, size_t size)
         // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
         // Set the scale parameter to your OpenGL ES view's contentScaleFactor
         // so that you get a high-resolution snapshot when its value is greater than 1.0
-        CGFloat scale = 1.0;
-        if (eaglview) {
-            scale = eaglview.contentScaleFactor;
-        }
+//        CGFloat scale = 1.0;
+//        if (eaglview) {
+//            scale = eaglview.contentScaleFactor;
+//        }
 
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(outputSize.width, outputSize.height), NO, scale);
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(outWidth, outHeight), NO, 1);
     }
     else {
         // On iOS prior to 4, fall back to use UIGraphicsBeginImageContext
 //        widthInPoints = width;
 //        heightInPoints = height;
-        UIGraphicsBeginImageContext(CGSizeMake(outputSize.width, outputSize.height));
+        UIGraphicsBeginImageContext(CGSizeMake(outWidth, outHeight));
     }
     
     CGContextRef cgcontext = UIGraphicsGetCurrentContext();
@@ -388,7 +375,7 @@ static void providerReleaseData(void *info, const void *data, size_t size)
     // Flip the CGImage by rendering it to the flipped bitmap context
     // The size of the destination area is measured in POINTS
     CGContextSetBlendMode(cgcontext, kCGBlendModeCopy);
-    CGContextDrawImage(cgcontext, CGRectMake(0.0, 0.0, outputSize.width, outputSize.height), iref);
+    CGContextDrawImage(cgcontext, CGRectMake(0.0, 0.0, outWidth, outHeight), iref);
     
     // Retrieve the UIImage from the current context
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();//using mmap
@@ -443,63 +430,6 @@ static void providerReleaseData(void *info, const void *data, size_t size)
                           fromMatrix.m32 * (1.0 - blend) + toMatrix.m32 * blend,
                           fromMatrix.m33 * (1.0 - blend) + toMatrix.m33 * blend);
 }
-
-#pragma mark - Convert GL image to UIImage`
-+ (UIImage*)glToUIImage:(UIView*)view
-{
-//	[EAGLContext setCurrentContext:_context];//之前有丢失context的现象出现
-    
-    size_t width = view.bounds.size.width;
-    size_t height = view.bounds.size.height;          
-    
-    //    DebugLog(@"width:%d height%d", width, height);
-    
-    NSInteger myDataLength = width * height * 4;
-    
-    // allocate array and read pixels into it.
-    GLubyte *buffer = (GLubyte *) malloc(myDataLength);
-    
-    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-    
-    // gl renders "upside down" so swap top to bottom into new array.
-    // there's gotta be a better way, but this works.
-    //    GLubyte *buffer2 = (GLubyte *) malloc(myDataLength);
-    //    for(int y = 0; y < height; y++)
-    //    {
-    //        for(int x = 0; x < width * 4; x++)
-    //        {
-    ////            buffer2[((height - 1) - y) * width * 4 + x] = buffer[y * 4 * width + x];
-    //            buffer2[y * width * 4 + x] = buffer[y * 4 * width + x];            
-    //        }
-    //    }
-    
-    // make data provider with data.
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, buffer, myDataLength, NULL);
-    
-    // prep the ingredients
-    int bitsPerComponent = 8;
-    int bitsPerPixel = 32;
-    int bytesPerRow = 4 * width;
-    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
-    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
-    
-    // make the cgimage
-    CGImageRef imageRef = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
-    
-    // Clean up
-    free(buffer);
-    //    free(buffer2);    
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpaceRef);
-    
-    // then make the uiimage from that
-    UIImage *myImage = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    
-    return myImage;
-}
-#pragma mark Misc Tools
 
 #pragma mark Memory Tools
 

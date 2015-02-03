@@ -124,4 +124,10 @@
     UIGraphicsEndImageContext();
     return image;
 }
+
+- (CGSize)pixelBoundSize{
+    return CGSizeMake(self.bounds.size.width * [UIScreen mainScreen].scale ,
+                      self.bounds.size.height * [UIScreen mainScreen].scale);
+}
+
 @end

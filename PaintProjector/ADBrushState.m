@@ -104,7 +104,7 @@
         [aCoder encodeFloat:colors[3] forKey:kColorAKey];
     }
     else{
-        DebugLogError(@"new doc version %.1f not supported in current version. %.1f", _version.floatValue, ((NSString*)DocVersion).floatValue);
+        DebugLogError(DocVersionErrorMessage, _version.floatValue, ((NSString*)DocVersion).floatValue);
         return;
     }
 }

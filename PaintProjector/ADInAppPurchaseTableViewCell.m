@@ -120,56 +120,56 @@
             cell.imageView.image = [UIImage imageNamed:@"iap_brushCrayons.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription1", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle1", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:255/255.0 green:89/255.0 blue:191/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:128.0/255.0 green:46.0/255.0 blue:109.0/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             break;
         case 2:
             cell.imageView.image = [UIImage imageNamed:@"iap_brushFinger.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription2", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle2", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:251.0/255.0 green:192.0/255.0 blue:190.0/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:255.0/255.0 green:45.0/255.0 blue:75.0/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             
             break;
         case 3:
             cell.imageView.image = [UIImage imageNamed:@"iap_brushMarkerHard.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription3", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle3", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:0/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:211.0/255.0 green:248.0/255.0 blue:54.0/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             break;
         case 4:
             cell.imageView.image = [UIImage imageNamed:@"iap_brushAirbrush.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription4", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle4", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:106/255.0 green:235/255.0 blue:209/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:120/255.0 green:180/255.0 blue:220/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             break;
         case 5:
             cell.imageView.image = [UIImage imageNamed:@"iap_brushChineseBrush.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription5", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle5", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:170/255.0 green:170/255.0 blue:170/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             break;
         case 6:
             cell.imageView.image = [UIImage imageNamed:@"iap_brushOilBrush.png"];
             productFeatureDescription = NSLocalizedString(@"ProductFeatureDescription6", nil);
             productFeatureTitle = NSLocalizedString(@"ProductFeatureTitle6", nil);
-            cell.colorButton1.color = [UIColor whiteColor];
+            cell.colorButton1.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             cell.colorButton2.color = [UIColor colorWithRed:192/255.0 green:174/255.0 blue:130/255.0 alpha:1.0];
             cell.colorButton3.color = [UIColor colorWithRed:110/255.0 green:90/255.0 blue:50/255.0 alpha:1.0];
-            cell.colorButton4.color = [UIColor blackColor];
+            cell.colorButton4.color = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
             break;
         case 7:
             cell.imageView.image = [UIImage imageNamed:@"iap_pallete.png"];

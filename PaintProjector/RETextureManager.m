@@ -183,7 +183,7 @@
                               nil];    
     
     GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:[NSNumber numberWithInteger:uiImage.hash]];
-    if (texInfo != NULL) {
+    if (texInfo) {
         return texInfo;
     } 
     else {
@@ -209,7 +209,7 @@
 
     NSString *dataKey = [[[NSUUID alloc]initWithUUIDBytes:data.bytes] UUIDString];
     GLKTextureInfo* texInfo = [texMgr.textureCache objectForKey:dataKey];
-    if (texInfo != NULL) {
+    if (texInfo) {
         return texInfo;
     }
     else {

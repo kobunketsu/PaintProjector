@@ -11,7 +11,7 @@
 #import "ADPaintCommand.h"
 #import "REGLWrapper.h"
 
-#define BrushPreview_Size 256
+#define BrushPreview_Size 256*[UIScreen mainScreen].scale
 
 
 @protocol ADBrushPreviewDelegate

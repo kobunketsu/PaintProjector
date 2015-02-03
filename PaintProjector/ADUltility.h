@@ -41,7 +41,6 @@
 + (GLubyte*)loadTextureDataFromUIImage:(UIImage*)uiImage;
 //+ (void)reloadTexture:(GLuint)texture FromFile:(NSString*)filePath;
 
-+ (UIImage*)glToUIImage:(UIView*)view;
 + (UIImage*)snapshot:(UIView*)eaglview Context:(EAGLContext *)context InViewportSize:(CGSize)viewportSize ToOutputSize:(CGSize)outputSize;
 + (void)CGImageWriteToFile:(CGImageRef)image :(NSString *)path;
 //创建带遮罩图像

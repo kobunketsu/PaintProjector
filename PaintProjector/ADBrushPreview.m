@@ -46,6 +46,8 @@
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool:YES], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
     
+    self.contentScaleFactor = [UIScreen mainScreen].scale;
+    
     //Notification
     //通知程序退出到后台保存数据
     [[NSNotificationCenter defaultCenter]

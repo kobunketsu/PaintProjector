@@ -171,16 +171,12 @@ static ADPaintDocManager* sharedInstance = nil;
         if ([file.pathExtension compare:@"psf" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
             NSString *fileName = [file stringByDeletingPathExtension];
             maxNumber = MAX(maxNumber, fileName.intValue);
-            if (maxNumber > 1000) {
-                maxNumber -= 1000;
-            }
-
         }
     }
     
     // Get available name
-    //图片命名规则100x的形式，首字母以1开头, 0留给系统教程图片使用(保证教程的图片可以始终排在最前)
-    NSString *availableName = [NSString stringWithFormat:@"1%03d.psf", maxNumber+1];
+    //图片命名规则0000000x的形式，
+    NSString *availableName = [NSString stringWithFormat:@"%08d.psf", maxNumber+1];
     return [dirName stringByAppendingPathComponent:availableName];
 }
 

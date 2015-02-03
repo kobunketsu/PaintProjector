@@ -2982,15 +2982,11 @@
             imageToSave = originalImage;
         }
         
-//        CGFloat w = CGImageGetWidth(imageToSave.CGImage);
-//        CGFloat h = CGImageGetHeight(imageToSave.CGImage);
-//        DebugLog(@"camera image w %f h %f", w, h);
-        
         if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
             [RemoteLog logAction:@"PS_imagePickerControllerDidFinishPickingImageFromCamera" identifier:picker];
             // Save the new image (original or edited) to the Camera Roll
             ALAssetsLibrary* library = [[ALAssetsLibrary alloc]init];
-            [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:ALAssetOrientationRight completionBlock:^(NSURL *assetURL, NSError *error){
+            [library writeImageToSavedPhotosAlbum:imageToSave.CGImage orientation:(ALAssetOrientation)imageToSave.imageOrientation completionBlock:^(NSURL *assetURL, NSError *error){
                 if (error) {
                     DebugLogError(@"writeImageToSavedPhotosAlbum error");
                 }
@@ -2998,10 +2994,8 @@
                     DebugLogWriteSuccess(@"writeImageToSavedPhotosAlbum url %@", assetURL);
                     [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                         ALAssetRepresentation *assetRep = [asset defaultRepresentation];
-                        finalImage = [UIImage imageWithCGImage:[assetRep fullResolutionImage]];
-                        finalImage = [[UIImage alloc] initWithCGImage: finalImage.CGImage scale: 1.0 orientation: UIImageOrientationRight];
-                        finalImage = [finalImage resizedImage:finalImage.size interpolationQuality:kCGInterpolationDefault];
-                        [self importEditImage:finalImage];
+                        finalImage = [[UIImage alloc] initWithCGImage: [assetRep fullResolutionImage] scale: 1.0 orientation: UIImageOrientationRight];
+                        [self importEditImage:[finalImage normalizedImage]];
                         
                     } failureBlock:^(NSError *error) {
                         DebugLogError(@"readImageFromPhotosAlbum error %@", [error localizedDescription]);
@@ -3015,22 +3009,40 @@
         }
         else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
             [RemoteLog logAction:@"PS_imagePickerControllerDidFinishPickingImageFromPhotoLibrary" identifier:picker];
-            finalImage = imageToSave;
             if (self.subPopoverController) {
                 [self.subPopoverController dismissPopoverAnimated:true];
             }
             
-            [self importEditImage:finalImage];
+            [self importEditImage:[imageToSave normalizedImage]];
         }
     }
+}
+
+- (UIImage *)validateImageForTex:(UIImage *)image{
+    UIImage *resultImage = nil;
+    CGFloat width = CGImageGetWidth(image.CGImage);
+    CGFloat height = CGImageGetHeight(image.CGImage);
+    CGFloat sizeMax = MAX(width, height);
+    GLint maxTexSize = 0;
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTexSize);
+    if (sizeMax > maxTexSize) {
+        CGFloat scaleRatio = (CGFloat)maxTexSize / sizeMax;
+        width *= scaleRatio;
+        height *= scaleRatio;
+        resultImage = [image resizeImage:CGSizeMake(width, height)];
+    }
+    else{
+        resultImage = image;
+    }
+    
+    return  resultImage;
 }
 
 - (void)importEditImage:(UIImage *)image{
     DebugLogFuncStart(@"importEditImage");
     
     //将UIImage转换
-    [self.paintView insertUIImageAtCurLayer:image];
-    
+    [self.paintView insertUIImageAtCurLayer:[self validateImageForTex:image]];
     
     //添加编辑Done按钮在导入图片的中心
     CGRect rect = [self.paintView calculateLayerContentRect];

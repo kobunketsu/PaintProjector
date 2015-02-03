@@ -112,6 +112,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 transform:(CGAffineTransform)transform
            drawTransposed:(BOOL)transpose
      interpolationQuality:(CGInterpolationQuality)quality {
+    
     CGRect newRect = CGRectIntegral(CGRectMake(0, 0, newSize.width, newSize.height));
     CGRect transposedRect = CGRectMake(0, 0, newRect.size.height, newRect.size.width);
     CGImageRef imageRef = self.CGImage;
@@ -192,7 +193,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (UIImage *)resizeImage:(CGSize)newSize {
     //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 1);
     [self drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
