@@ -6,14 +6,14 @@
 //  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ADSharedPopTableViewController.h"
 @protocol ADExportViewControllerDelegate
 - (void) didSelectExportToEmail;
 - (void) didSelectExportToDropbox;
 - (void) didSelectExportToPhotoLibrary;
 - (void) didSelectExportToSocialName:(NSString*)socialName;
 @end
-@interface ADExportTableViewController : UITableViewController
+@interface ADExportTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 - (float)tableViewHeight;
 @end

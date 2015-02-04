@@ -196,10 +196,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 66;
+    return PopoverTableViewCellHeight;
 }
 
 - (float)tableViewHeight {
-    return 66 * [self tableView:self.tableView numberOfRowsInSection:0];
+    return PopoverTableViewCellHeight * [self tableView:self.tableView numberOfRowsInSection:0];
 }
 @end

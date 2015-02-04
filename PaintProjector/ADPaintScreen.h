@@ -14,7 +14,7 @@
 #import <GLKit/GLKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MessageUI/MessageUI.h>
-
+#import <JotTouchSDK/JotTouchSDK.h>
 //UI
 #import "ADAnchorView.h"
 #import "ADBrushView.h"
@@ -39,6 +39,7 @@
 #import "ADBrushToolBar.h"
 #import "ADLayerButton.h"
 #import "ADBrushTypePageControl.h"
+
 
 //Other ViewController
 //#import "CylinderProjectViewController.h"
@@ -91,6 +92,8 @@
 @class ADTransformContentView;
 @class ADTransformAnchorView;
 
+#import "ADConnectDeviceTableViewController.h"
+
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_Normal              = 0,
@@ -101,6 +104,13 @@ typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_PickColor           = 1 <<  4,
     PaintScreen_EditingLayer        = 1 <<  5,
     PaintScreen_Transform           = 1 <<  6,
+};
+
+typedef NS_ENUM(NSInteger, ConnectDeviceType) {
+    ConnectDevice_None,
+    ConnectDevice_AdonitJotTouch,
+    ConnectDevice_WacomIntuosCreativeStylus,
+    ConnectDevice_PogoConnect,
 };
 
 typedef NS_ENUM(NSInteger, TransformImageState) {
@@ -137,6 +147,7 @@ UIPrintInteractionControllerDelegate,
 UIScrollViewDelegate,
 UIAlertViewDelegate,
 UICollectionViewDataSource,
+UINavigationControllerDelegate,
 ADPaintingViewDelegate,
 ADBrushTypeScrollViewDelegate,
 ADLayerTableViewControllerDelegate,
@@ -146,7 +157,11 @@ ADFuzzyTransparentViewDelegate,
 ADInAppPurchaseTableViewControllerDelegate,
 ADSwatchManagerViewControllerDelegate,
 ADBackgroundLayerDelegate,
-BrushTypePageControlDelegate
+BrushTypePageControlDelegate,
+ADConnectDeviceTableViewControllerDelegate,
+ADConnectDeviceButtonTableViewControllerDelegate,
+ADAdonitJotTableViewControllerDelegate,
+ADAdonitJotWritingStyleTableViewControllerDelegate
 >
 {
     //变换
@@ -323,6 +338,10 @@ BrushTypePageControlDelegate
 - (void)afterPresentation;
 - (void)openDoc:(ADPaintDoc*)paintDoc;
 - (void)openIAPWithProductFeatureIndex:(NSInteger)index;
+
+#pragma mark- 设备Connect Device
+@property (weak, nonatomic) IBOutlet UIButton *connectDeviceButton;
+- (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender;
 #pragma mark- 测试Test
 @property (weak, nonatomic) IBOutlet UIImageView *testImageView;
 

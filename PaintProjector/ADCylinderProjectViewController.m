@@ -45,7 +45,7 @@
 #define TempPaintFrameToPaintFadeInDelay 0.2
 #define TempPaintFrameToGalleryFadeInDuration 0.4
 #define TempPaintFrameToPaintFadeInDuration 0.4
-#define PopoverFrameWithIconAlignedWidth 330
+
 
 static float DeviceWidth = 0.154;
 
@@ -629,7 +629,7 @@ static float DeviceWidth = 0.154;
     shareTableViewController.delegate = self;
     
     //align to down toolbar icon
-    shareTableViewController.preferredContentSize = CGSizeMake(PopoverFrameWithIconAlignedWidth, shareTableViewController.tableViewHeight);
+    shareTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, shareTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:shareTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -1157,7 +1157,7 @@ static float DeviceWidth = 0.154;
     ADProductInfoTableViewController* productInfoTableViewController = [[ADProductInfoTableViewController alloc]initWithStyle:UITableViewStylePlain];
     productInfoTableViewController.delegate = self;
     //align to downtoolbar icon
-    productInfoTableViewController.preferredContentSize = CGSizeMake(PopoverFrameWithIconAlignedWidth, productInfoTableViewController.tableViewHeight);
+    productInfoTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, productInfoTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:productInfoTableViewController];
     self.sharedPopoverController.delegate = self;

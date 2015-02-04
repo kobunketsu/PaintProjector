@@ -29,6 +29,7 @@
 #import "ADCommandManager.h"
 #import "ADBrushPreview.h"
 
+#import <JotTouchSDK/JotTouchSDK.h>
 
 #define DEBUG_VIEW_COLORALPHA 0
 
@@ -97,7 +98,8 @@ typedef struct {
     ADUndoBaseCommandDelegate,
     ADCommandManagerDelegate,
     ADBrushDelegate,
-    ADBrushPreviewDelegate>//实现描画
+    ADBrushPreviewDelegate,
+    JotPalmRejectionDelegate>//实现描画
 {
     //存储最后输出的frame buffer 和depth buffer
     GLuint _finalFramebuffer;    

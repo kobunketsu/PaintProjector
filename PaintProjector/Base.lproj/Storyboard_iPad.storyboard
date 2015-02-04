@@ -2359,6 +2359,17 @@ Create your unbelievable art!</string>
                                                     <action selector="brushTypeBackButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="yPX-gz-lyq"/>
                                                 </connections>
                                             </button>
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j8U-OX-ZZ2" userLabel="ConnectDeviceButton">
+                                                <rect key="frame" x="67" y="0.0" width="66" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Connect">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="connectDeviceButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="BeA-58-173"/>
+                                                </connections>
+                                            </button>
                                             <view opaque="NO" contentMode="scaleToFill" id="arx-c9-s41" userLabel="BrushRadiusView">
                                                 <rect key="frame" x="130" y="57" width="250" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2797,6 +2808,7 @@ Create your unbelievable art!</string>
                         <outlet property="colorPickerView" destination="t8W-76-5EB" id="YoC-5l-uB2"/>
                         <outlet property="colorSaveToSlotView" destination="dc1-z6-4cm" id="dAI-jr-0Cl"/>
                         <outlet property="colorSlotsScrollView" destination="T99-J2-dLj" id="c8M-Mw-0t3"/>
+                        <outlet property="connectDeviceButton" destination="j8U-OX-ZZ2" id="mlW-37-hNv"/>
                         <outlet property="exportButton" destination="Vhq-Ni-nC3" id="pkf-ec-kDc"/>
                         <outlet property="eyeDropperButton" destination="JFh-1z-AJ1" id="4UP-RX-rVk"/>
                         <outlet property="eyeDropperIndicatorView" destination="Dos-js-iyU" id="PkN-jp-wXb"/>
@@ -2876,7 +2888,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2912,7 +2924,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2930,7 +2942,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2946,7 +2958,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2987,6 +2999,119 @@ Create your unbelievable art!</string>
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-2774" y="-546"/>
+        </scene>
+        <!--Connect Device Table View Controller - Root View Controller-->
+        <scene sceneID="Dv6-66-y7x">
+            <objects>
+                <tableViewController storyboardIdentifier="ConnectDeviceTableViewController" id="hfv-Lm-VgV" customClass="ADConnectDeviceTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8PT-M5-Yav">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="y6m-0Q-UpL">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y6m-0Q-UpL" id="syy-qB-AOP">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hfv-Lm-VgV" id="1ZV-bf-ZzI"/>
+                            <outlet property="delegate" destination="hfv-Lm-VgV" id="Lin-oe-PVB"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="Gbv-zT-m9b"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XNg-05-oJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6337" y="569"/>
+        </scene>
+        <!--Adonit Jot Writing Style Table View Controller-->
+        <scene sceneID="Oq1-VJ-OYW">
+            <objects>
+                <tableViewController storyboardIdentifier="AdonitJotWritingStyleTableViewController" id="bdo-TM-oIZ" customClass="ADAdonitJotWritingStyleTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Odm-bE-nX4">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="poh-Dk-Jtz">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="poh-Dk-Jtz" id="Jpu-NI-idT">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bdo-TM-oIZ" id="6EG-gd-HWE"/>
+                            <outlet property="delegate" destination="bdo-TM-oIZ" id="5se-oH-2uQ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p2r-rG-qAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-6283" y="1787"/>
+        </scene>
+        <!--Adonit Jot Table View Controller-->
+        <scene sceneID="LCM-w7-gQn">
+            <objects>
+                <tableViewController storyboardIdentifier="AdonitJotTableViewController" id="BDF-qH-iHf" customClass="ADAdonitJotTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4x2-oQ-NqD">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="U52-yK-8rp">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U52-yK-8rp" id="T00-iF-sb0">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="BDF-qH-iHf" id="vlf-LV-jCS"/>
+                            <outlet property="delegate" destination="BDF-qH-iHf" id="FS7-Zv-GC4"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbn-yC-2Iu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5365" y="599"/>
+        </scene>
+        <!--Connect Device Button Table View Controller-->
+        <scene sceneID="cgm-2O-OJl">
+            <objects>
+                <tableViewController storyboardIdentifier="ConnectDeviceButtonTableViewController" id="0sK-NK-cuD" customClass="ADConnectDeviceButtonTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="X44-Kw-LDk">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Gx9-DE-i0A">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gx9-DE-i0A" id="3BK-ij-Srj">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0sK-NK-cuD" id="v4P-Lh-18j"/>
+                            <outlet property="delegate" destination="0sK-NK-cuD" id="hPM-2a-LiT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LvE-ds-JdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4387" y="596"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="KtV-Nk-mRl">

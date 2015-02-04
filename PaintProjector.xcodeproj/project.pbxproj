@@ -243,6 +243,8 @@
 		082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
 		082F9C5E19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
 		082F9C5F19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
+		083286B11A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.m */; };
+		083286B21A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.m */; };
 		0832967E17ACD22600F8DCF2 /* ADPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0832967D17ACD22600F8DCF2 /* ADPlayerView.m */; };
 		08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
 		0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832E2741933A7EA004BD986 /* libTestFlight.a */; };
@@ -383,6 +385,8 @@
 		086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
 		086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
 		08701169177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */; };
+		087026211A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
+		087026221A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
 		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		087103091914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
@@ -510,6 +514,8 @@
 		089457D319BCB641004FBDAC /* AnaDrawLaunch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 089457CF19BCB641004FBDAC /* AnaDrawLaunch@2x.png */; };
 		0894FF8018AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0894FF7F18AFA21C00657D33 /* ADCylinderProjectRootView.m */; };
 		0894FF8118AFA21C00657D33 /* ADCylinderProjectRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0894FF7F18AFA21C00657D33 /* ADCylinderProjectRootView.m */; };
+		08954A581A820E31003191F8 /* ADSharedPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08954A571A820E31003191F8 /* ADSharedPopTableViewController.m */; };
+		08954A591A820E31003191F8 /* ADSharedPopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08954A571A820E31003191F8 /* ADSharedPopTableViewController.m */; };
 		08956DC518976F5B00EAB16C /* ADPaintFrameTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08956DC418976F5B00EAB16C /* ADPaintFrameTransitionManager.m */; };
 		08966ECA166082E600339901 /* ADCalculateRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 08966EC9166082E600339901 /* ADCalculateRunTime.m */; };
 		08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08966F1A1660CA6100339901 /* OpenGLES.framework */; };
@@ -677,6 +683,8 @@
 		08C65E7D1950124500961551 /* ADSimpleTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* ADSimpleTutorial.m */; };
 		08C65E7E1950124500961551 /* ADSimpleTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 08C65E7C1950124500961551 /* ADSimpleTutorial.m */; };
 		08CA01C1189BD8F300524D81 /* ADShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01C0189BD8F300524D81 /* ADShareButton.m */; };
+		08CA01D51A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */; };
+		08CA01D61A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */; };
 		08CA38CA1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */; };
 		08CA38CB1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */; };
 		08CA38D11A7E658D00E3E0DC /* brush_waterColorEdge.png in Resources */ = {isa = PBXBuildFile; fileRef = 08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */; };
@@ -721,6 +729,18 @@
 		08D7E99519EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */; };
 		08D7E99619EA6EC0001D66DE /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */; };
 		08D836A51737FF5D00B68990 /* ADClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D836A41737FF5D00B68990 /* ADClearButton.m */; };
+		08D9B7A31A80F324001F0FBA /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D9B7A21A80F324001F0FBA /* JotTouchSDK.framework */; };
+		08D9B7A41A80F324001F0FBA /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D9B7A21A80F324001F0FBA /* JotTouchSDK.framework */; };
+		08D9B7A61A80F38B001F0FBA /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D9B7A51A80F38B001F0FBA /* CoreMotion.framework */; };
+		08D9B7A81A80F397001F0FBA /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08D9B7A71A80F397001F0FBA /* CoreBluetooth.framework */; };
+		08D9B7AC1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */; };
+		08D9B7AD1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */; };
+		08D9B7B41A80FA67001F0FBA /* ADConncetDeviceNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7B31A80FA67001F0FBA /* ADConncetDeviceNavigationController.m */; };
+		08D9B7B51A80FA67001F0FBA /* ADConncetDeviceNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7B31A80FA67001F0FBA /* ADConncetDeviceNavigationController.m */; };
+		08D9B7B81A810259001F0FBA /* ADAdonitJotTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7B71A810259001F0FBA /* ADAdonitJotTableViewController.m */; };
+		08D9B7B91A810259001F0FBA /* ADAdonitJotTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7B71A810259001F0FBA /* ADAdonitJotTableViewController.m */; };
+		08D9B7BC1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7BB1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m */; };
+		08D9B7BD1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D9B7BB1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m */; };
 		08DE436017B3D37300E9C72B /* ADPlayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DE435F17B3D37300E9C72B /* ADPlayButton.m */; };
 		08DEDCC3194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */; };
 		08DEDCC4194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DEDCC2194B4C2600155A91 /* UIView+VisibilityAnimation.m */; };
@@ -1274,6 +1294,8 @@
 		082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialStatusView.m; path = PaintProjector/ADTutorialStatusView.m; sourceTree = "<group>"; };
 		0830455F166B46EC00E8E35C /* ADImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageView.h; sourceTree = "<group>"; };
 		08304560166B46EC00E8E35C /* ADImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageView.m; sourceTree = "<group>"; };
+		083286AF1A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADAdonitJotWritingStyleTableViewController.h; path = PaintProjector/ADAdonitJotWritingStyleTableViewController.h; sourceTree = SOURCE_ROOT; };
+		083286B01A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADAdonitJotWritingStyleTableViewController.m; path = PaintProjector/ADAdonitJotWritingStyleTableViewController.m; sourceTree = SOURCE_ROOT; };
 		0832967C17ACD22600F8DCF2 /* ADPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPlayerView.h; sourceTree = "<group>"; };
 		0832967D17ACD22600F8DCF2 /* ADPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPlayerView.m; sourceTree = "<group>"; };
 		08329AF118DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1450,6 +1472,8 @@
 		086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_setup3.png; path = PaintProjector/Images/tutorial_setup3.png; sourceTree = "<group>"; };
 		08701167177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModeTableViewCell.h; sourceTree = "<group>"; };
 		08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
+		0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConnectDeviceButtonTableViewController.h; path = PaintProjector/ADConnectDeviceButtonTableViewController.h; sourceTree = SOURCE_ROOT; };
+		087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConnectDeviceButtonTableViewController.m; path = PaintProjector/ADConnectDeviceButtonTableViewController.m; sourceTree = SOURCE_ROOT; };
 		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
 		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
 		0871A82A192A569600BB8558 /* ADBrushPropertyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyTableView.h; sourceTree = "<group>"; };
@@ -1596,6 +1620,8 @@
 		089457CF19BCB641004FBDAC /* AnaDrawLaunch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AnaDrawLaunch@2x.png"; path = "PaintProjector/Images/AnaDrawLaunch@2x.png"; sourceTree = SOURCE_ROOT; };
 		0894FF7E18AFA21C00657D33 /* ADCylinderProjectRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADCylinderProjectRootView.h; sourceTree = "<group>"; };
 		0894FF7F18AFA21C00657D33 /* ADCylinderProjectRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADCylinderProjectRootView.m; sourceTree = "<group>"; };
+		08954A561A820E31003191F8 /* ADSharedPopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedPopTableViewController.h; path = PaintProjector/ADSharedPopTableViewController.h; sourceTree = "<group>"; };
+		08954A571A820E31003191F8 /* ADSharedPopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedPopTableViewController.m; path = PaintProjector/ADSharedPopTableViewController.m; sourceTree = "<group>"; };
 		08956DC318976F5B00EAB16C /* ADPaintFrameTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintFrameTransitionManager.h; path = PaintProjector/ADPaintFrameTransitionManager.h; sourceTree = "<group>"; };
 		08956DC418976F5B00EAB16C /* ADPaintFrameTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintFrameTransitionManager.m; path = PaintProjector/ADPaintFrameTransitionManager.m; sourceTree = "<group>"; };
 		08966EC8166082E600339901 /* ADCalculateRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADCalculateRunTime.h; path = PaintProjector/ADCalculateRunTime.h; sourceTree = "<group>"; };
@@ -1766,6 +1792,8 @@
 		08C65E7C1950124500961551 /* ADSimpleTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSimpleTutorial.m; path = PaintProjector/ADSimpleTutorial.m; sourceTree = "<group>"; };
 		08CA01BF189BD8F300524D81 /* ADShareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShareButton.h; sourceTree = "<group>"; };
 		08CA01C0189BD8F300524D81 /* ADShareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShareButton.m; sourceTree = "<group>"; };
+		08CA01D31A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDiscoveryDeviceButton.h; path = PaintProjector/ADDiscoveryDeviceButton.h; sourceTree = SOURCE_ROOT; };
+		08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDiscoveryDeviceButton.m; path = PaintProjector/ADDiscoveryDeviceButton.m; sourceTree = SOURCE_ROOT; };
 		08CA38C81A7E1FCB00E3E0DC /* ADShaderBrushCompose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderBrushCompose.h; sourceTree = "<group>"; };
 		08CA38C91A7E1FCB00E3E0DC /* ADShaderBrushCompose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderBrushCompose.m; sourceTree = "<group>"; };
 		08CA38CF1A7E658D00E3E0DC /* brush_waterColorEdge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush_waterColorEdge.png; path = PaintProjector/Images/brush_waterColorEdge.png; sourceTree = SOURCE_ROOT; };
@@ -1816,6 +1844,17 @@
 		08D836A11737EDA200B68990 /* ADDoneButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDoneButton.m; sourceTree = "<group>"; };
 		08D836A31737FF5D00B68990 /* ADClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADClearButton.h; sourceTree = "<group>"; };
 		08D836A41737FF5D00B68990 /* ADClearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADClearButton.m; sourceTree = "<group>"; };
+		08D9B7A21A80F324001F0FBA /* JotTouchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JotTouchSDK.framework; path = JotTouchSDK/JotTouchSDK.framework; sourceTree = "<group>"; };
+		08D9B7A51A80F38B001F0FBA /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		08D9B7A71A80F397001F0FBA /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		08D9B7AA1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConnectDeviceTableViewController.h; path = ../PaintProjector/ADConnectDeviceTableViewController.h; sourceTree = "<group>"; };
+		08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConnectDeviceTableViewController.m; path = ../PaintProjector/ADConnectDeviceTableViewController.m; sourceTree = "<group>"; };
+		08D9B7B21A80FA67001F0FBA /* ADConncetDeviceNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConncetDeviceNavigationController.h; path = PaintProjector/ADConncetDeviceNavigationController.h; sourceTree = SOURCE_ROOT; };
+		08D9B7B31A80FA67001F0FBA /* ADConncetDeviceNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConncetDeviceNavigationController.m; path = PaintProjector/ADConncetDeviceNavigationController.m; sourceTree = SOURCE_ROOT; };
+		08D9B7B61A810259001F0FBA /* ADAdonitJotTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADAdonitJotTableViewController.h; path = PaintProjector/ADAdonitJotTableViewController.h; sourceTree = SOURCE_ROOT; };
+		08D9B7B71A810259001F0FBA /* ADAdonitJotTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADAdonitJotTableViewController.m; path = PaintProjector/ADAdonitJotTableViewController.m; sourceTree = SOURCE_ROOT; };
+		08D9B7BA1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADWacomIntuosCreativeStylusTableViewController.h; path = PaintProjector/ADWacomIntuosCreativeStylusTableViewController.h; sourceTree = SOURCE_ROOT; };
+		08D9B7BB1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADWacomIntuosCreativeStylusTableViewController.m; path = PaintProjector/ADWacomIntuosCreativeStylusTableViewController.m; sourceTree = SOURCE_ROOT; };
 		08DAF6DB18DDDA32006D82E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		08DE435E17B3D37300E9C72B /* ADPlayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPlayButton.h; sourceTree = "<group>"; };
 		08DE435F17B3D37300E9C72B /* ADPlayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPlayButton.m; sourceTree = "<group>"; };
@@ -2010,6 +2049,7 @@
 				0832E27B1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
 				a4670e94d5e6ef12668b4afa /* libsqlite3.dylib in Frameworks */,
 				37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */,
+				08D9B7A41A80F324001F0FBA /* JotTouchSDK.framework in Frameworks */,
 				06508361ba7abe7b677c01a5 /* MessageUI.framework in Frameworks */,
 				3d391a33b235ec275f94f8b1 /* MobileCoreServices.framework in Frameworks */,
 				89b02925c6d5cc842e9485d6 /* ImageIO.framework in Frameworks */,
@@ -2033,6 +2073,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D9B7A81A80F397001F0FBA /* CoreBluetooth.framework in Frameworks */,
+				08D9B7A61A80F38B001F0FBA /* CoreMotion.framework in Frameworks */,
 				0832F56F19BC277100FB98CE /* iAd.framework in Frameworks */,
 				088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */,
 				081D3BBF17B130A6003D1D21 /* libiconv.dylib in Frameworks */,
@@ -2042,6 +2084,7 @@
 				0868B206172995EB00BF4688 /* Social.framework in Frameworks */,
 				9C21AF6514E459CC00DB003E /* Security.framework in Frameworks */,
 				08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */,
+				08D9B7A31A80F324001F0FBA /* JotTouchSDK.framework in Frameworks */,
 				083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */,
 				083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */,
 				08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
@@ -2269,6 +2312,8 @@
 				08E104C318E31F3B00B777FB /* ADSharedTableView.m */,
 				08E104C618E326A100B777FB /* ADSharedPopoverArrowView.h */,
 				08E104C718E326A100B777FB /* ADSharedPopoverArrowView.m */,
+				08954A561A820E31003191F8 /* ADSharedPopTableViewController.h */,
+				08954A571A820E31003191F8 /* ADSharedPopTableViewController.m */,
 				0898765819138514009CEB3D /* ADAutoRotateView.h */,
 				0898765919138514009CEB3D /* ADAutoRotateView.m */,
 				08930E1B1787F2B9001525B1 /* ADAutoRotateButton.h */,
@@ -3047,6 +3092,28 @@
 			path = iap_validation;
 			sourceTree = "<group>";
 		};
+		08D9B7A91A80F59F001F0FBA /* Device */ = {
+			isa = PBXGroup;
+			children = (
+				08D9B7AA1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.h */,
+				08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */,
+				0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */,
+				087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */,
+				08D9B7B21A80FA67001F0FBA /* ADConncetDeviceNavigationController.h */,
+				08D9B7B31A80FA67001F0FBA /* ADConncetDeviceNavigationController.m */,
+				08D9B7B61A810259001F0FBA /* ADAdonitJotTableViewController.h */,
+				08D9B7B71A810259001F0FBA /* ADAdonitJotTableViewController.m */,
+				08D9B7BA1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.h */,
+				08D9B7BB1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m */,
+				08CA01D31A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.h */,
+				08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */,
+				083286AF1A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.h */,
+				083286B01A82041600925D1A /* ADAdonitJotWritingStyleTableViewController.m */,
+			);
+			name = Device;
+			path = ../TestFlightSDK3;
+			sourceTree = "<group>";
+		};
 		08E007D919BB126100C5DC27 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -3183,6 +3250,7 @@
 		08FD1F9E164E454A003738FC /* PaintScreen */ = {
 			isa = PBXGroup;
 			children = (
+				08D9B7A91A80F59F001F0FBA /* Device */,
 				084347EB19DE7E9900023299 /* Lasso */,
 				08770E0319BC8860008C379B /* Help */,
 				08F385DA19AD8C9800FE0ED0 /* ReversePaint */,
@@ -3326,6 +3394,8 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08D9B7A71A80F397001F0FBA /* CoreBluetooth.framework */,
+				08D9B7A51A80F38B001F0FBA /* CoreMotion.framework */,
 				082543F919D407C900B4BCA3 /* Reveal.framework */,
 				0832F56D19BC21CD00FB98CE /* iAd.framework */,
 				08086DBD18DC8A9900F03EB4 /* libbeeblex.a */,
@@ -3333,6 +3403,7 @@
 				08D7E99419EA6EC0001D66DE /* libFlurry_5.4.0.a */,
 				081D3BBE17B130A6003D1D21 /* libiconv.dylib */,
 				0868B201172995EB00BF4688 /* libsqlite3.dylib */,
+				08D9B7A21A80F324001F0FBA /* JotTouchSDK.framework */,
 				080D245D18B6E5C400161756 /* StoreKit.framework */,
 				08631125192CDF71004233B2 /* Crashlytics.framework */,
 				088B40181792FB7F002750EA /* DBChooser.framework */,
@@ -3360,7 +3431,6 @@
 		9C21AF1D14E4579F00DB003E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				083462A119A793F900644158 /* GlobalDefines.h */,
 				0868E41D19CC28E10082AEB5 /* MiscDefines.h */,
 				081A8C7019A39F4D007F1B7D /* LogDefine.h */,
 				08329AF018DD39DC00095EA9 /* Localizable.strings */,
@@ -3379,6 +3449,7 @@
 			isa = PBXGroup;
 			children = (
 				086C1D6D18062BA500E3A059 /* Extension.h */,
+				083462A119A793F900644158 /* GlobalDefines.h */,
 				087103061914B1390030A5BF /* NSString+Unit.h */,
 				087103071914B1390030A5BF /* NSString+Unit.m */,
 				9C21AF7F14E4642000DB003E /* UIAlertView+error.h */,
@@ -4021,6 +4092,7 @@
 				7d294f94056ab44ed9d1c266 /* ADChineseBrush.m in Sources */,
 				08A232B019C048F2004FE1F6 /* ADHelpCollectionViewCell.m in Sources */,
 				39ffcb7043b23fa8536d2aeb /* ADBrushTypeButton.m in Sources */,
+				087026221A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */,
 				08D4F68D19712FC900A81063 /* ADReversePaintInputData.m in Sources */,
 				0826EE8E18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */,
 				087615631959BDBC007EE0C0 /* ADMathHelper.m in Sources */,
@@ -4049,6 +4121,7 @@
 				08ADF7BE19C73837000035A7 /* ADTutorialToPaintCollectionTransitionManager.m in Sources */,
 				72a06fc639e91a534a38c72f /* ADLayerTransformButton.m in Sources */,
 				8fa3b51bc57da104566ba69a /* ADAirBrush.m in Sources */,
+				08954A591A820E31003191F8 /* ADSharedPopTableViewController.m in Sources */,
 				085C0C4B18D8A780001B8AF7 /* ADProductInfoTableViewController.m in Sources */,
 				56587df82cd649e6fc7df6a8 /* ADBrushPreview.m in Sources */,
 				307587aae300fd31921da168 /* RETextureManager.m in Sources */,
@@ -4137,17 +4210,21 @@
 				c4c4076e6f190f58cf0e49f3 /* ADBrushTypeSmallButton.m in Sources */,
 				08FF70C9189003AC00A7A09B /* ADPaintCollectionViewController.m in Sources */,
 				097a24bfe38a93ccf92d0a2b /* ADEyeDropperIndicatorView.m in Sources */,
+				08D9B7BD1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */,
 				0863C0271970326F00CDB283 /* ADShaderCylinderImage.m in Sources */,
 				08BD1A9019CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
 				08E505DA1956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
 				08F2E368197389B400C55F85 /* ADPaintReverseButton.m in Sources */,
 				08771E651927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				3c475975e807db0d73ebe205 /* ADSharedTableViewCell.m in Sources */,
+				08D9B7AD1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */,
 				08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */,
+				083286B21A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */,
 				08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				0847F53018B07ECF0038869A /* ADUnitConverter.m in Sources */,
 				08FF70CD189019A400A7A09B /* ADPaintUIKitAnimation.m in Sources */,
 				080CBD5519A4FE2400282B91 /* ADPaintLayerData.m in Sources */,
+				08D9B7B51A80FA67001F0FBA /* ADConncetDeviceNavigationController.m in Sources */,
 				a819809116ba726ba068c0f2 /* ADLayerTableViewController.m in Sources */,
 				0890B8251A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */,
 				0824E50219C462F00065BB04 /* ADTutorialArtCollectionViewCell.m in Sources */,
@@ -4193,6 +4270,7 @@
 				082060DA189D44E40027247C /* REEntity.m in Sources */,
 				e01551c878d69b20bb0f586d /* ADLayerBlendModeTableView.m in Sources */,
 				d0dce5301693b12b9a439723 /* ADLayerBlendModePopoverBackgroundView.m in Sources */,
+				08CA01D61A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m in Sources */,
 				d44a0eace57255f8a4bbf0af /* ADColorSaveToSlotView.m in Sources */,
 				0808118418C4A89C004D53F6 /* ADSwatchChartButton.m in Sources */,
 				082A6A0919C8756500862332 /* ADLaunchToPaintCollectionTransitionManager.m in Sources */,
@@ -4243,6 +4321,7 @@
 				08C65E7E1950124500961551 /* ADSimpleTutorial.m in Sources */,
 				0803D1F9189FCCE40068B14B /* RERenderTexture.m in Sources */,
 				3a04b0025429b1da2e36033e /* ADNewButton.m in Sources */,
+				08D9B7B91A810259001F0FBA /* ADAdonitJotTableViewController.m in Sources */,
 				08B17A311981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */,
 				08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
 				e21b4e595f0fb5cfb4d67bfc /* ADCrayons.m in Sources */,
@@ -4418,6 +4497,7 @@
 				086CF49F1919E6EB000F1FBB /* RERenderSettings.m in Sources */,
 				0826775A18E1D92E004DA2F4 /* ADCrystalGradientStyleView.m in Sources */,
 				08771E641927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
+				08954A581A820E31003191F8 /* ADSharedPopTableViewController.m in Sources */,
 				087AEBA71890ABE100D5B393 /* ADPaintFrameManager.m in Sources */,
 				08BD5CB61801094200F0FF67 /* ADFullScreenReverseButton.m in Sources */,
 				08F385D819AD843100FE0ED0 /* ADReversePaint.m in Sources */,
@@ -4464,6 +4544,7 @@
 				0847F52218B0558A0038869A /* ADSetupViewController.m in Sources */,
 				08CE4BFA18D7D2C1008C4904 /* ADInfoButton.m in Sources */,
 				0824E50119C462F00065BB04 /* ADTutorialArtCollectionViewCell.m in Sources */,
+				08D9B7AC1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */,
 				082060DD189D455C0027247C /* ADCylinderProject.m in Sources */,
 				08E33F5718C61148007A26F2 /* ADSwatchManagerButton.m in Sources */,
 				0898765A19138514009CEB3D /* ADAutoRotateView.m in Sources */,
@@ -4498,12 +4579,14 @@
 				089C629E17EC836C00E2AB48 /* ADBrushPropertyView.m in Sources */,
 				08AB75CA188F5ABA007DA20B /* ADPaintCollectionViewCell.m in Sources */,
 				084691061748917000E50554 /* ADLayerImageView.m in Sources */,
+				08D9B7B41A80FA67001F0FBA /* ADConncetDeviceNavigationController.m in Sources */,
 				08B60F3B18C385DC00A415CA /* UIColor+Extension.m in Sources */,
 				084691411748C4CA00E50554 /* ADLayerToolView.m in Sources */,
 				08672139174A6AA8005A9FE0 /* ADLayerVisibleButton.m in Sources */,
 				08511B09174BD39E00C97202 /* ADLayerOpacitySlider.m in Sources */,
 				080D70F21A7A067600B6AC87 /* ADHintView.m in Sources */,
 				0862133F174D06AD006704C8 /* ADLayerBlendModeButton.m in Sources */,
+				087026211A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */,
 				08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */,
 				08CA38CA1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */,
 				087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */,
@@ -4542,6 +4625,7 @@
 				086B156C181381A2001F31EE /* ADBucket.m in Sources */,
 				08D4F0E11A77606B00B42B77 /* NSData+RRTransactionParsingAdditions.m in Sources */,
 				08561FB017806184008449E7 /* ADLayerBlendModeButton2.m in Sources */,
+				08D9B7B81A810259001F0FBA /* ADAdonitJotTableViewController.m in Sources */,
 				08665CBA1780F5B100CA4FCA /* ADLayerAddButton.m in Sources */,
 				08B080E91781BDCA000B7E60 /* ADLayerClearButton.m in Sources */,
 				08A5CBBF189F542300F4E226 /* REScene.m in Sources */,
@@ -4567,6 +4651,7 @@
 				08A232BB19C05E0B004FE1F6 /* ADHelpView.m in Sources */,
 				08DE436017B3D37300E9C72B /* ADPlayButton.m in Sources */,
 				086B73BD194D43EA00870DBD /* ADTutorialView.m in Sources */,
+				08CA01D51A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m in Sources */,
 				08FE79F017C8EBA000D1EEBD /* ADMediaFrameView.m in Sources */,
 				08FE79F517C8ECAD00D1EEBD /* ADVideoFrameView.m in Sources */,
 				08FB9B111942C91A002E71A5 /* ADPaintCollectionViewFlowLayout.m in Sources */,
@@ -4580,6 +4665,7 @@
 				08BD1A7319CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */,
 				0860668B17D2D8FB002EE42A /* ADNewButton.m in Sources */,
 				086B73AD194D3AC900870DBD /* ADTutorial.m in Sources */,
+				08D9B7BC1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */,
 				0879B3A5195C752F0062EF11 /* ADDeviceHardware.m in Sources */,
 				08AB75C5188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
 				08BD1A6B19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */,
@@ -4589,6 +4675,7 @@
 				08A232AF19C048F2004FE1F6 /* ADHelpCollectionViewCell.m in Sources */,
 				08C26B4C19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */,
 				08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
+				083286B11A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */,
 				08AE475818C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */,
 				08956DC518976F5B00EAB16C /* ADPaintFrameTransitionManager.m in Sources */,
 				08F51711195164D6007E921B /* UISlider+Extension.m in Sources */,
@@ -4711,6 +4798,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4875,6 +4963,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -4922,6 +5011,7 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5006,6 +5096,7 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5131,6 +5222,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5182,6 +5274,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5229,6 +5322,7 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5286,6 +5380,7 @@
 					"$(SRCROOT)",
 					"$(PROJECT_DIR)",
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
+					"$(PROJECT_DIR)/JotTouchSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";

@@ -21,8 +21,11 @@ static bool useQuickTool = true;//所有快捷手势的总开关
 static bool IsQuickEyeDropper = true;
 static bool IsOffsetEyeDropper = true;
 
+
 #define DefaultScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DefaultScreenHeight [UIScreen mainScreen].bounds.size.height
+#define PopoverTableViewWidth 320
+#define PopoverTableViewCellHeight 66
 
 //#define ToSeeCylinderTopPixelOffset 70
 //#define ToSeeCylinderTopViewportPixelOffsetY -160

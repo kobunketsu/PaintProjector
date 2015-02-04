@@ -34,6 +34,7 @@
 #import "ADHelpViewController.h"
 #import "AppDelegate.h"
 #import "ADHintView.h"
+#import "ADConnectDeviceTableViewController.h"
 
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
@@ -81,6 +82,11 @@
 @property (assign, nonatomic) CGFloat curTransformDirection;//当前变换点的移动方向
 @property (retain, nonatomic) NSTimer *autoShowBrushTimer;
 @property (retain, nonatomic) NSMutableArray *helpViews;
+
+#pragma mark- Connect Device
+@property (retain, nonatomic) ADConnectDeviceTableViewController *connectDeviceTableController;
+@property (retain, nonatomic) JotStylusManager *jotManager;
+@property (assign, nonatomic) ConnectDeviceType connectDeviceType;
 @end
 
 
@@ -390,6 +396,7 @@
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR1Touches2TapsRootCanvasView];
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR3Touches1TapsRootCanvasView];
     
+    self.connectDeviceType = ConnectDevice_None;
     //多线程,最好的方式是给_uploadDataQueque创建独立的context
     _uploadDataQueque = dispatch_queue_create("com.WenjieHu.ProjectPaint.uploadDataQueue", NULL);
     
@@ -926,7 +933,7 @@
             [UIView animateWithDuration:PaintScreenIBActionAnimationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.clearEffectView.alpha = 1.0;
             } completion:^(BOOL finished) {
-                [self.paintView clearData];
+                [self clearShortCut];
                 self.clearEffectView.hidden = true;
                 
                 //工具栏
@@ -1177,28 +1184,16 @@
     }
     
     if (translation.x > 0 && abs(translation.x / translation.y) > 1.0){
-        [self beginButtonIBAction:self.redoButton];
-        [self redoDraw];
-        [self performSelector:@selector(endButtonIBAction:) withObject:self.redoButton afterDelay:PaintScreenIBActionAnimationDuration];
+        [self redoShortCut];
     }
     else if (translation.x < 0 && abs(translation.x / translation.y) > 1.0){
-        [self beginButtonIBAction:self.undoButton];
-        [self undoDraw];
-        [self performSelector:@selector(endButtonIBAction:) withObject:self.undoButton afterDelay:PaintScreenIBActionAnimationDuration];
+        [self undoShortCut];
     }
     else if (translation.y > 0 && abs(translation.x / translation.y) < 1.0){
-        //打开取色器快捷方式
-        [self beginButtonIBAction:self.paintColorButton];
-        [self paintColorButtonTouchUp:nil];
-        [self performSelector:@selector(endButtonIBAction:) withObject:self.paintColorButton afterDelay:PaintScreenIBActionAnimationDuration];
-        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickColor", nil) parentView:self.rootView]show];
+        [self pickColorShortCut];
     }
     else if (translation.y < 0 && abs(translation.x / translation.y) < 1.0){
-        //打开图层快捷方式
-        [self beginButtonIBAction:self.layerButton];
-        [self layerButtonTouchUp:nil];
-        [self performSelector:@selector(endButtonIBAction:) withObject:self.layerButton afterDelay:PaintScreenIBActionAnimationDuration];
-        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickLayer", nil) parentView:self.rootView]show];
+        [self layerShortCut];
     }
 
 }
@@ -1772,6 +1767,7 @@
 //    }    
 //}
 
+
 - (IBAction)handlePanPaintColorButton:(UIPanGestureRecognizer *)sender {
     [RemoteLog logAction:@"PS_handlePanPaintColorButton" identifier:sender];
     if (sender.state == UIGestureRecognizerStateEnded) {
@@ -1853,6 +1849,83 @@
     return NO;
 }
 
+#pragma mark- 快捷键Shortcut
+- (void)undoShortCut{
+    [RemoteLog logAction:@"PS_undoShortCut" identifier:nil];
+    [self beginButtonIBAction:self.undoButton];
+    [self undoDraw];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.undoButton afterDelay:PaintScreenIBActionAnimationDuration];
+}
+
+- (void)redoShortCut{
+    [RemoteLog logAction:@"PS_redoShortCut" identifier:nil];
+    [self beginButtonIBAction:self.redoButton];
+    [self redoDraw];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.redoButton afterDelay:PaintScreenIBActionAnimationDuration];
+}
+
+- (void)clearShortCut{
+    [RemoteLog logAction:@"PS_clearShortCut" identifier:nil];
+    [self beginButtonIBAction:self.clearButton];
+    [self.paintView clearData];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.clearButton afterDelay:PaintScreenIBActionAnimationDuration];
+}
+
+- (void)transformShortCut{
+    [RemoteLog logAction:@"PS_transformShortCut" identifier:nil];
+    [self beginButtonIBAction:self.transformButton];
+    [self toggleTransform];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.transformButton afterDelay:PaintScreenIBActionAnimationDuration];
+}
+
+- (void)layerShortCut{
+    [RemoteLog logAction:@"PS_layerShortCut" identifier:nil];
+    //打开图层快捷方式
+    [self beginButtonIBAction:self.layerButton];
+    [self layerButtonTouchUp:nil];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.layerButton afterDelay:PaintScreenIBActionAnimationDuration];
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutLayer", nil) parentView:self.rootView]show];
+}
+
+- (void)pickColorShortCut{
+    [RemoteLog logAction:@"PS_pickColorShortCut" identifier:nil];
+    [self beginButtonIBAction:self.paintColorButton];
+    [self paintColorButtonTouchUp:nil];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.paintColorButton afterDelay:PaintScreenIBActionAnimationDuration];
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutColor", nil) parentView:self.rootView]show];
+}
+
+//MARK: 需要验证
+- (void)eyedropColorShortCut{
+    [RemoteLog logAction:@"PS_eyedropColorShortCut" identifier:nil];
+    if (_state == PaintScreen_Normal) {
+        return;
+    }
+    
+    if (self.paintView.state == PaintView_TouchPaint ||
+        self.paintView.state == PaintView_TouchNone) {
+        if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
+            self.eyeDropperIndicatorView.srcColor = [self.paintView.brush.brushState.color copy];
+            CGPoint point = [self willGetEyeDropLocation];
+            [self.paintView eyeDropColor:point];
+            
+            [self willStartUIEyeDrop];
+        }
+    }
+    else if (self.paintView.state == PaintView_TouchEyeDrop){
+        [self willEndUIEyeDrop];
+        if ([self.paintView enterState:PaintView_TouchNone]) {
+        }
+    }
+
+}
+
+- (void)swapBrushShortCut{
+    [RemoteLog logAction:@"PS_swapBrushShortCut" identifier:nil];
+    [self beginButtonIBAction:self.brushBackButton];
+    [self swapBrushType];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.brushBackButton afterDelay:PaintScreenIBActionAnimationDuration];
+}
 #pragma mark- 绘图界面 Paint UI Operation
 //- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 //    self.previousBrushTypePageButton.hidden = self.brushTypePageControl.currentPage == 0;
@@ -2841,7 +2914,7 @@
     importTableViewController.delegate = self;
     importTableViewController.tableView.scrollEnabled = false;
 
-    importTableViewController.preferredContentSize = CGSizeMake(320, importTableViewController.tableViewHeight);
+    importTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, importTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:importTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -3083,11 +3156,7 @@
     }
 }
 
-#pragma NavigationControllerDelegate
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-}
+
 #pragma mark- 导出 Export
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
@@ -3111,7 +3180,7 @@
     exportTableViewController.tableView.scrollEnabled = false;
     exportTableViewController.delegate = self;
     
-    exportTableViewController.preferredContentSize = CGSizeMake(320, exportTableViewController.tableViewHeight);
+    exportTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, exportTableViewController.tableViewHeight);
     
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:exportTableViewController];
     self.sharedPopoverController.delegate = self;
@@ -3647,23 +3716,21 @@
     self.pgr1TouchesPaintView.enabled = true;
 }
 
-- (IBAction)transformButtonTouchUp:(id)sender {
-    [RemoteLog logAction:@"PS_transformButtonTouchUp" identifier:sender];
-    
+- (void)toggleTransform{
     if (_state == PaintScreen_Normal) {
         [Flurry logEvent:@"PS_inTransform" withParameters:nil timed:true];
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
         CGRect rect = [self.paintView calculateLayerContentRect];
-
+        
         if(CGSizeEqualToSize(rect.size, CGSizeZero)){
             return;
         }
-
+        
         [self lockInteraction:true];
         
         //UI
         [self.paintView beforeTransformLayer];
-
+        
         //UI
         //TODO:禁止除TransformButton以外的按钮的交互
         [self enterTransformLayerState:rect];
@@ -3671,17 +3738,21 @@
     else if (_state == PaintScreen_Transform){
         [Flurry endTimedEvent:@"PS_inTransform" withParameters:nil];
         [self lockInteraction:true];
-
+        
         PaintingViewState paintViewState = self.paintView.state;
         [self.paintView transformImageLayerDone];
         if (paintViewState == PaintView_TouchTransformImage) {
             [self.paintView resetUndoRedo];
         }
-
+        
         //UI
         [self leaveTransformState];
     }
-
+}
+- (IBAction)transformButtonTouchUp:(id)sender {
+    [RemoteLog logAction:@"PS_transformButtonTouchUp" identifier:sender];
+    
+    [self toggleTransform];
 }
 
 //deprecated
@@ -3722,8 +3793,8 @@
     alertView.tag = 3;
     [alertView show];
 }
-#pragma mark- 图层 Layer
 
+#pragma mark- 图层 Layer
 - (IBAction)layerButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_layerButtonTouchUp" identifier:sender];
     sender.selected = true;
@@ -4215,14 +4286,14 @@
 }
 
 - (void) willFinishUIRedo{
-    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickRedo", nil) parentView:self.rootView]show];
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutRedo", nil) parentView:self.rootView]show];
 }
 - (void) willFinishUIUndo{
-    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickUndo", nil) parentView:self.rootView]show];
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutUndo", nil) parentView:self.rootView]show];
 }
 
 - (void) willFinishUIClear{
-    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"QuickClear", nil) parentView:self.rootView]show];
+    [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutClear", nil) parentView:self.rootView]show];
 }
 
 -(void)willChangeUIPaintColor:(UIColor*) resultColor{
@@ -5304,6 +5375,255 @@
     
     return cell;
 }
+
+#pragma mark- 设备Connect Device
+- (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"connectDeviceButtonTouchUp" identifier:sender];
+
+    if (self.connectDeviceType == ConnectDevice_None) {
+        [self popConnectDeviceTableViewController];
+    }
+    else if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        [self popAdonitJotTableViewController];
+    }
+    
+}
+
+- (void)popConnectDeviceTableViewController{
+
+    ADConnectDeviceTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceTableViewController"];
+    self.connectDeviceTableController = tableVC;
+    tableVC.delegate = self;
+    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, tableVC.tableViewHeight);
+    
+    [self.sharedPopoverController dismissPopoverAnimated:false];
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (void)popAdonitJotTableViewController{
+
+    ADAdonitJotTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotTableViewController"];
+    tableVC.delegate = self;
+    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
+    
+    [self.sharedPopoverController dismissPopoverAnimated:false];
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
+- (void)popAdonitJotWritingStyleTableViewController{
+    
+    ADAdonitJotWritingStyleTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotWritingStyleTableViewController"];
+    tableVC.delegate = self;
+    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
+    
+    [self.sharedPopoverController dismissPopoverAnimated:false];
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+
+#pragma mark- ADConnectDeviceTableViewControllerDelegate
+- (void)didSelectDeviceAdonitJotTouch{
+    self.connectDeviceType = ConnectDevice_AdonitJotTouch;
+    
+    [self setupJotSDK];
+    
+    [self popAdonitJotTableViewController];
+}
+
+- (void)didSelectDeviceWacomIntuosCreativeStylus{
+}
+
+- (void)didSelectDevicePogoConnect{
+}
+
+#pragma mark - ADConnectDeviceButtonTableViewControllerDelegate
+- (void)didSelectConnectDeviceButtonMethod{
+    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        [self popAdonitJotTableViewController];
+    }
+}
+#pragma mark - ADAdonitJotTableViewControllerDelegate
+- (void) didDeselectDeviceAdonitJotTouch{
+    [self.jotManager disable];
+    self.connectDeviceType = ConnectDevice_None;
+    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
+
+}
+- (void) didSelectDeviceButtonIndex:(NSInteger)index{
+    //得到设备更新title
+    ADConnectDeviceButtonTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceButtonTableViewController"];
+    tableVC.delegate = self;
+    tableVC.buttonIndex = index;
+    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
+    
+    [self.sharedPopoverController dismissPopoverAnimated:false];
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (void) didSelectOpenSupportURL{
+    [[JotStylusManager sharedInstance] launchHelp];
+}
+- (void) didSelectDeviceWritingStylus{
+    [self popAdonitJotWritingStyleTableViewController];
+}
+
+#pragma mark - ADAdonitJotWritingStyleTableViewControllerDelegate
+- (void)didSelectConnectDeviceWritingStyle{
+    [self popAdonitJotTableViewController];
+}
+#pragma mark - Jot SDK Setup
+-(void)willAdonitJotTouchButtonTouchDown:(id)sender{
+    [RemoteLog logAction:@"adonitJotTouchButtonTouchDown" identifier:sender];
+    [self.jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"Stylus Connected");
+        }
+        else{
+            DebugLogError(@"Stylus Connect Failed. Error %@", error.localizedDescription);
+        }
+
+    }];
+}
+
+-(void)willAdonitJotTouchButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"adonitJotTouchButtonTouchUp" identifier:sender];
+    [self.jotManager stopDiscovery];
+}
+- (void)setupJotSDK
+{
+    //
+    // Hook up the jotManager
+    self.jotManager = [JotStylusManager sharedInstance];
+    self.jotManager.unconnectedPressure = 256;
+    self.jotManager.palmRejectorDelegate = self.paintView;
+    self.jotManager.lineSmoothingEnabled = false;
+#if AdonitSDKConnectTypeTapAvailable
+    self.jotManager.connectionType = JotStylusConnectionTypeTap;
+#else
+#endif
+    [self.jotManager enable];
+    [self willAdonitJotTouchButtonTouchDown:nil];
+    
+    [self.jotManager setReportDiagnosticData:YES];
+    
+    //
+    // Hook up "press and hold" interface for stylus connection instead of or alongside Adonit's Settings UI
+//    [self.adonitLogo addTarget:self
+//                        action:@selector(adonitDown:)
+//              forControlEvents:UIControlEventTouchDown];
+//    
+//    [self.adonitLogo addTarget:self
+//                        action:@selector(adonitUp:)
+//              forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //Setup shortcut
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutUndo", nil)
+                                         key:@"undo"
+                                         target:self selector:@selector(undoShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutRedo", nil)
+                                         key:@"redo"
+                                         target:self selector:@selector(redoShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutClear", nil)
+                                         key:@"clear"
+                                         target:self selector:@selector(clearShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutTransform", nil)
+                                         key:@"transform"
+                                         target:self selector:@selector(transformShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutLayer", nil)
+                                         key:@"layer"
+                                         target:self selector:@selector(layerShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutPickColor", nil)
+                                         key:@"pickColor"
+                                         target:self selector:@selector(pickColorShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutEyedropColor", nil)
+                                         key:@"eyedropColor"
+                                         target:self selector:@selector(eyedropColorShortCut)
+                                         ]];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:NSLocalizedString(@"ShortcutSwapBrush", nil)
+                                         key:@"swapBrush"
+                                         target:self selector:@selector(swapBrushShortCut)
+                                         ]];
+    
+    // Setup shortcut buttons
+    [self.jotManager addShortcutOptionButton1Default: self.jotManager.shortcuts[0]];
+    
+    [self.jotManager addShortcutOptionButton2Default: self.jotManager.shortcuts[1]];
+    
+    
+    //
+    // Register for jotStylus notifications
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(connectionChange:)
+                                                 name: JotStylusManagerDidChangeConnectionStatus
+                                               object:nil];
+    
+    //
+    // setup advanced settings or debug options.
+//    [self setupJotSDKAdvancedAndDebug];
+}
+
+/**
+ * Method that handles different Stylus connection
+ * notifications sent from the jotManager.
+ */
+- (void)connectionChange:(NSNotification *)note
+{
+    JotConnectionStatus status = [note.userInfo[JotStylusManagerDidChangeConnectionStatusStatusKey] unsignedIntegerValue];
+    switch(status)
+    {
+        case JotConnectionStatusScanning:
+        {
+            break;
+        }
+        case JotConnectionStatusPairing:
+        {
+            break;
+        }
+        case JotConnectionStatusConnected:
+        {
+            break;
+        }
+        case JotConnectionStatusDisconnected:
+        {
+            break;
+        }
+        case JotConnectionStatusOff:
+        {
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{
     self.testImageView.image = image;

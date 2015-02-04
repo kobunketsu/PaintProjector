@@ -6,14 +6,14 @@
 //  Copyright (c) 2013年 Hu Wenjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ADSharedPopTableViewController.h"
 
 @protocol ADImportTableViewControllerDelegate
 - (void) didSelectImportPhoto;
 - (void) didSelectImportCamera;
 - (void) didSelectImportDropbox;
 @end
-@interface ADImportTableViewController : UITableViewController
+@interface ADImportTableViewController : ADSharedPopTableViewController
 {
 }
 @property (assign, nonatomic) id delegate;
