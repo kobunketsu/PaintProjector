@@ -7,7 +7,7 @@
 //
 
 #import "ADSharedPopTableViewController.h"
-#define AdonitSDKConnectTypeTapAvailable true
+#define AdonitSDKConnectTypeTapAvailable false
 @interface ADAdonitJotTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 @end

@@ -532,6 +532,8 @@
 		0898765E1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */; };
 		0898765F1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */; };
 		0899C43B18575299006E5DEE /* ADTransformAnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C43A18575299006E5DEE /* ADTransformAnchorView.m */; };
+		089B3D4B1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */; };
+		089B3D4C1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */; };
 		089C629E17EC836C00E2AB48 /* ADBrushPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C629D17EC836C00E2AB48 /* ADBrushPropertyView.m */; };
 		089CC75D195BB9DB002D4236 /* cylinderInterLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 089CC75C195BB9DB002D4236 /* cylinderInterLight.png */; };
 		089CC75E195BB9DB002D4236 /* cylinderInterLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 089CC75C195BB9DB002D4236 /* cylinderInterLight.png */; };
@@ -780,8 +782,8 @@
 		08E4D80619A71F0A00990523 /* sinaWeibo-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FB19A71F0A00990523 /* sinaWeibo-48.png */; };
 		08E4D80719A71F0A00990523 /* twitter-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FC19A71F0A00990523 /* twitter-48.png */; };
 		08E4D80819A71F0A00990523 /* twitter-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FC19A71F0A00990523 /* twitter-48.png */; };
-		08E4E7761951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
-		08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
+		08E4E7761951C23C003C77DB /* ADBarKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarKitStyle.m */; };
+		08E4E7771951C23C003C77DB /* ADBarKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarKitStyle.m */; };
 		08E4E77E1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
 		08E4E77F1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
 		08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m */; };
@@ -1646,6 +1648,8 @@
 		0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderImageView.m; sourceTree = "<group>"; };
 		0899C43918575299006E5DEE /* ADTransformAnchorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformAnchorView.h; sourceTree = "<group>"; };
 		0899C43A18575299006E5DEE /* ADTransformAnchorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformAnchorView.m; sourceTree = "<group>"; };
+		089B3D491A830F4600413A83 /* ADSharedUIStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedUIStyleKit.h; path = PaintProjector/ADSharedUIStyleKit.h; sourceTree = "<group>"; };
+		089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedUIStyleKit.m; path = PaintProjector/ADSharedUIStyleKit.m; sourceTree = "<group>"; };
 		089C629C17EC836C00E2AB48 /* ADBrushPropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyView.h; sourceTree = "<group>"; };
 		089C629D17EC836C00E2AB48 /* ADBrushPropertyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPropertyView.m; sourceTree = "<group>"; };
 		089CC75C195BB9DB002D4236 /* cylinderInterLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderInterLight.png; path = Images/cylinderInterLight.png; sourceTree = "<group>"; };
@@ -1892,8 +1896,8 @@
 		08E4D7FA19A71F0A00990523 /* photoLibaray-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photoLibaray-48.png"; path = "PaintProjector/Images/photoLibaray-48.png"; sourceTree = SOURCE_ROOT; };
 		08E4D7FB19A71F0A00990523 /* sinaWeibo-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sinaWeibo-48.png"; path = "PaintProjector/Images/sinaWeibo-48.png"; sourceTree = SOURCE_ROOT; };
 		08E4D7FC19A71F0A00990523 /* twitter-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter-48.png"; path = "PaintProjector/Images/twitter-48.png"; sourceTree = SOURCE_ROOT; };
-		08E4E7741951C23C003C77DB /* ADBarStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADBarStyleKit.h; path = PaintProjector/ADBarStyleKit.h; sourceTree = "<group>"; };
-		08E4E7751951C23C003C77DB /* ADBarStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBarStyleKit.m; path = PaintProjector/ADBarStyleKit.m; sourceTree = "<group>"; };
+		08E4E7741951C23C003C77DB /* ADUIBarStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADUIBarStyleKit.h; path = PaintProjector/ADUIBarStyleKit.h; sourceTree = "<group>"; };
+		08E4E7751951C23C003C77DB /* ADBarKitStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBarKitStyle.m; path = PaintProjector/ADBarKitStyle.m; sourceTree = "<group>"; };
 		08E4E77C1951E9B4003C77DB /* ADTutorialStepButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialStepButton.h; path = PaintProjector/ADTutorialStepButton.h; sourceTree = "<group>"; };
 		08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialStepButton.m; path = PaintProjector/ADTutorialStepButton.m; sourceTree = "<group>"; };
 		08E505D71956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialPaintScreenGestureCollectionView.h; path = PaintProjector/ADTutorialPaintScreenGestureCollectionView.h; sourceTree = "<group>"; };
@@ -2300,8 +2304,10 @@
 		0826775C18E1D97C004DA2F4 /* SharedUITools */ = {
 			isa = PBXGroup;
 			children = (
-				08E4E7741951C23C003C77DB /* ADBarStyleKit.h */,
-				08E4E7751951C23C003C77DB /* ADBarStyleKit.m */,
+				089B3D491A830F4600413A83 /* ADSharedUIStyleKit.h */,
+				089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */,
+				08E4E7741951C23C003C77DB /* ADUIBarStyleKit.h */,
+				08E4E7751951C23C003C77DB /* ADBarKitStyle.m */,
 				08FF70CA189019A400A7A09B /* ADPaintUIKitAnimation.h */,
 				08FF70CB189019A400A7A09B /* ADPaintUIKitAnimation.m */,
 				0826775218E1D6BB004DA2F4 /* ADPaintUIKitStyle.h */,
@@ -4065,6 +4071,7 @@
 				0847B69B19AB8E2C00C8F20F /* SKProductWrapper.m in Sources */,
 				08DEDCC4194B4C2600155A91 /* UIView+VisibilityAnimation.m in Sources */,
 				08E251B1189CAA520039AAC2 /* ADShareButton.m in Sources */,
+				089B3D4C1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */,
 				94AAAFBD18A8A6CD00B4920E /* REAnimation.m in Sources */,
 				2e0339b277dd1bea75258ac0 /* ADCalculateRunTime.m in Sources */,
 				08C26B4D19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */,
@@ -4218,7 +4225,7 @@
 				08771E651927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				3c475975e807db0d73ebe205 /* ADSharedTableViewCell.m in Sources */,
 				08D9B7AD1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */,
-				08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */,
+				08E4E7771951C23C003C77DB /* ADBarKitStyle.m in Sources */,
 				083286B21A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */,
 				08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				0847F53018B07ECF0038869A /* ADUnitConverter.m in Sources */,
@@ -4388,6 +4395,7 @@
 				088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */,
 				08DF53CA195E99B800CFE6A2 /* ADSimpleTutorialManager.m in Sources */,
 				0834C51819BF300000151E2E /* ADLaunchViewController.m in Sources */,
+				089B3D4B1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */,
 				0808D9DC164559870000DF40 /* InfColorPickerController.m in Sources */,
 				0808D9DE164559870000DF40 /* InfColorSquarePicker.m in Sources */,
 				0808D9DF164559870000DF40 /* InfHSBSupport.m in Sources */,
@@ -4516,7 +4524,7 @@
 				087615621959BDBC007EE0C0 /* ADMathHelper.m in Sources */,
 				94926EBE17193375008C645A /* ADLayerManagerView.m in Sources */,
 				08D4F68C19712FC900A81063 /* ADReversePaintInputData.m in Sources */,
-				08E4E7761951C23C003C77DB /* ADBarStyleKit.m in Sources */,
+				08E4E7761951C23C003C77DB /* ADBarKitStyle.m in Sources */,
 				08E251B4189CBC5C0039AAC2 /* REShader.m in Sources */,
 				086CF4981919DF1A000F1FBB /* ADShaderDiffuse.m in Sources */,
 				0871D0381812A72500A0D037 /* ADOilBrush.m in Sources */,

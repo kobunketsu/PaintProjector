@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ADBarStyleKit.h"
+#import "ADUIBarStyleKit.h"
 
 #define BackgroundLayerClearColorChangedNotification @"BackgroundLayerClearColorChangedNotification"
 

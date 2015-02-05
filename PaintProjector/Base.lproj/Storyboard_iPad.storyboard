@@ -2967,7 +2967,7 @@ Create your unbelievable art!</string>
                         <action selector="handleLongPressPaintView:" destination="NUX-zI-YbL" id="Pek-2L-sN5"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer id="yEf-dg-Xxu" userLabel="TapGR 1Touches1TapPaintView">
+                <tapGestureRecognizer delaysTouchesEnded="NO" id="yEf-dg-Xxu" userLabel="TapGR 1Touches1TapPaintView">
                     <connections>
                         <action selector="handleTap1Touches1TapsPaintView:" destination="NUX-zI-YbL" id="LEf-ba-576"/>
                     </connections>

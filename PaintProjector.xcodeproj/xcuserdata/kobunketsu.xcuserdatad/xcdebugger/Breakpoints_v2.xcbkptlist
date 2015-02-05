@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1549"
-            endingLineNumber = "1549"
+            startingLineNumber = "1573"
+            endingLineNumber = "1573"
             landmarkName = "-willBeginUndo"
             landmarkType = "5">
          </BreakpointContent>
@@ -746,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3008"
-            endingLineNumber = "3008"
+            startingLineNumber = "3032"
+            endingLineNumber = "3032"
             landmarkName = "-drawQuad:brush:texture2D:alpha:"
             landmarkType = "5">
          </BreakpointContent>
@@ -762,11 +762,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3006"
-            endingLineNumber = "3006"
+            startingLineNumber = "3030"
+            endingLineNumber = "3030"
             landmarkName = "-drawQuad:brush:texture2D:alpha:"
             landmarkType = "5">
          </BreakpointContent>
@@ -778,13 +778,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2998"
-            endingLineNumber = "2998"
-            landmarkName = "-drawQuad:brush:texture2D:alpha:"
-            landmarkType = "5">
+            startingLineNumber = "3022"
+            endingLineNumber = "3022"
+            landmarkName = "@implementation ADPaintView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -794,13 +794,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2999"
-            endingLineNumber = "2999"
-            landmarkName = "-drawQuad:brush:texture2D:alpha:"
-            landmarkType = "5">
+            startingLineNumber = "3023"
+            endingLineNumber = "3023"
+            landmarkName = "@implementation ADPaintView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -810,11 +810,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3011"
-            endingLineNumber = "3011"
+            startingLineNumber = "3035"
+            endingLineNumber = "3035"
             landmarkName = "-drawQuad:brush:texture2D:alpha:"
             landmarkType = "5">
             <Locations>
@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3005"
-            endingLineNumber = "3005"
+            startingLineNumber = "3029"
+            endingLineNumber = "3029"
             landmarkName = "-drawQuad:brush:texture2D:alpha:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1293,7 +1293,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1985"
             endingLineNumber = "1985"
-            landmarkName = "-nextBrushTypePageButtonTouchUp:"
+            landmarkName = "-brushTypeSelected"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1309,7 +1309,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1982"
             endingLineNumber = "1982"
-            landmarkName = "-nextBrushTypePageButtonTouchUp:"
+            landmarkName = "-brushTypeSelected"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1325,7 +1325,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1980"
             endingLineNumber = "1980"
-            landmarkName = "-nextBrushTypePageButtonTouchUp:"
+            landmarkName = "-brushTypeSelected"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1405,8 +1405,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2117"
             endingLineNumber = "2117"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            landmarkName = "-brushTypeBackButtonTouchUp:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1421,7 +1421,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2116"
             endingLineNumber = "2116"
-            landmarkName = "-autoShowBrushes:"
+            landmarkName = "-brushTypeBackButtonTouchUp:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1480,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1270"
-            endingLineNumber = "1270"
+            startingLineNumber = "1294"
+            endingLineNumber = "1294"
             landmarkName = "-prepareDrawEnv"
             landmarkType = "5">
          </BreakpointContent>
@@ -1512,11 +1512,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1271"
-            endingLineNumber = "1271"
+            startingLineNumber = "1295"
+            endingLineNumber = "1295"
             landmarkName = "-prepareDrawEnv"
             landmarkType = "5">
          </BreakpointContent>
@@ -1528,11 +1528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1742"
-            endingLineNumber = "1742"
+            startingLineNumber = "1766"
+            endingLineNumber = "1766"
             landmarkName = "-open"
             landmarkType = "5">
          </BreakpointContent>
@@ -1544,11 +1544,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1743"
-            endingLineNumber = "1743"
+            startingLineNumber = "1767"
+            endingLineNumber = "1767"
             landmarkName = "-open"
             landmarkType = "5">
          </BreakpointContent>
@@ -1592,11 +1592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1851"
-            endingLineNumber = "1851"
+            startingLineNumber = "1875"
+            endingLineNumber = "1875"
             landmarkName = "-willUpdateSmudgeTextureWithBrushState:location:inRect:ofFBO:ofTexture:ofVAO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1608,11 +1608,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444578954.449586"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1887"
-            endingLineNumber = "1887"
+            startingLineNumber = "1911"
+            endingLineNumber = "1911"
             landmarkName = "-willUpdateSmudgeTextureWithBrushState:location:inRect:ofFBO:ofTexture:ofVAO:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1757,7 +1757,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3039"
             endingLineNumber = "3039"
-            landmarkName = "-validateImageForTex:"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1773,7 +1773,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3044"
             endingLineNumber = "3044"
-            landmarkName = "-validateImageForTex:"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1789,7 +1789,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3040"
             endingLineNumber = "3040"
-            landmarkName = "-validateImageForTex:"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1805,8 +1805,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3028"
             endingLineNumber = "3028"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            landmarkName = "-imagePickerControllerDidCancel:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1821,7 +1821,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3035"
             endingLineNumber = "3035"
-            landmarkName = "-validateImageForTex:"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1837,7 +1837,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3054"
             endingLineNumber = "3054"
-            landmarkName = "-importEditImage:"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1848,11 +1848,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444643011.105548"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2661"
-            endingLineNumber = "2661"
+            startingLineNumber = "2685"
+            endingLineNumber = "2685"
             landmarkName = "-beforeTransformImage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1864,11 +1864,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444643772.52746"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2796"
-            endingLineNumber = "2796"
+            startingLineNumber = "2820"
+            endingLineNumber = "2820"
             landmarkName = "-drawImageTransformed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1880,11 +1880,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444644019.929944"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2814"
-            endingLineNumber = "2814"
+            startingLineNumber = "2838"
+            endingLineNumber = "2838"
             landmarkName = "-drawImageTransformed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1933,7 +1933,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3003"
             endingLineNumber = "3003"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkName = "-startCameraControllerFromViewController:usingDelegate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1949,7 +1949,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2988"
             endingLineNumber = "2988"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkName = "-startCameraControllerFromViewController:usingDelegate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1965,8 +1965,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3022"
             endingLineNumber = "3022"
-            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
-            landmarkType = "5">
+            landmarkName = "@implementation ADPaintScreen"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1976,11 +1976,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444649589.533527"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2906"
-            endingLineNumber = "2906"
+            startingLineNumber = "2930"
+            endingLineNumber = "2930"
+            landmarkName = "@implementation ADPaintView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADPaintView.m"
+            timestampString = "444752250.190211"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2935"
+            endingLineNumber = "2935"
             landmarkName = "-insertUIImageAtCurLayer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1992,27 +2008,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444649599.782099"
+            timestampString = "444752250.190211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2911"
-            endingLineNumber = "2911"
-            landmarkName = "-insertUIImageAtCurLayer:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PaintProjector/ADPaintView.m"
-            timestampString = "444649606.510079"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2656"
-            endingLineNumber = "2656"
+            startingLineNumber = "2680"
+            endingLineNumber = "2680"
             landmarkName = "-beforeTransformImage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2109,7 +2109,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5313"
             endingLineNumber = "5313"
-            landmarkName = "-connectDeviceButtonTouchUp:"
+            landmarkName = "-willTutorialEndWithStep:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2141,8 +2141,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5416"
             endingLineNumber = "5416"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            landmarkName = "-popAdonitJotTableViewController"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2157,7 +2157,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5443"
             endingLineNumber = "5443"
-            landmarkName = "-setupJotSDK"
+            landmarkName = "-didSelectDeviceWacomIntuosCreativeStylus"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2237,7 +2237,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5545"
             endingLineNumber = "5545"
-            landmarkName = "-connectionChange:"
+            landmarkName = "-setupJotSDK"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2253,7 +2253,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5426"
             endingLineNumber = "5426"
-            landmarkName = "-willAdonitJotTouchButtonTouchDown:"
+            landmarkName = "-popAdonitJotWritingStyleTableViewController"
             landmarkType = "5">
             <Locations>
                <Location
@@ -2299,7 +2299,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5430"
             endingLineNumber = "5430"
-            landmarkName = "-willAdonitJotTouchButtonTouchDown:"
+            landmarkName = "-popAdonitJotWritingStyleTableViewController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2315,7 +2315,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5423"
             endingLineNumber = "5423"
-            landmarkName = "-willAdonitJotTouchButtonTouchDown:"
+            landmarkName = "-popAdonitJotWritingStyleTableViewController"
             landmarkType = "5">
             <Locations>
                <Location
@@ -2361,7 +2361,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5424"
             endingLineNumber = "5424"
-            landmarkName = "-willAdonitJotTouchButtonTouchDown:"
+            landmarkName = "-popAdonitJotWritingStyleTableViewController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2377,7 +2377,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5532"
             endingLineNumber = "5532"
-            landmarkName = "-connectionChange:"
+            landmarkName = "-setupJotSDK"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2393,7 +2393,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5530"
             endingLineNumber = "5530"
-            landmarkName = "-connectionChange:"
+            landmarkName = "-setupJotSDK"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2409,7 +2409,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5451"
             endingLineNumber = "5451"
-            landmarkName = "-setupJotSDK"
+            landmarkName = "-didSelectConnectDeviceButtonMethod"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2425,7 +2425,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5531"
             endingLineNumber = "5531"
-            landmarkName = "-connectionChange:"
+            landmarkName = "-setupJotSDK"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2441,7 +2441,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5549"
             endingLineNumber = "5549"
-            landmarkName = "-connectionChange:"
+            landmarkName = "-setupJotSDK"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

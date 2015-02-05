@@ -1107,6 +1107,32 @@
 //    DebugLogWarn(@"setCurNumberOfTouch %d", _curNumberOfTouch);
 }
 
+#pragma mark- AdonitJot
+-(void)jotStylusTouchBegan:(NSSet *) touches{
+    DebugLogFuncStart(@"jotStylusTouchBegan touches count:%d", [touches count]);
+}
+
+-(void)jotStylusTouchMoved:(NSSet *) touches{
+    DebugLogFuncUpdate(@"jotStylusTouchMoved touches count:%d", [touches count]);
+}
+
+-(void)jotStylusTouchEnded:(NSSet *) touches{
+    DebugLogFuncStart(@"jotStylusTouchEnded touches count:%d", [touches count]);
+}
+
+-(void)jotStylusTouchCancelled:(NSSet *) touches{
+    DebugLogFuncStart(@"jotStylusTouchCancelled touches count:%d", [touches count]);
+}
+
+- (void)jotSuggestsToDisableGestures{
+    DebugLogFuncStart(@"jotSuggestsToDisableGestures");
+}
+
+- (void)jotSuggestsToEnableGestures{
+    DebugLogFuncStart(@"jotSuggestsToEnableGestures");
+}
+
+
 #pragma mark-
 - (void)updateRender{
     [self _updateRender];
@@ -3099,9 +3125,7 @@
 }
 
 
-#pragma mark- Shader
-
-
+#pragma mark- Debug
 #if DEBUG_VIEW_COLORALPHA
 - (BOOL)loadShaderQuadDebugAlpha
 {

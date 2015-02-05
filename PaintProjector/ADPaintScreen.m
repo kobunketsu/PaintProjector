@@ -5489,7 +5489,7 @@
     [RemoteLog logAction:@"adonitJotTouchButtonTouchDown" identifier:sender];
     [self.jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
         if (success) {
-            NSLog(@"Stylus Connected");
+            DebugLog(@"Stylus Connected");
         }
         else{
             DebugLogError(@"Stylus Connect Failed. Error %@", error.localizedDescription);
