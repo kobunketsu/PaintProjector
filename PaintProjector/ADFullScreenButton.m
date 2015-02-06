@@ -31,115 +31,68 @@
 
 //-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
 - (void)drawRect:(CGRect)rect{
-    [self drawCanvas1WithFrame:rect];
+    [self drawADSharedRoundButtonWithFrame:rect isSelected:self.isSelected || self.isHighlighted];
 }
 
-- (void)drawCanvas1WithFrame: (CGRect)frame;
+- (void)drawADSharedRoundButtonWithFrame: (CGRect)frame isSelected: (BOOL)isSelected
 {
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-    UIColor* iconColor = [UIColor colorWithRed: 0.679 green: 0.679 blue: 0.679 alpha: 1];
-    CGFloat iconColorRGBA[4];
-    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
+    //// Variable Declarations
+    BOOL isNormal = !isSelected;
     
-    UIColor* iconShadowColorColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.5) green: (iconColorRGBA[1] * 0.5) blue: (iconColorRGBA[2] * 0.5) alpha: (iconColorRGBA[3] * 0.5 + 0.5)];
-    UIColor* gradientColor2 = [UIColor colorWithRed: 1 green: 0.863 blue: 0.526 alpha: 1];
-    UIColor* gradientColor = [UIColor colorWithRed: 0.911 green: 0.713 blue: 0.225 alpha: 1];
-    UIColor* shadow4Color = [UIColor colorWithRed: 0.951 green: 0.951 blue: 0.951 alpha: 1];
-    UIColor* shadow3Color = [UIColor colorWithRed: 0.347 green: 0.347 blue: 0.347 alpha: 0.542];
-    
-    //// Gradient Declarations
-    CGFloat gradientLocations[] = {0, 0.27, 0.54, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColor2.CGColor, (id)[UIColor colorWithRed: 0.955 green: 0.788 blue: 0.375 alpha: 1].CGColor, (id)gradientColor.CGColor, (id)gradientColor2.CGColor], gradientLocations);
-    
-    //// Shadow Declarations
-    UIColor* shadow4 = shadow4Color;
-    CGSize shadow4Offset = CGSizeMake(0.1, 2.1);
-    CGFloat shadow4BlurRadius = 1;
-    UIColor* shadow3 = shadow3Color;
-    CGSize shadow3Offset = CGSizeMake(0.1, 2.1);
-    CGFloat shadow3BlurRadius = 1;
-    
-    //// Group
+    //// FullScreenButton
     {
-        //// Oval 2 Drawing
-        CGRect oval2Rect = CGRectMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 6, 27, 27);
-        UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: oval2Rect];
-        CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
-        CGContextBeginTransparencyLayer(context, NULL);
-        [oval2Path addClip];
-        CGContextDrawLinearGradient(context, gradient,
-                                    CGPointMake(CGRectGetMidX(oval2Rect), CGRectGetMinY(oval2Rect)),
-                                    CGPointMake(CGRectGetMidX(oval2Rect), CGRectGetMaxY(oval2Rect)),
-                                    0);
-        CGContextEndTransparencyLayer(context);
-        
-        ////// Oval 2 Inner Shadow
-        CGContextSaveGState(context);
-        UIRectClip(oval2Path.bounds);
-        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-        
-        CGContextSetAlpha(context, CGColorGetAlpha([shadow3 CGColor]));
-        CGContextBeginTransparencyLayer(context, NULL);
+        if (isNormal)
         {
-            UIColor* opaqueShadow = [shadow3 colorWithAlphaComponent: 1];
-            CGContextSetShadowWithColor(context, shadow3Offset, shadow3BlurRadius, [opaqueShadow CGColor]);
-            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            [opaqueShadow setFill];
-            [oval2Path fill];
-            
-            CGContextEndTransparencyLayer(context);
+            //// Normal
+            {
+                //// Bezier Drawing
+                UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+                [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 18)];
+                [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 18)];
+                [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 21)];
+                [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 21)];
+                [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 18)];
+                [bezierPath closePath];
+                [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 19.5)];
+                [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 20.5, CGRectGetMinY(frame) + 33) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 26.96) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 27.96, CGRectGetMinY(frame) + 33)];
+                [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 19.5) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 13.04, CGRectGetMinY(frame) + 33) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 26.96)];
+                [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 12.46, CGRectGetMinY(frame) + 8.66) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 15.06) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 9.14, CGRectGetMinY(frame) + 11.12)];
+                [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 20.5, CGRectGetMinY(frame) + 6) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 14.7, CGRectGetMinY(frame) + 6.99) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 17.49, CGRectGetMinY(frame) + 6)];
+                [bezierPath addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 19.5) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 27.96, CGRectGetMinY(frame) + 6) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 12.04)];
+                [bezierPath closePath];
+                [ADSharedUIStyleKit.cNormal setFill];
+                [bezierPath fill];
+            }
         }
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
-        
-        CGContextRestoreGState(context);
         
         
-        
-        //// Rectangle Drawing
-        UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 19, 15, 1)];
-        CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, shadow4Offset, shadow4BlurRadius, [shadow4 CGColor]);
-        [iconShadowColorColor setFill];
-        [rectanglePath fill];
-        
-        ////// Rectangle Inner Shadow
-        CGContextSaveGState(context);
-        UIRectClip(rectanglePath.bounds);
-        CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-        
-        CGContextSetAlpha(context, CGColorGetAlpha([shadow3 CGColor]));
-        CGContextBeginTransparencyLayer(context, NULL);
+        if (isSelected)
         {
-            UIColor* opaqueShadow = [shadow3 colorWithAlphaComponent: 1];
-            CGContextSetShadowWithColor(context, shadow3Offset, shadow3BlurRadius, [opaqueShadow CGColor]);
-            CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            [opaqueShadow setFill];
-            [rectanglePath fill];
-            
-            CGContextEndTransparencyLayer(context);
+            //// Selected
+            {
+                //// Bezier 3 Drawing
+                UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
+                [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 18)];
+                [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 18)];
+                [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 13, CGRectGetMinY(frame) + 21)];
+                [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 21)];
+                [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 28, CGRectGetMinY(frame) + 18)];
+                [bezier3Path closePath];
+                [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 19.5)];
+                [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 20.5, CGRectGetMinY(frame) + 33) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 26.96) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 27.96, CGRectGetMinY(frame) + 33)];
+                [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 19.5) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 13.04, CGRectGetMinY(frame) + 33) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 26.96)];
+                [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 12.46, CGRectGetMinY(frame) + 8.66) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 7, CGRectGetMinY(frame) + 15.06) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 9.14, CGRectGetMinY(frame) + 11.12)];
+                [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 20.5, CGRectGetMinY(frame) + 6) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 14.7, CGRectGetMinY(frame) + 6.99) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 17.49, CGRectGetMinY(frame) + 6)];
+                [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 19.5) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 27.96, CGRectGetMinY(frame) + 6) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 34, CGRectGetMinY(frame) + 12.04)];
+                [bezier3Path closePath];
+                [ADSharedUIStyleKit.cSelected setFill];
+                [bezier3Path fill];
+            }
         }
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
-        
-        CGContextRestoreGState(context);
-        
     }
-    
-    
-    //// Cleanup
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

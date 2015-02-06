@@ -79,9 +79,9 @@
     self.delegate = tutorial;
     
     if (desc) {
-        UILabel *label = [[UILabel alloc]init];
+        ADSharedLabel *label = [[ADSharedLabel alloc]init];
         self.textLabel = label;
-        label.textColor = [UIColor darkGrayColor];
+//        label.textColor = [UIColor darkGrayColor];
         
         //转换到nsAttributeString
         label.attributedText = [self decorateString:desc];

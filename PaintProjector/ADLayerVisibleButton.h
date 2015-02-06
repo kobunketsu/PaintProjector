@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
-@interface ADLayerVisibleButton : ADIconColorPermeateButton
+#import "ADSharedSubButton.h"
+@interface ADLayerVisibleButton : ADSharedSubButton
 @property(nonatomic, setter = setIsVisible:,  assign)BOOL isVisible;
 @end

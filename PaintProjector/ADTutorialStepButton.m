@@ -73,7 +73,7 @@
                                 CGPointMake(CGRectGetMidX(rectangleRect), CGRectGetMinY(rectangleRect)),
                                 0);
     CGContextRestoreGState(context);
-    [[ADUIBarStyleKit colorEdgeHighlighted] setStroke];
+    [[ADBarStyleKit colorEdgeHighlighted] setStroke];
     rectanglePath.lineWidth = 3;
     [rectanglePath stroke];
     
@@ -102,7 +102,7 @@
                                 CGPointMake(CGRectGetMidX(rectangleRect), CGRectGetMinY(rectangleRect)),
                                 0);
     CGContextRestoreGState(context);
-    [[ADUIBarStyleKit colorEdge] setStroke];
+    [[ADBarStyleKit colorEdge] setStroke];
     rectanglePath.lineWidth = 3;
     [rectanglePath stroke];
     

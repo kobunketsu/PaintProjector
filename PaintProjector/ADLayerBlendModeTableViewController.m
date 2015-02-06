@@ -114,6 +114,7 @@
     
     // configure cell...
     cell.isAccessibilityElement = true;
+    cell.textLabel.textColor = [ADSharedUIStyleKit cText];
     switch(indexPath.row) { // assuming there is only one section
         case 0:
             cell.textLabel.text = cell.accessibilityLabel = NSLocalizedString(@"Normal", nil);

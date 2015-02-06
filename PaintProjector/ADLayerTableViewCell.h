@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *layerImageViewFrame;
 @property (weak, nonatomic) IBOutlet UIButton *layerDeleteDoneButton;
 @property (weak, nonatomic) IBOutlet ADLayerBlendModeButton *layerBlendModeButton;
-@property (strong, nonatomic) IBOutletCollection(ADIconColorPermeateButton) NSArray *layerHelpButtons;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *layerHelpButtons;
 
 @property (weak, nonatomic) IBOutlet UIView *layerBlendModeButtonUp;
 @property (weak, nonatomic) IBOutlet UISlider *layerOpacitySlider;

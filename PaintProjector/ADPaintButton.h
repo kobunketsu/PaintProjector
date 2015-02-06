@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADAutoRotateButton.h"
+#import "ADSharedMainButton.h"
 
-@interface ADPaintButton : ADAutoRotateButton
+@interface ADPaintButton : ADSharedMainButton
 @property (assign, nonatomic)BOOL isReversePaint;
 @end

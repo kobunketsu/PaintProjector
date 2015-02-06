@@ -6,9 +6,9 @@
 //  Copyright (c) 2012年 Hu Wenjie. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
+#import "ADSharedMainButton.h"
 
-@interface ADUndoButton : ADIconColorPermeateButton
+@interface ADUndoButton : ADSharedMainButton
 {
 }
 @property (assign, nonatomic)CGPoint touchPoint;

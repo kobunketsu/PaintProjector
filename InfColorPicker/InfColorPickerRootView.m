@@ -56,7 +56,7 @@
 //     [color setFill];
 //     [rectanglePath fill];
      
-     [ADPaintUIKitStyle drawCrystalGradientInView:self];
+     [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];
  }
 
 @end

@@ -324,7 +324,6 @@
 		085C0C4B18D8A780001B8AF7 /* ADProductInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE4BFF18D7DD85008C4904 /* ADProductInfoTableViewController.m */; };
 		085EFD4E1732BDD900F0395D /* ADPaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */; };
 		085FB3D2177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 085FB3D1177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m */; };
-		0860059417466C6B004BF021 /* ADSharedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0860059317466C6B004BF021 /* ADSharedTableViewCell.xib */; };
 		0860059717466DEC004BF021 /* ADSharedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860059617466DEB004BF021 /* ADSharedTableViewCell.m */; };
 		0860059A17467848004BF021 /* ADLayerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860059917467847004BF021 /* ADLayerTableViewController.m */; };
 		0860668B17D2D8FB002EE42A /* ADNewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0860668A17D2D8FB002EE42A /* ADNewButton.m */; };
@@ -498,6 +497,8 @@
 		088B741F17F4787A0039ABC4 /* InfColorPickerRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B741E17F4787A0039ABC4 /* InfColorPickerRootView.m */; };
 		088BC19617EBDCD0007CC49A /* ADBrushPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 088BC19517EBDCD0007CC49A /* ADBrushPreview.m */; };
 		088CC7D4177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 088CC7D3177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m */; };
+		088D44B41A846D47003C7FF1 /* ADSharedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 088D44B31A846D47003C7FF1 /* ADSharedLabel.m */; };
+		088D44B51A846D47003C7FF1 /* ADSharedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 088D44B31A846D47003C7FF1 /* ADSharedLabel.m */; };
 		088DAE18187DB0BC001B3855 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 088DAE17187DB0BC001B3855 /* libz.dylib */; };
 		088E1D8418A26F700059002C /* ADShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ADShaderCylinder.m */; };
 		088E1D8518A26F700059002C /* ADShaderCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8318A26F700059002C /* ADShaderCylinder.m */; };
@@ -532,6 +533,8 @@
 		0898765E1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */; };
 		0898765F1913897B009CEB3D /* ADSetupCylinderImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */; };
 		0899C43B18575299006E5DEE /* ADTransformAnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0899C43A18575299006E5DEE /* ADTransformAnchorView.m */; };
+		089AC79E1A83207A005EFBA1 /* ADSharedMainButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 089AC79D1A83207A005EFBA1 /* ADSharedMainButton.m */; };
+		089AC79F1A83207A005EFBA1 /* ADSharedMainButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 089AC79D1A83207A005EFBA1 /* ADSharedMainButton.m */; };
 		089B3D4B1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */; };
 		089B3D4C1A830F4600413A83 /* ADSharedUIStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */; };
 		089C629E17EC836C00E2AB48 /* ADBrushPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C629D17EC836C00E2AB48 /* ADBrushPropertyView.m */; };
@@ -578,6 +581,8 @@
 		08AE475918C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AE475718C8C126008940E8 /* ADSwatchManagerViewController.m */; };
 		08AFD4CE17F33DA600B9492B /* ADFuzzyTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AFD4CD17F33DA600B9492B /* ADFuzzyTransparentView.m */; };
 		08B080E91781BDCA000B7E60 /* ADLayerClearButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B080E81781BDCA000B7E60 /* ADLayerClearButton.m */; };
+		08B0CAEF1A83659C006B2574 /* ADSharedSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B0CAEE1A83659C006B2574 /* ADSharedSubButton.m */; };
+		08B0CAF01A83659C006B2574 /* ADSharedSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B0CAEE1A83659C006B2574 /* ADSharedSubButton.m */; };
 		08B11F5718A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */; };
 		08B11F5818A6558A00F303B5 /* ADPaintScreenTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */; };
 		08B17A301981FFF000FB55BD /* ADSetupCylinderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B17A2F1981FFF000FB55BD /* ADSetupCylinderButton.m */; };
@@ -782,8 +787,8 @@
 		08E4D80619A71F0A00990523 /* sinaWeibo-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FB19A71F0A00990523 /* sinaWeibo-48.png */; };
 		08E4D80719A71F0A00990523 /* twitter-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FC19A71F0A00990523 /* twitter-48.png */; };
 		08E4D80819A71F0A00990523 /* twitter-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 08E4D7FC19A71F0A00990523 /* twitter-48.png */; };
-		08E4E7761951C23C003C77DB /* ADBarKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarKitStyle.m */; };
-		08E4E7771951C23C003C77DB /* ADBarKitStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarKitStyle.m */; };
+		08E4E7761951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
+		08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E7751951C23C003C77DB /* ADBarStyleKit.m */; };
 		08E4E77E1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
 		08E4E77F1951E9B4003C77DB /* ADTutorialStepButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */; };
 		08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E505D81956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m */; };
@@ -1053,7 +1058,6 @@
 		e19edfe62634110eb5a1fe6a /* ADRadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */; };
 		e21b4e595f0fb5cfb4d67bfc /* ADCrayons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0871D0291812A27400A0D037 /* ADCrayons.m */; };
 		e243e49eed2a843ccb577fa2 /* ADBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088B073E183EEBA80099C6A9 /* ADBackgroundLayer.m */; };
-		e37029de4c7956b2bb121e3c /* ADSharedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0860059317466C6B004BF021 /* ADSharedTableViewCell.xib */; };
 		e87a4e637348a307626e32e7 /* ADFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* ADFinger.m */; };
 		e8bf068d0fc58b89a6e034d9 /* ADPaintColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */; };
 		eb5cc21ea712daf8ae8cba4c /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
@@ -1398,7 +1402,6 @@
 		085EFD4D1732BDD900F0395D /* ADPaintColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintColorButton.m; sourceTree = "<group>"; };
 		085FB3D0177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModePopoverBackgroundView.h; sourceTree = "<group>"; };
 		085FB3D1177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModePopoverBackgroundView.m; sourceTree = "<group>"; };
-		0860059317466C6B004BF021 /* ADSharedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ADSharedTableViewCell.xib; sourceTree = "<group>"; };
 		0860059517466DEB004BF021 /* ADSharedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSharedTableViewCell.h; sourceTree = "<group>"; };
 		0860059617466DEB004BF021 /* ADSharedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSharedTableViewCell.m; sourceTree = "<group>"; };
 		0860059817467847004BF021 /* ADLayerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerTableViewController.h; sourceTree = "<group>"; };
@@ -1605,6 +1608,8 @@
 		088BC19517EBDCD0007CC49A /* ADBrushPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPreview.m; sourceTree = "<group>"; };
 		088CC7D2177B3DDF006C8DA8 /* ADLayerBlendModeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModeTableView.h; sourceTree = "<group>"; };
 		088CC7D3177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeTableView.m; sourceTree = "<group>"; };
+		088D44B21A846D47003C7FF1 /* ADSharedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedLabel.h; path = PaintProjector/ADSharedLabel.h; sourceTree = "<group>"; };
+		088D44B31A846D47003C7FF1 /* ADSharedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedLabel.m; path = PaintProjector/ADSharedLabel.m; sourceTree = "<group>"; };
 		088DAE17187DB0BC001B3855 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		088E1D8218A26F700059002C /* ADShaderCylinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderCylinder.h; sourceTree = "<group>"; };
 		088E1D8318A26F700059002C /* ADShaderCylinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderCylinder.m; sourceTree = "<group>"; };
@@ -1648,6 +1653,8 @@
 		0898765D1913897B009CEB3D /* ADSetupCylinderImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderImageView.m; sourceTree = "<group>"; };
 		0899C43918575299006E5DEE /* ADTransformAnchorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformAnchorView.h; sourceTree = "<group>"; };
 		0899C43A18575299006E5DEE /* ADTransformAnchorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformAnchorView.m; sourceTree = "<group>"; };
+		089AC79C1A83207A005EFBA1 /* ADSharedMainButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedMainButton.h; path = PaintProjector/ADSharedMainButton.h; sourceTree = "<group>"; };
+		089AC79D1A83207A005EFBA1 /* ADSharedMainButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedMainButton.m; path = PaintProjector/ADSharedMainButton.m; sourceTree = "<group>"; };
 		089B3D491A830F4600413A83 /* ADSharedUIStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedUIStyleKit.h; path = PaintProjector/ADSharedUIStyleKit.h; sourceTree = "<group>"; };
 		089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedUIStyleKit.m; path = PaintProjector/ADSharedUIStyleKit.m; sourceTree = "<group>"; };
 		089C629C17EC836C00E2AB48 /* ADBrushPropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyView.h; sourceTree = "<group>"; };
@@ -1701,6 +1708,8 @@
 		08AFD4CD17F33DA600B9492B /* ADFuzzyTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFuzzyTransparentView.m; sourceTree = "<group>"; };
 		08B080E71781BDCA000B7E60 /* ADLayerClearButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerClearButton.h; sourceTree = "<group>"; };
 		08B080E81781BDCA000B7E60 /* ADLayerClearButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerClearButton.m; sourceTree = "<group>"; };
+		08B0CAED1A83659C006B2574 /* ADSharedSubButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADSharedSubButton.h; path = PaintProjector/ADSharedSubButton.h; sourceTree = "<group>"; };
+		08B0CAEE1A83659C006B2574 /* ADSharedSubButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADSharedSubButton.m; path = PaintProjector/ADSharedSubButton.m; sourceTree = "<group>"; };
 		08B11F5518A6558A00F303B5 /* ADPaintScreenTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintScreenTransitionManager.h; sourceTree = "<group>"; };
 		08B11F5618A6558A00F303B5 /* ADPaintScreenTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintScreenTransitionManager.m; sourceTree = "<group>"; };
 		08B131AF17D24F01004FDF1D /* ADPrintButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPrintButton.h; sourceTree = "<group>"; };
@@ -1896,8 +1905,8 @@
 		08E4D7FA19A71F0A00990523 /* photoLibaray-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "photoLibaray-48.png"; path = "PaintProjector/Images/photoLibaray-48.png"; sourceTree = SOURCE_ROOT; };
 		08E4D7FB19A71F0A00990523 /* sinaWeibo-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sinaWeibo-48.png"; path = "PaintProjector/Images/sinaWeibo-48.png"; sourceTree = SOURCE_ROOT; };
 		08E4D7FC19A71F0A00990523 /* twitter-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter-48.png"; path = "PaintProjector/Images/twitter-48.png"; sourceTree = SOURCE_ROOT; };
-		08E4E7741951C23C003C77DB /* ADUIBarStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADUIBarStyleKit.h; path = PaintProjector/ADUIBarStyleKit.h; sourceTree = "<group>"; };
-		08E4E7751951C23C003C77DB /* ADBarKitStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBarKitStyle.m; path = PaintProjector/ADBarKitStyle.m; sourceTree = "<group>"; };
+		08E4E7741951C23C003C77DB /* ADBarStyleKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADBarStyleKit.h; path = PaintProjector/ADBarStyleKit.h; sourceTree = "<group>"; };
+		08E4E7751951C23C003C77DB /* ADBarStyleKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBarStyleKit.m; path = PaintProjector/ADBarStyleKit.m; sourceTree = "<group>"; };
 		08E4E77C1951E9B4003C77DB /* ADTutorialStepButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialStepButton.h; path = PaintProjector/ADTutorialStepButton.h; sourceTree = "<group>"; };
 		08E4E77D1951E9B4003C77DB /* ADTutorialStepButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADTutorialStepButton.m; path = PaintProjector/ADTutorialStepButton.m; sourceTree = "<group>"; };
 		08E505D71956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADTutorialPaintScreenGestureCollectionView.h; path = PaintProjector/ADTutorialPaintScreenGestureCollectionView.h; sourceTree = "<group>"; };
@@ -2304,16 +2313,16 @@
 		0826775C18E1D97C004DA2F4 /* SharedUITools */ = {
 			isa = PBXGroup;
 			children = (
-				089B3D491A830F4600413A83 /* ADSharedUIStyleKit.h */,
-				089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */,
-				08E4E7741951C23C003C77DB /* ADUIBarStyleKit.h */,
-				08E4E7751951C23C003C77DB /* ADBarKitStyle.m */,
-				08FF70CA189019A400A7A09B /* ADPaintUIKitAnimation.h */,
-				08FF70CB189019A400A7A09B /* ADPaintUIKitAnimation.m */,
-				0826775218E1D6BB004DA2F4 /* ADPaintUIKitStyle.h */,
-				0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */,
+				089AC79B1A832022005EFBA1 /* UIAnimation */,
+				089AC79A1A832005005EFBA1 /* UIStyleKit */,
 				0826775818E1D92E004DA2F4 /* ADCrystalGradientStyleView.h */,
 				0826775918E1D92E004DA2F4 /* ADCrystalGradientStyleView.m */,
+				089AC79C1A83207A005EFBA1 /* ADSharedMainButton.h */,
+				088D44B21A846D47003C7FF1 /* ADSharedLabel.h */,
+				088D44B31A846D47003C7FF1 /* ADSharedLabel.m */,
+				089AC79D1A83207A005EFBA1 /* ADSharedMainButton.m */,
+				08B0CAED1A83659C006B2574 /* ADSharedSubButton.h */,
+				08B0CAEE1A83659C006B2574 /* ADSharedSubButton.m */,
 				08E104C218E31F3B00B777FB /* ADSharedTableView.h */,
 				08E104C318E31F3B00B777FB /* ADSharedTableView.m */,
 				08E104C618E326A100B777FB /* ADSharedPopoverArrowView.h */,
@@ -2326,16 +2335,6 @@
 				08930E1C1787F2B9001525B1 /* ADAutoRotateButton.m */,
 				08F905DB194ACBA7002918AA /* ADCrystalGradientStyleButton.h */,
 				08F905DC194ACBA7002918AA /* ADCrystalGradientStyleButton.m */,
-				08C17B7719C52C0600FF9A55 /* ADTextSplitter.h */,
-				08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */,
-				0880676B19E7670400AAE1C7 /* ADViewPopAnimator.h */,
-				0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */,
-				08C17B7B19C53AC200FF9A55 /* ADTextSqueezePopAnimator.h */,
-				08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */,
-				085BE16419E6C50000FA86BF /* ADViewScalePopAnimator.h */,
-				085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */,
-				0880676F19E767D800AAE1C7 /* ADViewRotatePopAnimator.h */,
-				0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */,
 				0868E41E19CC34620082AEB5 /* ADSimpleAlertView.h */,
 				0868E41F19CC34620082AEB5 /* ADSimpleAlertView.m */,
 				08A6B9A919D68CEF00810875 /* ADPageControl.h */,
@@ -2968,6 +2967,38 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		089AC79A1A832005005EFBA1 /* UIStyleKit */ = {
+			isa = PBXGroup;
+			children = (
+				089B3D491A830F4600413A83 /* ADSharedUIStyleKit.h */,
+				089B3D4A1A830F4600413A83 /* ADSharedUIStyleKit.m */,
+				08E4E7741951C23C003C77DB /* ADBarStyleKit.h */,
+				08E4E7751951C23C003C77DB /* ADBarStyleKit.m */,
+				0826775218E1D6BB004DA2F4 /* ADPaintUIKitStyle.h */,
+				0826775318E1D6BB004DA2F4 /* ADPaintUIKitStyle.m */,
+			);
+			name = UIStyleKit;
+			sourceTree = "<group>";
+		};
+		089AC79B1A832022005EFBA1 /* UIAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0880676B19E7670400AAE1C7 /* ADViewPopAnimator.h */,
+				0880676C19E7670400AAE1C7 /* ADViewPopAnimator.m */,
+				08FF70CA189019A400A7A09B /* ADPaintUIKitAnimation.h */,
+				08FF70CB189019A400A7A09B /* ADPaintUIKitAnimation.m */,
+				08C17B7B19C53AC200FF9A55 /* ADTextSqueezePopAnimator.h */,
+				08C17B7C19C53AC200FF9A55 /* ADTextSqueezePopAnimator.m */,
+				085BE16419E6C50000FA86BF /* ADViewScalePopAnimator.h */,
+				085BE16519E6C50000FA86BF /* ADViewScalePopAnimator.m */,
+				0880676F19E767D800AAE1C7 /* ADViewRotatePopAnimator.h */,
+				0880677019E767D800AAE1C7 /* ADViewRotatePopAnimator.m */,
+				08C17B7719C52C0600FF9A55 /* ADTextSplitter.h */,
+				08C17B7819C52C0600FF9A55 /* ADTextSplitter.m */,
+			);
+			name = UIAnimation;
+			sourceTree = "<group>";
+		};
 		08AB75C0188F5980007DA20B /* CollectionScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -3321,7 +3352,6 @@
 				087FE73B173DF590009B34A2 /* ADSharedPopoverBackgroundView.m */,
 				087FE73F173DF71C009B34A2 /* ADSharedPopoverController.h */,
 				087FE740173DF71C009B34A2 /* ADSharedPopoverController.m */,
-				0860059317466C6B004BF021 /* ADSharedTableViewCell.xib */,
 				0860059517466DEB004BF021 /* ADSharedTableViewCell.h */,
 				0860059617466DEB004BF021 /* ADSharedTableViewCell.m */,
 				08A0315818DE8896006EE308 /* ADIconColorPermeateButton.h */,
@@ -3711,7 +3741,6 @@
 				0852511C194D853D0087F4AF /* tutorial_putDevice.png in Resources */,
 				088313AC199CFA5B00C49B92 /* tutorial-48.png in Resources */,
 				08083DF619645A8600FDDDE8 /* paintFrame.png in Resources */,
-				e37029de4c7956b2bb121e3c /* ADSharedTableViewCell.xib in Resources */,
 				082A6A0419C864F600862332 /* tutorial0_a2-Wannaa@2x.png in Resources */,
 				08CF37D7197D61C40017D43A /* iap_brushPreviewBg.png in Resources */,
 				44c3a468a4bf3475a7a36dc9 /* ADLayerToolView.xib in Resources */,
@@ -3848,7 +3877,6 @@
 				0851DF26197920BA000391B3 /* iap_reversePaint.png in Resources */,
 				0897D7D9187C43CF00A7ECD2 /* Shaders in Resources */,
 				08086EB418DC8BA300F03EB4 /* noise.png in Resources */,
-				0860059417466C6B004BF021 /* ADSharedTableViewCell.xib in Resources */,
 				0822E38819A1D3D70094081E /* AnaDrawAppIcon-76@2x.png in Resources */,
 				084691431748C4F700E50554 /* ADLayerToolView.xib in Resources */,
 				08B8C34719C5EED100CB85BE /* tutorial0_w-Draw.png in Resources */,
@@ -4075,6 +4103,7 @@
 				94AAAFBD18A8A6CD00B4920E /* REAnimation.m in Sources */,
 				2e0339b277dd1bea75258ac0 /* ADCalculateRunTime.m in Sources */,
 				08C26B4D19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */,
+				089AC79F1A83207A005EFBA1 /* ADSharedMainButton.m in Sources */,
 				08A232B419C0572E004FE1F6 /* ADHelpCollectionView.m in Sources */,
 				df5b355f178ec719b3491fcd /* ADTransformContentView.m in Sources */,
 				08E251B0189CAA3C0039AAC2 /* REMaterial.m in Sources */,
@@ -4221,11 +4250,12 @@
 				0863C0271970326F00CDB283 /* ADShaderCylinderImage.m in Sources */,
 				08BD1A9019CAC63000E65A05 /* ADLaunchLogoView_w_Draw.m in Sources */,
 				08E505DA1956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
+				08B0CAF01A83659C006B2574 /* ADSharedSubButton.m in Sources */,
 				08F2E368197389B400C55F85 /* ADPaintReverseButton.m in Sources */,
 				08771E651927C3C100CBF7B3 /* ADCylinderProjectVirtualDeviceCollectionViewController.m in Sources */,
 				3c475975e807db0d73ebe205 /* ADSharedTableViewCell.m in Sources */,
 				08D9B7AD1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */,
-				08E4E7771951C23C003C77DB /* ADBarKitStyle.m in Sources */,
+				08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */,
 				083286B21A82041700925D1A /* ADAdonitJotWritingStyleTableViewController.m in Sources */,
 				08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				0847F53018B07ECF0038869A /* ADUnitConverter.m in Sources */,
@@ -4245,6 +4275,7 @@
 				08A0315F18DED0C2006EE308 /* ADRootCanvasView.m in Sources */,
 				19ba8cb15b35fd1261697aef /* ADLayerImageView.m in Sources */,
 				0847F53418B0945E0038869A /* ADCylinderProjectUserInputParams.m in Sources */,
+				088D44B51A846D47003C7FF1 /* ADSharedLabel.m in Sources */,
 				0cf76288bbdc25a1349b5c70 /* ADLayerToolView.m in Sources */,
 				08E5E32A19CD36E9000DE694 /* ADNextPageButton.m in Sources */,
 				08C58ED71976BF290047C1DC /* ADBrushManager.m in Sources */,
@@ -4491,6 +4522,7 @@
 				082060E5189D4CE70027247C /* RETransform.m in Sources */,
 				084347EE19DE7EF100023299 /* ADLasso.m in Sources */,
 				08B9104818AF544D00BEA0D3 /* ADPaintCollectionViewCellFrame.m in Sources */,
+				088D44B41A846D47003C7FF1 /* ADSharedLabel.m in Sources */,
 				088B073F183EEBA80099C6A9 /* ADBackgroundLayer.m in Sources */,
 				0818DC2D18A9B39D009A997C /* ADCustomPercentDrivenInteractiveTransition.m in Sources */,
 				08771E661927C3C100CBF7B3 /* ADCylinderProjectVirualDeviceCollectionView.m in Sources */,
@@ -4524,7 +4556,7 @@
 				087615621959BDBC007EE0C0 /* ADMathHelper.m in Sources */,
 				94926EBE17193375008C645A /* ADLayerManagerView.m in Sources */,
 				08D4F68C19712FC900A81063 /* ADReversePaintInputData.m in Sources */,
-				08E4E7761951C23C003C77DB /* ADBarKitStyle.m in Sources */,
+				08E4E7761951C23C003C77DB /* ADBarStyleKit.m in Sources */,
 				08E251B4189CBC5C0039AAC2 /* REShader.m in Sources */,
 				086CF4981919DF1A000F1FBB /* ADShaderDiffuse.m in Sources */,
 				0871D0381812A72500A0D037 /* ADOilBrush.m in Sources */,
@@ -4640,6 +4672,7 @@
 				08494ED11781DC1200A256E8 /* ADLayerDeleteDoneButton.m in Sources */,
 				0811271F194982A80057BD53 /* ADShaderBrush.m in Sources */,
 				08930E1D1787F2B9001525B1 /* ADAutoRotateButton.m in Sources */,
+				089AC79E1A83207A005EFBA1 /* ADSharedMainButton.m in Sources */,
 				08B9104C18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */,
 				086B6642179059F4001723F4 /* ADViewHeightSlider.m in Sources */,
 				084228A618A7CADA0046BA61 /* UIView+Tag.m in Sources */,
@@ -4676,6 +4709,7 @@
 				08D9B7BC1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */,
 				0879B3A5195C752F0062EF11 /* ADDeviceHardware.m in Sources */,
 				08AB75C5188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */,
+				08B0CAEF1A83659C006B2574 /* ADSharedSubButton.m in Sources */,
 				08BD1A6B19CA842E00E65A05 /* ADLaunchLogoViewLayer.m in Sources */,
 				0871D02A1812A27400A0D037 /* ADCrayons.m in Sources */,
 				0863C02219702CAE00CDB283 /* ADCylinderImage.m in Sources */,

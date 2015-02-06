@@ -25,11 +25,7 @@ const float LayerTableViewCellWidth = 256;
 
 - (void)setSelectedState:(BOOL)selected{
     if (selected) {
-        ADCustomLayer* layer = (ADCustomLayer*)self.visibleButton.layer;
-        CGFloat r = ((ADCustomLayer*)layer).baseColorR * 0.675;
-        CGFloat g = ((ADCustomLayer*)layer).baseColorG * 0.675;
-        CGFloat b = ((ADCustomLayer*)layer).baseColorB * 0.675;
-        self.layerImageViewFrame.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+        self.layerImageViewFrame.backgroundColor = [ADSharedUIStyleKit cNormal];
     }
     else{
         self.layerImageViewFrame.backgroundColor = [UIColor clearColor];
@@ -163,7 +159,7 @@ const float LayerTableViewCellWidth = 256;
 {
     //    DebugLogWarn(@"drawRect");
     // Drawing code
-    [ADPaintUIKitStyle drawCrystalGradientInView:self];
+    [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];
 }
 
 - (void)willTransitionToState:(UITableViewCellStateMask)state {

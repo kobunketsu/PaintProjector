@@ -7,7 +7,6 @@
 //
 
 #import "ADImportTableViewController.h"
-#import "ADSharedTableViewCell.h"
 #import "ADSharedTableView.h"
 
 @interface ADImportTableViewController ()
@@ -79,11 +78,10 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ADSharedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[ADSharedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
     
 //    SharedTableViewCell *cell = (SharedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 //    if (cell == nil)

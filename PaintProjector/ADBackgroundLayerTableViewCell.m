@@ -46,7 +46,7 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    [ADPaintUIKitStyle drawCrystalGradientInView:self];
+    [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];
 }
 
 - (void)setSelectedState:(BOOL)selected{

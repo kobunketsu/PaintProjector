@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ADSharedLabel.h"
 @class ADTutorial;
 typedef void(^TutorialLayoutCompletionBlock)(void);
 
 @interface ADTutorialView : UIView
 @property (assign, nonatomic) id delegate;
 //显示教程信息
-@property(retain, nonatomic) UILabel *textLabel;
+@property(retain, nonatomic) ADSharedLabel *textLabel;
 @property (nonatomic, copy) TutorialLayoutCompletionBlock layoutCompletionBlock;
 //显示教程背景图片
 @property (retain, nonatomic) UIImageView *imageView;

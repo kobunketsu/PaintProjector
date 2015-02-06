@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
+#import "ADSharedSubButton.h"
 
-@interface ADLayerOpacityLockButton : ADIconColorPermeateButton
+@interface ADLayerOpacityLockButton : ADSharedSubButton
 @property(nonatomic, assign)BOOL isOpacityLocked;
 @end

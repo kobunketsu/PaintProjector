@@ -77,7 +77,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="nzL-f8-E4W" userLabel="ToolBar" customClass="ADCrystalGradientStyleView">
+                            <view contentMode="scaleToFill" id="nzL-f8-E4W" userLabel="ToolBar" customClass="ADDownToolBar">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -145,7 +145,7 @@
                                             <action selector="clearLayerButtonTouchUp:" destination="6Bu-8d-dY7" eventType="touchUpInside" id="hUh-K5-HF8"/>
                                         </connections>
                                     </button>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BlendMode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NlS-j1-gPt">
+                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BlendMode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NlS-j1-gPt" customClass="ADSharedLabel">
                                         <rect key="frame" x="10" y="0.0" width="159" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <accessibility key="accessibilityConfiguration" label="">
@@ -2371,11 +2371,11 @@ Create your unbelievable art!</string>
                                                 </connections>
                                             </button>
                                             <view opaque="NO" contentMode="scaleToFill" id="arx-c9-s41" userLabel="BrushRadiusView">
-                                                <rect key="frame" x="130" y="57" width="250" height="29"/>
+                                                <rect key="frame" x="130" y="56" width="250" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="1" maxValue="100" id="BfJ-tE-xFg" userLabel="RadiusSlider" customClass="ADRadiusSlider">
-                                                        <rect key="frame" x="0.0" y="-2" width="250" height="34"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <connections>
                                                             <action selector="radiusSliderTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="Qji-dM-OT1"/>
@@ -2460,12 +2460,12 @@ Create your unbelievable art!</string>
                                                 </connections>
                                             </view>
                                             <view opaque="NO" contentMode="scaleToFill" id="eYo-IH-5HX" userLabel="BrushOpacityView">
-                                                <rect key="frame" x="380" y="57" width="250" height="29"/>
+                                                <rect key="frame" x="380" y="56" width="250" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="SRt-Fr-rjv" userLabel="Opacity Slider" customClass="ADOpacitySlider">
                                                         <rect key="frame" x="0.0" y="0.0" width="250" height="29"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <accessibility key="accessibilityConfiguration" label="OpacitySlider"/>
                                                         <connections>
                                                             <action selector="opacitySliderTouchDown:" destination="NUX-zI-YbL" eventType="touchDown" id="nKd-4p-3lE"/>
@@ -2606,7 +2606,7 @@ Create your unbelievable art!</string>
                                                     <action selector="exportButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="X86-WX-EUY"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="ADAnamorphicButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AdD-j2-c1b" userLabel="CloseButton" customClass="ADBackButton">
                                                 <rect key="frame" x="0.0" y="0.0" width="85" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Close"/>
@@ -3138,7 +3138,7 @@ Create your unbelievable art!</string>
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y8U-Wg-TlZ">
+                                                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y8U-Wg-TlZ" customClass="ADSharedLabel">
                                                     <rect key="frame" x="10" y="170" width="160" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -3241,7 +3241,6 @@ Create your unbelievable art!</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="980" sectionHeaderHeight="44" sectionFooterHeight="44" id="sJh-Oi-md4" customClass="ADSwatchManagerTableView">
                                 <rect key="frame" x="0.0" y="44" width="768" height="980"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="swatchManagerTableViewCell" id="Fnk-0A-H3S" customClass="ADSwatchManagerTableViewCell">
                                         <rect key="frame" x="0.0" y="44" width="768" height="980"/>
@@ -3403,7 +3402,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="-5" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diameter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="55X-Oc-W3E" userLabel="CylinderDiameterLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diameter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="55X-Oc-W3E" userLabel="CylinderDiameterLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3426,7 +3425,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="33" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bgW-w2-KNm" userLabel="CylinderHeightLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bgW-w2-KNm" userLabel="CylinderHeightLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3459,7 +3458,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="-5" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Width" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7VK-ge-8h2" userLabel="ImageWidthLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Width" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7VK-ge-8h2" userLabel="ImageWidthLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3482,7 +3481,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="33" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TVC-pV-Nty" userLabel="ImageHeightLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TVC-pV-Nty" userLabel="ImageHeightLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3515,7 +3514,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="-5" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Esf-aZ-s2a" userLabel="EyeDepthLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Esf-aZ-s2a" userLabel="EyeDepthLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3539,7 +3538,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="14" width="136" height="33"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gGv-Cb-oTh" userLabel="EyeHeightLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gGv-Cb-oTh" userLabel="EyeHeightLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3563,7 +3562,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="0.0" width="136" height="67"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uu0-6a-fpA" userLabel="EyeZoomLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uu0-6a-fpA" userLabel="EyeZoomLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="48" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3596,7 +3595,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="-5" width="136" height="30"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Width" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v58-lm-HT2" userLabel="ProjectWidthLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Width" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v58-lm-HT2" userLabel="ProjectWidthLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3620,7 +3619,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="14" width="136" height="30"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RgY-E0-Q0o" userLabel="ProjectHeightLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RgY-E0-Q0o" userLabel="ProjectHeightLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="14" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3644,7 +3643,7 @@ Create your unbelievable art!</string>
                                                                 <rect key="frame" x="66" y="0.0" width="136" height="67"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ya-mw-mT6" userLabel="UnitZoomLabel">
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ya-mw-mT6" userLabel="UnitZoomLabel" customClass="ADSharedLabel">
                                                                         <rect key="frame" x="0.0" y="48" width="90" height="21"/>
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3768,7 +3767,7 @@ Create your unbelievable art!</string>
                                         <rect key="frame" x="0.0" y="936" width="768" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="GalleryButton" customClass="ADBackButton">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1js-2l-tGk" userLabel="GalleryButton" customClass="ADGalleryButton">
                                                 <rect key="frame" x="0.0" y="4" width="128" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="Gallery"/>
@@ -3970,6 +3969,7 @@ Create your unbelievable art!</string>
                         <outletCollection property="downTooBarButtons" destination="K8x-Wh-Rm8" id="QWR-uU-12w"/>
                         <outletCollection property="downTooBarButtons" destination="q9m-wd-BDj" id="pNB-80-Yga"/>
                         <outletCollection property="downTooBarButtons" destination="edV-eN-YWW" id="Zj5-yK-zNw"/>
+                        <outletCollection property="allUserInputParamLabels" destination="55X-Oc-W3E" id="pFC-g5-YeH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeZ-Fy-Wf0" userLabel="First Responder" sceneMemberID="firstResponder"/>

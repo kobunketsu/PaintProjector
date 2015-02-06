@@ -47,41 +47,8 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+- (void)drawChecker{
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //// Color Declarations
-    UIColor* gradientColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0];
-    UIColor* shadow2Color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* shadowColor2 = [UIColor colorWithRed: 0.318 green: 0.318 blue: 0.318 alpha: 1];
-    
-    //// Gradient Declarations
-    NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)gradientColor.CGColor,
-                               (id)_color.CGColor, nil];
-    CGFloat gradientLocations[] = {0, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
-    
-    //// Shadow Declarations
-    UIColor* shadow = shadowColor2;
-    CGSize shadowOffset = CGSizeMake(0.1, 2.1);
-    CGFloat shadowBlurRadius = 2;
-    UIColor* shadow2 = shadow2Color;
-    CGSize shadow2Offset = CGSizeMake(0.1, 1.1);
-    CGFloat shadow2BlurRadius = 2;
-    
-    //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 6, 248, 16) cornerRadius: 10];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
-    //draw
-    CGContextBeginTransparencyLayer(context, NULL);
-    [roundedRectanglePath addClip];
-    
-    //draw background image
     const CGRect patternBounds = CGRectMake(0, 0, kPatternWidth, kPatternHeight);
     const CGPatternCallbacks kPatternCallbacks = {0, DrawPatternCellCallback, NULL};
     
@@ -104,46 +71,40 @@
     patternSpace = NULL;
     CGPatternRelease(fillPattern);
     fillPattern = NULL;
-
+}
+- (void)drawRect:(CGRect)rect
+{
+    [self drawADOpacitySliderWithFrame:rect];
+}
+- (void)drawADOpacitySliderWithFrame: (CGRect)frame
+{
+    //// General Declarations
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //draw linearGradient
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(1, 11), CGPointMake(249, 11), 0);
-    CGContextEndTransparencyLayer(context);
+    //// Color Declarations
+    UIColor* cOpacity = _color;
+    UIColor* cOpacityZero = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0];
     
-    ////// Rounded Rectangle Inner Shadow
-    CGRect roundedRectangleBorderRect = CGRectInset([roundedRectanglePath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    roundedRectangleBorderRect = CGRectOffset(roundedRectangleBorderRect, -shadowOffset.width, -shadowOffset.height);
-    roundedRectangleBorderRect = CGRectInset(CGRectUnion(roundedRectangleBorderRect, [roundedRectanglePath bounds]), -1, -1);
+    //// Gradient Declarations
+    CGFloat gradientLocations[] = {0, 1};
+    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)cOpacityZero.CGColor, (id)cOpacity.CGColor], gradientLocations);
     
-    UIBezierPath* roundedRectangleNegativePath = [UIBezierPath bezierPathWithRect: roundedRectangleBorderRect];
-    [roundedRectangleNegativePath appendPath: roundedRectanglePath];
-    roundedRectangleNegativePath.usesEvenOddFillRule = YES;
-    
+    //// Rounded Rectangle Drawing
+    CGRect roundedRectangleRect = CGRectMake(CGRectGetMinX(frame) + 1, CGRectGetMinY(frame) + 5, 248, 20);
+    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: roundedRectangleRect cornerRadius: 10];
     CGContextSaveGState(context);
-    {
-        CGFloat xOffset = shadowOffset.width + round(roundedRectangleBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
-        
-        [roundedRectanglePath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0);
-        [roundedRectangleNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [roundedRectangleNegativePath fill];
-    }
+    [roundedRectanglePath addClip];
+    CGContextDrawLinearGradient(context, gradient,
+                                CGPointMake(CGRectGetMinX(roundedRectangleRect), CGRectGetMidY(roundedRectangleRect)),
+                                CGPointMake(CGRectGetMaxX(roundedRectangleRect), CGRectGetMidY(roundedRectangleRect)),
+                                0);
     CGContextRestoreGState(context);
-    
-    CGContextRestoreGState(context);
-    
     
     
     //// Cleanup
     CGGradientRelease(gradient);
     CGColorSpaceRelease(colorSpace);
- 
 }
 
 void DrawPatternCellCallback(void *info, CGContextRef cgContext)

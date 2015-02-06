@@ -25,7 +25,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    [ADPaintUIKitStyle drawCrystalGradientInView:self];
+    [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];
 }
 
 @end

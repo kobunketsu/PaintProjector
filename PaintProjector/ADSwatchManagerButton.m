@@ -38,8 +38,8 @@
     
     //// Color Declarations
     UIColor* strokeColor = [UIColor colorWithRed: 0.95 green: 0.95 blue: 0.95 alpha: 1];
-    UIColor* gradientColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* shadow1Color = [UIColor colorWithRed: 0.316 green: 0.316 blue: 0.316 alpha: 1];
+//    UIColor* gradientColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+//    UIColor* shadow1Color = [UIColor colorWithRed: 0.316 green: 0.316 blue: 0.316 alpha: 1];
     UIColor* highlightedColor = [UIColor colorWithRed: 0.903 green: 0.903 blue: 0.903 alpha: 1];
     UIColor* color = [UIColor colorWithRed: 1 green: 0 blue: 0 alpha: 1];
     UIColor* color2 = [UIColor colorWithRed: 1 green: 0.749 blue: 0 alpha: 1];
@@ -50,9 +50,9 @@
     UIColor* color7 = [UIColor colorWithRed: 0.625 green: 0.114 blue: 1 alpha: 1];
     
     //// Shadow Declarations
-    UIColor* shadow = shadow1Color;
-    CGSize shadowOffset = CGSizeMake(0.1, 2.1);
-    CGFloat shadowBlurRadius = 4;
+//    UIColor* shadow = shadow1Color;
+//    CGSize shadowOffset = CGSizeMake(0.1, 2.1);
+//    CGFloat shadowBlurRadius = 4;
     UIColor* highlighted = highlightedColor;
     CGSize highlightedOffset = CGSizeMake(0.1, 2.1);
     CGFloat highlightedBlurRadius = 4;
@@ -147,39 +147,39 @@
         
         
         //// Oval Background Drawing
-        UIBezierPath* ovalBackgroundPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2)];
-        CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
-        [gradientColor setFill];
-        [ovalBackgroundPath fill];
-        
-        ////// Oval Background Inner Shadow
-        CGRect ovalBackgroundBorderRect = CGRectInset([ovalBackgroundPath bounds], -shadowBlurRadius, -shadowBlurRadius);
-        ovalBackgroundBorderRect = CGRectOffset(ovalBackgroundBorderRect, -shadowOffset.width, -shadowOffset.height);
-        ovalBackgroundBorderRect = CGRectInset(CGRectUnion(ovalBackgroundBorderRect, [ovalBackgroundPath bounds]), -1, -1);
-        
-        UIBezierPath* ovalBackgroundNegativePath = [UIBezierPath bezierPathWithRect: ovalBackgroundBorderRect];
-        [ovalBackgroundNegativePath appendPath: ovalBackgroundPath];
-        ovalBackgroundNegativePath.usesEvenOddFillRule = YES;
-        
-        CGContextSaveGState(context);
-        {
-            CGFloat xOffset = shadowOffset.width + round(ovalBackgroundBorderRect.size.width);
-            CGFloat yOffset = shadowOffset.height;
-            CGContextSetShadowWithColor(context,
-                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                        shadowBlurRadius,
-                                        shadow.CGColor);
-            
-            [ovalBackgroundPath addClip];
-            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(ovalBackgroundBorderRect.size.width), 0);
-            [ovalBackgroundNegativePath applyTransform: transform];
-            [[UIColor grayColor] setFill];
-            [ovalBackgroundNegativePath fill];
-        }
-        CGContextRestoreGState(context);
-        
-        CGContextRestoreGState(context);
+//        UIBezierPath* ovalBackgroundPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(edgeInset, edgeInset, rect.size.width - edgeInset * 2, rect.size.height - edgeInset * 2)];
+//        CGContextSaveGState(context);
+//        CGContextSetShadowWithColor(context, highlightedOffset, highlightedBlurRadius, highlighted.CGColor);
+//        [gradientColor setFill];
+//        [ovalBackgroundPath fill];
+//        
+//        ////// Oval Background Inner Shadow
+//        CGRect ovalBackgroundBorderRect = CGRectInset([ovalBackgroundPath bounds], -shadowBlurRadius, -shadowBlurRadius);
+//        ovalBackgroundBorderRect = CGRectOffset(ovalBackgroundBorderRect, -shadowOffset.width, -shadowOffset.height);
+//        ovalBackgroundBorderRect = CGRectInset(CGRectUnion(ovalBackgroundBorderRect, [ovalBackgroundPath bounds]), -1, -1);
+//        
+//        UIBezierPath* ovalBackgroundNegativePath = [UIBezierPath bezierPathWithRect: ovalBackgroundBorderRect];
+//        [ovalBackgroundNegativePath appendPath: ovalBackgroundPath];
+//        ovalBackgroundNegativePath.usesEvenOddFillRule = YES;
+//        
+//        CGContextSaveGState(context);
+//        {
+//            CGFloat xOffset = shadowOffset.width + round(ovalBackgroundBorderRect.size.width);
+//            CGFloat yOffset = shadowOffset.height;
+//            CGContextSetShadowWithColor(context,
+//                                        CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+//                                        shadowBlurRadius,
+//                                        shadow.CGColor);
+//            
+//            [ovalBackgroundPath addClip];
+//            CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(ovalBackgroundBorderRect.size.width), 0);
+//            [ovalBackgroundNegativePath applyTransform: transform];
+//            [[UIColor grayColor] setFill];
+//            [ovalBackgroundNegativePath fill];
+//        }
+//        CGContextRestoreGState(context);
+//        
+//        CGContextRestoreGState(context);
         
         
         

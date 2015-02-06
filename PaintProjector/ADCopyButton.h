@@ -6,8 +6,8 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADAutoRotateButton.h"
+#import "ADSharedMainButton.h"
 
-@interface ADCopyButton : ADAutoRotateButton
+@interface ADCopyButton : ADSharedMainButton
 
 @end

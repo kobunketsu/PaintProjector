@@ -13,7 +13,7 @@
 
 @class ADPCGradient;
 
-@interface ADUIBarStyleKit : NSObject
+@interface ADBarStyleKit : NSObject
 
 // Colors
 + (UIColor*)colorEdge;

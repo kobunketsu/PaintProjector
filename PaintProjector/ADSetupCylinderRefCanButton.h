@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ADAutoRotateButton.h"
+#import "ADSharedMainButton.h"
 
-@interface ADSetupCylinderRefCanButton : ADAutoRotateButton
+@interface ADSetupCylinderRefCanButton : ADSharedMainButton
 
 @end

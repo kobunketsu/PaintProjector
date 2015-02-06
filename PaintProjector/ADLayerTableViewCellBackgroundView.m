@@ -36,7 +36,7 @@
 {
 //    DebugLogWarn(@"drawRect");
     // Drawing code
-    [ADPaintUIKitStyle drawCrystalGradientInView:self];    
+    [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];    
 }
 
 

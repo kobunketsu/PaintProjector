@@ -24,163 +24,142 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    [self drawNormalWithFrame:rect];
+    [self drawCanvas1WithFrame:rect isSelected:false];
 }
 
-- (void)drawNormalWithFrame: (CGRect)frame;
+- (void)drawCanvas1WithFrame: (CGRect)frame isSelected: (BOOL)isSelected
 {
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-    UIColor* iconHighlightColor = [UIColor colorWithRed: 1 green: 0.991 blue: 0.995 alpha: 0.284];
-    UIColor* iconColor = [UIColor colorWithRed: 0.198 green: 0.198 blue: 0.198 alpha: 1];
-    CGFloat iconColorRGBA[4];
-    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
-    
-    UIColor* gradientColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.7 + 0.3) green: (iconColorRGBA[1] * 0.7 + 0.3) blue: (iconColorRGBA[2] * 0.7 + 0.3) alpha: (iconColorRGBA[3] * 0.7 + 0.3)];
-    CGFloat gradientColorRGBA[4];
-    [gradientColor getRed: &gradientColorRGBA[0] green: &gradientColorRGBA[1] blue: &gradientColorRGBA[2] alpha: &gradientColorRGBA[3]];
-    
-    UIColor* iconSpecularColor = [UIColor colorWithRed: (gradientColorRGBA[0] * 0.9 + 0.1) green: (gradientColorRGBA[1] * 0.9 + 0.1) blue: (gradientColorRGBA[2] * 0.9 + 0.1) alpha: (gradientColorRGBA[3] * 0.9 + 0.1)];
-    CGFloat iconSpecularColorRGBA[4];
-    [iconSpecularColor getRed: &iconSpecularColorRGBA[0] green: &iconSpecularColorRGBA[1] blue: &iconSpecularColorRGBA[2] alpha: &iconSpecularColorRGBA[3]];
-    
-    UIColor* glowColor = [UIColor colorWithRed: (iconSpecularColorRGBA[0] * 1 + 0) green: (iconSpecularColorRGBA[1] * 1 + 0) blue: (iconSpecularColorRGBA[2] * 1 + 0) alpha: (iconSpecularColorRGBA[3] * 1 + 0)];
-    UIColor* iconShadowTempColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.3) green: (iconColorRGBA[1] * 0.3) blue: (iconColorRGBA[2] * 0.3) alpha: (iconColorRGBA[3] * 0.3 + 0.7)];
-    UIColor* iconShadowColor = [iconShadowTempColor colorWithAlphaComponent: 0.5];
-    
-    //// Shadow Declarations
-    UIColor* iconHighlight = iconHighlightColor;
-    CGSize iconHighlightOffset = CGSizeMake(0.1, -2.1);
-    CGFloat iconHighlightBlurRadius = 2;
-    UIColor* iconShadow = iconShadowColor;
-    CGSize iconShadowOffset = CGSizeMake(0.1, 2.1);
-    CGFloat iconShadowBlurRadius = 2;
-    UIColor* glow = glowColor;
-    CGSize glowOffset = CGSizeMake(0.1, -0.1);
-    CGFloat glowBlurRadius = 4;
+    //// Variable Declarations
+    BOOL isNormal = !isSelected;
     
     
     //// Subframes
-    CGRect iconNormal = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 44) * 0.50000 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 44.61) * 0.48568 + 0.5), 44, 44.61);
+    CGRect aDSetupUnitZoomView = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 44) * 0.48810 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45.23) * 0.44249 + 0.11) + 0.39, 44, 45.23);
     
     
-    //// IconNormal
+    //// ADSetupUnitZoomView
     {
-        CGContextSaveGState(context);
-        CGContextSetShadowWithColor(context, glowOffset, glowBlurRadius, [glow CGColor]);
-        CGContextBeginTransparencyLayer(context, NULL);
-        
-        
-        //// Group 5
+        if (isNormal)
         {
-            CGContextSaveGState(context);
-            CGContextSetAlpha(context, 0.38);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            
-            //// Bezier 3 Drawing
-            UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 44.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 44.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 44.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 44.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 3, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal), CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 1.12, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 3, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 5, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 5, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 10, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 6.44, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 8.14, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 10, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 12, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 12, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 17, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 13.59, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 15.27, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 17, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 19, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 19, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 24, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 20.66, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 22.34, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 24, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 26, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 26, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 31, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 27.71, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 29.4, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 31, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 33, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 33, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 38, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 34.83, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 36.52, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 38, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 40, CGRectGetMinY(iconNormal) + 37.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 40, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 42.48, CGRectGetMinY(iconNormal) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 34.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 44.61)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 44, CGRectGetMinY(iconNormal) + 44.61)];
-            [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 12.99, CGRectGetMinY(iconNormal) + 13.5)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 21.49, CGRectGetMinY(iconNormal) + 22) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 12.99, CGRectGetMinY(iconNormal) + 18.19) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 16.8, CGRectGetMinY(iconNormal) + 22)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 29.99, CGRectGetMinY(iconNormal) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 26.18, CGRectGetMinY(iconNormal) + 22) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 29.99, CGRectGetMinY(iconNormal) + 18.19)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 21.49, CGRectGetMinY(iconNormal) + 5) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 29.99, CGRectGetMinY(iconNormal) + 8.81) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 26.18, CGRectGetMinY(iconNormal) + 5)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 12.99, CGRectGetMinY(iconNormal) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 16.8, CGRectGetMinY(iconNormal) + 5) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 12.99, CGRectGetMinY(iconNormal) + 8.81)];
-            [bezier3Path closePath];
-            [bezier3Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 21.49, CGRectGetMinY(iconNormal))];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 34.99, CGRectGetMinY(iconNormal) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 28.95, CGRectGetMinY(iconNormal)) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 34.99, CGRectGetMinY(iconNormal) + 6.04)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 32.64, CGRectGetMinY(iconNormal) + 21.11) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 34.99, CGRectGetMinY(iconNormal) + 16.32) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 34.12, CGRectGetMinY(iconNormal) + 18.95)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 40.81, CGRectGetMinY(iconNormal) + 29.28) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 35.94, CGRectGetMinY(iconNormal) + 24.42) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 40.81, CGRectGetMinY(iconNormal) + 29.28)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 40.58, CGRectGetMinY(iconNormal) + 31.88) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 41.46, CGRectGetMinY(iconNormal) + 29.94) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 41.36, CGRectGetMinY(iconNormal) + 31.1)];
-            [bezier3Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 39.87, CGRectGetMinY(iconNormal) + 32.59)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 37.27, CGRectGetMinY(iconNormal) + 32.82) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 39.09, CGRectGetMinY(iconNormal) + 33.37) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 37.93, CGRectGetMinY(iconNormal) + 33.47)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 29.1, CGRectGetMinY(iconNormal) + 24.65) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 37.27, CGRectGetMinY(iconNormal) + 32.82) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 32.41, CGRectGetMinY(iconNormal) + 27.95)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 21.49, CGRectGetMinY(iconNormal) + 27) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 26.94, CGRectGetMinY(iconNormal) + 26.13) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 24.31, CGRectGetMinY(iconNormal) + 27)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 7.99, CGRectGetMinY(iconNormal) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 14.03, CGRectGetMinY(iconNormal) + 27) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 7.99, CGRectGetMinY(iconNormal) + 20.96)];
-            [bezier3Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal) + 21.49, CGRectGetMinY(iconNormal)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal) + 7.99, CGRectGetMinY(iconNormal) + 6.04) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal) + 14.03, CGRectGetMinY(iconNormal))];
-            [bezier3Path closePath];
-            CGContextSaveGState(context);
-            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
-            [iconColor setFill];
-            [bezier3Path fill];
-            
-            ////// Bezier 3 Inner Shadow
-            CGContextSaveGState(context);
-            UIRectClip(bezier3Path.bounds);
-            CGContextSetShadowWithColor(context, CGSizeZero, 0, NULL);
-            
-            CGContextSetAlpha(context, CGColorGetAlpha([iconHighlight CGColor]));
-            CGContextBeginTransparencyLayer(context, NULL);
+            //// Normal 29
             {
-                UIColor* opaqueShadow = [iconHighlight colorWithAlphaComponent: 1];
-                CGContextSetShadowWithColor(context, iconHighlightOffset, iconHighlightBlurRadius, [opaqueShadow CGColor]);
-                CGContextSetBlendMode(context, kCGBlendModeSourceOut);
-                CGContextBeginTransparencyLayer(context, NULL);
-                
-                [opaqueShadow setFill];
-                [bezier3Path fill];
-                
-                CGContextEndTransparencyLayer(context);
+                //// Bezier 59 Drawing
+                UIBezierPath* bezier59Path = UIBezierPath.bezierPath;
+                [bezier59Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 44.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 44.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 44.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 44.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 3, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 1.12, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 3, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 5, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 5, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 10, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 6.44, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 8.14, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 10, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 17, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 13.59, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 15.27, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 17, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 19, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 19, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 20.66, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 22.34, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 31, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 27.71, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.4, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 31, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 33, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 33, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 38, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.83, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 36.52, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 38, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40, CGRectGetMinY(aDSetupUnitZoomView) + 37.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 42.48, CGRectGetMinY(aDSetupUnitZoomView) + 34.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 34.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 44.61)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 44.61)];
+                [bezier59Path closePath];
+                [bezier59Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 13.5)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 22) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 18.19) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 16.8, CGRectGetMinY(aDSetupUnitZoomView) + 22)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.18, CGRectGetMinY(aDSetupUnitZoomView) + 22) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 18.19)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 8.81) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.18, CGRectGetMinY(aDSetupUnitZoomView) + 5)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 16.8, CGRectGetMinY(aDSetupUnitZoomView) + 5) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 8.81)];
+                [bezier59Path closePath];
+                [bezier59Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView))];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 28.95, CGRectGetMinY(aDSetupUnitZoomView)) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 6.04)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 32.64, CGRectGetMinY(aDSetupUnitZoomView) + 21.11) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 16.32) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.12, CGRectGetMinY(aDSetupUnitZoomView) + 18.95)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.81, CGRectGetMinY(aDSetupUnitZoomView) + 29.28) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 35.94, CGRectGetMinY(aDSetupUnitZoomView) + 24.42) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.81, CGRectGetMinY(aDSetupUnitZoomView) + 29.28)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.58, CGRectGetMinY(aDSetupUnitZoomView) + 31.88) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 41.46, CGRectGetMinY(aDSetupUnitZoomView) + 29.94) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 41.36, CGRectGetMinY(aDSetupUnitZoomView) + 31.1)];
+                [bezier59Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 39.87, CGRectGetMinY(aDSetupUnitZoomView) + 32.59)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.27, CGRectGetMinY(aDSetupUnitZoomView) + 32.82) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 39.09, CGRectGetMinY(aDSetupUnitZoomView) + 33.37) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.93, CGRectGetMinY(aDSetupUnitZoomView) + 33.47)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.1, CGRectGetMinY(aDSetupUnitZoomView) + 24.65) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.27, CGRectGetMinY(aDSetupUnitZoomView) + 32.82) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 32.41, CGRectGetMinY(aDSetupUnitZoomView) + 27.95)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 27) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.94, CGRectGetMinY(aDSetupUnitZoomView) + 26.13) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24.31, CGRectGetMinY(aDSetupUnitZoomView) + 27)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 13.5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 14.03, CGRectGetMinY(aDSetupUnitZoomView) + 27) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 20.96)];
+                [bezier59Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView)) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 6.04) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 14.03, CGRectGetMinY(aDSetupUnitZoomView))];
+                [bezier59Path closePath];
+                [ADSharedUIStyleKit.cDisable setFill];
+                [bezier59Path fill];
             }
-            CGContextEndTransparencyLayer(context);
-            CGContextRestoreGState(context);
-            
-            CGContextRestoreGState(context);
-            
-            
-            
-            CGContextEndTransparencyLayer(context);
-            CGContextRestoreGState(context);
         }
         
         
-        //// Group 4
+        if (isSelected)
         {
-            CGContextSaveGState(context);
-            CGContextSetAlpha(context, 0.38);
-            CGContextSetBlendMode(context, kCGBlendModeOverlay);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            
-            CGContextEndTransparencyLayer(context);
-            CGContextRestoreGState(context);
+            //// Selected 29
+            {
+                //// Bezier 56 Drawing
+                UIBezierPath* bezier56Path = UIBezierPath.bezierPath;
+                [bezier56Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 45.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 45.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 45.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 45.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 3, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView), CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 1.12, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 3, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 5, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 5, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 10, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 6.44, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 8.14, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 10, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 17, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 13.59, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 15.27, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 17, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 19, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 19, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 20.66, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 22.34, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 31, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 27.71, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.4, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 31, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 33, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 33, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 38, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.83, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 36.52, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 38, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40, CGRectGetMinY(aDSetupUnitZoomView) + 38.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 42.48, CGRectGetMinY(aDSetupUnitZoomView) + 35.23) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 35.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 45.23)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 44, CGRectGetMinY(aDSetupUnitZoomView) + 45.23)];
+                [bezier56Path closePath];
+                [bezier56Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 14.11)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 22.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 18.81) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 16.8, CGRectGetMinY(aDSetupUnitZoomView) + 22.61)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 14.11) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.18, CGRectGetMinY(aDSetupUnitZoomView) + 22.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 18.81)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 5.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.99, CGRectGetMinY(aDSetupUnitZoomView) + 9.42) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.18, CGRectGetMinY(aDSetupUnitZoomView) + 5.61)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 14.11) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 16.8, CGRectGetMinY(aDSetupUnitZoomView) + 5.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 12.99, CGRectGetMinY(aDSetupUnitZoomView) + 9.42)];
+                [bezier56Path closePath];
+                [bezier56Path moveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 0.61)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 14.11) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 28.95, CGRectGetMinY(aDSetupUnitZoomView) + 0.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 6.66)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 32.64, CGRectGetMinY(aDSetupUnitZoomView) + 21.73) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.99, CGRectGetMinY(aDSetupUnitZoomView) + 16.94) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 34.12, CGRectGetMinY(aDSetupUnitZoomView) + 19.56)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.81, CGRectGetMinY(aDSetupUnitZoomView) + 29.9) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 35.94, CGRectGetMinY(aDSetupUnitZoomView) + 25.03) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.81, CGRectGetMinY(aDSetupUnitZoomView) + 29.9)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 40.58, CGRectGetMinY(aDSetupUnitZoomView) + 32.5) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 41.46, CGRectGetMinY(aDSetupUnitZoomView) + 30.55) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 41.36, CGRectGetMinY(aDSetupUnitZoomView) + 31.72)];
+                [bezier56Path addLineToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 39.87, CGRectGetMinY(aDSetupUnitZoomView) + 33.2)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.27, CGRectGetMinY(aDSetupUnitZoomView) + 33.43) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 39.09, CGRectGetMinY(aDSetupUnitZoomView) + 33.99) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.93, CGRectGetMinY(aDSetupUnitZoomView) + 34.09)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 29.1, CGRectGetMinY(aDSetupUnitZoomView) + 25.26) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 37.27, CGRectGetMinY(aDSetupUnitZoomView) + 33.43) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 32.41, CGRectGetMinY(aDSetupUnitZoomView) + 28.56)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 27.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 26.94, CGRectGetMinY(aDSetupUnitZoomView) + 26.75) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 24.31, CGRectGetMinY(aDSetupUnitZoomView) + 27.61)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 14.11) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 14.03, CGRectGetMinY(aDSetupUnitZoomView) + 27.61) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 21.57)];
+                [bezier56Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 21.49, CGRectGetMinY(aDSetupUnitZoomView) + 0.61) controlPoint1: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 7.99, CGRectGetMinY(aDSetupUnitZoomView) + 6.66) controlPoint2: CGPointMake(CGRectGetMinX(aDSetupUnitZoomView) + 14.03, CGRectGetMinY(aDSetupUnitZoomView) + 0.61)];
+                [bezier56Path closePath];
+                [ADSharedUIStyleKit.cSelected setFill];
+                [bezier56Path fill];
+            }
         }
-        
-        
-        CGContextEndTransparencyLayer(context);
-        CGContextRestoreGState(context);
     }
 }
 

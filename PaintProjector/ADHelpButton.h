@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 WenjiHu. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
+#import "ADSharedMainButton.h"
 
-@interface ADHelpButton : ADIconColorPermeateButton
+@interface ADHelpButton : ADSharedMainButton
 
 @end

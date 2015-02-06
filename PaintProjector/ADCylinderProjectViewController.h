@@ -191,6 +191,7 @@ ADInAppPurchaseTableViewControllerDelegate
 @property (assign, nonatomic) BOOL                                 isSetupMode;
 @property (weak, nonatomic) IBOutlet UIButton                      * setupButton;
 @property (weak, nonatomic) IBOutlet UISlider                      * valueSlider;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *allUserInputParamLabels;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray * allUserInputParamButtons;
 @property (weak, nonatomic) IBOutlet UIView                        * eyeParams;
 @property (weak, nonatomic) IBOutlet UIView                        * eyeDepthParam;

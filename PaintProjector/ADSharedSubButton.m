@@ -1,15 +1,14 @@
 //
-//  InAppPurchaseView.m
+//  ADSharedSubButton.m
 //  PaintProjector
 //
-//  Created by 胡 文杰 on 2/21/14.
-//  Copyright (c) 2014 WenjiHu. All rights reserved.
+//  Created by 文杰 胡 on 2/5/15.
+//  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADInAppPurchaseTableView.h"
-#import "ADPaintUIKitStyle.h"
+#import "ADSharedSubButton.h"
 
-@implementation ADInAppPurchaseTableView
+@implementation ADSharedSubButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,8 +25,10 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    [ADSharedUIStyleKit drawPanelBackgourndWithFrame:rect];
+    [self drawADSharedSubButtonWithIsSelected:self.isSelected || self.isHighlighted];
 }
 
-
+- (void)drawADSharedSubButtonWithIsSelected: (BOOL)isSelected
+{
+}
 @end

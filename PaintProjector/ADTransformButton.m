@@ -29,92 +29,95 @@
     return self;
 }
 
-- (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor{
-    [self drawCanvas1WithFrame7:self.bounds ctx:ctx iconColor:iconColor];
-}
-- (void)drawCanvas1WithFrame7: (CGRect)frame7 ctx:(CGContextRef)ctx iconColor:(UIColor *)iconColor
+- (void)drawCanvas1WithFrame: (CGRect)frame isSelected: (BOOL)isSelected
 {
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-//    UIColor* iconColor = [UIColor colorWithRed: 0.484 green: 0.484 blue: 0.484 alpha: 1];
-    CGFloat iconColorRGBA[4];
-    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
-    
-    UIColor* iconGradientColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.9) green: (iconColorRGBA[1] * 0.9) blue: (iconColorRGBA[2] * 0.9) alpha: (iconColorRGBA[3] * 0.9 + 0.1)];
-    UIColor* iconShadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.138];
-    
-    //dynamic change color
-    if(self.isSelected || self.isHighlighted){
-        iconShadowColor = iconGradientColor = [UIColor whiteColor];
-    }
-    
-    //// Shadow Declarations
-    UIColor* iconShadow = iconShadowColor;
-    CGSize iconShadowOffset = CGSizeMake(0.1, -0.1);
-    CGFloat iconShadowBlurRadius = 10;
-    UIColor* iconGradient = iconGradientColor;
-    CGSize iconGradientOffset = CGSizeMake(0.1, 2.1);
-    CGFloat iconGradientBlurRadius = 0;
+    //// Variable Declarations
+    BOOL isNormal = !isSelected;
     
     
     //// Subframes
-    CGRect iconNormal7 = CGRectMake(CGRectGetMinX(frame7) + floor((CGRectGetWidth(frame7) - 44.5) * 0.50971 + 0.25) + 0.25, CGRectGetMinY(frame7) + floor((CGRectGetHeight(frame7) - 44.5) * 0.45070) + 0.5, 44.5, 44.5);
+    CGRect aDTransformButton = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 45) * 0.50602 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 45) * 0.45714 + 0.5), 45, 45);
     
     
-    //// Transform
+    //// ADTransformButton
     {
-        //// IconNormal 7
+        if (isNormal)
         {
-            CGContextSaveGState(context);
-            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            
-            //// Group 9
+            //// Normal 24
             {
-                //// Bezier 9 Drawing
-                UIBezierPath* bezier9Path = UIBezierPath.bezierPath;
-                [bezier9Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 28.81, CGRectGetMinY(iconNormal7) + 8.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 24.75, CGRectGetMinY(iconNormal7) + 8.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 24.75, CGRectGetMinY(iconNormal7) + 19.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 36, CGRectGetMinY(iconNormal7) + 19.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 36, CGRectGetMinY(iconNormal7) + 15.69)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 44.5, CGRectGetMinY(iconNormal7) + 22.25)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 36, CGRectGetMinY(iconNormal7) + 28.81)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 36, CGRectGetMinY(iconNormal7) + 24.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 24.75, CGRectGetMinY(iconNormal7) + 24.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 24.75, CGRectGetMinY(iconNormal7) + 36)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 28.81, CGRectGetMinY(iconNormal7) + 36)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 22.25, CGRectGetMinY(iconNormal7) + 44.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 15.69, CGRectGetMinY(iconNormal7) + 36)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 19.75, CGRectGetMinY(iconNormal7) + 36)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 19.75, CGRectGetMinY(iconNormal7) + 24.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 8.5, CGRectGetMinY(iconNormal7) + 24.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 8.5, CGRectGetMinY(iconNormal7) + 28.81)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7), CGRectGetMinY(iconNormal7) + 22.25)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 8.5, CGRectGetMinY(iconNormal7) + 15.69)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 8.5, CGRectGetMinY(iconNormal7) + 19.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 19.75, CGRectGetMinY(iconNormal7) + 19.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 19.75, CGRectGetMinY(iconNormal7) + 8.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 15.69, CGRectGetMinY(iconNormal7) + 8.5)];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 22.25, CGRectGetMinY(iconNormal7))];
-                [bezier9Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal7) + 28.81, CGRectGetMinY(iconNormal7) + 8.5)];
-                [bezier9Path closePath];
-                CGContextSaveGState(context);
-                CGContextSetShadowWithColor(context, iconGradientOffset, iconGradientBlurRadius, [iconGradient CGColor]);
-                [iconColor setFill];
-                [bezier9Path fill];
-                CGContextRestoreGState(context);
-                
+                //// Bezier 49 Drawing
+                UIBezierPath* bezier49Path = UIBezierPath.bezierPath;
+                [bezier49Path moveToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 15.86)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 45, CGRectGetMinY(aDTransformButton) + 22.5)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 29.14)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 22.5, CGRectGetMinY(aDTransformButton) + 45)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 15.86, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 29.14)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton), CGRectGetMinY(aDTransformButton) + 22.5)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 15.86)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 15.86, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 22.5, CGRectGetMinY(aDTransformButton))];
+                [bezier49Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier49Path closePath];
+                [ADSharedUIStyleKit.cNormal setFill];
+                [bezier49Path fill];
             }
-            
-            
-            CGContextEndTransparencyLayer(context);
-            CGContextRestoreGState(context);
+        }
+        
+        
+        if (isSelected)
+        {
+            //// Selected 24
+            {
+                //// Bezier 50 Drawing
+                UIBezierPath* bezier50Path = UIBezierPath.bezierPath;
+                [bezier50Path moveToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 15.86)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 45, CGRectGetMinY(aDTransformButton) + 22.5)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 29.14)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 36.4, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 25.03, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 22.5, CGRectGetMinY(aDTransformButton) + 45)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 15.86, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 36.4)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 24.78)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 29.14)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton), CGRectGetMinY(aDTransformButton) + 22.5)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 15.86)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 8.6, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 19.72)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 19.97, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 15.86, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 22.5, CGRectGetMinY(aDTransformButton))];
+                [bezier50Path addLineToPoint: CGPointMake(CGRectGetMinX(aDTransformButton) + 29.14, CGRectGetMinY(aDTransformButton) + 8.6)];
+                [bezier50Path closePath];
+                [ADSharedUIStyleKit.cSelected setFill];
+                [bezier50Path fill];
+            }
         }
     }
 }
+
 
 @end

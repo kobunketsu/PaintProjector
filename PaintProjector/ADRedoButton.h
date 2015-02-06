@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 Hu Wenjie. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
-@interface ADRedoButton : ADIconColorPermeateButton
+#import "ADSharedMainButton.h"
+@interface ADRedoButton : ADSharedMainButton
 
 @end

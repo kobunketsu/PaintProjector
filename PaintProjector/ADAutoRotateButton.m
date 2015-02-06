@@ -65,7 +65,8 @@
 }
 
 - (void)layoutSubviews{
-    [super layoutSubviews];    
+    [super layoutSubviews];
+    self.titleLabel.textColor = [ADSharedUIStyleKit cText];
     self.titleEdgeInsets = UIEdgeInsetsMake(68, 0, 0, 0);
 }
 /*

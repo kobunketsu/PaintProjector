@@ -16,7 +16,7 @@
     #import "ADUltility.h"
     #import "MiscDefines.h"
     #import "LogDefine.h"
-    #import "ADUIBarStyleKit.h"
+    #import "ADBarStyleKit.h"
     #import "ADSharedUIStyleKit.h"
     #import "Extension.h"
     #import "RemoteLog.h"

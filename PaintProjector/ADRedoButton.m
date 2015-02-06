@@ -18,83 +18,74 @@
     }
     return self;
 }
-
-- (void)pastPaintCode:(CGContextRef)ctx iconColor:(UIColor *)iconColor{
-    [self drawCanvas1WithFrame5:self.bounds ctx:ctx iconColor:iconColor];
-}
-
-- (void)drawCanvas1WithFrame5: (CGRect)frame5 ctx:(CGContextRef)ctx iconColor:(UIColor *)iconColor
+- (void)drawCanvas1WithFrame: (CGRect)frame isSelected: (BOOL)isSelected
 {
-    //// General Declarations
-    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-//    UIColor* iconColor = [UIColor colorWithRed: 0.484 green: 0.484 blue: 0.484 alpha: 1];
-    CGFloat iconColorRGBA[4];
-    [iconColor getRed: &iconColorRGBA[0] green: &iconColorRGBA[1] blue: &iconColorRGBA[2] alpha: &iconColorRGBA[3]];
-    
-    UIColor* iconGradientColor = [UIColor colorWithRed: (iconColorRGBA[0] * 0.9) green: (iconColorRGBA[1] * 0.9) blue: (iconColorRGBA[2] * 0.9) alpha: (iconColorRGBA[3] * 0.9 + 0.1)];
-    UIColor* iconShadowColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.138];
-    
-    //dynamic change color
-    if(self.isSelected || self.isHighlighted){
-        iconShadowColor = iconGradientColor = [UIColor whiteColor];
-    }
-    
-    //// Shadow Declarations
-    UIColor* iconShadow = iconShadowColor;
-    CGSize iconShadowOffset = CGSizeMake(0.1, -0.1);
-    CGFloat iconShadowBlurRadius = 10;
-    UIColor* iconGradient = iconGradientColor;
-    CGSize iconGradientOffset = CGSizeMake(0.1, 2.1);
-    CGFloat iconGradientBlurRadius = 0;
+    //// Variable Declarations
+    BOOL isNormal = !isSelected;
     
     
     //// Subframes
-    CGRect iconNormal5 = CGRectMake(CGRectGetMinX(frame5) + floor((CGRectGetWidth(frame5) - 47.05) * 0.49032 + 0.5), CGRectGetMinY(frame5) + floor((CGRectGetHeight(frame5) - 43.53) * 0.41369 + 0.12) + 0.38, 47.05, 43.53);
+    CGRect aDRedoButton = CGRectMake(CGRectGetMinX(frame) + floor((CGRectGetWidth(frame) - 47.05) * 0.50650 + 0.5), CGRectGetMinY(frame) + floor((CGRectGetHeight(frame) - 44) * 0.44444 + 0.5), 47.05, 44);
     
     
-    //// Redo
+    //// ADRedoButton
     {
-        //// IconNormal 5
+        if (isNormal)
         {
-            CGContextSaveGState(context);
-            CGContextSetShadowWithColor(context, iconShadowOffset, iconShadowBlurRadius, [iconShadow CGColor]);
-            CGContextBeginTransparencyLayer(context, NULL);
-            
-            
-            //// Group 6
+            //// Normal 16
             {
-                //// Bezier 6 Drawing
-                UIBezierPath* bezier6Path = UIBezierPath.bezierPath;
-                [bezier6Path moveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 30.19, CGRectGetMinY(iconNormal5) + 40.61)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 38.24, CGRectGetMinY(iconNormal5) + 31.62)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 14.63, CGRectGetMinY(iconNormal5) + 31.62)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 4.58, CGRectGetMinY(iconNormal5) + 27.56) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) + 10.63, CGRectGetMinY(iconNormal5) + 31.62) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) + 7.63, CGRectGetMinY(iconNormal5) + 30.72)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 4.58, CGRectGetMinY(iconNormal5) + 4.73) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) - 1.53, CGRectGetMinY(iconNormal5) + 21.26) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) - 1.53, CGRectGetMinY(iconNormal5) + 11.03)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 14.63, CGRectGetMinY(iconNormal5)) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) + 7.63, CGRectGetMinY(iconNormal5) + 1.58) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) + 10.63, CGRectGetMinY(iconNormal5))];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 14.63, CGRectGetMinY(iconNormal5) + 5.21)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 7.83, CGRectGetMinY(iconNormal5) + 8.12) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) + 12.17, CGRectGetMinY(iconNormal5) + 5.21) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) + 9.7, CGRectGetMinY(iconNormal5) + 6.18)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 7.83, CGRectGetMinY(iconNormal5) + 24.17) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) + 4.07, CGRectGetMinY(iconNormal5) + 12) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) + 4.07, CGRectGetMinY(iconNormal5) + 20.29)];
-                [bezier6Path addCurveToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 14.63, CGRectGetMinY(iconNormal5) + 27.08) controlPoint1: CGPointMake(CGRectGetMinX(iconNormal5) + 9.7, CGRectGetMinY(iconNormal5) + 26.11) controlPoint2: CGPointMake(CGRectGetMinX(iconNormal5) + 12.17, CGRectGetMinY(iconNormal5) + 27.08)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 38.05, CGRectGetMinY(iconNormal5) + 26.62)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 30.05, CGRectGetMinY(iconNormal5) + 17.62)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 33.02, CGRectGetMinY(iconNormal5) + 14.84)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 47.05, CGRectGetMinY(iconNormal5) + 29.62)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 33.02, CGRectGetMinY(iconNormal5) + 43.53)];
-                [bezier6Path addLineToPoint: CGPointMake(CGRectGetMinX(iconNormal5) + 30.19, CGRectGetMinY(iconNormal5) + 40.61)];
-                [bezier6Path closePath];
-                CGContextSaveGState(context);
-                CGContextSetShadowWithColor(context, iconGradientOffset, iconGradientBlurRadius, [iconGradient CGColor]);
-                [iconColor setFill];
-                [bezier6Path fill];
-                CGContextRestoreGState(context);
-                
+                //// Bezier 33 Drawing
+                UIBezierPath* bezier33Path = UIBezierPath.bezierPath;
+                [bezier33Path moveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.19, CGRectGetMinY(aDRedoButton) + 41.04)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 38.24, CGRectGetMinY(aDRedoButton) + 31.96)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 31.96)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.58, CGRectGetMinY(aDRedoButton) + 27.86) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 10.63, CGRectGetMinY(aDRedoButton) + 31.96) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.63, CGRectGetMinY(aDRedoButton) + 31.05)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.58, CGRectGetMinY(aDRedoButton) + 4.78) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) - 1.53, CGRectGetMinY(aDRedoButton) + 21.49) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) - 1.53, CGRectGetMinY(aDRedoButton) + 11.15)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton)) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.63, CGRectGetMinY(aDRedoButton) + 1.59) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 10.63, CGRectGetMinY(aDRedoButton))];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 5.27)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.83, CGRectGetMinY(aDRedoButton) + 8.21) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 12.17, CGRectGetMinY(aDRedoButton) + 5.27) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 9.7, CGRectGetMinY(aDRedoButton) + 6.25)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.83, CGRectGetMinY(aDRedoButton) + 24.43) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.07, CGRectGetMinY(aDRedoButton) + 12.13) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.07, CGRectGetMinY(aDRedoButton) + 20.51)];
+                [bezier33Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 27.37) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 9.7, CGRectGetMinY(aDRedoButton) + 26.39) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 12.17, CGRectGetMinY(aDRedoButton) + 27.37)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 38.05, CGRectGetMinY(aDRedoButton) + 26.9)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.05, CGRectGetMinY(aDRedoButton) + 17.81)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 33.02, CGRectGetMinY(aDRedoButton) + 15)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 47.05, CGRectGetMinY(aDRedoButton) + 29.94)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 33.02, CGRectGetMinY(aDRedoButton) + 44)];
+                [bezier33Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.19, CGRectGetMinY(aDRedoButton) + 41.04)];
+                [bezier33Path closePath];
+                [ADSharedUIStyleKit.cNormal setFill];
+                [bezier33Path fill];
             }
-            
-            
-            CGContextEndTransparencyLayer(context);
-            CGContextRestoreGState(context);
+        }
+        
+        
+        if (isSelected)
+        {
+            //// Selected 16
+            {
+                //// Bezier 31 Drawing
+                UIBezierPath* bezier31Path = UIBezierPath.bezierPath;
+                [bezier31Path moveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.19, CGRectGetMinY(aDRedoButton) + 41.04)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 38.24, CGRectGetMinY(aDRedoButton) + 31.96)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 31.96)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.58, CGRectGetMinY(aDRedoButton) + 27.86) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 10.63, CGRectGetMinY(aDRedoButton) + 31.96) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.63, CGRectGetMinY(aDRedoButton) + 31.05)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.58, CGRectGetMinY(aDRedoButton) + 4.78) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) - 1.53, CGRectGetMinY(aDRedoButton) + 21.49) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) - 1.53, CGRectGetMinY(aDRedoButton) + 11.15)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton)) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.63, CGRectGetMinY(aDRedoButton) + 1.59) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 10.63, CGRectGetMinY(aDRedoButton))];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 5.27)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.83, CGRectGetMinY(aDRedoButton) + 8.21) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 12.17, CGRectGetMinY(aDRedoButton) + 5.27) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 9.7, CGRectGetMinY(aDRedoButton) + 6.25)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 7.83, CGRectGetMinY(aDRedoButton) + 24.43) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.07, CGRectGetMinY(aDRedoButton) + 12.13) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 4.07, CGRectGetMinY(aDRedoButton) + 20.51)];
+                [bezier31Path addCurveToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 14.63, CGRectGetMinY(aDRedoButton) + 27.37) controlPoint1: CGPointMake(CGRectGetMinX(aDRedoButton) + 9.7, CGRectGetMinY(aDRedoButton) + 26.39) controlPoint2: CGPointMake(CGRectGetMinX(aDRedoButton) + 12.17, CGRectGetMinY(aDRedoButton) + 27.37)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 38.05, CGRectGetMinY(aDRedoButton) + 26.9)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.05, CGRectGetMinY(aDRedoButton) + 17.81)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 33.02, CGRectGetMinY(aDRedoButton) + 15)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 47.05, CGRectGetMinY(aDRedoButton) + 29.94)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 33.02, CGRectGetMinY(aDRedoButton) + 44)];
+                [bezier31Path addLineToPoint: CGPointMake(CGRectGetMinX(aDRedoButton) + 30.19, CGRectGetMinY(aDRedoButton) + 41.04)];
+                [bezier31Path closePath];
+                [ADSharedUIStyleKit.cSelected setFill];
+                [bezier31Path fill];
+            }
         }
     }
 }

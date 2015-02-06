@@ -25,80 +25,18 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //// Color Declarations
-    UIColor* gradientColor = _color;
-    UIColor* gradientColor2 = _color;
-    UIColor* shadow2Color = [UIColor colorWithRed: 0.877 green: 0.877 blue: 0.877 alpha: 1];
-    UIColor* shadowColor2 = [UIColor colorWithRed: 0.434 green: 0.434 blue: 0.434 alpha: 1];
-    
-    //// Gradient Declarations
-    NSArray* gradientColors = [NSArray arrayWithObjects:
-                               (id)gradientColor.CGColor,
-                               (id)gradientColor2.CGColor, nil];
-    CGFloat gradientLocations[] = {0, 0.51, 1};
-    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradientColors, gradientLocations);
-    
-    //// Shadow Declarations
-    UIColor* shadow = shadowColor2;
-    CGSize shadowOffset = CGSizeMake(0.1, 1.1);
-    CGFloat shadowBlurRadius = 2;
-    UIColor* shadow2 = shadow2Color;
-    CGSize shadow2Offset = CGSizeMake(0.1, 1.1);
-    CGFloat shadow2BlurRadius = 2;
-    
-    //// Oval Drawing
-    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(3, 3, 44, 44)];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
-    CGContextBeginTransparencyLayer(context, NULL);
-    [ovalPath addClip];
-    CGContextDrawRadialGradient(context, gradient,
-                                CGPointMake(25, 25), 11.37,
-                                CGPointMake(25, 25), 41.08,
-                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-    CGContextEndTransparencyLayer(context);
-    
-    ////// Oval Inner Shadow
-    CGRect ovalBorderRect = CGRectInset([ovalPath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    ovalBorderRect = CGRectOffset(ovalBorderRect, -shadowOffset.width, -shadowOffset.height);
-    ovalBorderRect = CGRectInset(CGRectUnion(ovalBorderRect, [ovalPath bounds]), -1, -1);
-    
-    UIBezierPath* ovalNegativePath = [UIBezierPath bezierPathWithRect: ovalBorderRect];
-    [ovalNegativePath appendPath: ovalPath];
-    ovalNegativePath.usesEvenOddFillRule = YES;
-    
-    CGContextSaveGState(context);
-    {
-        CGFloat xOffset = shadowOffset.width + round(ovalBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
-        
-        [ovalPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(ovalBorderRect.size.width), 0);
-        [ovalNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [ovalNegativePath fill];
-    }
-    CGContextRestoreGState(context);
-    
-    CGContextRestoreGState(context);
-    
-   
-    //// Cleanup
-    CGGradientRelease(gradient);
-    CGColorSpaceRelease(colorSpace);
-    
+    [self drawADPaintColorButtonWithFrame:rect];
+}
 
-//    if(self.isHighlighted){
-//        [self showHightlight];
-//    }
+- (void)drawADPaintColorButtonWithFrame: (CGRect)frame
+{
+    //// Color Declarations
+    UIColor* cPaintColor = _color;
+    
+    //// Oval 2 Drawing
+    UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(CGRectGetMinX(frame) + 3, CGRectGetMinY(frame) + 3, CGRectGetWidth(frame) - 6, CGRectGetHeight(frame) - 6)];
+    [cPaintColor setFill];
+    [oval2Path fill];
 }
 
 - (void)showHightlight{

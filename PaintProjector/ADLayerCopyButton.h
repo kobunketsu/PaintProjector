@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 WenjiHu. All rights reserved.
 //
 
-#import "ADIconColorPermeateButton.h"
-@interface ADLayerCopyButton : ADIconColorPermeateButton
+#import "ADSharedSubButton.h"
+@interface ADLayerCopyButton : ADSharedSubButton
 
 @end

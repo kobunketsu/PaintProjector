@@ -353,13 +353,7 @@ const float LayerTableViewWidth = 256;
         UIImage *layerImage = [UIImage imageWithData:layer.data];
         layerTableViewCell.layerImageView.image = [layerImage resizeImage:CGSizeMake(layerImage.size.width * scale, layerImage.size.height * scale)];
         
-        //更新图标色
-        for (ADIconColorPermeateButton *button in layerTableViewCell.layerHelpButtons) {
-            ((ADCustomLayer*)button.layer).baseColorR = colorRGBA[0];
-            ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
-            ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
-            [button.layer setNeedsDisplay];
-        }
+
     }
     
     //alpha 0.1用来透出毛玻璃效果
@@ -740,50 +734,50 @@ const float LayerTableViewWidth = 256;
     DebugLog(@"willRemoveFuzzyTransparentEnd");
 }
 - (void)updateIconColors{
-    CGFloat colorRGBA[4];
-    if (self.backgroundLayer.visible) {
-        [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
-    }
-    else{
-        colorRGBA[0] = colorRGBA[1] = colorRGBA[2] = 0;
-        colorRGBA[3] = 1.0;
-    }
-    
-    
-    for (ADAutoRotateButton *button in self.layerToolButtons) {
-        ((ADCustomLayer*)button.layer).baseColorR = colorRGBA[0];
-        ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
-        ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
-        [button.layer setNeedsDisplay];
-    }
-    
-    size_t num = [self.tableView numberOfRowsInSection:0];
-    for (int i = 0; i < num-1; ++i) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        ADLayerTableViewCell *cell = (ADLayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
-        for (ADIconColorPermeateButton *button in cell.layerHelpButtons) {
-            ((ADCustomLayer*)button.layer).baseColorR = colorRGBA[0];
-            ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
-            ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
-            [button.layer setNeedsDisplay];
-        }
-        
-        if([cell deleteButton]){
-            ((ADCustomLayer*)cell.deleteButton.layer).baseColorR = colorRGBA[0];
-            ((ADCustomLayer*)cell.deleteButton.layer).baseColorG = colorRGBA[1];
-            ((ADCustomLayer*)cell.deleteButton.layer).baseColorB = colorRGBA[2];
-            [cell.deleteButton.layer setNeedsDisplay];
-        }
-        
-        [cell setSelectedState:cell.isSelected];
-    }
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:num-1 inSection:0];
-    ADBackgroundLayerTableViewCell *cell = (ADBackgroundLayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
-    ((ADCustomLayer*)cell.visibleButton.layer).baseColorR = colorRGBA[0];
-    ((ADCustomLayer*)cell.visibleButton.layer).baseColorG = colorRGBA[1];
-    ((ADCustomLayer*)cell.visibleButton.layer).baseColorB = colorRGBA[2];
-    [cell.visibleButton.layer setNeedsDisplay];
+//    CGFloat colorRGBA[4];
+//    if (self.backgroundLayer.visible) {
+//        [self.backgroundLayer.clearColor getRed: &colorRGBA[0] green: &colorRGBA[1] blue: &colorRGBA[2] alpha: &colorRGBA[3]];
+//    }
+//    else{
+//        colorRGBA[0] = colorRGBA[1] = colorRGBA[2] = 0;
+//        colorRGBA[3] = 1.0;
+//    }
+//    
+//    
+//    for (ADAutoRotateButton *button in self.layerToolButtons) {
+//        ((ADCustomLayer*)button.layer).baseColorR = colorRGBA[0];
+//        ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
+//        ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
+//        [button.layer setNeedsDisplay];
+//    }
+//    
+//    size_t num = [self.tableView numberOfRowsInSection:0];
+//    for (int i = 0; i < num-1; ++i) {
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+//        ADLayerTableViewCell *cell = (ADLayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
+//        for (ADIconColorPermeateButton *button in cell.layerHelpButtons) {
+//            ((ADCustomLayer*)button.layer).baseColorR = colorRGBA[0];
+//            ((ADCustomLayer*)button.layer).baseColorG = colorRGBA[1];
+//            ((ADCustomLayer*)button.layer).baseColorB = colorRGBA[2];
+//            [button.layer setNeedsDisplay];
+//        }
+//        
+//        if([cell deleteButton]){
+//            ((ADCustomLayer*)cell.deleteButton.layer).baseColorR = colorRGBA[0];
+//            ((ADCustomLayer*)cell.deleteButton.layer).baseColorG = colorRGBA[1];
+//            ((ADCustomLayer*)cell.deleteButton.layer).baseColorB = colorRGBA[2];
+//            [cell.deleteButton.layer setNeedsDisplay];
+//        }
+//        
+//        [cell setSelectedState:cell.isSelected];
+//    }
+//    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:num-1 inSection:0];
+//    ADBackgroundLayerTableViewCell *cell = (ADBackgroundLayerTableViewCell * )[self.tableView cellForRowAtIndexPath:indexPath];
+//    ((ADCustomLayer*)cell.visibleButton.layer).baseColorR = colorRGBA[0];
+//    ((ADCustomLayer*)cell.visibleButton.layer).baseColorG = colorRGBA[1];
+//    ((ADCustomLayer*)cell.visibleButton.layer).baseColorB = colorRGBA[2];
+//    [cell.visibleButton.layer setNeedsDisplay];
 
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object

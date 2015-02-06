@@ -14,7 +14,22 @@
 
 @interface ADSharedUIStyleKit : NSObject
 
+// Colors
++ (UIColor*)cSelected;
++ (UIColor*)cNormal;
++ (UIColor*)cToolBarBackground;
++ (UIColor*)cHidden;
++ (UIColor*)cToolViewBackground;
++ (UIColor*)cText;
++ (UIColor*)cDisable;
+
 // Drawing Methods
-+ (void)drawCanvas1;
++ (void)drawTopDownBarWithFrame: (CGRect)frame;
++ (void)drawADSharedSubButtonWithIsSelected: (BOOL)isSelected;
++ (void)drawPanelBackgourndWithFrame: (CGRect)frame;
++ (void)drawADPaintColorButtonWithFrame: (CGRect)frame;
++ (void)drawADRadiusSliderWithFrame: (CGRect)frame;
++ (void)drawADOpacitySliderWithFrame: (CGRect)frame;
++ (void)drawADSharedRoundButtonWithFrame: (CGRect)frame isSelected: (BOOL)isSelected;
 
 @end

@@ -61,77 +61,39 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
+    [self drawADRadiusSliderWithFrame:rect];
+}
+- (void)drawADRadiusSliderWithFrame: (CGRect)frame
+{
     //// Color Declarations
-    UIColor* shadow2Color = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* shadowColor2 = [UIColor colorWithRed: 0.3 green: 0.3 blue: 0.3 alpha: 1];
-    UIColor* radiusColor = [UIColor colorWithRed: 0.6 green: 0.6 blue: 0.6 alpha: 1];
-    UIColor* color = [UIColor colorWithRed: 0.8 green: 0.8 blue: 0.8 alpha: 1];
+    UIColor* cRadiusSliderBg = [UIColor colorWithRed: 0.129 green: 0.129 blue: 0.129 alpha: 1];
+    UIColor* cRadiusSliderFg = [UIColor colorWithRed: 0.613 green: 0.613 blue: 0.613 alpha: 1];
     
-    //// Shadow Declarations
-    UIColor* shadow = shadowColor2;
-    CGSize shadowOffset = CGSizeMake(0.1, 2.1);
-    CGFloat shadowBlurRadius = 2;
-    UIColor* shadow2 = shadow2Color;
-    CGSize shadow2Offset = CGSizeMake(0.1, 1.1);
-    CGFloat shadow2BlurRadius = 2;
-    
-    //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1, 9, 248, 16) cornerRadius: 10];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
-
-    //draw
-    CGContextBeginTransparencyLayer(context, NULL);
-    [roundedRectanglePath addClip];
-    [color setFill];
-    [roundedRectanglePath fill];
-    
-    UIBezierPath* sizePath = [UIBezierPath bezierPath];
-    [sizePath moveToPoint:CGPointMake(0, 25)];
-    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 9)];
-    [sizePath addLineToPoint:CGPointMake(self.bounds.size.width, 25)];
-    [sizePath closePath];
-    [radiusColor setFill];
-    [sizePath fill];
-
-    CGContextEndTransparencyLayer(context);
-    
-    ////// Rounded Rectangle Inner Shadow
-    CGRect roundedRectangleBorderRect = CGRectInset([roundedRectanglePath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    roundedRectangleBorderRect = CGRectOffset(roundedRectangleBorderRect, -shadowOffset.width, -shadowOffset.height);
-    roundedRectangleBorderRect = CGRectInset(CGRectUnion(roundedRectangleBorderRect, [roundedRectanglePath bounds]), -1, -1);
-    
-    UIBezierPath* roundedRectangleNegativePath = [UIBezierPath bezierPathWithRect: roundedRectangleBorderRect];
-    [roundedRectangleNegativePath appendPath: roundedRectanglePath];
-    roundedRectangleNegativePath.usesEvenOddFillRule = YES;
-    
-    CGContextSaveGState(context);
+    //// Group
     {
-        CGFloat xOffset = shadowOffset.width + round(roundedRectangleBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
+        //// Rounded Rectangle Drawing
+        UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(CGRectGetMinX(frame) + 1, CGRectGetMinY(frame) + 5, 248, 20) cornerRadius: 10];
+        [cRadiusSliderBg setFill];
+        [roundedRectanglePath fill];
         
-        [roundedRectanglePath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0);
-        [roundedRectangleNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [roundedRectangleNegativePath fill];
+        
+        //// Bezier 2 Drawing
+        UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
+        [bezier2Path moveToPoint: CGPointMake(CGRectGetMinX(frame) + 242.59, CGRectGetMinY(frame) + 5.68)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 242.87, CGRectGetMinY(frame) + 5.75) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 242.68, CGRectGetMinY(frame) + 5.7) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 242.87, CGRectGetMinY(frame) + 5.75)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 14.5) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 246.55, CGRectGetMinY(frame) + 7.09) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 10.59)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 15) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 15) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 15)];
+        [bezier2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 15.5)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 242.87, CGRectGetMinY(frame) + 24.25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 249, CGRectGetMinY(frame) + 19.41) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 246.55, CGRectGetMinY(frame) + 22.91)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 233.9, CGRectGetMinY(frame) + 25) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 240.5, CGRectGetMinY(frame) + 25) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 238.3, CGRectGetMinY(frame) + 25)];
+        [bezier2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 17.82, CGRectGetMinY(frame) + 25)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 7.86, CGRectGetMinY(frame) + 24.45) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 12.05, CGRectGetMinY(frame) + 25) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 9.76, CGRectGetMinY(frame) + 25)];
+        [bezier2Path addCurveToPoint: CGPointMake(CGRectGetMinX(frame) + 242.57, CGRectGetMinY(frame) + 5.67) controlPoint1: CGPointMake(CGRectGetMinX(frame) + 43.11, CGRectGetMinY(frame) + 21.63) controlPoint2: CGPointMake(CGRectGetMinX(frame) + 203.81, CGRectGetMinY(frame) + 8.78)];
+        [bezier2Path addLineToPoint: CGPointMake(CGRectGetMinX(frame) + 242.59, CGRectGetMinY(frame) + 5.68)];
+        [bezier2Path closePath];
+        [cRadiusSliderFg setFill];
+        [bezier2Path fill];
     }
-    CGContextRestoreGState(context);
-    CGContextRestoreGState(context);
-    
-    
-    
-    //// Cleanup
-    CGColorSpaceRelease(colorSpace);
 }
 
 
