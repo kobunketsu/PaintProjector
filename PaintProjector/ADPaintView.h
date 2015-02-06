@@ -33,7 +33,7 @@
 
 #define DEBUG_VIEW_COLORALPHA 0
 
-typedef NS_ENUM(NSInteger, PaintingViewState) {
+typedef NS_ENUM(NSInteger, PaintViewState) {
     PaintView_TouchNone,
     PaintView_TouchPaint,
     PaintView_TouchEyeDrop,
@@ -69,8 +69,10 @@ typedef struct {
 - (void) willChangeUIPaintColor:(UIColor*) resultColor;
 - (void) willChangeUIBrush:(ADBrush*) brush;
 - (void) willChangeFromBrush:(ADBrush*)srcBrush toBrush:(ADBrush*)targetBrush;
+
 - (void) willPaintViewTouchBegan;
-- (void) willTouchMoving:(CGPoint)point;
+- (void) willPaintViewTouchMoving:(CGPoint)point;
+- (void) willPaintViewTouchEnd;
 
 - (void) willStartUIEyeDrop;
 - (CGPoint) willGetEyeDropLocation;
@@ -86,6 +88,8 @@ typedef struct {
 - (void) willHideUIPaintArea:(BOOL)hide touchPoint:(CGPoint)touchPoint;
 - (void) willUpdateUIToolBars;
 
+- (void)willJotSuggestsToDisableGestures;
+- (void)willJotSuggestsToEnableGestures;
 @end
 
 //CLASS INTERFACES:
@@ -160,7 +164,7 @@ typedef struct {
 @property (retain, nonatomic) ADPaintData *paintData;//正向绘制数据
 @property (retain, nonatomic)NSMutableArray *layerTextures;//用于存储图层的各个texture(用于替换backgroundTexturebuffer)
 @property (retain, nonatomic)ADCommandManager *commandManager;
-@property (assign, nonatomic, readonly)PaintingViewState state;
+@property (assign, nonatomic, readonly)PaintViewState state;
 @property (weak, nonatomic)NSMutableArray *brushTypes;
 @property (retain, nonatomic)ADBrush *brush;
 @property (weak, nonatomic)ADEyeDropper *eyeDropper;
@@ -184,11 +188,10 @@ typedef struct {
 
 #pragma mark Interaction交互
 @property (assign, nonatomic) NSInteger curNumberOfTouch;   //当前Touch个数
-@property (weak, nonatomic) UITouch *paintTouch;     //记录当前绘图Touch
 @property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
 
 #pragma mark 绘图Draw
-- (BOOL)enterState:(PaintingViewState)state;
+- (BOOL)enterState:(PaintViewState)state;
 - (void)prepareDrawEnv;
 - (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw;
 - (void)draw:(BOOL)isTapDraw;

@@ -386,6 +386,8 @@
 		08701169177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */; };
 		087026211A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
 		087026221A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
+		08704AC51A849EB3008F8413 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 08704AC41A849EB3008F8413 /* JotTouchStatusHUD.m */; };
+		08704AC61A849EB3008F8413 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 08704AC41A849EB3008F8413 /* JotTouchStatusHUD.m */; };
 		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		087103091914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
@@ -486,6 +488,8 @@
 		088313AF199CFC5700C49B92 /* community-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313AD199CFC5700C49B92 /* community-48.png */; };
 		088313B1199D00E900C49B92 /* fanart-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313B0199D00E900C49B92 /* fanart-48.png */; };
 		088313B2199D00E900C49B92 /* fanart-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 088313B0199D00E900C49B92 /* fanart-48.png */; };
+		08842F1C1A84BECB004A2E61 /* UITouch+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08842F1B1A84BECB004A2E61 /* UITouch+Extension.m */; };
+		08842F1D1A84BECB004A2E61 /* UITouch+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08842F1B1A84BECB004A2E61 /* UITouch+Extension.m */; };
 		08869AD0177DE9660010E0AA /* ADColorSaveToSlotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08869ACF177DE9660010E0AA /* ADColorSaveToSlotView.m */; };
 		0888F8B8194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
 		0888F8B9194A177500CB71D2 /* UILabel+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 0888F8B7194A177500CB71D2 /* UILabel+Align.m */; };
@@ -1479,6 +1483,8 @@
 		08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
 		0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConnectDeviceButtonTableViewController.h; path = PaintProjector/ADConnectDeviceButtonTableViewController.h; sourceTree = SOURCE_ROOT; };
 		087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConnectDeviceButtonTableViewController.m; path = PaintProjector/ADConnectDeviceButtonTableViewController.m; sourceTree = SOURCE_ROOT; };
+		08704AC31A849EB3008F8413 /* JotTouchStatusHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotTouchStatusHUD.h; sourceTree = "<group>"; };
+		08704AC41A849EB3008F8413 /* JotTouchStatusHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotTouchStatusHUD.m; sourceTree = "<group>"; };
 		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
 		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
 		0871A82A192A569600BB8558 /* ADBrushPropertyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyTableView.h; sourceTree = "<group>"; };
@@ -1584,6 +1590,8 @@
 		088313AA199CFA5B00C49B92 /* tutorial-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tutorial-48.png"; path = "PaintProjector/Images/tutorial-48.png"; sourceTree = SOURCE_ROOT; };
 		088313AD199CFC5700C49B92 /* community-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "community-48.png"; path = "PaintProjector/Images/community-48.png"; sourceTree = SOURCE_ROOT; };
 		088313B0199D00E900C49B92 /* fanart-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fanart-48.png"; path = "PaintProjector/Images/fanart-48.png"; sourceTree = SOURCE_ROOT; };
+		08842F1A1A84BECB004A2E61 /* UITouch+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch+Extension.h"; sourceTree = "<group>"; };
+		08842F1B1A84BECB004A2E61 /* UITouch+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch+Extension.m"; sourceTree = "<group>"; };
 		088505B817F718DF00E460CA /* ADLockCanvasRotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLockCanvasRotationView.h; sourceTree = "<group>"; };
 		088505B917F718DF00E460CA /* ADLockCanvasRotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLockCanvasRotationView.m; sourceTree = "<group>"; };
 		088505BD17F720FF00E460CA /* ADZoomCanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADZoomCanvasView.h; sourceTree = "<group>"; };
@@ -3132,6 +3140,8 @@
 		08D9B7A91A80F59F001F0FBA /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				08704AC31A849EB3008F8413 /* JotTouchStatusHUD.h */,
+				08704AC41A849EB3008F8413 /* JotTouchStatusHUD.m */,
 				08D9B7AA1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.h */,
 				08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */,
 				0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */,
@@ -3522,6 +3532,8 @@
 				086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */,
 				08F5DF1819824F22007B3F12 /* NSObject+PropertyAnimation.h */,
 				08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */,
+				08842F1A1A84BECB004A2E61 /* UITouch+Extension.h */,
+				08842F1B1A84BECB004A2E61 /* UITouch+Extension.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -4226,6 +4238,7 @@
 				08383D431931C06900EA3647 /* ADBrushSwapButton.m in Sources */,
 				08E2EBB819495923003E9881 /* UIView+GLCoord.m in Sources */,
 				0813AA2A19167C27000C4D00 /* REAssetDatabase.m in Sources */,
+				08842F1D1A84BECB004A2E61 /* UITouch+Extension.m in Sources */,
 				086CF4991919DF1A000F1FBB /* ADShaderDiffuse.m in Sources */,
 				0879B3A6195C752F0062EF11 /* ADDeviceHardware.m in Sources */,
 				3288492b37b2543a0ade13ad /* ADClearButton.m in Sources */,
@@ -4234,6 +4247,7 @@
 				0898765B19138514009CEB3D /* ADAutoRotateView.m in Sources */,
 				08B60F3C18C385DC00A415CA /* UIColor+Extension.m in Sources */,
 				7f1708e9135ab712a98551a6 /* ADBackgroundLayerTableViewCell.m in Sources */,
+				08704AC61A849EB3008F8413 /* JotTouchStatusHUD.m in Sources */,
 				085BE16719E6C50000FA86BF /* ADViewScalePopAnimator.m in Sources */,
 				593da15714dbd9b0b661ae58 /* ADBrushTypeViewController.m in Sources */,
 				b21d4aae8a4506914f03a4e3 /* ADSharedPopoverBackgroundView.m in Sources */,
@@ -4661,6 +4675,7 @@
 				08701169177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m in Sources */,
 				088CC7D4177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m in Sources */,
 				085FB3D2177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m in Sources */,
+				08704AC51A849EB3008F8413 /* JotTouchStatusHUD.m in Sources */,
 				08869AD0177DE9660010E0AA /* ADColorSaveToSlotView.m in Sources */,
 				086B156C181381A2001F31EE /* ADBucket.m in Sources */,
 				08D4F0E11A77606B00B42B77 /* NSData+RRTransactionParsingAdditions.m in Sources */,
@@ -4704,6 +4719,7 @@
 				081EFC0217CA253000D4FE46 /* ADAnamorphicSideViewButton.m in Sources */,
 				081EFC0517CA28EA00D4FE46 /* ADAnamorphicTopViewButton.m in Sources */,
 				08BD1A7319CABD8E00E65A05 /* ADLaunchLogoView_n_Ana.m in Sources */,
+				08842F1C1A84BECB004A2E61 /* UITouch+Extension.m in Sources */,
 				0860668B17D2D8FB002EE42A /* ADNewButton.m in Sources */,
 				086B73AD194D3AC900870DBD /* ADTutorial.m in Sources */,
 				08D9B7BC1A810328001F0FBA /* ADWacomIntuosCreativeStylusTableViewController.m in Sources */,

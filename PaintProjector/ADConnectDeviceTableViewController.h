@@ -9,9 +9,9 @@
 #import "ADSharedPopTableViewController.h"
 #import "ADAdonitJotTableViewController.h"
 #import "ADConnectDeviceButtonTableViewController.h"
-#import "ADAdonitJotWritingStyleTableViewController.h"
 
-#define ConnectDeviceCellNum 6
+
+#define ConnectDeviceCellNum 7
 @interface ADConnectDeviceTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 - (float)tableViewHeight;

@@ -24,4 +24,5 @@
 #import "UIView+Extensions.h"
 #import "UIView+Tag.h"
 #import "UIView+VisibilityAnimation.h"
+#import "UITouch+Extension.h"
 #import "SKProduct+LocalizedPrice.h"

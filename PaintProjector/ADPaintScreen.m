@@ -87,6 +87,9 @@
 @property (retain, nonatomic) ADConnectDeviceTableViewController *connectDeviceTableController;
 @property (retain, nonatomic) JotStylusManager *jotManager;
 @property (assign, nonatomic) ConnectDeviceType connectDeviceType;
+#pragma mark- Adonit Jot
+@property (retain, nonatomic) ADAdonitJotTableViewController *adonitJotTableController;
+@property (nonatomic, strong) NSString *lastConnectedStylusModelName;
 @end
 
 
@@ -383,14 +386,14 @@
     
     self.lpgrPaintView.delegate=self;
     
-    [self.pgrRootCanvasView delaysTouchesBegan];
-    [self.pgrRootCanvasView requireGestureRecognizerToFail:self.pgr1TouchesPaintView];
+    [self.pgr1TouchRootCanvasView delaysTouchesBegan];
+    [self.pgr1TouchRootCanvasView requireGestureRecognizerToFail:self.pgr1TouchesPaintView];
 
 
     //自定义手势
     self.clearGestureRecognizer = [[ADClearGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan3TouchesClearRootCanvasView:)];
     [self.rootCanvasView addGestureRecognizer:self.clearGestureRecognizer];
-    [self.pgrRootCanvasView requireGestureRecognizerToFail:self.clearGestureRecognizer];
+    [self.pgr1TouchRootCanvasView requireGestureRecognizerToFail:self.clearGestureRecognizer];
     
     //单击在双击失败之后判断
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR1Touches2TapsRootCanvasView];
@@ -412,12 +415,10 @@
 - (void)viewDidUnload
 {
     [self setPaintView:nil];
-    [self setBtnAction:nil];
     [self setLpgrPaintView:nil];
     [self setBrushButton:nil];
-    [self setPgrRootCanvasView:nil];
+    [self setPgr1TouchRootCanvasView:nil];
     [self setBrushTypeScrollView:nil];
-    [self setLpgrBrushView:nil];
     [self setColorButtons:nil];
     [self setColorPickerView:nil];
     [self setPaintColorButton:nil];
@@ -587,10 +588,17 @@
         case UIGestureRecognizerStateEnded: {
             DebugLog(@"EyeDrop End");
             //使用Delayed TouchEnd 来关闭EyeDropper
+            if ([self.paintView enterState:PaintView_TouchNone]) {
+                [self willEndUIEyeDrop];
+            }
             break;
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
+            DebugLog(@"EyeDrop Cancelled or Failed");
+            if ([self.paintView enterState:PaintView_TouchNone]) {
+                [self willEndUIEyeDrop];
+            }
             break;
         }
             
@@ -607,8 +615,8 @@
     
     if (sender.state == UIGestureRecognizerStateRecognized) {
         if ([self.paintView enterState:PaintView_TouchPaint]) {
-            if (self.paintView.paintTouch == NULL) {
-                self.paintView.paintTouch = self.paintView.firstTouch;
+            if (!self.paintView.firstTouch.isPaintTouch) {
+                self.paintView.firstTouch.isPaintTouch = true;
             }
             CGPoint location = [sender locationInView:sender.view];
             location.y = self.paintView.bounds.size.height - location.y;
@@ -1078,35 +1086,35 @@
         return;
     }
     
-    if (![self.paintView enterState:PaintView_TouchNone]) {
-        return;
-    }
+//    if (![self.paintView enterState:PaintView_TouchNone]) {
+//        return;
+//    }
     
     CALayer *layer = self.paintView.layer;
     CGFloat x = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.x"]).floatValue;
     CGFloat y = ((NSNumber*)[layer valueForKeyPath:@"transform.translation.y"]).floatValue;
     
-    DebugLog(@"start to change layer");
-    DebugLog(@"before layer translation x:%.1f y:%.1f", x, y);
-    DebugLog(@"before layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
-    DebugLog(@"before layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
-    DebugLog(@"before layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
-    DebugLog(@"before layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
+//    DebugLog(@"start to change layer");
+//    DebugLog(@"before layer translation x:%.1f y:%.1f", x, y);
+//    DebugLog(@"before layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
+//    DebugLog(@"before layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
+//    DebugLog(@"before layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
+//    DebugLog(@"before layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
     
     CGPoint center = CGPointMake(layer.frame.origin.x + layer.frame.size.width * 0.5, layer.frame.origin.y + layer.frame.size.height * 0.5);
     layer.anchorPoint = CGPointMake(0.5, 0.5);
     layer.position = CGPointMake(center.x - x, center.y - y);
 
-#if DEBUG
-    CGFloat x1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.x"]).floatValue;
-    CGFloat y1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.y"]).floatValue;
-#endif
-    DebugLog(@"after layer translation x:%.1f y:%.1f", x1, y1);
-    DebugLog(@"after layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
-    DebugLog(@"after layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
-    DebugLog(@"after layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
-    DebugLog(@"after layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
-    DebugLog(@"after paintView %@", self.paintView);
+//#if DEBUG
+//    CGFloat x1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.x"]).floatValue;
+//    CGFloat y1 = ((NSNumber*)[self.paintView.layer valueForKeyPath:@"transform.translation.y"]).floatValue;
+//#endif
+//    DebugLog(@"after layer translation x:%.1f y:%.1f", x1, y1);
+//    DebugLog(@"after layer frame %@", NSStringFromCGRect(self.paintView.layer.frame));
+//    DebugLog(@"after layer bounds %@", NSStringFromCGRect(self.paintView.layer.bounds));
+//    DebugLog(@"after layer anchorPoint %@", NSStringFromCGPoint(self.paintView.layer.anchorPoint));
+//    DebugLog(@"after layer position %@", NSStringFromCGPoint(self.paintView.layer.position));
+//    DebugLog(@"after paintView %@", self.paintView);
 
     
     
@@ -1213,9 +1221,9 @@
 //    self.undoButton.highlighted = false;
 //    self.redoButton.highlighted = false;
     
-    if (![self.paintView enterState:PaintView_TouchNone]) {
-        return;
-    }
+//    if (![self.paintView enterState:PaintView_TouchNone]) {
+//        return;
+//    }
     
     if (self.isPaintFullScreen) {
         [ADPaintUIKitAnimation view:self.view switchDownToolBarFromView:self.paintToolBar completion:nil];
@@ -3739,7 +3747,7 @@
         [Flurry endTimedEvent:@"PS_inTransform" withParameters:nil];
         [self lockInteraction:true];
         
-        PaintingViewState paintViewState = self.paintView.state;
+        PaintViewState paintViewState = self.paintView.state;
         [self.paintView transformImageLayerDone];
         if (paintViewState == PaintView_TouchTransformImage) {
             [self.paintView resetUndoRedo];
@@ -4328,27 +4336,42 @@
 }
 
 - (void) willPaintViewTouchBegan{
-    //关闭所有打开的UI    
-    if (![self.colorPickerView isHidden]) {
-        [self.paintView.brush setColor:self.infColorPickerController.resultColor];
-        if (!self.colorPickerView.locked) {
-            [self.colorPickerView setHidden:true];
-            [_paintColorView setHidden:false];
-            if (!_colorSlotsViewHidden) {
-                [_brushOpacityView setHidden:false];
-                _colorSlotsViewHidden = false;
-            }
-        }
+    //关闭所有UI的交互
+    self.mainToolBar.userInteractionEnabled = false;
+    self.paintToolBar.userInteractionEnabled = false;
+    for (UIView *view in self.fullScreenButtons) {
+        view.userInteractionEnabled = false;
     }
     
+    //关闭所有打开的UI    
+//    if (![self.colorPickerView isHidden]) {
+//        [self.paintView.brush setColor:self.infColorPickerController.resultColor];
+//        if (!self.colorPickerView.locked) {
+//            [self.colorPickerView setHidden:true];
+//            [_paintColorView setHidden:false];
+//            if (!_colorSlotsViewHidden) {
+//                [_brushOpacityView setHidden:false];
+//                _colorSlotsViewHidden = false;
+//            }
+//        }
+//    }
 //    if (!colorPickerView.locked) {
 //    _brushDetailView.hidden = true;
 //    self.brushTypeView.hidden = true;
 //    }
-    _state = PaintScreen_Normal;
+//    _state = PaintScreen_Normal;
 }
 
-- (void) willTouchMoving:(CGPoint)point{
+- (void) willPaintViewTouchMoving:(CGPoint)point{
+}
+
+- (void) willPaintViewTouchEnd{
+    //恢复所有UI的交互
+    self.mainToolBar.userInteractionEnabled = true;
+    self.paintToolBar.userInteractionEnabled = true;
+    for (UIView *view in self.fullScreenButtons) {
+        view.userInteractionEnabled = true;
+    }
 }
 
 - (void) willStartUIEyeDrop{
@@ -4475,6 +4498,25 @@
 
 }
 
+- (void)willJotSuggestsToDisableGestures{
+    self.pgr2TouchesRootCanvasView.enabled = false;
+    self.pgr3TouchesRootCanvasView.enabled = false;
+    self.tapGR1Touches2TapsRootCanvasView.enabled = false;
+    self.tapGR2Touches2TapsRootCanvasView.enabled = false;
+    self.tapGR3Touches1TapsRootCanvasView.enabled = false;
+    self.lpgr2TouchesRootCanvasView.enabled = false;
+    self.clearGestureRecognizer.enabled = false;
+}
+
+- (void)willJotSuggestsToEnableGestures{
+    self.pgr2TouchesRootCanvasView.enabled = true;
+    self.pgr3TouchesRootCanvasView.enabled = true;
+    self.tapGR1Touches2TapsRootCanvasView.enabled = true;
+    self.tapGR2Touches2TapsRootCanvasView.enabled = true;
+    self.tapGR3Touches1TapsRootCanvasView.enabled = true;
+    self.lpgr2TouchesRootCanvasView.enabled = true;
+    self.clearGestureRecognizer.enabled = true;
+}
 //#pragma mark- 绘图投影代理PaintProjectViewControllerDelegate
 //- (void) createPaintProjectEAGleContext:(PaintProjectViewController*)viewController{
 //    viewController.context = [[EAGLContext alloc]initWithAPI:[self.paintView.context API] sharegroup:[self.paintView.context sharegroup]];
@@ -5408,6 +5450,7 @@
     ADAdonitJotTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotTableViewController"];
     tableVC.delegate = self;
     tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
+    self.adonitJotTableController = tableVC;
     
     [self.sharedPopoverController dismissPopoverAnimated:false];
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
@@ -5508,6 +5551,7 @@
     // Hook up the jotManager
     self.jotManager = [JotStylusManager sharedInstance];
     self.jotManager.unconnectedPressure = 256;
+    [self.jotManager registerView:self.paintView];
     self.jotManager.palmRejectorDelegate = self.paintView;
     self.jotManager.lineSmoothingEnabled = false;
 #if AdonitSDKConnectTypeTapAvailable
@@ -5515,7 +5559,10 @@
 #else
 #endif
     [self.jotManager enable];
+    
+#if AdonitSDKConnectTypeTapAvailable
     [self willAdonitJotTouchButtonTouchDown:nil];
+#endif
     
     [self.jotManager setReportDiagnosticData:YES];
     
@@ -5609,14 +5656,21 @@
         }
         case JotConnectionStatusConnected:
         {
+            [self.adonitJotTableController.tableView reloadData];
+            self.lastConnectedStylusModelName = self.jotManager.stylusModelFriendlyName;
+            [[JotTouchStatusHUD class]ShowJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusModelName];
             break;
         }
         case JotConnectionStatusDisconnected:
         {
+            [self.adonitJotTableController.tableView reloadData];
+            [[JotTouchStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusModelName];            
             break;
         }
         case JotConnectionStatusOff:
         {
+            [self.adonitJotTableController.tableView reloadData];
+            [[JotTouchStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusModelName];
             break;
         }
         default:
@@ -5624,6 +5678,21 @@
     }
 }
 
+
+- (void)startTrackingPen:(NSNotification *)notification
+{
+    NSLog(@"we've started tracking %@", notification.userInfo[@"name"]);
+}
+
+- (void)startTrackingPenFailed:(NSNotification *)notification
+{
+    NSLog(@"we've stopped tracking %@", notification.userInfo[@"name"]);
+}
+
+- (void)startTrackingPenSuccessful:(NSNotification *)notification
+{
+    NSLog(@"we've successfuly tracked %@", notification.userInfo[@"name"]);
+}
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{
     self.testImageView.image = image;

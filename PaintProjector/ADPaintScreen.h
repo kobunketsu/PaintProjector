@@ -190,30 +190,30 @@ ADAdonitJotWritingStyleTableViewControllerDelegate
 //Interface Builder
 @property (weak, nonatomic) IBOutlet ADColorPickerView *colorPickerView;
 @property (weak, nonatomic) IBOutlet ADPaintColorButton *paintColorButton;
-//@property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchGRPaintView;
-@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrPaintView;
-@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgr2TouchesRootCanvasView;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR3Touches1TapsRootCanvasView;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches1TapsPaintView;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches2TapsRootCanvasView;
-@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR2Touches2TapsRootCanvasView;
 @property (weak, nonatomic) IBOutlet ADPaintView *paintView;
 @property (weak, nonatomic) IBOutlet UIView *brushTypeView;
 @property (weak, nonatomic) IBOutlet ADBrushTypeScrollView *brushTypeScrollView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *btnAction;
 @property (weak, nonatomic) IBOutlet ADBrushTypeButton *brushButton;
 @property (weak, nonatomic) IBOutlet ADBrushTypeButton *brushBackButton;
-@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushButton;
-@property (weak, nonatomic) ADBrushPropertyViewController *brushPropertyViewController;
 @property (weak, nonatomic) IBOutlet ADClearButton *clearButton;
 @property (weak, nonatomic) IBOutlet UIView *clearEffectView;
-@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgrRootCanvasView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr1TouchesPaintView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr2TouchesRootCanvasView;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr3TouchesRootCanvasView;
 @property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUISecCollection;
 @property (weak, nonatomic) IBOutletCollection(UIView) NSArray *paintUIDefaultCollection;
+@property (weak, nonatomic) ADBrushPropertyViewController *brushPropertyViewController;
+
+//@property (weak, nonatomic) IBOutlet UIPinchGestureRecognizer *pinchGRPaintView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrPaintView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches1TapsPaintView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr1TouchesPaintView;
+
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR1Touches2TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR2Touches2TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGR3Touches1TapsRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr1TouchRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr2TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *pgr3TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgr2TouchesRootCanvasView;
+@property (weak, nonatomic) IBOutlet UILongPressGestureRecognizer *lpgrBrushButton;
 
 //InfColorPickerController 
 @property( weak, nonatomic ) IBOutlet InfColorBarView* barView;

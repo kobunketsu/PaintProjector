@@ -57,7 +57,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,12 +148,41 @@
             cell.textLabel.text = NSLocalizedString(@"WritingStyle", nil);
             cell.detailTextLabel.text = [ADAdonitJotWritingStyleTableViewController writingStyleName: [JotStylusManager sharedInstance].writingStyle];
             break;
+        case 6:
+            cell.textLabel.text = NSLocalizedString(@"Status", nil);
+            cell.detailTextLabel.text = [self connectionStatusName:[JotStylusManager sharedInstance].connectionStatus];
+            break;
         default:
             break;
     }
     return cell;
 }
 
+
+- (NSString*)connectionStatusName:(JotConnectionStatus)connectStatus{
+    NSString *name = nil;
+    switch (connectStatus) {
+        case JotConnectionStatusOff:
+            name = NSLocalizedString(@"Off", nil);
+            break;
+        case JotConnectionStatusScanning:
+            name = NSLocalizedString(@"Scanning", nil);
+            break;
+        case JotConnectionStatusPairing:
+            name = NSLocalizedString(@"Pairing", nil);
+            break;
+        case JotConnectionStatusConnected:
+            name = NSLocalizedString(@"Connected", nil);
+            break;
+        case JotConnectionStatusDisconnected:
+            name = NSLocalizedString(@"Disconnected", nil);
+            break;
+        default:
+            break;
+    }
+    return name;
+    
+}
 
 
 - (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{

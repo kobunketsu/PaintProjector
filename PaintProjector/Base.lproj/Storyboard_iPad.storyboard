@@ -2829,10 +2829,10 @@ Create your unbelievable art!</string>
                         <outlet property="paintToolBar" destination="4vr-ew-gM4" id="HvC-Mw-vtX"/>
                         <outlet property="paintToolView" destination="tc4-j6-Ww5" id="2sn-11-1kT"/>
                         <outlet property="paintView" destination="iQ2-mh-xrv" id="aKA-xt-Mfg"/>
+                        <outlet property="pgr1TouchRootCanvasView" destination="9Qu-66-uty" id="ugB-tt-paI"/>
                         <outlet property="pgr1TouchesPaintView" destination="vPf-2h-AKx" id="ADM-A9-CkJ"/>
                         <outlet property="pgr2TouchesRootCanvasView" destination="p8M-Ll-zAa" id="D7v-FO-L7p"/>
                         <outlet property="pgr3TouchesRootCanvasView" destination="nal-JO-dWr" id="yMC-UN-5SZ"/>
-                        <outlet property="pgrRootCanvasView" destination="9Qu-66-uty" id="Ec6-Z9-kiE"/>
                         <outlet property="previousBrushTypePageButton" destination="QUd-Xd-zWk" id="lZX-fa-dLL"/>
                         <outlet property="radiusIndicatorView" destination="Vl4-eP-tzn" id="99K-NB-LHH"/>
                         <outlet property="radiusSlider" destination="BfJ-tE-xFg" id="D2g-eO-a0K"/>
@@ -2967,7 +2967,7 @@ Create your unbelievable art!</string>
                         <action selector="handleLongPressPaintView:" destination="NUX-zI-YbL" id="Pek-2L-sN5"/>
                     </connections>
                 </pongPressGestureRecognizer>
-                <tapGestureRecognizer delaysTouchesEnded="NO" id="yEf-dg-Xxu" userLabel="TapGR 1Touches1TapPaintView">
+                <tapGestureRecognizer enabled="NO" delaysTouchesEnded="NO" id="yEf-dg-Xxu" userLabel="TapGR 1Touches1TapPaintView">
                     <connections>
                         <action selector="handleTap1Touches1TapsPaintView:" destination="NUX-zI-YbL" id="LEf-ba-576"/>
                     </connections>
