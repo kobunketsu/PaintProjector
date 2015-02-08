@@ -22,8 +22,9 @@
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define kBrushCurveIntervalScale 1.2
 #define kBrushPixelStep		2
-
-#pragma mark- BrushState
+//origin record location width record pressure
+#define PathPoint CGRect
+#define PathPointMake(x, y, pressure) CGRectMake(x, y, pressure, 0);
 
 #pragma mark- Brush
 typedef enum
@@ -102,8 +103,8 @@ typedef struct {
 @property (weak, nonatomic) ADPaintView* paintView;
 @property (assign, nonatomic) CGSize canvasSize;
 @property (retain, nonatomic) ADBrushState* brushState;
-@property (assign, nonatomic) CGPoint lastSegmentEndPoint;
-@property (assign, nonatomic) CGPoint curSegmentEndPoint;
+@property (assign, nonatomic) PathPoint lastSegmentEndPoint;
+@property (assign, nonatomic) PathPoint curSegmentEndPoint;
 @property (assign, nonatomic) float curStrokedLength;//当前绘制的长度
 
 #pragma mark- OpenGLES
@@ -139,11 +140,11 @@ typedef struct {
 - (void)setColor:(UIColor *)newValue;
 - (void)setBlendModeWithBrushState:(ADBrushState*)brushState;
 
-- (void)startDraw:(CGPoint)startLocation;
+- (void)startDraw:(PathPoint)startLocation;
 - (void)prepareWithBrushState:(ADBrushState*)brushState lastBrushState:(ADBrushState*)lastBrushState;
-- (size_t)numOfSegmentPointFromStart:(CGPoint)start toEnd:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw;
-- (void)fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;
-- (void)fillSegmentBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint)destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate;
+- (size_t)numOfSegmentPointFromStart:(PathPoint)start toEnd:(PathPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw;
+- (void)fillDataFromPoint:(PathPoint)start toPoint:(PathPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;
+- (void)fillSegmentBezierOrigin:(PathPoint) origin Control:(PathPoint) control Destination:(PathPoint)destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate;
 - (void)renderImmediate:(BOOL)isImmediate;
 - (void)endDraw;
 

@@ -19,12 +19,11 @@
 #import "ADFinger.h"
 #import "ADBucket.h"
 
-
-
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
 #define CanvasScaleMinimum 0.2
 #define TwoFingerPanGestureTime 0.016
+
 
 // A class extension to declare private methods
 @interface ADPaintView ()
@@ -35,8 +34,8 @@
 
 @property (assign, nonatomic)int multiTouchEndCount;
 @property (retain, nonatomic) ADBrushState* lastBrushState; //记录上一次绘制使用的brushState
-@property(nonatomic, readwrite) CGPoint location;
-@property(nonatomic, readwrite) CGPoint previousLocation;
+@property(nonatomic, readwrite) PathPoint location;
+@property(nonatomic, readwrite) PathPoint previousLocation;
 
 @property (retain, nonatomic) RERenderTexture *curPaintedLayerTexture;
 @property (retain, nonatomic) RERenderTexture *curLayerTexture;
@@ -802,45 +801,23 @@
 #pragma mark- Touch
 
 - (void)eyeDropBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-	CGPoint location = [self.firstTouch locationInView:self];
-	location.y = self.bounds.size.height - location.y;
-    self.location = location;
+	CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+    self.location = PathPointMake(location.x, location.y, 1);
 }
 
 // Handles the start of a touch
 - (void)touchesBegan:(NSSet *)touches{
     
     //不在Touch发生时马上开始绘制，不修改paintView.state
-    if (self.firstTouch == NULL) {
-        self.firstTouch = [touches anyObject];
-    }
-    
-    //判断是否是触摸边缘切换全屏状态
-    //    location = [self.firstTouch locationInView:self];
-    //    DebugLog(@"firstTouch location %@", NSStringFromCGPoint(location));
-    //
-    //    CGFloat toggleFullScreenRegionHeight = 10;
-    //    if (location.y >= self.frame.size.height - toggleFullScreenRegionHeight ||
-    //        location.y <= toggleFullScreenRegionHeight) {
-    //        self.state = PaintView_TouchToggleFullScreen;
-    //        DebugLogWarn(@"TouchToggleFullScreen");
-    //    }
-    
+    CGFloat pressure = 1;
+    pressure = [self pressureFromTouch:self.firstTouch];
+    CGPoint location = [self convertPointToGL: [self.firstTouch locationInView:self]];
+    self.previousLocation = self.location = PathPointMake(location.x, location.y, pressure);
     
     //可能会被后续动作修改状态
     switch (self.state) {
-        case PaintView_TouchEyeDrop:{
-            [self.delegate willStartUIEyeDrop];
-            CGPoint point = [self.delegate willGetEyeDropLocation];
-            [self eyeDropColor:point];
-            break;
-        }
         case PaintView_TouchNone:{
             self.firstTouch.isPaintTouch = false;
-            
-            CGPoint location = [self.firstTouch locationInView:self];
-            location.y = self.bounds.size.height - location.y;
-            self.previousLocation = self.location = location;
             
             //清空之前可能在PaintView_TouchNone状态下留下的笔迹
             [self.touchPath removeAllObjects];
@@ -848,9 +825,6 @@
             break;
         }
         case PaintView_TouchPaint:{
-            CGPoint location = [self.firstTouch locationInView:self];
-            location.y = self.bounds.size.height - location.y;
-            self.previousLocation = self.location = location;
             
             //清空之前可能在PaintView_TouchNone状态下留下的笔迹
             [self.touchPath removeAllObjects];
@@ -858,12 +832,10 @@
             break;
         }
         default:{
-            CGPoint location = [self.firstTouch locationInView:self];
-            location.y = self.bounds.size.height - location.y;
-            self.previousLocation = location;
             break;
         }
     }
+    [self.firstTouch setPreLocation: self.location];
 }
 //FIXME:在快速绘制中，有可能出现上一个用于paint的UITouch还没有调用touchesEnd,新的UITouch调用touchesBegan, 导致firstTouch,paintTouch还是使用的上一个UITouch的数据的问题
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -874,12 +846,20 @@
     [self.delegate willPaintViewTouchBegan];
     
     self.curNumberOfTouch += touches.count;
+    self.firstTouch = [touches anyObject];
     
-    if([JotStylusManager sharedInstance].isStylusConnected){
-        return;
+    if (self.state == PaintView_TouchEyeDrop) {
+        [self.delegate willStartUIEyeDrop];
+        CGPoint point = [self.delegate willGetEyeDropLocation];
+        [self eyeDropColor:point];
     }
     
-    [self touchesBegan:touches];
+    //when touched, touches in the call is still UITouch
+    if (![self isJotStylusActiveConnected:touches]) {
+        [self touchesBegan:touches];
+    }
+    
+
 }
 
 - (void)touchesMoved:(NSSet *)touches{
@@ -888,16 +868,22 @@
         return;
     }
     
+    CGFloat pressure = [self pressureFromTouch:self.firstTouch];
+    
+    CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+    self.location = PathPointMake(location.x, location.y, pressure);
+
+    self.previousLocation = [self.firstTouch preLocation];
+    
+//    DebugLogWarn(@"location %@ previousLocation %@", NSStringFromCGPoint(location), NSStringFromCGPoint(previousLocation));
+    
     switch (self.state) {
             //在未确认是绘制触摸前，记录确定的一个触摸点(firstTouch)位置，避免将双触摸点判断为一个触摸点的两个连续的移动点
         case PaintView_TouchNone:{
 //            DebugLog(@"state PaintView_TouchNone");
             
-            CGPoint location = [self.firstTouch locationInView:self];
-            location.y = self.bounds.size.height - location.y;
-            self.location = location;
             //记录下操作Path，在后期如果判断为绘图，则将路径补偿画出
-            [self.touchPath addObject:[NSValue valueWithCGPoint:location]];
+            [self.touchPath addObject:[NSValue valueWithCGRect:self.location]];
             
             //满足当前触摸数的情况下，进入绘制式
             if (self.curNumberOfTouch == 1) {
@@ -912,26 +898,17 @@
         }
         case PaintView_TouchPaint:{
             //            Debuglog(@"state PaintView_TouchPaint");
-            //更新触摸点
-            CGPoint location = [self.firstTouch locationInView:self];
-            location.y = self.bounds.size.height - location.y;
-            self.location = location;
-            CGPoint previousLocation = [self.firstTouch previousLocationInView:self];
-            previousLocation.y = self.bounds.size.height - previousLocation.y;
-            self.previousLocation = previousLocation;
-            
             //将previousLocation加入到drawPath中，用来连接previousLocation到drawPath.lastObject，绘制完清空path
             if(self.touchPath.count > 0){
-                CGPoint lastDrawPathPoint = [self.touchPath.lastObject CGPointValue];
+                PathPoint lastDrawPathPoint = [self.touchPath.lastObject CGRectValue];
                 
-                [self drawFromPoint:lastDrawPathPoint toPoint:previousLocation isTapDraw:false];
+                [self drawFromPoint:lastDrawPathPoint toPoint:self.previousLocation isTapDraw:false];
                 
                 [self.touchPath removeAllObjects];
 //                DebugLog(@"draw confirmed stored path done. remove drawPath");
             }
             
-
-            [self drawFromPoint:previousLocation toPoint:location isTapDraw:false];
+            [self drawFromPoint:self.previousLocation toPoint:self.location isTapDraw:false];
             
 //                DebugLog(@"draw update layer transform translate x:%.2f y:%.2f", self.transform.tx, self.transform.ty);
             
@@ -941,83 +918,69 @@
             }
             break;
         }
-        case PaintView_TouchEyeDrop:{
-            if (self.firstTouch == NULL) {
-                self.firstTouch = [touches anyObject];
-                [self.delegate willStartUIEyeDrop];
-            }
-            
-            //更新触摸点
-            CGPoint point = [self.delegate willGetEyeDropLocation];
-            
-            [self eyeDropColor:point];
-            break;
-            
-        }
         default:
             break;
     }
     
+    [self.firstTouch setPreLocation:self.location];
 }
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
     [super touchesMoved:touches withEvent:event];
     
-    if([JotStylusManager sharedInstance].isStylusConnected){
-        return;
+    if(self.state == PaintView_TouchEyeDrop){
+        if (!self.firstTouch) {
+            self.firstTouch = [touches anyObject];
+            [self.delegate willStartUIEyeDrop];
+        }
+        
+        CGPoint point = [self.delegate willGetEyeDropLocation];
+        [self eyeDropColor:point];
     }
-    [self touchesMoved:touches];
+    
+    //连接状态下不响应手指绘画
+    if (![self isJotStylusActiveConnected:touches]) {
+        [self touchesMoved:touches];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches{
+    CGFloat pressure = [self pressureFromTouch:self.firstTouch];
+    //fix tap draw pressure
+    if (self.state == PaintView_TouchNone) {
+        pressure = 1;
+    }
+    
+    
+    CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+    self.location = PathPointMake(location.x, location.y, pressure);
+    
+    self.previousLocation = [self.firstTouch preLocation];
+    
     //不响应变换操作
     switch (self.state) {
-        case PaintView_TouchEyeDrop:{
-            if([touches containsObject:self.firstTouch]){
-                self.firstTouch = nil;
-
-                [self.delegate willEndUIEyeDrop];
-                if ([self enterState:PaintView_TouchNone]) {
-                }
-            }
-            break;
-        }
         case PaintView_TouchPaint:{
             if([touches containsObject:self.firstTouch]){
-                CGPoint location = [self.firstTouch locationInView:self];
-                location.y = self.bounds.size.height - location.y;
-                self.location = location;
-                CGPoint previousLocation = [self.firstTouch previousLocationInView:self];
-                previousLocation.y = self.bounds.size.height - previousLocation.y;
-                self.previousLocation = previousLocation;
-                
 //                DebugLog(@"previousLocation x:%.0f y:%.0f", previousLocation.x, previousLocation.y);
-                [self draw:false];
+                [self drawFromPoint:self.location toPoint:self.previousLocation isTapDraw:false];
                 [self endDraw];
                 
                 self.firstTouch = nil;
-                DebugLog(@"touchesEnded PaintView_TouchPaint remove drawPath, set firstTouch nil!");
-
-                
                 if ([self enterState:PaintView_TouchNone]) {
                 }
             }
             else{
-//                DebugLog(@"test");
             }
             break;
         }
             
         case PaintView_TouchNone:
         {
-            DebugLog(@"touchesEnded PaintView_TouchNone remove drawPath, set firstTouch nil!");
             if([touches containsObject:self.firstTouch]){
                 if (!self.firstTouch.isPaintTouch && self.curNumberOfTouch == 0) {
                     //is single tap paint
-                    CGPoint location = [self.firstTouch locationInView:self];
-                    location.y = self.bounds.size.height - location.y;
-                    [self startDraw:location isTapDraw:true];
+                    [self startDraw:self.location isTapDraw:true];
                     [self draw:true];
                     [self endDraw];
                 }
@@ -1026,20 +989,6 @@
                 [self.touchPath removeAllObjects];
             }
             else{
-//                DebugLog(@"test");
-            }
-            break;
-        }
-        case PaintView_TouchTransformCanvas:
-        case PaintView_TouchTransformLayer:
-        case PaintView_TouchTransformImage:
-        case PaintView_TouchQuickTool:
-        {
-            if([touches containsObject:self.firstTouch]){
-                self.firstTouch = nil;
-            }
-            if (self.curNumberOfTouch == 0) {
-                [self enterState:PaintView_TouchNone];
             }
             break;
         }
@@ -1047,23 +996,58 @@
         default:
             break;
     }
-
+    
+    [self.firstTouch setPreLocation: self.location];
 }
 // Handles the end of a touch event when the touch is a tap.
 //有手指结束按住状态，不能用来判断操作的完成
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     DebugLogSystem(@"[ touchesEnded! touches count:%d ]", [touches count]);
-    [super touchesEnded:touches withEvent:event];
 
+    DebugLogWarn(@"getPressure %d", [JotStylusManager sharedInstance].getPressure);
     self.curNumberOfTouch -= touches.count;
-    if(![JotStylusManager sharedInstance].isStylusConnected){
-        [self touchesEnded:touches];
+    
+    switch (self.state) {
+        case PaintView_TouchEyeDrop:
+            if([touches containsObject:self.firstTouch]){
+                self.firstTouch = nil;
+                [self.delegate willEndUIEyeDrop];
+                if ([self enterState:PaintView_TouchNone]) {
+                }
+            }
+            break;
+//        case PaintView_TouchTransformCanvas:
+//        case PaintView_TouchTransformLayer:
+//        case PaintView_TouchTransformImage:
+//        case PaintView_TouchQuickTool:
+//        {
+//            if([touches containsObject:self.firstTouch]){
+//                self.firstTouch = nil;
+//            }
+//            if (self.curNumberOfTouch == 0) {
+//                [self enterState:PaintView_TouchNone];
+//            }
+//            break;
+//        }
+        case PaintView_TouchNone:
+        case PaintView_TouchPaint:
+        {
+            if(![self isJotStylusActiveConnected:touches]){
+                [self touchesEnded:touches];
+            }
+            break;
+        }
+        default:
+            break;
     }
+    
 
     if(self.curNumberOfTouch == 0){
         [self.delegate willPaintViewTouchEnd];
     }
+    
+    [super touchesEnded:touches withEvent:event];
 }
 
 // Handles the end of a touch event.
@@ -1073,17 +1057,48 @@
 	// If appropriate, add code necessary to save the state of the application.
 	// This application is not saving state.
     DebugLogSystem(@"touchesCancelled! touches count:%d", [touches count]);
-    [super touchesCancelled:touches withEvent:event];
     
     self.curNumberOfTouch -= touches.count;
     
-    if(![JotStylusManager sharedInstance].isStylusConnected){
-        [self touchesEnded:touches];
+    switch (self.state) {
+        case PaintView_TouchEyeDrop:
+            if([touches containsObject:self.firstTouch]){
+                self.firstTouch = nil;
+                [self.delegate willEndUIEyeDrop];
+                if ([self enterState:PaintView_TouchNone]) {
+                }
+            }
+            break;
+//        case PaintView_TouchTransformCanvas:
+//        case PaintView_TouchTransformLayer:
+//        case PaintView_TouchTransformImage:
+//        case PaintView_TouchQuickTool:
+//        {
+//            if([touches containsObject:self.firstTouch]){
+//                self.firstTouch = nil;
+//            }
+//            if (self.curNumberOfTouch == 0) {
+//                [self enterState:PaintView_TouchNone];
+//            }
+//            break;
+//        }
+        case PaintView_TouchNone:
+        case PaintView_TouchPaint:
+        {
+            if(![self isJotStylusActiveConnected:touches]){
+                [self touchesEnded:touches];
+            }
+            break;
+        }
+        default:
+            break;
     }
-
+    
     if(self.curNumberOfTouch == 0){
         [self.delegate willPaintViewTouchEnd];
     }
+    
+    [super touchesCancelled:touches withEvent:event];
 }
 
 //实现按更新时间来绘制的操作(喷枪)
@@ -1094,12 +1109,10 @@
             //在已经把待确认的路径绘制完毕后开始每帧更新绘制
             if (self.firstTouch.isPaintTouch) {
                 //更新触摸点
-                CGPoint location = [self.firstTouch locationInView:self];
-                location.y = self.bounds.size.height - location.y;
-                self.location = location;
-                CGPoint previousLocation = [self.firstTouch previousLocationInView:self];
-                previousLocation.y = self.bounds.size.height - previousLocation.y;
-                self.previousLocation = previousLocation;
+                CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+                self.location = PathPointMake(location.x, location.y, 1);
+                CGPoint previousLocation = [self convertPointToGL:[self.firstTouch previousLocationInView:self]];
+                self.previousLocation = PathPointMake(previousLocation.x, previousLocation.y, 1);
 //                DebugLog(@"previousLocation x:%.0f y:%.0f", previousLocation.x, previousLocation.y);
                 
                 [self draw:false];
@@ -1113,9 +1126,9 @@
     if (self.touchPath.count > 1) {
         for (int i = 0; i < self.touchPath.count - 1; ++i) {
             DebugLog(@"draw confirmed stored path count:%d index:%d", self.touchPath.count, i);
-            CGPoint startPoint = [[self.touchPath objectAtIndex:i] CGPointValue];
-            CGPoint endPoint = [[self.touchPath objectAtIndex:i+1] CGPointValue];
-            DebugLog(@"startPoint x:%.2f y:%.2f endPoint x:%.2f y:%.2f", startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+            PathPoint startPoint = [[self.touchPath objectAtIndex:i] CGRectValue];
+            PathPoint endPoint = [[self.touchPath objectAtIndex:i+1] CGRectValue];
+//            DebugLog(@"startPoint x:%.2f y:%.2f endPoint x:%.2f y:%.2f", startPoint.x, startPoint.y, endPoint.x, endPoint.y);
             
             if (i==0) {
                 [self startDraw:startPoint isTapDraw:false];
@@ -1125,8 +1138,8 @@
         }
     }
     else if (self.touchPath.count == 1){
-        CGPoint startPoint = [[self.touchPath objectAtIndex:0] CGPointValue];
-        CGPoint endPoint = startPoint;
+        PathPoint startPoint = [[self.touchPath objectAtIndex:0] CGRectValue];
+        PathPoint endPoint = startPoint;
         [self startDraw:startPoint isTapDraw:false];
         [self drawFromPoint:startPoint toPoint:endPoint isTapDraw:false];
     }
@@ -1138,8 +1151,34 @@
 }
 
 #pragma mark- AdonitJot
+#pragma mark- Touch
+-(BOOL)isJotStylusActiveConnected:(NSSet*)touches{
+    return [JotStylusManager sharedInstance].isStylusConnected && [JotStylusManager sharedInstance].enabled;
+}
+
+-(CGFloat) widthForPressure:(CGFloat)pressure{
+//    CGFloat minSize = 2;
+//    CGFloat maxSize = 35;
+//
+//    return minSize + (maxSize-minSize) * pressure / JOT_MAX_PRESSURE;
+    return pressure / JOT_MAX_PRESSURE;
+}
+
+- (CGFloat)pressureFromTouch:(UITouch*)touch{
+    if ([touch isKindOfClass:[JotTouch class]]) {
+        DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
+        CGFloat pressure = [self widthForPressure:((JotTouch*)touch).pressure];
+
+        return pressure;
+    }
+    else{
+        return 1.0;
+    }
+}
 -(void)jotStylusTouchBegan:(NSSet *) touches{
     DebugLogFuncStart(@"jotStylusTouchBegan touches count:%d", [touches count]);
+    //override to JotTouch
+    self.firstTouch = [touches anyObject];
     
     [self touchesBegan:touches];
 }
@@ -1152,13 +1191,13 @@
 
 -(void)jotStylusTouchEnded:(NSSet *) touches{
     DebugLogFuncStart(@"jotStylusTouchEnded touches count:%d", [touches count]);
-    
+    self.curNumberOfTouch -= touches.count;
     [self touchesEnded:touches];
 }
 
 -(void)jotStylusTouchCancelled:(NSSet *) touches{
     DebugLogFuncStart(@"jotStylusTouchCancelled touches count:%d", [touches count]);
-    
+    self.curNumberOfTouch -= touches.count;
     [self touchesEnded:touches];
 }
 
@@ -1375,7 +1414,7 @@
     }
 }
 
-- (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw{
+- (void)startDraw:(PathPoint)startPoint isTapDraw:(BOOL)isTapDraw{
     DebugLog(@"startDraw! isTapDraw %i", isTapDraw);
 
     //UI
@@ -1397,8 +1436,8 @@
     [self drawFromPoint:self.previousLocation toPoint:self.location isTapDraw:isTapDraw];
 }
 
-- (void) drawFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint isTapDraw:(BOOL)isTapDraw{
-//    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+- (void) drawFromPoint:(PathPoint)startPoint toPoint:(PathPoint)endPoint isTapDraw:(BOOL)isTapDraw{
+//    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint.origin), NSStringFromCGPoint(endPoint.origin));
     //记录绘图信息
     
     [self.curPaintCommand addPathPointStart:startPoint End:endPoint];
@@ -1407,7 +1446,7 @@
     [self.curPaintCommand drawImmediateFrom:startPoint to:endPoint];
     
     //代理
-    [self.delegate willPaintViewTouchMoving:endPoint];
+    [self.delegate willPaintViewTouchMoving:endPoint.origin];
     
 #if DEBUG_VIEW_COLORALPHA
     //小窗口检测buffer内容
@@ -1443,7 +1482,7 @@
 
 #pragma mark- Paint Command Delegate
 //执行周期为一个移动操作
-- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
+- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(PathPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
 //    DebugLog(@"[ willStartDraw ]");
     DebugLogGLGroupStart(@"paintView willStartDraw brushId %d", brushState.classId);
     
@@ -1475,12 +1514,12 @@
     
     size_t count = 0;
     ADBrush *brush = self.brushTypes[cmd.brushState.classId];
-    brush.curSegmentEndPoint = brush.lastSegmentEndPoint = [cmd.paintPaths[0] CGPointValue];
+    brush.curSegmentEndPoint = brush.lastSegmentEndPoint = [cmd.paintPaths[0] CGRectValue];
     
     if (cmd.paintPaths.count == 1) {
 //        DebugLogWarn(@"cmd.paintPaths.count == 1");
-        CGPoint startPoint = [cmd.paintPaths[0] CGPointValue];
-        CGPoint endPoint = [cmd.paintPaths[0] CGPointValue];
+        PathPoint startPoint = [cmd.paintPaths[0] CGRectValue];
+        PathPoint endPoint = [cmd.paintPaths[0] CGRectValue];
         size_t countSegment = [brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
         brush.lastSegmentEndPoint = brush.curSegmentEndPoint;
         
@@ -1489,8 +1528,8 @@
     else{
 //        DebugLogWarn(@"cmd.paintPaths.count %d", cmd.paintPaths.count);
         for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
-            CGPoint startPoint = [cmd.paintPaths[i] CGPointValue];
-            CGPoint endPoint = [cmd.paintPaths[i+1] CGPointValue];
+            PathPoint startPoint = [cmd.paintPaths[i] CGRectValue];
+            PathPoint endPoint = [cmd.paintPaths[i+1] CGRectValue];
             size_t countSegment = [brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
             brush.lastSegmentEndPoint = brush.curSegmentEndPoint;
             
@@ -1558,7 +1597,7 @@
     DebugLogGLGroupEnd();
 }
 
-- (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
+- (void) willFillDataFromPoint:(PathPoint)start toPoint:(PathPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
 //    DebugLog(@"[ willRenderLineFromPoint ]");
 
 //    DebugLogGLGroupStart(@"paintView willFillData");

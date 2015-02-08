@@ -30,4 +30,12 @@
 
     [super presentPopoverFromRect:fromRect inView:view permittedArrowDirections:arrowDirections animated:animated];
 }
+
+- (void)dismissPopoverAnimated:(BOOL)animated{
+    [super dismissPopoverAnimated:animated];
+    if (self.fromButton) {
+        self.fromButton.selected = false;
+        self.fromButton = nil;
+    }
+}
 @end

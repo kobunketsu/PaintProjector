@@ -34,15 +34,15 @@
     
 }
 
-- (void)addPathPoint:(CGPoint)point{
-    [self.paintPaths addObject:[NSValue valueWithCGPoint:point]];
+- (void)addPathPoint:(PathPoint)point{
+    [self.paintPaths addObject:[NSValue valueWithCGRect:point]];
 }
-- (void)addPathPointStart:(CGPoint)startPoint End:(CGPoint)endPoint{
+- (void)addPathPointStart:(PathPoint)startPoint End:(PathPoint)endPoint{
 //    DebugLog(@"addPathPointStart startPoint %@ endPoint %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
     
     if ([self.paintPaths count]==0) {
-        [self.paintPaths addObject:[NSValue valueWithCGPoint:startPoint]];
-        [self.paintPaths addObject:[NSValue valueWithCGPoint:endPoint]];
+        [self.paintPaths addObject:[NSValue valueWithCGRect:startPoint]];
+        [self.paintPaths addObject:[NSValue valueWithCGRect:endPoint]];
     }
     else {
         //通过判断startPoint和endPoint之间的距离来确定是否加到paintPath中
@@ -54,7 +54,7 @@
 //            [self.paintPaths addObject:[NSValue valueWithCGPoint:endPoint]];
 //        }
 //        else{
-            [self.paintPaths addObject:[NSValue valueWithCGPoint:endPoint]];
+            [self.paintPaths addObject:[NSValue valueWithCGRect:endPoint]];
 //        }
     }
 }
@@ -63,8 +63,8 @@
     DebugLogGLGroupStart(@"PaintCommand execute");
 
     //有可能造成transform时候出现错误像素
-    CGPoint startPoint = CGPointMake(DefaultScreenWidth * 0.5, DefaultScreenHeight * 0.5);
-    CGPoint endPoint = CGPointMake(DefaultScreenWidth, DefaultScreenHeight);
+    PathPoint startPoint = PathPointMake(DefaultScreenWidth * 0.5, DefaultScreenHeight * 0.5, 1);
+    PathPoint endPoint = PathPointMake(DefaultScreenWidth, DefaultScreenHeight, 1);
 
     [self addPathPointStart:startPoint End:endPoint];
 
@@ -100,7 +100,7 @@
     [self.delegate willAllocUndoVertexBufferWithPaintCommand:self];
     
     self.curSegmentOffset = 0;
-    CGPoint startPoint = [[self.paintPaths objectAtIndex:0] CGPointValue];
+    PathPoint startPoint = [[self.paintPaths objectAtIndex:0] CGRectValue];
     [self.delegate willStartDrawBrushState:self.brushState FromPoint:startPoint isUndoBaseWrapped:self.isUndoBaseWrapped];
     
     //beforeDraw
@@ -120,8 +120,8 @@
         //        DebugLog(@"srandom %d", self.brushState.seed + self.curSegmentOffset);
         
         NSUInteger endIndex = (self.paintPaths.count == 1 ? i : (i+1));
-        CGPoint startPoint = [[self.paintPaths objectAtIndex:i] CGPointValue];
-        CGPoint endPoint = [[self.paintPaths objectAtIndex:endIndex] CGPointValue];
+        PathPoint startPoint = [[self.paintPaths objectAtIndex:i] CGRectValue];
+        PathPoint endPoint = [[self.paintPaths objectAtIndex:endIndex] CGRectValue];
 
         [self.delegate willFillDataFromPoint:startPoint
                                 toPoint:endPoint
@@ -158,11 +158,11 @@
 
 
 
-- (void)drawImmediateStart:(CGPoint)startPoint{
+- (void)drawImmediateStart:(PathPoint)startPoint{
     [self.delegate willStartDrawBrushState:self.brushState FromPoint:startPoint isUndoBaseWrapped:false];
 }
 
-- (void)drawImmediateFrom:(CGPoint)startPoint to:(CGPoint)endPoint{
+- (void)drawImmediateFrom:(PathPoint)startPoint to:(PathPoint)endPoint{
 //    DebugLogGLSnapshotStart
     //调用PaintCommandDelegate的片段代码
     [self.delegate willBeforeDrawBrushState:self.brushState isUndoBaseWrapped:false isImmediate:true];

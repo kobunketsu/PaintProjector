@@ -20,7 +20,8 @@
 }
 
 - (void)drawRect:(CGRect)rect{
-    [self drawCanvas1WithFrame:rect isSelected:self.isSelected || self.isHighlighted];
+    BOOL isSelected = self.isSelected || self.isHighlighted;
+    [self drawCanvas1WithFrame:rect isSelected:isSelected];
 }
 
 - (void)drawCanvas1WithFrame: (CGRect)frame isSelected: (BOOL)isSelected

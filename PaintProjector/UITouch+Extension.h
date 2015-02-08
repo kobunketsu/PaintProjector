@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 static char IsPaintTouchKey;
+static char PreLocationKey;
 @interface UITouch (Extension)
 - (void)setIsPaintTouch:(BOOL)isPaintTouch;
 - (BOOL)isPaintTouch;
+
+- (void)setPreLocation:(CGRect)location;
+- (CGRect)preLocation;
 @end

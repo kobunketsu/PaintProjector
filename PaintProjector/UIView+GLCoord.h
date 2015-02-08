@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (GLCoord)
-- (CGPoint)convertPointToGL:(CGPoint) point fromView:(UIView*)view;
+- (CGPoint)convertPointToGL:(CGPoint) point;
 @end

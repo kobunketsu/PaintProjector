@@ -33,6 +33,9 @@
 
 #define DEBUG_VIEW_COLORALPHA 0
 
+
+
+
 typedef NS_ENUM(NSInteger, PaintViewState) {
     PaintView_TouchNone,
     PaintView_TouchPaint,
@@ -193,7 +196,7 @@ typedef struct {
 #pragma mark 绘图Draw
 - (BOOL)enterState:(PaintViewState)state;
 - (void)prepareDrawEnv;
-- (void)startDraw:(CGPoint)startPoint isTapDraw:(BOOL)isTapDraw;
+- (void)startDraw:(PathPoint)startPoint isTapDraw:(BOOL)isTapDraw;
 - (void)draw:(BOOL)isTapDraw;
 - (void)endDraw;
 - (void)clearData;//清空所有图层，留下一个底层空白

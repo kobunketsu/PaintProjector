@@ -510,6 +510,10 @@
 		088E1D8B18A278A40059002C /* ADCylinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E1D8918A278A40059002C /* ADCylinder.m */; };
 		088E57B61790D7C900464F61 /* ADProjectViewRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 088E57B51790D7C900464F61 /* ADProjectViewRange.m */; };
 		088FD61E18569CEA00B64ABF /* ADTransformContentViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 088FD61D18569CEA00B64ABF /* ADTransformContentViewLayer.m */; };
+		089052C71A86F86C0011BA99 /* JotTouch+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 089052C61A86F86C0011BA99 /* JotTouch+Extension.m */; };
+		089052C81A86F86C0011BA99 /* JotTouch+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 089052C61A86F86C0011BA99 /* JotTouch+Extension.m */; };
+		089052CB1A8704740011BA99 /* JotStylusManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 089052CA1A8704740011BA99 /* JotStylusManager+Extension.m */; };
+		089052CC1A8704740011BA99 /* JotStylusManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 089052CA1A8704740011BA99 /* JotStylusManager+Extension.m */; };
 		0890B8241A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */; };
 		0890B8251A7CBEFB006C59AB /* ADShaderCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */; };
 		08930E1D1787F2B9001525B1 /* ADAutoRotateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08930E1C1787F2B9001525B1 /* ADAutoRotateButton.m */; };
@@ -1627,6 +1631,10 @@
 		088E57B51790D7C900464F61 /* ADProjectViewRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADProjectViewRange.m; sourceTree = "<group>"; };
 		088FD61C18569CEA00B64ABF /* ADTransformContentViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADTransformContentViewLayer.h; sourceTree = "<group>"; };
 		088FD61D18569CEA00B64ABF /* ADTransformContentViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADTransformContentViewLayer.m; sourceTree = "<group>"; };
+		089052C51A86F86C0011BA99 /* JotTouch+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JotTouch+Extension.h"; sourceTree = "<group>"; };
+		089052C61A86F86C0011BA99 /* JotTouch+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JotTouch+Extension.m"; sourceTree = "<group>"; };
+		089052C91A8704740011BA99 /* JotStylusManager+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JotStylusManager+Extension.h"; sourceTree = "<group>"; };
+		089052CA1A8704740011BA99 /* JotStylusManager+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JotStylusManager+Extension.m"; sourceTree = "<group>"; };
 		0890B8221A7CBEFB006C59AB /* ADShaderCompositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADShaderCompositor.h; sourceTree = "<group>"; };
 		0890B8231A7CBEFB006C59AB /* ADShaderCompositor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderCompositor.m; sourceTree = "<group>"; };
 		08930E1B1787F2B9001525B1 /* ADAutoRotateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADAutoRotateButton.h; path = PaintProjector/ADAutoRotateButton.h; sourceTree = "<group>"; };
@@ -3534,6 +3542,10 @@
 				08F5DF1919824F22007B3F12 /* NSObject+PropertyAnimation.m */,
 				08842F1A1A84BECB004A2E61 /* UITouch+Extension.h */,
 				08842F1B1A84BECB004A2E61 /* UITouch+Extension.m */,
+				089052C51A86F86C0011BA99 /* JotTouch+Extension.h */,
+				089052C61A86F86C0011BA99 /* JotTouch+Extension.m */,
+				089052C91A8704740011BA99 /* JotStylusManager+Extension.h */,
+				089052CA1A8704740011BA99 /* JotStylusManager+Extension.m */,
 			);
 			name = Categories;
 			path = PaintProjector;
@@ -4079,6 +4091,7 @@
 				086B73BE194D43EA00870DBD /* ADTutorialView.m in Sources */,
 				ac3657bc9115214296e84f31 /* InfColorPickerController.m in Sources */,
 				0807A63B18C77D3300AA3FA5 /* ADSwatchManagerTableView.m in Sources */,
+				089052C81A86F86C0011BA99 /* JotTouch+Extension.m in Sources */,
 				14aa0559a33e78d5019bfcfc /* InfColorSquarePicker.m in Sources */,
 				039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */,
 				0868E42119CC34620082AEB5 /* ADSimpleAlertView.m in Sources */,
@@ -4253,6 +4266,7 @@
 				b21d4aae8a4506914f03a4e3 /* ADSharedPopoverBackgroundView.m in Sources */,
 				58949f9b36532bac22797155 /* ADSharedPopoverController.m in Sources */,
 				08D4F0E21A77606B00B42B77 /* NSData+RRTransactionParsingAdditions.m in Sources */,
+				089052CC1A8704740011BA99 /* JotStylusManager+Extension.m in Sources */,
 				82f135bc896d402dccd58cfe /* ADDownToolBar.m in Sources */,
 				c28bba63ed86880967c99b8d /* ADCustomLayer.m in Sources */,
 				84e38cf39290be67242a948a /* ADMarker.m in Sources */,
@@ -4657,6 +4671,7 @@
 				080706E018B78F4800D9385F /* ADInAppPurchaseTableView.m in Sources */,
 				08BD1A8319CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				080276741967139C0022FD56 /* ADOpacityIndicatorView.m in Sources */,
+				089052C71A86F86C0011BA99 /* JotTouch+Extension.m in Sources */,
 				0826ED821A7B5B8E00A9F4D9 /* ADShaderLayerBlend.m in Sources */,
 				0871E937176621450046D505 /* ADCommandManager.m in Sources */,
 				087512B31957D67600FC03CC /* ADTutorialBackgroundLeftEdgeView.m in Sources */,
@@ -4676,6 +4691,7 @@
 				088CC7D4177B3DDF006C8DA8 /* ADLayerBlendModeTableView.m in Sources */,
 				085FB3D2177C9969007A9862 /* ADLayerBlendModePopoverBackgroundView.m in Sources */,
 				08704AC51A849EB3008F8413 /* JotTouchStatusHUD.m in Sources */,
+				089052CB1A8704740011BA99 /* JotStylusManager+Extension.m in Sources */,
 				08869AD0177DE9660010E0AA /* ADColorSaveToSlotView.m in Sources */,
 				086B156C181381A2001F31EE /* ADBucket.m in Sources */,
 				08D4F0E11A77606B00B42B77 /* NSData+RRTransactionParsingAdditions.m in Sources */,

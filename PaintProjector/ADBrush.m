@@ -23,7 +23,7 @@
 @property (assign, nonatomic) CGFloat curSegmentSpeed;//当前片段对应速度(Length作为ControlPoint)
 @property (retain, nonatomic) ADHeap *segmentLengths;//用来光滑笔刷大小变化
 
-@property (assign, nonatomic) CGPoint lastStrokedPoint;//上一次绘制的点
+@property (assign, nonatomic) PathPoint lastStrokedPoint;//上一次绘制的点
 @property (assign, nonatomic) size_t strokedSpriteCount;//当前一次绘制的数量
 
 @property (assign, nonatomic) CGFloat curStrokedFade;//当前绘制结束放缩
@@ -75,7 +75,7 @@
         _brushState = [[ADBrushState alloc]init];
         [self resetDefaultBrushState];
         
-        _lastSegmentEndPoint = _lastStrokedPoint = CGPointZero;
+        _lastSegmentEndPoint = _lastStrokedPoint = PathPointMake(0, 0, 1);
         _lastSegmentTailLength = 0;
         
         _segmentLengths = [[ADHeap alloc]initWithCapacity:curveFixJitterIter];
@@ -196,7 +196,7 @@
     _radiusSliderMaxValue = 100;
 }
 
-- (void)startDraw:(CGPoint)startLocation{
+- (void)startDraw:(PathPoint)startLocation{
 //    DebugLog(@"startDraw");
     [self.segmentLengths clear];
     self.curStrokedLength = 0;
@@ -477,7 +477,7 @@
 }
 
 //计算一次点到点绘制需要的数量
-- (size_t)numOfSegmentPointFromStart:(CGPoint)start toEnd:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
+- (size_t)numOfSegmentPointFromStart:(PathPoint)start toEnd:(PathPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
 //    DebugLogFuncUpdate(@"numOfSegmentPointFromStart from %@ to %@ isTapDraw %i", NSStringFromCGPoint(start), NSStringFromCGPoint(end), isTapDraw);
     
     size_t numOfSegmentPoint;
@@ -493,7 +493,7 @@
 //	end.y *= scale;
     
 	//当前描画点
-    self.curSegmentEndPoint = CGPointMake((start.x + end.x)*0.5, (start.y + end.y)*0.5);
+    self.curSegmentEndPoint = PathPointMake((start.origin.x + end.origin.x)*0.5, (start.origin.y + end.origin.y)*0.5, (start.size.width + end.size.width)*0.5);
 //    DebugLog(@"renderSegment lastSegmentEndPoint x:%.0f y:%.0f | start x:%.0f y:%.0f | curSegmentEndPoint x:%.0f y:%.0f | end x:%.0f y:%.0f", self.lastSegmentEndPoint.x, self.lastSegmentEndPoint.y, start.x, start.y, self.curSegmentEndPoint.x, self.curSegmentEndPoint.y, end.x, end.y);
 
     //绘制间隔
@@ -502,11 +502,11 @@
     
 	//绘图距离
     //根据spaceing来确定需要多少step来计算曲线长度
-    CGFloat lengthForStep = [ADMathHelper lengthFromPoint:self.lastSegmentEndPoint toPoint:start];
-    lengthForStep += [ADMathHelper lengthFromPoint:start toPoint:self.curSegmentEndPoint];
+    CGFloat lengthForStep = [ADMathHelper lengthFromPoint:self.lastSegmentEndPoint.origin toPoint:start.origin];
+    lengthForStep += [ADMathHelper lengthFromPoint:start.origin toPoint:self.curSegmentEndPoint.origin];
     NSUInteger numOfStep = (NSUInteger)ceilf(lengthForStep / spacing * curveTesselateScale);
 
-    self.curSegmentLength = [ADMathHelper beizerLengthSteps:numOfStep start:self.lastSegmentEndPoint control:start end:self.curSegmentEndPoint];
+    self.curSegmentLength = [ADMathHelper beizerLengthSteps:numOfStep start:self.lastSegmentEndPoint.origin control:start.origin end:self.curSegmentEndPoint.origin];
     [self.segmentLengths push:[NSNumber numberWithFloat:self.curSegmentLength]];
     
     //调整
@@ -578,9 +578,9 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
  }
  */
 
-- (void)fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
+- (void)fillDataFromPoint:(PathPoint)start toPoint:(PathPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
 {
-    DebugLogFuncUpdate(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start), NSStringFromCGPoint(end));
+//    DebugLogFuncUpdate(@"fillDataFromPoint startPoint %@ endPoint %@", NSStringFromCGPoint(start.origin), NSStringFromCGPoint(end.origin));
     size_t numOfSegmentPoint = [self numOfSegmentPointFromStart:start toEnd:end brushState:brushState isTapDraw:isTapDraw];
 //    DebugLogWarn(@"numOfSegmentPoint %zu", numOfSegmentPoint);
     //绘图Fade
@@ -610,7 +610,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     if (self.brushState.wet > 0) {
         //save temp texture for next draw smudge texture 拷贝吸取位置的贴图
         //time consume.if move too fast, count is high, thread will invoke a lot of update brush smudge texture. next drawElement should not be drawn until this operation is finished
-        [self.delegate willUpdateSmudgeTextureWithBrushState:brushState location:self.lastSegmentEndPoint];
+        [self.delegate willUpdateSmudgeTextureWithBrushState:brushState location:self.lastSegmentEndPoint.origin];
     }
     
     self.lastSegmentEndPoint = self.curSegmentEndPoint;
@@ -618,11 +618,11 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 }
 
 
--(void)fillSegmentBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
+-(void)fillSegmentBezierOrigin:(PathPoint) origin Control:(PathPoint) control Destination:(PathPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
 {
     
     //计算vertex data
-    float x, y;
+    float x, y, pressure;
     float t = 0.0;
 //    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
 
@@ -630,11 +630,13 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     for(int i = 0; i < count; i++,t += 1.0 / (count))
     {
         //计算绘制的位置
-        x = [ADMathHelper beizerValueT:t start:origin.x control:control.x end:destination.x];
-        y = [ADMathHelper beizerValueT:t start:origin.y control:control.y end:destination.y];
+        x = [ADMathHelper beizerValueT:t start:origin.origin.x control:control.origin.x end:destination.origin.x];
+        y = [ADMathHelper beizerValueT:t start:origin.origin.y control:control.origin.y end:destination.origin.y];
+        pressure = [ADMathHelper beizerValueT:t start:origin.size.width control:control.size.width end:destination.size.width];
+//        DebugLogWarn(@"pressure %.2f", pressure);
         
         //计算绘制的距离
-        self.curStrokedLength += [ADMathHelper lengthFromPoint:CGPointMake(x, y) toPoint:self.lastStrokedPoint];
+        self.curStrokedLength += [ADMathHelper lengthFromPoint:CGPointMake(x, y) toPoint:self.lastStrokedPoint.origin];
 //        DebugLogWarn(@"curStrokedLength %.1f", self.curStrokedLength);
         
         //散布Scattering
@@ -663,7 +665,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
             }
         }
 //        DebugLog(@"fade %.1f", radiusFade);
-        radius = brushState.radius * (1 - randX * brushState.radiusJitter) * radiusFade;
+        radius = brushState.radius * (1 - randX * brushState.radiusJitter) * radiusFade * pressure;
         
         
         //流量
@@ -715,7 +717,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         
         //lastDrawPoint使用完毕，更新lastDrawPoint,
         //更新执行的速度可能快于上一次取贴图，导致取到的数值是错误的
-        self.lastStrokedPoint = CGPointMake(x, y);
+        self.lastStrokedPoint = PathPointMake(x, y, pressure);
     }
     
     //allDrawSpriteCount累加count

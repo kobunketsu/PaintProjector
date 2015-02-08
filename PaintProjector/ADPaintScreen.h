@@ -44,6 +44,7 @@
 //Other ViewController
 //#import "CylinderProjectViewController.h"
 //@class PaintView;
+#import "ADRootCanvasBackgroundView.h"
 #import "ADPaintView.h"
 #import "ADBrushTypeButton.h"
 #import "ADBrushPropertyViewController.h"
@@ -102,7 +103,7 @@ typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_EditingBrushSize    = 1 <<  2,
     PaintScreen_EditingBrushOpacity = 1 <<  3,
     PaintScreen_PickColor           = 1 <<  4,
-    PaintScreen_EditingLayer        = 1 <<  5,
+    PaintScreen_EditLayer           = 1 <<  5,
     PaintScreen_Transform           = 1 <<  6,
 };
 
@@ -234,7 +235,7 @@ ADAdonitJotWritingStyleTableViewControllerDelegate
 @property( weak, nonatomic) IBOutlet UIButton* nextBrushTypePageButton;
 @property (weak, nonatomic) IBOutlet UIView *brushDetailView;
 @property (weak, nonatomic) IBOutlet UIView *rootView;
-@property (weak, nonatomic) IBOutlet UIView *rootCanvasView;
+@property (weak, nonatomic) IBOutlet ADRootCanvasBackgroundView *rootCanvasView;
 @property (weak, nonatomic) IBOutlet InfColorPickerIndicatorMagnify *colorPickerIndicatorMagnify;
 @property (weak, nonatomic) IBOutlet ADEyeDropperIndicatorView *eyeDropperIndicatorView;
 @property (weak, nonatomic) IBOutlet ADRadiusSlider *radiusSlider;

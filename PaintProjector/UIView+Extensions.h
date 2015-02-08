@@ -38,4 +38,5 @@
 
 //resolution dependent
 - (CGSize)pixelBoundSize;
+
 @end

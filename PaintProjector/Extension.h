@@ -25,4 +25,6 @@
 #import "UIView+Tag.h"
 #import "UIView+VisibilityAnimation.h"
 #import "UITouch+Extension.h"
+#import "JotTouch+Extension.h"
+//#import "JotStylusManager+Extension.h"
 #import "SKProduct+LocalizedPrice.h"

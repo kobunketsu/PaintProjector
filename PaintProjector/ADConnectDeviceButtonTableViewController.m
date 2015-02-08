@@ -127,7 +127,10 @@
     [RemoteLog logAction:@"PS_connectDeviceButtonDidSelectMethod" identifier:nil];
     if(self.buttonIndex == 0){
         [JotStylusManager sharedInstance].button1Shortcut = [JotStylusManager sharedInstance].shortcuts[indexPath.row];
-                                                                    }
+    }
+    if(self.buttonIndex == 1){
+        [JotStylusManager sharedInstance].button2Shortcut = [JotStylusManager sharedInstance].shortcuts[indexPath.row];
+    }
     [self.delegate didSelectConnectDeviceButtonMethod];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

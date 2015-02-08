@@ -62,7 +62,7 @@ static ADBrushState *brushStateBucket = nil;
     self.brushState.wet = 0;
 }
 
-- (size_t) numOfSegmentPointFromStart:(CGPoint)start toEnd:(CGPoint)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
+- (size_t) numOfSegmentPointFromStart:(CGRect)start toEnd:(CGRect)end brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw{
     return 0;
 }
 
@@ -76,12 +76,12 @@ static ADBrushState *brushStateBucket = nil;
     
 }
 
-- (void) fillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
+- (void) fillDataFromPoint:(CGRect)start toPoint:(CGRect)end segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate
 {
     //do nothing. done in prepareWithBrushState
 }
 
--(void)fillSegmentBezierOrigin:(CGPoint) origin Control:(CGPoint) control Destination:(CGPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
+-(void)fillSegmentBezierOrigin:(CGRect) origin Control:(CGRect) control Destination:(CGRect) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
 {
     //do nothing. done in prepareWithBrushState
 }

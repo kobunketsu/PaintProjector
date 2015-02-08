@@ -9,7 +9,7 @@
 #import "UIView+GLCoord.h"
 
 @implementation UIView (GLCoord)
-- (CGPoint)convertPointToGL:(CGPoint) point fromView:(UIView*)view{
-    return CGPointMake(point.x, view.frame.size.height - point.y);
+- (CGPoint)convertPointToGL:(CGPoint) point{
+    return CGPointMake(point.x, self.bounds.size.height - point.y);
 }
 @end

@@ -114,7 +114,8 @@
             cell.textLabel.text = NSLocalizedString(@"ButtonDown", nil);
             [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
                 if (connected) {
-                    cell.detailTextLabel.text = [JotStylusManager sharedInstance].button1Shortcut.shortText;
+                    NSString *shortText = [JotStylusManager sharedInstance].button1Shortcut.descriptiveText;
+                    cell.detailTextLabel.text = shortText;
                 }
             }];
         }
@@ -124,7 +125,8 @@
             cell.textLabel.text = NSLocalizedString(@"ButtonUp", nil);
             [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
                 if (connected) {
-                    cell.detailTextLabel.text = [JotStylusManager sharedInstance].button2Shortcut.shortText;
+                    NSString *shortText = [JotStylusManager sharedInstance].button2Shortcut.descriptiveText;
+                    cell.detailTextLabel.text = shortText;
                 }
             }];
             

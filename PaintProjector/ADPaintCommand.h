@@ -14,14 +14,14 @@
 
 @protocol ADPaintCommandDelegate
 
-- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped;
+- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(PathPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped;
 
 - (void) willBeforeDrawBrushState:(ADBrushState*)brushState isUndoBaseWrapped:(BOOL)isUndoBaseWrapped isImmediate:(BOOL)isImmediate;
 
 //为在Undo过程中的描绘分配顶点描画的内存
 - (void) willAllocUndoVertexBufferWithPaintCommand:(ADPaintCommand*)cmd;
 
-- (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;
+- (void) willFillDataFromPoint:(PathPoint)start toPoint:(PathPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate;
 
 - (void)willRenderDataWithBrushId:(NSInteger)brushId isImmediate:(BOOL)isImmediate;
 
@@ -41,12 +41,12 @@
 @property (assign, nonatomic) BOOL isTapDraw;
 
 - (ADPaintCommand*)initWithBrushState:(ADBrushState*)brushState;
-- (void)addPathPoint:(CGPoint)point;
-- (void)addPathPointStart:(CGPoint)startPoint End:(CGPoint)endPoint;
+- (void)addPathPoint:(PathPoint)point;
+- (void)addPathPointStart:(PathPoint)startPoint End:(PathPoint)endPoint;
 
-- (void)drawImmediateStart:(CGPoint)startPoint;
+- (void)drawImmediateStart:(PathPoint)startPoint;
 
-- (void)drawImmediateFrom:(CGPoint)startPoint to:(CGPoint)endPoint;
+- (void)drawImmediateFrom:(PathPoint)startPoint to:(PathPoint)endPoint;
 
 - (void)drawImmediateEnd;
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ADRootCanvasBackgroundViewLayer.h"
+#import "ADPaintView.h"
 @interface ADRootCanvasBackgroundView : UIView
-
+@property (weak, nonatomic) ADPaintView *paintView;
 @end

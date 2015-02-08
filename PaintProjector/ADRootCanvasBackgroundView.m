@@ -43,27 +43,43 @@
     self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"RootCanvasFullPattern.png"]];
 }
 
-//-(void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx{
-////    DebugLogWarn(@"morph %.2f", ((ADLaunchLogoViewLayer *)layer).morph);
-//    CGFloat blend = ((ADRootCanvasBackgroundViewLayer *)layer).blend;
-//    
-//    NSInteger column = (NSInteger)ceilf((self.frame.size.width / (CGFloat)BackgroundViewRepeatWidth));
-//    NSInteger row = (NSInteger)ceilf((self.frame.size.height / (CGFloat)BackgroundViewRepeatHeight));
-//    
-//    UIGraphicsPushContext(ctx);
-//    for (NSInteger i =0; i < column; ++i) {
-//        for (NSInteger j =0; j < row; ++j) {
-////        BNRTimeBlock (^{//测试运行速度            
-//            [self drawCanvas:ctx withTop:blend origin:CGPointMake(i*BackgroundViewRepeatWidth, j*BackgroundViewRepeatHeight) size:CGSizeMake(BackgroundViewGridWidth, BackgroundViewGridHeight) row:j column:i];
-////        });
-//        }
-//    }
-//    UIGraphicsPopContext();
-//}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
 
-//- (void)drawRect:(CGRect)rect{
-//    [self drawCanvas1WithFrame:rect];
-//}
+    switch (self.paintView.state) {
+        case PaintView_TouchTransformCanvas:
+//        case PaintView_TouchTransformImage:
+//        case PaintView_TouchTransformLayer:
+        {
+            if([touches containsObject:self.paintView.firstTouch]){
+                self.paintView.firstTouch = nil;
+            }
+            if (self.paintView.curNumberOfTouch == 0) {
+                [self.paintView enterState:PaintView_TouchNone];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    switch (self.paintView.state) {
+        case PaintView_TouchTransformCanvas:
+        case PaintView_TouchTransformImage:
+        case PaintView_TouchTransformLayer:
+        {
+            if (self.paintView.curNumberOfTouch == 0) {
+                [self.paintView enterState:PaintView_TouchNone];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 - (void)drawCanvas1WithFrame: (CGRect)frame;
 {
@@ -190,118 +206,5 @@
     CGGradientRelease(linearGradient1);
     CGColorSpaceRelease(colorSpace);
 }
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect
-//{
-//    // Drawing code
-//    //// General Declarations
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
-//    //// Color Declarations
-//    UIColor* gradientColor1 = [UIColor colorWithRed: 0.89 green: 0.851 blue: 0.847 alpha: 1];
-//    UIColor* gradientColor2 = [UIColor colorWithRed: 0.545 green: 0.655 blue: 0.694 alpha: 1];
-//    UIColor* gradientColor3 = [UIColor colorWithRed: 0.51 green: 0.373 blue: 0.373 alpha: 1];
-//    UIColor* fillColor = [UIColor colorWithRed: 0.168 green: 0.168 blue: 0.168 alpha: 1];
-//    UIColor* black = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
-//    UIColor* bottomLightCenter = [UIColor colorWithRed: 0.336 green: 0.336 blue: 0.336 alpha: 1];
-//    UIColor* gradientColor = [UIColor colorWithRed: 0.505 green: 0.505 blue: 0.505 alpha: 1];
-//    UIColor* white = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-//    
-//    //// Gradient Declarations
-//    CGFloat gradientLocations[] = {0, 0.51, 1};
-//    CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColor1.CGColor, (id)gradientColor2.CGColor, (id)gradientColor3.CGColor], gradientLocations);
-//    CGFloat bottomLightLocations[] = {0.09, 0.57, 1};
-//    CGGradientRef bottomLight = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)black.CGColor, (id)bottomLightCenter.CGColor, (id)white.CGColor], bottomLightLocations);
-//    CGFloat centerLightLocations[] = {0, 0.51, 1};
-//    CGGradientRef centerLight = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)@[(id)gradientColor.CGColor, (id)[UIColor colorWithRed: 0.252 green: 0.252 blue: 0.252 alpha: 1].CGColor, (id)black.CGColor], centerLightLocations);
-//    
-//    //// Rectangle Drawing
-//    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
-//    CGContextSaveGState(context);
-//    [rectanglePath addClip];
-//    CGContextDrawLinearGradient(context, gradient, CGPointMake(384, -0), CGPointMake(384, 1024), 0);
-//    CGContextRestoreGState(context);
-//    
-//    
-//    //// Group
-//    {
-//        CGContextSaveGState(context);
-//        CGContextSetBlendMode(context, kCGBlendModeScreen);
-//        CGContextBeginTransparencyLayer(context, NULL);
-//        
-//        
-//        //// Bezier Drawing
-//        UIBezierPath* bezierPath = UIBezierPath.bezierPath;
-//        [bezierPath moveToPoint: CGPointMake(768, 568.25)];
-//        [bezierPath addLineToPoint: CGPointMake(768, 1023)];
-//        [bezierPath addCurveToPoint: CGPointMake(0, 1023) controlPoint1: CGPointMake(762.61, 1024.79) controlPoint2: CGPointMake(0, 1023)];
-//        [bezierPath addLineToPoint: CGPointMake(0, 567.26)];
-//        [bezierPath addCurveToPoint: CGPointMake(768, 568.25) controlPoint1: CGPointMake(227.21, 492.58) controlPoint2: CGPointMake(541.56, 492.91)];
-//        [bezierPath closePath];
-//        CGContextSaveGState(context);
-//        [bezierPath addClip];
-//        CGContextDrawLinearGradient(context, bottomLight, CGPointMake(384, 511.5), CGPointMake(384, 1023.8), 0);
-//        CGContextRestoreGState(context);
-//        
-//        
-//        CGContextEndTransparencyLayer(context);
-//        CGContextRestoreGState(context);
-//    }
-//    
-//    
-//    //// Group 2
-//    {
-//        CGContextSaveGState(context);
-//        CGContextSetAlpha(context, 0.88);
-//        CGContextSetBlendMode(context, kCGBlendModeMultiply);
-//        CGContextBeginTransparencyLayer(context, NULL);
-//        
-//        
-//        //// Rectangle 2 Drawing
-//        UIBezierPath* rectangle2Path = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
-//        [fillColor setFill];
-//        [rectangle2Path fill];
-//        
-//        
-//        CGContextEndTransparencyLayer(context);
-//        CGContextRestoreGState(context);
-//    }
-//    
-//    
-//    //// Group 3
-//    {
-//        CGContextSaveGState(context);
-//        CGContextSetAlpha(context, 0.62);
-//        CGContextSetBlendMode(context, kCGBlendModeScreen);
-//        CGContextBeginTransparencyLayer(context, NULL);
-//        
-//        
-//        //// Rectangle Light Drawing
-//        UIBezierPath* rectangleLightPath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, 768, 1024)];
-//        CGContextSaveGState(context);
-//        [rectangleLightPath addClip];
-//        CGContextDrawRadialGradient(context, centerLight,
-//                                    CGPointMake(384, 260.57), 31.96,
-//                                    CGPointMake(384, 512), 637.58,
-//                                    kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-//        CGContextRestoreGState(context);
-//        
-//        
-//        CGContextEndTransparencyLayer(context);
-//        CGContextRestoreGState(context);
-//    }
-//    
-//    
-//    //// Cleanup
-//    CGGradientRelease(gradient);
-//    CGGradientRelease(bottomLight);
-//    CGGradientRelease(centerLight);
-//    CGColorSpaceRelease(colorSpace);
-//    
-//    
-//}
 
 @end

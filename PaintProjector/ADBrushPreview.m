@@ -13,7 +13,7 @@
 #import "ADOilBrush.h"
 
 @interface ADBrushPreview()
-@property (assign, nonatomic) CGPoint starDrawLocation;
+@property (assign, nonatomic) PathPoint starDrawLocation;
 @end
 
 @implementation ADBrushPreview
@@ -345,33 +345,33 @@
     [self.paintCommand execute];
 }
 - (void)createStroke:(ADBrush*)brush{
-    DebugLogFuncStart(@"createStroke");
-
-    DebugLogGLGroupStart(@"createStroke");
-
-    
-    self.brush = brush;
-    self.brush.canvasSize = self.bounds.size;//设置临时Canvas,需要恢复paintView的设置
-    
-    self.paintCommand = [[ADPaintCommand alloc]initWithBrushState:self.brush.brushState];
-
-    self.paintCommand.delegate = self;
-    
-    float margin = self.brush.brushState.radius + 10;
-    float height = 130;
-    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(margin, height * 0.5) fromView:self]
-                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.33, height * 0.33) fromView:self]];
-    
-    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.33, height * 0.33) fromView:self]
-                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.67, height * 0.67) fromView:self]];
-    
-    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.67, height * 0.67) fromView:self]
-                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]];
-    
-    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]
-                                      End:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]];
-
-    DebugLogGLGroupEnd();
+//    DebugLogFuncStart(@"createStroke");
+//
+//    DebugLogGLGroupStart(@"createStroke");
+//
+//    
+//    self.brush = brush;
+//    self.brush.canvasSize = self.bounds.size;//设置临时Canvas,需要恢复paintView的设置
+//    
+//    self.paintCommand = [[ADPaintCommand alloc]initWithBrushState:self.brush.brushState];
+//
+//    self.paintCommand.delegate = self;
+//    
+//    float margin = self.brush.brushState.radius + 10;
+//    float height = 130;
+//    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(margin, height * 0.5) fromView:self]
+//                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.33, height * 0.33) fromView:self]];
+//    
+//    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.33, height * 0.33) fromView:self]
+//                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.67, height * 0.67) fromView:self]];
+//    
+//    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width * 0.67, height * 0.67) fromView:self]
+//                                     End:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]];
+//    
+//    [self.paintCommand addPathPointStart:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]
+//                                      End:[self convertPointToGL:CGPointMake(self.frame.size.width - margin, height * 0.5) fromView:self]];
+//
+//    DebugLogGLGroupEnd();
 
 }
 
@@ -381,16 +381,16 @@
     self.paintCommand = nil;
 }
 #pragma mark- Action Draw
-- (void)startDraw:(CGPoint)startPoint{
-    DebugLogFuncStart(@"startDraw %@", NSStringFromCGPoint(startPoint));
+- (void)startDraw:(PathPoint)startPoint{
+//    DebugLogFuncStart(@"startDraw %@", NSStringFromCGPoint(startPoint));
     self.starDrawLocation = startPoint;
     self.paintCommand = [[ADPaintCommand alloc]initWithBrushState:self.brush.brushState];
     self.paintCommand.delegate = self;
     [self.paintCommand drawImmediateStart:startPoint];
 }
 
-- (void) drawFromPoint:(CGPoint)startPoint toPoint:(CGPoint)endPoint isTapDraw:(BOOL)isTapDraw{
-    DebugLogFuncStart(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
+- (void) drawFromPoint:(PathPoint)startPoint toPoint:(PathPoint)endPoint isTapDraw:(BOOL)isTapDraw{
+//    DebugLogFuncStart(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint), NSStringFromCGPoint(endPoint));
     if (!self.paintCommand) {
         DebugLogError(@"self.paintCommand nil!");
         return;
@@ -429,18 +429,19 @@
     DebugLogSystem(@"touchesMoved current %@ previous %@", NSStringFromCGPoint([(UITouch*)[touches anyObject] locationInView:self]), NSStringFromCGPoint([(UITouch*)[touches anyObject] previousLocationInView:self]));
     UITouch *touch = [touches anyObject];
     //更新触摸点
-    CGPoint location = [touch locationInView:self];
-    location.y = self.bounds.size.height - location.y;
-    CGPoint previousLocation = [touch previousLocationInView:self];
-    previousLocation.y = self.bounds.size.height - previousLocation.y;
+    CGPoint location = [self convertPointToGL:[touch locationInView:self]];
+    PathPoint curElement = PathPointMake(location.x, location.y, 1);
+    
+    CGPoint previousLocation = [self convertPointToGL:[touch previousLocationInView:self]];
+    PathPoint preElement = PathPointMake(previousLocation.x, previousLocation.y, 1);
     //将previousLocation加入到drawPath中，用来连接previousLocation到drawPath.lastObject，绘制完清空path
     
     //将touchesBegan的点连接起来
     if (!self.paintCommand) {
-        [self startDraw:location];
+        [self startDraw:curElement];
     }
     else{
-        [self drawFromPoint:previousLocation toPoint:location isTapDraw:false];
+        [self drawFromPoint:preElement toPoint:curElement isTapDraw:false];
     }
 }
 
@@ -481,7 +482,7 @@
 
 #pragma mark- PaintCommand Delegate
 //执行周期为一个移动操作
-- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(CGPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
+- (void) willStartDrawBrushState:(ADBrushState*)brushState FromPoint:(PathPoint)startPoint isUndoBaseWrapped:(BOOL)isUndoBaseWrapped{
 //    DebugLog(@"[ willStartDraw ]");
 
     DebugLogGLGroupStart(@"brushPreview willStartDrawBrushState");
@@ -512,12 +513,12 @@
     
     size_t count = 0;
     //    DebugLog(@"paintCommand paintPaths count %d", [cmd.paintPaths count]);
-    self.brush.curSegmentEndPoint = self.brush.lastSegmentEndPoint = [[cmd.paintPaths objectAtIndex:0] CGPointValue];
+    self.brush.curSegmentEndPoint = self.brush.lastSegmentEndPoint = [[cmd.paintPaths objectAtIndex:0] CGRectValue];
     for (int i = 0; i < [cmd.paintPaths count]-1; ++i) {
         
         NSUInteger endIndex = (cmd.paintPaths.count == 1 ? i : (i+1));
-        CGPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGPointValue];
-        CGPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGPointValue];
+        PathPoint startPoint = [[cmd.paintPaths objectAtIndex:i] CGRectValue];
+        PathPoint endPoint = [[cmd.paintPaths objectAtIndex:endIndex] CGRectValue];
         
         size_t countSegment = [self.brush numOfSegmentPointFromStart:startPoint toEnd:endPoint brushState:cmd.brushState isTapDraw:cmd.isTapDraw];
         DebugLog(@"calculateDrawCountFromPointToPoint countSegment %lu", countSegment);
@@ -570,7 +571,7 @@
 }
 
 
-- (void) willFillDataFromPoint:(CGPoint)start toPoint:(CGPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
+- (void) willFillDataFromPoint:(PathPoint)start toPoint:(PathPoint)end WithBrushId:(NSInteger)brushId segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isTapDraw:(BOOL)isTapDraw isImmediate:(BOOL)isImmediate{
 
     DebugLogGLGroupStart(@"brushPreview willFillDataFromPoint");
 

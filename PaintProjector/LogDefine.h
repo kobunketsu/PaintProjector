@@ -69,7 +69,7 @@
 #define DebugLogSystem(s,...)           _DebugLogSystem(s, ##__VA_ARGS__)
 #define DebugLogIBAction(s,...)         _DebugLogIBAction(s, ##__VA_ARGS__)
 #define DebugLogFuncStart(s,...)        _DebugLogFuncStart(s, ##__VA_ARGS__)
-#define DebugLogFuncUpdate(s,...)       //_DebugLogFuncUpdate(s, ##__VA_ARGS__)
+#define DebugLogFuncUpdate(s,...)       _DebugLogFuncUpdate(s, ##__VA_ARGS__)
 #define DebugLogGL(s,...)               //_DebugLogGL(s, ##__VA_ARGS__)
 #define DebugLogGLGroupStart(s,...)     //_DebugLogGLGroupStart(s, ##__VA_ARGS__)
 #define DebugLogGLGroupEnd()            //_DebugLogGLGroupEnd()
