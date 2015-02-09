@@ -41,6 +41,7 @@
 #define LayerToolButtonSize 40
 #define PopoverOffset 20
 #define PaintScreenIBActionAnimationDuration 0.3
+#define EyeDropperOffset 40
 
 //使用NSUserDefault来存储数据
 //#define LayerMaxCount_Pro 8
@@ -472,6 +473,7 @@
     
     [ADBrushManager destroy];
     
+    [self closeJotSDK];
 }
 
 -(void)didReceiveMemoryWarning{
@@ -1337,7 +1339,7 @@
     [self updateAllTransformAnchorViews];
     [self showAllTransformAnchorViews];
 }
-- (IBAction)handlePanTransformAnchorView:(UIPanGestureRecognizer *)sender {
+- (IBAction)handlePan1TouchTransformAnchorView:(UIPanGestureRecognizer *)sender {
     [RemoteLog logAction:@"PS_handlePanAnchorView" identifier:sender];
     if (_state != PaintScreen_Transform) {
         return;
@@ -1721,7 +1723,7 @@
 //            self.infColorPickerController.resultColor = sender.view.backgroundColor;//覆盖当前笔刷色
 
             ADColorButton* colorButton = (ADColorButton*)sender.view;
-            [self openColorPicker:colorButton.color inColorButton:colorButton];
+            [self toggleColorPicker:colorButton.color inColorButton:colorButton];
             break;
         }
         case UIGestureRecognizerStateEnded:
@@ -1868,6 +1870,9 @@
 }
 - (void)undoShortCut{
     [RemoteLog logAction:@"PS_undoShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
     if (![self isShortCutEnabled]) {
         return;
     }
@@ -1878,6 +1883,9 @@
 
 - (void)redoShortCut{
     [RemoteLog logAction:@"PS_redoShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
     if (![self isShortCutEnabled]) {
         return;
     }
@@ -1888,6 +1896,9 @@
 
 - (void)clearShortCut{
     [RemoteLog logAction:@"PS_clearShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
     if (![self isShortCutEnabled]) {
         return;
     }
@@ -1898,6 +1909,12 @@
 
 - (void)transformShortCut{
     [RemoteLog logAction:@"PS_transformShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_Transform) {
+        [self leaveState:self.state];
+    }
     [self beginButtonIBAction:self.transformButton];
     [self toggleTransform];
     [self performSelector:@selector(endButtonIBAction:) withObject:self.transformButton afterDelay:PaintScreenIBActionAnimationDuration];
@@ -1908,8 +1925,14 @@
 
 - (void)layerShortCut{
     [RemoteLog logAction:@"PS_layerShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_EditLayer) {
+        [self leaveState:self.state];
+    }
     [self beginButtonIBAction:self.layerButton];
-    [self layerButtonTouchUp:self.layerButton];
+    [self toggleLayer:self.layerButton];
     [self performSelector:@selector(endButtonIBAction:) withObject:self.layerButton afterDelay:PaintScreenIBActionAnimationDuration];
     if (self.state == PaintScreen_EditLayer) {
         [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutLayer", nil) parentView:self.rootView]show];
@@ -1919,8 +1942,14 @@
 
 - (void)pickColorShortCut{
     [RemoteLog logAction:@"PS_pickColorShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_PickColor) {
+        [self leaveState:self.state];
+    }
     [self beginButtonIBAction:self.paintColorButton];
-    [self paintColorButtonTouchUp:self.paintColorButton];
+    [self toggleColorPicker:self.paintColorButton.color inColorButton:self.paintColorButton];
     [self performSelector:@selector(endButtonIBAction:) withObject:self.paintColorButton afterDelay:PaintScreenIBActionAnimationDuration];
     if (self.state == PaintScreen_PickColor) {
         [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutColor", nil) parentView:self.rootView]show];
@@ -1928,22 +1957,83 @@
 
 }
 
+- (void)importShortCut{
+    [RemoteLog logAction:@"PS_importShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_Import) {
+        [self leaveState:self.state];
+    }
+    [self beginButtonIBAction:self.importButton];
+    [self toggleImport:self.importButton];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.importButton afterDelay:PaintScreenIBActionAnimationDuration];
+    if (self.state == PaintScreen_Import) {
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutImport", nil) parentView:self.rootView]show];
+    }
+}
+
+- (void)exportShortCut{
+    [RemoteLog logAction:@"PS_exportShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_Export) {
+        [self leaveState:self.state];
+    }
+    [self beginButtonIBAction:self.exportButton];
+    [self toggleExport:self.exportButton];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.exportButton afterDelay:PaintScreenIBActionAnimationDuration];
+    if (self.state == PaintScreen_Export) {
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutImport", nil) parentView:self.rootView]show];
+    }
+}
+
+- (void)helpShortCut{
+    [RemoteLog logAction:@"PS_helpShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_Help) {
+        [self leaveState:self.state];
+    }
+    [self beginButtonIBAction:self.helpButton];
+    [self toggleHelp:self.helpButton];
+    [self performSelector:@selector(endButtonIBAction:) withObject:self.helpButton afterDelay:PaintScreenIBActionAnimationDuration];
+    if (self.state == PaintScreen_Help) {
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutHelp", nil) parentView:self.rootView]show];
+    }
+}
+
+- (void)selectBrushShortCut{
+    [RemoteLog logAction:@"PS_selectBrushShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (self.state != PaintScreen_Normal && self.state != PaintScreen_SelectBrush) {
+        [self leaveState:self.state];
+    }
+    [self toggleSelectBrush];
+    if (self.state == PaintScreen_SelectBrush) {
+        [[[ADHintView alloc]initWithTitle:NSLocalizedString(@"ShortcutSelectBrush", nil) parentView:self.rootView]show];
+    }
+}
+
 //MARK: 需要验证
 - (void)eyedropColorShortCut{
     [RemoteLog logAction:@"PS_eyedropColorShortCut" identifier:nil];
-    if (![self isShortCutEnabled]) {
+    if (self.state == PaintScreen_SelectBrush) {
         return;
     }
-    if (_state == PaintScreen_Normal) {
-        return;
+    if (self.state != PaintScreen_Normal) {
+        [self leaveState:self.state];
     }
     if (self.paintView.state == PaintView_TouchPaint ||
         self.paintView.state == PaintView_TouchNone) {
         if ([self.paintView enterState:PaintView_TouchEyeDrop]) {
             self.eyeDropperIndicatorView.srcColor = [self.paintView.brush.brushState.color copy];
-            CGPoint point = [self willGetEyeDropLocation];
+            CGPoint point = self.paintView.center;
             [self.paintView eyeDropColor:point];
-            
             [self willStartUIEyeDrop];
         }
     }
@@ -1957,6 +2047,9 @@
 
 - (void)swapBrushShortCut{
     [RemoteLog logAction:@"PS_swapBrushShortCut" identifier:nil];
+    if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
     [self beginButtonIBAction:self.brushBackButton];
     [self swapBrushType];
     [self performSelector:@selector(endButtonIBAction:) withObject:self.brushBackButton afterDelay:PaintScreenIBActionAnimationDuration];
@@ -2030,10 +2123,7 @@
         self.brushTypeScrollView.contentOffset = CGPointMake(offset, 0);
         
         //切换成横移动画
-        [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
-            _state = PaintScreen_SelectBrush;
-            [Flurry logEvent:@"PS_inSelectBrush" withParameters:nil timed:true];
-        }];
+        [self toggleSelectBrush];
     }
 }
 
@@ -2641,17 +2731,29 @@
     //取消自动展示
 //    [self autoShowBrushes:false];
     
-    [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
-    if ([ADSimpleTutorialManager current].isActive) {
-        [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+    [self toggleSelectBrush];
+}
+
+- (void)toggleSelectBrush{
+    if (self.state == PaintScreen_SelectBrush) {
+        [ADPaintUIKitAnimation view:self.view switchTopToolBarToView:self.mainToolBar completion:nil];
+        if ([ADSimpleTutorialManager current].isActive) {
+            [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = false;
+        }
+        [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
+            _state = PaintScreen_Normal;
+            [Flurry endTimedEvent:@"PS_inSelectBrush" withParameters:nil];
+            [Flurry endTimedEvent:@"PS_inBrushTypePage" withParameters:nil];
+            //笔刷面板打开绘图
+            self.rootCanvasView.userInteractionEnabled = true;
+        }];
     }
-    [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:false outView:self.brushTypeView inView:self.paintToolView completion:^{
-        _state = PaintScreen_Normal;
-        [Flurry endTimedEvent:@"PS_inSelectBrush" withParameters:nil];
-        [Flurry endTimedEvent:@"PS_inBrushTypePage" withParameters:nil];
-        //笔刷面板打开绘图
-        self.rootCanvasView.userInteractionEnabled = true;
-    }];
+    else{
+        [ADPaintUIKitAnimation view:self.view slideToolBarRightDirection:true outView:self.paintToolView inView:self.brushTypeView completion:^{
+            _state = PaintScreen_SelectBrush;
+            [Flurry logEvent:@"PS_inSelectBrush" withParameters:nil timed:true];
+        }];
+    }
 }
 
 -(void)willSelectBrushCanceled:(id)sender{
@@ -2937,24 +3039,36 @@
 }
 
 #pragma mark- 导入 Import
+- (void) toggleImport:(UIButton*)sender{
+    if (self.state == PaintScreen_Import) {
+        self.state = PaintScreen_Normal;
+        sender.selected = false;
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+    }
+    else if (self.state == PaintScreen_Normal) {
+        if (![self checkInsertAvailable]) {
+            return;
+        }
+        
+        self.state = PaintScreen_Import;
+        sender.selected = true;
+        
+        ADImportTableViewController* importTableViewController = [[ADImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        importTableViewController.delegate = self;
+        importTableViewController.tableView.scrollEnabled = false;
+        
+        importTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, importTableViewController.tableViewHeight);
+        
+        self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:importTableViewController];
+        self.sharedPopoverController.fromButton = self.importButton;
+        self.sharedPopoverController.delegate = self;
+        [self.sharedPopoverController presentPopoverFromRect:self.importButton.bounds inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        
+    }
+}
 - (IBAction)importButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_importButtonTouchUp" identifier:sender];
-    
-    if (![self checkInsertAvailable]) {
-        return;
-    }
-    
-    sender.selected = true;
-    
-    ADImportTableViewController* importTableViewController = [[ADImportTableViewController alloc]initWithStyle:UITableViewStylePlain];
-    importTableViewController.delegate = self;
-    importTableViewController.tableView.scrollEnabled = false;
-
-    importTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, importTableViewController.tableViewHeight);
-    
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:importTableViewController];
-    self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:self.importButton.bounds inView:self.importButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self toggleImport:sender];
 }
 
 -(void) didSelectImportPhoto{
@@ -3208,19 +3322,31 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+- (void)toggleExport:(UIButton*)sender{
+    if (self.state == PaintScreen_Export) {
+        self.state = PaintScreen_Normal;
+        sender.selected = false;
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+    }
+    else if (self.state == PaintScreen_Normal) {
+        self.state = PaintScreen_Export;
+        sender.selected = true;
+        
+        ADExportTableViewController* exportTableViewController = [[ADExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        exportTableViewController.tableView.scrollEnabled = false;
+        exportTableViewController.delegate = self;
+        
+        exportTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, exportTableViewController.tableViewHeight);
+        
+        self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:exportTableViewController];
+        self.sharedPopoverController.fromButton = self.exportButton;
+        self.sharedPopoverController.delegate = self;
+        [self.sharedPopoverController presentPopoverFromRect:self.exportButton.bounds inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+}
 - (IBAction)exportButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"PS_exportButtonTouchUp" identifier:sender];
-    sender.selected = true;
-    
-    ADExportTableViewController* exportTableViewController = [[ADExportTableViewController alloc]initWithStyle:UITableViewStylePlain];
-    exportTableViewController.tableView.scrollEnabled = false;
-    exportTableViewController.delegate = self;
-    
-    exportTableViewController.preferredContentSize = CGSizeMake(PopoverTableViewWidth, exportTableViewController.tableViewHeight);
-    
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:exportTableViewController];
-    self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:self.exportButton.bounds inView:self.exportButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self toggleExport:sender];
 }
 
 -(void) didSelectExportToEmail{
@@ -3525,7 +3651,7 @@
     CGRect frame = CGRectMake(newOrigin.x - offset, newOrigin.y - offset, size, size);
     ADTransformAnchorView *transformAnchorView = [[ADTransformAnchorView alloc] initWithFrame:frame];
     transformAnchorView.tag = tag;
-    UIPanGestureRecognizer *pgrTransformAnchorView = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePanTransformAnchorView:)];
+    UIPanGestureRecognizer *pgrTransformAnchorView = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan1TouchTransformAnchorView:)];
     pgrTransformAnchorView.delegate = self;
     pgrTransformAnchorView.cancelsTouchesInView = true;
     pgrTransformAnchorView.minimumNumberOfTouches = pgrTransformAnchorView.maximumNumberOfTouches = 1;
@@ -3738,9 +3864,15 @@
     
     self.transformButton.selected = false;
     [self.transformButton.layer setNeedsDisplay];
-    [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
+    
+    if (!self.isPaintFullScreen) {
+        [ADPaintUIKitAnimation view:self.view switchDownToolBarToView:self.paintToolBar completion:^{
+            [self lockInteraction:false];
+        }];
+    }
+    else{
         [self lockInteraction:false];
-    }];
+    }
     
     [self removeTransformHelperViews];
     
@@ -3752,9 +3884,43 @@
     self.pgr1TouchesPaintView.enabled = true;
 }
 
+- (void)enterState:(PaintScreenViewState) state{
+    
+}
+- (void)leaveState:(PaintScreenViewState) state{
+    switch (state) {
+        case PaintScreen_PickColor:
+            [self pickColorShortCut];
+            break;
+        case PaintScreen_EditLayer:
+            [self layerShortCut];
+            break;
+        case PaintScreen_Transform:
+            [self transformShortCut];
+            break;
+        case PaintScreen_Import:
+            [self importShortCut];
+            break;
+        case PaintScreen_Export:
+            [self exportShortCut];
+            break;
+        case PaintScreen_Help:
+            [self helpShortCut];
+            break;
+        case PaintScreen_SelectBrush:
+//            [self selectBrushShortCut];
+            break;
+        default:
+            break;
+    }
+}
+
 - (void)toggleTransform{
+    
     if (_state == PaintScreen_Normal) {
         [Flurry logEvent:@"PS_inTransform" withParameters:nil timed:true];
+        
+        
         //计算当前层的bounding box,并根据bounding box大小创建transform外框
         CGRect rect = [self.paintView calculateLayerContentRect];
         
@@ -3831,18 +3997,13 @@
 }
 
 #pragma mark- 图层 Layer
-- (IBAction)layerButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"PS_layerButtonTouchUp" identifier:sender];
-    if (self.state == PaintScreen_Transform) {
-        [self toggleTransform];
-    }
-    
+- (void)toggleLayer:(UIButton *)sender{
     if (self.state == PaintScreen_EditLayer) {
         self.state = PaintScreen_Normal;
         sender.selected = false;
         [self.sharedPopoverController dismissPopoverAnimated:true];
     }
-    else{
+    else if(self.state == PaintScreen_Normal) {
         sender.selected = true;
         self.state = PaintScreen_EditLayer;
         
@@ -3866,7 +4027,7 @@
         if (self.sharedPopoverController) {
             [self.sharedPopoverController dismissPopoverAnimated:false];
         }
-
+        
         self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.layerTableViewController];
         self.sharedPopoverController.fromButton = sender;
         self.sharedPopoverController.delegate = self;
@@ -3888,8 +4049,10 @@
             });
         });
     }
-    
-
+}
+- (IBAction)layerButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"PS_layerButtonTouchUp" identifier:sender];
+    [self toggleLayer:sender];
 }
 
 
@@ -4456,19 +4619,20 @@
 
 - (CGPoint) willGetEyeDropLocation{
     //更新触摸点
-    CGPoint locationInRootView = [self.paintView.firstTouch locationInView:self.rootCanvasView];
     CGPoint eyeDropLocation = CGPointZero;
-    if (IsOffsetEyeDropper) {
-//        DebugLogWarn(@"willGetEyeDropLocation in rootCanvasView %@", NSStringFromCGPoint(locationInRootView));
-        CGPoint offset = CGPointMake(0, -40);
+    CGPoint locationInRootView = [self.paintView.firstTouch locationInView:self.rootCanvasView];
+    if ([JotStylusManager sharedInstance].isStylusConnected
+        && [JotStylusManager sharedInstance].enabled
+        && [JotStylusManager sharedInstance].getPressure > 0) {
         
+    }
+    else if (IsOffsetEyeDropper) {
+        CGPoint offset = CGPointMake(0, -EyeDropperOffset);
         locationInRootView = CGPointMake(locationInRootView.x + offset.x, locationInRootView.y + offset.y);
 //        DebugLogWarn(@"offseted location in rootCanvasView %@", NSStringFromCGPoint(locationInRootView));
     }
     
-    eyeDropLocation = [self.paintView convertPoint:locationInRootView fromView:self.rootCanvasView];
-    eyeDropLocation.y = self.paintView.bounds.size.height - eyeDropLocation.y;
-    
+    eyeDropLocation = [self.paintView convertPointToGL:[self.paintView convertPoint:locationInRootView fromView:self.rootCanvasView]];
 //    DebugLogWarn(@"willGetEyeDropLocation final in paintView %@", NSStringFromCGPoint(eyeDropLocation));
     return eyeDropLocation;
 }
@@ -4600,38 +4764,33 @@
 }
 
 //打开颜色取色器
-- (void)openColorPicker:(UIColor*)color inColorButton:(ADColorButton*)colorButton{
-//    if(self.sharedPopoverController != nil && [self.sharedPopoverController isPopoverVisible]) return; //已经打开
-    
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([colorButton class]), @"fromButton",nil];
-    [Flurry logEvent:@"PS_inColorPicker" withParameters:params timed:true];
-    
-    self.colorPickerSrcButton = colorButton;
-    self.infColorPickerController.delegate = self;
-    self.infColorPickerController.sourceColor = color;//覆盖当前笔刷色
-    
-    if (self.sharedPopoverController) {
-        [self.sharedPopoverController dismissPopoverAnimated:false];
-    }
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
-    self.sharedPopoverController.fromButton = colorButton;
-    self.sharedPopoverController.delegate = self;
-    [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-}
-- (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"PS_paintColorButtonTouchUp" identifier:sender];
-    if (self.state == PaintScreen_Transform) {
-        [self toggleTransform];
-    }
-    
+- (void)toggleColorPicker:(UIColor*)color inColorButton:(ADColorButton*)colorButton{
     if (self.state == PaintScreen_PickColor) {
         [self.sharedPopoverController dismissPopoverAnimated:true];
         self.state = PaintScreen_Normal;
     }
-    else{
-        [self openColorPicker:self.paintColorButton.color inColorButton:self.paintColorButton];
+    else if (self.state == PaintScreen_Normal) {
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([colorButton class]), @"fromButton",nil];
+        [Flurry logEvent:@"PS_inColorPicker" withParameters:params timed:true];
+        
+        self.colorPickerSrcButton = colorButton;
+        self.infColorPickerController.delegate = self;
+        self.infColorPickerController.sourceColor = color;//覆盖当前笔刷色
+        
+        if (self.sharedPopoverController) {
+            [self.sharedPopoverController dismissPopoverAnimated:false];
+        }
+        self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.infColorPickerController];
+        self.sharedPopoverController.fromButton = colorButton;
+        self.sharedPopoverController.delegate = self;
+        [self.sharedPopoverController presentPopoverFromRect:colorButton.bounds inView:colorButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
         self.state = PaintScreen_PickColor;
     }
+
+}
+- (IBAction)paintColorButtonTouchUp:(UIButton *)sender {
+    [RemoteLog logAction:@"PS_paintColorButtonTouchUp" identifier:sender];
+    [self toggleColorPicker:self.paintColorButton.color inColorButton:self.paintColorButton];
 }
 
 //------------------------------------------------------------------------------
@@ -4797,7 +4956,6 @@
     else if ([popoverController.contentViewController isKindOfClass:[ADLayerTableViewController class]]) {
         self.layerButton.selected = false;
         [self.layerButton.layer setNeedsDisplay];
-
     }
     else if ([popoverController.contentViewController isKindOfClass:[ADImportTableViewController class]] ||
              [popoverController.contentViewController isKindOfClass:[UIImagePickerController class]]) {
@@ -4811,9 +4969,7 @@
     else if ([popoverController.contentViewController isKindOfClass:[ADHelpViewController class]]) {
         self.helpButton.selected = false;
         [self.helpButton.layer setNeedsDisplay];
-
         [self closeIndicator];
-        
         [self tutorialStartCurrentStep];
     }
     else if ([popoverController.contentViewController isKindOfClass:[InfColorPickerController class]]) {
@@ -5247,27 +5403,41 @@
 }
 
 #pragma mark- 帮助 Help
+- (void)toggleHelp:(UIButton*)sender{
+    if (self.state == PaintScreen_Help) {
+        self.state = PaintScreen_Normal;
+        sender.selected = false;
+        [self.sharedPopoverController dismissPopoverAnimated:true];
+        [self closeIndicator];
+        [self tutorialStartCurrentStep];
+    }
+    else if (self.state == PaintScreen_Normal) {
+        self.state = PaintScreen_Help;
+        if ([ADSimpleTutorialManager current].isActive &&
+            [[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"PaintScreenHelpTips"]) {
+            //PaintScreenHelpTips之后的step也可以按此按钮
+            [self tutorialStepNextImmediate:false];
+        }
+        
+        
+        sender.selected = true;
+        
+        self.helpViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"HelpViewController"];
+        self.helpViewController.preferredContentSize = CGSizeMake(768, 260);
+        
+        self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.helpViewController];
+        self.sharedPopoverController.fromButton = self.helpButton;
+        self.sharedPopoverController.delegate = self;
+        
+        [self showIndicator];
+        
+        [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+}
 - (IBAction)helpButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"PS_helpButtonTouchUp" identifier:sender];
-    if ([ADSimpleTutorialManager current].isActive &&
-        [[ADSimpleTutorialManager current].curTutorial.curStep.name isEqualToString:@"PaintScreenHelpTips"]) {
-        //PaintScreenHelpTips之后的step也可以按此按钮
-        [self tutorialStepNextImmediate:false];
-    }
 
-    
-    ((UIButton*)sender).selected = true;
-    
-    self.helpViewController =  [self.storyboard instantiateViewControllerWithIdentifier:@"HelpViewController"];
-    self.helpViewController.preferredContentSize = CGSizeMake(768, 260);
-    
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:self.helpViewController];
-    self.sharedPopoverController.delegate = self;
-
-    [self showIndicator];
-    
-    [self.sharedPopoverController presentPopoverFromRect:self.helpButton.bounds inView:self.helpButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    
+    [self toggleHelp:sender];
 }
 
 - (void)closeIndicator{
@@ -5494,6 +5664,7 @@
     
     [self.sharedPopoverController dismissPopoverAnimated:false];
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.fromButton = self.connectDeviceButton;
     self.sharedPopoverController.delegate = self;
     
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
@@ -5508,6 +5679,7 @@
     
     [self.sharedPopoverController dismissPopoverAnimated:false];
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.fromButton = self.connectDeviceButton;
     self.sharedPopoverController.delegate = self;
     
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
@@ -5522,6 +5694,7 @@
     
     [self.sharedPopoverController dismissPopoverAnimated:false];
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.fromButton = self.connectDeviceButton;
     self.sharedPopoverController.delegate = self;
     
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
@@ -5565,6 +5738,7 @@
     
     [self.sharedPopoverController dismissPopoverAnimated:false];
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
+    self.sharedPopoverController.fromButton = self.connectDeviceButton;
     self.sharedPopoverController.delegate = self;
     
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
@@ -5604,6 +5778,10 @@
     self.jotManager.palmRejectorDelegate = nil;
     [self.jotManager disable];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeConnectionStatus object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelNormal object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelLow object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelCritical object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeBatteryLevel object:nil];
 }
 - (void)setupJotSDK
 {
@@ -5697,6 +5875,26 @@
                                                  name: JotStylusManagerDidChangeConnectionStatus
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(jotStylusNotificationBatteryLevelNormal)
+                                                 name: JotStylusNotificationBatteryLevelNormal
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(jotStylusNotificationBatteryLevelLow)
+                                                 name: JotStylusNotificationBatteryLevelLow
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(jotStylusNotificationBatteryLevelCritical)
+                                                 name: JotStylusNotificationBatteryLevelCritical
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(jotStylusManagerDidChangeBatteryLevel)
+                                                 name: JotStylusManagerDidChangeBatteryLevel
+                                               object:nil];
+    
     //
     // setup advanced settings or debug options.
 //    [self setupJotSDKAdvancedAndDebug];
@@ -5742,6 +5940,30 @@
             break;
     }
 }
+
+- (void)jotStylusNotificationBatteryLevelNormal{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    UITableViewCell *cell = [self.adonitJotTableController.tableView cellForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)jotStylusNotificationBatteryLevelLow{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    UITableViewCell *cell = [self.adonitJotTableController.tableView cellForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.textColor = [UIColor yellowColor];
+}
+
+- (void)jotStylusNotificationBatteryLevelCritical{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    UITableViewCell *cell = [self.adonitJotTableController.tableView cellForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.textColor = [UIColor redColor];
+}
+
+- (void)jotStylusManagerDidChangeBatteryLevel{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    [self.adonitJotTableController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
 
 
 - (void)startTrackingPen:(NSNotification *)notification

@@ -47,8 +47,6 @@
 
     switch (self.paintView.state) {
         case PaintView_TouchTransformCanvas:
-//        case PaintView_TouchTransformImage:
-//        case PaintView_TouchTransformLayer:
         {
             if([touches containsObject:self.paintView.firstTouch]){
                 self.paintView.firstTouch = nil;
@@ -67,8 +65,6 @@
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     switch (self.paintView.state) {
         case PaintView_TouchTransformCanvas:
-        case PaintView_TouchTransformImage:
-        case PaintView_TouchTransformLayer:
         {
             if (self.paintView.curNumberOfTouch == 0) {
                 [self.paintView enterState:PaintView_TouchNone];

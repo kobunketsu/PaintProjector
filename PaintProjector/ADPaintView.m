@@ -846,7 +846,10 @@
     [self.delegate willPaintViewTouchBegan];
     
     self.curNumberOfTouch += touches.count;
-    self.firstTouch = [touches anyObject];
+    if (!self.firstTouch) {
+        self.firstTouch = [touches anyObject];
+    }
+
     
     if (self.state == PaintView_TouchEyeDrop) {
         [self.delegate willStartUIEyeDrop];
@@ -1008,28 +1011,20 @@
     DebugLogWarn(@"getPressure %d", [JotStylusManager sharedInstance].getPressure);
     self.curNumberOfTouch -= touches.count;
     
+    UITouch *firstTouch = self.firstTouch;
+    if ([self.firstTouch isKindOfClass:[JotTouch class]]) {
+        firstTouch = ((JotTouch*)self.firstTouch).touch;
+    }
+    
     switch (self.state) {
         case PaintView_TouchEyeDrop:
-            if([touches containsObject:self.firstTouch]){
+            if([touches containsObject:firstTouch]){
                 self.firstTouch = nil;
                 [self.delegate willEndUIEyeDrop];
                 if ([self enterState:PaintView_TouchNone]) {
                 }
             }
             break;
-//        case PaintView_TouchTransformCanvas:
-//        case PaintView_TouchTransformLayer:
-//        case PaintView_TouchTransformImage:
-//        case PaintView_TouchQuickTool:
-//        {
-//            if([touches containsObject:self.firstTouch]){
-//                self.firstTouch = nil;
-//            }
-//            if (self.curNumberOfTouch == 0) {
-//                [self enterState:PaintView_TouchNone];
-//            }
-//            break;
-//        }
         case PaintView_TouchNone:
         case PaintView_TouchPaint:
         {
@@ -1331,7 +1326,7 @@
     UIColor* uiColor = [UIColor colorWithCGColor:color];
     [self.brush setColor:uiColor];
 //    DebugLog(@"eyeDropColor location x:%.2f y:%.2f", location.x, location.y);
-    [self.delegate willEyeDroppingUI:CGPointMake(point.x, self.bounds.size.height - point.y) Color:uiColor];
+    [self.delegate willEyeDroppingUI: [self convertPointToGL:point] Color:uiColor];
     CGColorSpaceRelease(colorSpaceRef);
     CGColorRelease(color);
     free(data);

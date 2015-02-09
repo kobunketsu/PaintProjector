@@ -272,5 +272,5 @@ typedef struct {
 - (void)copyCurPaintedLayerToCurLayer;
 
 //测试
-//- (void)resetBrush:(ADBrushState*)brushState;
+
 @end

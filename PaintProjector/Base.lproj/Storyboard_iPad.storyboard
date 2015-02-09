@@ -2766,7 +2766,7 @@ Create your unbelievable art!</string>
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
                             </view>
-                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="ADEyeDropperIndicatorView">
+                            <view hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" id="Dos-js-iyU" userLabel="EyeDropperIndicatorView" customClass="ADEyeDropperIndicatorView">
                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="Magnifier">

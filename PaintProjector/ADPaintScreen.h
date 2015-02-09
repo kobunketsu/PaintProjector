@@ -97,14 +97,14 @@
 
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
-    PaintScreen_Normal              = 0,
-    PaintScreen_PreviewBrush        = 1 <<  0,
-    PaintScreen_SelectBrush         = 1 <<  1,
-    PaintScreen_EditingBrushSize    = 1 <<  2,
-    PaintScreen_EditingBrushOpacity = 1 <<  3,
-    PaintScreen_PickColor           = 1 <<  4,
-    PaintScreen_EditLayer           = 1 <<  5,
-    PaintScreen_Transform           = 1 <<  6,
+    PaintScreen_Normal,
+    PaintScreen_PickColor,
+    PaintScreen_EditLayer,
+    PaintScreen_Transform,
+    PaintScreen_Import,
+    PaintScreen_Export,
+    PaintScreen_Help,
+    PaintScreen_SelectBrush,
 };
 
 typedef NS_ENUM(NSInteger, ConnectDeviceType) {
