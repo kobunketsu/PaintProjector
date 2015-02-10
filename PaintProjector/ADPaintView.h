@@ -30,11 +30,11 @@
 #import "ADBrushPreview.h"
 
 #import <JotTouchSDK/JotTouchSDK.h>
+#import <WacomDevice/WacomDeviceFramework.h>
+
+#import "ADDeviceManager.h"
 
 #define DEBUG_VIEW_COLORALPHA 0
-
-
-
 
 typedef NS_ENUM(NSInteger, PaintViewState) {
     PaintView_TouchNone,
@@ -191,7 +191,7 @@ typedef struct {
 
 #pragma mark Interaction交互
 @property (assign, nonatomic) NSInteger curNumberOfTouch;   //当前Touch个数
-@property (weak, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
+@property (retain, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
 
 #pragma mark 绘图Draw
 - (BOOL)enterState:(PaintViewState)state;
@@ -203,6 +203,8 @@ typedef struct {
 - (void)eraseAllLayers;
 //绘制
 - (void)updateRender;
+#pragma mark 数控笔 ConnectDevice
+@property (assign, nonatomic) ConnectDeviceType connectDeviceType;
 
 #pragma mark 变换画布TransformCanvas
 - (void)transformCanvasBegan;

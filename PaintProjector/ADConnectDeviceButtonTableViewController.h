@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, ShortcutMethod) {
 @interface ADConnectDeviceButtonTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 @property (assign, nonatomic) NSInteger buttonIndex;
+@property (weak, nonatomic) UITableViewController *fromController;
 @end
 @protocol ADConnectDeviceButtonTableViewControllerDelegate
 - (void)didSelectConnectDeviceButtonMethod;

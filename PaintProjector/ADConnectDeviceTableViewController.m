@@ -160,7 +160,8 @@
             break;
         case 1:
         {
-            
+            [RemoteLog logAction:@"PS_didSelectDeviceWacomStylus" identifier:nil];
+            [self.delegate didSelectDeviceWacomStylus];
         }
             break;
         case 2:

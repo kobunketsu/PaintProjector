@@ -1,23 +1,20 @@
 //
-//  ADAdonitJotTouchSetupTableViewController.m
+//  ADWacomIntuosCreativeStylusTableViewController.m
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 2/3/15.
 //  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADAdonitJotTableViewController.h"
+#import "ADWacomStylusTableViewController.h"
 #import "ADTutorialStatusView.h"
 #import "ADDiscoveryDeviceButton.h"
-#import <JotTouchSDK/JotTouchSDK.h>
-#import "ADDeviceWritingStyleTableViewController.h"
 #import "ADDeviceManager.h"
-
-@interface ADAdonitJotTableViewController ()
+@interface ADWacomStylusTableViewController ()
 
 @end
 
-@implementation ADAdonitJotTableViewController
+@implementation ADWacomStylusTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,6 +34,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+	[[WacomManager getManager] stopDeviceDiscovery];
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,36 +81,21 @@
     switch(indexPath.row) { // assuming there is only one section
         case 0:
         {
-
-#if AdonitSDKConnectTypeTapAvailable
-            
-            [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
-                if (connected) {
-                    cell.textLabel.text = [JotStylusManager sharedInstance].stylusModelFriendlyName;
-                }
-                else{
-                    cell.textLabel.text = NSLocalizedString(@"AdonitJotDisconnectedText", nil);
-                    cell.detailTextLabel.text = NSLocalizedString(@"AdonitJotDisconnectedDetailText", nil);
-                }
-            }];
-#else
-            if ([JotStylusManager sharedInstance].connectionStatus == JotConnectionStatusConnected) {
-                cell.textLabel.text = [JotStylusManager sharedInstance].stylusModelFriendlyName;
+            if ([WacomManager getManager].isADeviceSelected) {
+                cell.textLabel.text = [WacomManager getManager].getSelectedDevice.getName;
                 cell.detailTextLabel.text = nil;
                 cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
             }
             else{
-                cell.textLabel.text = NSLocalizedString(@"AdonitJotDisconnectedText", nil);
-                cell.detailTextLabel.text = NSLocalizedString(@"AdonitJotDisconnectedDetailText", nil);
+                cell.textLabel.text = NSLocalizedString(@"WacomStylusDisconnectedText", nil);
+                cell.detailTextLabel.text = NSLocalizedString(@"WacomStylusDisconnectedDetailText", nil);
                 UIButton *discoveryDeviceButton = [[ADDiscoveryDeviceButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willWacomStylusButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willWacomStylusButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willWacomStylusButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willWacomStylusButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
                 cell.accessoryView = discoveryDeviceButton;
             }
-            
-#endif
         }
             break;
         case 1:
@@ -116,7 +103,7 @@
             cell.textLabel.text = NSLocalizedString(@"ButtonDown", nil);
             [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
                 if (connected) {
-                    NSString *shortText = [JotStylusManager sharedInstance].button1Shortcut.descriptiveText;
+                    NSString *shortText = [ADDeviceManager sharedInstance].button1Shortcut.descriptiveText ;
                     cell.detailTextLabel.text = shortText;
                 }
             }];
@@ -127,7 +114,7 @@
             cell.textLabel.text = NSLocalizedString(@"ButtonUp", nil);
             [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
                 if (connected) {
-                    NSString *shortText = [JotStylusManager sharedInstance].button2Shortcut.descriptiveText;
+                    NSString *shortText = [ADDeviceManager sharedInstance].button2Shortcut.descriptiveText ;
                     cell.detailTextLabel.text = shortText;
                 }
             }];
@@ -143,7 +130,7 @@
             cell.textLabel.text = NSLocalizedString(@"BatteryLevel", nil);
             [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
                 if (connected) {
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%", [JotStylusManager sharedInstance].batteryLevel];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu%%", [[WacomManager getManager] getSelectedDevice].batteryLevel];
                 }
             }];
         }
@@ -162,60 +149,14 @@
     return cell;
 }
 
-
-- (NSString*)connectionStatusName:(JotConnectionStatus)connectStatus{
-    NSString *name = nil;
-    switch (connectStatus) {
-        case JotConnectionStatusOff:
-            name = NSLocalizedString(@"Off", nil);
-            break;
-        case JotConnectionStatusScanning:
-            name = NSLocalizedString(@"Scanning", nil);
-            break;
-        case JotConnectionStatusPairing:
-            name = NSLocalizedString(@"Pairing", nil);
-            break;
-        case JotConnectionStatusConnected:
-            name = NSLocalizedString(@"Connected", nil);
-            break;
-        case JotConnectionStatusDisconnected:
-            name = NSLocalizedString(@"Disconnected", nil);
-            break;
-        default:
-            break;
-    }
-    return name;
-    
-}
-
-
-- (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
-    if ([JotStylusManager sharedInstance].connectionStatus == JotConnectionStatusConnected) {
-        if (cell.accessoryView) {
-            UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
-            [activityView stopAnimating];
-            [activityView removeFromSuperview];
-        }
-        if(block){
-            block(YES);
-        }
-    }
-    else{
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityView.hidesWhenStopped = true;
-        [activityView startAnimating];
-        cell.accessoryView = activityView;
-        if(block){
-            block(NO);
-        }
-    }
-}
-
+/*
 // Override to support conditional editing of the table view.
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//}
-
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
 
 /*
 // Override to support editing the table view.
@@ -256,7 +197,28 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - Table view delegate
+
+- (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
+    if ([WacomManager getManager].isADeviceSelected) {
+        if (cell.accessoryView) {
+            UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
+            [activityView stopAnimating];
+            [activityView removeFromSuperview];
+        }
+        if(block){
+            block(YES);
+        }
+    }
+    else{
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.hidesWhenStopped = true;
+        [activityView startAnimating];
+        cell.accessoryView = activityView;
+        if(block){
+            block(NO);
+        }
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -269,24 +231,24 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [RemoteLog logAction:@"PS_didDeselectAdonitJotTouch" identifier:nil];
-            [self.delegate didDeselectAdonitJotTouch];
-
+            [RemoteLog logAction:@"PS_didDeselectWacomStylus" identifier:nil];
+            [self.delegate didDeselectWacomStylus];
+            
             break;
         case 1:
-            [RemoteLog logAction:@"PS_didSelectAdonitJotButtonIndex0" identifier:nil];
-            [self.delegate didSelectAdonitJotButtonIndex:0];
+            [RemoteLog logAction:@"PS_didSelectWacomStylusButtonIndex0" identifier:nil];
+            [self.delegate didSelectWacomStylusButtonIndex:0];
             break;
         case 2:
-            [RemoteLog logAction:@"PS_didSelectAdonitJotButtonIndex1" identifier:nil];
-            [self.delegate didSelectAdonitJotButtonIndex:1];
+            [RemoteLog logAction:@"PS_didSelectWacomStylusButtonIndex1" identifier:nil];
+            [self.delegate didSelectWacomStylusButtonIndex:1];
             break;
         case 3:
-            [RemoteLog logAction:@"PS_didSelectOpenAdonitJotSupportURL" identifier:nil];
-            [self.delegate didSelectOpenAdonitJotSupportURL];
+            [RemoteLog logAction:@"PS_didSelectOpenWacomStylusSupportURL" identifier:nil];
+            [self.delegate didSelectOpenWacomStylusSupportURL];
         case 5:
-            [RemoteLog logAction:@"PS_didSelectAdonitJotWritingStylus" identifier:nil];
-            [self.delegate didSelectAdonitJotWritingStylus];
+            [RemoteLog logAction:@"PS_didSelectWacomStylusWritingStylus" identifier:nil];
+            [self.delegate didSelectWacomStylusWritingStylus];
             break;
         default:
             break;
@@ -298,9 +260,4 @@
 {
     return PopoverTableViewCellHeight;
 }
-
-//- (float)tableViewHeight {
-//    
-//    return PopoverTableViewCellHeight * [self tableView:self.tableView numberOfRowsInSection:0];
-//}
 @end

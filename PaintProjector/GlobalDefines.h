@@ -19,6 +19,7 @@
 //网站地址
 #define URL_APPSTORE @"https://itunes.apple.com/app/id885877961"
 #define SHARED_SECRET @"018df296739246cc93b9ef67068c10cb"
+#define URL_WacomStylusSupport @"http://www.wacom.com/en-us/products/stylus/intuos-creative-stylus-2"
 
 #define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
 #define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"

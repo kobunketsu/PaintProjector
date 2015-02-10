@@ -94,6 +94,7 @@
 @class ADTransformAnchorView;
 
 #import "ADConnectDeviceTableViewController.h"
+#import "ADDeviceManager.h"
 
 //记录各种状态
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
@@ -107,12 +108,7 @@ typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_SelectBrush,
 };
 
-typedef NS_ENUM(NSInteger, ConnectDeviceType) {
-    ConnectDevice_None,
-    ConnectDevice_AdonitJotTouch,
-    ConnectDevice_WacomIntuosCreativeStylus,
-    ConnectDevice_PogoConnect,
-};
+
 
 typedef NS_ENUM(NSInteger, TransformImageState) {
     TransformImage_Free,
@@ -162,7 +158,10 @@ BrushTypePageControlDelegate,
 ADConnectDeviceTableViewControllerDelegate,
 ADConnectDeviceButtonTableViewControllerDelegate,
 ADAdonitJotTableViewControllerDelegate,
-ADAdonitJotWritingStyleTableViewControllerDelegate
+ADDeviceWritingStyleTableViewControllerDelegate,
+ADWacomStylusTableViewControllerDelegate,
+WacomDiscoveryCallback,
+WacomStylusEventCallback
 >
 {
     //变换

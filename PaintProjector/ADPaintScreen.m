@@ -86,11 +86,12 @@
 
 #pragma mark- Connect Device
 @property (retain, nonatomic) ADConnectDeviceTableViewController *connectDeviceTableController;
-@property (retain, nonatomic) JotStylusManager *jotManager;
 @property (assign, nonatomic) ConnectDeviceType connectDeviceType;
-#pragma mark- Adonit Jot
+#pragma mark- AdonitJot
 @property (retain, nonatomic) ADAdonitJotTableViewController *adonitJotTableController;
 @property (nonatomic, strong) NSString *lastConnectedStylusModelName;
+#pragma mark- WacomStylus
+@property (retain, nonatomic) ADWacomStylusTableViewController *wacomStylusTableController;
 @end
 
 
@@ -473,7 +474,7 @@
     
     [ADBrushManager destroy];
     
-    [self closeJotSDK];
+    [self closeAdonitJotSDK];
 }
 
 -(void)didReceiveMemoryWarning{
@@ -1863,14 +1864,26 @@
 
 #pragma mark- 快捷键Shortcut
 - (BOOL)isShortCutEnabled{
-    if (self.state != PaintScreen_Normal) {
-        return false;
+    if (self.state == PaintScreen_Transform) {
+        if (self.paintView.state == PaintView_TouchTransformImage ||
+            self.paintView.state == PaintView_TouchTransformLayer) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+    else{
+        if (self.paintView.state != PaintView_TouchNone) {
+            return false;
+        }
+    }
+
     return true;
 }
 - (void)undoShortCut{
     [RemoteLog logAction:@"PS_undoShortCut" identifier:nil];
-    if (self.state == PaintScreen_SelectBrush) {
+    if (self.state != PaintScreen_Normal) {
         return;
     }
     if (![self isShortCutEnabled]) {
@@ -1883,7 +1896,7 @@
 
 - (void)redoShortCut{
     [RemoteLog logAction:@"PS_redoShortCut" identifier:nil];
-    if (self.state == PaintScreen_SelectBrush) {
+    if (self.state != PaintScreen_Normal) {
         return;
     }
     if (![self isShortCutEnabled]) {
@@ -1896,7 +1909,7 @@
 
 - (void)clearShortCut{
     [RemoteLog logAction:@"PS_clearShortCut" identifier:nil];
-    if (self.state == PaintScreen_SelectBrush) {
+    if (self.state != PaintScreen_Normal) {
         return;
     }
     if (![self isShortCutEnabled]) {
@@ -1910,6 +1923,9 @@
 - (void)transformShortCut{
     [RemoteLog logAction:@"PS_transformShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_Transform) {
@@ -1926,6 +1942,9 @@
 - (void)layerShortCut{
     [RemoteLog logAction:@"PS_layerShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_EditLayer) {
@@ -1945,6 +1964,9 @@
     if (self.state == PaintScreen_SelectBrush) {
         return;
     }
+    if (![self isShortCutEnabled]) {
+        return;
+    }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_PickColor) {
         [self leaveState:self.state];
     }
@@ -1960,6 +1982,9 @@
 - (void)importShortCut{
     [RemoteLog logAction:@"PS_importShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_Import) {
@@ -1978,6 +2003,9 @@
     if (self.state == PaintScreen_SelectBrush) {
         return;
     }
+    if (![self isShortCutEnabled]) {
+        return;
+    }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_Export) {
         [self leaveState:self.state];
     }
@@ -1992,6 +2020,9 @@
 - (void)helpShortCut{
     [RemoteLog logAction:@"PS_helpShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_Help) {
@@ -2010,6 +2041,9 @@
     if (self.state == PaintScreen_SelectBrush) {
         return;
     }
+    if (![self isShortCutEnabled]) {
+        return;
+    }
     if (self.state != PaintScreen_Normal && self.state != PaintScreen_SelectBrush) {
         [self leaveState:self.state];
     }
@@ -2023,6 +2057,9 @@
 - (void)eyedropColorShortCut{
     [RemoteLog logAction:@"PS_eyedropColorShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     if (self.state != PaintScreen_Normal) {
@@ -2048,6 +2085,9 @@
 - (void)swapBrushShortCut{
     [RemoteLog logAction:@"PS_swapBrushShortCut" identifier:nil];
     if (self.state == PaintScreen_SelectBrush) {
+        return;
+    }
+    if (![self isShortCutEnabled]) {
         return;
     }
     [self beginButtonIBAction:self.brushBackButton];
@@ -5645,50 +5685,13 @@
 #pragma mark- 设备Connect Device
 - (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"connectDeviceButtonTouchUp" identifier:sender];
-
-    if (self.connectDeviceType == ConnectDevice_None) {
-        [self popConnectDeviceTableViewController];
-    }
-    else if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
-        [self popAdonitJotTableViewController];
-    }
     
+    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
 }
 
-- (void)popConnectDeviceTableViewController{
-
-    ADConnectDeviceTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceTableViewController"];
-    self.connectDeviceTableController = tableVC;
-    tableVC.delegate = self;
-    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, tableVC.tableViewHeight);
+- (void)popDeviceWritingStyleTableViewController{
     
-    [self.sharedPopoverController dismissPopoverAnimated:false];
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
-    self.sharedPopoverController.fromButton = self.connectDeviceButton;
-    self.sharedPopoverController.delegate = self;
-    
-    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-}
-
-- (void)popAdonitJotTableViewController{
-
-    ADAdonitJotTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotTableViewController"];
-    tableVC.delegate = self;
-    tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
-    self.adonitJotTableController = tableVC;
-    
-    [self.sharedPopoverController dismissPopoverAnimated:false];
-    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:tableVC];
-    self.sharedPopoverController.fromButton = self.connectDeviceButton;
-    self.sharedPopoverController.delegate = self;
-    
-    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-}
-
-
-- (void)popAdonitJotWritingStyleTableViewController{
-    
-    ADAdonitJotWritingStyleTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotWritingStyleTableViewController"];
+    ADDeviceWritingStyleTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceWritingStyleTableViewController"];
     tableVC.delegate = self;
     tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
     
@@ -5701,38 +5704,10 @@
 }
 
 
-#pragma mark- ADConnectDeviceTableViewControllerDelegate
-- (void)didSelectDeviceAdonitJotTouch{
-    self.connectDeviceType = ConnectDevice_AdonitJotTouch;
-    
-    [self setupJotSDK];
-    
-    [self popAdonitJotTableViewController];
-}
-
-- (void)didSelectDeviceWacomIntuosCreativeStylus{
-}
-
-- (void)didSelectDevicePogoConnect{
-}
-
-#pragma mark - ADConnectDeviceButtonTableViewControllerDelegate
-- (void)didSelectConnectDeviceButtonMethod{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
-        [self popAdonitJotTableViewController];
-    }
-}
-#pragma mark - ADAdonitJotTableViewControllerDelegate
-- (void) didDeselectDeviceAdonitJotTouch{
-    [self closeJotSDK];
-    self.connectDeviceType = ConnectDevice_None;
-    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
-
-}
 - (void) didSelectDeviceButtonIndex:(NSInteger)index{
-    //得到设备更新title
     ADConnectDeviceButtonTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceButtonTableViewController"];
     tableVC.delegate = self;
+    tableVC.fromController = self.wacomStylusTableController;
     tableVC.buttonIndex = index;
     tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
     
@@ -5744,134 +5719,194 @@
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
-- (void) didSelectOpenSupportURL{
-    [[JotStylusManager sharedInstance] launchHelp];
-}
-- (void) didSelectDeviceWritingStylus{
-    [self popAdonitJotWritingStyleTableViewController];
-}
-
-#pragma mark - ADAdonitJotWritingStyleTableViewControllerDelegate
-- (void)didSelectConnectDeviceWritingStyle{
-    [self popAdonitJotTableViewController];
-}
-#pragma mark - Jot SDK Setup
--(void)willAdonitJotTouchButtonTouchDown:(id)sender{
-    [RemoteLog logAction:@"adonitJotTouchButtonTouchDown" identifier:sender];
-    [self.jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
-        if (success) {
-            DebugLog(@"Stylus Connected");
-        }
-        else{
-            DebugLogError(@"Stylus Connect Failed. Error %@", error.localizedDescription);
-        }
-
-    }];
-}
-
--(void)willAdonitJotTouchButtonTouchUp:(id)sender{
-    [RemoteLog logAction:@"adonitJotTouchButtonTouchUp" identifier:sender];
-    [self.jotManager stopDiscovery];
-}
-- (void)closeJotSDK{
-    [self.jotManager unregisterView:self.paintView];
-    self.jotManager.palmRejectorDelegate = nil;
-    [self.jotManager disable];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeConnectionStatus object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelNormal object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelLow object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelCritical object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeBatteryLevel object:nil];
-}
-- (void)setupJotSDK
-{
-    //
-    // Hook up the jotManager
-    self.jotManager = [JotStylusManager sharedInstance];
-    self.jotManager.unconnectedPressure = -1;
-    [self.jotManager registerView:self.paintView];
-    self.jotManager.palmRejectorDelegate = self.paintView;
-    self.jotManager.lineSmoothingEnabled = true;
-    self.jotManager.lineSmoothingAmount = 1.0;
-#if AdonitSDKConnectTypeTapAvailable
-    self.jotManager.connectionType = JotStylusConnectionTypeTap;
-#else
-#endif
-    [self.jotManager enable];
+//TODO: fix
+- (void)addDeviceButtonShortCuts{
+    ADDeviceButtonShortCut *shortcut1 = [[ADDeviceButtonShortCut alloc]
+                              initWithDescriptiveText:NSLocalizedString(@"ShortcutUndo", nil)
+                              key:@"undo"
+                              target:self selector:@selector(undoShortCut)
+                              ];
+    [[ADDeviceManager sharedInstance] addShortcutOption: shortcut1];
     
-#if AdonitSDKConnectTypeTapAvailable
-    [self willAdonitJotTouchButtonTouchDown:nil];
-#endif
+    ADDeviceButtonShortCut *shortcut2 = [[ADDeviceButtonShortCut alloc]
+                              initWithDescriptiveText:NSLocalizedString(@"ShortcutRedo", nil)
+                              key:@"redo"
+                              target:self selector:@selector(redoShortCut)
+                              ];
+    [[ADDeviceManager sharedInstance] addShortcutOption:shortcut2];
     
-    [self.jotManager setReportDiagnosticData:YES];
-    
-    //
-    // Hook up "press and hold" interface for stylus connection instead of or alongside Adonit's Settings UI
-//    [self.adonitLogo addTarget:self
-//                        action:@selector(adonitDown:)
-//              forControlEvents:UIControlEventTouchDown];
-//    
-//    [self.adonitLogo addTarget:self
-//                        action:@selector(adonitUp:)
-//              forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //Setup shortcut
-    JotShortcut *shortcut1 = [[JotShortcut alloc]
-                             initWithDescriptiveText:NSLocalizedString(@"ShortcutUndo", nil)
-                             key:@"undo"
-                             target:self selector:@selector(undoShortCut)
-                             ];
-    [self.jotManager addShortcutOption: shortcut1];
-    
-    JotShortcut *shortcut2 = [[JotShortcut alloc]
-                             initWithDescriptiveText:NSLocalizedString(@"ShortcutRedo", nil)
-                             key:@"redo"
-                             target:self selector:@selector(redoShortCut)
-                             ];
-    [self.jotManager addShortcutOption:shortcut2];
-    
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutClear", nil)
                                          key:@"clear"
                                          target:self selector:@selector(clearShortCut)
                                          ]];
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutTransform", nil)
                                          key:@"transform"
                                          target:self selector:@selector(transformShortCut)
                                          ]];
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutLayer", nil)
                                          key:@"layer"
                                          target:self selector:@selector(layerShortCut)
                                          ]];
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutPickColor", nil)
                                          key:@"pickColor"
                                          target:self selector:@selector(pickColorShortCut)
                                          ]];
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutEyedropColor", nil)
                                          key:@"eyedropColor"
                                          target:self selector:@selector(eyedropColorShortCut)
                                          ]];
-    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutSwapBrush", nil)
                                          key:@"swapBrush"
                                          target:self selector:@selector(swapBrushShortCut)
                                          ]];
     
     // Setup shortcut buttons
-    [self.jotManager addShortcutOptionButton1Default: shortcut1];
+    [[ADDeviceManager sharedInstance] addShortcutOptionButton1Default: shortcut1];
     
-    [self.jotManager addShortcutOptionButton2Default: shortcut2];
+    [[ADDeviceManager sharedInstance] addShortcutOptionButton2Default: shortcut2];
+}
+
+- (void)popDeviceTableViewControllerWithConnectDeviceType:(ConnectDeviceType)connectDeviceType{
+    UITableViewController *controller = nil;
+    if (connectDeviceType == ConnectDevice_None) {
+        ADConnectDeviceTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceTableViewController"];
+        self.connectDeviceTableController = tableVC;
+        tableVC.delegate = self;
+        controller = tableVC;
+        tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, tableVC.tableViewHeight);
+    }
+    else if (connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        ADAdonitJotTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"AdonitJotTableViewController"];
+        tableVC.delegate = self;
+        self.adonitJotTableController = tableVC;
+        controller = tableVC;
+    }
+    else if (connectDeviceType == ConnectDevice_WacomStylus) {
+        ADWacomStylusTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"WacomStylusTableViewController"];
+        tableVC.delegate = self;
+        self.wacomStylusTableController = tableVC;
+        controller = tableVC;
+        [[WacomManager getManager] startDeviceDiscovery];
+    }
     
+    
+    controller.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
+    [self.sharedPopoverController dismissPopoverAnimated:false];
+    self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:controller];
+    self.sharedPopoverController.fromButton = self.connectDeviceButton;
+    self.sharedPopoverController.delegate = self;
+    
+    [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+#pragma mark- ADConnectDeviceTableViewControllerDelegate
+- (void)setConnectDeviceType:(ConnectDeviceType)connectDeviceType{
+    self.paintView.connectDeviceType = connectDeviceType;
+    _connectDeviceType = connectDeviceType;
+}
+
+- (void)didSelectDeviceAdonitJotTouch{
+    self.connectDeviceType = ConnectDevice_AdonitJotTouch;
+    
+    [self setupAdonitJotSDK];
+    
+    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+}
+
+- (void)didSelectDeviceWacomStylus{
+    self.connectDeviceType = ConnectDevice_WacomStylus;
+
+    [self setupWacomStylusSDK];
+    
+    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+}
+
+- (void)didSelectDevicePogoConnect{
+}
+
+#pragma mark - ADConnectDeviceButtonTableViewControllerDelegate
+- (void)didSelectConnectDeviceButtonMethod{
+    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+}
+#pragma mark - ADAdonitJotTableViewControllerDelegate
+- (void) didDeselectAdonitJotTouch{
+    [self closeAdonitJotSDK];
+    self.connectDeviceType = ConnectDevice_None;
+    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
+
+}
+- (void) didSelectAdonitJotButtonIndex:(NSInteger)index{
+    //得到设备更新title
+    [self didSelectDeviceButtonIndex:index];
+}
+
+- (void) didSelectOpenAdonitJotSupportURL{
+    [[JotStylusManager sharedInstance] launchHelp];
+}
+- (void) didSelectAdonitJotWritingStylus{
+    [self popDeviceWritingStyleTableViewController];
+}
+
+#pragma mark - ADDeviceWritingStyleTableViewControllerDelegate
+- (void)didSelectConnectDeviceWritingStyle{
+    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+}
+#pragma mark - AdonitJot SDK
+- (void)closeAdonitJotSDK{
+    [[JotStylusManager sharedInstance] unregisterView:self.paintView];
+    [JotStylusManager sharedInstance].palmRejectorDelegate = nil;
+    [[JotStylusManager sharedInstance] disable];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeConnectionStatus object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelNormal object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelLow object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusNotificationBatteryLevelCritical object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:JotStylusManagerDidChangeBatteryLevel object:nil];
+}
+- (void)setupAdonitJotSDK
+{
+    //
+    // Hook up the jotManager
+    [JotStylusManager sharedInstance].unconnectedPressure = -1;
+    [[JotStylusManager sharedInstance] registerView:self.paintView];
+    [JotStylusManager sharedInstance].palmRejectorDelegate = self.paintView;
+    [JotStylusManager sharedInstance].lineSmoothingEnabled = true;
+    [JotStylusManager sharedInstance].lineSmoothingAmount = 1.0;
+#if AdonitSDKConnectTypeTapAvailable
+    [JotStylusManager sharedInstance].connectionType = JotStylusConnectionTypeTap;
+#else
+#endif
+    [[JotStylusManager sharedInstance] enable];
+    
+#if AdonitSDKConnectTypeTapAvailable
+    [self willAdonitJotTouchButtonTouchDown:nil];
+#endif
+    
+    [[JotStylusManager sharedInstance] setReportDiagnosticData:YES];
+    
+    //
+    // Hook up "press and hold" interface for stylus connection instead of or alongside Adonit's Settings UI
+    //    [self.adonitLogo addTarget:self
+    //                        action:@selector(adonitDown:)
+    //              forControlEvents:UIControlEventTouchDown];
+    //
+    //    [self.adonitLogo addTarget:self
+    //                        action:@selector(adonitUp:)
+    //              forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //Setup shortcut
+    [self addDeviceButtonShortCuts];
     
     //
     // Register for jotStylus notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector:@selector(connectionChange:)
+                                             selector:@selector(jotStylusConnectionChange:)
                                                  name: JotStylusManagerDidChangeConnectionStatus
                                                object:nil];
     
@@ -5889,7 +5924,7 @@
                                              selector:@selector(jotStylusNotificationBatteryLevelCritical)
                                                  name: JotStylusNotificationBatteryLevelCritical
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(jotStylusManagerDidChangeBatteryLevel)
                                                  name: JotStylusManagerDidChangeBatteryLevel
@@ -5897,14 +5932,32 @@
     
     //
     // setup advanced settings or debug options.
-//    [self setupJotSDKAdvancedAndDebug];
+    //    [self setupJotSDKAdvancedAndDebug];
+}
+
+-(void)willAdonitJotTouchButtonTouchDown:(id)sender{
+    [RemoteLog logAction:@"adonitJotTouchButtonTouchDown" identifier:sender];
+    [[JotStylusManager sharedInstance] startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
+        if (success) {
+            DebugLog(@"Stylus Connected");
+        }
+        else{
+            DebugLogError(@"Stylus Connect Failed. Error %@", error.localizedDescription);
+        }
+
+    }];
+}
+
+-(void)willAdonitJotTouchButtonTouchUp:(id)sender{
+    [RemoteLog logAction:@"adonitJotTouchButtonTouchUp" identifier:sender];
+    [[JotStylusManager sharedInstance] stopDiscovery];
 }
 
 /**
  * Method that handles different Stylus connection
  * notifications sent from the jotManager.
  */
-- (void)connectionChange:(NSNotification *)note
+- (void)jotStylusConnectionChange:(NSNotification *)note
 {
     JotConnectionStatus status = [note.userInfo[JotStylusManagerDidChangeConnectionStatusStatusKey] unsignedIntegerValue];
     switch(status)
@@ -5920,7 +5973,7 @@
         case JotConnectionStatusConnected:
         {
             [self.adonitJotTableController.tableView reloadData];
-            self.lastConnectedStylusModelName = self.jotManager.stylusModelFriendlyName;
+            self.lastConnectedStylusModelName = [JotStylusManager sharedInstance].stylusModelFriendlyName;
             [[JotTouchStatusHUD class]ShowJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusModelName];
             break;
         }
@@ -5964,21 +6017,124 @@
     [self.adonitJotTableController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+#pragma mark- WacomStylus SDK
 
-
-- (void)startTrackingPen:(NSNotification *)notification
-{
-    NSLog(@"we've started tracking %@", notification.userInfo[@"name"]);
+- (void)setupWacomStylusSDK{
+    DebugLog(@"setupWacomStylusSDK");
+    [[WacomManager getManager] registerForNotifications:self];
+    [TouchManager GetTouchManager].touchRejectionEnabled = true;
+    [self addDeviceButtonShortCuts];
 }
 
-- (void)startTrackingPenFailed:(NSNotification *)notification
-{
-    NSLog(@"we've stopped tracking %@", notification.userInfo[@"name"]);
+- (void)closeWacomStylusSDK{
+    DebugLog(@"closeWacomStylusSDK");
+    [[WacomManager getManager] deregisterForNotifications:self];
+    //deselect device?
 }
 
-- (void)startTrackingPenSuccessful:(NSNotification *)notification
-{
-    NSLog(@"we've successfuly tracked %@", notification.userInfo[@"name"]);
+#pragma mark - ADWacomStylusTableViewControllerDelegate
+- (void) didDeselectWacomStylus{
+    [self closeWacomStylusSDK];
+    self.connectDeviceType = ConnectDevice_None;
+    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
+}
+
+
+- (void) didSelectWacomStylusButtonIndex:(NSInteger)index{
+    [self didSelectDeviceButtonIndex:index];
+}
+- (void) didSelectOpenWacomStylusSupportURL{
+    NSURL *url = [NSURL URLWithString:URL_WacomStylusSupport];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+- (void) didSelectWacomStylusWritingStylus{
+    [self popDeviceWritingStyleTableViewController];
+}
+- (void) willWacomStylusButtonTouchDown{
+    
+}
+- (void) willWacomStylusButtonTouchUp{
+    
+}
+#pragma mark- WacomDiscoveryCallback WacomStylusEventCallback
+- (void) stylusEvent:(WacomStylusEvent *)stylusEvent{
+    NSIndexPath *indexPath = nil;
+    switch ([stylusEvent getType]){
+        case eStylusEventType_MACAddressAvaiable:
+        {
+            DebugLog(@"Wacom mac address %@", [stylusEvent getMACAddress]);
+            break;
+        }
+        case eStylusEventType_PressureChange:
+        {
+            [TouchManager GetTouchManager].theStylusTouch.pressure = [stylusEvent getPressure];
+            break;
+        }
+        case eStylusEventType_BatteryLevelChanged:
+        {
+            [[WacomManager getManager] getSelectedDevice].batteryLevel = [stylusEvent getBatteryLevel];
+            indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+            [self.wacomStylusTableController.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        }
+        case eStylusEventType_ButtonReleased:
+        {
+            SEL selector = nil;
+            CGFloat pressure = stylusEvent.getPressure;
+            if (pressure == 0) {
+                switch ([stylusEvent getButton]) {
+                    case 1:
+                    {
+                        selector = [ADDeviceManager sharedInstance].button1Shortcut.selector;
+                        if ([self respondsToSelector:selector]) {
+                            [self performSelector:selector];
+                        }
+                        
+                        break;
+                    }
+                    case 2:
+                    {
+                        selector = [ADDeviceManager sharedInstance].button2Shortcut.selector;
+                        if ([self respondsToSelector:selector]) {
+                            [self performSelector:selector];
+                        }
+                        break;
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (void) deviceDiscovered:(WacomDevice *)device{
+    DebugLog(@"deviceDiscovered");
+    [self.wacomStylusTableController.tableView reloadData];
+}
+
+- (void) discoveryStatePoweredOff{
+    DebugLog(@"discoveryStatePoweredOff");
+   [self.wacomStylusTableController.tableView reloadData];
+}
+//optional
+- (void) deviceConnected:(WacomDevice *)device{
+    DebugLog(@"deviceConnected");
+   [self.wacomStylusTableController.tableView reloadData];
+    [[WacomManager getManager] selectDevice:device];
+    [ADDeviceManager sharedInstance].button1Shortcut = [ADDeviceManager sharedInstance].button1DefaultShortCut;
+    [ADDeviceManager sharedInstance].button2Shortcut = [ADDeviceManager sharedInstance].button2DefaultShortCut;
+}
+- (void) deviceDisconnected:(WacomDevice *)device{
+    DebugLog(@"deviceDisconnected");
+   [self.wacomStylusTableController.tableView reloadData];
 }
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{

@@ -8,6 +8,7 @@
 
 #import "ADSharedPopTableViewController.h"
 #import "ADAdonitJotTableViewController.h"
+#import "ADWacomStylusTableViewController.h"
 #import "ADConnectDeviceButtonTableViewController.h"
 
 
@@ -19,6 +20,6 @@
 
 @protocol ADConnectDeviceTableViewControllerDelegate
 - (void) didSelectDeviceAdonitJotTouch;
-- (void) didSelectDeviceWacomIntuosCreativeStylus;
+- (void) didSelectDeviceWacomStylus;
 - (void) didSelectDevicePogoConnect;
 @end

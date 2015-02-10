@@ -29,18 +29,18 @@
 }
 
 - (void)setPreLocation:(CGRect)location{
-    DebugLogWarn(@"setPreLocation %@", NSStringFromCGRect(location));
+//    DebugLogWarn(@"setPreLocation %@", NSStringFromCGRect(location));
     objc_setAssociatedObject(self, &PreLocationKey, [NSValue valueWithCGRect:location], OBJC_ASSOCIATION_RETAIN);
 }
 
 - (CGRect)preLocation{
     NSValue *valPreLocation = (NSValue *)objc_getAssociatedObject(self, &PreLocationKey);
     if (valPreLocation) {
-        DebugLogWarn(@"getPreLocation %@", NSStringFromCGRect(valPreLocation.CGRectValue));
+//        DebugLogWarn(@"getPreLocation %@", NSStringFromCGRect(valPreLocation.CGRectValue));
         return valPreLocation.CGRectValue;
     }
     else{
-        DebugLogWarn(@"getPreLocation nil");
+//        DebugLogWarn(@"getPreLocation nil");
         return CGRectZero;
     }
 }

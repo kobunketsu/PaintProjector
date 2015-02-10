@@ -1,5 +1,5 @@
 //
-//  ADAdonitJotWritingStyleTableViewController.h
+//  ADDeviceWritingStyleTableViewController.h
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 2/4/15.
@@ -8,11 +8,10 @@
 
 #import "ADSharedPopTableViewController.h"
 #import <JotTouchSDK/JotTouchSDK.h>
-@interface ADAdonitJotWritingStyleTableViewController : ADSharedPopTableViewController
-+ (NSString*)writingStyleName:(JotWritingStyle)writingStyle;
+@interface ADDeviceWritingStyleTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 @end
 
-@protocol ADAdonitJotWritingStyleTableViewControllerDelegate
+@protocol ADDeviceWritingStyleTableViewControllerDelegate
 - (void)didSelectConnectDeviceWritingStyle;
 @end

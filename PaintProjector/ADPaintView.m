@@ -19,6 +19,8 @@
 #import "ADFinger.h"
 #import "ADBucket.h"
 
+#import "WacomTouch.h"
+
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
 #define CanvasScaleMinimum 0.2
@@ -799,10 +801,49 @@
 
 
 #pragma mark- Touch
-
 - (void)eyeDropBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-	CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+	CGPoint location = [self convertPointToGL:[self locationFromTouch:self.firstTouch]];
     self.location = PathPointMake(location.x, location.y, 1);
+}
+
+- (CGPoint)locationFromTouch:(id)touch{
+    if ([touch isMemberOfClass:[UITouch class]]) {
+        return [touch locationInView:self];
+    }
+    else if ([touch isMemberOfClass: [WacomTouch class]]) {
+        return ((WacomTouch *)touch).trackedTouch.currentLocation;
+    }
+    return CGPointZero;
+}
+
+
+- (BOOL)hasPaintTouchInTouches:(NSSet *)touches{
+    for (id touch in touches) {
+        if ([touch isMemberOfClass:[JotTouch class]]) {
+            if ([touch isEqual:self.firstTouch]) {
+                return true;
+            }
+        }
+        else if ([touch isMemberOfClass:[TrackedTouch class]]){
+            if ([(TrackedTouch *)touch isEqual: ((WacomTouch*)self.firstTouch).trackedTouch]) {
+                return true;
+            }
+        }
+        else if ([touch isMemberOfClass:[UITouch class]]) {
+            if ([self.firstTouch isMemberOfClass:[JotTouch class]]) {
+                if ([touch isEqual: ((JotTouch*)self.firstTouch).touch]) {
+                    return true;
+                }
+            }
+            else{
+                if ([touch isEqual:self.firstTouch]) {
+                    return true;
+                }
+            }
+
+        }
+    }
+    return false;
 }
 
 // Handles the start of a touch
@@ -811,7 +852,7 @@
     //不在Touch发生时马上开始绘制，不修改paintView.state
     CGFloat pressure = 1;
     pressure = [self pressureFromTouch:self.firstTouch];
-    CGPoint location = [self convertPointToGL: [self.firstTouch locationInView:self]];
+    CGPoint location = [self convertPointToGL: [self locationFromTouch:self.firstTouch]];
     self.previousLocation = self.location = PathPointMake(location.x, location.y, pressure);
     
     //可能会被后续动作修改状态
@@ -849,8 +890,8 @@
     if (!self.firstTouch) {
         self.firstTouch = [touches anyObject];
     }
-
     
+    //eyedrop use raw touches
     if (self.state == PaintView_TouchEyeDrop) {
         [self.delegate willStartUIEyeDrop];
         CGPoint point = [self.delegate willGetEyeDropLocation];
@@ -858,22 +899,25 @@
     }
     
     //when touched, touches in the call is still UITouch
-    if (![self isJotStylusActiveConnected:touches]) {
+    if ([self isDeviceActiveConnected:touches]) {
+        [self deviceTouchesBegan:touches withEvent:event];
+    }
+    else{
         [self touchesBegan:touches];
     }
-    
-
 }
 
+//touches can be UITouch JotTouch TrackedTouch
 - (void)touchesMoved:(NSSet *)touches{
     //只接受在touchesBegan注册的UITouch事件处理
-    if (![touches containsObject:self.firstTouch]) {
+    if (![self hasPaintTouchInTouches:touches]) {
         return;
     }
     
     CGFloat pressure = [self pressureFromTouch:self.firstTouch];
     
-    CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+    CGPoint location = [self convertPointToGL:[self locationFromTouch:self.firstTouch]];
+    
     self.location = PathPointMake(location.x, location.y, pressure);
 
     self.previousLocation = [self.firstTouch preLocation];
@@ -917,7 +961,7 @@
             
             if(!self.firstTouch.isPaintTouch){
                 //如果绘图笔触覆盖UI面板， 隐藏UI面板，绘制结束后显示恢复UI面板的显示
-                [self.delegate willHideUIPaintArea:true touchPoint:[self.firstTouch locationInView:self]];
+                [self.delegate willHideUIPaintArea:true touchPoint:[self locationFromTouch:self.firstTouch]];
             }
             break;
         }
@@ -927,6 +971,7 @@
     
     [self.firstTouch setPreLocation:self.location];
 }
+
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 //    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
@@ -943,7 +988,10 @@
     }
     
     //连接状态下不响应手指绘画
-    if (![self isJotStylusActiveConnected:touches]) {
+    if ([self isDeviceActiveConnected:touches]) {
+        [self deviceTouchesMoved:touches withEvent:event];
+    }
+    else{
         [self touchesMoved:touches];
     }
 }
@@ -955,8 +1003,7 @@
         pressure = 1;
     }
     
-    
-    CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
+    CGPoint location = [self convertPointToGL:[self locationFromTouch:self.firstTouch]];
     self.location = PathPointMake(location.x, location.y, pressure);
     
     self.previousLocation = [self.firstTouch preLocation];
@@ -964,7 +1011,7 @@
     //不响应变换操作
     switch (self.state) {
         case PaintView_TouchPaint:{
-            if([touches containsObject:self.firstTouch]){
+            if ([self hasPaintTouchInTouches:touches]) {
 //                DebugLog(@"previousLocation x:%.0f y:%.0f", previousLocation.x, previousLocation.y);
                 [self drawFromPoint:self.location toPoint:self.previousLocation isTapDraw:false];
                 [self endDraw];
@@ -980,7 +1027,7 @@
             
         case PaintView_TouchNone:
         {
-            if([touches containsObject:self.firstTouch]){
+            if ([self hasPaintTouchInTouches:touches]) {
                 if (!self.firstTouch.isPaintTouch && self.curNumberOfTouch == 0) {
                     //is single tap paint
                     [self startDraw:self.location isTapDraw:true];
@@ -1008,17 +1055,11 @@
 {
     DebugLogSystem(@"[ touchesEnded! touches count:%d ]", [touches count]);
 
-    DebugLogWarn(@"getPressure %d", [JotStylusManager sharedInstance].getPressure);
     self.curNumberOfTouch -= touches.count;
-    
-    UITouch *firstTouch = self.firstTouch;
-    if ([self.firstTouch isKindOfClass:[JotTouch class]]) {
-        firstTouch = ((JotTouch*)self.firstTouch).touch;
-    }
     
     switch (self.state) {
         case PaintView_TouchEyeDrop:
-            if([touches containsObject:firstTouch]){
+            if ([self hasPaintTouchInTouches:touches]) {
                 self.firstTouch = nil;
                 [self.delegate willEndUIEyeDrop];
                 if ([self enterState:PaintView_TouchNone]) {
@@ -1028,7 +1069,10 @@
         case PaintView_TouchNone:
         case PaintView_TouchPaint:
         {
-            if(![self isJotStylusActiveConnected:touches]){
+            if([self isDeviceActiveConnected:touches]){
+                [self deviceTouchesEnded:touches withEvent:event];
+            }
+            else{
                 [self touchesEnded:touches];
             }
             break;
@@ -1055,32 +1099,27 @@
     
     self.curNumberOfTouch -= touches.count;
     
+    UITouch *firstTouch = self.firstTouch;
+    if ([self.firstTouch isKindOfClass:[JotTouch class]]) {
+        firstTouch = ((JotTouch*)self.firstTouch).touch;
+    }
+    
     switch (self.state) {
         case PaintView_TouchEyeDrop:
-            if([touches containsObject:self.firstTouch]){
+            if([touches containsObject:firstTouch]){
                 self.firstTouch = nil;
                 [self.delegate willEndUIEyeDrop];
                 if ([self enterState:PaintView_TouchNone]) {
                 }
             }
             break;
-//        case PaintView_TouchTransformCanvas:
-//        case PaintView_TouchTransformLayer:
-//        case PaintView_TouchTransformImage:
-//        case PaintView_TouchQuickTool:
-//        {
-//            if([touches containsObject:self.firstTouch]){
-//                self.firstTouch = nil;
-//            }
-//            if (self.curNumberOfTouch == 0) {
-//                [self enterState:PaintView_TouchNone];
-//            }
-//            break;
-//        }
         case PaintView_TouchNone:
         case PaintView_TouchPaint:
         {
-            if(![self isJotStylusActiveConnected:touches]){
+            if([self isDeviceActiveConnected:touches]){
+                [self deviceTouchesEnded:touches withEvent:event];
+            }
+            else{
                 [self touchesEnded:touches];
             }
             break;
@@ -1089,31 +1128,32 @@
             break;
     }
     
+    
     if(self.curNumberOfTouch == 0){
         [self.delegate willPaintViewTouchEnd];
     }
     
-    [super touchesCancelled:touches withEvent:event];
+    [super touchesEnded:touches withEvent:event];
 }
 
 //实现按更新时间来绘制的操作(喷枪)
 - (void) drawFrame:(CADisplayLink *)sender{
-    if(self.brush.brushState.isAirbrush){
-        if(self.state == PaintView_TouchPaint){
-            DebugLog(@"drawFrame");
-            //在已经把待确认的路径绘制完毕后开始每帧更新绘制
-            if (self.firstTouch.isPaintTouch) {
-                //更新触摸点
-                CGPoint location = [self convertPointToGL:[self.firstTouch locationInView:self]];
-                self.location = PathPointMake(location.x, location.y, 1);
-                CGPoint previousLocation = [self convertPointToGL:[self.firstTouch previousLocationInView:self]];
-                self.previousLocation = PathPointMake(previousLocation.x, previousLocation.y, 1);
-//                DebugLog(@"previousLocation x:%.0f y:%.0f", previousLocation.x, previousLocation.y);
-                
-                [self draw:false];
-            }
-        }
-    }
+//    if(self.brush.brushState.isAirbrush){
+//        if(self.state == PaintView_TouchPaint){
+//            DebugLog(@"drawFrame");
+//            //在已经把待确认的路径绘制完毕后开始每帧更新绘制
+//            if (self.firstTouch.isPaintTouch) {
+//                //更新触摸点
+//                CGPoint location = [self convertPointToGL:[self locationFromTouch:self.firstTouch]];
+//                self.location = PathPointMake(location.x, location.y, 1);
+//                CGPoint previousLocation = [self convertPointToGL:[self.firstTouch previousLocationInView:self]];
+//                self.previousLocation = PathPointMake(previousLocation.x, previousLocation.y, 1);
+////                DebugLog(@"previousLocation x:%.0f y:%.0f", previousLocation.x, previousLocation.y);
+//                
+//                [self draw:false];
+//            }
+//        }
+//    }
 }
 // Handles the continuation of a touch.
 - (void)drawCachedTouchPath{
@@ -1145,11 +1185,76 @@
     DebugLogWarn(@"setCurNumberOfTouch %d", _curNumberOfTouch);
 }
 
-#pragma mark- AdonitJot
-#pragma mark- Touch
--(BOOL)isJotStylusActiveConnected:(NSSet*)touches{
-    return [JotStylusManager sharedInstance].isStylusConnected && [JotStylusManager sharedInstance].enabled;
+#pragma mark- Device Touch
+-(BOOL)isDeviceActiveConnected:(NSSet*)touches{
+    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        return [JotStylusManager sharedInstance].isStylusConnected && [JotStylusManager sharedInstance].enabled;
+    }
+    else if (self.connectDeviceType == ConnectDevice_WacomStylus){
+        return [[WacomManager getManager] isADeviceSelected];
+    }
+    
+    return false;
 }
+
+- (void)deviceTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        
+    }
+    else if (self.connectDeviceType == ConnectDevice_WacomStylus){
+        [[TouchManager GetTouchManager]addTouches:touches knownTouches:[event touchesForView:self] view:self];
+        NSArray *theTrackedTouches = [[TouchManager GetTouchManager]getTrackedTouches];
+        DebugLog(@"deviceTouchesBegan theTrackedTouches count %d", theTrackedTouches.count);
+//        if (theTrackedTouches.count == 0) {
+//            [self wacomStylusTouchBegan:touches];
+//        }
+//        else{
+            [self wacomStylusTouchBegan:[NSSet setWithArray:theTrackedTouches]];
+//        }
+    }
+}
+
+- (void)deviceTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        //convert to jot touch
+        //call jotTouchesMoved
+    }
+    else if (self.connectDeviceType == ConnectDevice_WacomStylus) {
+        [[TouchManager GetTouchManager]moveTouches:touches knownTouches:[event touchesForView:self] view:self];
+//        NSArray *theTrackedTouches = [[TouchManager GetTouchManager]getTrackedTouches];
+        //MARK:有可能出现 touches被TouchManager过虑掉的情况
+        NSArray *theTrackedTouches = [[TouchManager GetTouchManager]getTrackedTouches];
+//        if (theTrackedTouches.count == 0) {
+//            [self wacomStylusTouchMoved:touches];
+//        }
+//        else{
+            [self wacomStylusTouchMoved:[NSSet setWithArray:theTrackedTouches]];
+//        }
+
+
+    }
+}
+
+- (void)deviceTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+        //convert to jot touch
+        //call jotTouchesEnded
+    }
+    else if (self.connectDeviceType == ConnectDevice_WacomStylus) {
+        [[TouchManager GetTouchManager]moveTouches:touches knownTouches:[event touchesForView:self] view:self];
+//        NSArray *theTrackedTouches = [[TouchManager GetTouchManager]getTrackedTouches];
+        NSArray *theTrackedTouches = [[TouchManager GetTouchManager]getTrackedTouches];
+//        if (theTrackedTouches.count == 0) {
+//            [self wacomStylusTouchEnded:touches];
+//        }
+//        else{
+            [self wacomStylusTouchEnded:[NSSet setWithArray:theTrackedTouches]];
+//        }
+        [[TouchManager GetTouchManager] removeTouches:touches knownTouches:[event touchesForView:self] view:self];
+    }
+}
+
+#pragma mark- AdonitJot Touch Event
 
 -(CGFloat) widthForPressure:(CGFloat)pressure{
 //    CGFloat minSize = 2;
@@ -1160,15 +1265,16 @@
 }
 
 - (CGFloat)pressureFromTouch:(UITouch*)touch{
-    if ([touch isKindOfClass:[JotTouch class]]) {
+    CGFloat pressure = 1;
+    if ([touch isMemberOfClass:[JotTouch class]]) {
         DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
-        CGFloat pressure = [self widthForPressure:((JotTouch*)touch).pressure];
-
-        return pressure;
+        pressure = [self widthForPressure:((JotTouch*)touch).pressure];
     }
-    else{
-        return 1.0;
+    else if ([touch isMemberOfClass:[WacomTouch class]]) {
+    DebugLogWarn(@"get Wacom Stylus pressure %d", [TouchManager GetTouchManager].theStylusTouch.pressure);
+        pressure = [self widthForPressure:[TouchManager GetTouchManager].theStylusTouch.pressure];
     }
+    return pressure;
 }
 -(void)jotStylusTouchBegan:(NSSet *) touches{
     DebugLogFuncStart(@"jotStylusTouchBegan touches count:%d", [touches count]);
@@ -1206,6 +1312,33 @@
     [self.delegate willJotSuggestsToEnableGestures];
 }
 
+#pragma mark- WacomStylus Touch Event
+-(void)wacomStylusTouchBegan:(NSSet *) touches{
+    DebugLogFuncStart(@"wacomStylusTouchBegan touches count:%d", [touches count]);
+    //override to WacomTouch
+    self.firstTouch = [WacomTouch touchFromTrackedTouch:[touches anyObject]];    
+    [self touchesBegan:touches];
+}
+
+-(void)wacomStylusTouchMoved:(NSSet *) touches{
+    DebugLogFuncUpdate(@"wacomStylusTouchMoved touches count:%d", [touches count]);
+    if(((WacomTouch*)self.firstTouch).trackedTouch == nil){
+        ((WacomTouch*)self.firstTouch).trackedTouch = [touches anyObject];
+    }
+    [self touchesMoved:touches];
+}
+
+-(void)wacomStylusTouchEnded:(NSSet *) touches{
+    DebugLogFuncStart(@"wacomStylusTouchEnded touches count:%d", [touches count]);
+    self.curNumberOfTouch -= touches.count;
+    [self touchesEnded:touches];
+}
+
+-(void)wacomStylusTouchCancelled:(NSSet *) touches{
+    DebugLogFuncStart(@"wacomStylusTouchCancelled touches count:%d", [touches count]);
+    self.curNumberOfTouch -= touches.count;
+    [self touchesEnded:touches];
+}
 
 #pragma mark-
 - (void)updateRender{

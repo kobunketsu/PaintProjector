@@ -1,44 +1,18 @@
 //
-//  ADAdonitJotWritingStyleTableViewController.m
+//  ADDeviceWritingStyleTableViewController.m
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 2/4/15.
 //  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADAdonitJotWritingStyleTableViewController.h"
-@interface ADAdonitJotWritingStyleTableViewController ()
+#import "ADDeviceWritingStyleTableViewController.h"
+#import "ADDeviceManager.h"
+@interface ADDeviceWritingStyleTableViewController ()
 
 @end
 
-@implementation ADAdonitJotWritingStyleTableViewController
-+ (NSString*)writingStyleName:(JotWritingStyle)writingStyle{
-    NSString *name = nil;
-    switch (writingStyle) {
-        case JotWritingStyleRightHorizontal:
-            name = NSLocalizedString(@"WritingStyleRH", nil);
-            break;
-        case JotWritingStyleRightAverage:
-            name = NSLocalizedString(@"WritingStyleRA", nil);
-            break;
-        case JotWritingStyleRightVertical:
-            name = NSLocalizedString(@"WritingStyleRV", nil);
-            break;
-        case JotWritingStyleLeftHorizontal:
-            name = NSLocalizedString(@"WritingStyleLH", nil);
-            break;
-        case JotWritingStyleLeftAverage:
-            name = NSLocalizedString(@"WritingStyleLA", nil);
-            break;
-        case JotWritingStyleLeftVertical:
-            name = NSLocalizedString(@"WritingStyleLV", nil);
-            break;
-        default:
-            break;
-    }
-    return name;
-    
-}
+@implementation ADDeviceWritingStyleTableViewController
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -92,7 +66,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [ADAdonitJotWritingStyleTableViewController writingStyleName:(JotWritingStyle)indexPath.row];
+    cell.textLabel.text = [ADDeviceManager writingStyleName:(DeviceWritingStyle)indexPath.row];
     return cell;
 }
 
@@ -148,7 +122,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [RemoteLog logAction:@"PS_connectDeviceDidSelectWritingStyle" identifier:nil];
-    [JotStylusManager sharedInstance].writingStyle = (JotWritingStyle)indexPath.row;
+    [ADDeviceManager sharedInstance].writingStyle = (DeviceWritingStyle)indexPath.row;
     [self.delegate didSelectConnectDeviceWritingStyle];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

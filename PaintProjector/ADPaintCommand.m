@@ -123,6 +123,7 @@
         PathPoint startPoint = [[self.paintPaths objectAtIndex:i] CGRectValue];
         PathPoint endPoint = [[self.paintPaths objectAtIndex:endIndex] CGRectValue];
 
+        
         [self.delegate willFillDataFromPoint:startPoint
                                 toPoint:endPoint
                             WithBrushId:self.brushState.classId

@@ -7,18 +7,18 @@
 //
 
 #import "ADSharedPopTableViewController.h"
-#import "ADAdonitJotWritingStyleTableViewController.h"
+#import "ADDeviceWritingStyleTableViewController.h"
 #import "JotTouchStatusHUD.h"
 #define AdonitSDKConnectTypeTapAvailable false
 @interface ADAdonitJotTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 @end
 @protocol ADAdonitJotTableViewControllerDelegate
-- (void) didDeselectDeviceAdonitJotTouch;
-- (void) didSelectDeviceButtonIndex:(NSInteger)index;
-- (void) didSelectOpenSupportURL;
-- (void) didSelectDeviceWritingStylus;
-- (void) willAdonitJotTouchButtonTouchDown;
-- (void) willAdonitJotTouchButtonTouchUp;
+- (void) didDeselectAdonitJotTouch;
+- (void) didSelectAdonitJotButtonIndex:(NSInteger)index;
+- (void) didSelectOpenAdonitJotSupportURL;
+- (void) didSelectAdonitJotWritingStylus;
+- (void) willAdonitJotButtonTouchDown;
+- (void) willAdonitJotButtonTouchUp;
 
 @end

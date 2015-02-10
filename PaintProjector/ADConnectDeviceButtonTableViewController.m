@@ -8,7 +8,10 @@
 
 #import "ADConnectDeviceButtonTableViewController.h"
 #import "ADConnectDeviceTableViewController.h"
-#import <JotTouchSDK/JotTouchSDK.h>
+#import "ADDeviceManager.h"
+#import "ADAdonitJotTableViewController.h"
+#import "ADWacomStylusTableViewController.h"
+
 @interface ADConnectDeviceButtonTableViewController ()
 
 @end
@@ -66,9 +69,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    
-    JotShortcut *shortcut = [JotStylusManager sharedInstance].shortcuts[indexPath.row];
+    ADDeviceButtonShortCut *shortcut = [ADDeviceManager sharedInstance].shortcuts[indexPath.row];
     cell.textLabel.text = shortcut.descriptiveText;
+
     return cell;
 }
 
@@ -126,10 +129,10 @@
 {
     [RemoteLog logAction:@"PS_connectDeviceButtonDidSelectMethod" identifier:nil];
     if(self.buttonIndex == 0){
-        [JotStylusManager sharedInstance].button1Shortcut = [JotStylusManager sharedInstance].shortcuts[indexPath.row];
+        [ADDeviceManager sharedInstance].button1Shortcut = [ADDeviceManager sharedInstance].shortcuts[indexPath.row];
     }
     if(self.buttonIndex == 1){
-        [JotStylusManager sharedInstance].button2Shortcut = [JotStylusManager sharedInstance].shortcuts[indexPath.row];
+        [ADDeviceManager sharedInstance].button2Shortcut = [ADDeviceManager sharedInstance].shortcuts[indexPath.row];
     }
     [self.delegate didSelectConnectDeviceButtonMethod];
 }
