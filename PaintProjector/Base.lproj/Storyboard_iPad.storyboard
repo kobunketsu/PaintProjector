@@ -2888,7 +2888,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2924,7 +2924,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2942,7 +2942,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2958,7 +2958,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="toolTip"/>
+                                <font key="NSFont" metaFont="smallSystem"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -3085,6 +3085,34 @@ Create your unbelievable art!</string>
             </objects>
             <point key="canvasLocation" x="-5463" y="1777"/>
         </scene>
+        <!--Pogo Connect Table View Controller-->
+        <scene sceneID="QRt-6v-PTq">
+            <objects>
+                <tableViewController storyboardIdentifier="PogoConnectTableViewController" id="STZ-tC-b1s" customClass="ADPogoConnectTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4as-gr-BCM">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="lJB-e8-lHx">
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lJB-e8-lHx" id="Bji-ee-gd1">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="STZ-tC-b1s" id="gEB-my-HtP"/>
+                            <outlet property="delegate" destination="STZ-tC-b1s" id="tj4-6F-mzO"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Jf-eW-0cG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4523" y="1787"/>
+        </scene>
         <!--Device Writing Style Table View Controller-->
         <scene sceneID="LCM-w7-gQn">
             <objects>
@@ -3111,12 +3139,12 @@ Create your unbelievable art!</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbn-yC-2Iu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5365" y="599"/>
+            <point key="canvasLocation" x="-5481" y="603"/>
         </scene>
-        <!--Connect Device Button Table View Controller-->
+        <!--Device Button Table View Controller-->
         <scene sceneID="cgm-2O-OJl">
             <objects>
-                <tableViewController storyboardIdentifier="ConnectDeviceButtonTableViewController" id="0sK-NK-cuD" customClass="ADConnectDeviceButtonTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DeviceButtonTableViewController" id="0sK-NK-cuD" customClass="ADDeviceButtonTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="X44-Kw-LDk">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3139,7 +3167,7 @@ Create your unbelievable art!</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LvE-ds-JdB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4387" y="596"/>
+            <point key="canvasLocation" x="-4503" y="600"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="KtV-Nk-mRl">

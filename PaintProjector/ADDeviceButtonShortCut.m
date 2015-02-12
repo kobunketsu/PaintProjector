@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADDeviceButtonShortCut.h"
+#import "ADDeviceButtonShortcut.h"
 
-@implementation ADDeviceButtonShortCut
+@implementation ADDeviceButtonShortcut
 - (instancetype)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector{
     self = [super init];
     if (self) {

@@ -9,9 +9,13 @@
 #import "WacomTouch.h"
 
 @implementation WacomTouch
-+ (id)touchFromTrackedTouch:(TrackedTouch *)trackedTouch{
++ (id)touchFromTrackedTouch:(TrackedTouch *)trackedTouch rawTrackedTouch:(UITouch*)rawTrackedTouch rawTouch:(UITouch*)rawTouch{
     WacomTouch *touch = [[WacomTouch alloc]init];
     touch.trackedTouch = trackedTouch;
+    touch.rawTouch = rawTouch;
+    
+    DebugLogWarn(@"trackedTouch location %@", NSStringFromCGPoint(trackedTouch.currentLocation));
+    DebugLogWarn(@"trackedTouch touchlocation %@", NSStringFromCGPoint(trackedTouch.currentTouchLocation));
     return touch;
 }
 

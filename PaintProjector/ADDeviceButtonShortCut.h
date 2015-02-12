@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@interface ADDeviceButtonShortCut : NSObject
+@interface ADDeviceButtonShortcut : NSObject
 @property (retain, nonatomic) JotShortcut *jotShortCut;
 @property (copy) NSString *descriptiveText;
 

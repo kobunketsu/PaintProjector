@@ -245,8 +245,8 @@
 		082DF32016A1B89E007656AA /* InfColorPickerIndicatorMagnify.m in Sources */ = {isa = PBXBuildFile; fileRef = 082DF31F16A1B89D007656AA /* InfColorPickerIndicatorMagnify.m */; };
 		082F9C5E19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
 		082F9C5F19D7B228006CC621 /* ADTutorialStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 082F9C5D19D7B228006CC621 /* ADTutorialStatusView.m */; };
-		083286B11A82041700925D1A /* ADDeviceJotWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADDeviceJotWritingStyleTableViewController.m */; };
-		083286B21A82041700925D1A /* ADDeviceJotWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADDeviceJotWritingStyleTableViewController.m */; };
+		083286B11A82041700925D1A /* ADDeviceWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADDeviceWritingStyleTableViewController.m */; };
+		083286B21A82041700925D1A /* ADDeviceWritingStyleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 083286B01A82041600925D1A /* ADDeviceWritingStyleTableViewController.m */; };
 		0832967E17ACD22600F8DCF2 /* ADPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0832967D17ACD22600F8DCF2 /* ADPlayerView.m */; };
 		08329AEE18DD39DC00095EA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08329AF018DD39DC00095EA9 /* Localizable.strings */; };
 		0832E27A1933A7EA004BD986 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0832E2741933A7EA004BD986 /* libTestFlight.a */; };
@@ -298,6 +298,7 @@
 		0849CEA81735503D004B30C6 /* ADRadiusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */; };
 		0849FF42199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
 		0849FF43199F2518000A35F2 /* ADPreviousPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */; };
+		084C3EBF1A8BA30A00F0E83D /* libT1PogoManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 084C3EB91A8BA30A00F0E83D /* libT1PogoManager.a */; };
 		084D5405170338A60052F510 /* ADPaintDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D5404170338A60052F510 /* ADPaintDoc.m */; };
 		084D540A17033C270052F510 /* ADPaintDocManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 084D540917033C270052F510 /* ADPaintDocManager.m */; };
 		084F8EC8173BDD9D007676C3 /* ADBrushTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084F8EC7173BDD9D007676C3 /* ADBrushTypeViewController.m */; };
@@ -380,6 +381,10 @@
 		086CF4991919DF1A000F1FBB /* ADShaderDiffuse.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF4971919DF1A000F1FBB /* ADShaderDiffuse.m */; };
 		086CF49F1919E6EB000F1FBB /* RERenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RERenderSettings.m */; };
 		086CF4A01919E6EB000F1FBB /* RERenderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 086CF49E1919E6EB000F1FBB /* RERenderSettings.m */; };
+		086F6FEA1A8C4BDA0014006A /* ADPogoConnectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F6FE91A8C4BDA0014006A /* ADPogoConnectTableViewController.m */; };
+		086F6FEB1A8C4BDA0014006A /* ADPogoConnectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F6FE91A8C4BDA0014006A /* ADPogoConnectTableViewController.m */; };
+		086F6FF11A8C8A030014006A /* T1PogoManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F6FF01A8C8A030014006A /* T1PogoManager+Extension.m */; };
+		086F6FF21A8C8A030014006A /* T1PogoManager+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F6FF01A8C8A030014006A /* T1PogoManager+Extension.m */; };
 		086F8EDE1728AE2F0024289C /* ADExportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 086F8EDD1728AE2F0024289C /* ADExportTableViewController.m */; };
 		086FBF071953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */; };
 		086FBF081953D8D700BCD4E5 /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 086FBF061953D8D700BCD4E5 /* NGAParallaxMotion.m */; };
@@ -388,8 +393,8 @@
 		086FBF0D1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
 		086FBF0E1953E58B00BCD4E5 /* tutorial_setup3.png in Resources */ = {isa = PBXBuildFile; fileRef = 086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */; };
 		08701169177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */; };
-		087026211A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
-		087026221A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */; };
+		087026211A81E5E800866ABE /* ADDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADDeviceButtonTableViewController.m */; };
+		087026221A81E5E800866ABE /* ADDeviceButtonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087026201A81E5E800866ABE /* ADDeviceButtonTableViewController.m */; };
 		087103081914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		087103091914B1390030A5BF /* NSString+Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = 087103071914B1390030A5BF /* NSString+Unit.m */; };
 		0871A829192A48A400BB8558 /* Storyboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08561F8B18DDC7EF00839533 /* Storyboard_iPad.storyboard */; };
@@ -588,8 +593,8 @@
 		08A9030C1A88A8DA003C8635 /* WacomDevice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A9030A1A88A8DA003C8635 /* WacomDevice.framework */; };
 		08A903121A88B8CE003C8635 /* WacomDevice+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903111A88B8CE003C8635 /* WacomDevice+Extension.m */; };
 		08A903131A88B8CE003C8635 /* WacomDevice+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903111A88B8CE003C8635 /* WacomDevice+Extension.m */; };
-		08A903161A88B9D0003C8635 /* ADDeviceButtonShortCut.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903151A88B9D0003C8635 /* ADDeviceButtonShortCut.m */; };
-		08A903171A88B9D0003C8635 /* ADDeviceButtonShortCut.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903151A88B9D0003C8635 /* ADDeviceButtonShortCut.m */; };
+		08A903161A88B9D0003C8635 /* ADDeviceButtonShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903151A88B9D0003C8635 /* ADDeviceButtonShortcut.m */; };
+		08A903171A88B9D0003C8635 /* ADDeviceButtonShortcut.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A903151A88B9D0003C8635 /* ADDeviceButtonShortcut.m */; };
 		08A932CB16FE9EBF00A75938 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A932CA16FE9EBF00A75938 /* MessageUI.framework */; };
 		08AB75C5188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* ADPaintCollectionView.m */; };
 		08AB75C7188F5A5A007DA20B /* ADPaintCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AB75C4188F5A5A007DA20B /* ADPaintCollectionView.m */; };
@@ -1323,7 +1328,7 @@
 		0830455F166B46EC00E8E35C /* ADImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADImageView.h; sourceTree = "<group>"; };
 		08304560166B46EC00E8E35C /* ADImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADImageView.m; sourceTree = "<group>"; };
 		083286AF1A82041600925D1A /* ADDeviceWritingStyleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceWritingStyleTableViewController.h; path = PaintProjector/ADDeviceWritingStyleTableViewController.h; sourceTree = SOURCE_ROOT; };
-		083286B01A82041600925D1A /* ADDeviceJotWritingStyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceJotWritingStyleTableViewController.m; path = PaintProjector/ADDeviceJotWritingStyleTableViewController.m; sourceTree = SOURCE_ROOT; };
+		083286B01A82041600925D1A /* ADDeviceWritingStyleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceWritingStyleTableViewController.m; path = PaintProjector/ADDeviceWritingStyleTableViewController.m; sourceTree = SOURCE_ROOT; };
 		0832967C17ACD22600F8DCF2 /* ADPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPlayerView.h; sourceTree = "<group>"; };
 		0832967D17ACD22600F8DCF2 /* ADPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPlayerView.m; sourceTree = "<group>"; };
 		08329AF118DD3F7B00095EA9 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 2483028224; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1391,6 +1396,12 @@
 		0849CEA71735503D004B30C6 /* ADRadiusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRadiusIndicatorView.m; sourceTree = "<group>"; };
 		0849FF40199F2518000A35F2 /* ADPreviousPageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPreviousPageButton.h; sourceTree = "<group>"; };
 		0849FF41199F2518000A35F2 /* ADPreviousPageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPreviousPageButton.m; sourceTree = "<group>"; };
+		084C3EB91A8BA30A00F0E83D /* libT1PogoManager.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libT1PogoManager.a; path = PogoConnectSDK/libT1PogoManager.a; sourceTree = SOURCE_ROOT; };
+		084C3EBA1A8BA30A00F0E83D /* T1Peripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1Peripheral.h; path = PogoConnectSDK/T1Peripheral.h; sourceTree = SOURCE_ROOT; };
+		084C3EBB1A8BA30A00F0E83D /* T1PogoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1PogoDelegate.h; path = PogoConnectSDK/T1PogoDelegate.h; sourceTree = SOURCE_ROOT; };
+		084C3EBC1A8BA30A00F0E83D /* T1PogoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1PogoEvent.h; path = PogoConnectSDK/T1PogoEvent.h; sourceTree = SOURCE_ROOT; };
+		084C3EBD1A8BA30A00F0E83D /* T1PogoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1PogoManager.h; path = PogoConnectSDK/T1PogoManager.h; sourceTree = SOURCE_ROOT; };
+		084C3EBE1A8BA30A00F0E83D /* T1PogoPen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = T1PogoPen.h; path = PogoConnectSDK/T1PogoPen.h; sourceTree = SOURCE_ROOT; };
 		084D5403170338A60052F510 /* ADPaintDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDoc.h; sourceTree = "<group>"; };
 		084D5404170338A60052F510 /* ADPaintDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADPaintDoc.m; sourceTree = "<group>"; };
 		084D540817033C260052F510 /* ADPaintDocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADPaintDocManager.h; sourceTree = "<group>"; };
@@ -1493,6 +1504,10 @@
 		086CF4971919DF1A000F1FBB /* ADShaderDiffuse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADShaderDiffuse.m; sourceTree = "<group>"; };
 		086CF49D1919E6EB000F1FBB /* RERenderSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RERenderSettings.h; path = PaintProjector/RERenderSettings.h; sourceTree = "<group>"; };
 		086CF49E1919E6EB000F1FBB /* RERenderSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RERenderSettings.m; path = PaintProjector/RERenderSettings.m; sourceTree = "<group>"; };
+		086F6FE81A8C4BDA0014006A /* ADPogoConnectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPogoConnectTableViewController.h; path = PaintProjector/ADPogoConnectTableViewController.h; sourceTree = SOURCE_ROOT; };
+		086F6FE91A8C4BDA0014006A /* ADPogoConnectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPogoConnectTableViewController.m; path = PaintProjector/ADPogoConnectTableViewController.m; sourceTree = SOURCE_ROOT; };
+		086F6FEF1A8C8A030014006A /* T1PogoManager+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "T1PogoManager+Extension.h"; path = "PaintProjector/T1PogoManager+Extension.h"; sourceTree = SOURCE_ROOT; };
+		086F6FF01A8C8A030014006A /* T1PogoManager+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "T1PogoManager+Extension.m"; path = "PaintProjector/T1PogoManager+Extension.m"; sourceTree = SOURCE_ROOT; };
 		086F8EDC1728AE2F0024289C /* ADExportTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADExportTableViewController.h; sourceTree = "<group>"; };
 		086F8EDD1728AE2F0024289C /* ADExportTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADExportTableViewController.m; sourceTree = "<group>"; };
 		086FBF051953D8D700BCD4E5 /* NGAParallaxMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGAParallaxMotion.h; sourceTree = "<group>"; };
@@ -1501,8 +1516,8 @@
 		086FBF0C1953E58B00BCD4E5 /* tutorial_setup3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_setup3.png; path = PaintProjector/Images/tutorial_setup3.png; sourceTree = "<group>"; };
 		08701167177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModeTableViewCell.h; sourceTree = "<group>"; };
 		08701168177B2C0000C2EE66 /* ADLayerBlendModeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeTableViewCell.m; sourceTree = "<group>"; };
-		0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConnectDeviceButtonTableViewController.h; path = PaintProjector/ADConnectDeviceButtonTableViewController.h; sourceTree = SOURCE_ROOT; };
-		087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConnectDeviceButtonTableViewController.m; path = PaintProjector/ADConnectDeviceButtonTableViewController.m; sourceTree = SOURCE_ROOT; };
+		0870261F1A81E5E800866ABE /* ADDeviceButtonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceButtonTableViewController.h; path = PaintProjector/ADDeviceButtonTableViewController.h; sourceTree = SOURCE_ROOT; };
+		087026201A81E5E800866ABE /* ADDeviceButtonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceButtonTableViewController.m; path = PaintProjector/ADDeviceButtonTableViewController.m; sourceTree = SOURCE_ROOT; };
 		087103061914B1390030A5BF /* NSString+Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unit.h"; sourceTree = "<group>"; };
 		087103071914B1390030A5BF /* NSString+Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unit.m"; sourceTree = "<group>"; };
 		0871A82A192A569600BB8558 /* ADBrushPropertyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyTableView.h; sourceTree = "<group>"; };
@@ -1731,8 +1746,8 @@
 		08A9030A1A88A8DA003C8635 /* WacomDevice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WacomDevice.framework; path = WacomIntuosSDK/WacomDevice.framework; sourceTree = "<group>"; };
 		08A903101A88B8CE003C8635 /* WacomDevice+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WacomDevice+Extension.h"; path = "../PaintProjector/WacomDevice+Extension.h"; sourceTree = "<group>"; };
 		08A903111A88B8CE003C8635 /* WacomDevice+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WacomDevice+Extension.m"; path = "../PaintProjector/WacomDevice+Extension.m"; sourceTree = "<group>"; };
-		08A903141A88B9D0003C8635 /* ADDeviceButtonShortCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceButtonShortCut.h; path = ../PaintProjector/ADDeviceButtonShortCut.h; sourceTree = "<group>"; };
-		08A903151A88B9D0003C8635 /* ADDeviceButtonShortCut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceButtonShortCut.m; path = ../PaintProjector/ADDeviceButtonShortCut.m; sourceTree = "<group>"; };
+		08A903141A88B9D0003C8635 /* ADDeviceButtonShortcut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceButtonShortcut.h; path = ../PaintProjector/ADDeviceButtonShortcut.h; sourceTree = "<group>"; };
+		08A903151A88B9D0003C8635 /* ADDeviceButtonShortcut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceButtonShortcut.m; path = ../PaintProjector/ADDeviceButtonShortcut.m; sourceTree = "<group>"; };
 		08A932CA16FE9EBF00A75938 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		08AB75C3188F5A5A007DA20B /* ADPaintCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADPaintCollectionView.h; path = PaintProjector/ADPaintCollectionView.h; sourceTree = "<group>"; };
 		08AB75C4188F5A5A007DA20B /* ADPaintCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADPaintCollectionView.m; path = PaintProjector/ADPaintCollectionView.m; sourceTree = "<group>"; };
@@ -2144,6 +2159,7 @@
 				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
 				080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */,
 				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
+				084C3EBF1A8BA30A00F0E83D /* libT1PogoManager.a in Frameworks */,
 				9C427B0E14FA4DBA00C708B8 /* SystemConfiguration.framework in Frameworks */,
 				9C60DA8914E53C7100442413 /* CoreImage.framework in Frameworks */,
 				9C21AF6B14E45AAB00DB003E /* AssetsLibrary.framework in Frameworks */,
@@ -2566,6 +2582,37 @@
 			name = Export;
 			sourceTree = "<group>";
 		};
+		084C3EB71A8BA25700F0E83D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				08A903141A88B9D0003C8635 /* ADDeviceButtonShortcut.h */,
+				08A903151A88B9D0003C8635 /* ADDeviceButtonShortcut.m */,
+				083286AF1A82041600925D1A /* ADDeviceWritingStyleTableViewController.h */,
+				083286B01A82041600925D1A /* ADDeviceWritingStyleTableViewController.m */,
+				08D9B7AA1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.h */,
+				08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */,
+				0870261F1A81E5E800866ABE /* ADDeviceButtonTableViewController.h */,
+				087026201A81E5E800866ABE /* ADDeviceButtonTableViewController.m */,
+				08CA01D31A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.h */,
+				08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */,
+				087DB6361A88FFF200F3A1F8 /* ADDeviceManager.h */,
+				087DB6371A88FFF200F3A1F8 /* ADDeviceManager.m */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		084C3EB81A8BA27000F0E83D /* PogoConnect */ = {
+			isa = PBXGroup;
+			children = (
+				086F6FEC1A8C4BE50014006A /* SDK */,
+				086F6FE81A8C4BDA0014006A /* ADPogoConnectTableViewController.h */,
+				086F6FE91A8C4BDA0014006A /* ADPogoConnectTableViewController.m */,
+				086F6FEF1A8C8A030014006A /* T1PogoManager+Extension.h */,
+				086F6FF01A8C8A030014006A /* T1PogoManager+Extension.m */,
+			);
+			name = PogoConnect;
+			sourceTree = "<group>";
+		};
 		084D540B17033C300052F510 /* File */ = {
 			isa = PBXGroup;
 			children = (
@@ -2840,6 +2887,35 @@
 			name = TutorialScreen;
 			sourceTree = "<group>";
 		};
+		086F6FEC1A8C4BE50014006A /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				084C3EBA1A8BA30A00F0E83D /* T1Peripheral.h */,
+				084C3EBB1A8BA30A00F0E83D /* T1PogoDelegate.h */,
+				084C3EBC1A8BA30A00F0E83D /* T1PogoEvent.h */,
+				084C3EBD1A8BA30A00F0E83D /* T1PogoManager.h */,
+				084C3EBE1A8BA30A00F0E83D /* T1PogoPen.h */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		086F6FED1A8C4BF30014006A /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				087DB6411A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		086F6FEE1A8C4C020014006A /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				087DB6441A8900C600F3A1F8 /* JotTouchStatusHUD.h */,
+				087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
 		0870C6CF18DD8D24007AFA9E /* Localize */ = {
 			isa = PBXGroup;
 			children = (
@@ -3042,12 +3118,11 @@
 		08A903081A88A84C003C8635 /* AdonitJot */ = {
 			isa = PBXGroup;
 			children = (
+				086F6FEE1A8C4C020014006A /* SDK */,
 				089052C51A86F86C0011BA99 /* JotTouch+Extension.h */,
 				089052C61A86F86C0011BA99 /* JotTouch+Extension.m */,
 				089052C91A8704740011BA99 /* JotStylusManager+Extension.h */,
 				089052CA1A8704740011BA99 /* JotStylusManager+Extension.m */,
-				087DB6441A8900C600F3A1F8 /* JotTouchStatusHUD.h */,
-				087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */,
 				08D9B7B61A810259001F0FBA /* ADAdonitJotTableViewController.h */,
 				08D9B7B71A810259001F0FBA /* ADAdonitJotTableViewController.m */,
 			);
@@ -3057,9 +3132,9 @@
 		08A903091A88A883003C8635 /* WacomIntuos */ = {
 			isa = PBXGroup;
 			children = (
+				086F6FED1A8C4BF30014006A /* SDK */,
 				08A903101A88B8CE003C8635 /* WacomDevice+Extension.h */,
 				08A903111A88B8CE003C8635 /* WacomDevice+Extension.m */,
-				087DB6411A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle */,
 				08D9B7BA1A810328001F0FBA /* ADWacomStylusTableViewController.h */,
 				08D9B7BB1A810328001F0FBA /* ADWacomStylusTableViewController.m */,
 				086BD2851A8A0D3E00EEFB62 /* WacomTouch.h */,
@@ -3203,20 +3278,10 @@
 		08D9B7A91A80F59F001F0FBA /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				084C3EB81A8BA27000F0E83D /* PogoConnect */,
+				084C3EB71A8BA25700F0E83D /* Common */,
 				08A903091A88A883003C8635 /* WacomIntuos */,
 				08A903081A88A84C003C8635 /* AdonitJot */,
-				08A903141A88B9D0003C8635 /* ADDeviceButtonShortCut.h */,
-				08A903151A88B9D0003C8635 /* ADDeviceButtonShortCut.m */,
-				083286AF1A82041600925D1A /* ADDeviceWritingStyleTableViewController.h */,
-				083286B01A82041600925D1A /* ADDeviceJotWritingStyleTableViewController.m */,
-				08D9B7AA1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.h */,
-				08D9B7AB1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m */,
-				0870261F1A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.h */,
-				087026201A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m */,
-				08CA01D31A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.h */,
-				08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */,
-				087DB6361A88FFF200F3A1F8 /* ADDeviceManager.h */,
-				087DB6371A88FFF200F3A1F8 /* ADDeviceManager.m */,
 			);
 			name = Device;
 			path = ../TestFlightSDK3;
@@ -3501,6 +3566,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				084C3EB91A8BA30A00F0E83D /* libT1PogoManager.a */,
 				08A9030A1A88A8DA003C8635 /* WacomDevice.framework */,
 				08D9B7A71A80F397001F0FBA /* CoreBluetooth.framework */,
 				08D9B7A51A80F38B001F0FBA /* CoreMotion.framework */,
@@ -4135,7 +4201,7 @@
 				7a27ca748767410425fc8f04 /* ADBrushView.m in Sources */,
 				c456e2548edf55cffb75735a /* ADTransformContentViewLayer.m in Sources */,
 				080706DB18B7888C00D9385F /* ADPaintFrameTransitionManager.m in Sources */,
-				08A903171A88B9D0003C8635 /* ADDeviceButtonShortCut.m in Sources */,
+				08A903171A88B9D0003C8635 /* ADDeviceButtonShortcut.m in Sources */,
 				271344d8c9546fa3680b2e80 /* ADColorButton.m in Sources */,
 				0880676E19E7670400AAE1C7 /* ADViewPopAnimator.m in Sources */,
 				44e07334b6d516780130c2bd /* InfColorBarPicker.m in Sources */,
@@ -4144,6 +4210,7 @@
 				086B73BE194D43EA00870DBD /* ADTutorialView.m in Sources */,
 				ac3657bc9115214296e84f31 /* InfColorPickerController.m in Sources */,
 				0807A63B18C77D3300AA3FA5 /* ADSwatchManagerTableView.m in Sources */,
+				086F6FF21A8C8A030014006A /* T1PogoManager+Extension.m in Sources */,
 				089052C81A86F86C0011BA99 /* JotTouch+Extension.m in Sources */,
 				14aa0559a33e78d5019bfcfc /* InfColorSquarePicker.m in Sources */,
 				039b508b5f39b806186156e5 /* InfHSBSupport.m in Sources */,
@@ -4206,7 +4273,7 @@
 				7d294f94056ab44ed9d1c266 /* ADChineseBrush.m in Sources */,
 				08A232B019C048F2004FE1F6 /* ADHelpCollectionViewCell.m in Sources */,
 				39ffcb7043b23fa8536d2aeb /* ADBrushTypeButton.m in Sources */,
-				087026221A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */,
+				087026221A81E5E800866ABE /* ADDeviceButtonTableViewController.m in Sources */,
 				08D4F68D19712FC900A81063 /* ADReversePaintInputData.m in Sources */,
 				0826EE8E18B9920B0074FC9F /* ADProductFeatureCollectionViewCell.m in Sources */,
 				087615631959BDBC007EE0C0 /* ADMathHelper.m in Sources */,
@@ -4263,6 +4330,7 @@
 				08A5CBBC189F36C900F4E226 /* REMeshFilter.m in Sources */,
 				086B73B2194D3AF600870DBD /* ADTutorialStep.m in Sources */,
 				0872BA471915C80700559E96 /* OpenGLTexture3D.m in Sources */,
+				086F6FEB1A8C4BDA0014006A /* ADPogoConnectTableViewController.m in Sources */,
 				08A5CBC0189F542300F4E226 /* REScene.m in Sources */,
 				082060DE189D455C0027247C /* ADCylinderProject.m in Sources */,
 				3e9af69b87333d5ed310511e /* ADOilBrush.m in Sources */,
@@ -4339,7 +4407,7 @@
 				3c475975e807db0d73ebe205 /* ADSharedTableViewCell.m in Sources */,
 				08D9B7AD1A80F6C1001F0FBA /* ADConnectDeviceTableViewController.m in Sources */,
 				08E4E7771951C23C003C77DB /* ADBarStyleKit.m in Sources */,
-				083286B21A82041700925D1A /* ADDeviceJotWritingStyleTableViewController.m in Sources */,
+				083286B21A82041700925D1A /* ADDeviceWritingStyleTableViewController.m in Sources */,
 				08BD1A8419CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				0847F53018B07ECF0038869A /* ADUnitConverter.m in Sources */,
 				08FF70CD189019A400A7A09B /* ADPaintUIKitAnimation.m in Sources */,
@@ -4647,7 +4715,7 @@
 				086CF4981919DF1A000F1FBB /* ADShaderDiffuse.m in Sources */,
 				0871D0381812A72500A0D037 /* ADOilBrush.m in Sources */,
 				0871D03E1812A92700A0D037 /* ADMarkerSquare.m in Sources */,
-				08A903161A88B9D0003C8635 /* ADDeviceButtonShortCut.m in Sources */,
+				08A903161A88B9D0003C8635 /* ADDeviceButtonShortcut.m in Sources */,
 				083B425D171CCEEC0088B654 /* ADLayerBlendModeTableViewController.m in Sources */,
 				089743D6172296990085113C /* ADImportTableViewController.m in Sources */,
 				08A903121A88B8CE003C8635 /* WacomDevice+Extension.m in Sources */,
@@ -4714,7 +4782,7 @@
 				08511B09174BD39E00C97202 /* ADLayerOpacitySlider.m in Sources */,
 				080D70F21A7A067600B6AC87 /* ADHintView.m in Sources */,
 				0862133F174D06AD006704C8 /* ADLayerBlendModeButton.m in Sources */,
-				087026211A81E5E800866ABE /* ADConnectDeviceButtonTableViewController.m in Sources */,
+				087026211A81E5E800866ABE /* ADDeviceButtonTableViewController.m in Sources */,
 				08621342174D1A9E006704C8 /* ADLayerBlendModePopoverController.m in Sources */,
 				08CA38CA1A7E1FCB00E3E0DC /* ADShaderBrushCompose.m in Sources */,
 				087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */,
@@ -4762,6 +4830,7 @@
 				08A5CBBF189F542300F4E226 /* REScene.m in Sources */,
 				08494ED11781DC1200A256E8 /* ADLayerDeleteDoneButton.m in Sources */,
 				0811271F194982A80057BD53 /* ADShaderBrush.m in Sources */,
+				086F6FEA1A8C4BDA0014006A /* ADPogoConnectTableViewController.m in Sources */,
 				08930E1D1787F2B9001525B1 /* ADAutoRotateButton.m in Sources */,
 				089AC79E1A83207A005EFBA1 /* ADSharedMainButton.m in Sources */,
 				08B9104C18AF6ACF00BEA0D3 /* ADShareTableViewController.m in Sources */,
@@ -4807,9 +4876,10 @@
 				0863C02219702CAE00CDB283 /* ADCylinderImage.m in Sources */,
 				0860669017D2DB60002EE42A /* ADDeleteButton.m in Sources */,
 				08A232AF19C048F2004FE1F6 /* ADHelpCollectionViewCell.m in Sources */,
+				086F6FF11A8C8A030014006A /* T1PogoManager+Extension.m in Sources */,
 				08C26B4C19BDF2D300722ACB /* ADAnamorphosisBasicViewController.m in Sources */,
 				08E505D91956F57400ED86BF /* ADTutorialPaintScreenGestureCollectionView.m in Sources */,
-				083286B11A82041700925D1A /* ADDeviceJotWritingStyleTableViewController.m in Sources */,
+				083286B11A82041700925D1A /* ADDeviceWritingStyleTableViewController.m in Sources */,
 				08AE475818C8C126008940E8 /* ADSwatchManagerViewController.m in Sources */,
 				08956DC518976F5B00EAB16C /* ADPaintFrameTransitionManager.m in Sources */,
 				08F51711195164D6007E921B /* UISlider+Extension.m in Sources */,
@@ -4953,6 +5023,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GPUImage",
+					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "288cc4db-bfd7-40df-9ff6-9cb6d76a7220";
@@ -5119,6 +5190,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GPUImage",
+					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "26cab14a-967b-4332-a362-e91ff2539cee";
@@ -5381,6 +5453,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GPUImage",
+					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = (
@@ -5434,6 +5507,7 @@
 					"$(PROJECT_DIR)/Flurry",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/GPUImage",
+					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "ce00bd72-2555-4b0f-8d65-03ff151c2c6e";

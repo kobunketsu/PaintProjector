@@ -45,6 +45,7 @@ typedef NS_ENUM(NSInteger, PaintViewState) {
     PaintView_TouchTransformCanvas,
     PaintView_TouchQuickTool,
     PaintView_TouchToggleFullScreen,
+    PaintView_TouchOperationEnd,
 };
 
 typedef struct {
@@ -91,8 +92,8 @@ typedef struct {
 - (void) willHideUIPaintArea:(BOOL)hide touchPoint:(CGPoint)touchPoint;
 - (void) willUpdateUIToolBars;
 
-- (void)willJotSuggestsToDisableGestures;
-- (void)willJotSuggestsToEnableGestures;
+- (void)willDeviceSuggestsToDisableGestures;
+- (void)willDeviceSuggestsToEnableGestures;
 @end
 
 //CLASS INTERFACES:
@@ -174,7 +175,7 @@ typedef struct {
 @property (retain, nonatomic) REMaterial *quadMat;
 
 
-#pragma mark GL资源
+#pragma mark- GL资源
 - (void)swapVBO;
 //初始化OpenGLES资源
 - (void)initGL;
@@ -189,11 +190,14 @@ typedef struct {
 //进入前台,恢复GL
 - (void)applicationWillEnterForeground;
 
-#pragma mark Interaction交互
+#pragma mark- Interaction交互
 @property (assign, nonatomic) NSInteger curNumberOfTouch;   //当前Touch个数
 @property (retain, nonatomic) UITouch *firstTouch;     //记录当前取色Touch
 
-#pragma mark 绘图Draw
+#pragma mark- Touch
+- (CGPoint)locationInView:(UIView*)view fromTouch:(id)touch;
+
+#pragma mark- 绘图Draw
 - (BOOL)enterState:(PaintViewState)state;
 - (void)prepareDrawEnv;
 - (void)startDraw:(PathPoint)startPoint isTapDraw:(BOOL)isTapDraw;
@@ -203,15 +207,15 @@ typedef struct {
 - (void)eraseAllLayers;
 //绘制
 - (void)updateRender;
-#pragma mark 数控笔 ConnectDevice
+#pragma mark- 数控笔 ConnectDevice
 @property (assign, nonatomic) ConnectDeviceType connectDeviceType;
 
-#pragma mark 变换画布TransformCanvas
+#pragma mark- 变换画布TransformCanvas
 - (void)transformCanvasBegan;
 - (void)transformCanvasReset;
 - (void)freeTransformCanvasTranslate:(CGPoint)translation rotate:(float) angle scale:(float)scale;
 
-#pragma mark 变换图片TransformImageLayer
+#pragma mark- 变换图片TransformImageLayer
 - (void)transformImageBeganAnchorPoint:(CGPoint)anchorPoint;
 - (TransformInfo)freeTransformImageTranslate:(CGPoint)translation rotate:(float) angle scale:(CGPoint)scale anchorPoint:(CGPoint)anchorPoint;
 - (CGPoint)imageScaleAnchor;
@@ -226,7 +230,7 @@ typedef struct {
 - (void)transformImageLayerDone;
 //- (void)transformImageLayerCancelled;
 
-#pragma mark 图层Layer
+#pragma mark- 图层Layer
 - (int)curLayerIndex;
 - (void)insertUIImageAtCurLayer:(UIImage*)uiImage;
 - (void)cancelInsertUIImageAtCurLayer;
@@ -255,16 +259,16 @@ typedef struct {
 - (void)uploadLayerDataAtIndex:(int)index;
 - (void)uploadLayerDatas:(BOOL)forceUpdate;
 - (void)uploadLayerDatas;
-#pragma mark 文件系统FileSystem
+#pragma mark- 文件系统FileSystem
 - (void)setOpenData:(ADPaintData*)data;
-#pragma mark 撤销UndoRedo
+#pragma mark- 撤销UndoRedo
 - (void)undoDraw;
 - (void)redoDraw;
 - (void)resetUndoRedo;
-#pragma ultility
+#pragma mark- ultility
 - (void)drawQuad:(GLuint)quad texture2D:(GLuint)texture premultiplied:(BOOL)premultiplied alpha:(GLfloat)alpha;
 - (void)drawLayerWithTex:(GLuint)texture blend:(LayerBlendMode)blendMode opacity:(float)opacity;
-#pragma mark 其他Misc
+#pragma mark- 其他Misc
 - (UIImage*)snapshotScreenToUIImageOutputSize:(CGSize)size;
 - (UIImage*)snapshotFramebufferToUIImage:(GLuint)framebuffer;
 //取色

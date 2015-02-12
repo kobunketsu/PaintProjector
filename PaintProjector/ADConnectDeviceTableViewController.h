@@ -9,8 +9,8 @@
 #import "ADSharedPopTableViewController.h"
 #import "ADAdonitJotTableViewController.h"
 #import "ADWacomStylusTableViewController.h"
-#import "ADConnectDeviceButtonTableViewController.h"
-
+#import "ADDeviceButtonTableViewController.h"
+#import "ADPogoConnectTableViewController.h"
 
 #define ConnectDeviceCellNum 7
 @interface ADConnectDeviceTableViewController : ADSharedPopTableViewController

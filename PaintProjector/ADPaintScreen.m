@@ -86,12 +86,14 @@
 
 #pragma mark- Connect Device
 @property (retain, nonatomic) ADConnectDeviceTableViewController *connectDeviceTableController;
-@property (assign, nonatomic) ConnectDeviceType connectDeviceType;
 #pragma mark- AdonitJot
 @property (retain, nonatomic) ADAdonitJotTableViewController *adonitJotTableController;
 @property (nonatomic, strong) NSString *lastConnectedStylusModelName;
 #pragma mark- WacomStylus
 @property (retain, nonatomic) ADWacomStylusTableViewController *wacomStylusTableController;
+#pragma mark- PogoConnect
+@property (retain, nonatomic) ADPogoConnectTableViewController *pogoConnectTableController;
+@property (retain, nonatomic) T1PogoManager *pogoManager;
 @end
 
 
@@ -402,7 +404,7 @@
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR1Touches2TapsRootCanvasView];
     [self.tapGR1Touches1TapsPaintView requireGestureRecognizerToFail:self.tapGR3Touches1TapsRootCanvasView];
     
-    self.connectDeviceType = ConnectDevice_None;
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     //多线程,最好的方式是给_uploadDataQueque创建独立的context
     _uploadDataQueque = dispatch_queue_create("com.WenjieHu.ProjectPaint.uploadDataQueue", NULL);
     
@@ -592,7 +594,7 @@
         case UIGestureRecognizerStateEnded: {
             DebugLog(@"EyeDrop End");
             //使用Delayed TouchEnd 来关闭EyeDropper
-            if ([self.paintView enterState:PaintView_TouchNone]) {
+            if ([self.paintView enterState:PaintView_TouchOperationEnd]) {
                 [self willEndUIEyeDrop];
             }
             break;
@@ -600,7 +602,7 @@
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
             DebugLog(@"EyeDrop Cancelled or Failed");
-            if ([self.paintView enterState:PaintView_TouchNone]) {
+            if ([self.paintView enterState:PaintView_TouchOperationEnd]) {
                 [self willEndUIEyeDrop];
             }
             break;
@@ -1871,6 +1873,12 @@
         }
         else{
             return false;
+        }
+    }
+    else if (self.state == PaintScreen_EyedropColor) {
+        if (self.paintView.state == PaintView_TouchEyeDrop ||
+            self.paintView.state == PaintView_TouchNone) {
+            return true;
         }
     }
     else{
@@ -3925,8 +3933,9 @@
 }
 
 - (void)enterState:(PaintScreenViewState) state{
-    
+    self.state = state;
 }
+
 - (void)leaveState:(PaintScreenViewState) state{
     switch (state) {
         case PaintScreen_PickColor:
@@ -4615,8 +4624,9 @@
 }
 
 - (void) willStartUIEyeDrop{
+    [self enterState:PaintScreen_EyedropColor];
+    
     self.eyeDropperIndicatorView.hidden = false;
-
     [ADPaintUIKitAnimation view:self.view switchTopToolBarFromView:self.mainToolBar completion:nil];
     if ([ADSimpleTutorialManager current].isActive) {
         [ADSimpleTutorialManager current].curTutorial.curStep.indicatorView.hidden = true;
@@ -4657,14 +4667,21 @@
     return eyeDropLocationInRootView;
 }
 
-- (CGPoint) willGetEyeDropLocation{
-    //更新触摸点
-    CGPoint eyeDropLocation = CGPointZero;
-    CGPoint locationInRootView = [self.paintView.firstTouch locationInView:self.rootCanvasView];
+- (BOOL)isDeviceTouching{
     if ([JotStylusManager sharedInstance].isStylusConnected
         && [JotStylusManager sharedInstance].enabled
         && [JotStylusManager sharedInstance].getPressure > 0) {
-        
+        return true;
+    }
+    return false;
+}
+
+- (CGPoint) willGetEyeDropLocation{
+    //更新触摸点
+    CGPoint eyeDropLocation = CGPointZero;
+    CGPoint locationInRootView = [self.paintView locationInView:self.rootCanvasView fromTouch:self.paintView.firstTouch];
+    
+    if ([self isDeviceTouching]) {
     }
     else if (IsOffsetEyeDropper) {
         CGPoint offset = CGPointMake(0, -EyeDropperOffset);
@@ -4687,8 +4704,9 @@
 }
 
 - (void) willEndUIEyeDrop{
-    _eyeDropperIndicatorView.hidden = true;
+    [self enterState:PaintScreen_Normal];
     
+    _eyeDropperIndicatorView.hidden = true;
     [UIView animateWithDuration:PaintScreenIBActionAnimationDuration animations:^{
         self.eyeDropperButton.frame = CGRectMake(self.eyeDropperButton.frame.origin.x, 30, self.eyeDropperButton.frame.size.width, self.eyeDropperButton.frame.size.height);
     }completion:nil];
@@ -4739,7 +4757,7 @@
 
 }
 
-- (void)willJotSuggestsToDisableGestures{
+- (void)willDeviceSuggestsToDisableGestures{
     self.pgr2TouchesRootCanvasView.enabled = false;
     self.pgr3TouchesRootCanvasView.enabled = false;
     self.tapGR1Touches2TapsRootCanvasView.enabled = false;
@@ -4749,7 +4767,7 @@
     self.clearGestureRecognizer.enabled = false;
 }
 
-- (void)willJotSuggestsToEnableGestures{
+- (void)willDeviceSuggestsToEnableGestures{
     self.pgr2TouchesRootCanvasView.enabled = true;
     self.pgr3TouchesRootCanvasView.enabled = true;
     self.tapGR1Touches2TapsRootCanvasView.enabled = true;
@@ -5686,7 +5704,7 @@
 - (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"connectDeviceButtonTouchUp" identifier:sender];
     
-    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+    [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
 }
 
 - (void)popDeviceWritingStyleTableViewController{
@@ -5705,7 +5723,7 @@
 
 
 - (void) didSelectDeviceButtonIndex:(NSInteger)index{
-    ADConnectDeviceButtonTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectDeviceButtonTableViewController"];
+    ADDeviceButtonTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceButtonTableViewController"];
     tableVC.delegate = self;
     tableVC.fromController = self.wacomStylusTableController;
     tableVC.buttonIndex = index;
@@ -5719,48 +5737,47 @@
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
-//TODO: fix
-- (void)addDeviceButtonShortCuts{
-    ADDeviceButtonShortCut *shortcut1 = [[ADDeviceButtonShortCut alloc]
+- (void)addDeviceButtonShortcuts{
+    ADDeviceButtonShortcut *shortcut1 = [[ADDeviceButtonShortcut alloc]
                               initWithDescriptiveText:NSLocalizedString(@"ShortcutUndo", nil)
                               key:@"undo"
                               target:self selector:@selector(undoShortCut)
                               ];
     [[ADDeviceManager sharedInstance] addShortcutOption: shortcut1];
     
-    ADDeviceButtonShortCut *shortcut2 = [[ADDeviceButtonShortCut alloc]
+    ADDeviceButtonShortcut *shortcut2 = [[ADDeviceButtonShortcut alloc]
                               initWithDescriptiveText:NSLocalizedString(@"ShortcutRedo", nil)
                               key:@"redo"
                               target:self selector:@selector(redoShortCut)
                               ];
     [[ADDeviceManager sharedInstance] addShortcutOption:shortcut2];
     
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutClear", nil)
                                          key:@"clear"
                                          target:self selector:@selector(clearShortCut)
                                          ]];
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutTransform", nil)
                                          key:@"transform"
                                          target:self selector:@selector(transformShortCut)
                                          ]];
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutLayer", nil)
                                          key:@"layer"
                                          target:self selector:@selector(layerShortCut)
                                          ]];
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutPickColor", nil)
                                          key:@"pickColor"
                                          target:self selector:@selector(pickColorShortCut)
                                          ]];
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutEyedropColor", nil)
                                          key:@"eyedropColor"
                                          target:self selector:@selector(eyedropColorShortCut)
                                          ]];
-    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortCut alloc]
+    [[ADDeviceManager sharedInstance] addShortcutOption: [[ADDeviceButtonShortcut alloc]
                                          initWithDescriptiveText:NSLocalizedString(@"ShortcutSwapBrush", nil)
                                          key:@"swapBrush"
                                          target:self selector:@selector(swapBrushShortCut)
@@ -5771,6 +5788,7 @@
     
     [[ADDeviceManager sharedInstance] addShortcutOptionButton2Default: shortcut2];
 }
+
 
 - (void)popDeviceTableViewControllerWithConnectDeviceType:(ConnectDeviceType)connectDeviceType{
     UITableViewController *controller = nil;
@@ -5794,6 +5812,12 @@
         controller = tableVC;
         [[WacomManager getManager] startDeviceDiscovery];
     }
+    else if (connectDeviceType == ConnectDevice_PogoConnect) {
+        ADPogoConnectTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"PogoConnectTableViewController"];
+        tableVC.delegate = self;
+        self.pogoConnectTableController = tableVC;
+        controller = tableVC;
+    }
     
     
     controller.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableController.tableViewHeight);
@@ -5806,38 +5830,39 @@
 }
 
 #pragma mark- ADConnectDeviceTableViewControllerDelegate
-- (void)setConnectDeviceType:(ConnectDeviceType)connectDeviceType{
-    self.paintView.connectDeviceType = connectDeviceType;
-    _connectDeviceType = connectDeviceType;
-}
 
 - (void)didSelectDeviceAdonitJotTouch{
-    self.connectDeviceType = ConnectDevice_AdonitJotTouch;
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_AdonitJotTouch;
     
     [self setupAdonitJotSDK];
     
-    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+    [self popDeviceTableViewControllerWithConnectDeviceType:ConnectDevice_AdonitJotTouch];
 }
 
 - (void)didSelectDeviceWacomStylus{
-    self.connectDeviceType = ConnectDevice_WacomStylus;
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_WacomStylus;
 
     [self setupWacomStylusSDK];
     
-    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+    [self popDeviceTableViewControllerWithConnectDeviceType:ConnectDevice_WacomStylus];
 }
 
 - (void)didSelectDevicePogoConnect{
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_PogoConnect;
+    
+    [self setupPogoConnectSDK];
+    
+    [self popDeviceTableViewControllerWithConnectDeviceType:ConnectDevice_PogoConnect];
 }
 
-#pragma mark - ADConnectDeviceButtonTableViewControllerDelegate
+#pragma mark - ADDeviceButtonTableViewControllerDelegate
 - (void)didSelectConnectDeviceButtonMethod{
-    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+    [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
 }
 #pragma mark - ADAdonitJotTableViewControllerDelegate
 - (void) didDeselectAdonitJotTouch{
     [self closeAdonitJotSDK];
-    self.connectDeviceType = ConnectDevice_None;
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     [self connectDeviceButtonTouchUp:self.connectDeviceButton];
 
 }
@@ -5855,7 +5880,7 @@
 
 #pragma mark - ADDeviceWritingStyleTableViewControllerDelegate
 - (void)didSelectConnectDeviceWritingStyle{
-    [self popDeviceTableViewControllerWithConnectDeviceType:self.connectDeviceType];
+    [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
 }
 #pragma mark - AdonitJot SDK
 - (void)closeAdonitJotSDK{
@@ -5901,7 +5926,7 @@
     
     
     //Setup shortcut
-    [self addDeviceButtonShortCuts];
+    [self addDeviceButtonShortcuts];
     
     //
     // Register for jotStylus notifications
@@ -6023,7 +6048,7 @@
     DebugLog(@"setupWacomStylusSDK");
     [[WacomManager getManager] registerForNotifications:self];
     [TouchManager GetTouchManager].touchRejectionEnabled = true;
-    [self addDeviceButtonShortCuts];
+    [self addDeviceButtonShortcuts];
 }
 
 - (void)closeWacomStylusSDK{
@@ -6035,7 +6060,7 @@
 #pragma mark - ADWacomStylusTableViewControllerDelegate
 - (void) didDeselectWacomStylus{
     [self closeWacomStylusSDK];
-    self.connectDeviceType = ConnectDevice_None;
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     [self connectDeviceButtonTouchUp:self.connectDeviceButton];
 }
 
@@ -6129,12 +6154,214 @@
     DebugLog(@"deviceConnected");
    [self.wacomStylusTableController.tableView reloadData];
     [[WacomManager getManager] selectDevice:device];
-    [ADDeviceManager sharedInstance].button1Shortcut = [ADDeviceManager sharedInstance].button1DefaultShortCut;
-    [ADDeviceManager sharedInstance].button2Shortcut = [ADDeviceManager sharedInstance].button2DefaultShortCut;
+    [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:0];
+    [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:1];
 }
 - (void) deviceDisconnected:(WacomDevice *)device{
     DebugLog(@"deviceDisconnected");
    [self.wacomStylusTableController.tableView reloadData];
+}
+
+#pragma mark- Pogo Connect SDK
+- (void)setupPogoConnectSDK{
+    DebugLog(@"setupPogoConnectSDK");
+    self.pogoManager = [T1PogoManager pogoManagerWithDelegate:self];
+    self.pogoManager.enablePenInputOverNetworkIfIncompatiblePad = YES;
+    [self.pogoManager registerView:self.paintView];
+    
+    [self addDeviceButtonShortcuts];
+}
+
+- (void)closePogoConnectSDK{
+    DebugLog(@"closePogoConnectSDK");
+    T1PogoPen *pen = [T1PogoManager sharedPogoManager].penConnected;
+    [self.pogoManager disconnectPogoPen:pen];
+    [self.pogoManager deregisterView:self.paintView];
+}
+
+#pragma mark- ADPogoConnectTableViewControllerDelegate
+- (void) didDeselectPogoConnect{
+    [self closePogoConnectSDK];
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
+    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
+}
+
+- (void) didSelectPogoConnectButtonIndex:(NSInteger)index{
+    [self didSelectDeviceButtonIndex:index];
+}
+
+- (void) didSelectOpenPogoConnectSupportURL{
+    NSURL *url = [NSURL URLWithString:URL_PogoConnectSupport];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+#pragma mark - T1PogoManager Delegate Methods
+- (void)pogoManager:(T1PogoManager *)manager didUpdateBluetoothState: (CBCentralManagerState)state
+{
+	if (state == CBCentralManagerStatePoweredOff) {
+		DebugLog(@"Bluetooth is powered off.  You could choose to tell your user.");
+	}
+}
+
+// By default, T1PogoManager will prompt the user to connect any new pen it discovers.
+// If you'd like to customize this behavior, set showConnectionPromptForNewPens to NO, and implement this method.
+// This will fire once per app launch if an unknown new pen is discovered.  Delete/reinstall the app to reset the state.
+// If you ultimately decide to connect a pen, keep a temporary reference to it around, then call connectPogoPen:
+- (void)pogoManager:(T1PogoManager *)manager didDiscoverNewPen:(T1PogoPen *)pen withName:(NSString *)name {
+}
+
+- (void)pogoManager:(T1PogoManager *)manager willConnectPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager willConnectPen: %@", pen.peripheral.productName);
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didConnectPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didConnectPen: %@", pen.peripheral.productName);
+    
+    [T1PogoManager sharedPogoManager].penConnected = pen;
+    
+    [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:0];
+    
+    if (self.pogoConnectTableController) {
+        [self.pogoConnectTableController.tableView reloadData];
+    }
+	
+	// this is a great place to choose the desired pressure response, linear, light, or heavy.
+	// it defaults to linear.  This is just here as an example.
+	// consider if T1PogoPenPressureResponseLight is best for artistic apps.
+	[manager setPressureResponse:T1PogoPenPressureResponseLinear forPen:pen];
+	
+	
+	// Here's an example of reading and writing data to pen using block-based API
+	// reads and writes are serialized and queued.
+	// The SDK will wait for this write to complete before processing the read.
+//	NSData *testData = [NSNetService dataFromTXTRecordDictionary:@{ @"example": @"dictionary" }];
+//	[manager writeApplicationData:testData onPeripheral:[pen peripheral] completionHandler:^(NSError *error) {
+//        if (error) {
+//            DebugLogError(@"writeApplicationData error");
+//        }
+//    }];
+//	[manager readApplicationDataOnPeripheral:[pen peripheral] completionHandler: ^(NSData *data, NSError *error)
+//	 {
+//		 if (!error) {
+//			 NSDictionary *dictionary = [NSNetService dictionaryFromTXTRecordData:data];
+//			 NSString *key = @"example";
+//			 NSString *value = [NSString stringWithUTF8String:[[dictionary objectForKey:key] bytes]];
+//			 NSLog(@"Pen storage demo result: @{@\"%@\":@\"%@\"}", key, value);
+//		 }
+//	 }];
+    
+}
+- (void)pogoManager:(T1PogoManager *)manager didDisconnectPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didDisconnectPen");
+    [T1PogoManager sharedPogoManager].penConnected = nil;
+    if (self.pogoConnectTableController) {
+        [self.pogoConnectTableController.tableView reloadData];
+    }
+    
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didUpdatePen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didUpdatePen: %@", pen.peripheral.manufacturerName);
+    if (self.pogoConnectTableController) {
+        [self.pogoConnectTableController.tableView reloadData];
+    }
+}
+- (void)pogoManager:(T1PogoManager *)manager didChangePressureWithoutMoving:(T1PogoEvent *)event forPen:(T1PogoPen *)pen {
+	//	pressureVal: %f",[pen lastPressure]);
+//	[drawingController drawTouchChangedPressure:event.pressure timestamp:event.firstTimestamp];
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didChangeTouchType:(T1PogoEvent *)event forPen:(T1PogoPen *)pen {
+	//	NSLog(@"type change to %d from %d",event.touchType, event.previousTouchType);
+	
+	if (event.touchType == T1TouchTypePen1 && event.previousTouchType == T1TouchTypeUnknown) {
+		DebugLog(@"Unknown touch becomes a Pen -- Start drawing");
+		// this drawing command is important because if this is a quick tap, no further messages may be received, so we should draw now.
+//		[drawingController drawTouchMovedWithPoint:[event.touch locationInView:drawingController.drawingView] pressure:event.pressure timestamp:event.timestamp];
+	}
+	
+	if (event.touchType == T1TouchTypePen1 && event.previousTouchType == T1TouchTypeFinger) {
+		DebugLog(@"Finger becomes a Pen -- Start drawing");
+		// start drawing with this touch.  it looked like a finger before, but now we're sure it's a pen
+//		[drawingController drawTouchMovedWithPoint:[event.touch locationInView:drawingController.drawingView] pressure:event.pressure timestamp:event.timestamp];
+	}
+	
+	if (event.touchType == T1TouchTypeFinger && event.previousTouchType == T1TouchTypePen1) {
+		// stop drawing with this touch and undo the stroke.  it is definitely not a pen.
+		DebugLog(@"Pen becomes a Finger -- Undo stroke");
+//		[drawingController undoDrawingStroke];
+	}
+	if (event.touchType == T1TouchTypeUnknown && event.previousTouchType == T1TouchTypePen1) {
+		// stop drawing with this touch and undo the stroke.  it is definitely not a pen.
+		DebugLog(@"Pen becomes Unknown -- Undo stroke");
+//		[drawingController undoDrawingStroke];
+	}
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDetectButtonDown:(T1PogoEvent *)event forPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didDetectButtonDown %d", (int)event.button);
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDetectButtonUp:(T1PogoEvent *)event forPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didDetectButtonUp %d", (int)event.button);
+    SEL selector = nil;
+    if (event.button == T1PogoButton1) {
+        selector = [ADDeviceManager sharedInstance].button1Shortcut.selector;
+    }
+    else if (event.button == T1PogoButton1) {
+        selector = [ADDeviceManager sharedInstance].button2Shortcut.selector;
+    }
+    if ([self respondsToSelector:selector]) {
+        [self performSelector:selector];
+    }
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDetectTipDown:(T1PogoEvent *)event forPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManager didDetectTipDown");
+
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDetectTipUp:(T1PogoEvent *)event forPen:(T1PogoPen *)pen;
+{
+	DebugLog(@"pogoManager didDetectTipUp");
+
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didChangeDebugString:(NSString *)string {
+    DebugLog(@"pogoManager didChangeDebugString %@", string);
+
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDetectLowBatteryForPen:(T1PogoPen *)pen {
+	DebugLog(@"pogoManagerDidDetectLowBatteryForPen");
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+    UITableViewCell *cell = [self.pogoConnectTableController.tableView cellForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.textColor = [UIColor redColor];
+}
+
+- (void)pogoManagerDidSuggestDisablingGesturesForRegisteredViews:(T1PogoManager *)manager {
+	DebugLog(@"pogoManagerDidSuggestDisablingGesturesForRegisteredViews");
+    [self willDeviceSuggestsToDisableGestures];
+
+}
+
+- (void)pogoManagerDidSuggestEnablingGesturesForRegisteredViews:(T1PogoManager *)manager {
+	DebugLog(@"pogoManagerDidSuggestEnablingGesturesForRegisteredViews");
+    [self willDeviceSuggestsToEnableGestures];
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didDiscoverPeripheral:(T1Peripheral *)peripheral{
+    DebugLog(@"pogoManager didDiscoverPeripheral");
+
+}
+
+- (void)pogoManager:(T1PogoManager *)manager didUpdatePeripheral:(T1Peripheral *)peripheral{
+    DebugLogWarn(@"pogoManager didUpdatePeripheral");
+    if([T1PogoManager sharedPogoManager].lastBatteryLevel != peripheral.batteryLevel){
+        [T1PogoManager sharedPogoManager].lastBatteryLevel = peripheral.batteryLevel;
+        [self.pogoConnectTableController.tableView reloadData];
+    }
 }
 #pragma mark- 测试
 - (void)willShowTestImage:(UIImage*)image{

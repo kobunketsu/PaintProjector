@@ -100,6 +100,7 @@
 typedef NS_ENUM(NSInteger, PaintScreenViewState) {
     PaintScreen_Normal,
     PaintScreen_PickColor,
+    PaintScreen_EyedropColor,
     PaintScreen_EditLayer,
     PaintScreen_Transform,
     PaintScreen_Import,
@@ -156,12 +157,14 @@ ADSwatchManagerViewControllerDelegate,
 ADBackgroundLayerDelegate,
 BrushTypePageControlDelegate,
 ADConnectDeviceTableViewControllerDelegate,
-ADConnectDeviceButtonTableViewControllerDelegate,
+ADDeviceButtonTableViewControllerDelegate,
 ADAdonitJotTableViewControllerDelegate,
 ADDeviceWritingStyleTableViewControllerDelegate,
 ADWacomStylusTableViewControllerDelegate,
 WacomDiscoveryCallback,
-WacomStylusEventCallback
+WacomStylusEventCallback,
+ADPogoConnectTableViewControllerDelegate,
+T1PogoDelegate
 >
 {
     //变换

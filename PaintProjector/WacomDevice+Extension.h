@@ -7,13 +7,13 @@
 //
 
 #import <WacomDevice/WacomDeviceFramework.h>
-#import "ADDeviceButtonShortCut.h"
+#import "ADDeviceButtonShortcut.h"
 static char Button1shortCutKey;
 static char Button2shortCutKey;
 static char BatteryLevelKey;
 
 @interface WacomDevice (Extension)
-@property (retain, nonatomic) ADDeviceButtonShortCut *button1shortCut;
-@property (retain, nonatomic) ADDeviceButtonShortCut *button2shortCut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button1shortCut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button2shortCut;
 @property (assign, nonatomic) unsigned long batteryLevel;
 @end

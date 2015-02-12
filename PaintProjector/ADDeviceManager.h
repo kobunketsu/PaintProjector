@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ADDeviceButtonShortCut.h"
+#import "ADDeviceButtonShortcut.h"
 
 typedef NS_ENUM(NSInteger, ConnectDeviceType) {
     ConnectDevice_None,
     ConnectDevice_AdonitJotTouch,
     ConnectDevice_WacomStylus,
     ConnectDevice_PogoConnect,
+    ConnectDevice_JaJaHex3,
 };
 
 typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
@@ -28,19 +29,24 @@ typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
 @interface ADDeviceManager : NSObject
 +(ADDeviceManager*)sharedInstance;
 +(NSString*)writingStyleName:(DeviceWritingStyle)writingStyle;
-@property (assign, nonatomic) ConnectDeviceType connectDeviceType;
+@property (assign, nonatomic) ConnectDeviceType deviceType;
 @property (retain, nonatomic) NSMutableArray *shortcuts;
-@property (retain, nonatomic) ADDeviceButtonShortCut *button1Shortcut;
-@property (retain, nonatomic) ADDeviceButtonShortCut *button2Shortcut;
-@property (retain, nonatomic) ADDeviceButtonShortCut *button1DefaultShortCut;
-@property (retain, nonatomic) ADDeviceButtonShortCut *button2DefaultShortCut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button1Shortcut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button2Shortcut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button1DefaultShortCut;
+@property (retain, nonatomic) ADDeviceButtonShortcut *button2DefaultShortCut;
 @property (assign, nonatomic) DeviceWritingStyle writingStyle;
 
-- (void)addShortcutOption:(ADDeviceButtonShortCut *)shortcut;
+- (void)addShortcutOption:(ADDeviceButtonShortcut *)shortcut;
 
-- (void)addShortcutOptionButton1Default:(ADDeviceButtonShortCut *)shortcut;
+- (void)addShortcutOptionButton1Default:(ADDeviceButtonShortcut *)shortcut;
 
-- (void)addShortcutOptionButton2Default:(ADDeviceButtonShortCut *)shortcut;
+- (void)addShortcutOptionButton2Default:(ADDeviceButtonShortcut *)shortcut;
+
+- (void)loadDeviceButtonShortcut:(NSInteger)buttonIndex;
 
 
+//- (ADDeviceButtonShortcut *)getButton1Shortcut;
+//
+//- (ADDeviceButtonShortcut *)getButton2Shortcut;
 @end

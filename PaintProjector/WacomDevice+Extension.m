@@ -10,18 +10,18 @@
 #import <objc/runtime.h>
 
 @implementation WacomDevice (Extension)
-- (ADDeviceButtonShortCut *)button1shortCut{
+- (ADDeviceButtonShortcut *)button1shortCut{
     return objc_getAssociatedObject(self, &Button1shortCutKey);
 }
 
-- (void)setButton1shortCut:(ADDeviceButtonShortCut *)button1shortCut{
+- (void)setButton1shortCut:(ADDeviceButtonShortcut *)button1shortCut{
     objc_setAssociatedObject(self, &Button1shortCutKey, button1shortCut, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (ADDeviceButtonShortCut *)button2shortCut{
+- (ADDeviceButtonShortcut *)button2shortCut{
     return objc_getAssociatedObject(self, &Button2shortCutKey);
 }
-- (void)setButton2shortCut:(ADDeviceButtonShortCut *)button2shortCut{
+- (void)setButton2shortCut:(ADDeviceButtonShortcut *)button2shortCut{
     objc_setAssociatedObject(self, &Button2shortCutKey, button2shortCut, OBJC_ASSOCIATION_RETAIN);
 }
 

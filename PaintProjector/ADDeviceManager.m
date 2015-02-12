@@ -8,8 +8,10 @@
 
 #import "ADDeviceManager.h"
 #import <WacomDevice/WacomDeviceFramework.h>
+#import "T1PogoManager.h"
+#import "T1PogoManager+Extension.h"
 @interface ADDeviceManager()
-
+@property (retain, nonatomic) NSMutableDictionary *shortcutDics;
 @end
 
 @implementation ADDeviceManager
@@ -31,23 +33,25 @@ static ADDeviceManager* sharedInstance = nil;
     self = [super init];
     if (self) {
         _shortcuts = [[NSMutableArray alloc]init];
+        _shortcutDics = [[NSMutableDictionary alloc]init];
     }
     return self;
 }
 
-- (void)addShortcutOption:(ADDeviceButtonShortCut *)shortcut{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+- (void)addShortcutOption:(ADDeviceButtonShortcut *)shortcut{
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         JotShortcut *jotShortCut = [[JotShortcut alloc] initWithDescriptiveText:shortcut.descriptiveText key:shortcut.key target:shortcut.target selector:shortcut.selector];
         shortcut.jotShortCut = jotShortCut;
         [[JotStylusManager sharedInstance] addShortcutOption: jotShortCut];
     }
     else{
         [self.shortcuts addObject:shortcut];
+        [self.shortcutDics setValue:shortcut forKey:shortcut.key];
     }
 }
 
-- (void)addShortcutOptionButton1Default:(ADDeviceButtonShortCut *)shortcut{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+- (void)addShortcutOptionButton1Default:(ADDeviceButtonShortcut *)shortcut{
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         [[JotStylusManager sharedInstance] addShortcutOptionButton1Default:shortcut.jotShortCut];
     }
     else{
@@ -55,8 +59,8 @@ static ADDeviceManager* sharedInstance = nil;
     }
 }
 
-- (void)addShortcutOptionButton2Default:(ADDeviceButtonShortCut *)shortcut{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+- (void)addShortcutOptionButton2Default:(ADDeviceButtonShortcut *)shortcut{
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         [[JotStylusManager sharedInstance] addShortcutOptionButton2Default:shortcut.jotShortCut];
     }
     else{
@@ -65,7 +69,7 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 - (NSArray *)shortcuts{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         return [JotStylusManager sharedInstance].shortcuts;
     }
     else{
@@ -74,24 +78,140 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 
-- (void)setButton1Shortcut:(ADDeviceButtonShortCut *)button1Shortcut{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+- (void)setButton1Shortcut:(ADDeviceButtonShortcut *)button1Shortcut{
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         [JotStylusManager sharedInstance].button1Shortcut = button1Shortcut.jotShortCut;
     }
     else{
         _button1Shortcut = button1Shortcut;
-        
+        [self recordDeviceButtonShortcut:0];
     }
 }
 
-- (void)setButton2Shortcut:(ADDeviceButtonShortCut *)button2Shortcut{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+
+
+//- (ADDeviceButtonShortcut *)getButton1Shortcut{
+//    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+//        return nil;
+//    }
+//    else{
+//        if(!self.button1Shortcut){
+//            [self loadDeviceButtonShortcut:0];
+//        }
+//        return self.button1Shortcut;
+//    }
+//}
+
+//- (ADDeviceButtonShortcut *)getButton2Shortcut{
+//    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+//        return nil;
+//    }
+//    else{
+//        if(!self.button2Shortcut){
+//            [self loadDeviceButtonShortcut:1];
+//        }
+//        return self.button2Shortcut;
+//    }
+//}
+
+- (void)setButton2Shortcut:(ADDeviceButtonShortcut *)button2Shortcut{
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         [JotStylusManager sharedInstance].button2Shortcut = button2Shortcut.jotShortCut;
     }
     else{
         _button2Shortcut = button2Shortcut;
+        [self recordDeviceButtonShortcut:1];
     }
 }
+
+- (void)loadDeviceButtonShortcut:(NSInteger)buttonIndex{
+    DebugLog(@"loadDeviceButtonShortcut index %d", buttonIndex);
+    NSString *key;
+    ADDeviceButtonShortcut *defaultShortcut;
+    if (buttonIndex == 0) {
+        key = @"button1Shortcut";
+        defaultShortcut = self.button1DefaultShortCut;
+    }
+    if (buttonIndex == 1) {
+        key = @"button2Shortcut";
+        defaultShortcut = self.button2DefaultShortCut;
+    }
+    __block ADDeviceButtonShortcut *buttonShortcut = nil;
+    switch (self.deviceType) {
+        case ConnectDevice_None:
+        {
+            
+        }
+            break;
+        case ConnectDevice_AdonitJotTouch:
+        {
+            
+        }
+            break;
+        case ConnectDevice_WacomStylus:
+        case ConnectDevice_PogoConnect:
+        {
+            NSString *buttonShortcutKey = [[NSUserDefaults standardUserDefaults] stringForKey:key];
+            buttonShortcut = [self.shortcutDics valueForKey:buttonShortcutKey];
+            
+            if (!buttonShortcut) {
+                buttonShortcut = defaultShortcut;
+            }
+            if (buttonIndex == 0) {
+             _button1Shortcut = buttonShortcut;
+            }
+            else if (buttonIndex == 1) {
+             _button2Shortcut = buttonShortcut;
+            }
+        }
+            break;
+        case ConnectDevice_JaJaHex3:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)recordDeviceButtonShortcut:(NSInteger)buttonIndex{
+    DebugLog(@"recordDeviceButtonShortcut index %d", buttonIndex);
+    NSString *buttonShortbutKeyValue = nil;
+    NSString *key = nil;
+    if (buttonIndex == 0) {
+        buttonShortbutKeyValue = [ADDeviceManager sharedInstance].button1Shortcut.key;
+        key = @"button1Shortcut";
+    }
+    else if (buttonIndex == 1) {
+        buttonShortbutKeyValue = [ADDeviceManager sharedInstance].button2Shortcut.key;
+        key = @"button2Shortcut";
+    }
+
+    switch (self.deviceType) {
+        case ConnectDevice_AdonitJotTouch:
+        {
+            
+        }
+            break;
+        case ConnectDevice_WacomStylus:
+        case ConnectDevice_PogoConnect:
+        {
+            [[NSUserDefaults standardUserDefaults] setValue:buttonShortbutKeyValue forKey:key];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+            break;
+        case ConnectDevice_JaJaHex3:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 + (NSString*)writingStyleName:(DeviceWritingStyle)writingStyle{
     NSString *name = nil;
     switch (writingStyle) {
@@ -119,14 +239,9 @@ static ADDeviceManager* sharedInstance = nil;
     return name;
 }
 
-//- (DeviceWritingStyle)writingStyle{
-//    if (_wri) {
-//        <#statements#>
-//    }
-//}
 
 - (void)setWritingStyle:(DeviceWritingStyle)writingStyle{
-    if (self.connectDeviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
         switch (writingStyle) {
             case DeviceWritingStyleRightVertical:
                 [JotStylusManager sharedInstance].writingStyle = JotWritingStyleRightVertical;
@@ -151,7 +266,7 @@ static ADDeviceManager* sharedInstance = nil;
                 break;
         }
     }
-    else if (self.connectDeviceType == ConnectDevice_WacomStylus) {
+    else if (self.deviceType == ConnectDevice_WacomStylus) {
         switch (writingStyle) {
             case DeviceWritingStyleRightVertical:
                 [[TouchManager GetTouchManager] setHandedness:eh_RightUpward];

@@ -166,7 +166,8 @@
             break;
         case 2:
         {
-            
+            [RemoteLog logAction:@"PS_didSelectDevicePogoConnect" identifier:nil];
+            [self.delegate didSelectDevicePogoConnect];
         }
             break;
         default:
