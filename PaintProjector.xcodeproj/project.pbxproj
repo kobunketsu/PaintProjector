@@ -481,8 +481,8 @@
 		087DB6391A88FFF200F3A1F8 /* ADDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 087DB6371A88FFF200F3A1F8 /* ADDeviceManager.m */; };
 		087DB6421A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 087DB6411A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle */; };
 		087DB6431A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 087DB6411A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle */; };
-		087DB6461A8900C600F3A1F8 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */; };
-		087DB6471A8900C600F3A1F8 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */; };
+		087DB6461A8900C600F3A1F8 /* ADDeviceStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 087DB6451A8900C600F3A1F8 /* ADDeviceStatusHUD.m */; };
+		087DB6471A8900C600F3A1F8 /* ADDeviceStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 087DB6451A8900C600F3A1F8 /* ADDeviceStatusHUD.m */; };
 		087FE73C173DF590009B34A2 /* ADSharedPopoverBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE73B173DF590009B34A2 /* ADSharedPopoverBackgroundView.m */; };
 		087FE741173DF71C009B34A2 /* ADSharedPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE740173DF71C009B34A2 /* ADSharedPopoverController.m */; };
 		087FE746173E0EED009B34A2 /* ADDownToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 087FE745173E0EED009B34A2 /* ADDownToolBar.m */; };
@@ -1606,8 +1606,8 @@
 		087DB6361A88FFF200F3A1F8 /* ADDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceManager.h; path = PaintProjector/ADDeviceManager.h; sourceTree = SOURCE_ROOT; };
 		087DB6371A88FFF200F3A1F8 /* ADDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceManager.m; path = PaintProjector/ADDeviceManager.m; sourceTree = SOURCE_ROOT; };
 		087DB6411A89009900F3A1F8 /* WacomStylusFrameworkResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WacomStylusFrameworkResources.bundle; path = PaintProjector/WacomStylusFrameworkResources.bundle; sourceTree = SOURCE_ROOT; };
-		087DB6441A8900C600F3A1F8 /* JotTouchStatusHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JotTouchStatusHUD.h; path = PaintProjector/JotTouchStatusHUD.h; sourceTree = SOURCE_ROOT; };
-		087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JotTouchStatusHUD.m; path = PaintProjector/JotTouchStatusHUD.m; sourceTree = SOURCE_ROOT; };
+		087DB6441A8900C600F3A1F8 /* ADDeviceStatusHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADDeviceStatusHUD.h; path = PaintProjector/ADDeviceStatusHUD.h; sourceTree = SOURCE_ROOT; };
+		087DB6451A8900C600F3A1F8 /* ADDeviceStatusHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADDeviceStatusHUD.m; path = PaintProjector/ADDeviceStatusHUD.m; sourceTree = SOURCE_ROOT; };
 		087FE73A173DF590009B34A2 /* ADSharedPopoverBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSharedPopoverBackgroundView.h; sourceTree = "<group>"; };
 		087FE73B173DF590009B34A2 /* ADSharedPopoverBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSharedPopoverBackgroundView.m; sourceTree = "<group>"; };
 		087FE73F173DF71C009B34A2 /* ADSharedPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSharedPopoverController.h; sourceTree = "<group>"; };
@@ -2585,6 +2585,8 @@
 		084C3EB71A8BA25700F0E83D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				087DB6441A8900C600F3A1F8 /* ADDeviceStatusHUD.h */,
+				087DB6451A8900C600F3A1F8 /* ADDeviceStatusHUD.m */,
 				08A903141A88B9D0003C8635 /* ADDeviceButtonShortcut.h */,
 				08A903151A88B9D0003C8635 /* ADDeviceButtonShortcut.m */,
 				083286AF1A82041600925D1A /* ADDeviceWritingStyleTableViewController.h */,
@@ -2910,8 +2912,6 @@
 		086F6FEE1A8C4C020014006A /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				087DB6441A8900C600F3A1F8 /* JotTouchStatusHUD.h */,
-				087DB6451A8900C600F3A1F8 /* JotTouchStatusHUD.m */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -4299,7 +4299,7 @@
 				08F385D919AD843100FE0ED0 /* ADReversePaint.m in Sources */,
 				e243e49eed2a843ccb577fa2 /* ADBackgroundLayer.m in Sources */,
 				0813AA2E19168C94000C4D00 /* REVertexCommon.m in Sources */,
-				087DB6471A8900C600F3A1F8 /* JotTouchStatusHUD.m in Sources */,
+				087DB6471A8900C600F3A1F8 /* ADDeviceStatusHUD.m in Sources */,
 				fcc39e92703da8cf8276bfdb /* ADLayer.m in Sources */,
 				08ADF7BE19C73837000035A7 /* ADTutorialToPaintCollectionTransitionManager.m in Sources */,
 				72a06fc639e91a534a38c72f /* ADLayerTransformButton.m in Sources */,
@@ -4671,7 +4671,7 @@
 				08C65E7D1950124500961551 /* ADSimpleTutorial.m in Sources */,
 				0807A63A18C77D3300AA3FA5 /* ADSwatchManagerTableView.m in Sources */,
 				08D0A15E19BDAF18002EBA17 /* ADSimpleTutorialViewController.m in Sources */,
-				087DB6461A8900C600F3A1F8 /* JotTouchStatusHUD.m in Sources */,
+				087DB6461A8900C600F3A1F8 /* ADDeviceStatusHUD.m in Sources */,
 				08A5CBB6189F36B300F4E226 /* REComponent.m in Sources */,
 				082060E5189D4CE70027247C /* RETransform.m in Sources */,
 				084347EE19DE7EF100023299 /* ADLasso.m in Sources */,

@@ -39,7 +39,7 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 - (void)addShortcutOption:(ADDeviceButtonShortcut *)shortcut{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         JotShortcut *jotShortCut = [[JotShortcut alloc] initWithDescriptiveText:shortcut.descriptiveText key:shortcut.key target:shortcut.target selector:shortcut.selector];
         shortcut.jotShortCut = jotShortCut;
         [[JotStylusManager sharedInstance] addShortcutOption: jotShortCut];
@@ -51,7 +51,7 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 - (void)addShortcutOptionButton1Default:(ADDeviceButtonShortcut *)shortcut{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         [[JotStylusManager sharedInstance] addShortcutOptionButton1Default:shortcut.jotShortCut];
     }
     else{
@@ -60,7 +60,7 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 - (void)addShortcutOptionButton2Default:(ADDeviceButtonShortcut *)shortcut{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         [[JotStylusManager sharedInstance] addShortcutOptionButton2Default:shortcut.jotShortCut];
     }
     else{
@@ -69,7 +69,7 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 - (NSArray *)shortcuts{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         return [JotStylusManager sharedInstance].shortcuts;
     }
     else{
@@ -79,7 +79,7 @@ static ADDeviceManager* sharedInstance = nil;
 
 
 - (void)setButton1Shortcut:(ADDeviceButtonShortcut *)button1Shortcut{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         [JotStylusManager sharedInstance].button1Shortcut = button1Shortcut.jotShortCut;
     }
     else{
@@ -88,34 +88,8 @@ static ADDeviceManager* sharedInstance = nil;
     }
 }
 
-
-
-//- (ADDeviceButtonShortcut *)getButton1Shortcut{
-//    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
-//        return nil;
-//    }
-//    else{
-//        if(!self.button1Shortcut){
-//            [self loadDeviceButtonShortcut:0];
-//        }
-//        return self.button1Shortcut;
-//    }
-//}
-
-//- (ADDeviceButtonShortcut *)getButton2Shortcut{
-//    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
-//        return nil;
-//    }
-//    else{
-//        if(!self.button2Shortcut){
-//            [self loadDeviceButtonShortcut:1];
-//        }
-//        return self.button2Shortcut;
-//    }
-//}
-
 - (void)setButton2Shortcut:(ADDeviceButtonShortcut *)button2Shortcut{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         [JotStylusManager sharedInstance].button2Shortcut = button2Shortcut.jotShortCut;
     }
     else{
@@ -143,7 +117,7 @@ static ADDeviceManager* sharedInstance = nil;
             
         }
             break;
-        case ConnectDevice_AdonitJotTouch:
+        case ConnectDevice_AdonitJot:
         {
             
         }
@@ -190,7 +164,7 @@ static ADDeviceManager* sharedInstance = nil;
     }
 
     switch (self.deviceType) {
-        case ConnectDevice_AdonitJotTouch:
+        case ConnectDevice_AdonitJot:
         {
             
         }
@@ -241,7 +215,7 @@ static ADDeviceManager* sharedInstance = nil;
 
 
 - (void)setWritingStyle:(DeviceWritingStyle)writingStyle{
-    if (self.deviceType == ConnectDevice_AdonitJotTouch) {
+    if (self.deviceType == ConnectDevice_AdonitJot) {
         switch (writingStyle) {
             case DeviceWritingStyleRightVertical:
                 [JotStylusManager sharedInstance].writingStyle = JotWritingStyleRightVertical;

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ADHelpCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UISwitch *switchEnable;
+- (IBAction)switchEnableValueChanged:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @end

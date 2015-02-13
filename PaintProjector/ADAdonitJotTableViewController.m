@@ -1,5 +1,5 @@
 //
-//  ADAdonitJotTouchSetupTableViewController.m
+//  ADAdonitJotSetupTableViewController.m
 //  PaintProjector
 //
 //  Created by 文杰 胡 on 2/3/15.
@@ -101,10 +101,10 @@
                 cell.textLabel.text = NSLocalizedString(@"AdonitJotDisconnectedText", nil);
                 cell.detailTextLabel.text = NSLocalizedString(@"AdonitJotDisconnectedDetailText", nil);
                 UIButton *discoveryDeviceButton = [[ADDiscoveryDeviceButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
-                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotTouchButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
+                [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchUp:) forControlEvents:UIControlEventTouchCancel];
                 cell.accessoryView = discoveryDeviceButton;
             }
             
@@ -269,8 +269,8 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            [RemoteLog logAction:@"PS_didDeselectAdonitJotTouch" identifier:nil];
-            [self.delegate didDeselectAdonitJotTouch];
+            [RemoteLog logAction:@"PS_didDeselectAdonitJot" identifier:nil];
+            [self.delegate didDeselectAdonitJot];
 
             break;
         case 1:

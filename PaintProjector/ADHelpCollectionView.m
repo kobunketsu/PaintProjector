@@ -15,9 +15,29 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self initCustom];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initCustom];
+    }
+    return self;
+}
+
+- (void)initCustom{
+    self.delaysContentTouches = NO;
+}
+- (BOOL)touchesShouldCancelInContentView:(UIView *)view
+{    
+    if ([view isKindOfClass:UISwitch.class]) {
+        return YES;
+    }
+    
+    return [super touchesShouldCancelInContentView:view];
 }
 
 /*

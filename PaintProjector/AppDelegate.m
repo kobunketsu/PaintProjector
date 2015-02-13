@@ -82,11 +82,12 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
     }
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {
-        
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"]) {        
         //其他
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"UsingBrushId"];
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseLongPressEyedrop"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"IsEyeDropOffset"];
     }
     
     [self copyCollectionFromMainBundleToUserDocument];
@@ -138,6 +139,8 @@
         //其他
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"UsingBrushId"];
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseLongPressEyedrop"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"IsEyedropOffset"];
     }
 
 #endif

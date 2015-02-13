@@ -19,7 +19,7 @@
 @end
 
 @protocol ADConnectDeviceTableViewControllerDelegate
-- (void) didSelectDeviceAdonitJotTouch;
+- (void) didSelectDeviceAdonitJot;
 - (void) didSelectDeviceWacomStylus;
 - (void) didSelectDevicePogoConnect;
 @end

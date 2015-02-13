@@ -116,6 +116,12 @@
     }
     cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
     cell.label.text = NSLocalizedString(imageName, nil);
+    cell.switchEnable.tag = indexPath.row;
+    cell.switchEnable.hidden = true;
+    cell.switchEnable.tintColor = [ADSharedUIStyleKit cNormal];
+    if (indexPath.row == 1) {
+        cell.switchEnable.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseEyedrop"];
+    }
     
     return cell;
 }

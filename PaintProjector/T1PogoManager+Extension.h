@@ -12,6 +12,6 @@
 static char PenConnectedKey;
 static char LastBatteryLevelKey;
 @interface T1PogoManager (Extension)
-@property(retain, nonatomic)T1PogoPen *penConnected;
+@property(weak, nonatomic)T1PogoPen *penConnected;
 @property(assign, nonatomic)NSInteger lastBatteryLevel;
 @end

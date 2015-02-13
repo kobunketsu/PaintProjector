@@ -77,10 +77,10 @@
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = NSLocalizedString(@"AdonitJotTouch", nil);
+            cell.textLabel.text = NSLocalizedString(@"AdonitJot", nil);
             break;
         case 1:
-            cell.textLabel.text = NSLocalizedString(@"WacomCreativeStylus", nil);
+            cell.textLabel.text = NSLocalizedString(@"WacomStylus", nil);
             break;
         case 2:
             cell.textLabel.text = NSLocalizedString(@"PogoConnect", nil);
@@ -154,8 +154,8 @@
     switch(indexPath.row) { // assuming there is only one section
         case 0:
         {
-            [RemoteLog logAction:@"PS_didSelectDeviceAdonitJotTouch" identifier:nil];
-            [self.delegate didSelectDeviceAdonitJotTouch];
+            [RemoteLog logAction:@"PS_didSelectDeviceAdonitJot" identifier:nil];
+            [self.delegate didSelectDeviceAdonitJot];
         }
             break;
         case 1:

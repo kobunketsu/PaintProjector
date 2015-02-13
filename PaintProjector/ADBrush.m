@@ -497,7 +497,8 @@
 //    DebugLog(@"renderSegment lastSegmentEndPoint x:%.0f y:%.0f | start x:%.0f y:%.0f | curSegmentEndPoint x:%.0f y:%.0f | end x:%.0f y:%.0f", self.lastSegmentEndPoint.x, self.lastSegmentEndPoint.y, start.x, start.y, self.curSegmentEndPoint.x, self.curSegmentEndPoint.y, end.x, end.y);
 
     //绘制间隔
-    CGFloat spacing = brushState.radius * 2 * brushState.spacing;
+    CGFloat pressureMin = MIN(self.lastSegmentEndPoint.size.width, self.curSegmentEndPoint.size.width);
+    CGFloat spacing = brushState.radius * 2 * brushState.spacing * pressureMin;
     //    DebugLog(@"radius %.2f spacing %.2f spaceThresold %.2f", brushState.radius, brushState.spacing, spaceThresold);
     
 	//绘图距离

@@ -31,6 +31,7 @@
 
 #import <JotTouchSDK/JotTouchSDK.h>
 #import <WacomDevice/WacomDeviceFramework.h>
+#import "T1PogoManager.h"
 
 #import "ADDeviceManager.h"
 
@@ -278,5 +279,5 @@ typedef struct {
 - (void)copyCurPaintedLayerToCurLayer;
 
 //测试
-
+@property (retain, nonatomic) T1PogoManager *pogoManager;
 @end

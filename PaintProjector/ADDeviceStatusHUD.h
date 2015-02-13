@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface JotTouchStatusHUD : UIView
+@interface ADDeviceStatusHUD : UIView
 
 @property BOOL monoChromeAlert;
 @property BOOL textOnly;

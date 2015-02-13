@@ -11,7 +11,7 @@
 
 typedef NS_ENUM(NSInteger, ConnectDeviceType) {
     ConnectDevice_None,
-    ConnectDevice_AdonitJotTouch,
+    ConnectDevice_AdonitJot,
     ConnectDevice_WacomStylus,
     ConnectDevice_PogoConnect,
     ConnectDevice_JaJaHex3,

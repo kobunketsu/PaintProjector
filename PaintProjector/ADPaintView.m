@@ -20,12 +20,13 @@
 #import "ADBucket.h"
 
 #import "WacomTouch.h"
+#import "T1PogoManager.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
 #define CanvasScaleMinimum 0.2
 #define TwoFingerPanGestureTime 0.016
-
+#define PressureMin 0.2
 
 // A class extension to declare private methods
 @interface ADPaintView ()
@@ -807,10 +808,7 @@
 }
 
 - (CGPoint)locationInView:(UIView*)view fromTouch:(id)touch{
-    if ([touch isMemberOfClass:[UITouch class]]) {
-        return [touch locationInView:view];
-    }
-    else if ([touch isMemberOfClass: [WacomTouch class]]) {
+    if ([touch isMemberOfClass: [WacomTouch class]]) {
         WacomTouch *wacomTouch = touch;
         CGPoint location = CGPointZero;
         
@@ -826,6 +824,12 @@
             DebugLogWarn(@"eyedropBegan wacomTouch.rawTrackedTouch nil");
             return [wacomTouch.rawTouch locationInView:view];
         }
+    }
+    else if ([touch isMemberOfClass:[JotTouch class]]) {
+        return [touch locationInView:view];
+    }
+    else if ([touch isMemberOfClass:[UITouch class]]) {
+        return [touch locationInView:view];
     }
     return CGPointZero;
 }
@@ -892,9 +896,17 @@
     }
     else if ([self.firstTouch isMemberOfClass:[UITouch class]]) {
         for (UITouch *touch in touches) {
-            if ([touch isEqual:self.firstTouch]) {
-                return true;
+            if ([touch isMemberOfClass:[JotTouch class]]) {
+                if ([((JotTouch*)touch).touch isEqual:self.firstTouch]) {
+                    return true;
+                }
             }
+            else{
+                if ([touch isEqual:self.firstTouch]) {
+                    return true;
+                }
+            }
+
         }
     }
     
@@ -903,6 +915,9 @@
 
 // Handles the start of a touch
 - (void)touchesPaintBegan:(NSSet *)touches{
+    if (![self hasPaintTouchInTouches:touches]) {
+        return;
+    }
     
     //不在Touch发生时马上开始绘制，不修改paintView.state
     CGFloat pressure = 1;
@@ -933,6 +948,11 @@
     }
     [self.firstTouch setPreLocation: self.location];
 }
+
+- (void)setFirstTouch:(UITouch *)firstTouch{
+    DebugLog(@"setFirstTouch %@", firstTouch);
+    _firstTouch = firstTouch;
+}
 //FIXME:在快速绘制中，有可能出现上一个用于paint的UITouch还没有调用touchesEnd,新的UITouch调用touchesBegan, 导致firstTouch,paintTouch还是使用的上一个UITouch的数据的问题
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -954,7 +974,13 @@
     }
     else{
         //when touched, touches in the call is still UITouch
-        if ([self isDeviceActiveConnected:touches]) {
+        for (UITouch *touch in touches) {
+            BOOL touchIsPen = [self.pogoManager touchIsPen:touch];
+            DebugLogWarn(@"began touchIsPen %i", touchIsPen);
+        }
+
+        
+        if ([self isDeviceActiveConnected]) {
             [self deviceTouchesPaintBegan:touches withEvent:event];
         }
         else{
@@ -1029,6 +1055,12 @@
 //    DebugLogSystem(@"[ touchesMoved! touches count:%d ]", [touches count]);
     [super touchesMoved:touches withEvent:event];
     
+//    for (UITouch *touch in touches) {
+//        BOOL touchIsPen = [self.pogoManager touchIsPen:touch];
+//        DebugLogWarn(@"touch isPen %i", touchIsPen);        
+//    }
+
+    
     if(self.state == PaintView_TouchEyeDrop){
         if (!self.firstTouch) {
             self.firstTouch = [touches anyObject];
@@ -1040,7 +1072,7 @@
     }
     else{
         //连接状态下不响应手指绘画
-        if ([self isDeviceActiveConnected:touches]) {
+        if ([self isDeviceActiveConnected]) {
             [self deviceTouchesPaintMoved:touches withEvent:event];
         }
         else{
@@ -1120,7 +1152,7 @@
         case PaintView_TouchNone:
         case PaintView_TouchPaint:
         {
-            if([self isDeviceActiveConnected:touches]){
+            if([self isDeviceActiveConnected]){
                 [self deviceTouchesPaintEnded:touches withEvent:event];
             }
             else{
@@ -1168,7 +1200,7 @@
         case PaintView_TouchNone:
         case PaintView_TouchPaint:
         {
-            if([self isDeviceActiveConnected:touches]){
+            if([self isDeviceActiveConnected]){
                 [self deviceTouchesPaintEnded:touches withEvent:event];
             }
             else{
@@ -1244,30 +1276,37 @@
 }
 
 #pragma mark- Device Touch
--(BOOL)isDeviceActiveConnected:(NSSet*)touches{
-    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJotTouch) {
+-(BOOL)isDeviceActiveConnected{
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         return [JotStylusManager sharedInstance].isStylusConnected && [JotStylusManager sharedInstance].enabled;
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus){
         return [[WacomManager getManager] isADeviceSelected];
+    }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect){
+        //MARK:fix ?
+        return [self.pogoManager touchIsPen:self.firstTouch];
     }
     
     return false;
 }
 
 - (void)deviceTouchesPaintBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJotTouch) {
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus){
         [[TouchManager GetTouchManager]addTouches:touches knownTouches:[event touchesForView:self] view:self];
         
-        [self touchesPaintBegan:[NSSet setWithObject:self.firstTouch]];
+        [self touchesPaintBegan:touches];
+    }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect){
+        [self touchesPaintBegan:touches];
     }
 }
 
 - (void)deviceTouchesPaintMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJotTouch) {
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         //convert to jot touch
         //call jotTouchesMoved
     }
@@ -1292,10 +1331,13 @@
         
         [self touchesPaintMoved:[NSSet setWithObject:self.firstTouch]];
     }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
+        [self touchesPaintMoved:[NSSet setWithObject:self.firstTouch]];
+    }
 }
 
 - (void)deviceTouchesPaintEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJotTouch) {
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         //convert to jot touch
         //call jotTouchesEnded
     }
@@ -1311,31 +1353,37 @@
         }
         
         [[TouchManager GetTouchManager] removeTouches:touches knownTouches:[event touchesForView:self] view:self];
-        
-
+    }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
+        self.curNumberOfTouch -= touches.count;
+        [self touchesPaintEnded:[NSSet setWithObject:self.firstTouch]];
     }
 }
 
 #pragma mark- AdonitJot Touch Event
 
 -(CGFloat) widthForPressure:(CGFloat)pressure{
-//    CGFloat minSize = 2;
-//    CGFloat maxSize = 35;
-//
-//    return minSize + (maxSize-minSize) * pressure / JOT_MAX_PRESSURE;
-    return pressure / JOT_MAX_PRESSURE;
+    return PressureMin + (1 - PressureMin) * (pressure / JOT_MAX_PRESSURE);
 }
 
 - (CGFloat)pressureFromTouch:(UITouch*)touch{
     CGFloat pressure = 1;
-    if ([touch isMemberOfClass:[JotTouch class]]) {
-        DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
-        pressure = [self widthForPressure:((JotTouch*)touch).pressure];
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
+        if ([touch isMemberOfClass:[JotTouch class]]) {
+            DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
+            pressure = [self widthForPressure:((JotTouch*)touch).pressure];
+        }
     }
-    else if ([touch isMemberOfClass:[WacomTouch class]]) {
-    DebugLogWarn(@"get Wacom Stylus pressure %d", [TouchManager GetTouchManager].theStylusTouch.pressure);
-        pressure = [self widthForPressure:[TouchManager GetTouchManager].theStylusTouch.pressure];
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus) {
+        if ([touch isMemberOfClass:[WacomTouch class]]) {
+            DebugLogWarn(@"get Wacom Stylus pressure %d", [TouchManager GetTouchManager].theStylusTouch.pressure);
+            pressure = [self widthForPressure:[TouchManager GetTouchManager].theStylusTouch.pressure];
+        }
     }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
+        pressure = PressureMin + (1 - PressureMin) * [self.pogoManager pressureForTouch:touch];
+    }
+
     return pressure;
 }
 -(void)jotStylusTouchBegan:(NSSet *) touches{
@@ -1637,7 +1685,7 @@
 }
 
 - (void) drawFromPoint:(PathPoint)startPoint toPoint:(PathPoint)endPoint isTapDraw:(BOOL)isTapDraw{
-    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint.origin), NSStringFromCGPoint(endPoint.origin));
+//    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint.origin), NSStringFromCGPoint(endPoint.origin));
     //记录绘图信息
     
     [self.curPaintCommand addPathPointStart:startPoint End:endPoint];
