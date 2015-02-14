@@ -280,6 +280,12 @@
 		084347EF19DE7EF100023299 /* ADLasso.m in Sources */ = {isa = PBXBuildFile; fileRef = 084347ED19DE7EF100023299 /* ADLasso.m */; };
 		08439D25195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
 		08439D26195405EF0022E2A7 /* tutorial_bookBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 08439D24195405EF0022E2A7 /* tutorial_bookBG.png */; };
+		084600D81A8EE6A2009ED2E8 /* ADJaJaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084600D71A8EE6A2009ED2E8 /* ADJaJaTableViewController.m */; };
+		084600D91A8EE6A2009ED2E8 /* ADJaJaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084600D71A8EE6A2009ED2E8 /* ADJaJaTableViewController.m */; };
+		084600DB1A8EE6D2009ED2E8 /* JaJa-SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084600DA1A8EE6D2009ED2E8 /* JaJa-SDK.framework */; };
+		084600DC1A8EE6D3009ED2E8 /* JaJa-SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084600DA1A8EE6D2009ED2E8 /* JaJa-SDK.framework */; };
+		084600DE1A8EE6F1009ED2E8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084600DD1A8EE6F1009ED2E8 /* AudioToolbox.framework */; };
+		084600E01A8EF881009ED2E8 /* libc++abi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 084600DF1A8EF881009ED2E8 /* libc++abi.dylib */; };
 		084691031747C80300E50554 /* ADLayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691021747C80200E50554 /* ADLayerTableViewCell.m */; };
 		084691061748917000E50554 /* ADLayerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691051748917000E50554 /* ADLayerImageView.m */; };
 		084691411748C4CA00E50554 /* ADLayerToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 084691401748C4C800E50554 /* ADLayerToolView.m */; };
@@ -315,6 +321,8 @@
 		08525120194D853D0087F4AF /* tutorial_viewDevice.png in Resources */ = {isa = PBXBuildFile; fileRef = 08525118194D853D0087F4AF /* tutorial_viewDevice.png */; };
 		0853818E173E97FC00069C27 /* ADBrushTypeSmallButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0853818D173E97FB00069C27 /* ADBrushTypeSmallButton.m */; };
 		085539801751AA6E00DECF41 /* ADAnchorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0855397F1751AA6D00DECF41 /* ADAnchorView.m */; };
+		0855B4E61A8F856600A8FD40 /* JaJaControlConnection+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0855B4E51A8F856600A8FD40 /* JaJaControlConnection+Extension.m */; };
+		0855B4E71A8F856600A8FD40 /* JaJaControlConnection+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0855B4E51A8F856600A8FD40 /* JaJaControlConnection+Extension.m */; };
 		08561FB017806184008449E7 /* ADLayerBlendModeButton2.m in Sources */ = {isa = PBXBuildFile; fileRef = 08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */; };
 		0857779916C62DC80040B152 /* RECamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 0857779816C62DC80040B152 /* RECamera.m */; };
 		0858A8EC19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 0858A8EB19BAB6DE001119AA /* tutorial_gesture1FingerDrag.png */; };
@@ -1371,6 +1379,11 @@
 		084347EC19DE7EF100023299 /* ADLasso.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLasso.h; sourceTree = "<group>"; };
 		084347ED19DE7EF100023299 /* ADLasso.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLasso.m; sourceTree = "<group>"; };
 		08439D24195405EF0022E2A7 /* tutorial_bookBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_bookBG.png; path = PaintProjector/Images/tutorial_bookBG.png; sourceTree = "<group>"; };
+		084600D61A8EE6A2009ED2E8 /* ADJaJaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADJaJaTableViewController.h; path = PaintProjector/ADJaJaTableViewController.h; sourceTree = SOURCE_ROOT; };
+		084600D71A8EE6A2009ED2E8 /* ADJaJaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADJaJaTableViewController.m; path = PaintProjector/ADJaJaTableViewController.m; sourceTree = SOURCE_ROOT; };
+		084600DA1A8EE6D2009ED2E8 /* JaJa-SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "JaJa-SDK.framework"; path = "JaJaSDK/JaJa-SDK.framework"; sourceTree = "<group>"; };
+		084600DD1A8EE6F1009ED2E8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		084600DF1A8EF881009ED2E8 /* libc++abi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++abi.dylib"; path = "usr/lib/libc++abi.dylib"; sourceTree = SDKROOT; };
 		084691011747C80200E50554 /* ADLayerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerTableViewCell.h; sourceTree = "<group>"; };
 		084691021747C80200E50554 /* ADLayerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerTableViewCell.m; sourceTree = "<group>"; };
 		084691041748916E00E50554 /* ADLayerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerImageView.h; sourceTree = "<group>"; };
@@ -1422,6 +1435,8 @@
 		0855397F1751AA6D00DECF41 /* ADAnchorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADAnchorView.m; sourceTree = "<group>"; };
 		085539821751B7D400DECF41 /* ADGridButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADGridButton.h; sourceTree = "<group>"; };
 		085539831751B7D400DECF41 /* ADGridButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADGridButton.m; sourceTree = "<group>"; };
+		0855B4E41A8F856600A8FD40 /* JaJaControlConnection+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JaJaControlConnection+Extension.h"; path = "PaintProjector/JaJaControlConnection+Extension.h"; sourceTree = SOURCE_ROOT; };
+		0855B4E51A8F856600A8FD40 /* JaJaControlConnection+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "JaJaControlConnection+Extension.m"; path = "PaintProjector/JaJaControlConnection+Extension.m"; sourceTree = SOURCE_ROOT; };
 		08561F8C18DDC7FD00839533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard_iPad.storyboard; sourceTree = "<group>"; };
 		08561FAE17806184008449E7 /* ADLayerBlendModeButton2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerBlendModeButton2.h; sourceTree = "<group>"; };
 		08561FAF17806184008449E7 /* ADLayerBlendModeButton2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerBlendModeButton2.m; sourceTree = "<group>"; };
@@ -2113,6 +2128,7 @@
 				d71a8e1cade19b3db9ade7de /* libiconv.dylib in Frameworks */,
 				4c46996c1102229ecaa20f23 /* Accounts.framework in Frameworks */,
 				0832E27B1933A7EA004BD986 /* libTestFlight.a in Frameworks */,
+				084600DC1A8EE6D3009ED2E8 /* JaJa-SDK.framework in Frameworks */,
 				a4670e94d5e6ef12668b4afa /* libsqlite3.dylib in Frameworks */,
 				37487cbe7dabcaea11b371ba /* Social.framework in Frameworks */,
 				08D9B7A41A80F324001F0FBA /* JotTouchSDK.framework in Frameworks */,
@@ -2140,6 +2156,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				084600E01A8EF881009ED2E8 /* libc++abi.dylib in Frameworks */,
+				084600DE1A8EE6F1009ED2E8 /* AudioToolbox.framework in Frameworks */,
 				08D9B7A81A80F397001F0FBA /* CoreBluetooth.framework in Frameworks */,
 				08D9B7A61A80F38B001F0FBA /* CoreMotion.framework in Frameworks */,
 				0832F56F19BC277100FB98CE /* iAd.framework in Frameworks */,
@@ -2156,6 +2174,7 @@
 				083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */,
 				08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
 				081B83EA16722E8B002866DC /* GLKit.framework in Frameworks */,
+				084600DB1A8EE6D2009ED2E8 /* JaJa-SDK.framework in Frameworks */,
 				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
 				080D245E18B6E5C400161756 /* StoreKit.framework in Frameworks */,
 				081A2CE8163CD7FE006EC27A /* QuartzCore.framework in Frameworks */,
@@ -2486,6 +2505,17 @@
 				084347ED19DE7EF100023299 /* ADLasso.m */,
 			);
 			name = Lasso;
+			sourceTree = "<group>";
+		};
+		084600D21A8E4723009ED2E8 /* JaJa */ = {
+			isa = PBXGroup;
+			children = (
+				084600D61A8EE6A2009ED2E8 /* ADJaJaTableViewController.h */,
+				084600D71A8EE6A2009ED2E8 /* ADJaJaTableViewController.m */,
+				0855B4E41A8F856600A8FD40 /* JaJaControlConnection+Extension.h */,
+				0855B4E51A8F856600A8FD40 /* JaJaControlConnection+Extension.m */,
+			);
+			name = JaJa;
 			sourceTree = "<group>";
 		};
 		084690FC1747AD7400E50554 /* Layer */ = {
@@ -3278,6 +3308,7 @@
 		08D9B7A91A80F59F001F0FBA /* Device */ = {
 			isa = PBXGroup;
 			children = (
+				084600D21A8E4723009ED2E8 /* JaJa */,
 				084C3EB81A8BA27000F0E83D /* PogoConnect */,
 				084C3EB71A8BA25700F0E83D /* Common */,
 				08A903091A88A883003C8635 /* WacomIntuos */,
@@ -3566,6 +3597,9 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				084600DF1A8EF881009ED2E8 /* libc++abi.dylib */,
+				084600DD1A8EE6F1009ED2E8 /* AudioToolbox.framework */,
+				084600DA1A8EE6D2009ED2E8 /* JaJa-SDK.framework */,
 				084C3EB91A8BA30A00F0E83D /* libT1PogoManager.a */,
 				08A9030A1A88A8DA003C8635 /* WacomDevice.framework */,
 				08D9B7A71A80F397001F0FBA /* CoreBluetooth.framework */,
@@ -4220,6 +4254,7 @@
 				0822B00518C0B9510021A75B /* ADSwatchManagerTableViewCell.m in Sources */,
 				3e13c00c1f6987b13e759e6c /* ADEyeDropper.m in Sources */,
 				0872BA491915C80700559E96 /* OpenGLWaveFrontMaterial.m in Sources */,
+				0855B4E71A8F856600A8FD40 /* JaJaControlConnection+Extension.m in Sources */,
 				ca53a460052690d799e70353 /* ADUndoButton.m in Sources */,
 				efce58c21b23dbf0c8fd3ffb /* ADHeap.m in Sources */,
 				007caacc578989b98b28cd37 /* ADBrushToolBar.m in Sources */,
@@ -4298,6 +4333,7 @@
 				08F905DE194ACBA7002918AA /* ADCrystalGradientStyleButton.m in Sources */,
 				08F385D919AD843100FE0ED0 /* ADReversePaint.m in Sources */,
 				e243e49eed2a843ccb577fa2 /* ADBackgroundLayer.m in Sources */,
+				084600D91A8EE6A2009ED2E8 /* ADJaJaTableViewController.m in Sources */,
 				0813AA2E19168C94000C4D00 /* REVertexCommon.m in Sources */,
 				087DB6471A8900C600F3A1F8 /* ADDeviceStatusHUD.m in Sources */,
 				fcc39e92703da8cf8276bfdb /* ADLayer.m in Sources */,
@@ -4617,6 +4653,7 @@
 				0871A82C192A569600BB8558 /* ADBrushPropertyTableView.m in Sources */,
 				088E1D8A18A278A40059002C /* ADCylinder.m in Sources */,
 				08966ECA166082E600339901 /* ADCalculateRunTime.m in Sources */,
+				0855B4E61A8F856600A8FD40 /* JaJaControlConnection+Extension.m in Sources */,
 				0847F52F18B07ECE0038869A /* ADUnitConverter.m in Sources */,
 				0826775F18E1E1BC004DA2F4 /* ADLayerTableViewCellBackgroundView.m in Sources */,
 				08E251AD189CAA340039AAC2 /* REMaterial.m in Sources */,
@@ -4796,6 +4833,7 @@
 				08B444BE175B00E600787C18 /* ADPaintFrameView.m in Sources */,
 				08B444C1175B145F00787C18 /* ADPaintFrameViewGroup.m in Sources */,
 				08A0315A18DE8896006EE308 /* ADIconColorPermeateButton.m in Sources */,
+				084600D81A8EE6A2009ED2E8 /* ADJaJaTableViewController.m in Sources */,
 				080706E018B78F4800D9385F /* ADInAppPurchaseTableView.m in Sources */,
 				08BD1A8319CAC3D100E65A05 /* ADLaunchLogoView_r_Draw.m in Sources */,
 				080276741967139C0022FD56 /* ADOpacityIndicatorView.m in Sources */,
@@ -5004,6 +5042,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5025,6 +5065,7 @@
 					"$(PROJECT_DIR)/GPUImage",
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "288cc4db-bfd7-40df-9ff6-9cb6d76a7220";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "288cc4db-bfd7-40df-9ff6-9cb6d76a7220";
@@ -5171,6 +5212,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5192,6 +5235,7 @@
 					"$(PROJECT_DIR)/GPUImage",
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "26cab14a-967b-4332-a362-e91ff2539cee";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26cab14a-967b-4332-a362-e91ff2539cee";
@@ -5221,6 +5265,8 @@
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5307,6 +5353,8 @@
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5434,6 +5482,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5456,6 +5506,7 @@
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-all_load";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",
 					"-lz",
@@ -5488,6 +5539,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5509,6 +5562,7 @@
 					"$(PROJECT_DIR)/GPUImage",
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "ce00bd72-2555-4b0f-8d65-03ff151c2c6e";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ce00bd72-2555-4b0f-8d65-03ff151c2c6e";
@@ -5538,6 +5592,8 @@
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";
@@ -5597,6 +5653,8 @@
 					"$(SYSTEM_APPS_DIR)/Reveal.app/Contents/SharedSupport/iOS-Libraries",
 					"$(PROJECT_DIR)/JotTouchSDK",
 					"$(PROJECT_DIR)/WacomIntuosSDK",
+					"/Users/kobunketsu/Documents/_Projects/Device/jajaSDK_v1.24_2013-10-31",
+					"$(PROJECT_DIR)/JaJaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PaintProjector/PaintProjector-Prefix.pch";

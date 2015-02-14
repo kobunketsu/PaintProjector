@@ -164,7 +164,9 @@ ADWacomStylusTableViewControllerDelegate,
 WacomDiscoveryCallback,
 WacomStylusEventCallback,
 ADPogoConnectTableViewControllerDelegate,
-T1PogoDelegate
+T1PogoDelegate,
+ADJaJaTableViewControllerDelegate,
+JaJaControlDelegate
 >
 {
     //变换

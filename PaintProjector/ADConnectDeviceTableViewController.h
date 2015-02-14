@@ -11,6 +11,7 @@
 #import "ADWacomStylusTableViewController.h"
 #import "ADDeviceButtonTableViewController.h"
 #import "ADPogoConnectTableViewController.h"
+#import "ADJaJaTableViewController.h"
 
 #define ConnectDeviceCellNum 7
 @interface ADConnectDeviceTableViewController : ADSharedPopTableViewController
@@ -22,4 +23,5 @@
 - (void) didSelectDeviceAdonitJot;
 - (void) didSelectDeviceWacomStylus;
 - (void) didSelectDevicePogoConnect;
+- (void) didSelectDeviceJaJa;
 @end

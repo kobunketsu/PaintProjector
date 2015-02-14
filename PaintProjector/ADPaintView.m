@@ -21,12 +21,18 @@
 
 #import "WacomTouch.h"
 #import "T1PogoManager.h"
+#import "T1PogoManager+Extension.h"
+#import <JaJa-SDK/jaJa-SDK.h>
+#import "JaJaControlConnection+Extension.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #define EmptyAlpha 0.01
 #define CanvasScaleMinimum 0.2
 #define TwoFingerPanGestureTime 0.016
-#define PressureMin 0.2
+
+#define DevicePressureMin 0.1
+#define PogoConnectPressureMin 0.3
+#define DevicePressureThresold 0.1
 
 // A class extension to declare private methods
 @interface ADPaintView ()
@@ -92,6 +98,8 @@
 @property (retain, nonatomic) UIImageView* debugAlphaView;
 #endif
 
+#pragma mark- Device
+@property (retain, nonatomic) ADHeap *recentPressures;
 #pragma mark- debug
 //@property (retain, nonatomic) UIView *debugView;
 @end
@@ -166,6 +174,7 @@
         _lastProgramLayerTex = -1;
         
         
+        _recentPressures = [[ADHeap alloc]initWithCapacity:5];
 #if DEBUG_VIEW_COLORALPHA
         //        [self createDebugQuadVerticesbuffer];
         //        [self createDebugQuadVerticesbuffer2];
@@ -1285,9 +1294,11 @@
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect){
         //MARK:fix ?
-        return [self.pogoManager touchIsPen:self.firstTouch];
+        return self.pogoManager.penConnected != nil;
     }
-    
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa){
+        return false;
+    }
     return false;
 }
 
@@ -1301,6 +1312,9 @@
         [self touchesPaintBegan:touches];
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect){
+        [self touchesPaintBegan:touches];
+    }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa){
         [self touchesPaintBegan:touches];
     }
 }
@@ -1334,6 +1348,9 @@
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
         [self touchesPaintMoved:[NSSet setWithObject:self.firstTouch]];
     }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa) {
+        [self touchesPaintMoved:[NSSet setWithObject:self.firstTouch]];
+    }
 }
 
 - (void)deviceTouchesPaintEnded:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -1358,12 +1375,35 @@
         self.curNumberOfTouch -= touches.count;
         [self touchesPaintEnded:[NSSet setWithObject:self.firstTouch]];
     }
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa) {
+        self.curNumberOfTouch -= touches.count;
+        [self touchesPaintEnded:[NSSet setWithObject:self.firstTouch]];
+    }
 }
 
-#pragma mark- AdonitJot Touch Event
-
--(CGFloat) widthForPressure:(CGFloat)pressure{
-    return PressureMin + (1 - PressureMin) * (pressure / JOT_MAX_PRESSURE);
+-(CGFloat) filterPressure:(CGFloat)pressure{
+    CGFloat sum = 0;
+    for (NSNumber *num in self.recentPressures.contents) {
+        sum += num.floatValue;
+    }
+    CGFloat avg = 0;
+    CGFloat count = self.recentPressures.contents.count;
+    if (count > 0) {
+        avg = sum / count;
+        
+        if(fabsf(pressure - avg) > DevicePressureThresold){
+            if (pressure > avg) {
+                pressure = avg + DevicePressureThresold;
+            }
+            else if (pressure < avg){
+                pressure = avg - DevicePressureThresold;
+            }
+        }
+    }
+    
+    [self.recentPressures push:[NSNumber numberWithFloat:pressure]];
+    
+    return pressure;
 }
 
 - (CGFloat)pressureFromTouch:(UITouch*)touch{
@@ -1371,21 +1411,31 @@
     if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         if ([touch isMemberOfClass:[JotTouch class]]) {
             DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
-            pressure = [self widthForPressure:((JotTouch*)touch).pressure];
+            pressure = ((JotTouch*)touch).pressure / JOT_MAX_PRESSURE;
         }
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus) {
         if ([touch isMemberOfClass:[WacomTouch class]]) {
             DebugLogWarn(@"get Wacom Stylus pressure %d", [TouchManager GetTouchManager].theStylusTouch.pressure);
-            pressure = [self widthForPressure:[TouchManager GetTouchManager].theStylusTouch.pressure];
+            pressure = [TouchManager GetTouchManager].theStylusTouch.pressure / JOT_MAX_PRESSURE;
         }
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
-        pressure = PressureMin + (1 - PressureMin) * [self.pogoManager pressureForTouch:touch];
+        pressure = [self.pogoManager pressureForTouch:touch];
     }
-
+    else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa) {
+        pressure = [JaJaControlConnection pressure];
+    }
+    
+    CGFloat pressureMin = DevicePressureMin;
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
+        pressureMin = PogoConnectPressureMin;
+    }
+    pressure = pressureMin + (1 - pressureMin) * [self filterPressure:pressure];
     return pressure;
 }
+
+#pragma mark- AdonitJot Touch Event
 -(void)jotStylusTouchBegan:(NSSet *) touches{
     DebugLogFuncStart(@"jotStylusTouchBegan touches count:%d", [touches count]);
     //override to JotTouch
@@ -1677,6 +1727,7 @@
     self.curPaintCommand.delegate = self;
     self.curPaintCommand.isTapDraw = isTapDraw;
     [self.curPaintCommand drawImmediateStart:startPoint];
+    
 }
 
 - (void) draw:(BOOL)isTapDraw{
@@ -1717,6 +1768,8 @@
     //绘制命令完成后加入命令处理队列
     //    DebugLog(@"willEndDraw brushId %d", self.curPaintCommand.brushState.classId);
     [self.commandManager addCommand:self.curPaintCommand];
+    
+    [self.recentPressures clear];
 }
 
 -(void)swapVBO{

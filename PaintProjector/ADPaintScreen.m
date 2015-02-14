@@ -94,6 +94,9 @@
 #pragma mark- PogoConnect
 @property (retain, nonatomic) ADPogoConnectTableViewController *pogoConnectTableViewController;
 @property (retain, nonatomic) T1PogoManager *pogoManager;
+#pragma mark- JaJa
+@property (retain, nonatomic) ADJaJaTableViewController *jajaConnectTableViewController;
+@property (strong, nonatomic) JaJaControlConnection * detector;
 @end
 
 
@@ -502,6 +505,10 @@
         return;
     }
     [self.paintView applicationDidBecomeActive];
+    
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa) {
+        [self.detector start];
+    }
 }
 
 -(void)applicationWillResignActive:(id)sender{
@@ -517,6 +524,10 @@
     [self autoSave];
     //TODO:清理干净所有OpenGLES command
     [self.paintView applicationWillResignActive];
+    
+    if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_JaJa) {
+        [self.detector stop];
+    }
 }
 
 -(void)applicationWillTerminate:(id)sender{
@@ -4693,9 +4704,9 @@
 }
 
 - (void) willEyeDroppingUI:(CGPoint)point Color:(UIColor *)uiColor{
-    DebugLogWarn(@"willEyeDroppingUI paintView center x:%.2f y:%.2f", point.x, point.y);
+//    DebugLogWarn(@"willEyeDroppingUI paintView center x:%.2f y:%.2f", point.x, point.y);
     CGPoint center = [self.rootCanvasView convertPoint:point fromView:self.paintView];
-    DebugLogWarn(@"willEyeDroppingUI rootCanvasView center x:%.2f y:%.2f", center.x, center.y);
+//    DebugLogWarn(@"willEyeDroppingUI rootCanvasView center x:%.2f y:%.2f", center.x, center.y);
     _eyeDropperIndicatorView.center = center;
     [_eyeDropperIndicatorView setColor:uiColor];
     [self.eyeDropperButton setColor:uiColor];
@@ -5706,8 +5717,6 @@
 }
 
 - (void)popDeviceWritingStyleTableViewController{
-    
-//    ADDeviceWritingStyleTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceWritingStyleTableViewController"];
     ADDeviceWritingStyleTableViewController *tableVC = [[ADDeviceWritingStyleTableViewController alloc]initWithStyle:UITableViewStylePlain];
     tableVC.delegate = self;
     tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableViewController.tableViewHeight);
@@ -5722,10 +5731,8 @@
 
 
 - (void) didSelectDeviceButtonIndex:(NSInteger)index{
-//    ADDeviceButtonTableViewController *tableVC =  [self.storyboard instantiateViewControllerWithIdentifier:@"DeviceButtonTableViewController"];
     ADDeviceButtonTableViewController *tableVC = [[ADDeviceButtonTableViewController alloc]initWithStyle:UITableViewStylePlain];
     tableVC.delegate = self;
-    tableVC.fromController = self.wacomStylusTableViewController;
     tableVC.buttonIndex = index;
     tableVC.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableViewController.tableViewHeight);
     
@@ -5812,6 +5819,12 @@
         controller = tableVC;
         [[WacomManager getManager] startDeviceDiscovery];
     }
+    else if (connectDeviceType == ConnectDevice_JaJa) {
+        ADJaJaTableViewController *tableVC = [[ADJaJaTableViewController alloc]initWithStyle:UITableViewStylePlain];
+        tableVC.delegate = self;
+        self.jajaConnectTableViewController = tableVC;
+        controller = tableVC;
+    }
     else if (connectDeviceType == ConnectDevice_PogoConnect) {
         ADPogoConnectTableViewController *tableVC = [[ADPogoConnectTableViewController alloc]initWithStyle:UITableViewStylePlain];
         tableVC.delegate = self;
@@ -5855,6 +5868,14 @@
     [self popDeviceTableViewControllerWithConnectDeviceType:ConnectDevice_PogoConnect];
 }
 
+- (void)didSelectDeviceJaJa{
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_JaJa;
+    
+    [self setupJaJaSDK];
+    
+    [self popDeviceTableViewControllerWithConnectDeviceType:ConnectDevice_JaJa];
+}
+
 #pragma mark - ADDeviceButtonTableViewControllerDelegate
 - (void)didSelectConnectDeviceButtonMethod{
     [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
@@ -5864,7 +5885,7 @@
     [self closeAdonitJotSDK];
     [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     [self connectDeviceButtonTouchUp:self.connectDeviceButton];
-    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusModelName];
+//    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusModelName];
 }
 - (void) didSelectAdonitJotButtonIndex:(NSInteger)index{
     //得到设备更新title
@@ -6059,6 +6080,7 @@
 
 #pragma mark - ADWacomStylusTableViewControllerDelegate
 - (void) didDeselectWacomStylus{
+//    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:[WacomManager getManager].getSelectedDevice.getName];
     [self closeWacomStylusSDK];
     [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     [self connectDeviceButtonTouchUp:self.connectDeviceButton];
@@ -6142,28 +6164,38 @@
 
 - (void) deviceDiscovered:(WacomDevice *)device{
     DebugLog(@"deviceDiscovered");
-    [self.wacomStylusTableViewController.tableView reloadData];
+    if (self.wacomStylusTableViewController) {
+        [self.wacomStylusTableViewController.tableView reloadData];
+    }
 }
 
 - (void) discoveryStatePoweredOff{
     DebugLog(@"discoveryStatePoweredOff");
-   [self.wacomStylusTableViewController.tableView reloadData];
+    if (self.wacomStylusTableViewController) {
+       [self.wacomStylusTableViewController.tableView reloadData];
+    }
 }
 //optional
 - (void) deviceConnected:(WacomDevice *)device{
     DebugLog(@"deviceConnected");
-    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:YES modelName:[device getName]];
-    
-   [self.wacomStylusTableViewController.tableView reloadData];
     [[WacomManager getManager] selectDevice:device];
     [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:0];
     [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:1];
+
+    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:YES modelName:[device getName]];
+    
+    if (self.wacomStylusTableViewController) {
+       [self.wacomStylusTableViewController.tableView reloadData];
+    }
 }
 - (void) deviceDisconnected:(WacomDevice *)device{
     DebugLog(@"deviceDisconnected");
+    [[WacomManager getManager] deselectDevice:device];
     [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:[device getName]];
-    
-   [self.wacomStylusTableViewController.tableView reloadData];
+
+    if (self.wacomStylusTableViewController) {
+       [self.wacomStylusTableViewController.tableView reloadData];
+    }
 }
 
 #pragma mark- Pogo Connect SDK
@@ -6182,10 +6214,12 @@
     T1PogoPen *pen = [T1PogoManager sharedPogoManager].penConnected;
     [self.pogoManager disconnectPogoPen:pen];
     [self.pogoManager deregisterView:self.paintView];
+    self.pogoManager = self.paintView.pogoManager = nil;
 }
 
 #pragma mark- ADPogoConnectTableViewControllerDelegate
 - (void) didDeselectPogoConnect{
+//   [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:self.pogoManager.penConnected.peripheral.productName];
     [self closePogoConnectSDK];
     [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
     [self connectDeviceButtonTouchUp:self.connectDeviceButton];
@@ -6378,9 +6412,94 @@
     }
 }
 
-
-#pragma mark- 测试
-- (void)willShowTestImage:(UIImage*)image{
-    self.testImageView.image = image;
+#pragma mark- JaJa SDK
+- (void)setupJaJaSDK{
+    DebugLog(@"setupJaJaSDK");
+    self.detector = [[JaJaControlConnection alloc]init];
+    self.detector.delegate = self;
+    [self.detector start];
+    [self addDeviceButtonShortcuts];
 }
+
+- (void)closeJaJaSDK{
+    DebugLog(@"closeJaJaSDK");
+    [self.detector stop];
+    self.detector = nil;
+    [ADDeviceManager sharedInstance].isJaJaConnected = false;
+}
+
+#pragma mark- ADJaJaTableViewControllerDelegate
+- (void) didDeselectJaJa{
+    [self closeJaJaSDK];
+    [ADDeviceManager sharedInstance].deviceType = ConnectDevice_None;
+    [self connectDeviceButtonTouchUp:self.connectDeviceButton];
+//    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:@"JaJa Hex3"];
+}
+
+- (void) didSelectJaJaButtonIndex:(NSInteger)index{
+    [self didSelectDeviceButtonIndex:index];
+}
+
+- (void) didSelectOpenJaJaSupportURL{
+    NSURL *url = [NSURL URLWithString:URL_JaJaSupport];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+#pragma mark- 
+-(void)jajaControlError{
+    DebugLog(@"jajaControlError");
+}
+
+- (void)jajaControlSignalLost{
+    DebugLog(@"jajaControlSignalLost");
+    [ADDeviceManager sharedInstance].isJaJaConnected = false;
+    if (self.jajaConnectTableViewController) {
+        [self.jajaConnectTableViewController.tableView reloadData];
+    }
+    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:NO modelName:@"JaJa Hex3"];
+}
+
+- (void)jajaControlSignalRestored{
+    DebugLog(@"jajaControlSignalRestored");
+    [ADDeviceManager sharedInstance].isJaJaConnected = true;
+    [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:0];
+    [[ADDeviceManager sharedInstance] loadDeviceButtonShortcut:1];
+    
+    if (self.jajaConnectTableViewController) {
+        [self.jajaConnectTableViewController.tableView reloadData];
+    }
+
+    [[ADDeviceStatusHUD class]ShowJotHUDInView:self.view isConnected:YES modelName:@"JaJa Hex3"];
+}
+
+- (void)jajaControlSignalValueChanged:(float)newValue{
+//    DebugLog(@"jajaControlSignalValueChanged %.2f", newValue);
+    [JaJaControlConnection setPressure:newValue];
+}
+
+- (void)firstButtonValueChanged:(BOOL)value{
+    DebugLog(@"firstButtonValueChanged %i", value);
+    BOOL released = !value;
+    SEL selector = [ADDeviceManager sharedInstance].button2Shortcut.selector;
+    if (released) {
+        if ([self respondsToSelector:selector]) {
+            [self performSelector:selector];
+        }
+    }
+}
+
+- (void)secondButtonValueChanged:(BOOL)value{
+    DebugLog(@"secondButtonValueChanged %i", value);
+    BOOL released = !value;
+    SEL selector = [ADDeviceManager sharedInstance].button1Shortcut.selector;
+    if (released) {
+        if ([self respondsToSelector:selector]) {
+            [self performSelector:selector];
+        }
+    }
+}
+#pragma mark- 测试
+
 @end

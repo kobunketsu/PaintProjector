@@ -100,14 +100,14 @@ static ADDeviceManager* sharedInstance = nil;
 
 - (void)loadDeviceButtonShortcut:(NSInteger)buttonIndex{
     DebugLog(@"loadDeviceButtonShortcut index %d", buttonIndex);
-    NSString *key;
+    NSString *key = [ADDeviceManager deviceTypeName:self.deviceType];
     ADDeviceButtonShortcut *defaultShortcut;
     if (buttonIndex == 0) {
-        key = @"button1Shortcut";
+        key = [key stringByAppendingString:@"button1Shortcut"];
         defaultShortcut = self.button1DefaultShortCut;
     }
     if (buttonIndex == 1) {
-        key = @"button2Shortcut";
+        key = [key stringByAppendingString:@"button2Shortcut"];
         defaultShortcut = self.button2DefaultShortCut;
     }
     __block ADDeviceButtonShortcut *buttonShortcut = nil;
@@ -124,6 +124,7 @@ static ADDeviceManager* sharedInstance = nil;
             break;
         case ConnectDevice_WacomStylus:
         case ConnectDevice_PogoConnect:
+        case ConnectDevice_JaJa:
         {
             NSString *buttonShortcutKey = [[NSUserDefaults standardUserDefaults] stringForKey:key];
             buttonShortcut = [self.shortcutDics valueForKey:buttonShortcutKey];
@@ -139,12 +140,6 @@ static ADDeviceManager* sharedInstance = nil;
             }
         }
             break;
-        case ConnectDevice_JaJaHex3:
-        {
-            
-        }
-            break;
-            
         default:
             break;
     }
@@ -153,14 +148,14 @@ static ADDeviceManager* sharedInstance = nil;
 - (void)recordDeviceButtonShortcut:(NSInteger)buttonIndex{
     DebugLog(@"recordDeviceButtonShortcut index %d", buttonIndex);
     NSString *buttonShortbutKeyValue = nil;
-    NSString *key = nil;
+    NSString *key = [ADDeviceManager deviceTypeName:self.deviceType];
     if (buttonIndex == 0) {
         buttonShortbutKeyValue = [ADDeviceManager sharedInstance].button1Shortcut.key;
-        key = @"button1Shortcut";
+        key = [key stringByAppendingString:@"button1Shortcut"];
     }
     else if (buttonIndex == 1) {
         buttonShortbutKeyValue = [ADDeviceManager sharedInstance].button2Shortcut.key;
-        key = @"button2Shortcut";
+        key = [key stringByAppendingString:@"button2Shortcut"];
     }
 
     switch (self.deviceType) {
@@ -171,19 +166,40 @@ static ADDeviceManager* sharedInstance = nil;
             break;
         case ConnectDevice_WacomStylus:
         case ConnectDevice_PogoConnect:
+        case ConnectDevice_JaJa:
         {
             [[NSUserDefaults standardUserDefaults] setValue:buttonShortbutKeyValue forKey:key];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
             break;
-        case ConnectDevice_JaJaHex3:
-        {
-            
-        }
-            break;
         default:
             break;
     }
+}
+
++ (NSString *)deviceTypeName:(ConnectDeviceType)deviceType{
+    NSString *name = nil;
+    switch (deviceType) {
+        case ConnectDevice_None:
+            name = @"DeviceNone";
+            break;
+        case ConnectDevice_AdonitJot:
+            name = @"DeviceAdonitJot";
+            break;
+        case ConnectDevice_WacomStylus:
+            name = @"DeviceWacomStylus";
+            break;
+        case ConnectDevice_PogoConnect:
+            name = @"DevicePogoConnect";
+            break;
+        case ConnectDevice_JaJa:
+            name = @"DeviceJaJa";
+            break;
+            
+        default:
+            break;
+    }
+    return name;
 }
 
 + (NSString*)writingStyleName:(DeviceWritingStyle)writingStyle{

@@ -1,19 +1,19 @@
 //
-//  ADConnectDeviceTableViewController.m
+//  ADJaJaTableViewController.m
 //  PaintProjector
 //
-//  Created by 文杰 胡 on 2/3/15.
+//  Created by 文杰 胡 on 2/14/15.
 //  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import "ADConnectDeviceTableViewController.h"
-#import <JotTouchSDK/JotTouchSDK.h>
-
-@interface ADConnectDeviceTableViewController ()
+#import "ADJaJaTableViewController.h"
+#import "ADTutorialStatusView.h"
+#import "ADDeviceManager.h"
+@interface ADJaJaTableViewController ()
 
 @end
 
-@implementation ADConnectDeviceTableViewController
+@implementation ADJaJaTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,12 +34,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-- (void)viewDidAppear:(BOOL)animated{
-    [Flurry logEvent:@"PS_inConnectDevice" withParameters:nil timed:true];
-}
-- (void)viewDidDisappear:(BOOL)animated{
-    [Flurry endTimedEvent:@"PS_inConnectDevice" withParameters:nil];
-}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -59,10 +54,8 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 4;
+    return 3;
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -70,30 +63,64 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if(indexPath.row == 0){
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        else{
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        }
     }
-    
     
     // Configure the cell...
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-            cell.textLabel.text = NSLocalizedString(@"AdonitJot", nil);
+        {
+            [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
+                if (connected) {
+                    cell.textLabel.text = NSLocalizedString(@"JaJaHex3", nil);
+                    cell.detailTextLabel.text = nil;
+                }
+                else{
+                    cell.textLabel.text = NSLocalizedString(@"JaJaConnectDisconnectedText", nil);
+                    cell.detailTextLabel.text = NSLocalizedString(@"JaJaConnectDisconnectedDetailText", nil);
+                }
+            }];
+        }
             break;
         case 1:
-            cell.textLabel.text = NSLocalizedString(@"WacomStylus", nil);
+        {
+            cell.textLabel.text = NSLocalizedString(@"ButtonDown", nil);
+            [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
+                if (connected) {
+                    NSString *shortText = [ADDeviceManager sharedInstance].button1Shortcut.descriptiveText ;
+                    cell.detailTextLabel.text = shortText;
+                }
+                else{
+                    cell.detailTextLabel.text = nil;
+                }
+            }];
+        }
             break;
         case 2:
-            cell.textLabel.text = NSLocalizedString(@"PogoConnect", nil);
+        {
+            cell.textLabel.text = NSLocalizedString(@"ButtonUp", nil);
+            [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
+                if (connected) {
+                    NSString *shortText = [ADDeviceManager sharedInstance].button2Shortcut.descriptiveText ;
+                    cell.detailTextLabel.text = shortText;
+                }
+            }];
+            
+        }
             break;
         case 3:
-            cell.textLabel.text = NSLocalizedString(@"JaJaHex3", nil);
+            cell.textLabel.text = NSLocalizedString(@"Support", nil);
             break;
         default:
             break;
     }
     return cell;
 }
-
 
 /*
 // Override to support conditional editing of the table view.
@@ -143,7 +170,28 @@
     // Pass the selected object to the new view controller.
 }
 */
-#pragma mark - Table view delegate
+
+- (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
+    if ([ADDeviceManager sharedInstance].isJaJaConnected) {
+        if (cell.accessoryView) {
+            UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
+            [activityView stopAnimating];
+            [activityView removeFromSuperview];
+        }
+        if(block){
+            block(YES);
+        }
+    }
+    else{
+        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityView.hidesWhenStopped = true;
+        [activityView startAnimating];
+        cell.accessoryView = activityView;
+        if(block){
+            block(NO);
+        }
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -156,42 +204,28 @@
      */
     switch(indexPath.row) { // assuming there is only one section
         case 0:
-        {
-            [RemoteLog logAction:@"PS_didSelectDeviceAdonitJot" identifier:nil];
-            [self.delegate didSelectDeviceAdonitJot];
-        }
+            [RemoteLog logAction:@"PS_didDeselectJaJa" identifier:nil];
+            [self.delegate didDeselectJaJa];
+            
             break;
         case 1:
-        {
-            [RemoteLog logAction:@"PS_didSelectDeviceWacomStylus" identifier:nil];
-            [self.delegate didSelectDeviceWacomStylus];
-        }
+            [RemoteLog logAction:@"PS_didSelectJaJaButtonIndex0" identifier:nil];
+            [self.delegate didSelectJaJaButtonIndex:0];
             break;
         case 2:
-        {
-            [RemoteLog logAction:@"PS_didSelectDevicePogoConnect" identifier:nil];
-            [self.delegate didSelectDevicePogoConnect];
-        }
+            [RemoteLog logAction:@"PS_didSelectJaJaButtonIndex1" identifier:nil];
+            [self.delegate didSelectJaJaButtonIndex:1];
             break;
         case 3:
-        {
-            [RemoteLog logAction:@"PS_didSelectDeviceJaJa" identifier:nil];
-            [self.delegate didSelectDeviceJaJa];
-        }
-            break;
+            [RemoteLog logAction:@"PS_didSelectOpenJaJaSupportURL" identifier:nil];
+            [self.delegate didSelectOpenJaJaSupportURL];
         default:
             break;
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return PopoverTableViewCellHeight;
 }
-
-- (float)tableViewHeight {
-    return PopoverTableViewCellHeight * ConnectDeviceCellNum;
-}
-
 @end

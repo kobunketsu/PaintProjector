@@ -21,6 +21,7 @@
 #define SHARED_SECRET @"018df296739246cc93b9ef67068c10cb"
 #define URL_WacomStylusSupport @"http://www.wacom.com/en-us/products/stylus/intuos-creative-stylus-2"
 #define URL_PogoConnectSupport @"https://tenonedesign.com/about.php"
+#define URL_JaJaSupport @"https://hex3.co/pages/support"
 
 #define PRODUCT_INFO_INTRODUCTION @"http://www.dreapp.com/anadraw/"
 #define PRODUCT_INFO_USERMANUAL @"http://www.dreapp.com/community/"

@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, ConnectDeviceType) {
     ConnectDevice_AdonitJot,
     ConnectDevice_WacomStylus,
     ConnectDevice_PogoConnect,
-    ConnectDevice_JaJaHex3,
+    ConnectDevice_JaJa,
 };
 
 typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
 @interface ADDeviceManager : NSObject
 +(ADDeviceManager*)sharedInstance;
 +(NSString*)writingStyleName:(DeviceWritingStyle)writingStyle;
++(NSString*)deviceTypeName:(ConnectDeviceType)deviceType;
 @property (assign, nonatomic) ConnectDeviceType deviceType;
 @property (retain, nonatomic) NSMutableArray *shortcuts;
 @property (retain, nonatomic) ADDeviceButtonShortcut *button1Shortcut;
@@ -46,7 +47,6 @@ typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
 - (void)loadDeviceButtonShortcut:(NSInteger)buttonIndex;
 
 
-//- (ADDeviceButtonShortcut *)getButton1Shortcut;
-//
-//- (ADDeviceButtonShortcut *)getButton2Shortcut;
+#pragma mark- Temp
+@property (assign, nonatomic) BOOL isJaJaConnected;
 @end
