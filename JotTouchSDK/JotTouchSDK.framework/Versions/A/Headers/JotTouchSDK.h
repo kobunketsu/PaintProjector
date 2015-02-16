@@ -12,6 +12,7 @@
 #import <JotTouchSDK/JotStylusManager.h>
 #import <JotTouchSDK/JotTapToConnectSettingsViewController.h>
 #import <JotTouchSDK/JotStylusMotionManager.h>
+#import <JotTouchSDK/JotPalmGestureRecognizer.h>
 #import <JotTouchSDK/UITouch+JotStylus.h>
 
 #endif

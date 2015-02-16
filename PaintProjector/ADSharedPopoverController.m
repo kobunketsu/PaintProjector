@@ -19,6 +19,10 @@
 }
 
 - (void)presentPopoverFromRect:(CGRect)rect inView:(UIView *)view permittedArrowDirections:(UIPopoverArrowDirection)arrowDirections animated:(BOOL)animated{
+    if (self.fromButton) {
+        self.fromButton.selected = true;
+        [self.fromButton setNeedsDisplay];
+    }
     CGRect fromRect = rect;
     if (arrowDirections == UIPopoverArrowDirectionUp) {
         fromRect.size.height -= 4;

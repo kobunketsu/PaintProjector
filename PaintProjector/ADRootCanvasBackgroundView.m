@@ -44,7 +44,6 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-
     switch (self.paintView.state) {
         case PaintView_TouchTransformCanvas:
         {
@@ -56,25 +55,45 @@
             }
         }
             break;
-            
+        case PaintView_TouchTransformLayer:
+        case PaintView_TouchTransformImage:
+        {
+            if([touches containsObject:self.paintView.firstTouch]){
+                self.paintView.firstTouch = nil;
+            }
+        }
+            break;
         default:
             break;
     }
+    
+    [super touchesEnded:touches withEvent:event];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     switch (self.paintView.state) {
         case PaintView_TouchTransformCanvas:
         {
+            if([touches containsObject:self.paintView.firstTouch]){
+                self.paintView.firstTouch = nil;
+            }
             if (self.paintView.curNumberOfTouch == 0) {
                 [self.paintView enterState:PaintView_TouchNone];
             }
         }
             break;
-            
+        case PaintView_TouchTransformLayer:
+        case PaintView_TouchTransformImage:
+        {
+            if([touches containsObject:self.paintView.firstTouch]){
+                self.paintView.firstTouch = nil;
+            }
+        }
         default:
             break;
     }
+    
+    [super touchesCancelled:touches withEvent:event];
 }
 
 - (void)drawCanvas1WithFrame: (CGRect)frame;

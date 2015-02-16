@@ -5016,34 +5016,41 @@
     NSString *logStr = [NSString stringWithFormat:@"popoverControllerDidDismissPopover contentViewController: %@", popoverController.contentViewController];
     [RemoteLog log:logStr];
     
-    if ([popoverController.contentViewController isKindOfClass:[ADBrushPropertyViewController class]]) {
+    ADSharedPopoverController *controller = (ADSharedPopoverController *)popoverController;
+    if ([controller.contentViewController isKindOfClass:[ADBrushPropertyViewController class]]) {
 
         [self.paintView prepareDrawEnv];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[ADLayerTableViewController class]]) {
-        self.layerButton.selected = false;
-        [self.layerButton.layer setNeedsDisplay];
+    else if ([controller.contentViewController isKindOfClass:[ADLayerTableViewController class]]) {
+//        self.layerButton.selected = false;
+//        [self.layerButton.layer setNeedsDisplay];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[ADImportTableViewController class]] ||
-             [popoverController.contentViewController isKindOfClass:[UIImagePickerController class]]) {
-        self.importButton.selected = false;
-        [self.importButton.layer setNeedsDisplay];
+    else if ([controller.contentViewController isKindOfClass:[ADImportTableViewController class]] ||
+             [controller.contentViewController isKindOfClass:[UIImagePickerController class]]) {
+//        self.importButton.selected = false;
+//        [self.importButton.layer setNeedsDisplay];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[ADExportTableViewController class]]) {
-        self.exportButton.selected = false;
-        [self.exportButton.layer setNeedsDisplay];
+    else if ([controller.contentViewController isKindOfClass:[ADExportTableViewController class]]) {
+//        self.exportButton.selected = false;
+//        [self.exportButton.layer setNeedsDisplay];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[ADHelpViewController class]]) {
-        self.helpButton.selected = false;
-        [self.helpButton.layer setNeedsDisplay];
+    else if ([controller.contentViewController isKindOfClass:[ADHelpViewController class]]) {
+//        self.helpButton.selected = false;
+//        [self.helpButton.layer setNeedsDisplay];
         [self closeIndicator];
         [self tutorialStartCurrentStep];
     }
-    else if ([popoverController.contentViewController isKindOfClass:[InfColorPickerController class]]) {
+    else if ([controller.contentViewController isKindOfClass:[InfColorPickerController class]]) {
         //not written in InfColorPickerController for tracking trigger source
         [Flurry endTimedEvent:@"PS_inColorPicker" withParameters:nil];
     }
     
+    if (controller.fromButton) {
+        controller.fromButton.selected = false;
+        [controller.fromButton setNeedsDisplay];
+    }
+    
+    self.sharedPopoverController = nil;
     self.state = PaintScreen_Normal;
 }
 
@@ -5712,7 +5719,8 @@
 #pragma mark- 设备Connect Device
 - (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender {
     [RemoteLog logAction:@"connectDeviceButtonTouchUp" identifier:sender];
-    
+    self.connectDeviceButton.selected = true;
+    [self.connectDeviceButton setNeedsDisplay];
     [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
 }
 
@@ -5834,7 +5842,9 @@
     
     
     controller.preferredContentSize = CGSizeMake(PopoverTableViewWidth, self.connectDeviceTableViewController.tableViewHeight);
-    [self.sharedPopoverController dismissPopoverAnimated:false];
+    if(self.sharedPopoverController){
+        [self.sharedPopoverController dismissPopoverAnimated:false];
+    }
     self.sharedPopoverController = [[ADSharedPopoverController alloc]initWithContentViewController:controller];
     self.sharedPopoverController.fromButton = self.connectDeviceButton;
     self.sharedPopoverController.delegate = self;

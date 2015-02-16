@@ -1106,7 +1106,7 @@
         case PaintView_TouchPaint:{
             if ([self hasPaintTouchInTouches:touches]) {
                 DebugLogWarn(@"hasPaintTouchInTouches");
-                [self drawFromPoint:self.location toPoint:self.previousLocation isTapDraw:false];
+                [self drawFromPoint:self.previousLocation toPoint:self.location isTapDraw:false];
                 [self endDraw];
                 
                 self.firstTouch = nil;

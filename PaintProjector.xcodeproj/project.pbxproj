@@ -475,6 +475,8 @@
 		087BB3A31730AB4B006C0A33 /* ADOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BB3A21730AB4B006C0A33 /* ADOpacitySlider.m */; };
 		087C5AB316B2CF2E005F954A /* ADFinger.m in Sources */ = {isa = PBXBuildFile; fileRef = 087C5AB216B2CF2E005F954A /* ADFinger.m */; };
 		087D01E7174E5EB400938494 /* ADLayerMergeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D01E6174E5EB400938494 /* ADLayerMergeButton.m */; };
+		087D2E8A1A90646B00031530 /* ADConnectDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D2E891A90646B00031530 /* ADConnectDeviceButton.m */; };
+		087D2E8B1A90646B00031530 /* ADConnectDeviceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D2E891A90646B00031530 /* ADConnectDeviceButton.m */; };
 		087D9B331981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
 		087D9B341981E62E002392BA /* ADSetupCylinderRefMacProButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */; };
 		087D9B371981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 087D9B361981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.m */; };
@@ -1608,6 +1610,8 @@
 		087C5AB216B2CF2E005F954A /* ADFinger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADFinger.m; sourceTree = "<group>"; };
 		087D01E5174E5EB400938494 /* ADLayerMergeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLayerMergeButton.h; sourceTree = "<group>"; };
 		087D01E6174E5EB400938494 /* ADLayerMergeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLayerMergeButton.m; sourceTree = "<group>"; };
+		087D2E881A90646B00031530 /* ADConnectDeviceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADConnectDeviceButton.h; path = PaintProjector/ADConnectDeviceButton.h; sourceTree = SOURCE_ROOT; };
+		087D2E891A90646B00031530 /* ADConnectDeviceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADConnectDeviceButton.m; path = PaintProjector/ADConnectDeviceButton.m; sourceTree = SOURCE_ROOT; };
 		087D9B311981E62E002392BA /* ADSetupCylinderRefMacProButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefMacProButton.h; sourceTree = "<group>"; };
 		087D9B321981E62E002392BA /* ADSetupCylinderRefMacProButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSetupCylinderRefMacProButton.m; sourceTree = "<group>"; };
 		087D9B351981E9AD002392BA /* ADSetupCylinderRefTeaCupButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSetupCylinderRefTeaCupButton.h; sourceTree = "<group>"; };
@@ -2629,6 +2633,8 @@
 				08CA01D41A81CBC200E2D1F4 /* ADDiscoveryDeviceButton.m */,
 				087DB6361A88FFF200F3A1F8 /* ADDeviceManager.h */,
 				087DB6371A88FFF200F3A1F8 /* ADDeviceManager.m */,
+				087D2E881A90646B00031530 /* ADConnectDeviceButton.h */,
+				087D2E891A90646B00031530 /* ADConnectDeviceButton.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -4369,6 +4375,7 @@
 				086F6FEB1A8C4BDA0014006A /* ADPogoConnectTableViewController.m in Sources */,
 				08A5CBC0189F542300F4E226 /* REScene.m in Sources */,
 				082060DE189D455C0027247C /* ADCylinderProject.m in Sources */,
+				087D2E8B1A90646B00031530 /* ADConnectDeviceButton.m in Sources */,
 				3e9af69b87333d5ed310511e /* ADOilBrush.m in Sources */,
 				d665075fb5e26582b6aef2d9 /* ADMarkerSquare.m in Sources */,
 				8df62399f6923366f5f96e1d /* ADLayerBlendModeTableViewController.m in Sources */,
@@ -4875,6 +4882,7 @@
 				086B6642179059F4001723F4 /* ADViewHeightSlider.m in Sources */,
 				084228A618A7CADA0046BA61 /* UIView+Tag.m in Sources */,
 				088E57B61790D7C900464F61 /* ADProjectViewRange.m in Sources */,
+				087D2E8A1A90646B00031530 /* ADConnectDeviceButton.m in Sources */,
 				0847B69A19AB8E2C00C8F20F /* SKProductWrapper.m in Sources */,
 				08FD2DC4179B8864006B0EB8 /* ADCylinderProjectViewController.m in Sources */,
 				0822B00418C0B9510021A75B /* ADSwatchManagerTableViewCell.m in Sources */,
@@ -5066,6 +5074,7 @@
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "288cc4db-bfd7-40df-9ff6-9cb6d76a7220";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "288cc4db-bfd7-40df-9ff6-9cb6d76a7220";
@@ -5235,7 +5244,8 @@
 					"$(PROJECT_DIR)/GPUImage",
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "26cab14a-967b-4332-a362-e91ff2539cee";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "26cab14a-967b-4332-a362-e91ff2539cee";
@@ -5562,7 +5572,7 @@
 					"$(PROJECT_DIR)/GPUImage",
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AnaDraw;
 				PROVISIONING_PROFILE = "ce00bd72-2555-4b0f-8d65-03ff151c2c6e";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ce00bd72-2555-4b0f-8d65-03ff151c2c6e";

@@ -20,8 +20,10 @@
 #pragma mark- Core
 @property (assign, nonatomic) CGFloat lastSegmentTailLength;//上一次片段未绘制的长度
 @property (assign, nonatomic) CGFloat curSegmentLength;//当前片段的长度
+//@property (assign, nonatomic) CGFloat curStrokedSegmentLength;//当前已经绘制的片段长度
 @property (assign, nonatomic) CGFloat curSegmentSpeed;//当前片段对应速度(Length作为ControlPoint)
 @property (retain, nonatomic) ADHeap *segmentLengths;//用来光滑笔刷大小变化
+
 
 @property (assign, nonatomic) PathPoint lastStrokedPoint;//上一次绘制的点
 @property (assign, nonatomic) size_t strokedSpriteCount;//当前一次绘制的数量
@@ -203,6 +205,7 @@
     self.lastSegmentTailLength = 0;
     self.lastStrokedPoint = self.lastSegmentEndPoint = self.curSegmentEndPoint = startLocation;
     self.curSegmentLength = 0;
+//    self.curStrokedSegmentLength = 0;
     self.lastStrokedFade = self.curStrokedFade = 1.0;
     
     CFAbsoluteTime absTime = CFAbsoluteTimeGetCurrent();
@@ -546,6 +549,7 @@
     for (int i = 0; i < self.segmentLengths.contents.count; ++i) {
         averageLength += ((NSNumber *)self.segmentLengths.contents[i]).floatValue;
     }
+
     averageLength /= (CGFloat)self.segmentLengths.contents.count;
     
     self.curSegmentSpeed = averageLength;
@@ -618,27 +622,46 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     self.lastStrokedFade = self.curStrokedFade;
 }
 
-
+- (CGFloat) setOpacityByPressure:(float)pressure{
+    pressure *=1024;
+    float a = pow(M_E, (pressure/300))-1;
+    float b = pow(M_E, (1324.0/300))-1;
+    float level = (a/b)+0.031;
+    return level;
+}
 -(void)fillSegmentBezierOrigin:(PathPoint) origin Control:(PathPoint) control Destination:(PathPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
 {
     
     //计算vertex data
-    float x, y, pressure;
-    float t = 0.0;
+    CGFloat x, y, pressure;
+    CGFloat t = 0.0;
+//    CGFloat curStrokedSegmentLength = 0;
 //    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
 
     //非匀速绘制
     for(int i = 0; i < count; i++,t += 1.0 / (count))
     {
         //计算绘制的位置
-        x = [ADMathHelper beizerValueT:t start:origin.origin.x control:control.origin.x end:destination.origin.x];
-        y = [ADMathHelper beizerValueT:t start:origin.origin.y control:control.origin.y end:destination.origin.y];
-        pressure = [ADMathHelper beizerValueT:t start:origin.size.width control:control.size.width end:destination.size.width];
-//        DebugLogWarn(@"pressure %.2f", pressure);
+//        x = [ADMathHelper beizerValueT:t start:origin.origin.x control:control.origin.x end:destination.origin.x];
+//        y = [ADMathHelper beizerValueT:t start:origin.origin.y control:control.origin.y end:destination.origin.y];
+        //使用非均匀贝赛尔曲线导致半透明显示错误
+        x = origin.origin.x * (1 - t) + destination.origin.x * t;
+        y = origin.origin.y * (1 - t) + destination.origin.y * t;
         
         //计算绘制的距离
-        self.curStrokedLength += [ADMathHelper lengthFromPoint:CGPointMake(x, y) toPoint:self.lastStrokedPoint.origin];
-//        DebugLogWarn(@"curStrokedLength %.1f", self.curStrokedLength);
+        CGFloat subSegmentLenth = [ADMathHelper lengthFromPoint:CGPointMake(x, y) toPoint:self.lastStrokedPoint.origin];
+        self.curStrokedLength += subSegmentLenth;
+
+//        curStrokedSegmentLength += subSegmentLenth;
+//        CGFloat t1 = MIN (1, curStrokedSegmentLength / self.curSegmentLength);
+        pressure = origin.size.width * (1 - t) + destination.size.width * t;
+//        DebugLogWarn(@"pressure t1 %.2f", t1);
+//        DebugLogWarn(@"curStrokedLength %.1f", self.curStrokedLength)
+        
+        CGFloat radiusPressure = pressure;
+        CGFloat opacityPressure = [self setOpacityByPressure:pressure];
+//        DebugLogWarn(@"radiusPressure %.2f opacityPressure %.2f", radiusPressure, opacityPressure);
+        
         
         //散布Scattering
         float randX = (float)(random() % 50) / 50.0f;
@@ -666,7 +689,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
             }
         }
 //        DebugLog(@"fade %.1f", radiusFade);
-        radius = brushState.radius * (1 - randX * brushState.radiusJitter) * radiusFade * pressure;
+        radius = brushState.radius * (1 - randX * brushState.radiusJitter) * radiusFade * radiusPressure;
         
         
         //流量
@@ -677,7 +700,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         else{
             flowFade = 1.0;
         }
-        float flow = brushState.flow * (1 - randX * brushState.flowJitter) * flowFade;
+        float flow = brushState.flow * (1 - randX * brushState.flowJitter) * flowFade * opacityPressure;
         
         //角度
         float angleFade;
@@ -712,9 +735,7 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         self.vertexBuffer[index].Color[2] = _blue;
         self.vertexBuffer[index].Color[3] = _alpha * flow;
         
-
-        
-//        DebugLog(@"fill vertex index:%d x:%.1f y:%.1f", index, self.vertexBuffer[index].Position[0], self.vertexBuffer[index].Position[1]);
+//        DebugLog(@"fill vertex index:%d x:%.2f y:%.2f opacity:%.2f", index, self.vertexBuffer[index].Position[0], self.vertexBuffer[index].Position[1], flow);
         
         //lastDrawPoint使用完毕，更新lastDrawPoint,
         //更新执行的速度可能快于上一次取贴图，导致取到的数值是错误的

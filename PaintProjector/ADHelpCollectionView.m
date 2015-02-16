@@ -29,7 +29,7 @@
 }
 
 - (void)initCustom{
-    self.delaysContentTouches = NO;
+    //self.delaysContentTouches = NO;
 }
 - (BOOL)touchesShouldCancelInContentView:(UIView *)view
 {    

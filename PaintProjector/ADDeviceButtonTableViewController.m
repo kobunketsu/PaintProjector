@@ -129,10 +129,10 @@
 {
     [RemoteLog logAction:@"PS_connectDeviceButtonDidSelectMethod" identifier:nil];
     if(self.buttonIndex == 0){
-        [ADDeviceManager sharedInstance].button1Shortcut = [ADDeviceManager sharedInstance].shortcuts[indexPath.row];
+        [[ADDeviceManager sharedInstance] setButton1Shortcut:[ADDeviceManager sharedInstance].shortcuts[indexPath.row]];
     }
     if(self.buttonIndex == 1){
-        [ADDeviceManager sharedInstance].button2Shortcut = [ADDeviceManager sharedInstance].shortcuts[indexPath.row];
+        [[ADDeviceManager sharedInstance] setButton2Shortcut:[ADDeviceManager sharedInstance].shortcuts[indexPath.row]];
     }
         
     [self.delegate didSelectConnectDeviceButtonMethod];

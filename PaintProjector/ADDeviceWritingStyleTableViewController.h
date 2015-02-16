@@ -7,7 +7,7 @@
 //
 
 #import "ADSharedPopTableViewController.h"
-#import <JotTouchSDK/JotTouchSDK.h>
+
 @interface ADDeviceWritingStyleTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 @end

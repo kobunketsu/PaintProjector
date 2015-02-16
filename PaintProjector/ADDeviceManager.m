@@ -78,9 +78,9 @@ static ADDeviceManager* sharedInstance = nil;
 }
 
 
-- (void)setButton1Shortcut:(ADDeviceButtonShortcut *)button1Shortcut{
+- (void)setButton1Shortcut:(id)button1Shortcut{
     if (self.deviceType == ConnectDevice_AdonitJot) {
-        [JotStylusManager sharedInstance].button1Shortcut = button1Shortcut.jotShortCut;
+        [JotStylusManager sharedInstance].button1Shortcut = button1Shortcut;
     }
     else{
         _button1Shortcut = button1Shortcut;
@@ -88,9 +88,9 @@ static ADDeviceManager* sharedInstance = nil;
     }
 }
 
-- (void)setButton2Shortcut:(ADDeviceButtonShortcut *)button2Shortcut{
+- (void)setButton2Shortcut:(id)button2Shortcut{
     if (self.deviceType == ConnectDevice_AdonitJot) {
-        [JotStylusManager sharedInstance].button2Shortcut = button2Shortcut.jotShortCut;
+        [JotStylusManager sharedInstance].button2Shortcut = button2Shortcut;
     }
     else{
         _button2Shortcut = button2Shortcut;

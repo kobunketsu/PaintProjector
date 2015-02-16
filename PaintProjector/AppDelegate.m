@@ -93,7 +93,7 @@
     [self copyCollectionFromMainBundleToUserDocument];
     [[NSUserDefaults standardUserDefaults] setInteger:10 forKey:@"LayerQuantityLimitation"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ExpandedBrushPackageAvailable"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedBrushPackageAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ExpandedSwatchManagerAvailable"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"AnamorphosisSetup"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"TutorialWatched"];

@@ -54,7 +54,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 3;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,6 +79,7 @@
                 if (connected) {
                     cell.textLabel.text = NSLocalizedString(@"JaJaHex3", nil);
                     cell.detailTextLabel.text = nil;
+                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];                                        
                 }
                 else{
                     cell.textLabel.text = NSLocalizedString(@"JaJaConnectDisconnectedText", nil);
@@ -115,6 +116,17 @@
             break;
         case 3:
             cell.textLabel.text = NSLocalizedString(@"Support", nil);
+            break;
+        case 4:
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            if ([ADDeviceManager sharedInstance].isJaJaConnected) {
+                cell.detailTextLabel.text = NSLocalizedString(@"DeviceConnected", nil);
+            }
+            else{
+                cell.detailTextLabel.text = NSLocalizedString(@"DeviceScanning", nil);
+            }
+            cell.textLabel.text = NSLocalizedString(@"Status", nil);
+            
             break;
         default:
             break;

@@ -2359,11 +2359,10 @@ Create your unbelievable art!</string>
                                                     <action selector="brushTypeBackButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="yPX-gz-lyq"/>
                                                 </connections>
                                             </button>
-                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j8U-OX-ZZ2" userLabel="ConnectDeviceButton">
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j8U-OX-ZZ2" userLabel="ConnectDeviceButton" customClass="ADConnectDeviceButton">
                                                 <rect key="frame" x="67" y="0.0" width="66" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Connect">
+                                                <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -2888,7 +2887,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="TranslateViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2924,7 +2923,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="HideUI">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2942,7 +2941,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="ScaleViewOrImage">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -2958,7 +2957,7 @@ Create your unbelievable art!</string>
                     <attributedString key="userComments">
                         <fragment content="EyedropColor">
                             <attributes>
-                                <font key="NSFont" metaFont="smallSystem"/>
+                                <font key="NSFont" metaFont="toolTip"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                             </attributes>
                         </fragment>
@@ -3004,11 +3003,11 @@ Create your unbelievable art!</string>
         <scene sceneID="KtV-Nk-mRl">
             <objects>
                 <viewController storyboardIdentifier="HelpViewController" id="Lwt-Rt-8hS" customClass="ADHelpViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wdh-GA-GHi">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="wdh-GA-GHi">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="tjb-r1-2Y2" customClass="ADHelpCollectionView">
+                            <collectionView appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="tjb-r1-2Y2" customClass="ADHelpCollectionView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="5vw-wL-sLO">
@@ -3018,7 +3017,7 @@ Create your unbelievable art!</string>
                                     <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="helpCollectionViewCell" id="DfB-Xw-fz5" customClass="ADHelpCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="helpCollectionViewCell" id="DfB-Xw-fz5" customClass="ADHelpCollectionViewCell">
                                         <rect key="frame" x="5" y="5" width="180" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -3033,7 +3032,7 @@ Create your unbelievable art!</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch appearanceType="aqua" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="uqV-nc-mtq" userLabel="SwitchEnable">
-                                                    <rect key="frame" x="121" y="9" width="51" height="31"/>
+                                                    <rect key="frame" x="75" y="50" width="51" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
                                                         <action selector="switchEnableValueChanged:" destination="DfB-Xw-fz5" eventType="valueChanged" id="oSL-Ny-CEj"/>

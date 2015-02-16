@@ -81,6 +81,7 @@
                 if (connected) {
                     cell.textLabel.text = pen.peripheral.productName;
                     cell.detailTextLabel.text = nil;
+                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];                    
                 }
                 else{
                     cell.textLabel.text = NSLocalizedString(@"PogoConnectDisconnectedText", nil);
