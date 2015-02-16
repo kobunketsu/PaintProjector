@@ -2359,7 +2359,7 @@ Create your unbelievable art!</string>
                                                     <action selector="brushTypeBackButtonTouchUp:" destination="NUX-zI-YbL" eventType="touchUpInside" id="yPX-gz-lyq"/>
                                                 </connections>
                                             </button>
-                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j8U-OX-ZZ2" userLabel="ConnectDeviceButton" customClass="ADConnectDeviceButton">
+                                            <button appearanceType="aqua" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j8U-OX-ZZ2" userLabel="ConnectDeviceButton" customClass="ADConnectDeviceButton">
                                                 <rect key="frame" x="67" y="0.0" width="66" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal">

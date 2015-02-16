@@ -28,8 +28,13 @@ typedef NS_ENUM(NSInteger, DeviceWritingStyle) {
 
 @interface ADDeviceManager : NSObject
 +(ADDeviceManager*)sharedInstance;
+
 +(NSString*)writingStyleName:(DeviceWritingStyle)writingStyle;
+
 +(NSString*)deviceTypeName:(ConnectDeviceType)deviceType;
+
++(BOOL)isDeviceConnected;
+
 @property (assign, nonatomic) ConnectDeviceType deviceType;
 @property (retain, nonatomic) NSMutableArray *shortcuts;
 @property (retain, nonatomic) ADDeviceButtonShortcut *button1Shortcut;

@@ -100,8 +100,8 @@
     CGFloat count = (angle - curAngle) / DEGREES_TO_RADIANS(120);
     CGFloat fracAngle = count - floorf(count);
     
-    [UIView animateKeyframesWithDuration:duration delay:0.0
-                                 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear
+    [UIView animateKeyframesWithDuration:duration delay:delay
+                                 options:option
                               animations:^{
                                   for (NSInteger i = 0; i < floorf(count); ++i) {
                                       [UIView addKeyframeWithRelativeStartTime:((CGFloat)i / count) relativeDuration:(1.0 / count) animations:^{

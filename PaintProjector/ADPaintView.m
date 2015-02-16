@@ -826,11 +826,11 @@
             return [self convertPoint:location toView:view];
         }
         else if(wacomTouch.rawTrackedTouch){
-            DebugLogWarn(@"eyedropBegan wacomTouch.trackedTouch nil");
+            DebugLogWarn(@"wacomTouch.trackedTouch nil");
             return [wacomTouch.rawTrackedTouch locationInView:view];
         }
         else if(wacomTouch.rawTouch){
-            DebugLogWarn(@"eyedropBegan wacomTouch.rawTrackedTouch nil");
+            DebugLogWarn(@"wacomTouch.rawTrackedTouch nil");
             return [wacomTouch.rawTouch locationInView:view];
         }
     }
@@ -1417,7 +1417,7 @@
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus) {
         if ([touch isMemberOfClass:[WacomTouch class]]) {
             DebugLogWarn(@"get Wacom Stylus pressure %d", [TouchManager GetTouchManager].theStylusTouch.pressure);
-            pressure = [TouchManager GetTouchManager].theStylusTouch.pressure / JOT_MAX_PRESSURE;
+            pressure = ((CGFloat)[TouchManager GetTouchManager].theStylusTouch.pressure) / (CGFloat)[[[WacomManager getManager] getSelectedDevice] getMaximumPressure];
         }
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
@@ -1431,7 +1431,10 @@
     if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_PogoConnect) {
         pressureMin = PogoConnectPressureMin;
     }
-    pressure = pressureMin + (1 - pressureMin) * [self filterPressure:pressure];
+    DebugLogWarn(@"pressure 0-1 %.2f", pressure);
+    CGFloat filterPressure = [self filterPressure:pressure];
+    DebugLogWarn(@"filterPressure 0-1 %.2f", filterPressure);
+    pressure = pressureMin + (1 - pressureMin) * pressure;
     return pressure;
 }
 
@@ -2251,8 +2254,9 @@
     
     //    [brush swapSmudgeFramebuffers];
     
-    NSUInteger copyRadius = (NSUInteger)brushState.radius;
-    
+    NSUInteger copySize = (NSUInteger)brushState.radius * 2;
+    CGFloat scale = [UIScreen mainScreen].scale;
+    NSUInteger copySizeScaled = copySize * scale;
     DebugLogGLGroupStart(@"Get BrushSmudgeTexture From CurrentLayer");
     
     //    使用DrawQuad的方式代替glCopyTexSubImage2D
@@ -2271,26 +2275,24 @@
     //    int locationY = point.y - copyRadius;
     //    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, locationX, locationY, copyRadius*2, copyRadius*2);
     
-    
-    
     [[REGLWrapper current] bindTexture:brush.smudgeTexture.texID];
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copySizeScaled, copySizeScaled, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
     
     //save last state
     GLuint lastVAO = [REGLWrapper current].lastVAO;
     GLuint lastProgram = [REGLWrapper current].lastProgram;
     BlendFuncType lastBlendFuncType = [REGLWrapper current].lastBlendFuncType;
     
-    float scale = [UIScreen mainScreen].scale;
-    glViewport(0, 0, copyRadius*2*scale, copyRadius*2*scale);
+    
+    glViewport(0, 0, copySizeScaled, copySizeScaled);
     [[REGLWrapper current] bindFramebufferOES:brush.smudgeTexture.frameBuffer discardHint:true clear:true];
     
     [[REGLWrapper current] bindVertexArrayOES:vao];
     
     [[REGLWrapper current] useProgram:self.quadMat.shader.program uniformBlock:nil];
     
-    GLKMatrix4 transform = GLKMatrix4MakeScale((float)rect.size.width / (float)(copyRadius*2), (float)rect.size.height / (float)(copyRadius*2), 1.0);
+    GLKMatrix4 transform = GLKMatrix4MakeScale((float)rect.size.width / (float)copySize, (float)rect.size.height / (float)copySize, 1.0);
     
     float x =  -(float)(point.x - rect.size.width * 0.5) / (float)(rect.size.width * 0.5);
     float y =  -(float)(point.y - rect.size.height * 0.5) / (float)(rect.size.height * 0.5);
@@ -2299,18 +2301,6 @@
     [self.quadMat setMatrix:transform forPropertyName:@"transformMatrix"];
     [self.quadMat setInt:0 forPropertyName:@"texture"];
     [self.quadMat setFloat:1 forPropertyName:@"alpha"];
-    
-//    glUniformMatrix4fv(_tranformImageMatrixUniform, 1, false, transform.m);
-//    _lastProgramQuadTransformIdentity = false;
-//    if (self.lastProgramQuadTex != 0) {
-//        glUniform1i(_texQuadUniform, 0);
-//        self.lastProgramQuadTex = 0;
-//    }
-//    
-//    if (self.lastProgramQuadAlpha != 1) {
-//        glUniform1f(_alphaQuadUniform, 1);
-//        self.lastProgramQuadAlpha = 1;
-//    }
     
     [[REGLWrapper current] activeTexSlot:GL_TEXTURE0 bindTexture:texture];
     

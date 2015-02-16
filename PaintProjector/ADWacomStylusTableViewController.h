@@ -19,7 +19,7 @@
 - (void) didSelectWacomStylusButtonIndex:(NSInteger)index;
 - (void) didSelectOpenWacomStylusSupportURL;
 - (void) didSelectWacomStylusWritingStylus;
-- (void) willWacomStylusButtonTouchDown;
-- (void) willWacomStylusButtonTouchUp;
+//- (void) willWacomStylusButtonTouchDown;
+//- (void) willWacomStylusButtonTouchUp;
 
 @end

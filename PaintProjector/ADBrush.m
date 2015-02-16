@@ -802,8 +802,6 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 
 #pragma mark- Smudge
 - (void)deleteSmudgeFramebuffers{
-//    [[REGLWrapper current] deleteFramebufferOES:_smudgeFramebuffer];
-//    [[REGLWrapper current] deleteFramebufferOES:_smudgeBackFramebuffer];
     [self.smudgeTexture destroy];
     self.smudgeTexture = nil;
     [self.smudgeBackTexture destroy];
@@ -811,124 +809,20 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
 }
 
 - (BOOL)createSmudgeFramebuffers{
-
     //使用双贴图方式在多次拷贝贴图时减少阻塞
-    self.smudgeTexture = [RERenderTexture textureWithName:@"smudgeTex" size:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    self.smudgeBackTexture = [RERenderTexture textureWithName:@"smudgeBackTex" size:self.brushState.radius * 2 mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
-    
-//    //创建frame buffer
-//    glGenFramebuffersOES(1, &_smudgeFramebuffer);
-//    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _smudgeFramebuffer);
-//#if DEBUG
-//    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _smudgeFramebuffer, 0, [@"smudgeFramebuffer" UTF8String]);
-//#endif
-//    //链接renderBuffer对象
-//    GLuint smudgeTexture;
-//    glGenTextures(1, &smudgeTexture);
-//    [[REGLWrapper current] bindTexture: smudgeTexture];
-//#if DEBUG
-//    glLabelObjectEXT(GL_TEXTURE, smudgeTexture, 0, [@"smudgeTexture" UTF8String]);
-//#endif
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//    //none power of 2 size texture not support mipmap
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.brushState.radius * 2, self.brushState.radius * 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-////    self.lastSmudgeTextureSize = self.brushState.radius * 2;
-//    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, smudgeTexture, 0);
-//    
-//    const GLenum discards[] = {GL_COLOR_ATTACHMENT0};
-//    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    
-//    [[REGLWrapper current] bindTexture:0];
-//    
-//	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-//	{
-//		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-//		return NO;
-//	}
-    
-    
-    //创建doubleframe buffer
-//    glGenFramebuffersOES(1, &_smudgeBackFramebuffer);
-//    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _smudgeBackFramebuffer);
-//#if DEBUG
-//    glLabelObjectEXT(GL_FRAMEBUFFER_OES, _smudgeBackFramebuffer, 0, [@"smudgeBackFramebuffer" UTF8String]);
-//#endif
-//    //链接renderBuffer对象
-//    glGenTextures(1, &_smudgeBackTexture);
-//    [[REGLWrapper current] bindTexture: _smudgeBackTexture];
-//#if DEBUG
-//    glLabelObjectEXT(GL_TEXTURE, _smudgeBackTexture, 0, [@"smudgeBackTexture" UTF8String]);
-//#endif
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//    //none power of 2 size texture not support mipmap
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  self.brushState.radius * 2, self.brushState.radius * 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, _smudgeTexture, 0);
-//    
-//    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    
-//    [[REGLWrapper current] bindTexture:0];
-//    
-//	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-//	{
-//		DebugLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-//		return NO;
-//	}
-    
-    //打开贴图绘制通道
-//    glActiveTexture(GL_TEXTURE3);
+    CGFloat size = self.brushState.radius * 2 * [UIScreen mainScreen].scale;
+    self.smudgeTexture = [RERenderTexture textureWithName:@"smudgeTex" size:size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
+    self.smudgeBackTexture = [RERenderTexture textureWithName:@"smudgeBackTex" size:size mipmap:Interpolation_Nearest wrapMode:WrapMode_Clamp];
     
 	return YES;
 }
 
 - (void)swapSmudgeFramebuffers{
     //Double Buffering 交换VBO
-//    SwapGL(_smudgeFramebuffer, _smudgeBackFramebuffer)
-//    SwapGL(_smudgeTexture, _smudgeBackTexture)
     RERenderTexture *tempTex = self.smudgeTexture;
     self.smudgeTexture = self.smudgeBackTexture;
     self.smudgeBackTexture = tempTex;
 }
-
-
-//- (void)copySmudgeSrcTexture:(CGPoint)location{
-//
-//    //临时的补丁做法
-//    location.x = location.x * UndoImageSize / self.canvas.bounds.size.width;
-//    location.y = location.y * UndoImageSize / self.canvas.bounds.size.height;
-//    
-//    float copyRadius = roundf(self.brushState.radius);
-//    
-//    //save temp texture for next draw smudge texture
-//    if (_smudgeTexture == 0) {
-//        glGenTextures(1, &_smudgeTexture);
-//    }
-//    [[REGLWrapper current] bindTexture: _smudgeTexture];
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, copyRadius*2, copyRadius*2, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-//    
-//    //need half pixel offset adjust
-//    int locationX = roundf(location.x - copyRadius);
-//    int locationY = roundf(location.y - copyRadius);
-//    
-//    //need half pixel offset adjust
-//    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, locationX, locationY, copyRadius*2, copyRadius*2);
-//    [[REGLWrapper current] bindTexture: 0];
-//    
-//    //    DebugLog(@"start x:%.1f y:%.1f", startLocation.x, startLocation.y);
-//    //    DebugLog(@"finger radius:%.1f", _brushState.radius);
-//    
-//}
 
 #pragma mark- IAP
 -(BOOL)available{

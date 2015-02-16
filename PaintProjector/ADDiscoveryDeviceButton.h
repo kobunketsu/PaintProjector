@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 WenjiHu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ADAutoRotateButton.h"
 
-@interface ADDiscoveryDeviceButton : UIButton
+@interface ADDiscoveryDeviceButton : ADAutoRotateButton
 
 @end

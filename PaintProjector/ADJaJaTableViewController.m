@@ -79,11 +79,12 @@
                 if (connected) {
                     cell.textLabel.text = NSLocalizedString(@"JaJaHex3", nil);
                     cell.detailTextLabel.text = nil;
-                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];                                        
+                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+                    cell.accessoryView.opaque = false;                    
                 }
                 else{
                     cell.textLabel.text = NSLocalizedString(@"JaJaConnectDisconnectedText", nil);
-                    cell.detailTextLabel.text = NSLocalizedString(@"JaJaConnectDisconnectedDetailText", nil);
+                    cell.detailTextLabel.text = NSLocalizedString(@"DeviceDisconnectedDetailText", nil);
                 }
             }];
         }
@@ -119,7 +120,7 @@
             break;
         case 4:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            if ([ADDeviceManager sharedInstance].isJaJaConnected) {
+            if ([ADDeviceManager isDeviceConnected]) {
                 cell.detailTextLabel.text = NSLocalizedString(@"DeviceConnected", nil);
             }
             else{
@@ -184,7 +185,8 @@
 */
 
 - (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
-    if ([ADDeviceManager sharedInstance].isJaJaConnected) {
+    if ([ADDeviceManager isDeviceConnected]) {
+        cell.userInteractionEnabled = true;
         if (cell.accessoryView) {
             UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
             [activityView stopAnimating];
@@ -195,6 +197,7 @@
         }
     }
     else{
+        cell.userInteractionEnabled = false;
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityView.hidesWhenStopped = true;
         [activityView startAnimating];

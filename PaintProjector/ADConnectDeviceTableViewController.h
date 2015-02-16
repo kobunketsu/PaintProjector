@@ -13,7 +13,7 @@
 #import "ADPogoConnectTableViewController.h"
 #import "ADJaJaTableViewController.h"
 
-#define ConnectDeviceCellNum 7
+#define ConnectDeviceCellNum 6
 @interface ADConnectDeviceTableViewController : ADSharedPopTableViewController
 @property (assign, nonatomic) id delegate;
 - (float)tableViewHeight;

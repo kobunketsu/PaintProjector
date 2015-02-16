@@ -81,11 +81,12 @@
                 if (connected) {
                     cell.textLabel.text = pen.peripheral.productName;
                     cell.detailTextLabel.text = nil;
-                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];                    
+                    cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+                    cell.accessoryView.opaque = false;
                 }
                 else{
                     cell.textLabel.text = NSLocalizedString(@"PogoConnectDisconnectedText", nil);
-                    cell.detailTextLabel.text = NSLocalizedString(@"PogoConnectDisconnectedDetailText", nil);
+                    cell.detailTextLabel.text = NSLocalizedString(@"DeviceDisconnectedDetailText", nil);
                 }
             }];
         }
@@ -182,7 +183,8 @@
 */
 
 - (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
-    if ([T1PogoManager sharedPogoManager].penConnected) {
+    if ([ADDeviceManager isDeviceConnected]) {
+        cell.userInteractionEnabled = true;
         if (cell.accessoryView) {
             UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
             [activityView stopAnimating];
@@ -193,6 +195,7 @@
         }
     }
     else{
+        cell.userInteractionEnabled = false;
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityView.hidesWhenStopped = true;
         [activityView startAnimating];

@@ -5051,7 +5051,7 @@
         [controller.fromButton setNeedsDisplay];
     }
     
-    self.sharedPopoverController = nil;
+//    self.sharedPopoverController = nil;
     self.state = PaintScreen_Normal;
 }
 
@@ -5853,6 +5853,17 @@
     [self.sharedPopoverController presentPopoverFromRect:self.connectDeviceButton.bounds inView:self.connectDeviceButton permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
+- (void)startDiscoveryDeviceButtonAnim:(id)sender{
+    UIButton *button = (UIButton *)sender;
+    [button spinViewAngle:DEGREES_TO_RADIANS(360) keyPath:@"transform.rotation" duration:1.0 delay:0 option:UIViewKeyframeAnimationOptionRepeat |
+     UIViewKeyframeAnimationOptionCalculationModeLinear |
+     UIViewAnimationOptionCurveLinear completion:nil];
+}
+- (void)stopDiscoveryDeviceButtonAnim:(id)sender{
+    UIButton *button = (UIButton *)sender;
+    [button.layer removeAllAnimations];
+}
+
 #pragma mark- ADConnectDeviceTableViewControllerDelegate
 
 - (void)didSelectDeviceAdonitJot{
@@ -6003,11 +6014,15 @@
         }
 
     }];
+    
+    [self startDiscoveryDeviceButtonAnim:sender];
 }
 
 -(void)willAdonitJotButtonTouchUp:(id)sender{
     [RemoteLog logAction:@"adonitJotButtonTouchUp" identifier:sender];
     [[JotStylusManager sharedInstance] stopDiscovery];
+    
+    [self stopDiscoveryDeviceButtonAnim:sender];
 }
 
 /**
@@ -6175,16 +6190,12 @@
 
 - (void) deviceDiscovered:(WacomDevice *)device{
     DebugLog(@"deviceDiscovered");
-    if (self.wacomStylusTableViewController) {
-        [self.wacomStylusTableViewController.tableView reloadData];
-    }
+    [self deviceConnected:device];
 }
 
 - (void) discoveryStatePoweredOff{
     DebugLog(@"discoveryStatePoweredOff");
-    if (self.wacomStylusTableViewController) {
-       [self.wacomStylusTableViewController.tableView reloadData];
-    }
+    [self deviceDisconnected:[WacomManager getManager].getSelectedDevice];
 }
 //optional
 - (void) deviceConnected:(WacomDevice *)device{

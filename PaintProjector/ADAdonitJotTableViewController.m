@@ -88,7 +88,7 @@
                 }
                 else{
                     cell.textLabel.text = NSLocalizedString(@"AdonitJotDisconnectedText", nil);
-                    cell.detailTextLabel.text = NSLocalizedString(@"AdonitJotDisconnectedDetailText", nil);
+                    cell.detailTextLabel.text = NSLocalizedString(@"DeviceDisconnectedDetailText", nil);
                 }
             }];
 #else
@@ -96,10 +96,11 @@
                 cell.textLabel.text = [JotStylusManager sharedInstance].stylusModelFriendlyName;
                 cell.detailTextLabel.text = nil;
                 cell.accessoryView = [[ADTutorialStatusView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+                cell.accessoryView.opaque = false;
             }
             else{
                 cell.textLabel.text = NSLocalizedString(@"AdonitJotDisconnectedText", nil);
-                cell.detailTextLabel.text = NSLocalizedString(@"AdonitJotDisconnectedDetailText", nil);
+                cell.detailTextLabel.text = NSLocalizedString(@"DeviceDisconnectedDetailText", nil);
                 UIButton *discoveryDeviceButton = [[ADDiscoveryDeviceButton alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
                 [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchDown:) forControlEvents:UIControlEventTouchDown];
                 [discoveryDeviceButton addTarget:self.delegate action:@selector(willAdonitJotButtonTouchUp:) forControlEvents:UIControlEventTouchUpInside];
@@ -140,22 +141,20 @@
         case 4:
         {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"BatteryLevel", nil);
-            [self setCell:cell deviceConnectedBlock:^(BOOL connected) {
-                if (connected) {
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%", [JotStylusManager sharedInstance].batteryLevel];
-                }
-            }];
+            if ([ADDeviceManager isDeviceConnected]) {
+                cell.textLabel.text = NSLocalizedString(@"BatteryLevel", nil);
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d%%", [JotStylusManager sharedInstance].batteryLevel];
+            }
+            else{
+                cell.textLabel.text = NSLocalizedString(@"Status", nil);
+                cell.detailTextLabel.text = NSLocalizedString(@"DeviceScanning", nil);
+            }
         }
             break;
         case 5:
             cell.textLabel.text = NSLocalizedString(@"WritingStyle", nil);
             cell.detailTextLabel.text = [ADDeviceManager writingStyleName: [ADDeviceManager sharedInstance].writingStyle];
             break;
-//        case 6:
-//            cell.textLabel.text = NSLocalizedString(@"Status", nil);
-//            cell.detailTextLabel.text = [self connectionStatusName:[JotStylusManager sharedInstance].connectionStatus];
-//            break;
         default:
             break;
     }
@@ -190,7 +189,8 @@
 
 
 - (void)setCell:(UITableViewCell*)cell deviceConnectedBlock:(void (^)(BOOL connected))block{
-    if ([JotStylusManager sharedInstance].connectionStatus == JotConnectionStatusConnected) {
+    if ([ADDeviceManager isDeviceConnected]) {
+        cell.userInteractionEnabled = true;
         if (cell.accessoryView) {
             UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
             [activityView stopAnimating];
@@ -201,6 +201,7 @@
         }
     }
     else{
+        cell.userInteractionEnabled = false;
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityView.hidesWhenStopped = true;
         [activityView startAnimating];

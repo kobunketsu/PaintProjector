@@ -28,6 +28,30 @@ static ADDeviceManager* sharedInstance = nil;
     return sharedInstance;
 }
 
++(BOOL)isDeviceConnected{
+    BOOL connected = false;
+    switch (sharedInstance.deviceType) {
+        case ConnectDevice_None:
+            
+            break;
+        case ConnectDevice_AdonitJot:
+            connected = [JotStylusManager sharedInstance].connectionStatus == JotConnectionStatusConnected;
+            break;
+        case ConnectDevice_WacomStylus:
+            connected = [WacomManager getManager].isADeviceSelected;
+            break;
+        case ConnectDevice_PogoConnect:
+            connected = [T1PogoManager sharedPogoManager].penConnected != nil;
+            break;
+        case ConnectDevice_JaJa:
+            connected = [ADDeviceManager sharedInstance].isJaJaConnected;
+            break;
+            
+        default:
+            break;
+    }
+    return connected;
+}
 
 - (id)init{
     self = [super init];
