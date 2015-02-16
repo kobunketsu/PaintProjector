@@ -87,7 +87,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"UsingBrushId"];
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"BackBrushId"];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"UseLongPressEyedrop"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"IsEyeDropOffset"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"IsEyedropOffset"];
     }
     
     [self copyCollectionFromMainBundleToUserDocument];

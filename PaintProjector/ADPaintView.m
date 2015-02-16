@@ -1124,7 +1124,7 @@
                 if (!self.firstTouch.isPaintTouch && self.curNumberOfTouch == 0) {
                     //is single tap paint
                     [self startDraw:self.location isTapDraw:true];
-                    [self draw:true];
+                    [self drawFromPoint:self.location toPoint:self.location isTapDraw:true];
                     [self endDraw];
                 }
                 
@@ -1730,10 +1730,6 @@
     
 }
 
-- (void) draw:(BOOL)isTapDraw{
-//    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(previousLocation), NSStringFromCGPoint(location));
-    [self drawFromPoint:self.previousLocation toPoint:self.location isTapDraw:isTapDraw];
-}
 
 - (void) drawFromPoint:(PathPoint)startPoint toPoint:(PathPoint)endPoint isTapDraw:(BOOL)isTapDraw{
 //    DebugLog(@"drawFromPoint %@ toPoint %@", NSStringFromCGPoint(startPoint.origin), NSStringFromCGPoint(endPoint.origin));

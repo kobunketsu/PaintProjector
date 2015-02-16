@@ -33,7 +33,9 @@
 - (IBAction)switchEnableValueChanged:(id)sender {
     UISwitch *switcher = sender;
     if (switcher.tag == 1) {
-        [[NSUserDefaults standardUserDefaults] setBool:switcher.enabled forKey:@"UseEyedrop"];
+        BOOL useEyedrop = switcher.on;
+        [[NSUserDefaults standardUserDefaults] setBool:useEyedrop forKey:@"UseLongPressEyedrop"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 @end

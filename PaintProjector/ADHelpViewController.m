@@ -72,7 +72,6 @@
     ADHelpCollectionViewCell *cell = (ADHelpCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     // Configure the cell...
     //配置features的图片,说明
-    cell.userInteractionEnabled = false;
     NSString *imageName = nil;
     switch (indexPath.row) {
         case 0:
@@ -119,8 +118,10 @@
     cell.switchEnable.tag = indexPath.row;
     cell.switchEnable.hidden = true;
     cell.switchEnable.tintColor = [ADSharedUIStyleKit cNormal];
+    cell.switchEnable.onTintColor = [ADSharedUIStyleKit cNormal];
     if (indexPath.row == 1) {
-        cell.switchEnable.hidden = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseEyedrop"];
+        cell.switchEnable.hidden = false;
+        cell.switchEnable.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseLongPressEyedrop"];
     }
     
     return cell;

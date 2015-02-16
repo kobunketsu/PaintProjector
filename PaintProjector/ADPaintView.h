@@ -202,7 +202,6 @@ typedef struct {
 - (BOOL)enterState:(PaintViewState)state;
 - (void)prepareDrawEnv;
 - (void)startDraw:(PathPoint)startPoint isTapDraw:(BOOL)isTapDraw;
-- (void)draw:(BOOL)isTapDraw;
 - (void)endDraw;
 - (void)clearData;//清空所有图层，留下一个底层空白
 - (void)eraseAllLayers;

@@ -10,6 +10,11 @@
 
 @interface ADHelpCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UISwitch *switchEnable;
-- (IBAction)switchEnableValueChanged:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+//@property (assign, nonatomic) id delegate;
+- (IBAction)switchEnableValueChanged:(id)sender;
 @end
+
+//@protocol ADHelpCollectionViewCellDelegate
+//- (void)willTurnEyedropper:(BOOL)on;
+//@end

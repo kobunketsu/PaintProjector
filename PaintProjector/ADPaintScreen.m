@@ -577,17 +577,18 @@
 - (IBAction)handleLongPressPaintView:(UILongPressGestureRecognizer *)sender{
     [RemoteLog logAction:@"PS_handlePan1TouchesPaintView" identifier:sender];
     
+    BOOL useEyedrop = [[NSUserDefaults standardUserDefaults] boolForKey:@"UseLongPressEyedrop"];
+    if (!useEyedrop) {
+        return;
+    }
+    
     if (_state != PaintScreen_Normal) {
         return;
     }
     
     if (sender.numberOfTouches != 1) {
         return;
-    }
-    
-    if(!IsQuickEyeDropper){
-        return;
-    }
+    }    
     
     switch (sender.state) {
         case UIGestureRecognizerStateBegan: {

@@ -31,6 +31,8 @@
 - (void)initCustom{
     //self.delaysContentTouches = NO;
 }
+
+/*
 - (BOOL)touchesShouldCancelInContentView:(UIView *)view
 {    
     if ([view isKindOfClass:UISwitch.class]) {
@@ -39,6 +41,7 @@
     
     return [super touchesShouldCancelInContentView:view];
 }
+*/
 
 /*
 // Only override drawRect: if you perform custom drawing.
