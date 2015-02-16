@@ -1411,7 +1411,7 @@
     if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_AdonitJot) {
         if ([touch isMemberOfClass:[JotTouch class]]) {
             DebugLogWarn(@"get Jot Touch pressure %d", ((JotTouch*)touch).pressure);
-            pressure = ((JotTouch*)touch).pressure / JOT_MAX_PRESSURE;
+            pressure = (CGFloat)((JotTouch*)touch).pressure / (CGFloat)JOT_MAX_PRESSURE;
         }
     }
     else if ([ADDeviceManager sharedInstance].deviceType == ConnectDevice_WacomStylus) {
@@ -1434,6 +1434,7 @@
     DebugLogWarn(@"pressure 0-1 %.2f", pressure);
     CGFloat filterPressure = [self filterPressure:pressure];
     DebugLogWarn(@"filterPressure 0-1 %.2f", filterPressure);
+    
     pressure = pressureMin + (1 - pressureMin) * pressure;
     return pressure;
 }

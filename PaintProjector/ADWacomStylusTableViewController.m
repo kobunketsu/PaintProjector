@@ -196,9 +196,11 @@
     if ([ADDeviceManager isDeviceConnected]) {
         cell.userInteractionEnabled = true;
         if (cell.accessoryView) {
-            UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
-            [activityView stopAnimating];
-            [activityView removeFromSuperview];
+            if ([cell.accessoryView isKindOfClass:[UIActivityIndicatorView class]]) {
+                UIActivityIndicatorView *activityView = (UIActivityIndicatorView *)cell.accessoryView;
+                [activityView stopAnimating];
+            }
+            cell.accessoryView = nil;
         }
         if(block){
             block(YES);
