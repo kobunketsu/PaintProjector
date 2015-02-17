@@ -645,6 +645,8 @@
 		08B60F3C18C385DC00A415CA /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B60F3818C385DC00A415CA /* UIColor+Extension.m */; };
 		08B81B72177ECE900039B5E5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B71177ECE900039B5E5 /* Settings.bundle */; };
 		08B81B7B177EFDE30039B5E5 /* Workspace.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08B81B7A177EFDE30039B5E5 /* Workspace.plist */; };
+		08B859A51A932217005D479A /* iap_brushDevices.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B859A41A932217005D479A /* iap_brushDevices.png */; };
+		08B859A61A932217005D479A /* iap_brushDevices.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B859A41A932217005D479A /* iap_brushDevices.png */; };
 		08B8C31419C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B8C31119C5CAAB00CB85BE /* tutorial_gallery_dali_05.png */; };
 		08B8C31519C5CAAB00CB85BE /* tutorial_gallery_dali_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B8C31119C5CAAB00CB85BE /* tutorial_gallery_dali_05.png */; };
 		08B8C31619C5CAAB00CB85BE /* tutorial_gallery_jontyHurwitz_06.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B8C31219C5CAAB00CB85BE /* tutorial_gallery_jontyHurwitz_06.png */; };
@@ -848,6 +850,7 @@
 		08E5E32A19CD36E9000DE694 /* ADNextPageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E5E32819CD36E9000DE694 /* ADNextPageButton.m */; };
 		08E6BB9F17EFA3E3003749FE /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */; };
 		08E7B0A017EAD32800A121B5 /* ADBrushPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */; };
+		08EC16961A93849400DB3550 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EC16951A93849400DB3550 /* Reveal.framework */; };
 		08EDD50C17AD23B70023E08A /* cylinderCap.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EDD50B17AD23B70023E08A /* cylinderCap.png */; };
 		08EF178F19E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
 		08EF179019E198280020EAEC /* tutorial1_ButtonImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */; };
@@ -1815,6 +1818,7 @@
 		08B60F3818C385DC00A415CA /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
 		08B81B71177ECE900039B5E5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		08B81B7A177EFDE30039B5E5 /* Workspace.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workspace.plist; sourceTree = "<group>"; };
+		08B859A41A932217005D479A /* iap_brushDevices.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iap_brushDevices.png; path = PaintProjector/Images/iap_brushDevices.png; sourceTree = "<group>"; };
 		08B8C31119C5CAAB00CB85BE /* tutorial_gallery_dali_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gallery_dali_05.png; path = PaintProjector/Images/tutorial_gallery_dali_05.png; sourceTree = "<group>"; };
 		08B8C31219C5CAAB00CB85BE /* tutorial_gallery_jontyHurwitz_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gallery_jontyHurwitz_06.png; path = PaintProjector/Images/tutorial_gallery_jontyHurwitz_06.png; sourceTree = "<group>"; };
 		08B8C31319C5CAAB00CB85BE /* tutorial_gallery_jontyHurwitz_07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial_gallery_jontyHurwitz_07.png; path = PaintProjector/Images/tutorial_gallery_jontyHurwitz_07.png; sourceTree = "<group>"; };
@@ -2001,6 +2005,7 @@
 		08E6BB9E17EFA3E3003749FE /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		08E7B09E17EAD32700A121B5 /* ADBrushPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADBrushPropertyViewController.h; sourceTree = "<group>"; };
 		08E7B09F17EAD32800A121B5 /* ADBrushPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADBrushPropertyViewController.m; sourceTree = "<group>"; };
+		08EC16951A93849400DB3550 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		08EDD50B17AD23B70023E08A /* cylinderCap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderCap.png; path = Images/cylinderCap.png; sourceTree = "<group>"; };
 		08EDD50D17AD296B0023E08A /* cylinderMain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cylinderMain.png; path = Images/cylinderMain.png; sourceTree = "<group>"; };
 		08EF178A19E198270020EAEC /* tutorial1_ButtonImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tutorial1_ButtonImage.png; path = PaintProjector/Images/tutorial1_ButtonImage.png; sourceTree = "<group>"; };
@@ -2177,6 +2182,7 @@
 				083DD3E316776CAF00050793 /* MobileCoreServices.framework in Frameworks */,
 				083DD3E1167768A400050793 /* ImageIO.framework in Frameworks */,
 				08631126192CDF71004233B2 /* Crashlytics.framework in Frameworks */,
+				08EC16961A93849400DB3550 /* Reveal.framework in Frameworks */,
 				081B83EA16722E8B002866DC /* GLKit.framework in Frameworks */,
 				084600DB1A8EE6D2009ED2E8 /* JaJa-SDK.framework in Frameworks */,
 				08966F1B1660CA6100339901 /* OpenGLES.framework in Frameworks */,
@@ -3336,6 +3342,7 @@
 		08E0610D193F7DA000BDD2BA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				08B859A41A932217005D479A /* iap_brushDevices.png */,
 				08CF37D5197D61C30017D43A /* iap_brushPreviewBg.png */,
 				08F905C9194AC982002918AA /* iap_brushMarkerHard.png */,
 				08F905CA194AC982002918AA /* iap_brushChineseBrush.png */,
@@ -3603,6 +3610,7 @@
 		9C21AF1514E4579F00DB003E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08EC16951A93849400DB3550 /* Reveal.framework */,
 				084600DF1A8EF881009ED2E8 /* libc++abi.dylib */,
 				084600DD1A8EE6F1009ED2E8 /* AudioToolbox.framework */,
 				084600DA1A8EE6D2009ED2E8 /* JaJa-SDK.framework */,
@@ -3646,6 +3654,7 @@
 			isa = PBXGroup;
 			children = (
 				0868E41D19CC28E10082AEB5 /* MiscDefines.h */,
+				083462A119A793F900644158 /* GlobalDefines.h */,
 				081A8C7019A39F4D007F1B7D /* LogDefine.h */,
 				08329AF018DD39DC00095EA9 /* Localizable.strings */,
 				9C21AF1E14E4579F00DB003E /* PaintProjector-Info.plist */,
@@ -3663,7 +3672,6 @@
 			isa = PBXGroup;
 			children = (
 				086C1D6D18062BA500E3A059 /* Extension.h */,
-				083462A119A793F900644158 /* GlobalDefines.h */,
 				087103061914B1390030A5BF /* NSString+Unit.h */,
 				087103071914B1390030A5BF /* NSString+Unit.m */,
 				9C21AF7F14E4642000DB003E /* UIAlertView+error.h */,
@@ -3978,6 +3986,7 @@
 				08086E7118DC8BA300F03EB4 /* chalkStroke.png in Resources */,
 				082A69E619C864F600862332 /* tutorial0_D-Draw@2x.png in Resources */,
 				082A69E419C864F600862332 /* tutorial0_a-Draw@2x.png in Resources */,
+				08B859A61A932217005D479A /* iap_brushDevices.png in Resources */,
 				08D4F0DE1A77606B00B42B77 /* .gitignore in Resources */,
 				086FBF0B1953E2AD00BCD4E5 /* tutorial_setup2.png in Resources */,
 				0824E4E819C462980065BB04 /* tutorial_gallery_orosz_01.png in Resources */,
@@ -4141,6 +4150,7 @@
 				08751308195806BC00FC03CC /* tutorial_gesture2FingerRotate.png in Resources */,
 				082A69E519C864F600862332 /* tutorial0_D-Draw@2x.png in Resources */,
 				082A69E319C864F600862332 /* tutorial0_a-Draw@2x.png in Resources */,
+				08B859A51A932217005D479A /* iap_brushDevices.png in Resources */,
 				08D4F0DD1A77606B00B42B77 /* .gitignore in Resources */,
 				08086F0D18DC95A800F03EB4 /* iRate.bundle in Resources */,
 				0824E4E719C462980065BB04 /* tutorial_gallery_orosz_01.png in Resources */,
@@ -5516,7 +5526,11 @@
 					"$(PROJECT_DIR)/PogoConnectSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-framework",
+					Reveal,
+				);
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",
 					"-lz",

@@ -36,6 +36,7 @@
 #import "ADHintView.h"
 #import "ADConnectDeviceTableViewController.h"
 
+
 #define EditBrushSizeConfirmPixels 5
 #define ChangeToolBarConfirmPixels 10
 #define LayerToolButtonSize 40
@@ -5719,10 +5720,15 @@
 
 #pragma mark- 设备Connect Device
 - (IBAction)connectDeviceButtonTouchUp:(UIButton *)sender {
-    [RemoteLog logAction:@"connectDeviceButtonTouchUp" identifier:sender];
-    self.connectDeviceButton.selected = true;
-    [self.connectDeviceButton setNeedsDisplay];
-    [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
+    [RemoteLog logAction:@"PS_connectDeviceButtonTouchUp" identifier:sender];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ExpandedStylusPressureAvailable"]) {
+        self.connectDeviceButton.selected = true;
+        [self.connectDeviceButton setNeedsDisplay];
+        [self popDeviceTableViewControllerWithConnectDeviceType:[ADDeviceManager sharedInstance].deviceType];
+    }
+    else{
+        [self openIAPWithProductFeatureIndex:0];
+    }
 }
 
 - (void)popDeviceWritingStyleTableViewController{

@@ -114,7 +114,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.superViewBounds = CGRectMake(0, 0, 500, 380);
+    self.superViewBounds = CGRectMake(0, 0, 500, 824);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionSucceeded:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IAPTransactionFailed:) name:kInAppPurchaseManagerTransactionFailedNotification object:nil];
@@ -242,17 +242,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[ADSimpleIAPManager sharedInstance] products].count;
+    NSInteger count = [[ADSimpleIAPManager sharedInstance] products].count;
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    NSInteger iapIndex = indexPath.row;
     static NSString *CellIdentifier = @"inAppPurchaseTableViewCell";
     ADInAppPurchaseTableViewCell *cell = (ADInAppPurchaseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
-    
-    SKProductWrapper *product = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:indexPath.row];
+    SKProductWrapper *product = [[[ADSimpleIAPManager sharedInstance] products] objectAtIndex:iapIndex];
     
     if (!product) {
         DebugLogError(@"no product available!");
@@ -263,7 +263,8 @@
     cell.productName.text = productName;
 
     //产品价格
-    cell.buyProductButton.tag = indexPath.row;
+    cell.productFeatureCollectionView.tag = iapIndex;
+    cell.buyProductButton.tag = iapIndex;
      //TODO:语言显示
     if ([[ADSimpleIAPManager sharedInstance]productPurchased:product.productIdentifier]) {
         [cell.buyProductButton setTitle:NSLocalizedString(@"Purchased", nil) forState:UIControlStateNormal];

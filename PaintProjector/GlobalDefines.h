@@ -17,8 +17,8 @@
 #define UseiAd 0
 
 //网站地址
-#define URL_APPSTORE @"https://itunes.apple.com/app/id885877961"
 #define SHARED_SECRET @"018df296739246cc93b9ef67068c10cb"
+#define URL_APPSTORE @"https://itunes.apple.com/app/id885877961"
 #define URL_WacomStylusSupport @"http://www.wacom.com/en-us/products/stylus/intuos-creative-stylus-2"
 #define URL_PogoConnectSupport @"https://tenonedesign.com/about.php"
 #define URL_JaJaSupport @"https://hex3.co/pages/support"

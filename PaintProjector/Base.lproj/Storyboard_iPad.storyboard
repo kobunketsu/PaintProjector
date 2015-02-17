@@ -1085,13 +1085,12 @@
         <scene sceneID="Lue-Ap-Qtt">
             <objects>
                 <tableViewController storyboardIdentifier="inAppPurchaseTableViewController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="wte-jo-21G" customClass="ADInAppPurchaseTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="350" sectionHeaderHeight="30" sectionFooterHeight="22" id="r39-tl-ia0" customClass="ADInAppPurchaseTableView">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" pagingEnabled="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="350" sectionHeaderHeight="45" sectionFooterHeight="22" id="r39-tl-ia0" customClass="ADInAppPurchaseTableView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inAppPurchaseTableViewCell" id="qly-wV-BSN" customClass="ADInAppPurchaseTableViewCell">
-                                <rect key="frame" x="0.0" y="30" width="768" height="350"/>
+                                <rect key="frame" x="0.0" y="45" width="768" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" tableViewCell="qly-wV-BSN" id="uQV-eE-hsj">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="350"/>
@@ -1233,6 +1232,47 @@
                                                         <outletCollection property="brushButtons" destination="dFx-tg-Am3" id="Eo3-hG-Nia"/>
                                                     </connections>
                                                 </collectionViewCell>
+                                                <collectionViewCell appearanceType="aqua" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="productFeatureCollectionViewCell2" id="dMc-3m-qWT" customClass="ADProductFeatureCollectionViewCell">
+                                                    <rect key="frame" x="500" y="1" width="500" height="315"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="500" height="315"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Yph-qZ-M7d">
+                                                                <rect key="frame" x="0.0" y="0.0" width="500" height="305"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            </imageView>
+                                                            <view contentMode="scaleToFill" id="AcP-os-JW6" userLabel="IntroView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="220" height="305"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sIh-Jd-vfp">
+                                                                        <rect key="frame" x="15" y="5" width="477" height="35"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i4I-FK-XA0">
+                                                                        <rect key="frame" x="15" y="40" width="472" height="50"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <string key="text">LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel</string>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <connections>
+                                                        <outlet property="descriptionLabel" destination="i4I-FK-XA0" id="vmT-SL-bBa"/>
+                                                        <outlet property="imageView" destination="Yph-qZ-M7d" id="g2o-mY-G85"/>
+                                                        <outlet property="titleLabel" destination="sIh-Jd-vfp" id="J2W-GT-CPD"/>
+                                                    </connections>
+                                                </collectionViewCell>
                                             </cells>
                                             <connections>
                                                 <outlet property="dataSource" destination="qly-wV-BSN" id="wED-hq-8y6"/>
@@ -1277,6 +1317,7 @@
                                         </pageControl>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="brushPreview" destination="KOO-6F-V59" id="b17-Y3-USz"/>
                                     <outlet property="buyProductButton" destination="ebH-3z-m7T" id="e4g-14-L0A"/>
@@ -1297,18 +1338,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2By-ZW-pua" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="iR5-85-hqm" userLabel="TitleView">
-                    <rect key="frame" x="0.0" y="36" width="768" height="30"/>
+                    <rect key="frame" x="0.0" y="21" width="768" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tes-J0-1eR">
-                            <rect key="frame" x="206.5" y="0.0" width="87" height="28"/>
+                            <rect key="frame" x="206.5" y="-0.5" width="87" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oqr-Kp-EJS">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                            <rect key="frame" x="0.0" y="-0.5" width="80" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Restore">
@@ -1319,7 +1360,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="geC-fO-fTo" userLabel="Button - Close">
-                            <rect key="frame" x="420" y="0.0" width="80" height="30"/>
+                            <rect key="frame" x="420" y="-0.5" width="80" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="Close">
@@ -1330,7 +1371,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.95686280729999995" green="0.91084387954597035" blue="0.57287504799031141" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-990" y="-510"/>

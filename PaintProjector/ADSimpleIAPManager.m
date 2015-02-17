@@ -8,7 +8,11 @@
 
 #import "ADSimpleIAPManager.h"
 
-//#define kInAppPurchaseProUpgradeProductId @"AnaDrawProVersionPackage"
+#define kAnaDrawIAPPackage @"AnaDrawProVersionPackage"
+#define kAnaDrawIAPStylusPressure @"AnaDrawIAPStylusPressure"
+#define kAnaDrawIAPExtendedBrushes @"AnaDrawIAPExtendedBrushes"
+#define kAnaDrawIAPDrawOnAnamorphosis @"AnaDrawIAPDrawOnAnamorphosis"
+
 #define kProductWrapperKey @"SKProductWrapper"
 #define kIAPProductListKey @"IAPProductList"
 
@@ -85,7 +89,7 @@ static ADSimpleIAPManager* sharedInstance = nil;
     DebugLogFuncStart(@"解锁内容");
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
     
-    if ([productIdentifier isEqualToString:@"AnaDrawProVersionPackage"]) {
+    if ([productIdentifier isEqualToString:kAnaDrawIAPPackage]) {
         
         DebugLogWriteSuccess(@"专业版提供Anamorphosis反向绘制");
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReversePaint"];
@@ -114,7 +118,7 @@ static ADSimpleIAPManager* sharedInstance = nil;
 
 #pragma mark- testflight
 - (void)testflightPurchase{
-    [self provideContent:@"AnaDrawProVersionPackage"];
+    [self provideContent:kAnaDrawIAPPackage];
     [[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionSucceededNotification object:self userInfo:nil];
 }
 @end

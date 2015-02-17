@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/AppDelegate.m"
-            timestampString = "445512335.47506"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "-copyCollectionFromMainBundleToUserDocument"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/AppDelegate.m"
-            timestampString = "445512335.47506"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-copyCollectionFromMainBundleToUserDocument"
             landmarkType = "5">
          </BreakpointContent>
@@ -888,11 +888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADInAppPurchaseTableViewController.m"
-            timestampString = "444544023.943333"
+            timestampString = "445857914.974696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
             landmarkName = "-willBuyProductByIndex:orRestoreAll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -920,11 +920,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADInAppPurchaseTableViewController.m"
-            timestampString = "444544023.943333"
+            timestampString = "445857914.974696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "-buyProduct:orRestoreAll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1080,11 +1080,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444540954.279005"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "-beginVerificationWithError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1096,11 +1096,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541037.141759"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
             landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1112,11 +1112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541037.924196"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "626"
+            endingLineNumber = "626"
             landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1128,11 +1128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541042.674748"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "620"
+            endingLineNumber = "620"
             landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1144,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541068.240581"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "647"
+            endingLineNumber = "647"
             landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1160,13 +1160,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541071.123469"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
-            landmarkName = "-connectionDidFinishLoading:"
-            landmarkType = "5">
+            startingLineNumber = "651"
+            endingLineNumber = "651"
+            landmarkName = "@implementation RRTransactionVerifier"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1192,11 +1192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iap_validation/RRTransactionVerifier.m"
-            timestampString = "444541617.877032"
+            timestampString = "445879705.059267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "-beginVerificationWithError:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1352,27 +1352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADInAppPurchaseTableViewCell.m"
-            timestampString = "444560261.816871"
+            timestampString = "445868134.788576"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-collectionView:cellForItemAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PaintProjector/ADInAppPurchaseTableViewCell.m"
-            timestampString = "444560261.816871"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1991,7 +1975,7 @@
                   symbolName = "-[ADCylinderProjectViewController eyeBottom]"
                   moduleName = "AnaDraw"
                   urlString = "file:///Users/kobunketsu/Dropbox/PaintProjector_1.02/PaintProjector/ADCylinderProjectViewController.h"
-                  timestampString = "445796315.701815"
+                  timestampString = "445879737.674817"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "182"
@@ -2005,7 +1989,7 @@
                   symbolName = "-[ADCylinderProjectViewController setEyeBottom:]"
                   moduleName = "AnaDraw"
                   urlString = "file:///Users/kobunketsu/Dropbox/PaintProjector_1.02/PaintProjector/ADCylinderProjectViewController.h"
-                  timestampString = "445796315.702152"
+                  timestampString = "445879737.675045"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "182"
@@ -2230,11 +2214,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6532"
-            endingLineNumber = "6532">
+            startingLineNumber = "6537"
+            endingLineNumber = "6537">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2612,11 +2596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6527"
-            endingLineNumber = "6527"
+            startingLineNumber = "6532"
+            endingLineNumber = "6532"
             landmarkName = "@implementation ADPaintScreen"
             landmarkType = "3">
          </BreakpointContent>
@@ -2804,11 +2788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445770826.703872"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5819"
-            endingLineNumber = "5819"
+            startingLineNumber = "5824"
+            endingLineNumber = "5824"
             landmarkName = "-popDeviceTableViewControllerWithConnectDeviceType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2820,11 +2804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445770826.703872"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5846"
-            endingLineNumber = "5846"
+            startingLineNumber = "5851"
+            endingLineNumber = "5851"
             landmarkName = "-popDeviceTableViewControllerWithConnectDeviceType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3074,11 +3058,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6283"
-            endingLineNumber = "6283"
+            startingLineNumber = "6288"
+            endingLineNumber = "6288"
             landmarkName = "-pogoManager:didConnectPen:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3106,11 +3090,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445770826.703872"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5742"
-            endingLineNumber = "5742"
+            startingLineNumber = "5747"
+            endingLineNumber = "5747"
             landmarkName = "-didSelectDeviceButtonIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3122,13 +3106,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6460"
-            endingLineNumber = "6460"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            startingLineNumber = "6465"
+            endingLineNumber = "6465"
+            landmarkName = "-didSelectJaJaButtonIndex:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3234,13 +3218,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6503"
-            endingLineNumber = "6503"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            startingLineNumber = "6508"
+            endingLineNumber = "6508"
+            landmarkName = "-firstButtonValueChanged:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3250,13 +3234,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6514"
-            endingLineNumber = "6514"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            startingLineNumber = "6519"
+            endingLineNumber = "6519"
+            landmarkName = "-secondButtonValueChanged:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3298,11 +3282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6478"
-            endingLineNumber = "6478"
+            startingLineNumber = "6483"
+            endingLineNumber = "6483"
             landmarkName = "-jajaControlSignalLost"
             landmarkType = "5">
          </BreakpointContent>
@@ -3314,28 +3298,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445792829.983459"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6487"
-            endingLineNumber = "6487"
+            startingLineNumber = "6492"
+            endingLineNumber = "6492"
             landmarkName = "-jajaControlSignalRestored"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PaintProjector/ADBrush.m"
-            timestampString = "445755544.287673"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "642"
-            endingLineNumber = "642"
-            landmarkName = "-fillSegmentBezierOrigin:Control:Destination:Count:segmentOffset:brushState:isImmediate:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3490,11 +3458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445790984.195673"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5870"
-            endingLineNumber = "5870"
+            startingLineNumber = "5875"
+            endingLineNumber = "5875"
             landmarkName = "-didSelectDeviceAdonitJot"
             landmarkType = "5">
          </BreakpointContent>
@@ -3506,11 +3474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445790984.195673"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5952"
-            endingLineNumber = "5952"
+            startingLineNumber = "5957"
+            endingLineNumber = "5957"
             landmarkName = "-setupAdonitJotSDK"
             landmarkType = "5">
          </BreakpointContent>
@@ -3522,13 +3490,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445790984.195673"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6005"
-            endingLineNumber = "6005"
-            landmarkName = "@implementation ADPaintScreen"
-            landmarkType = "3">
+            startingLineNumber = "6010"
+            endingLineNumber = "6010"
+            landmarkName = "-willAdonitJotButtonTouchDown:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3538,11 +3506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445790984.195673"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6004"
-            endingLineNumber = "6004"
+            startingLineNumber = "6009"
+            endingLineNumber = "6009"
             landmarkName = "-setupAdonitJotSDK"
             landmarkType = "5">
          </BreakpointContent>
@@ -3554,11 +3522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PaintProjector/ADPaintScreen.m"
-            timestampString = "445790984.195673"
+            timestampString = "445853518.021752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6018"
-            endingLineNumber = "6018"
+            startingLineNumber = "6023"
+            endingLineNumber = "6023"
             landmarkName = "-willAdonitJotButtonTouchDown:"
             landmarkType = "5">
          </BreakpointContent>
@@ -3608,6 +3576,102 @@
             startingLineNumber = "1036"
             endingLineNumber = "1036"
             landmarkName = "-touchesPaintMoved:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADInAppPurchaseTableViewController.m"
+            timestampString = "445857848.083362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
+            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADSimpleIAPManager.m"
+            timestampString = "445858136.659735"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-requestProductsWithCompletionHandler:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADInAppPurchaseManager.m"
+            timestampString = "445858191.812011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-productsRequest:didReceiveResponse:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADInAppPurchaseManager.m"
+            timestampString = "445858531.014106"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "-productsRequest:didReceiveResponse:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADInAppPurchaseTableViewCell.m"
+            timestampString = "445868071.235547"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "-collectionView:cellForItemAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PaintProjector/ADInAppPurchaseTableViewCell.m"
+            timestampString = "445874460.595005"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

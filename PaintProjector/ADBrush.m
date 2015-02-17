@@ -629,15 +629,54 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
     float level = (a/b)+0.031;
     return level;
 }
+
+
 -(void)fillSegmentBezierOrigin:(PathPoint) origin Control:(PathPoint) control Destination:(PathPoint) destination Count:(size_t) count segmentOffset:(int)segmentOffset brushState:(ADBrushState*)brushState isImmediate:(BOOL)isImmediate
 {
+//    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
+    
     
     //计算vertex data
     CGFloat x, y, pressure;
     CGFloat t = 0.0;
-//    CGFloat curStrokedSegmentLength = 0;
-//    DebugLog(@"fillSegment fromDrawPoint %@ toDrawPoint %@ currentCount %lu lastAllDrawSpriteCount %lu", NSStringFromCGPoint(origin), NSStringFromCGPoint(destination), count, self.strokedSpriteCount);
-
+    
+    //匀速绘制
+//    NSMutableArray *newTs = [[NSMutableArray alloc]init];
+//    CGFloat deltaT = 1.0 / count;
+//    CGFloat lastNonlinearSubSegmentSum = 0;
+//    PathPoint lastStrokedPoint = self.lastStrokedPoint;
+//    
+//    for(int i = 0; i < count; i++, t += deltaT){
+//        x = [ADMathHelper beizerValueT:t start:origin.origin.x control:control.origin.x end:destination.origin.x];
+//        y = [ADMathHelper beizerValueT:t start:origin.origin.y control:control.origin.y end:destination.origin.y];
+//        CGFloat nonlinearSubSegmentLength = [ADMathHelper lengthFromPoint:CGPointMake(x, y) toPoint:lastStrokedPoint.origin];
+//        CGFloat curNonlinearSubSegmentSum = lastNonlinearSubSegmentSum + nonlinearSubSegmentLength;
+//        
+//        for (int curLinearSubSegmentLength = 0;
+//             curLinearSubSegmentLength < self.curSegmentLength;
+//             curLinearSubSegmentLength += self.curSegmentLength * deltaT) {
+//            
+//            if (curLinearSubSegmentLength >= lastNonlinearSubSegmentSum &&
+//                curLinearSubSegmentLength <= curNonlinearSubSegmentSum) {
+//                CGFloat newT =  deltaT * (curLinearSubSegmentLength - lastNonlinearSubSegmentSum) / nonlinearSubSegmentLength + (t - deltaT);
+//                [newTs addObject:[NSNumber numberWithFloat:newT]];
+//            }
+//            else if(curLinearSubSegmentLength < lastNonlinearSubSegmentSum){
+//                continue;
+//            }
+//            else if(curLinearSubSegmentLength > curNonlinearSubSegmentSum){
+//                break;
+//            }
+//        }
+//        
+//        lastStrokedPoint = PathPointMake(x, y, 1);
+//        lastNonlinearSubSegmentSum = curNonlinearSubSegmentSum;
+//    }
+//    
+//    for(int i = 0; i < newTs.count; i++){
+//        CGFloat t = ((NSNumber *)newTs[i]).floatValue;
+//        DebugLog(@"linear t %.2f", t);
+    
     //非匀速绘制
     for(int i = 0; i < count; i++,t += 1.0 / (count))
     {
@@ -661,7 +700,6 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         CGFloat radiusPressure = pressure;
         CGFloat opacityPressure = [self setOpacityByPressure:pressure];
 //        DebugLogWarn(@"radiusPressure %.2f opacityPressure %.2f", radiusPressure, opacityPressure);
-        
         
         //散布Scattering
         float randX = (float)(random() % 50) / 50.0f;
@@ -690,7 +728,6 @@ segmentPoint = (adjustSpace - lastSegmentTailLenth);
         }
 //        DebugLog(@"fade %.1f", radiusFade);
         radius = brushState.radius * (1 - randX * brushState.radiusJitter) * radiusFade * radiusPressure;
-        
         
         //流量
         float flowFade;
